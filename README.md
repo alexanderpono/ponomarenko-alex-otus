@@ -1,2 +1,2 @@
-# ponomarenko-alex-otus-nodejs
-Homework for Node.js OTUS course
+# ponomarenko-alex-otus
+Homework for OTUS courses
