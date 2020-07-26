@@ -65,7 +65,7 @@ export function splitFile(fName: string, partsNumber: number): Promise<void> {
     return fileSizePromise
         .then((size) => {
             console.log(`source file size=${size} bytes`);
-            splitFile2(fName, size, partsNumber);
+            splitFileAndSort(fName, size, partsNumber);
             return Promise.resolve();
         })
         .catch((err) => {
@@ -90,18 +90,21 @@ export function readFile(fName: string): void {
         });
 }
 
-function splitFile2(fName: string, sourceFileSize: number, partsNumber: number): void {
+function splitFileAndSort(fName: string, sourceFileSize: number, partsNumber: number): void {
     const openNewOutputFile = (targetFileNumber: number) => {
         const targetFileName = `part${targetFileNumber}.txt`;
         const outputStream = fs.createWriteStream(targetFileName);
-        console.log(`splitFile2(): writing ${targetFileName}`);
+        console.log(`splitFileAndSort(): sorting and writing ${targetFileName}`);
         return outputStream;
     };
 
     const splitStringBetweenOutputFiles = (s: string) => {
         const sAr = s.split('\n');
-        const tailString = sAr.pop();
-        const toPreviousFile = sAr.join('\n');
+        let tailString = sAr.pop();
+        if (typeof tailString === 'undefined') {
+            tailString = '';
+        }
+        const toPreviousFile: string = sAr.join('\n');
         return {
             toPreviousFile,
             toNextFile: tailString
@@ -114,25 +117,43 @@ function splitFile2(fName: string, sourceFileSize: number, partsNumber: number):
     let outputStream = openNewOutputFile(targetFileNumber);
     const targetFileSize = Math.ceil(sourceFileSize / partsNumber);
     let sizeToChangeTargetFile = readSize + targetFileSize;
+    let smallFileContent: string[] = [];
+
+    const sortAndWriteSmallFile = () => {
+        let smallFileContentS = smallFileContent.join('');
+        smallFileContent = [];
+
+        let smallFileContentLines = smallFileContentS.split('\n');
+        smallFileContentS = '';
+        smallFileContentLines.sort();
+        smallFileContentS = smallFileContentLines.join('\n');
+        smallFileContentLines = [];
+
+        outputStream.write(smallFileContentS);
+    };
+
     inputStream
         .on('data', (chunk) => {
-            const s = chunk.toString();
-            readSize += s.length;
+            const chunkS = chunk.toString();
+            readSize += chunkS.length;
             if (readSize > sizeToChangeTargetFile) {
-                const { toPreviousFile, toNextFile } = splitStringBetweenOutputFiles(s);
+                const { toPreviousFile, toNextFile } = splitStringBetweenOutputFiles(chunkS);
 
-                outputStream.write(toPreviousFile);
+                smallFileContent.push(toPreviousFile);
+
+                sortAndWriteSmallFile();
                 outputStream.end();
                 targetFileNumber++;
                 outputStream = openNewOutputFile(targetFileNumber);
-                outputStream.write(toNextFile);
+                smallFileContent.push(toNextFile);
 
                 sizeToChangeTargetFile = readSize + targetFileSize;
             } else {
-                outputStream.write(chunk);
+                smallFileContent.push(chunkS);
             }
         })
         .on('end', () => {
+            sortAndWriteSmallFile();
             outputStream.end();
         });
 }
