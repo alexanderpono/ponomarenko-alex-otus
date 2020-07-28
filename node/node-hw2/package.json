@@ -7,6 +7,7 @@
     "start": "npx ts-node src/index.ts",
     "0": "npx ts-node src/0-create100Mb.ts",
     "1": "npx ts-node src/1-split.ts",
+    "2": "npx ts-node src/2-min.ts",
     "lint": "npx eslint --ext .js,.jsx,.ts,.tsx ./",
     "test": "npx jest"
   },

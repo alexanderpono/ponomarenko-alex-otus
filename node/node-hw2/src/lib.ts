@@ -59,19 +59,24 @@ function getFileSizePromise(fName: string) {
         });
 }
 
-export function splitFile(fName: string, partsNumber: number): Promise<void> {
+export function splitFile(fName: string, partsNumber: number, len: number): Promise<void> {
     console.log(`splitting file ${fName} into ${partsNumber} parts`);
-    const fileSizePromise = getFileSizePromise(fName);
-    return fileSizePromise
-        .then((size) => {
-            console.log(`source file size=${size} bytes`);
-            splitFileAndSort(fName, size, partsNumber);
-            return Promise.resolve();
-        })
-        .catch((err) => {
-            console.log('err=', err);
-            return Promise.reject(err);
-        });
+    if (len === 0) {
+        const fileSizePromise = getFileSizePromise(fName);
+        return fileSizePromise
+            .then((size) => {
+                console.log(`source file size=${size} bytes`);
+                splitFileAndSort(fName, size, partsNumber);
+                return Promise.resolve();
+            })
+            .catch((err) => {
+                console.log('err=', err);
+                return Promise.reject(err);
+            });
+    } else {
+        splitFileAndSort(fName, len, partsNumber);
+        return Promise.resolve();
+    }
 }
 
 export function readFile(fName: string): void {
@@ -125,7 +130,17 @@ function splitFileAndSort(fName: string, sourceFileSize: number, partsNumber: nu
 
         let smallFileContentLines = smallFileContentS.split('\n');
         smallFileContentS = '';
-        smallFileContentLines.sort();
+        // let smallFileContentNumbers = smallFileContentLines.map((item) => parseInt(item));
+        // smallFileContentLines = [];
+        smallFileContentLines.sort(function (a, b) {
+            if (parseInt(a) > parseInt(b)) {
+                return 1;
+            } else {
+                return -1;
+            }
+        });
+        // smallFileContentLines = smallFileContentNumbers.map((item) => String(item));
+        // smallFileContentNumbers = [];
         smallFileContentS = smallFileContentLines.join('\n');
         smallFileContentLines = [];
 
@@ -156,4 +171,115 @@ function splitFileAndSort(fName: string, sourceFileSize: number, partsNumber: nu
             sortAndWriteSmallFile();
             outputStream.end();
         });
+}
+
+export function parallelReadParts(partsNumber: number, resultFileName: string): void {
+    const streams: fs.ReadStream[] = [];
+    const chunksTails: string[] = [];
+    const chunksCompare: string[] = [];
+    const activeStreams: boolean[] = [];
+    const chunkReady: boolean[] = [];
+    const outputStream = fs.createWriteStream(resultFileName);
+    let writtenLines = 0;
+
+    const clearChunkReady = (): void => {
+        for (let i = 0; i < partsNumber; i++) {
+            chunkReady[i] = false;
+        }
+    };
+
+    for (let i = 0; i < partsNumber; i++) {
+        const fileName = `./part${i + 1}.txt`;
+        const inputStream = fs.createReadStream(fileName);
+        console.log(`reading file ${fileName}`);
+        streams.push(inputStream);
+        chunksTails[i] = '';
+        chunksCompare[i] = '';
+        activeStreams[i] = true;
+    }
+
+    clearChunkReady();
+
+    const allChunksReady = (): boolean => {
+        let allReady = true;
+        for (let i = 0; i < partsNumber; i++) {
+            if (activeStreams[i] && !chunkReady[i]) {
+                allReady = false;
+            }
+        }
+        return allReady;
+    };
+
+    const getMinNumber = (): number => {
+        let minNumber = 20000;
+        for (let i = 0; i < partsNumber; i++) {
+            if (activeStreams[i] && parseInt(chunksCompare[i]) < minNumber) {
+                minNumber = parseInt(chunksCompare[i]);
+            }
+        }
+        return minNumber;
+    };
+
+    const resumeStreams = (): void => {
+        for (let i = 0; i < partsNumber; i++) {
+            if (activeStreams[i]) {
+                const inputStream = streams[i];
+                inputStream.resume();
+            }
+        }
+    };
+
+    const writeMinNumber = (minNumber: number): void => {
+        if (minNumber !== 20000) {
+            // console.log('compareChunks() minNumber=', minNumber);
+            outputStream.write(`${minNumber}\n`);
+            writtenLines++;
+        } else {
+            outputStream.end();
+            console.log(`result file "${resultFileName}" is written (${writtenLines} lines)`);
+        }
+    };
+
+    const compareChunks = (): void => {
+        if (!allChunksReady()) {
+            return;
+        }
+        const minNumber = getMinNumber();
+        writeMinNumber(minNumber);
+        clearChunkReady();
+        resumeStreams();
+    };
+
+    const getFirstLine = (chunkLines: string[], chunkPrevTail: string): string => {
+        const chunkStart = chunkLines[0];
+        const fistLine = chunkPrevTail + chunkStart;
+        return fistLine;
+    };
+    const getLastLine = (chunkLines: string[]): string => {
+        const lastLine = chunkLines[chunkLines.length - 1];
+        return lastLine;
+    };
+
+    for (let i = 0; i < partsNumber; i++) {
+        const inputStream = streams[i];
+        inputStream.on('data', (chunk) => {
+            inputStream.pause();
+            const chunkS = chunk.toString();
+            const chunkLines = chunkS.split('\n');
+            const fistLine = getFirstLine(chunkLines, chunksTails[i]);
+            const lastLine = getLastLine(chunkLines);
+
+            chunksCompare[i] = fistLine;
+            chunksTails[i] = lastLine;
+            chunkReady[i] = true;
+
+            compareChunks();
+        });
+
+        inputStream.on('end', () => {
+            console.log(`${i} Reached end of stream.`);
+            activeStreams[i] = false;
+            compareChunks();
+        });
+    }
 }
