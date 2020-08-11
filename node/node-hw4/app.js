@@ -7,7 +7,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var { sum2 } = require('./src/sum2');
-console.log('sum2(3,5)=', sum2(3,5));
+console.log('sum2(3,5)=', sum2(3, 5));
 
 var app = express();
 
