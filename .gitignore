@@ -3,3 +3,4 @@ package-lock.json
 bundle.js
 .vscode
 coverage
+*.txt
