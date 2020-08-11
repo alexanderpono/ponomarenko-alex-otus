@@ -51,10 +51,12 @@ module.exports = function (grunt) {
             return;
         }
 
-        const fileExt = filepath.split('.').pop();
+        const fileNameParts = filepath.split('.');
+        const fileExt = fileNameParts.pop();
+        const filePreExt = fileNameParts.pop();
         grunt.log.writeln('fileExt=', fileExt);
 
-        if (fileExt !== 'ts') {
+        if (fileExt !== 'ts' || (fileExt === 'ts' && filePreExt === 'spec')) {
             return;
         }
 
