@@ -14,9 +14,15 @@ function getDefaultConfig() {
         },
         devServer: {
             contentBase: './www',
-            open: true,
+            open: false,
             watchContentBase: true,
-            port: 8082
+            port: 8082,
+            setup: function (app, server) {
+                app.get('/worker.js', function (req, res) {
+                    res.status(200).type('text/javascript');
+                    res.sendFile(__dirname + '/www/worker.js');
+                });
+            }
         },
         module: {
             rules: [
