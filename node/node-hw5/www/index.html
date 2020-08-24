@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Node JS lesson 5</title>
+    <script language="JavaScript" src="client.js"></script>
+</head>
+
+<body>
+
+    <!-- форма для отправки сообщений -->
+    <form name="publish">
+        <input type="text" name="message">
+        <input type="submit" value="Отправить">
+    </form>
+
+    <!-- здесь будут появляться входящие сообщения -->
+    <div id="subscribe"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            wsInit();
+
+            // отправить сообщение из формы publish
+            document.forms.publish.onsubmit = function (e) {
+                e.preventDefault();
+
+                var outgoingMessage = this.message.value;
+                this.message.value = '';
+
+                window.socket.send(outgoingMessage);
+
+                return false;
+            };
+        })
+
+
+    </script>
+
+</body>
+
+</html>
