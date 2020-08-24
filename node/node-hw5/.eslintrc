@@ -1,0 +1,32 @@
+{
+  "extends": [
+    "plugin:prettier/recommended"
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
+    "no-restricted-syntax": [
+      "error",
+      {
+        "selector": "ExportDefaultDeclaration",
+        "message": "Restricted default export, prefer named exports!"
+      }
+    ]
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "parser": "babel-eslint",
+    "ecmaVersion": 2018
+  },
+  "overrides": [
+  ]
+}
