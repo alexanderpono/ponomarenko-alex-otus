@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "lint": "npx eslint --ext .js,.jsx,.ts,.tsx ./",
     "ws-server": "nodemon src/server",

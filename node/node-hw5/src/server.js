@@ -1,14 +1,16 @@
-var WebSocketServer = new require('ws');
+const consts = require('./const');
+const WS_PORT = consts.WS_PORT;
 
-// подключённые клиенты
-var clients = {};
+const WebSocketServer = new require('ws');
 
-// WebSocket-сервер на порту 8081
-var webSocketServer = new WebSocketServer.Server({
-    port: 8081
+const clients = {};
+
+const webSocketServer = new WebSocketServer.Server({
+    port: WS_PORT
 });
+
 webSocketServer.on('connection', function (ws) {
-    var id = Math.random();
+    const id = Math.random();
     clients[id] = ws;
     console.log('новое соединение ' + id);
 

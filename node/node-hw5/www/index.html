@@ -9,7 +9,6 @@
 </head>
 
 <body>
-
     <!-- форма для отправки сообщений -->
     <form name="publish">
         <input type="text" name="message">
@@ -18,27 +17,6 @@
 
     <!-- здесь будут появляться входящие сообщения -->
     <div id="subscribe"></div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            wsInit();
-
-            // отправить сообщение из формы publish
-            document.forms.publish.onsubmit = function (e) {
-                e.preventDefault();
-
-                var outgoingMessage = this.message.value;
-                this.message.value = '';
-
-                window.socket.send(outgoingMessage);
-
-                return false;
-            };
-        })
-
-
-    </script>
-
 </body>
 
 </html>
