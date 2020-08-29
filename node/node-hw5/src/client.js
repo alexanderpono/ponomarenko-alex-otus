@@ -1,18 +1,20 @@
-import { WebSocketClient } from './WebSocketClient';
 import { UI } from './UI';
 
-let websocket;
+var myWorker = new Worker('worker.js');
+
 const ui = new UI(function onSubmit(outgoingMessage) {
-    websocket.send(outgoingMessage);
+    console.log('onSubmit() outgoingMessage=', outgoingMessage);
+    myWorker.postMessage(outgoingMessage);
 });
 
-websocket = new WebSocketClient(function onMessage(incomingMessage) {
-    console.log('incomingMessage=', incomingMessage);
+myWorker.onmessage = function (e) {
+    const incomingMessage = e.data;
+    console.log('client.js: Message from worker=', incomingMessage);
     ui.renderMessage(incomingMessage);
     ui.notifyUser(incomingMessage);
-});
+};
 
 document.addEventListener('DOMContentLoaded', function () {
-    websocket.init();
     ui.setSubmitHandler();
+    myWorker.postMessage('DOMContentLoaded');
 });

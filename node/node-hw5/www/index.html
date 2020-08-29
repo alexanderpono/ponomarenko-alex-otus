@@ -5,17 +5,19 @@
     <meta charset="UTF-8">
     <title>Node JS lesson 5</title>
     <script language="JavaScript" src="client.js"></script>
-    <script language="JavaScript" src="worker.js"></script>
 </head>
 
 <body>
     <!-- форма для отправки сообщений -->
     <form name="publish">
+        <h2>Введите сообщение для отсылки на сервер по websocket</h2>
         <input type="text" name="message">
         <input type="submit" value="Отправить">
     </form>
 
     <!-- здесь будут появляться входящие сообщения -->
+
+    <h2>Сообщения, полученные от сервера по websocket:</h2>
     <div id="subscribe"></div>
 </body>
 

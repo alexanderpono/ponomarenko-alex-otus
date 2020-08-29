@@ -1,5 +1,4 @@
-const consts = require('./const');
-const WS_PORT = consts.WS_PORT;
+const WS_PORT = 8081;
 
 const WebSocketServer = new require('ws');
 
