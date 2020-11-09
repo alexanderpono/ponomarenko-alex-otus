@@ -1,9 +1,10 @@
-import { Model, AppModel, User, Course } from './models';
+import { User, Course, ITestData } from '../interfaces';
+import { TestStorage } from './TestStorage';
 
-describe('Model:getUsers()', () => {
+describe('TestModel:getUsers()', () => {
     it('returnes promise with users list', async () => {
-        const model = new Model();
-        const startData: AppModel = {
+        const model = new TestStorage();
+        const startData: ITestData = {
             users: [{ name: 'Kate' }],
             courses: []
         };
@@ -15,31 +16,31 @@ describe('Model:getUsers()', () => {
     });
 });
 
-describe('Model:addUser()', () => {
+describe('TestModel:addUser()', () => {
     it('adds user to users list', () => {
-        const model = new Model();
+        const model = new TestStorage();
         const Kate: User = { name: 'Kate' };
         const Peter: User = { name: 'Peter' };
 
-        const startData: AppModel = {
+        const startData: ITestData = {
             users: [{ name: 'Kate' }],
             courses: []
         };
-        const expectedData: AppModel = {
+        const expectedData: ITestData = {
             users: [Kate, Peter],
             courses: []
         };
         model.setStartData(startData);
         model.addUser(Peter).then(function resolved() {
-            expect(model.getUsers()).resolves.toEqual(expectedData);
+            expect(model.getUsers()).resolves.toEqual(expectedData.users);
         });
     });
 });
 
-describe('Model:getCourses()', () => {
+describe('TestModel:getCourses()', () => {
     it('returnes promise with courses list', async () => {
-        const model = new Model();
-        const startData: AppModel = {
+        const model = new TestStorage();
+        const startData: ITestData = {
             users: [],
             courses: [
                 { id: 'c1', caption: 'Mathematics' },
@@ -54,17 +55,17 @@ describe('Model:getCourses()', () => {
     });
 });
 
-describe('Model:addCourse()', () => {
+describe('TestModel:addCourse()', () => {
     it('adds course to courses list', async () => {
-        const model = new Model();
+        const model = new TestStorage();
         const math: Course = { id: 'c1', caption: 'Math' };
         const phys: Course = { id: 'c2', caption: 'Phys' };
 
-        const startData: AppModel = {
+        const startData: ITestData = {
             users: [],
             courses: [math]
         };
-        const expectedData: AppModel = {
+        const expectedData: ITestData = {
             users: [],
             courses: [math, phys]
         };

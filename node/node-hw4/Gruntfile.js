@@ -29,7 +29,7 @@ module.exports = function (grunt) {
                 }
             },
             runCompileTs: {
-                files: ['src/*.ts'],
+                files: ['src/**/*.ts'],
                 tasks: ['run:compileTs']
             }
         },
