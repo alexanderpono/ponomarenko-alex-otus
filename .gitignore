@@ -4,3 +4,5 @@ bundle.js
 .vscode
 coverage
 *.txt
+node-hw4-bkp
+dist

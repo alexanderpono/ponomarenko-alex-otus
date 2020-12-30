@@ -3,11 +3,22 @@
     "baseUrl": "./",
     "paths": {
     },
-    "target": "es5",
+    "target": "es6",
     "module": "commonjs",
-    "allowJs": false,
+    "allowJs": true,
     "sourceMap": true,
     "strict": true,
-    "esModuleInterop": true
-  }
+    "esModuleInterop": true,
+    "removeComments": true,
+    "outDir": "dist",
+    "noImplicitAny": false
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ]  
 }

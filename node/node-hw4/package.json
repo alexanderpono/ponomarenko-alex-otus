@@ -3,8 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "dev": "nodemon ./bin/www"
+    "startold": "node ./bin/www",
+    "devold": "nodemon ./bin/www",
+    "build": "tsc",
+    "dev": "nodemon --exec ts-node src/index.ts",
+    "start": "node dist/index.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -29,6 +32,7 @@
     "jest": "^26.2.1",
     "nodemon": "^2.0.4",
     "prettier": "^2.0.5",
+    "ts-node": "^9.1.1",
     "typescript": "^3.9.7"
   }
 }
