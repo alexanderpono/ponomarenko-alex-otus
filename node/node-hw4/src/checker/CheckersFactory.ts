@@ -3,7 +3,7 @@ import { Checker200 } from './Checker200';
 
 export const Check200 = '200check';
 
-export class CheckersFabric {
+export class CheckersFactory {
     private checkersMap = {
         '200check': Checker200
     };

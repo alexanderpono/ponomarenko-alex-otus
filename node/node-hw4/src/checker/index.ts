@@ -1,3 +1,3 @@
 export * from './checker.types';
-export * from './CheckersFabric';
+export * from './CheckersFactory';
 export * from './Checker200';
