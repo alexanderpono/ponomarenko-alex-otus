@@ -1,5 +1,8 @@
-module.exports = {
-    fetchCities() {
+import { City, emptyCity } from '../types/city';
+import { Person } from '../types/person';
+
+export class Fetcher {
+    fetchCities(): City[] {
         return [
             {
                 id: 1,
@@ -10,11 +13,17 @@ module.exports = {
                 title: 'Moscow'
             }
         ];
-    },
-    fetchCityById(id) {
-        return this.fetchCities().find((e) => e.id === id);
-    },
-    fetchPeople() {
+    }
+
+    fetchCityById(id: number): City {
+        const city: City | undefined = this.fetchCities().find((e) => e.id === id);
+        if (typeof city === 'undefined') {
+            return emptyCity;
+        }
+        return city;
+    }
+
+    fetchPeople(): Person[] {
         return [
             {
                 id: 1,
@@ -33,4 +42,4 @@ module.exports = {
             }
         ];
     }
-};
+}
