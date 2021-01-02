@@ -11,7 +11,8 @@
     "esModuleInterop": true,
     "removeComments": true,
     "outDir": "dist",
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "experimentalDecorators": true
   },
   "include": [
     "src/**/*"

@@ -1,12 +1,12 @@
 import express from 'express';
 import { Application } from 'express';
 import { MiddleWare } from 'src/middleware/middleware.types';
-import { BaseController } from 'src/controller/BaseController';
+import { Controller, RouteController } from 'src/controller/types';
 
 interface AppInit {
     port: number;
     middleWares: MiddleWare[];
-    routes: BaseController[];
+    routes: Controller[];
 }
 
 export class App {
@@ -18,7 +18,7 @@ export class App {
         this.port = appInit.port;
 
         this.middlewares(appInit.middleWares);
-        this.routes(appInit.routes);
+        this.initRoutes(appInit.routes);
     }
 
     private middlewares(middleWares: {
@@ -29,10 +29,20 @@ export class App {
         });
     }
 
-    private routes(controllers: { forEach: (arg0: (controller: BaseController) => void) => void }) {
-        controllers.forEach((controller) => {
-            controller.initRoutes();
-            this.app.use(controller.path, controller.router);
+    private initRoutes(controllers: Controller[]) {
+        controllers.forEach((rawController: Controller) => {
+            const controller = rawController as RouteController;
+            const constructor = controller.constructor;
+
+            // console.log('initRoutes() constructor.routes=', constructor.routes);
+            // console.log('initRoutes() controller=', controller);
+            const routes = Array.isArray(constructor.routes) ? constructor.routes : [];
+            const router = express.Router();
+            routes.forEach((route) => {
+                router[route.method](route.path, route.handler);
+            });
+
+            this.app.use(controller.path, router);
         });
     }
 

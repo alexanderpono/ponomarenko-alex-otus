@@ -1,28 +1,11 @@
-import { Request, Response } from 'express';
-import { BaseController } from './BaseController';
+import { RouteController } from '../decorator/classes';
+import { get, post } from '../decorator/methods';
 
-export class HomeController extends BaseController {
-    public path = '/';
-
-    constructor() {
-        super();
-        this.initRoutes();
-    }
-
-    public routes = [
-        {
-            method: 'get',
-            path: '/simple',
-            handler: (req, res) => this.index(req, res)
-        }
-    ];
-
-    public initRoutes(): void {
-        this.router.get('/', this.index);
-    }
-
-    index = (req: Request, res: Response): void => {
-        const users = [
+@RouteController('/')
+export class HomeController {
+    @get('/')
+    index() {
+        return [
             {
                 id: 1,
                 name: 'Ali'
@@ -36,7 +19,28 @@ export class HomeController extends BaseController {
                 name: 'Ahmet'
             }
         ];
+    }
 
-        res.json({ users });
-    };
+    @get('/get')
+    get() {
+        return [
+            {
+                id: 1,
+                name: 'Ali'
+            },
+            {
+                id: 2,
+                name: 'Can'
+            },
+            {
+                id: 3,
+                name: 'Ahmet'
+            }
+        ];
+    }
+
+    @post('/post')
+    post() {
+        return { postCode: true };
+    }
 }
