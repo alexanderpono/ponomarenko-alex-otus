@@ -1,5 +1,5 @@
 import { RouteController } from '../decorator/classes';
-import { get, post } from '../decorator/methods';
+import { get, logPostBody, post } from '../decorator/methods';
 
 @RouteController('/')
 export class HomeController {
@@ -39,6 +39,7 @@ export class HomeController {
         ];
     }
 
+    @logPostBody('home-post')
     @post('/post')
     post() {
         return { postCode: true };

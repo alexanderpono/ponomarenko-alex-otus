@@ -1,7 +1,9 @@
 POST http://localhost:5000/post
 Content-type: application/json
 
-{}
+{
+    "bookName": "Evgeniy Onegin"
+}
 
 ###
 

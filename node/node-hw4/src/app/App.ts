@@ -1,6 +1,7 @@
 import express from 'express';
 import { Application } from 'express';
 import { MiddleWare } from 'src/middleware/middleware.types';
+import { ControllerInfo, DetailedConstructor, getControllersStorage } from '../decorator/classes';
 import { Controller, RouteController } from 'src/controller/types';
 
 interface AppInit {
@@ -19,6 +20,7 @@ export class App {
 
         this.middlewares(appInit.middleWares);
         this.initRoutes(appInit.routes);
+        // this.initRoutesWithGlobalStorage();
     }
 
     private middlewares(middleWares: {
@@ -34,8 +36,6 @@ export class App {
             const controller = rawController as RouteController;
             const constructor = controller.constructor;
 
-            // console.log('initRoutes() constructor.routes=', constructor.routes);
-            // console.log('initRoutes() controller=', controller);
             const routes = Array.isArray(constructor.routes) ? constructor.routes : [];
             const router = express.Router();
             routes.forEach((route) => {
@@ -43,6 +43,20 @@ export class App {
             });
 
             this.app.use(controller.path, router);
+        });
+    }
+
+    private initRoutesWithGlobalStorage() {
+        const controllers = getControllersStorage();
+        controllers.forEach((сontroller: ControllerInfo) => {
+            const constructor = (сontroller.constructor as unknown) as DetailedConstructor;
+            const routes = Array.isArray(constructor.routes) ? constructor.routes : [];
+            const router = express.Router();
+            routes.forEach((route) => {
+                router[route.method](route.path, route.handler);
+            });
+
+            this.app.use(сontroller.path, router);
         });
     }
 
