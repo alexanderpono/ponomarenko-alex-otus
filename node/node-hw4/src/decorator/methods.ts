@@ -21,8 +21,15 @@ function getDecoratorFor(httpMethod: string) {
             const config: RouteConfiguration = {
                 method: httpMethod,
                 path: route,
-                handler: (req: Request, res: Response) => {
-                    res.json(descriptor.value(req, res));
+                handler: async (req: Request, res: Response) => {
+                    let val;
+                    try {
+                        val = await descriptor.value(req, res);
+                    } catch (err) {
+                        console.log('route controller error=', err.message);
+                        val = err;
+                    }
+                    res.json(val);
                 }
             };
 
