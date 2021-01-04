@@ -12,7 +12,8 @@
     "removeComments": true,
     "outDir": "dist",
     "noImplicitAny": false,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": [
     "src/**/*"
