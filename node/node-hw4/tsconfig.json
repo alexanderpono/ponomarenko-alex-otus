@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+    },
+    "target": "es6",
+    "module": "commonjs",
+    "allowJs": true,
+    "sourceMap": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "removeComments": true,
+    "outDir": "dist",
+    "noImplicitAny": false,
+    "experimentalDecorators": true
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ]  
+}
