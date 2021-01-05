@@ -1,0 +1,64 @@
+POST http://localhost:3000/api/users
+Content-type: application/json
+
+{
+    "bookName": "Evgeniy Onegin"
+}
+
+###
+
+POST http://localhost:3000/api/users
+Content-type: application/json
+
+{
+    "name": 123
+}
+
+###
+
+
+
+POST http://localhost:3000/api/users
+Content-type: application/json
+
+{
+    "name": "Peter"
+}
+
+###
+
+GET http://localhost:3000/api/users
+###
+
+
+GET http://localhost:3000/api/users/1
+###
+
+
+PUT http://localhost:3000/api/users/1
+Content-type: application/json
+
+{
+    "id": 1,
+    "name": "Anton2"
+}
+
+###
+
+PUT http://localhost:3000/api/users/1
+Content-type: application/json
+
+{
+    "id": 2,
+    "name": "Anton2"
+}
+
+###
+
+DELETE http://localhost:3000/api/users/1
+Content-type: application/json
+
+{
+}
+
+###
