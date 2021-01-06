@@ -29,4 +29,14 @@ export class AsyncRepository<T> {
             return Promise.reject();
         }
     }
+
+    public update<K extends keyof T>(key: K, value, newEntity: T): Promise<void> {
+        const index = this._entities.findIndex((e) => e[key] == value);
+        if (index !== -1) {
+            this._entities[index] = newEntity;
+            return Promise.resolve();
+        } else {
+            return Promise.reject();
+        }
+    }
 }
