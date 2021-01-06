@@ -36,7 +36,7 @@ describe('getAllSaga()', () => {
 
         expect(gen.next().value).toEqual(call(getUsers));
         expect(gen.throw(err).value).toEqual(put(res, 'status', 500));
-        expect(gen.next().value).toEqual(put(res, 'json', err));
+        expect(gen.next().value).toEqual(put(res, 'json', { success: false, data: err }));
     });
 });
 

@@ -9,7 +9,7 @@ export function* getAllSaga(res: Result, call: CallEffect, put: PutEffect) {
         return { success: true, users };
     } catch (err) {
         yield put(res, 'status', 500);
-        yield put(res, 'json', err);
+        yield put(res, 'json', { success: false, data: err });
         return res;
     }
 }
@@ -26,13 +26,18 @@ export function* getOneSaga(res: Result, id: number, call: CallEffect, put: PutE
 }
 
 export async function getUsers(): Promise<User[]> {
-    const repo = await getUserRepository();
-    return repo.entities;
+    try {
+        const repo = await getUserRepository();
+        const result = repo.entities;
+        return result;
+    } catch (err) {
+        return Promise.reject({ success: false, data: err });
+    }
 }
 
 export async function findUser(id: number): Promise<User> {
     const repo = await getUserRepository();
-    const record = await repo.find('id', id);
+    const record = await repo.find('id', Number(id));
     if (typeof record === 'undefined') {
         return Promise.reject({ result: false, data: { id, message: 'NOT FOUND' } });
     }
@@ -98,7 +103,7 @@ export async function insertUser(user: User): Promise<void> {
 
 export async function deleteUser(id: number): Promise<void> {
     const repo = await getUserRepository();
-    await repo.delete('id', id);
+    await repo.delete('id', Number(id));
     return Promise.resolve();
 }
 
@@ -113,7 +118,7 @@ export function* putSaga(res: Result, id: number, input: User, call: CallEffect,
 
     let dbUser: User | null = null;
     try {
-        dbUser = yield call(findUser, id);
+        dbUser = yield call(findUser, Number(id));
     } catch (err) {
         yield put(res, 'status', 400);
         yield put(res, 'json', err);
@@ -131,7 +136,7 @@ export function* putSaga(res: Result, id: number, input: User, call: CallEffect,
     }
 
     try {
-        yield call(updateUser, id, input);
+        yield call(updateUser, Number(id), input);
     } catch (err) {
         yield put(res, 'status', 500);
         yield put(res, 'json', err);
@@ -143,7 +148,7 @@ export function* putSaga(res: Result, id: number, input: User, call: CallEffect,
 
 export function* deleteSaga(res: Result, id: number, call: CallEffect, put: PutEffect) {
     try {
-        yield call(findUser, id);
+        yield call(findUser, Number(id));
     } catch (err) {
         yield put(res, 'status', 400);
         yield put(res, 'json', err);
@@ -151,7 +156,7 @@ export function* deleteSaga(res: Result, id: number, call: CallEffect, put: PutE
     }
 
     try {
-        yield call(deleteUser, id);
+        yield call(deleteUser, Number(id));
     } catch (err) {
         yield put(res, 'status', 500);
         yield put(res, 'json', err);

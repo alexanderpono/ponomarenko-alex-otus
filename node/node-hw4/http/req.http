@@ -22,7 +22,7 @@ POST http://localhost:3000/api/users
 Content-type: application/json
 
 {
-    "name": "Peter"
+    "name": "Peter222"
 }
 
 ###
@@ -55,7 +55,7 @@ Content-type: application/json
 
 ###
 
-DELETE http://localhost:3000/api/users/1
+DELETE http://localhost:3000/api/users/2
 Content-type: application/json
 
 {
