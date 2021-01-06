@@ -2,10 +2,12 @@ import { getDbClientPromise } from '../lib/db';
 import { User } from 'src/models/User';
 import { AsyncRepository } from '../lib/AsyncRepository';
 
+const getDbP = () => getDbClientPromise().then((client) => Promise.resolve(client.db('courses')));
+const getCollectionP = (dbP) => dbP.then((db) => Promise.resolve(db.collection('user')));
+
 export class UserDbRepository extends AsyncRepository<User> {
     get entities(): Promise<User[]> {
-        const dbP = getDbClientPromise().then((client) => Promise.resolve(client.db('courses')));
-        const collectionP = dbP.then((db) => Promise.resolve(db.collection('user')));
+        const collectionP = getCollectionP(getDbP());
 
         const usersP = collectionP
             .then((collection) => {
@@ -30,8 +32,7 @@ export class UserDbRepository extends AsyncRepository<User> {
     }
 
     public getNewId(): Promise<number> {
-        const dbP = getDbClientPromise().then((client) => Promise.resolve(client.db('courses')));
-        const collectionP = dbP.then((db) => Promise.resolve(db.collection('user')));
+        const collectionP = getCollectionP(getDbP());
 
         const biggestId = collectionP
             .then((collection) => {
@@ -76,8 +77,7 @@ export class UserDbRepository extends AsyncRepository<User> {
     }
 
     public add(element: User): Promise<void> {
-        const dbP = getDbClientPromise().then((client) => Promise.resolve(client.db('courses')));
-        const collectionP = dbP.then((db) => Promise.resolve(db.collection('user')));
+        const collectionP = getCollectionP(getDbP());
         const newIdP = this.getNewId();
         const addP = Promise.all([newIdP, collectionP])
             .then(([newId, collection]) => {
@@ -98,8 +98,7 @@ export class UserDbRepository extends AsyncRepository<User> {
     }
 
     public find<K extends keyof User>(key: K, value): Promise<User | undefined> {
-        const dbP = getDbClientPromise().then((client) => Promise.resolve(client.db('courses')));
-        const collectionP = dbP.then((db) => Promise.resolve(db.collection('user')));
+        const collectionP = getCollectionP(getDbP());
         const userP = collectionP
             .then((collection) => {
                 const criteria = { [key]: value };
@@ -124,8 +123,7 @@ export class UserDbRepository extends AsyncRepository<User> {
     }
 
     public delete<K extends keyof User>(key: K, value): Promise<void> {
-        const dbP = getDbClientPromise().then((client) => Promise.resolve(client.db('courses')));
-        const collectionP = dbP.then((db) => Promise.resolve(db.collection('user')));
+        const collectionP = getCollectionP(getDbP());
         const deleteP = collectionP
             .then((collection) => {
                 const criteria = { [key]: value };
@@ -146,8 +144,7 @@ export class UserDbRepository extends AsyncRepository<User> {
     }
 
     public update<K extends keyof User>(key: K, value, newEntity: User): Promise<void> {
-        const dbP = getDbClientPromise().then((client) => Promise.resolve(client.db('courses')));
-        const collectionP = dbP.then((db) => Promise.resolve(db.collection('user')));
+        const collectionP = getCollectionP(getDbP());
         const updateP = collectionP
             .then((collection) => {
                 const criteria = { [key]: value };
