@@ -6,7 +6,8 @@ import 'reflect-metadata';
 import { logger as loggerMiddleware } from './middleware/logger';
 
 const app = createExpressServer({
-    controllers: [ApiUserController]
+    controllers: [ApiUserController],
+    middlewares: [loggerMiddleware]
 });
 
 app.use(loggerMiddleware);

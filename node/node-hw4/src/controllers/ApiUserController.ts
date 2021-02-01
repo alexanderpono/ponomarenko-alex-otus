@@ -1,7 +1,18 @@
-import { Param, Body, Get, Post, Put, Delete, JsonController, Res } from 'routing-controllers';
+import {
+    Param,
+    Body,
+    Get,
+    Post,
+    Put,
+    Delete,
+    JsonController,
+    Res,
+    UseBefore
+} from 'routing-controllers';
 import { call, put, runSaga } from '../lib/saga';
 import { User } from 'src/models/User';
 import { getAllSaga, getOneSaga, postSaga, putSaga, deleteSaga } from './ApiUserController.saga';
+import { auth as authMiddleware } from '../middleware/auth';
 
 interface Response {
     status: (n: number) => void;
@@ -9,6 +20,7 @@ interface Response {
 }
 
 @JsonController('/api/users')
+@UseBefore(authMiddleware)
 export class ApiUserController {
     @Get('/')
     async getAll(@Res() res: Response) {
