@@ -6,6 +6,7 @@
     "target": "es6",
     "module": "commonjs",
     "allowJs": true,
+    "jsx": "react",
     "sourceMap": true,
     "strict": true,
     "esModuleInterop": true,
@@ -15,9 +16,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "include": [
-    "src/**/*"
-  ],
+  "include": [ "src/**/*", "ui-src/components"  ],
   "exclude": [
     "node_modules",
     "**/*.spec.ts",

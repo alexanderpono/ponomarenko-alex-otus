@@ -11,9 +11,10 @@ module.exports = {
                 corejs: '2.6.11'
             }
         ],
-        '@babel/preset-typescript'
+        '@babel/preset-typescript',
+        '@babel/preset-react'
     ],
-    plugins: [],
+    plugins: ['@babel/plugin-proposal-class-properties'],
     env: {
         production: {
             plugins: []
