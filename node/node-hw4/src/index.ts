@@ -1,4 +1,5 @@
-console.log('index.ts!');
+const port = 3000;
+console.log(`index.ts! listening ${3000}`);
 
 import { createExpressServer } from 'routing-controllers';
 import { ApiUserController } from './controllers/ApiUserController';
@@ -11,4 +12,4 @@ const app = createExpressServer({
 });
 
 app.use(loggerMiddleware);
-app.listen(3000);
+app.listen(port);
