@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Redirect, Switch, Route, Link } from 'react-router-dom';
+import { UsersPage } from '../UsersPage';
 
 export const App: React.FC<Record<string, unknown>> = () => (
     <Router>
@@ -36,7 +37,7 @@ export const App: React.FC<Record<string, unknown>> = () => (
                 <div>course</div>
             </Route>
             <Route path="/users">
-                <div>users</div>
+                <UsersPage />
             </Route>
             <Route path="/mycourses">
                 <div>mycourses</div>
