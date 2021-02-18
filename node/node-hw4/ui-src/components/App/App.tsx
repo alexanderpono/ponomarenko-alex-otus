@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Redirect, Switch, Route, Link } from 'react-router-dom';
+import { AccessChecker } from '../AccessChecker/AccessChecker';
 import { UsersPage } from '../UsersPage';
 
 export const App: React.FC<Record<string, unknown>> = () => (
@@ -37,7 +38,9 @@ export const App: React.FC<Record<string, unknown>> = () => (
                 <div>course</div>
             </Route>
             <Route path="/users">
-                <UsersPage />
+                <AccessChecker redirectPath="/login">
+                    <UsersPage />
+                </AccessChecker>
             </Route>
             <Route path="/mycourses">
                 <div>mycourses</div>

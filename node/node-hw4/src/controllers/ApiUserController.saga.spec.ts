@@ -72,6 +72,7 @@ describe('postSaga()', () => {
     it('calls 1) validateUser 2) insertUser 3) http(201),res  if all is ok', () => {
         const newUser: User = {
             id: 2,
+            role: 'user',
             name: 'Kate'
         };
         const gen = postSaga(res, newUser, call, put);
@@ -86,6 +87,7 @@ describe('postSaga()', () => {
     it('returns http(400) if call(validateUser, input) failed', () => {
         const newUser: User = {
             id: 2,
+            role: 'user',
             name: 'Kate'
         };
         const err = new Error('errrrr');
@@ -99,6 +101,7 @@ describe('postSaga()', () => {
     it('returns http(500) if call(insertUser) failed', () => {
         const newUser: User = {
             id: 2,
+            role: 'user',
             name: 'Kate'
         };
         const err = new Error('errrrr');
@@ -117,6 +120,7 @@ describe('putSaga()', () => {
     it('yields call(validateUser, input)', () => {
         const updatedUser: User = {
             id: faker.random.number(),
+            role: faker.random.word(),
             name: faker.random.word()
         };
         const recordNumber = faker.random.number();
@@ -128,6 +132,7 @@ describe('putSaga()', () => {
     it('returns http(400) if call(validateUser) failed', () => {
         const updatedUser: User = {
             id: faker.random.number(),
+            role: faker.random.word(),
             name: faker.random.word()
         };
         const recordNumber = faker.random.number();
@@ -142,6 +147,7 @@ describe('putSaga()', () => {
     it('yields call(findUser) if call(validateUser) succeed', () => {
         const updatedUser: User = {
             id: faker.random.number(),
+            role: faker.random.word(),
             name: faker.random.word()
         };
         const recordNumber = faker.random.number();
@@ -154,6 +160,7 @@ describe('putSaga()', () => {
     it('returns http(400) if call(findUser) failed', () => {
         const updatedUser: User = {
             id: faker.random.number(),
+            role: faker.random.word(),
             name: faker.random.word()
         };
         const recordNumber = faker.random.number();
@@ -169,10 +176,12 @@ describe('putSaga()', () => {
     it('returns http(400), "CANNOT CHANGE KEY FIELD" foundUser.id != updatedUser.id', () => {
         const foundUser: User = {
             id: faker.random.number(),
+            role: faker.random.word(),
             name: faker.random.word()
         };
         const updatedUser: User = {
             id: foundUser.id + 1,
+            role: faker.random.word(),
             name: faker.random.word()
         };
 
@@ -197,10 +206,12 @@ describe('putSaga()', () => {
     it('yields call(updateUser) if call(findUser) succeed and old.id==new.id', () => {
         const foundUser: User = {
             id: faker.random.number(),
+            role: faker.random.word(),
             name: faker.random.word()
         };
         const updatedUser: User = {
             id: foundUser.id,
+            role: faker.random.word(),
             name: faker.random.word()
         };
         const recordNumber = faker.random.number();
@@ -214,10 +225,12 @@ describe('putSaga()', () => {
     it('returns success=true if all is ok', () => {
         const foundUser: User = {
             id: faker.random.number(),
+            role: faker.random.word(),
             name: faker.random.word()
         };
         const updatedUser: User = {
             id: foundUser.id,
+            role: faker.random.word(),
             name: faker.random.word()
         };
         const recordNumber = faker.random.number();

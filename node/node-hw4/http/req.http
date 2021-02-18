@@ -103,4 +103,23 @@ X-User-Name: Anton2
 {
 }
 
+
+
 ###
+#auth 
+POST http://localhost:3000/api/auth
+Content-type: application/json
+
+{
+    "userName": "Kate"
+}
+
+###
+#auth 
+POST http://localhost:3000/api/auth
+Content-type: application/json
+
+{
+    "userName": "Anton2"
+}
+

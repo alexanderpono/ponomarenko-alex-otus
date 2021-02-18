@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { validateGetUsersAnswer } from './Backend.validators';
 import { config } from '../deploy';
+import { getUserSession } from '../auth';
 
 interface BackendConfig {
     apiUrl: string;
@@ -27,10 +28,12 @@ export class Backend {
 
     getUsers() {
         const fullUrl = `${this.config.apiUrl}/users`;
+        const user = getUserSession();
         return axios
             .get(fullUrl, {
                 headers: {
-                    authorization: this.config.authHeader
+                    authorization: this.config.authHeader,
+                    'X-User-name': user
                 }
             })
             .then(function unpackData(response) {
