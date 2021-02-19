@@ -14,6 +14,7 @@ export class AccessChecker extends React.Component<Props> {
             return (
                 <>
                     <p>AccessChecker: access granted</p>
+                    <p>Добро пожаловать, {user}!</p>
                     {this.props.children}
                 </>
             );

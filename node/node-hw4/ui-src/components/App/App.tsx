@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Redirect, Switch, Route, Link } from 'react-router-dom';
 import { AccessChecker } from '../AccessChecker/AccessChecker';
+import { LoginPage } from '../LoginPage/LoginPage';
 import { UsersPage } from '../UsersPage';
 
 export const App: React.FC<Record<string, unknown>> = () => (
@@ -29,10 +30,12 @@ export const App: React.FC<Record<string, unknown>> = () => (
         </nav>
         <Switch>
             <Route path="/login">
-                <div>login</div>
+                <LoginPage />
             </Route>
             <Route path="/main">
-                <div>main</div>
+                <AccessChecker redirectPath="/login">
+                    <div>main</div>
+                </AccessChecker>
             </Route>
             <Route path="/course">
                 <div>course</div>

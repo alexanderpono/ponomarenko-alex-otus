@@ -49,6 +49,23 @@ export class Backend {
                 }
             });
     }
+
+    async postAuth(userName: string) {
+        const fullUrl = `${this.config.apiUrl}/auth`;
+        const result = await fetch(fullUrl, {
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify({ userName })
+        });
+
+        return Promise.all([
+            Promise.resolve(result),
+            decodeBodyPromise(result.body as ReadableStream<Uint8Array>)
+        ]);
+    }
 }
 
 let _back: Backend | null = null;
@@ -60,4 +77,28 @@ export function getBackend(): Backend {
         });
     }
     return _back;
+}
+
+function decodeBodyPromise(body: ReadableStream<Uint8Array>) {
+    return new Promise((resolve) => {
+        const reader = body.getReader();
+        let result: Uint8Array[] = [];
+        reader.read().then(function processText({ done, value }) {
+            if (done) {
+                resolve(result);
+                return;
+            }
+            const chunk = (value as unknown) as Uint8Array[];
+            result = result.concat(...chunk);
+            return reader.read().then(processText);
+        });
+    })
+        .then((bytesArray) => {
+            const s = String.fromCharCode.apply(null, bytesArray as number[]);
+            return s;
+        })
+        .then((str: string) => {
+            const json = JSON.parse(str);
+            return json;
+        });
 }
