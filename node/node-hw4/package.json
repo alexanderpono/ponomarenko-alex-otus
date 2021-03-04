@@ -45,6 +45,7 @@
     "@typescript-eslint/parser": "^4.11.1",
     "babel-jest": "^26.6.3",
     "babel-loader": "^8.2.2",
+    "babel-plugin-module-alias": "^1.6.0",
     "eslint": "^7.17.0",
     "eslint-config-prettier": "^7.1.0",
     "eslint-plugin-prettier": "^3.3.0",
@@ -83,7 +84,9 @@
       ".git",
       "node_modules"
     ],
-    "watch": ["src"],
+    "watch": [
+      "src"
+    ],
     "ext": "ts"
   }
 }

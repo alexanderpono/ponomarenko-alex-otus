@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Redirect } from 'react-router-dom';
-import { getUserSession } from '../../auth';
+import { getUserSession } from '@ui-src/auth';
 
 export interface Props {
     children: ReactNode;

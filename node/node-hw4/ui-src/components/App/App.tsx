@@ -1,14 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Redirect, Switch, Route } from 'react-router-dom';
-import { AccessChecker } from '../AccessChecker/AccessChecker';
-import { LoginPage } from '../LoginPage/LoginPage';
+import { AccessChecker } from '../AccessChecker';
+import { LoginPage } from '../LoginPage';
 import { Menu } from '../Menu';
 import { fetchError, userName, userRole, UsersPage } from '../UsersPage';
-import { getBackend, LoginAnswer } from '../../Backend';
-import { getUserSession } from '../../auth';
-import { store } from '../../store';
+import { getBackend, LoginAnswer } from '@ui-src/Backend';
+import { getUserSession } from '@ui-src/auth';
+import { store } from '@ui-src/store';
 import { Provider } from 'react-redux';
-import { validateLoginAnswer } from '../../Backend/Backend.validators';
+import { validateLoginAnswer } from '@ui-src/Backend/Backend.validators';
 
 export class App extends React.Component {
     render() {

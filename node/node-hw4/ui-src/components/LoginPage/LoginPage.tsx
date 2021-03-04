@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { login } from '../../auth';
-import { getBackend } from '../../Backend';
+import { login } from '@ui-src/auth';
+import { getBackend } from '@ui-src/Backend';
 
 interface LoginPageProps {}
 

@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
+      "@ui-src/*": ["ui-src/*"]
     },
     "target": "es6",
     "module": "commonjs",

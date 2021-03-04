@@ -14,7 +14,10 @@ module.exports = {
         '@babel/preset-typescript',
         '@babel/preset-react'
     ],
-    plugins: ['@babel/plugin-proposal-class-properties'],
+    plugins: [
+        ['@babel/plugin-proposal-class-properties'],
+        ['module-alias', { src: './ui-src', expose: '@ui-src' }]
+    ],
     env: {
         production: {
             plugins: []
