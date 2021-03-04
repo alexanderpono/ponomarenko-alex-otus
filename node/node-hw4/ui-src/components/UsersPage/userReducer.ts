@@ -69,3 +69,9 @@ export function userReducer(state: UserState = defaultState, action: UserAction)
     }
     return state;
 }
+
+interface AppState {
+    user: UserState;
+}
+
+export const selectUser = (state: AppState) => state.user;
