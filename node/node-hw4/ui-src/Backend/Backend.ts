@@ -19,6 +19,11 @@ export interface GetUsersAnswer {
     users: User[];
 }
 
+export interface LoginAnswer {
+    success: boolean;
+    role: string;
+}
+
 export class Backend {
     config: BackendConfig;
 

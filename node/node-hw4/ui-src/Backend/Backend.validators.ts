@@ -1,4 +1,5 @@
 import Validator from 'schema-validator';
+import { LoginAnswer } from './Backend';
 
 interface User {
     name: string;
@@ -93,6 +94,26 @@ export function validateGetUsersAnswer(input: GetUsersAnswer): ValidateResult {
             errors = getValidateErrors(errors, check, user, `users[${index}].`);
         });
     }
+
+    return { errors } as ValidateResult;
+}
+
+export function validateLoginAnswer(input: LoginAnswer): ValidateResult {
+    const rootSchema = {
+        success: {
+            type: Boolean,
+            required: true
+        },
+        role: {
+            type: String,
+            required: true
+        }
+    };
+
+    const validator = new Validator(rootSchema);
+    const check = validator.check(input);
+
+    const errors = getValidateErrors([], check, input, '');
 
     return { errors } as ValidateResult;
 }
