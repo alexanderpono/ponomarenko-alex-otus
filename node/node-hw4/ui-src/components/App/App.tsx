@@ -3,13 +3,37 @@ import { BrowserRouter as Router, Redirect, Switch, Route } from 'react-router-d
 import { AccessChecker } from '../AccessChecker';
 import { LoginPage } from '../LoginPage';
 import { Menu } from '../Menu';
-import { fetchError, selectUser, userName, userRole, UsersPage } from '../UsersPage';
+import {
+    fetchError,
+    selectUser,
+    Status,
+    userName,
+    userRole,
+    UsersPage,
+    UserState,
+    defaultState as userDefaultState
+} from '../UsersPage';
 import { getBackend, LoginAnswer } from '@ui-src/Backend';
-import { getUserSession } from '@ui-src/auth';
+import { getUserSession, login, logout } from '@ui-src/auth';
 import { store } from '@ui-src/store';
 import { validateLoginAnswer } from '@ui-src/Backend/Backend.validators';
+import { LogoutPage } from '../LogoutPage';
 
-export class App extends React.Component {
+interface AppState {
+    stateFromRedux: UserState;
+}
+interface Props {}
+
+export class App extends React.Component<Props, AppState> {
+    constructor(props: Props) {
+        super(props);
+        this.state = {
+            stateFromRedux: userDefaultState
+        };
+    }
+
+    updateUserState = (stateFromRedux: UserState) => this.setState({ stateFromRedux });
+
     render() {
         const userState = selectUser(store.getState());
         return (
@@ -17,7 +41,10 @@ export class App extends React.Component {
                 <Menu userState={userState} />
                 <Switch>
                     <Route path="/login">
-                        <LoginPage />
+                        <LoginPage userState={userState} />
+                    </Route>
+                    <Route path="/logout">
+                        <LogoutPage />
                     </Route>
                     <Route path="/main">
                         <AccessChecker redirectPath="/login">
@@ -46,15 +73,24 @@ export class App extends React.Component {
         );
     }
 
-    oldRole: string | null = null;
+    oldUser: UserState | null = null;
     storeChange = () => {
         const userState = selectUser(store.getState());
-        const roleChanged = this.oldRole !== userState.role;
-        if (roleChanged) {
-            this.render();
+
+        if (userState !== this.oldUser) {
+            this.updateUserState(userState);
+        }
+        if (userState.status === Status.ACCESS_GRANTED && userState.name) {
+            login(userState.name);
+        }
+        if (
+            [Status.FETCH_ERROR, Status.USER_NOT_FOUND, Status.LOGOUT].indexOf(userState.status) !==
+            -1
+        ) {
+            logout();
         }
 
-        this.oldRole = userState.role;
+        this.oldUser = userState;
     };
 
     componentDidMount() {

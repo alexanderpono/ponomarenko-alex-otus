@@ -7,8 +7,9 @@ interface Props {
 }
 export class Menu extends React.Component<Props> {
     render() {
-        const userAuthorized = typeof this.props.userState.name !== null;
-        const userAdmin = this.props.userState.role === 'admin';
+        const userState = this.props.userState;
+        const userAuthorized = userState.name !== null && userState.name !== '';
+        const userAdmin = userState.role === 'admin';
 
         return (
             <nav>

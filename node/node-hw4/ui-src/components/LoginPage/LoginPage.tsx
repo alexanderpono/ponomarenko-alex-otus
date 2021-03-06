@@ -1,9 +1,13 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { login } from '@ui-src/auth';
 import { getBackend } from '@ui-src/Backend';
+import { store } from '@ui-src/store';
+import { accessGranted, userName, userNotFound, UserState } from '../UsersPage';
+import { Link } from 'react-router-dom';
 
-interface LoginPageProps {}
+interface LoginPageProps {
+    userState: UserState;
+}
 
 enum Status {
     DEFAULT = 'DEFAULT',
@@ -25,9 +29,9 @@ interface Action {
     type: string;
     payload: Record<string, never>;
 }
-const fetchError = (): Action => ({ type: Actions.FETCH_ERROR, payload: {} });
-const userNotFound = (): Action => ({ type: Actions.USER_NOT_FOUND, payload: {} });
-const accessGranted = (): Action => ({ type: Actions.ACCESS_GRANTED, payload: {} });
+const myFetchError = (): Action => ({ type: Actions.FETCH_ERROR, payload: {} });
+const myUserNotFound = (): Action => ({ type: Actions.USER_NOT_FOUND, payload: {} });
+const myAccessGranted = (): Action => ({ type: Actions.ACCESS_GRANTED, payload: {} });
 
 const reducerFn = (state: LoginPageState, action: Action): LoginPageState => {
     switch (action.type) {
@@ -64,20 +68,26 @@ export class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
                 console.log('Stream complete json=', json);
                 console.log('Stream complete resp.status=', resp.status);
                 if (resp.status === 401) {
-                    me.setState(reducerFn(me.state, userNotFound()));
+                    store.dispatch(userNotFound(this.state.name));
+                    me.setState(reducerFn(me.state, myUserNotFound()));
                 }
                 if (resp.status === 200) {
-                    me.setState(reducerFn(me.state, accessGranted()));
-                    login(this.state.name);
+                    store.dispatch(userName(this.state.name));
+                    store.dispatch(accessGranted());
+                    me.setState(reducerFn(me.state, myAccessGranted()));
                 }
             })
             .catch(function (error) {
-                me.setState(reducerFn(me.state, fetchError()));
+                me.setState(reducerFn(me.state, myFetchError()));
                 console.error(error);
             });
     };
 
-    setName = (name: string) => this.setState({ ...this.state, name });
+    setName = (name: string) => {
+        this.setState(() => {
+            return { ...this.state, name };
+        });
+    };
 
     render() {
         const userNotFound =
@@ -93,9 +103,18 @@ export class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
                 ''
             );
         const accessGranted = this.state.status === Status.ACCESS_GRANTED;
+        const accessGranted2 =
+            this.props.userState.name !== '' && this.props.userState.name !== null;
 
         if (accessGranted) {
             return <Redirect to={'/main'} />;
+        }
+        if (accessGranted2) {
+            return (
+                <>
+                    <div>Вы уже авторизованы. Перейдите по ссылке</div> <Link to="/main">Main</Link>
+                </>
+            );
         }
 
         return (
