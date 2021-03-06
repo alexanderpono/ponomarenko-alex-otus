@@ -19,7 +19,7 @@ export class UsersPage extends React.Component<UsersPageProps, UsersPageState> {
     render() {
         return (
             <div>
-                <h1>Users</h1>
+                <h2>Список пользователей</h2>
                 <ul>
                     {this.state.users.map((user: User) => {
                         return (

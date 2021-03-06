@@ -1,0 +1,29 @@
+body {
+    font-size: 16px;
+    font-family: Times, serif;
+    padding: 8px;
+    margin: 0px;
+}
+
+nav ul {
+    padding: 0px;
+    margin: 0px;
+}
+
+nav li {
+    display: inline-block;
+    padding-right: 20px;
+}
+
+p.greeting {
+    font-size: 100%;
+    margin-bottom: 30px;
+}
+
+h1 {
+    font-size: 120%;
+}
+
+h2 {
+    font-size: 120%;
+}

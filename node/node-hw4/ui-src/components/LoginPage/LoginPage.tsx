@@ -1,9 +1,10 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { getBackend } from '@ui-src/Backend';
+import { getBackend, LoginAnswer } from '@ui-src/Backend';
 import { store } from '@ui-src/store';
-import { accessGranted, userName, userNotFound, UserState } from '../UsersPage';
+import { accessGranted, userName, userNotFound, userRole, UserState } from '../UsersPage';
 import { Link } from 'react-router-dom';
+import { validateLoginAnswer } from '@ui-src/Backend/Backend.validators';
 
 interface LoginPageProps {
     userState: UserState;
@@ -64,7 +65,7 @@ export class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
         getBackend()
             .postAuth(this.state.name)
             .then(([resp, json]) => {
-                console.log('Stream complete resp=', resp);
+                // console.log('Stream complete resp=', resp);
                 console.log('Stream complete json=', json);
                 console.log('Stream complete resp.status=', resp.status);
                 if (resp.status === 401) {
@@ -72,7 +73,15 @@ export class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
                     me.setState(reducerFn(me.state, myUserNotFound()));
                 }
                 if (resp.status === 200) {
+                    const authAnswer = json as LoginAnswer;
+
+                    const validateResult = validateLoginAnswer(authAnswer);
+                    if (validateResult.errors.length !== 0) {
+                        return Promise.reject(validateResult);
+                    }
+
                     store.dispatch(userName(this.state.name));
+                    store.dispatch(userRole(authAnswer.role));
                     store.dispatch(accessGranted());
                     me.setState(reducerFn(me.state, myAccessGranted()));
                 }
@@ -119,11 +128,11 @@ export class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
 
         return (
             <div>
-                <h1>Login</h1>
+                <h2>Введите имя</h2>
 
                 <form onSubmit={this.onSubmit}>
                     <label>
-                        Name:
+                        Имя:&nbsp;
                         <input
                             placeholder="Введите свое имя"
                             value={this.state.name}
@@ -133,7 +142,7 @@ export class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
                             maxLength={10}
                         />
                     </label>
-                    <button>Login</button>
+                    <button>Войти</button>
                 </form>
 
                 {userNotFound}

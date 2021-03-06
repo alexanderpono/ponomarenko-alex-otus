@@ -22,7 +22,8 @@ module.exports = {
     devServer: {
         historyApiFallback: true,
         open: false,
-        port: 8888
+        port: 8888,
+        contentBase: './public'
     },
     plugins: [
         new HtmlWebpackPlugin({

@@ -48,11 +48,8 @@ export class App extends React.Component<Props, AppState> {
                     </Route>
                     <Route path="/main">
                         <AccessChecker redirectPath="/login">
-                            <div>main</div>
+                            <div>[Список общедоступных курсов]</div>
                         </AccessChecker>
-                    </Route>
-                    <Route path="/course">
-                        <div>course</div>
                     </Route>
                     <Route path="/users">
                         <AccessChecker redirectPath="/login">
@@ -60,10 +57,12 @@ export class App extends React.Component<Props, AppState> {
                         </AccessChecker>
                     </Route>
                     <Route path="/mycourses">
-                        <div>mycourses</div>
+                        <AccessChecker redirectPath="/login">
+                            <div>[Список моих курсов]</div>
+                        </AccessChecker>
                     </Route>
                     <Route path="/mycourse">
-                        <div>mycourse</div>
+                        <div>[Параметры моего курса]</div>
                     </Route>
                     <Route path="*">
                         <Redirect to="/main" />
@@ -78,7 +77,17 @@ export class App extends React.Component<Props, AppState> {
         const userState = selectUser(store.getState());
 
         if (userState !== this.oldUser) {
-            this.updateUserState(userState);
+            if (this.oldUser !== null) {
+                if (
+                    userState.name !== this.oldUser.name ||
+                    userState.status !== this.oldUser.status ||
+                    userState.role !== this.oldUser.role
+                ) {
+                    this.updateUserState(userState);
+                }
+            } else {
+                this.updateUserState(userState);
+            }
         }
         if (userState.status === Status.ACCESS_GRANTED && userState.name) {
             login(userState.name);

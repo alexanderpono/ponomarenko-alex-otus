@@ -14,18 +14,13 @@ export class Menu extends React.Component<Props> {
         return (
             <nav>
                 <ul>
-                    {!userAuthorized && (
-                        <li>
-                            <Link to="/login">Login</Link>
-                        </li>
-                    )}
+                    <li>
+                        <h1>My-courses</h1>
+                    </li>
                     {userAuthorized && (
                         <>
                             <li>
-                                <Link to="/main">Main</Link>
-                            </li>
-                            <li>
-                                <Link to="/course">Course</Link>
+                                <Link to="/main">Общие курсы</Link>
                             </li>
                             {userAdmin && (
                                 <li>
@@ -33,16 +28,13 @@ export class Menu extends React.Component<Props> {
                                 </li>
                             )}
                             <li>
-                                <Link to="/mycourses">MyCourses</Link>
-                            </li>
-                            <li>
-                                <Link to="/mycourse">MyCourse</Link>
+                                <Link to="/mycourses">Мои курсы</Link>
                             </li>
                         </>
                     )}
                     {userAuthorized && (
                         <li>
-                            <Link to="/logout">Logout</Link>
+                            <Link to="/logout">Выход</Link>
                         </li>
                     )}
                 </ul>

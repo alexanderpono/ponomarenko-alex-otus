@@ -52,10 +52,12 @@ describe('userReducer', () => {
     it('sets state when receives LOGOUT action', () => {
         const name = faker.random.word();
         const userState = userReducer(undefined, userName(name));
-        const grantedState = userReducer(userState, accessGranted());
+        const roleState = userReducer(userState, userRole('admin'));
+        const grantedState = userReducer(roleState, accessGranted());
         const state = userReducer(grantedState, userLogout());
         expect(state.errorInfo).toBe('');
         expect(state.name).toBe('');
+        expect(state.role).toBe('');
         expect(state.status).toBe(Status.LOGOUT);
     });
 });

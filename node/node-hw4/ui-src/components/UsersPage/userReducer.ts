@@ -104,6 +104,7 @@ export function userReducer(state: UserState = defaultState, action: UserAction)
                 ...state,
                 status: Status.LOGOUT,
                 name: '',
+                role: '',
                 errorInfo: ''
             };
         }
