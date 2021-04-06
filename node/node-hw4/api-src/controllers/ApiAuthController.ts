@@ -1,7 +1,7 @@
 import { Body, Post, JsonController, Res } from 'routing-controllers';
 import { call, put, runSaga } from '../lib/saga';
 import { authSaga } from './ApiAuthController.saga';
-import { Auth } from 'src/models/Auth';
+import { Auth } from '@api-src/models/Auth';
 
 interface Response {
     status: (n: number) => void;

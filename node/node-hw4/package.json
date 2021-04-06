@@ -69,7 +69,7 @@
     "uidev": "npx webpack-dev-server --mode development",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "dev": "nodemon --exec ts-node src/index.ts",
+    "apidev": "nodemon --exec ts-node api-src/index.ts",
     "start": "node dist/index.js",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
@@ -85,7 +85,7 @@
       "node_modules"
     ],
     "watch": [
-      "src"
+      "api-src"
     ],
     "ext": "ts"
   }

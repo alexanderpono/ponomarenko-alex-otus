@@ -1,7 +1,7 @@
 import { User } from '../models/User';
 import { getUserRepository } from '../repositories/UserRepository';
 import Validator from 'schema-validator';
-import { CallEffect, PutEffect, Result } from 'src/lib/saga';
+import { CallEffect, PutEffect, Result } from '@api-src/lib/saga';
 
 export function* getAllSaga(res: Result, call: CallEffect, put: PutEffect) {
     try {

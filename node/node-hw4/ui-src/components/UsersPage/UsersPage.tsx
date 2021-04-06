@@ -1,5 +1,5 @@
 import React from 'react';
-import { User } from 'src/models/User';
+import { User } from '@api-src/models/User';
 import { GetUsersAnswer, getBackend } from '@ui-src/Backend';
 
 interface UsersPageProps {}

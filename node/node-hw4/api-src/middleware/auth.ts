@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { MiddleWare } from './middleware.types';
 import { call, put, runSaga } from '../lib/saga';
 import { getAllSaga } from '../controllers/ApiUserController.saga';
-import { User } from 'src/models/User';
+import { User } from '@api-src/models/User';
 
 interface GetUsersAnswer {
     success: boolean;

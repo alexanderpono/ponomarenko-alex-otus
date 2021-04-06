@@ -1,8 +1,8 @@
-import { CallEffect, PutEffect, Result } from 'src/lib/saga';
+import { CallEffect, PutEffect, Result } from '@api-src/lib/saga';
 import Validator from 'schema-validator';
-import { Auth } from 'src/models/Auth';
+import { Auth } from '@api-src/models/Auth';
 import { getUsers } from './ApiUserController.saga';
-import { User } from 'src/models/User';
+import { User } from '@api-src/models/User';
 
 export function validateAuth(input: Auth) {
     return new Promise((resolve, reject) => {

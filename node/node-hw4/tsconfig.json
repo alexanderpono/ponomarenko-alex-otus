@@ -2,7 +2,8 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@ui-src/*": ["ui-src/*"]
+      "@ui-src/*": ["ui-src/*"],
+      "@api-src/*": ["api-src/*"]
     },
     "target": "es6",
     "module": "commonjs",
@@ -17,7 +18,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "include": [ "src/**/*", "ui-src/components"  ],
+  "include": [ "api-src/**/*", "ui-src/components"  ],
   "exclude": [
     "node_modules",
     "**/*.spec.ts",

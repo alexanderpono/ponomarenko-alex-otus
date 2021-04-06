@@ -1,5 +1,5 @@
 import { getDbClientPromise } from '../lib/db';
-import { User } from 'src/models/User';
+import { User } from '@api-src/models/User';
 import { AsyncRepository } from '../lib/AsyncRepository';
 
 const getDbP = () => getDbClientPromise().then((client) => Promise.resolve(client.db('courses')));
