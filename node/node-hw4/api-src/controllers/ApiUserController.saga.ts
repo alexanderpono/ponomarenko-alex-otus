@@ -59,8 +59,9 @@ export function* postSaga(res: Result, input: User, call: CallEffect, put: PutEf
         return res;
     }
 
+    let newUserId = null;
     try {
-        yield call(insertUser, input);
+        newUserId = yield call(insertUser, input);
     } catch (err) {
         yield put(res, 'status', 500);
         yield put(res, 'json', err);
@@ -68,7 +69,7 @@ export function* postSaga(res: Result, input: User, call: CallEffect, put: PutEf
     }
 
     yield put(res, 'status', 201);
-    yield put(res, 'json', { success: true });
+    yield put(res, 'json', { success: true, id: newUserId });
     return res;
 }
 
@@ -94,11 +95,12 @@ export function validateUser(input: User) {
     });
 }
 
-export async function insertUser(user: User): Promise<void> {
+export async function insertUser(user: User): Promise<number> {
     const repo = await getUserRepository();
     const newUser: User = JSON.parse(JSON.stringify(user));
     newUser.id = await repo.getNewId();
-    return repo.add(newUser);
+    repo.add(newUser);
+    return newUser.id;
 }
 
 export async function deleteUser(id: number): Promise<void> {

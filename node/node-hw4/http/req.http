@@ -95,7 +95,7 @@ X-User-Name: Anton2
 }
 
 ###
-DELETE http://localhost:3000/api/users/6
+DELETE http://localhost:3000/api/users/39
 Content-type: application/json
 Authorization: Basic user:password
 X-User-Name: Anton2
