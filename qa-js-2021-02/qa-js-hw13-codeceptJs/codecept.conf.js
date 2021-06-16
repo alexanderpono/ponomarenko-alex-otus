@@ -21,7 +21,11 @@ exports.config = {
     accountPage: './pages/account.js'
   },
   bootstrap: null,
-  mocha: {},
+  mocha: {
+    reporterOptions: {
+        reportDir: "output"
+    }
+  },
   name: 'qa-js-hw13-codeceptJs',
   plugins: {
     pauseOnFail: {},
