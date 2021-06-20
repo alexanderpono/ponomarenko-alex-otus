@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "codeceptjs": "codeceptjs run --steps",
+        "codeceptjs": "codeceptjs run --steps --reporter mochawesome",
         "codeceptjs:headless": "HEADLESS=true codeceptjs run --steps",
         "codeceptjs:ui": "codecept-ui --app",
         "codeceptjs:demo": "codeceptjs run --steps -c node_modules/@codeceptjs/examples",
@@ -15,6 +15,7 @@
         "@codeceptjs/examples": "^1.2.1",
         "@codeceptjs/ui": "^0.4.6",
         "codeceptjs": "^3.0.7",
+        "mochawesome": "^6.2.2",
         "playwright": "^1.12.2"
     }
 }

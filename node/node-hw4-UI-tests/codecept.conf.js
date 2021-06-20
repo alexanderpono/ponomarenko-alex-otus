@@ -20,7 +20,11 @@ exports.config = {
     currentPage: './pages/current.js',
   },
   bootstrap: null,
-  mocha: {},
+  mocha: {
+    reporterOptions: {
+      reportDir: 'output'
+    }
+  },
   name: 'node-hw4-UI-tests',
   plugins: {
     pauseOnFail: {},
