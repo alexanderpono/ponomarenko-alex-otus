@@ -134,6 +134,7 @@ export class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
                     <label>
                         Имя:&nbsp;
                         <input
+                            id="uid"
                             placeholder="Введите свое имя"
                             value={this.state.name}
                             onChange={(ev) => this.setName((ev.target as HTMLInputElement).value)}
@@ -142,7 +143,7 @@ export class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
                             maxLength={10}
                         />
                     </label>
-                    <button>Войти</button>
+                    <button id="btSubmit">Войти</button>
                 </form>
 
                 {userNotFound}

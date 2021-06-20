@@ -9,3 +9,4 @@ node-hw4-ts-try
 dist
 *.tmp
 *.doc
+output

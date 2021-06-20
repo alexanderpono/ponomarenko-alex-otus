@@ -20,15 +20,26 @@ export class UsersPage extends React.Component<UsersPageProps, UsersPageState> {
         return (
             <div>
                 <h2>Список пользователей</h2>
-                <ul>
-                    {this.state.users.map((user: User) => {
-                        return (
-                            <li key={user.id}>
-                                {user.id} {user.name} {user.role}
-                            </li>
-                        );
-                    })}
-                </ul>
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>name</th>
+                            <th>role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.state.users.map((user: User) => {
+                            return (
+                                <tr key={user.id}>
+                                    <td>{user.id}</td>
+                                    <td>{user.name}</td>
+                                    <td>{user.role ? user.role : 'user'}</td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
             </div>
         );
     }

@@ -24,7 +24,9 @@ export class Menu extends React.Component<Props> {
                             </li>
                             {userAdmin && (
                                 <li>
-                                    <Link to="/users">Users</Link>
+                                    <Link to="/users" id="btUsers">
+                                        Users
+                                    </Link>
                                 </li>
                             )}
                             <li>
@@ -34,7 +36,9 @@ export class Menu extends React.Component<Props> {
                     )}
                     {userAuthorized && (
                         <li>
-                            <Link to="/logout">Выход</Link>
+                            <Link to="/logout" id="btLogout">
+                                Выход
+                            </Link>
                         </li>
                     )}
                 </ul>
