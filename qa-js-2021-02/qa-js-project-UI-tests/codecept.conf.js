@@ -20,7 +20,11 @@ exports.config = {
     currentPage: './pages/current.js',
   },
   bootstrap: null,
-  mocha: {},
+  mocha: {
+    reporterOptions: {
+      reportDir: 'output'
+    }
+  },
   name: 'qa-js-project-UI-tests',
   plugins: {
     pauseOnFail: {},

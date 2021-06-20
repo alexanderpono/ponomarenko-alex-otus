@@ -47,7 +47,7 @@ describe('validateGetUsersAnswer()', () => {
     it('returns ok if input.users[0] ok', () => {
         const input: GetUsersAnswer = {
             success: true,
-            users: [{ id: faker.random.number(), name: faker.random.word() }]
+            users: [{ id: faker.datatype.number(), name: faker.random.word() }]
         };
 
         expect(validateGetUsersAnswer(input)).toEqual({
@@ -58,7 +58,7 @@ describe('validateGetUsersAnswer()', () => {
     it('returns error "Field required" if input.users[0] has no name', () => {
         const input: GetUsersAnswer = {
             success: true,
-            users: [{ id: faker.random.number(), name: 'ss' }]
+            users: [{ id: faker.datatype.number(), name: 'ss' }]
         };
         delete input.users[0].name;
 
@@ -142,7 +142,7 @@ describe('validateLoginAnswer()', () => {
     it('returns error "Invalid data type" if LoginAnswer.role is not a string', () => {
         const input = {
             success: true,
-            role: faker.random.number()
+            role: faker.datatype.number()
         };
 
         expect(validateLoginAnswer((input as unknown) as LoginAnswer)).toEqual({
