@@ -29,6 +29,14 @@ $ npm run apidev
 API должна быть доступна по адресу
 http://localhost:3000/
 
+7. запустить UI
+```
+$ npm run uidev
+```
+UI должен быть доступен по адресу
+http://localhost:8888/
+
+
 
 Запуск тестов
 ```
