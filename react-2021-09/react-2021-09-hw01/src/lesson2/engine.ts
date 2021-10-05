@@ -1,34 +1,43 @@
 import { ParsedLineType } from "./parser";
-import { isNumber } from "./helpers";
+import { isNumber, isUnaryOperator, isBinaryOperator } from "./helpers";
 import {
-    mathOperators,
     mathPriorities,
     mathOperatorsPriorities,
+    unaryMathOperators,
+    binaryMathOperators,
 } from "./mathOperators";
 
 const [FIRST, SECOND] = mathPriorities;
 
-export const firstPrioritiesCalc = (stack: ParsedLineType): ParsedLineType =>
-    stack.reduce<ParsedLineType>((result, nextItem) => {
+export const firstPrioritiesCalc = (stack: ParsedLineType): ParsedLineType => {
+    const res = stack.reduce<ParsedLineType>((result, nextItem) => {
         const prevItem = result[result.length - 2];
         const item = result[result.length - 1];
 
         if (
-            !isNumber(String(item)) &&
+            isUnaryOperator(String(nextItem)) &&
+            mathOperatorsPriorities[nextItem] === FIRST
+        ) {
+            result = [
+                ...result.slice(0, -1),
+                unaryMathOperators[nextItem](Number(item)),
+            ];
+        } else if (
+            isBinaryOperator(String(item)) &&
             mathOperatorsPriorities[item] === FIRST
         ) {
-            if (!mathOperators[item]) {
-                throw new TypeError("Unexpected stack!");
-            }
             result = [
                 ...result.slice(0, -2),
-                mathOperators[item](Number(prevItem), Number(nextItem)),
+                binaryMathOperators[item](Number(prevItem), Number(nextItem)),
             ];
         } else {
             result.push(nextItem);
         }
         return result;
     }, []);
+
+    return res;
+};
 
 export const secondPrioritiesCalc = (stack: ParsedLineType): number =>
     stack.reduce<number>((result, nextItem, key) => {
@@ -42,7 +51,10 @@ export const secondPrioritiesCalc = (stack: ParsedLineType): number =>
             !isNumber(String(item)) &&
             mathOperatorsPriorities[item] === SECOND
         ) {
-            result = mathOperators[item](Number(result), Number(nextItem));
+            result = binaryMathOperators[item](
+                Number(result),
+                Number(nextItem)
+            );
         }
         return result;
     }, Number(stack[0]));

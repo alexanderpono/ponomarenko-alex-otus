@@ -1,5 +1,4 @@
-import { isNumber } from "./helpers";
-import { mathOperators } from "./mathOperators";
+import { isNumber, isUnaryOperator, isBinaryOperator } from "./helpers";
 
 export type ParsedLineType = (number | string)[];
 
@@ -10,10 +9,15 @@ export const parser = (line: string): ParsedLineType | null => {
         const prevItem = stack[key - 1];
 
         const isValidNumberPush = !isNumber(prevItem) && isNumber(item);
-        const isValidOperatorPush =
+        const operatorAfterNumber =
             isNumber(prevItem) &&
-            !isNumber(item) &&
-            mathOperators.hasOwnProperty(item);
+            (isBinaryOperator(item) || isUnaryOperator(item));
+
+        const binaryOperatorAfterUnary =
+            isUnaryOperator(prevItem) && isBinaryOperator(item);
+
+        const isValidOperatorPush =
+            operatorAfterNumber || binaryOperatorAfterUnary;
 
         if (isValidNumberPush) {
             result.push(Number(item));

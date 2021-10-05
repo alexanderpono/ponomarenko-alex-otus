@@ -12,6 +12,14 @@ describe("firstPrioritiesCalc simple cases", () => {
     it("[32, + 32]", () => {
         expect(firstPrioritiesCalc([32, "+", 32])).toEqual([32, "+", 32]);
     });
+
+    it("[5, **]", () => {
+        expect(firstPrioritiesCalc([5, "**"])).toEqual([25]);
+    });
+
+    it("[4, !]", () => {
+        expect(firstPrioritiesCalc([4, "!"])).toEqual([24]);
+    });
 });
 
 describe("firstPrioritiesCalc mixed with second priorities cases", () => {
