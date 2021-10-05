@@ -84,6 +84,22 @@ export const lineToReversePolish = (line: string): ParsedLineType => {
             stack.push(item);
         }
 
+        if (item === "(") {
+            stack.push(item);
+        }
+
+        if (item === ")") {
+            while (stack.length > 0) {
+                const stackTop: string = stack[stack.length - 1];
+                if (stackTop === "(") {
+                    stack.pop();
+                    break;
+                } else {
+                    result.push(String(stack.pop()));
+                }
+            }
+        }
+
         if (key === inputLine.length - 1) {
             stack.reverse().forEach((item2) => {
                 result.push(String(item2));
