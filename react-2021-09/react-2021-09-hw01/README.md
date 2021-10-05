@@ -1,6 +1,4 @@
-# Домашнее задание 1
-
-<h2>Webpack + babel + typescript базовая настройка. Консольный калькулятор</h2>
+# Домашнее задание 1. Webpack + babel + typescript базовая настройка. Консольный калькулятор
 
 Цель:
 
@@ -92,3 +90,28 @@ https://github.com/nickovchinnikov/react-js-tutorial/pull/3
 Для очень усердных предлагаю включить поддержку Reverse Polish notation
 Доп информация о том, как это должно работать: https://en.wikipedia.org/wiki/Reverse_Polish_notation
 Это задание для тех, кто справился с предыдущими!
+
+# Решение д/з
+
+В качестве исходного шаблона для решения задачи взято содержимое папка /src/lesson2 из ветки https://github.com/nickovchinnikov/react-js-tutorial/tree/nick/lesson2
+
+В рамках д/з реализовано:
+1. Добавлена поддержка математических операций **, ^, !
+2. Добавлена внутренняя структура данных для хранения структуры математического выражения - обратная польская нотация.
+3. Добавлена поддержка круглых скобок для управления приоритетом операций в математическом выражении.
+
+Для запуска:
+```
+git clone https://github.com/alexanderpono/ponomarenko-alex-otus/
+cd ponomarenko-alex-otus
+git checkout react-hw1
+cd react-2021-09/react-2021-09-hw01/
+npm i
+npm run calc
+
+```
+Варианты примеров:
+```
+20 - 10 * 10 / 5 - 3 ! + 2 ** + 4 ^ 1
+( 2 + 3 ) * 5 + ( 7 ** + 9 ) ^ 2 + 4 !
+```
