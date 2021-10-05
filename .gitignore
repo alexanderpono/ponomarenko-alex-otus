@@ -5,4 +5,7 @@ bundle.js
 coverage
 *.txt
 output
-
+node-hw4
+node-hw4-bkp
+node-hw4-ts-try
+node-hw4-UI-tests
