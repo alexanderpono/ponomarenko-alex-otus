@@ -1,4 +1,4 @@
-import { parser } from "./parser";
+import { parser, lineToReversePolish } from "./parser";
 
 describe("Parser correct cases", () => {
     it("1 + 32", () => {
@@ -63,5 +63,45 @@ describe("Parser invalid cases", () => {
         expect(() => parser("1 q 33 - 2")).toThrow(
             TypeError("Unexpected string")
         );
+    });
+});
+
+describe("Reverse polish correct cases", () => {
+    it("should convert 2 into 2", () => {
+        expect(lineToReversePolish("2")).toEqual([2]);
+    });
+
+    it("should convert 2 + 3 into 2 3 +", () => {
+        expect(lineToReversePolish("2 + 3")).toEqual([2, 3, "+"]);
+    });
+
+    it("should convert 2 + 3 * 4 into 2 3 4 * +", () => {
+        expect(lineToReversePolish("2 + 3 * 4")).toEqual([2, 3, 4, "*", "+"]);
+    });
+
+    it("should convert 2 + 3 * 4 - 5 into 2 3 4 * + 5 -", () => {
+        expect(lineToReversePolish("2 + 3 * 4 - 5")).toEqual([
+            2,
+            3,
+            4,
+            "*",
+            "+",
+            5,
+            "-",
+        ]);
+    });
+
+    it("should convert 2 ** into 2 **", () => {
+        expect(lineToReversePolish("2 **")).toEqual([2, "**"]);
+    });
+});
+
+describe("Reverse polish wrong cases", () => {
+    it("should convert 2 3 into 2 3", () => {
+        expect(lineToReversePolish("2 3")).toEqual([2, 3]);
+    });
+
+    it("should convert 2 + 3 + into 2 3 + +", () => {
+        expect(lineToReversePolish("2 + 3 +")).toEqual([2, 3, "+", "+"]);
     });
 });
