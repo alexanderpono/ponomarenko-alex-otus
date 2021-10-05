@@ -51,17 +51,3 @@ export const unaryMathOperators: { [key: string]: UnaryScalarOperationType } = {
     "**": sqr,
     "!": fact,
 };
-
-export const mathPriorities: number[] = [1, 2];
-
-const [FIRST, SECOND] = mathPriorities;
-
-export const mathOperatorsPriorities: { [key: string]: number } = {
-    "*": FIRST,
-    "/": FIRST,
-    "+": SECOND,
-    "-": SECOND,
-    "**": FIRST,
-    "^": FIRST,
-    "!": FIRST,
-};
