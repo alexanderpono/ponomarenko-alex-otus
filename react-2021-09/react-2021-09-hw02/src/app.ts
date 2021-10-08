@@ -1,6 +1,4 @@
-function sum(a: number, b: number): number {
-    return a + b;
-}
+import { sum } from "./sum";
 
 function main(): void {
     console.log('app.js!!');
