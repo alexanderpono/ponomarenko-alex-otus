@@ -1,4 +1,7 @@
 import React from 'react';
+import { AppFC } from '../AppFC';
+import { AppStateView } from '../AppStateView';
+import { FieldSize } from '../FieldSize';
 import { appReducer, AppState, defaultAppState, fieldSize } from './appReducer';
 
 interface AppProps {}
@@ -25,12 +28,13 @@ export class AppStateController extends React.Component<AppProps, AppState> {
     render() {
         return (
             <div>
-                {this.props.children}
-                <p>fieldWidth={this.state.fieldWidth}</p>
-                <p>fieldHeight={this.state.fieldHeight}</p>
-                <button onClick={this.setSmall}>small 10x10</button>
-                <button onClick={this.setMedium}>medium 20x20</button>
-                <button onClick={this.setLarge}>large 30x30</button>
+                <AppFC />
+                <AppStateView appState={this.state} />
+                <FieldSize
+                    setSmall={this.setSmall}
+                    setMedium={this.setMedium}
+                    setLarge={this.setLarge}
+                />
             </div>
         );
     }

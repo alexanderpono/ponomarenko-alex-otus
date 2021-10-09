@@ -5,9 +5,4 @@ import { AppFC, AppStateController } from './components';
 
 console.log('2 + 3=', sum(2, 3));
 
-render(
-    <AppStateController>
-        <AppFC />
-    </AppStateController>,
-    document.getElementById('app-target')
-);
+render(<AppStateController />, document.getElementById('app-target'));
