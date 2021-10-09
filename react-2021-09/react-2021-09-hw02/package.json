@@ -5,13 +5,17 @@
   "main": "src/app.ts",
   "scripts": {
     "test": "jest",
+    "test:loki": "npm run build-storybook && npx loki --requireReference --reactUri file:./storybook-static",
     "start": "ts-node src/app.ts",
     "build": "webpack",
     "lint": "npx eslint src/*.*",
     "lint:fix": "npx eslint --ext .js,.ts --fix src/",
     "dev": "webpack-dev-server --mode development",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "loki:update": "npm run build-storybook && npx loki update --requireReference --reactUri file:./storybook-static",
+    "loki:approve": "npx loki approve",
+    "check": "npm run lint && npm test && npm run test:loki"
   },
   "keywords": [],
   "author": "Alexander Ponomarenko",
@@ -37,6 +41,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "html-webpack-plugin": "^4.0.3",
     "jest": "^27.2.5",
+    "loki": "^0.28.1",
     "prettier": "^2.4.1",
     "ts-node": "^10.2.1",
     "typescript": "^4.4.3",
@@ -47,5 +52,20 @@
   "dependencies": {
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
+  },
+  "loki": {
+    "configurations": {
+      "chrome.laptop": {
+        "target": "chrome.docker",
+        "width": 1366,
+        "height": 768,
+        "deviceScaleFactor": 1,
+        "mobile": false
+      },
+      "chrome.iphone7": {
+        "target": "chrome.docker",
+        "preset": "iPhone 7"
+      }
+    }
   }
 }
