@@ -9,9 +9,9 @@ module.exports = {
         }),
     ],
     resolve: {
-        extensions: ['.js', '.ts']
+        extensions: ['.js', '.ts', '.tsx']
     },
-    entry: './src/app.ts',
+    entry: './src/app.tsx',
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'public')
@@ -23,7 +23,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(ts)$/,
+                test: /\.(ts|tsx)$/,
                 exclude: /(node_modules)/,
                 use: {
                     loader: "babel-loader"
@@ -31,4 +31,4 @@ module.exports = {
             },
         ]
     }
-}
+};
