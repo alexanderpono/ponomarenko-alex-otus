@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpackRules = require('./webpack.rules');
 
 module.exports = {
     mode: 'development',
@@ -22,13 +23,7 @@ module.exports = {
     },
     module: {
         rules: [
-            {
-                test: /\.(ts|tsx)$/,
-                exclude: /(node_modules)/,
-                use: {
-                    loader: "babel-loader"
-                }
-            },
+            ...webpackRules,
         ]
     }
 };

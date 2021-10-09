@@ -1,7 +1,8 @@
 import { sum } from './sum';
 import React from 'react';
 import { render } from 'react-dom';
+import { AppFC } from './components';
 
 console.log('2 + 3=', sum(2, 3));
 
-render(<h1>React here!</h1>, document.getElementById('app-target'));
+render(<AppFC />, document.getElementById('app-target'));
