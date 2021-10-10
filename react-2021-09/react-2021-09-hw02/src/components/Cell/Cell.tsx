@@ -33,35 +33,20 @@ const styles = {
 export interface CellProps {
     num: number;
     showContent: boolean;
-    onClick?: Function;
+    caption: string;
+    onClick: (num: number) => void;
 }
 
-export interface CellState {
-    showContent: boolean;
-}
+export const Cell: React.FC<CellProps> = (props: CellProps) => {
+    const onClick = () => {
+        props.onClick(props.num);
+    };
 
-export class Cell extends React.Component<CellProps, CellState> {
-    constructor(props: CellProps) {
-        super(props);
-        this.onClick = this.onClick.bind(this);
-        this.state = { showContent: this.props.showContent === true };
-    }
-
-    onClick() {
-        const triggeredState = !this.state.showContent;
-        this.setState((prevState) => ({ ...prevState, showContent: triggeredState }));
-        if (typeof this.props.onClick === 'function') {
-            this.props.onClick(this.props.num, triggeredState);
-        }
-    }
-
-    render() {
-        return (
-            <article onClick={this.onClick} css={styles.container}>
-                <span className={cn({ show: this.state.showContent })} css={styles.content}>
-                    {this.props.num}
-                </span>
-            </article>
-        );
-    }
-}
+    return (
+        <article onClick={onClick} css={styles.container}>
+            <span className={cn({ show: props.showContent })} css={styles.content}>
+                {props.caption}
+            </span>
+        </article>
+    );
+};

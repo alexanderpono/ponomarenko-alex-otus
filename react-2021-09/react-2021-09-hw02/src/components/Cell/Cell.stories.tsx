@@ -1,24 +1,38 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
 import { Cell } from './Cell';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { withKnobs, number, boolean, text } from '@storybook/addon-knobs';
 
 export default {
     title: 'Cell',
     component: Cell,
-} as ComponentMeta<typeof Cell>;
-const Template: ComponentStory<typeof Cell> = (args) => <Cell {...args} />;
-
-export const Run = Template.bind({});
-Run.args = {
-    num: 5,
-    showContent: false,
-    onClick: action('clicked'),
+    decorators: [withKnobs],
 };
 
-export const Show = Template.bind({});
-Show.args = {
-    num: 4,
-    showContent: true,
-    onClick: action('clicked'),
+export const CellStatic = () => {
+    return (
+        <Cell
+            num={number('num', 3)}
+            showContent={boolean('showContent', true)}
+            onClick={action('clicked')}
+            caption={text('caption', 'cc')}
+        />
+    );
+};
+
+export const CellDynamic: React.FC<{}> = () => {
+    const [showContent, setShowContent] = React.useState(true);
+    const num = number('num', 3);
+    const onClick = (num: number) => {
+        setShowContent(!showContent);
+    };
+
+    return (
+        <Cell
+            num={num}
+            showContent={showContent}
+            onClick={onClick}
+            caption={text('caption', 'X')}
+        />
+    );
 };

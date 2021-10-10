@@ -1,20 +1,52 @@
 import React from 'react';
-import { withKnobs, number } from '@storybook/addon-knobs';
-import { GameField } from './GameField';
+import { withKnobs, number, boolean } from '@storybook/addon-knobs';
+import { CellInfo, GameField } from './GameField';
+import { CELL_DEAD, CELL_LIVE, CELL_WIDTH } from '../Cell';
 
 export default {
     title: 'GameField',
     decorators: [withKnobs],
 };
 
-export const Run = () => {
-    const width = number('Width, cells', 3);
-    const height = number('Height, cells', 3);
-    return <GameField w={width} h={height} showAll={false} />;
-};
+export const Run: React.FC<{}> = () => {
+    const START_WIDTH = 3;
+    const START_HEIGHT = 3;
+    const START_DATA: CellInfo[] = [];
 
-export const ShowAll = () => {
-    const width = number('Width, cells', 3);
-    const height = number('Height, cells', 3);
-    return <GameField w={width} h={height} showAll={true} />;
+    const width = number('Width, cells', START_WIDTH);
+    const height = number('Height, cells', START_HEIGHT);
+    const showAll = boolean('showAll', false);
+
+    const [data, setData] = React.useState(START_DATA);
+    const [widthPixels, setWidthPixels] = React.useState(START_WIDTH * CELL_WIDTH);
+
+    React.useEffect(() => {
+        const cellsNumber = width * height;
+        const startCellState = showAll ? CELL_LIVE : CELL_DEAD;
+        const newData: CellInfo[] = [];
+        for (let i = 0; i < cellsNumber; i++) {
+            newData.push({ id: String(i), visible: startCellState });
+        }
+        setData(newData);
+        setWidthPixels(width * CELL_WIDTH);
+    }, [width, height, showAll]);
+
+    const onCellClick = (num: number) => {
+        if (num < 0 || num >= data.length) {
+            return;
+        }
+
+        const newData = data.concat();
+        newData[num].visible = !newData[num].visible;
+        setData(newData);
+    };
+
+    return (
+        <GameField
+            showAll={showAll}
+            data={data}
+            onCellClick={onCellClick}
+            widthPixels={widthPixels}
+        />
+    );
 };
