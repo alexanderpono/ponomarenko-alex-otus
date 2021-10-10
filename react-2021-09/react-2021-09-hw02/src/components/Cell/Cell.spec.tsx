@@ -3,14 +3,23 @@ import { mount } from 'enzyme';
 import { Cell } from './Cell';
 import renderer from 'react-test-renderer';
 
+interface RenderResult {
+    type: string;
+    children: { type: string }[];
+}
+
 describe('Cell', () => {
     it('It renders <article> using renderer cell with value=2', () => {
-        const snapshot = renderer.create(<Cell num={2} showContent={false}></Cell>).toJSON();
+        const snapshot = renderer
+            .create(<Cell num={2} showContent={false}></Cell>)
+            .toJSON() as RenderResult;
         expect(snapshot.type).toBe('article');
     });
 
     it('It renders <article><span/></article> using renderer cell with value=2', () => {
-        const snapshot = renderer.create(<Cell num={2} showContent={false}></Cell>).toJSON();
+        const snapshot = renderer
+            .create(<Cell num={2} showContent={false}></Cell>)
+            .toJSON() as RenderResult;
         expect(snapshot.children.length).toBe(1);
         expect(snapshot.children[0].type).toBe('span');
     });
