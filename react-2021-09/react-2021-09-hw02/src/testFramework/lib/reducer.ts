@@ -24,5 +24,5 @@ export const getVal = (actions: { payload: Object }[], value: number | string) =
     return val;
 };
 
-export const num = () => faker.random.number();
+export const num = () => faker.datatype.number();
 export const str = () => faker.random.words();
