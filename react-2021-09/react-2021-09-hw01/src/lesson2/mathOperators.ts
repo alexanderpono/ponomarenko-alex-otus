@@ -23,13 +23,7 @@ export const minus: ScalarOperationType = (
 
 export const sqr: UnaryScalarOperationType = (first) => first * first;
 
-export const pwr: ScalarOperationType = (first, p) => {
-    let result = 1;
-    for (let i = 0; i < p; i++) {
-        result *= first;
-    }
-    return result;
-};
+export const pwr: ScalarOperationType = (first, p) => first ** p;
 
 export const fact: UnaryScalarOperationType = (first) => {
     let result = 1;
