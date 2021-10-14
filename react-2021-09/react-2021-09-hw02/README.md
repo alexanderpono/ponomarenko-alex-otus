@@ -62,3 +62,13 @@ https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
 4. обработчик событий
 5. снепшот тесты (loki или chromatic)
 
+
+# выполнение д/з №2
+
+В процессе выполнения д/з №2:
+1. Выполнена настройка проекта с нуля: npm init, webpack, typescript, babel, jest, eslint, prettier, react, storybook, chromatic
+2. Созданы визуальные компоненты Cell, GameField
+3. Создан компонент-контроллер состояния приложения AppStateController
+4. Компоненты добавлены в storybook
+5. Настроено снепшот-тестирование chromatic https://www.chromatic.com/builds?appId=6168a14038f17a003a388098
+6. Созданы unit-тесты для функций управления состоянием приложения и для обработчиков событий компонента Cell

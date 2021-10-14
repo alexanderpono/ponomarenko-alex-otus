@@ -1,7 +1,8 @@
 import React from 'react';
-import { CellInfo, GameField } from './GameField';
+import { GameField } from './GameField';
 import renderer from 'react-test-renderer';
 import { CELL_WIDTH } from '../Cell';
+import { CellInfo } from '../AppStateController/appReducer';
 
 interface RenderResult {
     type: string;
