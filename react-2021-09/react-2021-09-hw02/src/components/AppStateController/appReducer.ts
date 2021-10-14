@@ -1,28 +1,62 @@
 export enum AppActions {
     DEFAULT = 'DEFAULT',
     FIELD_SIZE = 'FIELD_SIZE',
+    INVERT = 'INVERT',
+}
+export const CELL_DEAD = false;
+export const CELL_LIVE = true;
+export const DEFAULT_WIDTH = 5;
+export const DEFAULT_HEIGHT = 5;
+export const DEFAULT_CELL_STATE = CELL_LIVE;
+
+export interface CellInfo {
+    id: string;
+    visible: boolean;
 }
 
 export interface AppState {
     event: AppActions;
     fieldWidth: number;
     fieldHeight: number;
+    data: CellInfo[];
+}
+
+function createData(width: number, height: number, showAll: boolean): CellInfo[] {
+    const cellsNumber = width * height;
+    const startCellState = showAll ? CELL_LIVE : CELL_DEAD;
+    const newData: CellInfo[] = [];
+    for (let i = 0; i < cellsNumber; i++) {
+        newData.push({ id: String(i), visible: startCellState });
+    }
+    return newData;
 }
 
 export const defaultAppState: AppState = {
     event: AppActions.DEFAULT,
     fieldWidth: 5,
     fieldHeight: 5,
+    data: createData(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_CELL_STATE),
 };
 
-interface AppAction {
-    type: string;
-    payload: Record<string, string | number>;
+export interface FieldSizeAction {
+    type: AppActions.FIELD_SIZE;
+    payload: { fieldWidth: number; fieldHeight: number };
 }
-export const fieldSize = (fieldWidth: number, fieldHeight: number): AppAction => ({
+export interface InvertAction {
+    type: AppActions.INVERT;
+    payload: { cellId: number };
+}
+export const fieldSize = (fieldWidth: number, fieldHeight: number): FieldSizeAction => ({
     type: AppActions.FIELD_SIZE,
     payload: { fieldWidth, fieldHeight },
 });
+
+export const invert = (cellId: number): InvertAction => ({
+    type: AppActions.INVERT,
+    payload: { cellId },
+});
+
+export type AppAction = FieldSizeAction | InvertAction;
 
 export function appReducer(state: AppState = defaultAppState, action: AppAction): AppState {
     switch (action.type) {
@@ -32,6 +66,20 @@ export function appReducer(state: AppState = defaultAppState, action: AppAction)
                 event: AppActions.FIELD_SIZE,
                 fieldWidth: Number(action.payload.fieldWidth),
                 fieldHeight: Number(action.payload.fieldHeight),
+                data: createData(
+                    Number(action.payload.fieldWidth),
+                    Number(action.payload.fieldHeight),
+                    DEFAULT_CELL_STATE
+                ),
+            };
+        }
+        case AppActions.INVERT: {
+            const newData = state.data.concat();
+            newData[action.payload.cellId].visible = !newData[action.payload.cellId].visible;
+            return {
+                ...state,
+                event: AppActions.INVERT,
+                data: newData,
             };
         }
     }

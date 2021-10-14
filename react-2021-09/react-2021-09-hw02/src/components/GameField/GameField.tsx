@@ -1,10 +1,6 @@
 import React from 'react';
+import { CellInfo } from '../AppStateController/appReducer';
 import { Cell } from '../Cell';
-
-export interface CellInfo {
-    id: string;
-    visible: boolean;
-}
 
 export interface GameFieldProps {
     showAll: boolean;

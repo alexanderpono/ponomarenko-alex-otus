@@ -1,8 +1,9 @@
 import React from 'react';
-import { AppFC } from '../AppFC';
 import { AppStateView } from '../AppStateView';
+import { CELL_WIDTH } from '../Cell';
 import { FieldSize } from '../FieldSize';
-import { appReducer, AppState, defaultAppState, fieldSize } from './appReducer';
+import { GameField } from '../GameField';
+import { appReducer, AppState, defaultAppState, fieldSize, invert } from './appReducer';
 
 interface AppProps {}
 
@@ -13,6 +14,7 @@ export class AppStateController extends React.Component<AppProps, AppState> {
         this.setSmall = this.setSmall.bind(this);
         this.setMedium = this.setMedium.bind(this);
         this.setLarge = this.setLarge.bind(this);
+        this.invert = this.invert.bind(this);
     }
 
     setSmall() {
@@ -24,16 +26,26 @@ export class AppStateController extends React.Component<AppProps, AppState> {
     setLarge() {
         this.setState(appReducer(this.state, fieldSize(30, 30)));
     }
+    invert(num: number) {
+        this.setState(appReducer(this.state, invert(num)));
+    }
 
     render() {
+        const showAll = true;
         return (
             <div>
-                <AppFC />
+                <h1>Game of life proto</h1>
                 <AppStateView appState={this.state} />
                 <FieldSize
                     setSmall={this.setSmall}
                     setMedium={this.setMedium}
                     setLarge={this.setLarge}
+                />
+                <GameField
+                    showAll={showAll}
+                    data={this.state.data}
+                    onCellClick={this.invert}
+                    widthPixels={this.state.fieldWidth * CELL_WIDTH}
                 />
             </div>
         );

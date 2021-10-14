@@ -1,5 +1,4 @@
 import React from 'react';
-import { AppFC as AFC } from './AppFC';
 import { AppStateController } from './AppStateController';
 import { AppStateView as StateView } from './AppStateView';
 import { defaultAppState } from './AppStateController/appReducer';
@@ -16,10 +15,6 @@ const Template: ComponentStory<typeof StateView> = (args) => <StateView {...args
 export const AppStateView = Template.bind({});
 AppStateView.args = {
     appState: { ...defaultAppState, fieldWidth: 555 },
-};
-
-export const Title = () => {
-    return <AFC />;
 };
 
 export const Controller = () => {
