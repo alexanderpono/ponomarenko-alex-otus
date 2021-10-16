@@ -63,7 +63,7 @@ https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
 5. снепшот тесты (loki или chromatic)
 
 
-# выполнение д/з №2
+# Выполнение д/з №2
 
 В процессе выполнения д/з №2:
 1. Выполнена настройка проекта с нуля: npm init, webpack, typescript, babel, jest, eslint, prettier, react, storybook, chromatic

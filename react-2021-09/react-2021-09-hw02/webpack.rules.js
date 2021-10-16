@@ -1,6 +1,6 @@
 module.exports = [
     {
-        test: /\.(js|ts)x?$/,
+        test: /\.(ts)x?$/,
         loader: require.resolve('babel-loader'),
         exclude: /node_modules/,
     },

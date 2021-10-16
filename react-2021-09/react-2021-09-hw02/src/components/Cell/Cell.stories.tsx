@@ -9,7 +9,7 @@ export default {
     decorators: [withKnobs],
 };
 
-export const CellStatic = () => {
+export const Static = () => {
     return (
         <Cell
             num={number('num', 3)}
@@ -20,7 +20,7 @@ export const CellStatic = () => {
     );
 };
 
-export const CellDynamic: React.FC<{}> = () => {
+export const Dynamic: React.FC<{}> = () => {
     const [showContent, setShowContent] = React.useState(true);
     const num = number('num', 3);
     const onClick = (num: number) => {

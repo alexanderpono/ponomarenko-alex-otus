@@ -9,7 +9,7 @@ export default {
     decorators: [withKnobs],
 };
 
-export const Run: React.FC<{}> = () => {
+export const Dynamic: React.FC<{}> = () => {
     const START_WIDTH = 3;
     const START_HEIGHT = 3;
     const START_DATA: CellInfo[] = [];

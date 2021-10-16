@@ -5,30 +5,24 @@ import { FieldSize } from '../FieldSize';
 import { GameField } from '../GameField';
 import { appReducer, AppState, defaultAppState, fieldSize, invert } from './appReducer';
 
-interface AppProps {}
+export class AppStateController extends React.Component<{}, AppState> {
+    state = defaultAppState;
 
-export class AppStateController extends React.Component<AppProps, AppState> {
-    constructor(props: AppProps) {
-        super(props);
-        this.state = defaultAppState;
-        this.setSmall = this.setSmall.bind(this);
-        this.setMedium = this.setMedium.bind(this);
-        this.setLarge = this.setLarge.bind(this);
-        this.invert = this.invert.bind(this);
-    }
-
-    setSmall() {
+    setSmall = () => {
         this.setState(appReducer(this.state, fieldSize(10, 10)));
-    }
-    setMedium() {
+    };
+
+    setMedium = () => {
         this.setState(appReducer(this.state, fieldSize(20, 20)));
-    }
-    setLarge() {
+    };
+
+    setLarge = () => {
         this.setState(appReducer(this.state, fieldSize(30, 30)));
-    }
-    invert(num: number) {
+    };
+
+    invert = (num: number) => {
         this.setState(appReducer(this.state, invert(num)));
-    }
+    };
 
     render() {
         const showAll = true;
