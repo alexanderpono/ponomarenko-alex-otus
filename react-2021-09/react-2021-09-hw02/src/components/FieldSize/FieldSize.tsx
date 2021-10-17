@@ -1,24 +1,22 @@
 import React from 'react';
+import { LARGE_SIZE_CAPTION, MIDDLE_SIZE_CAPTION, SMALL_SIZE_CAPTION } from '../../consts';
 
 interface FieldSizeProps {
     setSmall: () => void;
     setMedium: () => void;
     setLarge: () => void;
 }
-export const FieldSize: React.FC<FieldSizeProps> = (props: FieldSizeProps) => {
-    const setSmall = () => props.setSmall();
-    const setMedium = () => props.setMedium();
-    const setLarge = () => props.setLarge();
+export const FieldSize: React.FC<FieldSizeProps> = ({ setSmall, setMedium, setLarge }) => {
     return (
         <>
             <button id="btSmall" onClick={setSmall}>
-                small 10x10
+                small {SMALL_SIZE_CAPTION}
             </button>
             <button id="btMedium" onClick={setMedium}>
-                medium 20x20
+                medium {MIDDLE_SIZE_CAPTION}
             </button>
             <button id="btLarge" onClick={setLarge}>
-                large 30x30
+                large {LARGE_SIZE_CAPTION}
             </button>
         </>
     );
