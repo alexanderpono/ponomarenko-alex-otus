@@ -6,7 +6,7 @@ module.exports = {
     mode: 'development',
     plugins: [
         new HtmlWebpackPlugin({
-            template: "./public/index.html"
+            template: "./assets/index.html"
         }),
     ],
     resolve: {
