@@ -7,8 +7,14 @@ interface AppStateViewProps {
 export const AppStateView: React.FC<AppStateViewProps> = (props: AppStateViewProps) => {
     return (
         <>
-            <p>fieldWidth={props.appState.fieldWidth}</p>
-            <p>fieldHeight={props.appState.fieldHeight}</p>
+            <article className="fieldWidth">
+                <span className="label">fieldWidth=</span>
+                <span className="value">{props.appState.fieldWidth}</span>
+            </article>
+            <article className="fieldHeight">
+                <span className="label">fieldWidth=</span>
+                <span className="value">{props.appState.fieldHeight}</span>
+            </article>
         </>
     );
 };

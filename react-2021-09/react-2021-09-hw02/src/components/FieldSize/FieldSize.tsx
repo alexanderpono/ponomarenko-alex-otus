@@ -11,9 +11,15 @@ export const FieldSize: React.FC<FieldSizeProps> = (props: FieldSizeProps) => {
     const setLarge = () => props.setLarge();
     return (
         <>
-            <button onClick={setSmall}>small 10x10</button>
-            <button onClick={setMedium}>medium 20x20</button>
-            <button onClick={setLarge}>large 30x30</button>
+            <button id="btSmall" onClick={setSmall}>
+                small 10x10
+            </button>
+            <button id="btMedium" onClick={setMedium}>
+                medium 20x20
+            </button>
+            <button id="btLarge" onClick={setLarge}>
+                large 30x30
+            </button>
         </>
     );
 };
