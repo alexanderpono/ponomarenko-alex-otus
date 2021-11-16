@@ -1,4 +1,3 @@
-import { render } from '@testing-library/react';
 import React from 'react';
 import { AppActions, CellInfo } from '../AppStateController/appReducer';
 import { Cell } from '../Cell';
@@ -18,7 +17,7 @@ export class GameField extends React.Component<GameFieldProps> {
 
     render() {
         return (
-            <section style={{ width: this.props.widthPixels }}>
+            <section style={{ width: this.props.widthPixels }} role="grid">
                 {this.props.data.map((item: CellInfo) => {
                     return (
                         <Cell

@@ -39,3 +39,41 @@
 4. Для оптимизации производительности - в компонент GameField добавлен метод shouldComponentUpdate(), который возвращает true, если обновлялся размер игрового поля или менялось состояние како-нибудь ячейки.
 
 5. В компонент AppStateController добавлен метод componentDidUpdate(), в котором при опеределенном условии обновляется state компонента AppStateController
+
+6. Создан метод AppStateController.componentWillUnmout(), в котором реализована отписка от события mousemove, а также - отмена промиса запроса к удаленному серверу
+
+7. Дополнены тесты и сторибук.
+Покрытие тестами на данный момент:
+-----------------------------------|---------|----------|---------|---------|-------------------
+File                               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-----------------------------------|---------|----------|---------|---------|-------------------
+All files                          |   97.27 |       75 |   97.37 |   96.97 |                   
+ src                               |     100 |      100 |     100 |     100 |                   
+  consts.ts                        |     100 |      100 |     100 |     100 |                   
+ src/components/AppStateController |   95.65 |    58.33 |   96.15 |      95 |                   
+  AppStateController.tsx           |   92.68 |     37.5 |      95 |   91.89 | 26,92,116         
+  appReducer.ts                    |     100 |      100 |     100 |     100 |                   
+ src/components/AppStateView       |     100 |      100 |     100 |     100 |                   
+  AppStateView.tsx                 |     100 |      100 |     100 |     100 |                   
+ src/components/Cell               |     100 |      100 |     100 |     100 |                   
+  Cell.tsx                         |     100 |      100 |     100 |     100 |                   
+ src/components/FieldSize          |     100 |      100 |     100 |     100 |                   
+  FieldSize.tsx                    |     100 |      100 |     100 |     100 |                   
+ src/components/GameField          |     100 |      100 |     100 |     100 |                   
+  GameField.tsx                    |     100 |      100 |     100 |     100 |                   
+ src/testFramework/lib             |     100 |      100 |     100 |     100 |                   
+  reducer.ts                       |     100 |      100 |     100 |     100 |                   
+-----------------------------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 7 passed, 7 total
+Tests:       25 passed, 25 total
+Snapshots:   0 total
+Time:        4.825 s
+Ran all test suites.
+
+
+Текущая версия сторибук в chromatic:
+https://6168a14038f17a003a388098-fbripsbzsk.chromatic.com/?path=/story/appstatecontroller--game
+
+Тесты в chromatic:
+https://www.chromatic.com/build?appId=6168a14038f17a003a388098&number=5

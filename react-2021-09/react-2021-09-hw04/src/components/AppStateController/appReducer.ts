@@ -31,9 +31,9 @@ export interface AppState {
     mouse: MousePos;
 }
 
-function createData(width: number, height: number, showAll: boolean): CellInfo[] {
+function createData(width: number, height: number): CellInfo[] {
     const cellsNumber = width * height;
-    const startCellState = showAll ? CELL_LIVE : CELL_DEAD;
+    const startCellState = DEFAULT_CELL_STATE;
     const newData: CellInfo[] = [];
     for (let i = 0; i < cellsNumber; i++) {
         newData.push({ id: String(i), visible: startCellState });
@@ -45,7 +45,7 @@ export const defaultAppState: AppState = {
     event: AppActions.DEFAULT,
     fieldWidth: 5,
     fieldHeight: 5,
-    data: createData(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_CELL_STATE),
+    data: createData(DEFAULT_WIDTH, DEFAULT_HEIGHT),
     dataFromBack: {},
     mouse: { x: 0, y: 0 },
 };
@@ -91,7 +91,7 @@ export const mouse = (mouse: MousePos): MouseAction => ({
 
 export type AppAction = FieldSizeAction | InvertAction | DataFromBackAction | MouseAction;
 
-export function appReducer(state: AppState = defaultAppState, action: AppAction): AppState {
+export function appReducer(state: AppState, action: AppAction): AppState {
     switch (action.type) {
         case AppActions.FIELD_SIZE: {
             return {
@@ -101,8 +101,7 @@ export function appReducer(state: AppState = defaultAppState, action: AppAction)
                 fieldHeight: Number(action.payload.fieldHeight),
                 data: createData(
                     Number(action.payload.fieldWidth),
-                    Number(action.payload.fieldHeight),
-                    DEFAULT_CELL_STATE
+                    Number(action.payload.fieldHeight)
                 ),
             };
         }
@@ -130,5 +129,4 @@ export function appReducer(state: AppState = defaultAppState, action: AppAction)
             };
         }
     }
-    return state;
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import { withKnobs, number, boolean } from '@storybook/addon-knobs';
 import { GameField } from './GameField';
 import { CELL_WIDTH } from '../Cell';
-import { CellInfo, CELL_DEAD, CELL_LIVE } from '../AppStateController/appReducer';
+import { AppActions, CellInfo, CELL_DEAD, CELL_LIVE } from '../AppStateController/appReducer';
 
 export default {
     title: 'GameField',
@@ -48,6 +48,7 @@ export const Dynamic: React.FC<{}> = () => {
             data={data}
             onCellClick={onCellClick}
             widthPixels={widthPixels}
+            actionId={AppActions.INVERT}
         />
     );
 };

@@ -6,13 +6,9 @@ export const getFromState = (state: Record<string, any>, selector: string): stri
     }
     const selectorAr = selector.split('.');
     const lastSelectorItem = selectorAr.concat().pop() as string;
-    if (selectorAr.length === 1) {
-        return state[selector] as string;
-    } else {
-        const domainName = selectorAr[0];
-        const stateDomain = state[domainName] as Record<string, string>;
-        return stateDomain[lastSelectorItem];
-    }
+    const domainName = selectorAr[0];
+    const stateDomain = state[domainName] as Record<string, string>;
+    return stateDomain[lastSelectorItem];
 };
 
 export const getVal = (

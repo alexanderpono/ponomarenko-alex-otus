@@ -14,13 +14,38 @@ import {
     mouse,
 } from './appReducer';
 
+type CancelablePromise = { promise: Promise<any>; cancel: () => void };
+
+//makeCancelable() defined by @istarkov
+const makeCancelable = (promise: Promise<any>): CancelablePromise => {
+    let hasCanceled_ = false;
+
+    const wrappedPromise = new Promise((resolve, reject) => {
+        promise.then(
+            (val) => (hasCanceled_ ? reject({ isCanceled: true }) : resolve(val)),
+            (error) => (hasCanceled_ ? reject({ isCanceled: true }) : reject(error))
+        );
+    });
+
+    return {
+        promise: wrappedPromise,
+        cancel() {
+            hasCanceled_ = true;
+        },
+    };
+};
+
 export class AppStateController extends React.Component<{}, AppState> {
     state: AppState;
+    _isMounted: boolean;
+    _cancelablePromise: CancelablePromise | null;
 
     constructor(props: {}) {
         super(props);
         this.state = defaultAppState;
         this.invert = this.invert.bind(this);
+        this._isMounted = false;
+        this._cancelablePromise = null;
     }
 
     private setSize = (len: number) => this.setState(appReducer(this.state, fieldSize(len, len)));
@@ -57,14 +82,31 @@ export class AppStateController extends React.Component<{}, AppState> {
     }
 
     componentDidMount() {
-        fetch('https://jsonplaceholder.typicode.com/todos/1')
-            .then((response) => response.json())
-            .then((json) => this.setState(appReducer(this.state, dataFromBack(json))));
+        this._isMounted = true;
+
+        this._cancelablePromise = makeCancelable(
+            fetch('https://jsonplaceholder.typicode.com/todos/1')
+                .then((response) => response.json())
+                .then((json) => {
+                    if (this._isMounted) {
+                        this.setState(appReducer(this.state, dataFromBack(json)));
+                    }
+                })
+                .catch((e) => {
+                    console.log('exception e=', JSON.stringify(e));
+                })
+        );
+
+        this._cancelablePromise.promise.catch((e) => {
+            console.log('exception2 e=', JSON.stringify(e));
+        });
 
         document.addEventListener('mousemove', this.onMouseMove);
     }
 
-    componentWillUnmout() {
+    componentWillUnmount() {
+        this._isMounted = false;
+        this._cancelablePromise?.cancel();
         document.removeEventListener('mousemove', this.onMouseMove);
     }
 
