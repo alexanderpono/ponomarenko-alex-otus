@@ -67,4 +67,11 @@ export class AppStateController extends React.Component<{}, AppState> {
     componentWillUnmout() {
         document.removeEventListener('mousemove', this.onMouseMove);
     }
+
+    componentDidUpdate(_: any, prevState: AppState) {
+        const maxX = 200;
+        if (prevState.mouse.x > maxX) {
+            this.setState(appReducer(prevState, mouse({ x: maxX, y: prevState.mouse.y })));
+        }
+    }
 }
