@@ -15,6 +15,16 @@ export const AppStateView: React.FC<AppStateViewProps> = (props: AppStateViewPro
                 <span className="label">fieldWidth=</span>
                 <span className="value">{props.appState.fieldHeight}</span>
             </article>
+            <article className="dataFromBack">
+                <span className="label">dataFromBack=</span>
+                <span className="value">{JSON.stringify(props.appState.dataFromBack)}</span>
+            </article>
+            <article className="mouse">
+                <span className="label">mouse=</span>
+                <span className="value">
+                    ({props.appState.mouse.x},{props.appState.mouse.y})
+                </span>
+            </article>
         </>
     );
 };

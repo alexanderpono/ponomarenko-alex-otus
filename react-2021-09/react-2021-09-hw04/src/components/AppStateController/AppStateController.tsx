@@ -4,7 +4,15 @@ import { AppStateView } from '../AppStateView';
 import { CELL_WIDTH } from '../Cell';
 import { FieldSize } from '../FieldSize';
 import { GameField } from '../GameField';
-import { appReducer, AppState, defaultAppState, fieldSize, invert } from './appReducer';
+import {
+    appReducer,
+    AppState,
+    dataFromBack,
+    defaultAppState,
+    fieldSize,
+    invert,
+    mouse,
+} from './appReducer';
 
 export class AppStateController extends React.Component<{}, AppState> {
     state: AppState;
@@ -22,6 +30,9 @@ export class AppStateController extends React.Component<{}, AppState> {
     private invert(num: number) {
         this.setState(appReducer(this.state, invert(num)));
     }
+    private onMouseMove = (event: MouseEvent) => {
+        this.setState(appReducer(this.state, mouse({ x: event.clientX, y: event.clientY })));
+    };
 
     render() {
         const showAll = true;
@@ -42,5 +53,17 @@ export class AppStateController extends React.Component<{}, AppState> {
                 />
             </div>
         );
+    }
+
+    componentDidMount() {
+        fetch('https://jsonplaceholder.typicode.com/todos/1')
+            .then((response) => response.json())
+            .then((json) => this.setState(appReducer(this.state, dataFromBack(json))));
+
+        document.addEventListener('mousemove', this.onMouseMove);
+    }
+
+    componentWillUnmout() {
+        document.removeEventListener('mousemove', this.onMouseMove);
     }
 }

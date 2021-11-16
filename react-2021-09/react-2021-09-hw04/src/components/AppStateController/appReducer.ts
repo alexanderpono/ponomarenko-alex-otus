@@ -2,6 +2,8 @@ export enum AppActions {
     DEFAULT = 'DEFAULT',
     FIELD_SIZE = 'FIELD_SIZE',
     INVERT = 'INVERT',
+    DATA_FROM_BACK = 'DATA_FROM_BACK',
+    MOUSE = 'MOUSE',
 }
 export const CELL_DEAD = false;
 export const CELL_LIVE = true;
@@ -14,11 +16,19 @@ export interface CellInfo {
     visible: boolean;
 }
 
+type DataFromBack = Record<string, any>;
+export interface MousePos {
+    x: number;
+    y: number;
+}
+
 export interface AppState {
     event: AppActions;
     fieldWidth: number;
     fieldHeight: number;
     data: CellInfo[];
+    dataFromBack: DataFromBack;
+    mouse: MousePos;
 }
 
 function createData(width: number, height: number, showAll: boolean): CellInfo[] {
@@ -36,6 +46,8 @@ export const defaultAppState: AppState = {
     fieldWidth: 5,
     fieldHeight: 5,
     data: createData(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_CELL_STATE),
+    dataFromBack: {},
+    mouse: { x: 0, y: 0 },
 };
 
 export interface FieldSizeAction {
@@ -46,6 +58,17 @@ export interface InvertAction {
     type: AppActions.INVERT;
     payload: { cellId: number };
 }
+
+export interface DataFromBackAction {
+    type: AppActions.DATA_FROM_BACK;
+    payload: { data: DataFromBack };
+}
+
+export interface MouseAction {
+    type: AppActions.MOUSE;
+    payload: { mouse: MousePos };
+}
+
 export const fieldSize = (fieldWidth: number, fieldHeight: number): FieldSizeAction => ({
     type: AppActions.FIELD_SIZE,
     payload: { fieldWidth, fieldHeight },
@@ -56,7 +79,17 @@ export const invert = (cellId: number): InvertAction => ({
     payload: { cellId },
 });
 
-export type AppAction = FieldSizeAction | InvertAction;
+export const dataFromBack = (data: DataFromBack): DataFromBackAction => ({
+    type: AppActions.DATA_FROM_BACK,
+    payload: { data },
+});
+
+export const mouse = (mouse: MousePos): MouseAction => ({
+    type: AppActions.MOUSE,
+    payload: { mouse },
+});
+
+export type AppAction = FieldSizeAction | InvertAction | DataFromBackAction | MouseAction;
 
 export function appReducer(state: AppState = defaultAppState, action: AppAction): AppState {
     switch (action.type) {
@@ -80,6 +113,20 @@ export function appReducer(state: AppState = defaultAppState, action: AppAction)
                 ...state,
                 event: AppActions.INVERT,
                 data: newData,
+            };
+        }
+        case AppActions.DATA_FROM_BACK: {
+            return {
+                ...state,
+                event: AppActions.DATA_FROM_BACK,
+                dataFromBack: action.payload.data,
+            };
+        }
+        case AppActions.MOUSE: {
+            return {
+                ...state,
+                event: AppActions.MOUSE,
+                mouse: action.payload.mouse,
             };
         }
     }

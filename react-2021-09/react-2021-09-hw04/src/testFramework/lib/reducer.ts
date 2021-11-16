@@ -1,6 +1,6 @@
 import faker from 'faker';
 
-export const getFromState = (state: Record<string, string | Object>, selector: string): string => {
+export const getFromState = (state: Record<string, any>, selector: string): string => {
     if (selector.indexOf('.') === -1) {
         return state[selector] as string;
     }
