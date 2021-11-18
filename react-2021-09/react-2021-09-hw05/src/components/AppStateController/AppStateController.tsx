@@ -1,7 +1,6 @@
 import React from 'react';
 import { LARGE_SIZE, MIDDLE_SIZE, SMALL_SIZE } from '../../consts';
 import { AppStateView } from '../AppStateView';
-import { CELL_WIDTH } from '../Cell';
 import { FieldSize } from '../FieldSize';
 import { GameField } from '../GameField';
 import { appReducer, AppState, defaultAppState, fieldSize, invert } from './appReducer';

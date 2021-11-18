@@ -24,8 +24,8 @@ export const Cell: React.FC<CellProps> = (props: CellProps) => {
     const styles = {
         container: css`
             display: block;
-            width: ${CELL_WIDTH - 2}px;
-            height: ${CELL_HEIGHT - 2}px;
+            width: ${props.isRight ? CELL_WIDTH - 2 : CELL_WIDTH - 1}px;
+            height: ${props.isBottom ? CELL_HEIGHT - 2 : CELL_HEIGHT - 1}px;
             text-align: center;
             border-top: 1px solid red;
             border-left: 1px solid red;

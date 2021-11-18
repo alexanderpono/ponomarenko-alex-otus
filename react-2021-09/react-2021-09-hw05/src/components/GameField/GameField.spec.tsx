@@ -1,10 +1,10 @@
 import React from 'react';
 import { GameField } from './GameField';
 import renderer from 'react-test-renderer';
-import { CELL_WIDTH } from '../Cell';
-import { AppActions, CellInfo } from '../AppStateController/appReducer';
+import { AppActions } from '../AppStateController/appReducer';
 import { mount } from 'enzyme';
 import { num } from '../../testFramework/lib/reducer';
+import { CellInfo } from '../AppStateController/playField.types';
 
 interface RenderResult {
     type: string;
@@ -18,14 +18,14 @@ describe('GameField', () => {
             { id: '1', visible: false },
             { id: '2', visible: false },
         ];
-        const widthPixels = 3 * CELL_WIDTH;
+        const width = 3;
         const snapshot = renderer
             .create(
                 <GameField
                     showAll={false}
                     data={data}
                     onCellClick={() => {}}
-                    widthPixels={widthPixels}
+                    width={width}
                     actionId={AppActions.INVERT}
                 ></GameField>
             )
@@ -45,14 +45,14 @@ describe('GameField', () => {
             { id: '1', visible: false },
             { id: String(lastID), visible: false },
         ];
-        const widthPixels = data.length * CELL_WIDTH;
+        const width = data.length;
 
         const wrapper = mount(
             <GameField
                 showAll={false}
                 data={data}
                 onCellClick={mockCallBack}
-                widthPixels={widthPixels}
+                width={width}
                 actionId={AppActions.INVERT}
             ></GameField>
         );

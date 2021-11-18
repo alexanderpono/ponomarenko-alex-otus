@@ -1,3 +1,7 @@
+import { createData, recreateData } from './playFieldUtils';
+import { DEFAULT_HEIGHT, DEFAULT_WIDTH } from './playField.consts';
+import { CellInfo } from './playField.types';
+
 export enum AppActions {
     DEFAULT = 'DEFAULT',
     FIELD_SIZE = 'FIELD_SIZE',
@@ -5,32 +9,12 @@ export enum AppActions {
     DATA_FROM_BACK = 'DATA_FROM_BACK',
     MOUSE = 'MOUSE',
 }
-export const CELL_DEAD = false;
-export const CELL_LIVE = true;
-export const DEFAULT_WIDTH = 5;
-export const DEFAULT_HEIGHT = 5;
-export const DEFAULT_CELL_STATE = CELL_LIVE;
-
-export interface CellInfo {
-    id: string;
-    visible: boolean;
-}
 
 export interface AppState {
     event: AppActions;
     fieldWidth: number;
     fieldHeight: number;
     data: CellInfo[];
-}
-
-function createData(width: number, height: number): CellInfo[] {
-    const cellsNumber = width * height;
-    const startCellState = DEFAULT_CELL_STATE;
-    const newData: CellInfo[] = [];
-    for (let i = 0; i < cellsNumber; i++) {
-        newData.push({ id: String(i), visible: startCellState });
-    }
-    return newData;
 }
 
 export const defaultAppState: AppState = {
@@ -69,7 +53,10 @@ export function appReducer(state: AppState, action: AppAction): AppState {
                 event: AppActions.FIELD_SIZE,
                 fieldWidth: Number(action.payload.fieldWidth),
                 fieldHeight: Number(action.payload.fieldHeight),
-                data: createData(
+                data: recreateData(
+                    state.data,
+                    state.fieldWidth,
+                    state.fieldHeight,
                     Number(action.payload.fieldWidth),
                     Number(action.payload.fieldHeight)
                 ),

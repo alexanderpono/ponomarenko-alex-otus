@@ -1,5 +1,6 @@
 import React from 'react';
-import { AppActions, CellInfo } from '../AppStateController/appReducer';
+import { AppActions } from '../AppStateController/appReducer';
+import { CellInfo } from '../AppStateController/playField.types';
 import { Cell, CELL_WIDTH } from '../Cell';
 
 export interface GameFieldProps {
