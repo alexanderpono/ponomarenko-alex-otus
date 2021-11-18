@@ -9,6 +9,7 @@ interface FieldSizeProps {
 export const FieldSize: React.FC<FieldSizeProps> = ({ setSmall, setMedium, setLarge }) => {
     return (
         <>
+            <span>field size: </span>
             <button id="btSmall" onClick={setSmall}>
                 small {SMALL_SIZE_CAPTION}
             </button>
