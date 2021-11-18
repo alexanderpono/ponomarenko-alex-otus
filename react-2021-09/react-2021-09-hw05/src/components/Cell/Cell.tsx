@@ -7,38 +7,43 @@ import cn from 'classnames';
 export const CELL_WIDTH = 20;
 export const CELL_HEIGHT = 20;
 
-const styles = {
-    container: css`
-        display: block;
-        width: ${CELL_WIDTH - 2}px;
-        height: ${CELL_HEIGHT - 2}px;
-        text-align: center;
-        border: 1px solid red;
-        cursor: pointer;
-        float: left;
-    `,
-    content: css`
-        transition-property: opacity;
-        transition-duration: 0.3s;
-        transition-timing-function: ease-out;
-        opacity: 0%;
-
-        &.show {
-            opacity: 100%;
-        }
-    `,
-};
-
 export interface CellProps {
     num: number;
     showContent: boolean;
     caption: string;
     onClick: (num: number) => void;
+    isRight: boolean;
+    isBottom: boolean;
 }
 
 export const Cell: React.FC<CellProps> = (props: CellProps) => {
     const onClick = () => {
         props.onClick(props.num);
+    };
+
+    const styles = {
+        container: css`
+            display: block;
+            width: ${CELL_WIDTH - 2}px;
+            height: ${CELL_HEIGHT - 2}px;
+            text-align: center;
+            border-top: 1px solid red;
+            border-left: 1px solid red;
+            ${props.isRight ? 'border-right: 1px solid red;' : ''}
+            ${props.isBottom ? 'border-bottom: 1px solid red;' : ''}
+            cursor: pointer;
+            float: left;
+        `,
+        content: css`
+            transition-property: opacity;
+            transition-duration: 0.3s;
+            transition-timing-function: ease-out;
+            opacity: 0%;
+
+            &.show {
+                opacity: 100%;
+            }
+        `,
     };
 
     return (

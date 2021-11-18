@@ -38,7 +38,7 @@ export class AppStateController extends React.Component<{}, AppState> {
                     showAll={showAll}
                     data={this.state.data}
                     onCellClick={this.invert}
-                    widthPixels={this.state.fieldWidth * CELL_WIDTH}
+                    width={this.state.fieldWidth}
                     actionId={this.state.event}
                 />
             </div>

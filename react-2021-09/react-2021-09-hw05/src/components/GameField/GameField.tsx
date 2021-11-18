@@ -1,12 +1,12 @@
 import React from 'react';
 import { AppActions, CellInfo } from '../AppStateController/appReducer';
-import { Cell } from '../Cell';
+import { Cell, CELL_WIDTH } from '../Cell';
 
 export interface GameFieldProps {
     showAll: boolean;
     data: CellInfo[];
     onCellClick: (num: number) => void;
-    widthPixels: number;
+    width: number;
     actionId: AppActions;
 }
 
@@ -16,9 +16,15 @@ export class GameField extends React.Component<GameFieldProps> {
     };
 
     render() {
+        const widthMinus1 = this.props.width - 1;
+        const heightMinus1 = Math.floor(this.props.data.length / this.props.width) - 1;
         return (
-            <section style={{ width: this.props.widthPixels }} role="grid">
-                {this.props.data.map((item: CellInfo) => {
+            <section style={{ width: this.props.width * CELL_WIDTH }} role="grid">
+                {this.props.data.map((item: CellInfo, index: number) => {
+                    const y = Math.floor(index / this.props.width);
+                    const x = index % this.props.width;
+                    const isRight = x === widthMinus1;
+                    const isBottom = y === heightMinus1;
                     return (
                         <Cell
                             key={item.id}
@@ -26,6 +32,8 @@ export class GameField extends React.Component<GameFieldProps> {
                             showContent={item.visible}
                             onClick={this.onCellClick}
                             caption={String(item.id)}
+                            isRight={isRight}
+                            isBottom={isBottom}
                         ></Cell>
                     );
                 })}
