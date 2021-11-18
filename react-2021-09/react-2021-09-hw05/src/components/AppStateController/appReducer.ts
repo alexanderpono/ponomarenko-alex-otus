@@ -16,19 +16,11 @@ export interface CellInfo {
     visible: boolean;
 }
 
-type DataFromBack = Record<string, any>;
-export interface MousePos {
-    x: number;
-    y: number;
-}
-
 export interface AppState {
     event: AppActions;
     fieldWidth: number;
     fieldHeight: number;
     data: CellInfo[];
-    dataFromBack: DataFromBack;
-    mouse: MousePos;
 }
 
 function createData(width: number, height: number): CellInfo[] {
@@ -46,8 +38,6 @@ export const defaultAppState: AppState = {
     fieldWidth: 5,
     fieldHeight: 5,
     data: createData(DEFAULT_WIDTH, DEFAULT_HEIGHT),
-    dataFromBack: {},
-    mouse: { x: 0, y: 0 },
 };
 
 export interface FieldSizeAction {
@@ -57,16 +47,6 @@ export interface FieldSizeAction {
 export interface InvertAction {
     type: AppActions.INVERT;
     payload: { cellId: number };
-}
-
-export interface DataFromBackAction {
-    type: AppActions.DATA_FROM_BACK;
-    payload: { data: DataFromBack };
-}
-
-export interface MouseAction {
-    type: AppActions.MOUSE;
-    payload: { mouse: MousePos };
 }
 
 export const fieldSize = (fieldWidth: number, fieldHeight: number): FieldSizeAction => ({
@@ -79,17 +59,7 @@ export const invert = (cellId: number): InvertAction => ({
     payload: { cellId },
 });
 
-export const dataFromBack = (data: DataFromBack): DataFromBackAction => ({
-    type: AppActions.DATA_FROM_BACK,
-    payload: { data },
-});
-
-export const mouse = (mouse: MousePos): MouseAction => ({
-    type: AppActions.MOUSE,
-    payload: { mouse },
-});
-
-export type AppAction = FieldSizeAction | InvertAction | DataFromBackAction | MouseAction;
+export type AppAction = FieldSizeAction | InvertAction;
 
 export function appReducer(state: AppState, action: AppAction): AppState {
     switch (action.type) {
@@ -112,20 +82,6 @@ export function appReducer(state: AppState, action: AppAction): AppState {
                 ...state,
                 event: AppActions.INVERT,
                 data: newData,
-            };
-        }
-        case AppActions.DATA_FROM_BACK: {
-            return {
-                ...state,
-                event: AppActions.DATA_FROM_BACK,
-                dataFromBack: action.payload.data,
-            };
-        }
-        case AppActions.MOUSE: {
-            return {
-                ...state,
-                event: AppActions.MOUSE,
-                mouse: action.payload.mouse,
             };
         }
     }
