@@ -1,9 +1,12 @@
 import React from 'react';
 import { LARGE_SIZE, MIDDLE_SIZE, SMALL_SIZE } from '../../consts';
 import { AppStateView } from '../AppStateView';
+import { Control } from '../Control';
 import { FieldSize } from '../FieldSize';
 import { FlllPercent } from '../FlllPercent';
 import { GameField } from '../GameField';
+import { UserNameForm } from '../UserNameForm/UserNameForm';
+import { Speed } from '../Speed';
 import { appReducer, AppState, defaultAppState, fieldSize, invert } from './appReducer';
 
 export class AppStateController extends React.Component<{}, AppState> {
@@ -30,6 +33,9 @@ export class AppStateController extends React.Component<{}, AppState> {
             <div>
                 <h1>Game of life proto</h1>
                 <article>
+                    <UserNameForm onName={(name) => console.log('name=', name)} />
+                </article>
+                <article>
                     <AppStateView appState={this.state} />
                 </article>
                 <article>
@@ -47,6 +53,12 @@ export class AppStateController extends React.Component<{}, AppState> {
                         fill75={dummy}
                         fill100={dummy}
                     />
+                </article>
+                <article>
+                    <Speed slow={dummy} medium={dummy} fast={dummy} speed={1} />
+                </article>
+                <article>
+                    <Control play={dummy} pause={dummy} clear={dummy} />
                 </article>
                 <article>
                     <GameField

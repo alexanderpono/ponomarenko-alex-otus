@@ -1,8 +1,8 @@
 import React from 'react';
 import { AppStateController } from './AppStateController';
 import { render, screen, cleanup } from '@testing-library/react';
-import fetchMock from 'jest-fetch-mock';
 import userEvent from '@testing-library/user-event';
+import { str } from '../../testFramework/lib/reducer';
 
 describe('AppStateController', () => {
     it('It renders "Game of life proto"', () => {
@@ -55,6 +55,23 @@ describe('AppStateController', () => {
 
         expect(cellIsAlive).toBe(false);
         unmount();
+    });
+
+    it('allows to click submit-button at LoginForm', () => {
+        render(<AppStateController></AppStateController>);
+
+        const rndName = str();
+        const input = screen.getByLabelText('Введите имя:');
+        userEvent.click(input);
+        userEvent.type(input, rndName);
+        userEvent.click(screen.getByText('submit'));
+    });
+
+    it('allows to click gameSpeed-slow-button', () => {
+        render(<AppStateController></AppStateController>);
+
+        const bt = screen.getByText('slow');
+        userEvent.click(bt);
     });
 
     afterEach(() => {
