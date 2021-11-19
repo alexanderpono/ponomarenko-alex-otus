@@ -2,7 +2,7 @@ import React from 'react';
 import { GameField } from './GameField';
 import renderer from 'react-test-renderer';
 import { CELL_WIDTH } from '../Cell';
-import { AppActions, CellInfo } from '../AppStateController/appReducer';
+import { AppActions, CellInfo } from '../AppStateManager/appReducer';
 import { mount } from 'enzyme';
 import { num } from '../../testFramework/lib/reducer';
 

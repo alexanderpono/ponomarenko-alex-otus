@@ -28,52 +28,54 @@
 
 
 ## Выполнение д/з №4
-1. Создан "сложный" компонент AppStateController, который: 
+1. Создан "сложный" компонент AppStateManager, который: 
 - реализует управление состоянием приложения
 - включает в себя презентационные компоненты AppStateView, FieldSize, GameField
 
-2. Компонент AppStateController реализован как классовый компонент. В AppStateController создан метод constructor(), в котором объявлен state и привязан конекст метода .invert()
+2. Компонент AppStateManager реализован как классовый компонент. В AppStateManager создан метод constructor(), в котором объявлен state и привязан конекст метода .invert()
 
-3. В компонент AppStateController добавлен метод componentDidMount(). Этот метод делает запрос к удаленному серверу, получает json-данные и заносит их в состояние компонента. Также в методе componentDidMount() устанавливается подписка на событие onmousemove. Добавлен обработчик события .onMouseMove(), который заносит координаты мыши в state. Компонент AppStateView отображает данные с бэка и кооринаты мыши в UI приложения.
+3. В компонент AppStateManager добавлен метод componentDidMount(). Этот метод делает запрос к удаленному серверу, получает json-данные и заносит их в состояние компонента. Также в методе componentDidMount() устанавливается подписка на событие onmousemove. Добавлен обработчик события .onMouseMove(), который заносит координаты мыши в state. Компонент AppStateView отображает данные с бэка и кооринаты мыши в UI приложения.
 
 4. Для оптимизации производительности - в компонент GameField добавлен метод shouldComponentUpdate(), который возвращает true, если обновлялся размер игрового поля или менялось состояние како-нибудь ячейки.
 
-5. В компонент AppStateController добавлен метод componentDidUpdate(), в котором при опеределенном условии обновляется state компонента AppStateController
+5. В компонент AppStateManager добавлен метод componentDidUpdate(), в котором при опеределенном условии обновляется state компонента AppStateManager
 
-6. Создан метод AppStateController.componentWillUnmout(), в котором реализована отписка от события mousemove, а также - отмена промиса запроса к удаленному серверу
+6. Создан метод AppStateManager.componentWillUnmout(), в котором реализована отписка от события mousemove, а также - отмена промиса запроса к удаленному серверу
 
 7. Дополнены тесты и сторибук.
 Покрытие тестами на данный момент:
------------------------------------|---------|----------|---------|---------|-------------------
-File                               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
------------------------------------|---------|----------|---------|---------|-------------------
-All files                          |   97.27 |       75 |   97.37 |   96.97 |                   
- src                               |     100 |      100 |     100 |     100 |                   
-  consts.ts                        |     100 |      100 |     100 |     100 |                   
- src/components/AppStateController |   95.65 |    58.33 |   96.15 |      95 |                   
-  AppStateController.tsx           |   92.68 |     37.5 |      95 |   91.89 | 26,92,116         
-  appReducer.ts                    |     100 |      100 |     100 |     100 |                   
- src/components/AppStateView       |     100 |      100 |     100 |     100 |                   
-  AppStateView.tsx                 |     100 |      100 |     100 |     100 |                   
- src/components/Cell               |     100 |      100 |     100 |     100 |                   
-  Cell.tsx                         |     100 |      100 |     100 |     100 |                   
- src/components/FieldSize          |     100 |      100 |     100 |     100 |                   
-  FieldSize.tsx                    |     100 |      100 |     100 |     100 |                   
- src/components/GameField          |     100 |      100 |     100 |     100 |                   
-  GameField.tsx                    |     100 |      100 |     100 |     100 |                   
- src/testFramework/lib             |     100 |      100 |     100 |     100 |                   
-  reducer.ts                       |     100 |      100 |     100 |     100 |                   
------------------------------------|---------|----------|---------|---------|-------------------
+```
+--------------------------------|---------|----------|---------|---------|-------------------
+File                            | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+--------------------------------|---------|----------|---------|---------|-------------------
+All files                       |   96.94 |    93.75 |   93.75 |   96.55 |                   
+ src                            |     100 |      100 |     100 |     100 |                   
+  consts.ts                     |     100 |      100 |     100 |     100 |                   
+ src/components/AppStateManager |   94.74 |     87.5 |      90 |   93.75 |                   
+  AppStateManager.tsx           |   89.66 |       75 |   85.71 |      88 | 65-67,87          
+  appReducer.ts                 |     100 |      100 |     100 |     100 |                   
+ src/components/AppStateView    |     100 |      100 |     100 |     100 |                   
+  AppStateView.tsx              |     100 |      100 |     100 |     100 |                   
+ src/components/Cell            |     100 |      100 |     100 |     100 |                   
+  Cell.tsx                      |     100 |      100 |     100 |     100 |                   
+ src/components/FieldSize       |     100 |      100 |     100 |     100 |                   
+  FieldSize.tsx                 |     100 |      100 |     100 |     100 |                   
+ src/components/GameField       |     100 |      100 |     100 |     100 |                   
+  GameField.tsx                 |     100 |      100 |     100 |     100 |                   
+ src/testFramework/lib          |     100 |      100 |     100 |     100 |                   
+  reducer.ts                    |     100 |      100 |     100 |     100 |                   
+--------------------------------|---------|----------|---------|---------|-------------------
 
 Test Suites: 7 passed, 7 total
 Tests:       25 passed, 25 total
 Snapshots:   0 total
-Time:        4.825 s
+Time:        5.123 s
 Ran all test suites.
+```
 
 
 Текущая версия сторибук в chromatic:
-https://6168a14038f17a003a388098-fbripsbzsk.chromatic.com/?path=/story/appstatecontroller--game
+https://6168a14038f17a003a388098-qfauqmhgsd.chromatic.com/?path=/story/appstatemanager--game
 
 Тесты в chromatic:
-https://www.chromatic.com/build?appId=6168a14038f17a003a388098&number=5
+https://www.chromatic.com/build?appId=6168a14038f17a003a388098&number=7

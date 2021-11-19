@@ -16,7 +16,7 @@ export interface CellInfo {
     visible: boolean;
 }
 
-type DataFromBack = Record<string, any>;
+type DataFromBack = Record<string, unknown>;
 export interface MousePos {
     x: number;
     y: number;
@@ -97,12 +97,9 @@ export function appReducer(state: AppState, action: AppAction): AppState {
             return {
                 ...state,
                 event: AppActions.FIELD_SIZE,
-                fieldWidth: Number(action.payload.fieldWidth),
-                fieldHeight: Number(action.payload.fieldHeight),
-                data: createData(
-                    Number(action.payload.fieldWidth),
-                    Number(action.payload.fieldHeight)
-                ),
+                fieldWidth: action.payload.fieldWidth,
+                fieldHeight: action.payload.fieldHeight,
+                data: createData(action.payload.fieldWidth, action.payload.fieldHeight),
             };
         }
         case AppActions.INVERT: {

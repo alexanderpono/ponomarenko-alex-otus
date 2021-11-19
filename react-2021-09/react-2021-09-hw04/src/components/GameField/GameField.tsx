@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppActions, CellInfo } from '../AppStateController/appReducer';
+import { AppActions, CellInfo } from '../AppStateManager/appReducer';
 import { Cell } from '../Cell';
 
 export interface GameFieldProps {

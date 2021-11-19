@@ -13,39 +13,17 @@ import {
     invert,
     mouse,
 } from './appReducer';
+import 'reset-css';
 
-type CancelablePromise = { promise: Promise<any>; cancel: () => void };
-
-//makeCancelable() defined by @istarkov
-const makeCancelable = (promise: Promise<any>): CancelablePromise => {
-    let hasCanceled_ = false;
-
-    const wrappedPromise = new Promise((resolve, reject) => {
-        promise.then(
-            (val) => (hasCanceled_ ? reject({ isCanceled: true }) : resolve(val)),
-            (error) => (hasCanceled_ ? reject({ isCanceled: true }) : reject(error))
-        );
-    });
-
-    return {
-        promise: wrappedPromise,
-        cancel() {
-            hasCanceled_ = true;
-        },
-    };
-};
-
-export class AppStateController extends React.Component<{}, AppState> {
+export class AppStateManager extends React.Component<{}, AppState> {
     state: AppState;
-    _isMounted: boolean;
-    _cancelablePromise: CancelablePromise | null;
+    abortController;
 
     constructor(props: {}) {
         super(props);
         this.state = defaultAppState;
         this.invert = this.invert.bind(this);
-        this._isMounted = false;
-        this._cancelablePromise = null;
+        this.abortController = new AbortController();
     }
 
     private setSize = (len: number) => this.setState(appReducer(this.state, fieldSize(len, len)));
@@ -62,7 +40,7 @@ export class AppStateController extends React.Component<{}, AppState> {
     render() {
         const showAll = true;
         return (
-            <div>
+            <>
                 <h1>Game of life proto</h1>
                 <AppStateView appState={this.state} />
                 <FieldSize
@@ -77,36 +55,30 @@ export class AppStateController extends React.Component<{}, AppState> {
                     widthPixels={this.state.fieldWidth * CELL_WIDTH}
                     actionId={this.state.event}
                 />
-            </div>
+            </>
         );
     }
 
     componentDidMount() {
-        this._isMounted = true;
-
-        this._cancelablePromise = makeCancelable(
-            fetch('https://jsonplaceholder.typicode.com/todos/1')
-                .then((response) => response.json())
-                .then((json) => {
-                    if (this._isMounted) {
-                        this.setState(appReducer(this.state, dataFromBack(json)));
-                    }
-                })
-                .catch((e) => {
-                    console.log('exception e=', JSON.stringify(e));
-                })
-        );
-
-        this._cancelablePromise.promise.catch((e) => {
-            console.log('exception2 e=', JSON.stringify(e));
-        });
+        fetch('https://jsonplaceholder.typicode.com/todos/1', {
+            signal: this.abortController.signal,
+        })
+            .then((response) => response.json())
+            .then((json) => {
+                this.setState(appReducer(this.state, dataFromBack(json)));
+            })
+            .catch((err) => {
+                if (err.name == 'AbortError') {
+                    console.log('fetch прерван!');
+                }
+            });
 
         document.addEventListener('mousemove', this.onMouseMove);
     }
 
     componentWillUnmount() {
-        this._isMounted = false;
-        this._cancelablePromise?.cancel();
+        console.log('componentWillUnmount()');
+        this.abortController.abort();
         document.removeEventListener('mousemove', this.onMouseMove);
     }
 
