@@ -1,7 +1,7 @@
 import React from 'react';
-import { AppActions } from '../AppStateController/appReducer';
-import { CellInfo } from '../AppStateController/playField.types';
-import { Cell, CELL_WIDTH } from '../Cell';
+import { AppActions } from '@components/AppStateController/appReducer';
+import { CellInfo } from '@components/AppStateController/playField.types';
+import { Cell, CELL_WIDTH } from '@components/Cell';
 
 export interface GameFieldProps {
     showAll: boolean;

@@ -1,10 +1,10 @@
 import React from 'react';
 import { GameField } from './GameField';
 import renderer from 'react-test-renderer';
-import { AppActions } from '../AppStateController/appReducer';
+import { AppActions } from '@components/AppStateController/appReducer';
 import { mount } from 'enzyme';
-import { num } from '../../testFramework/lib/reducer';
-import { CellInfo } from '../AppStateController/playField.types';
+import { num } from '@src/testFramework/lib/reducer';
+import { CellInfo } from '@components/AppStateController/playField.types';
 
 interface RenderResult {
     type: string;

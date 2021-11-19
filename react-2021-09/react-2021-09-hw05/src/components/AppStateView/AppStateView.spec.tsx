@@ -1,9 +1,8 @@
 import React from 'react';
 import { AppStateView } from './AppStateView';
 import renderer from 'react-test-renderer';
-import { render } from '@testing-library/react';
-import { defaultAppState } from '../AppStateController/appReducer';
-import { num } from '../../testFramework/lib/reducer';
+import { defaultAppState } from '@components/AppStateController/appReducer';
+import { num } from '@src/testFramework/lib/reducer';
 
 describe('AppStateView', () => {
     it('It renders field size from props.appState', () => {

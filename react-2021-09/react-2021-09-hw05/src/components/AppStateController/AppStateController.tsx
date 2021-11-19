@@ -1,12 +1,12 @@
 import React from 'react';
-import { LARGE_SIZE, MIDDLE_SIZE, SMALL_SIZE } from '../../consts';
-import { AppStateView } from '../AppStateView';
-import { Control } from '../Control';
-import { FieldSize } from '../FieldSize';
-import { FlllPercent } from '../FlllPercent';
-import { GameField } from '../GameField';
-import { UserNameForm } from '../UserNameForm/UserNameForm';
-import { Speed } from '../Speed';
+import { LARGE_SIZE, MIDDLE_SIZE, SMALL_SIZE } from '@src/consts';
+import { AppStateView } from '@components/AppStateView';
+import { Control } from '@components/Control';
+import { FieldSize } from '@components/FieldSize';
+import { FlllPercent } from '@components/FlllPercent';
+import { GameField } from '@components/GameField';
+import { UserNameForm } from '@components/UserNameForm/UserNameForm';
+import { Speed } from '@components/Speed';
 import { appReducer, AppState, defaultAppState, fieldSize, invert } from './appReducer';
 
 export class AppStateController extends React.Component<{}, AppState> {

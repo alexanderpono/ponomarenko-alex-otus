@@ -1,6 +1,6 @@
 import { createData, recreateData, yx } from './playFieldUtils';
 import { CellInfo } from './playField.types';
-import { bool } from '../../testFramework/lib/reducer';
+import { bool } from '@src/testFramework/lib/reducer';
 
 describe('createData', () => {
     it('It creates array of size=25 from 5x5', () => {

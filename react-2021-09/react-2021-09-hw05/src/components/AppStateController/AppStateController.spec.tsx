@@ -2,7 +2,7 @@ import React from 'react';
 import { AppStateController } from './AppStateController';
 import { render, screen, cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { str } from '../../testFramework/lib/reducer';
+import { str } from '@src/testFramework/lib/reducer';
 
 describe('AppStateController', () => {
     it('It renders "Game of life proto"', () => {

@@ -1,10 +1,9 @@
 import React from 'react';
 import { withKnobs, number, boolean } from '@storybook/addon-knobs';
 import { GameField } from './GameField';
-import { CELL_WIDTH } from '../Cell';
-import { AppActions } from '../AppStateController/appReducer';
-import { CellInfo } from '../AppStateController/playField.types';
-import { CELL_DEAD, CELL_LIVE } from '../AppStateController/playField.consts';
+import { AppActions } from '@components/AppStateController/appReducer';
+import { CellInfo } from '@components/AppStateController/playField.types';
+import { CELL_DEAD, CELL_LIVE } from '@components/AppStateController/playField.consts';
 
 export default {
     title: 'GameField',

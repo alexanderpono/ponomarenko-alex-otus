@@ -2,7 +2,7 @@ import React from 'react';
 import { UserNameForm } from './UserNameForm';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { str } from '../../testFramework/lib/reducer';
+import { str } from '@src/testFramework/lib/reducer';
 
 describe('UserNameForm', () => {
     it('calls onName() callback when submit is clicked and name is not empty', () => {

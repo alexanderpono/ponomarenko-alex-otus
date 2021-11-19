@@ -1,4 +1,4 @@
-import { getFromState, getVal } from '../../testFramework/lib/reducer';
+import { getFromState, getVal } from '@src/testFramework/lib/reducer';
 import {
     AppAction,
     AppActions,

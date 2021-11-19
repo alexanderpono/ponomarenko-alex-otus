@@ -1,5 +1,5 @@
 import React from 'react';
-import { LARGE_SIZE_CAPTION, MIDDLE_SIZE_CAPTION, SMALL_SIZE_CAPTION } from '../../consts';
+import { LARGE_SIZE_CAPTION, MIDDLE_SIZE_CAPTION, SMALL_SIZE_CAPTION } from '@src/consts';
 
 interface FieldSizeProps {
     setSmall: () => void;

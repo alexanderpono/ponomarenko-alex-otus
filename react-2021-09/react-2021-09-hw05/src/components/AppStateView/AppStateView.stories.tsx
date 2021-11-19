@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppStateView } from './AppStateView';
-import { defaultAppState } from '../AppStateController/appReducer';
+import { defaultAppState } from '@components/AppStateController/appReducer';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 export default {
