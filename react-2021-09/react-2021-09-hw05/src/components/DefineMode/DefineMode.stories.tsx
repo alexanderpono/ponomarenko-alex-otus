@@ -1,14 +1,15 @@
 import React from 'react';
-import { Control } from './Control';
+import { DefineMode } from './DefineMode';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, number, boolean, text } from '@storybook/addon-knobs';
+import { Mode } from '@src/consts';
 
 export default {
-    title: 'Control',
-    component: Control,
+    title: 'DefineMode',
+    component: DefineMode,
     decorators: [withKnobs],
 };
 
 export const Static = () => {
-    return <Control play={action('play')} pause={action('pause')} clear={action('clear')} />;
+    return <DefineMode play={action('play')} pause={action('pause')} mode={Mode.PLAY} />;
 };

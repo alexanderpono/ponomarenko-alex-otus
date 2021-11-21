@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppStateView } from './AppStateView';
 import renderer from 'react-test-renderer';
-import { defaultAppState } from '@components/AppStateController/appReducer';
+import { defaultAppState } from '@src/components/AppStateManager/appReducer';
 import { num } from '@src/testFramework/lib/reducer';
 
 describe('AppStateView', () => {

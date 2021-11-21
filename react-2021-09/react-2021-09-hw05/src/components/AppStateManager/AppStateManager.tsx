@@ -1,15 +1,16 @@
 import React from 'react';
-import { LARGE_SIZE, MIDDLE_SIZE, SMALL_SIZE } from '@src/consts';
+import { LARGE_SIZE, MIDDLE_SIZE, Mode, Size, SMALL_SIZE, Speed } from '@src/consts';
 import { AppStateView } from '@components/AppStateView';
-import { Control } from '@components/Control';
+import { DefineMode } from '@src/components/DefineMode';
 import { FieldSize } from '@components/FieldSize';
 import { FlllPercent } from '@components/FlllPercent';
 import { GameField } from '@components/GameField';
 import { UserNameForm } from '@components/UserNameForm/UserNameForm';
-import { Speed } from '@components/Speed';
+import { DefineSpeed } from '@src/components/DefineSpeed';
 import { appReducer, AppState, defaultAppState, fieldSize, invert } from './appReducer';
+import '@/node_modules/reset-css/reset.css';
 
-export class AppStateController extends React.Component<{}, AppState> {
+export class AppStateManager extends React.Component<{}, AppState> {
     state: AppState;
 
     constructor(props: {}) {
@@ -39,10 +40,23 @@ export class AppStateController extends React.Component<{}, AppState> {
                     <AppStateView appState={this.state} />
                 </article>
                 <article>
+                    <GameField
+                        showAll={showAll}
+                        data={this.state.data}
+                        onCellClick={this.invert}
+                        width={this.state.fieldWidth}
+                        actionId={this.state.event}
+                    />
+                </article>
+                <article>
+                    <DefineMode play={dummy} pause={dummy} mode={Mode.PLAY} />
+                </article>
+                <article>
                     <FieldSize
                         setSmall={this.setSmall}
                         setMedium={this.setMedium}
                         setLarge={this.setLarge}
+                        size={Size.SMALL}
                     />
                 </article>
                 <article>
@@ -55,19 +69,7 @@ export class AppStateController extends React.Component<{}, AppState> {
                     />
                 </article>
                 <article>
-                    <Speed slow={dummy} medium={dummy} fast={dummy} speed={1} />
-                </article>
-                <article>
-                    <Control play={dummy} pause={dummy} clear={dummy} />
-                </article>
-                <article>
-                    <GameField
-                        showAll={showAll}
-                        data={this.state.data}
-                        onCellClick={this.invert}
-                        width={this.state.fieldWidth}
-                        actionId={this.state.event}
-                    />
+                    <DefineSpeed slow={dummy} medium={dummy} fast={dummy} speed={Speed.SLOW} />
                 </article>
             </div>
         );

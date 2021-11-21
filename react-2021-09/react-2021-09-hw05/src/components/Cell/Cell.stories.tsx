@@ -16,6 +16,8 @@ export const Static = () => {
             showContent={boolean('showContent', true)}
             onClick={action('clicked')}
             caption={text('caption', 'cc')}
+            isRight={boolean('isRight', true)}
+            isBottom={boolean('isBottom', true)}
         />
     );
 };
@@ -33,6 +35,8 @@ export const Dynamic: React.FC<{}> = () => {
             showContent={showContent}
             onClick={onClick}
             caption={text('caption', 'X')}
+            isRight={boolean('isRight', true)}
+            isBottom={boolean('isBottom', true)}
         />
     );
 };

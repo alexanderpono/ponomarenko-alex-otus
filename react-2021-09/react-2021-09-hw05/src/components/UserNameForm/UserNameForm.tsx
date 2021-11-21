@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '@components/Button';
 
 interface Props {
     onName: (name: string) => void;
@@ -16,7 +17,7 @@ export class UserNameForm extends React.Component<Props> {
             <form onSubmit={this.onSubmit}>
                 <label htmlFor="name">Введите имя: </label>
                 <input id="name" name="name" required />
-                <button type="submit">submit</button>
+                <Button type="submit">submit</Button>
             </form>
         );
     }

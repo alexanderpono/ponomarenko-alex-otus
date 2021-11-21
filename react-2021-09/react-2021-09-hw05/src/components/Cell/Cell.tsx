@@ -3,15 +3,14 @@ import React from 'react';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/react';
 import cn from 'classnames';
-
-export const CELL_WIDTH = 20;
-export const CELL_HEIGHT = 20;
+import { CELL_HEIGHT, CELL_WIDTH } from '@src/consts';
 
 export interface CellProps {
     num: number;
     showContent: boolean;
     caption: string;
     onClick: (num: number) => void;
+    isLeft: boolean;
     isRight: boolean;
     isBottom: boolean;
 }
@@ -33,6 +32,7 @@ export const Cell: React.FC<CellProps> = (props: CellProps) => {
             ${props.isBottom ? 'border-bottom: 1px solid red;' : ''}
             cursor: pointer;
             float: left;
+            ${props.isLeft ? 'clear: both;' : ''}
         `,
         content: css`
             transition-property: opacity;

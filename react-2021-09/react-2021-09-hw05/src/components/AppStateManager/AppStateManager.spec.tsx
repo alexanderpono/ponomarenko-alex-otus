@@ -1,12 +1,14 @@
 import React from 'react';
-import { AppStateController } from './AppStateController';
+import { AppStateManager } from './AppStateManager';
 import { render, screen, cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { str } from '@src/testFramework/lib/reducer';
 
 describe('AppStateController', () => {
+    const clearBoth = 1;
+
     it('It renders "Game of life proto"', () => {
-        const { container, unmount } = render(<AppStateController></AppStateController>);
+        const { container, unmount } = render(<AppStateManager />);
         const caption = screen.getByText('Game of life proto');
         expect(caption).toBeInTheDocument();
         unmount();
@@ -14,29 +16,29 @@ describe('AppStateController', () => {
     });
 
     it('It renders field of size 10x10 on click at "small 10x10"', () => {
-        const { unmount } = render(<AppStateController></AppStateController>);
+        const { unmount } = render(<AppStateManager />);
         const btSmall = screen.getByText('small 10x10');
         userEvent.click(btSmall);
         const grid = screen.getByRole('grid');
-        expect(grid.children.length).toBe(10 * 10);
+        expect(grid.children.length).toBe(10 * 10 + clearBoth);
         unmount();
     });
 
     it('It renders field of size 20x20 on click at "medium 20x20"', () => {
-        const { unmount } = render(<AppStateController></AppStateController>);
+        const { unmount } = render(<AppStateManager />);
         const btSmall = screen.getByText('medium 20x20');
         userEvent.click(btSmall);
         const grid = screen.getByRole('grid');
-        expect(grid.children.length).toBe(20 * 20);
+        expect(grid.children.length).toBe(20 * 20 + clearBoth);
         unmount();
     });
 
     it('It renders field of size 30x30 on click at "large 30x30"', () => {
-        const { unmount } = render(<AppStateController></AppStateController>);
+        const { unmount } = render(<AppStateManager />);
         const btSmall = screen.getByText('large 30x30');
         userEvent.click(btSmall);
         const grid = screen.getByRole('grid');
-        expect(grid.children.length).toBe(30 * 30);
+        expect(grid.children.length).toBe(30 * 30 + clearBoth);
         unmount();
     });
 
@@ -47,7 +49,7 @@ describe('AppStateController', () => {
             return cellIsVisible;
         };
 
-        const { unmount } = render(<AppStateController></AppStateController>);
+        const { unmount } = render(<AppStateManager />);
         const grid = screen.getByRole('grid');
         const firstCell = grid.children[0];
         userEvent.click(firstCell);
@@ -58,7 +60,7 @@ describe('AppStateController', () => {
     });
 
     it('allows to click submit-button at LoginForm', () => {
-        render(<AppStateController></AppStateController>);
+        render(<AppStateManager />);
 
         const rndName = str();
         const input = screen.getByLabelText('Введите имя:');
@@ -68,7 +70,7 @@ describe('AppStateController', () => {
     });
 
     it('allows to click gameSpeed-slow-button', () => {
-        render(<AppStateController></AppStateController>);
+        render(<AppStateManager />);
 
         const bt = screen.getByText('slow');
         userEvent.click(bt);

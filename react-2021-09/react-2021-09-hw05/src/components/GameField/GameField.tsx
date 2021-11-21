@@ -1,7 +1,7 @@
 import React from 'react';
-import { AppActions } from '@components/AppStateController/appReducer';
-import { CellInfo } from '@components/AppStateController/playField.types';
-import { Cell, CELL_WIDTH } from '@components/Cell';
+import { AppActions } from '@src/components/AppStateManager/appReducer';
+import { CellInfo } from '@src/components/AppStateManager/playField.types';
+import { Cell } from '@components/Cell';
 
 export interface GameFieldProps {
     showAll: boolean;
@@ -20,12 +20,13 @@ export class GameField extends React.Component<GameFieldProps> {
         const widthMinus1 = this.props.width - 1;
         const heightMinus1 = Math.floor(this.props.data.length / this.props.width) - 1;
         return (
-            <section style={{ width: this.props.width * CELL_WIDTH }} role="grid">
+            <section role="grid">
                 {this.props.data.map((item: CellInfo, index: number) => {
                     const y = Math.floor(index / this.props.width);
                     const x = index % this.props.width;
                     const isRight = x === widthMinus1;
                     const isBottom = y === heightMinus1;
+                    const isLeft = x === 0;
                     return (
                         <Cell
                             key={item.id}
@@ -33,11 +34,13 @@ export class GameField extends React.Component<GameFieldProps> {
                             showContent={item.visible}
                             onClick={this.onCellClick}
                             caption={String(item.id)}
+                            isLeft={isLeft}
                             isRight={isRight}
                             isBottom={isBottom}
                         ></Cell>
                     );
                 })}
+                <div style={{ clear: 'both' }}></div>
             </section>
         );
     }

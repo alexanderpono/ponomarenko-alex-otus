@@ -3,7 +3,8 @@
     "baseUrl": "./",
     "paths": {
       "@src/*": ["src/*"],
-      "@components/*": ["src/components/*"]
+      "@components/*": ["src/components/*"],
+      "@/*": ["./*"]
     },
     "target": "es6",
     "module": "commonjs",

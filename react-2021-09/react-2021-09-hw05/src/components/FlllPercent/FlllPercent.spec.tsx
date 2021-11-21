@@ -16,7 +16,7 @@ describe('FlllPercent', () => {
                 fill100={dummy}
             />
         );
-        userEvent.click(screen.getByText('0%'));
+        userEvent.click(screen.getByText('clear'));
         expect(mockCallBack.mock.calls.length).toEqual(1);
     });
 

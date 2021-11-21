@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppState } from '@components/AppStateController/appReducer';
+import { AppState } from '@src/components/AppStateManager/appReducer';
 
 interface AppStateViewProps {
     appState: AppState;

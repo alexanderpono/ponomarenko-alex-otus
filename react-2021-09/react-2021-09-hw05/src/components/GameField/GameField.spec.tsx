@@ -1,10 +1,10 @@
 import React from 'react';
 import { GameField } from './GameField';
 import renderer from 'react-test-renderer';
-import { AppActions } from '@components/AppStateController/appReducer';
+import { AppActions } from '@src/components/AppStateManager/appReducer';
 import { mount } from 'enzyme';
 import { num } from '@src/testFramework/lib/reducer';
-import { CellInfo } from '@components/AppStateController/playField.types';
+import { CellInfo } from '@src/components/AppStateManager/playField.types';
 
 interface RenderResult {
     type: string;
@@ -31,7 +31,6 @@ describe('GameField', () => {
             )
             .toJSON() as RenderResult;
         expect(snapshot.type).toBe('section');
-        expect(snapshot.children.length).toBe(3);
         expect(snapshot.children[0].type).toBe('article');
         expect(snapshot.children[1].type).toBe('article');
         expect(snapshot.children[2].type).toBe('article');

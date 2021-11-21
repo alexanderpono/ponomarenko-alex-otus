@@ -1,32 +1,49 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import { FieldSize } from './FieldSize';
+import { LARGE_SIZE_CAPTION, MIDDLE_SIZE_CAPTION, Size, SMALL_SIZE_CAPTION } from '@src/consts';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 describe('FieldSize', () => {
     it('calls setSmall() callback when #btSmall is clicked', () => {
         const mockCallBack = jest.fn();
-        const wrapper = mount(
-            <FieldSize setSmall={mockCallBack} setMedium={() => {}} setLarge={() => {}} />
+        render(
+            <FieldSize
+                setSmall={mockCallBack}
+                setMedium={() => {}}
+                setLarge={() => {}}
+                size={Size.MIDDLE}
+            />
         );
-        wrapper.find('#btSmall').simulate('click');
+        userEvent.click(screen.getByText(`small ${SMALL_SIZE_CAPTION}`));
         expect(mockCallBack.mock.calls.length).toEqual(1);
     });
 
     it('calls setMedium() callback when #btMedium is clicked', () => {
         const mockCallBack = jest.fn();
-        const wrapper = mount(
-            <FieldSize setSmall={() => {}} setMedium={mockCallBack} setLarge={() => {}} />
+        render(
+            <FieldSize
+                setSmall={() => {}}
+                setMedium={mockCallBack}
+                setLarge={() => {}}
+                size={Size.MIDDLE}
+            />
         );
-        wrapper.find('#btMedium').simulate('click');
+        userEvent.click(screen.getByText(`medium ${MIDDLE_SIZE_CAPTION}`));
         expect(mockCallBack.mock.calls.length).toEqual(1);
     });
 
     it('calls setLarge() callback when #btLarge is clicked', () => {
         const mockCallBack = jest.fn();
-        const wrapper = mount(
-            <FieldSize setSmall={() => {}} setMedium={() => {}} setLarge={mockCallBack} />
+        render(
+            <FieldSize
+                setSmall={() => {}}
+                setMedium={() => {}}
+                setLarge={mockCallBack}
+                size={Size.MIDDLE}
+            />
         );
-        wrapper.find('#btLarge').simulate('click');
+        userEvent.click(screen.getByText(`large ${LARGE_SIZE_CAPTION}`));
         expect(mockCallBack.mock.calls.length).toEqual(1);
     });
 });
