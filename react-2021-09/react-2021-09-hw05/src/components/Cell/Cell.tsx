@@ -19,6 +19,7 @@ export const Cell: React.FC<CellProps> = (props: CellProps) => {
     const onClick = () => {
         props.onClick(props.num);
     };
+    const frameColor = '#ddd';
 
     const styles = {
         container: css`
@@ -26,31 +27,32 @@ export const Cell: React.FC<CellProps> = (props: CellProps) => {
             width: ${props.isRight ? CELL_WIDTH - 2 : CELL_WIDTH - 1}px;
             height: ${props.isBottom ? CELL_HEIGHT - 2 : CELL_HEIGHT - 1}px;
             text-align: center;
-            border-top: 1px solid red;
-            border-left: 1px solid red;
-            ${props.isRight ? 'border-right: 1px solid red;' : ''}
-            ${props.isBottom ? 'border-bottom: 1px solid red;' : ''}
+            border-top: 1px solid ${frameColor};
+            border-left: 1px solid ${frameColor};
+            ${props.isRight ? 'border-right: 1px solid ' + frameColor + ';' : ''}
+            ${props.isBottom ? 'border-bottom: 1px solid ' + frameColor + ';' : ''}
             cursor: pointer;
             float: left;
             ${props.isLeft ? 'clear: both;' : ''}
-        `,
-        content: css`
-            transition-property: opacity;
+            transition-property: background;
             transition-duration: 0.3s;
             transition-timing-function: ease-out;
-            opacity: 0%;
+            background: #555;
 
             &.show {
-                opacity: 100%;
+                background: #e44;
             }
         `,
+        content: css``,
     };
 
     return (
-        <article onClick={onClick} css={styles.container}>
-            <span className={cn({ show: props.showContent })} css={styles.content}>
-                {props.caption.substring(props.caption.length - 2)}
-            </span>
+        <article
+            onClick={onClick}
+            css={styles.container}
+            className={cn({ show: props.showContent })}
+        >
+            <span className={cn({ show: props.showContent })} css={styles.content}></span>
         </article>
     );
 };

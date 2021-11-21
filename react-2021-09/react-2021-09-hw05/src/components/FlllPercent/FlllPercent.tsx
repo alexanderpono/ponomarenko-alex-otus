@@ -17,7 +17,6 @@ export const FlllPercent: React.FC<FieldSizeProps> = ({
 }) => {
     return (
         <>
-            <span>fill percent: </span>
             <Button id="btFill0" onClick={fill0}>
                 clear
             </Button>

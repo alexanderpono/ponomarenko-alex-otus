@@ -10,15 +10,12 @@ interface Props {
 export const DefineMode: React.FC<Props> = ({ play, pause, mode }) => {
     return (
         <>
-            <article className="control">
-                <span className="label">mode:</span>
-                <Button id="btPlay" onClick={play} active={mode === Mode.PLAY}>
-                    play
-                </Button>
-                <Button id="btPause" onClick={pause} active={mode === Mode.PAUSE}>
-                    pause
-                </Button>
-            </article>
+            <Button id="btPlay" onClick={play} active={mode === Mode.PLAY}>
+                play
+            </Button>
+            <Button id="btPause" onClick={pause} active={mode === Mode.PAUSE}>
+                pause
+            </Button>
         </>
     );
 };
