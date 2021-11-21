@@ -3,6 +3,13 @@ import { AppStateManager } from './AppStateManager';
 import { render, screen, cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { str } from '@src/testFramework/lib/reducer';
+import {
+    LARGE_SIZE_CAPTION,
+    MIDDLE_SIZE_CAPTION,
+    Size,
+    sizeToWH,
+    SMALL_SIZE_CAPTION,
+} from '@src/consts';
 
 describe('AppStateController', () => {
     const clearBoth = 1;
@@ -15,30 +22,36 @@ describe('AppStateController', () => {
         expect(container.innerHTML).toBe('');
     });
 
-    it('It renders field of size 10x10 on click at "small 10x10"', () => {
+    it('It renders field of size 5x5 on click at "small"', () => {
         const { unmount } = render(<AppStateManager />);
-        const btSmall = screen.getByText('small 10x10');
+        const btSmall = screen.getByText(SMALL_SIZE_CAPTION);
         userEvent.click(btSmall);
         const grid = screen.getByRole('grid');
-        expect(grid.children.length).toBe(10 * 10 + clearBoth);
+        expect(grid.children.length).toBe(
+            sizeToWH[Size.SMALL].w * sizeToWH[Size.SMALL].h + clearBoth
+        );
         unmount();
     });
 
-    it('It renders field of size 20x20 on click at "medium 20x20"', () => {
+    it('It renders field of size 10x10 on click at "medium"', () => {
         const { unmount } = render(<AppStateManager />);
-        const btSmall = screen.getByText('medium 20x20');
+        const btSmall = screen.getByText(MIDDLE_SIZE_CAPTION);
         userEvent.click(btSmall);
         const grid = screen.getByRole('grid');
-        expect(grid.children.length).toBe(20 * 20 + clearBoth);
+        expect(grid.children.length).toBe(
+            sizeToWH[Size.MIDDLE].w * sizeToWH[Size.MIDDLE].h + clearBoth
+        );
         unmount();
     });
 
-    it('It renders field of size 30x30 on click at "large 30x30"', () => {
+    it('It renders field of size 20x15 on click at "large"', () => {
         const { unmount } = render(<AppStateManager />);
-        const btSmall = screen.getByText('large 30x30');
+        const btSmall = screen.getByText(LARGE_SIZE_CAPTION);
         userEvent.click(btSmall);
         const grid = screen.getByRole('grid');
-        expect(grid.children.length).toBe(30 * 30 + clearBoth);
+        expect(grid.children.length).toBe(
+            sizeToWH[Size.LARGE].w * sizeToWH[Size.LARGE].h + clearBoth
+        );
         unmount();
     });
 

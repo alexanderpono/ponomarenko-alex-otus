@@ -1,6 +1,7 @@
 import { createData, recreateData } from './playFieldUtils';
 import { DEFAULT_HEIGHT, DEFAULT_WIDTH } from './playField.consts';
 import { CellInfo } from './playField.types';
+import { Size, sizeToWH } from '@src/consts';
 
 export enum AppActions {
     DEFAULT = 'DEFAULT',
@@ -15,6 +16,7 @@ export interface AppState {
     fieldWidth: number;
     fieldHeight: number;
     data: CellInfo[];
+    size: Size;
 }
 
 export const defaultAppState: AppState = {
@@ -22,20 +24,21 @@ export const defaultAppState: AppState = {
     fieldWidth: 5,
     fieldHeight: 5,
     data: createData(DEFAULT_WIDTH, DEFAULT_HEIGHT),
+    size: Size.SMALL,
 };
 
 export interface FieldSizeAction {
     type: AppActions.FIELD_SIZE;
-    payload: { fieldWidth: number; fieldHeight: number };
+    payload: { size: Size };
 }
 export interface InvertAction {
     type: AppActions.INVERT;
     payload: { cellId: number };
 }
 
-export const fieldSize = (fieldWidth: number, fieldHeight: number): FieldSizeAction => ({
+export const fieldSize = (size: Size): FieldSizeAction => ({
     type: AppActions.FIELD_SIZE,
-    payload: { fieldWidth, fieldHeight },
+    payload: { size },
 });
 
 export const invert = (cellId: number): InvertAction => ({
@@ -44,21 +47,30 @@ export const invert = (cellId: number): InvertAction => ({
 });
 
 export type AppAction = FieldSizeAction | InvertAction;
+interface SizePair {
+    w: number;
+    h: number;
+}
 
 export function appReducer(state: AppState, action: AppAction): AppState {
     switch (action.type) {
         case AppActions.FIELD_SIZE: {
+            let sizePair: SizePair = sizeToWH[action.payload.size];
+            if (typeof sizePair === 'undefined') {
+                sizePair = sizeToWH[Size.SMALL];
+            }
             return {
                 ...state,
                 event: AppActions.FIELD_SIZE,
-                fieldWidth: Number(action.payload.fieldWidth),
-                fieldHeight: Number(action.payload.fieldHeight),
+                fieldWidth: sizePair.w,
+                fieldHeight: sizePair.h,
+                size: action.payload.size,
                 data: recreateData(
                     state.data,
                     state.fieldWidth,
                     state.fieldHeight,
-                    Number(action.payload.fieldWidth),
-                    Number(action.payload.fieldHeight)
+                    sizePair.w,
+                    sizePair.h
                 ),
             };
         }

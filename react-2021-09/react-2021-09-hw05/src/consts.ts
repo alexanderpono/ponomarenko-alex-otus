@@ -1,9 +1,9 @@
 export const SMALL_SIZE = 10;
 export const MIDDLE_SIZE = 20;
 export const LARGE_SIZE = 30;
-export const SMALL_SIZE_CAPTION = '10x10';
-export const MIDDLE_SIZE_CAPTION = '20x20';
-export const LARGE_SIZE_CAPTION = '30x30';
+export const SMALL_SIZE_CAPTION = 'small 5x5';
+export const MIDDLE_SIZE_CAPTION = 'medium 10x10';
+export const LARGE_SIZE_CAPTION = 'large 20x15';
 export const CELL_WIDTH = 20;
 export const CELL_HEIGHT = 20;
 
@@ -23,3 +23,9 @@ export enum Mode {
     PLAY = 'PLAY',
     PAUSE = 'PAUSE',
 }
+
+export const sizeToWH = {
+    [Size.SMALL]: { w: 5, h: 5 },
+    [Size.MIDDLE]: { w: 10, h: 10 },
+    [Size.LARGE]: { w: 20, h: 15 },
+};

@@ -19,10 +19,9 @@ export class AppStateManager extends React.Component<{}, AppState> {
         this.invert = this.invert.bind(this);
     }
 
-    private setSize = (len: number) => this.setState(appReducer(this.state, fieldSize(len, len)));
-    private setSmall = () => this.setSize(SMALL_SIZE);
-    private setMedium = () => this.setSize(MIDDLE_SIZE);
-    private setLarge = () => this.setSize(LARGE_SIZE);
+    private setSmall = () => this.setState(appReducer(this.state, fieldSize(Size.SMALL)));
+    private setMedium = () => this.setState(appReducer(this.state, fieldSize(Size.MIDDLE)));
+    private setLarge = () => this.setState(appReducer(this.state, fieldSize(Size.LARGE)));
     private invert(num: number) {
         this.setState(appReducer(this.state, invert(num)));
     }
@@ -56,7 +55,7 @@ export class AppStateManager extends React.Component<{}, AppState> {
                         setSmall={this.setSmall}
                         setMedium={this.setMedium}
                         setLarge={this.setLarge}
-                        size={Size.SMALL}
+                        size={this.state.size}
                     />
                 </article>
                 <article>

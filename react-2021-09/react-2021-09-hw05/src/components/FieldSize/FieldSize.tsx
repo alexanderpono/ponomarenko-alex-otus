@@ -14,13 +14,13 @@ export const FieldSize: React.FC<FieldSizeProps> = ({ setSmall, setMedium, setLa
         <>
             <span>field size: </span>
             <Button id="btSmall" onClick={setSmall} active={size === Size.SMALL}>
-                small {SMALL_SIZE_CAPTION}
+                {SMALL_SIZE_CAPTION}
             </Button>
             <Button id="btMedium" onClick={setMedium} active={size === Size.MIDDLE}>
-                medium {MIDDLE_SIZE_CAPTION}
+                {MIDDLE_SIZE_CAPTION}
             </Button>
             <Button id="btLarge" onClick={setLarge} active={size === Size.LARGE}>
-                large {LARGE_SIZE_CAPTION}
+                {LARGE_SIZE_CAPTION}
             </Button>
         </>
     );

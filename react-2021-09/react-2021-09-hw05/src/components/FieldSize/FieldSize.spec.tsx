@@ -15,7 +15,7 @@ describe('FieldSize', () => {
                 size={Size.MIDDLE}
             />
         );
-        userEvent.click(screen.getByText(`small ${SMALL_SIZE_CAPTION}`));
+        userEvent.click(screen.getByText(SMALL_SIZE_CAPTION));
         expect(mockCallBack.mock.calls.length).toEqual(1);
     });
 
@@ -29,7 +29,7 @@ describe('FieldSize', () => {
                 size={Size.MIDDLE}
             />
         );
-        userEvent.click(screen.getByText(`medium ${MIDDLE_SIZE_CAPTION}`));
+        userEvent.click(screen.getByText(MIDDLE_SIZE_CAPTION));
         expect(mockCallBack.mock.calls.length).toEqual(1);
     });
 
@@ -43,7 +43,7 @@ describe('FieldSize', () => {
                 size={Size.MIDDLE}
             />
         );
-        userEvent.click(screen.getByText(`large ${LARGE_SIZE_CAPTION}`));
+        userEvent.click(screen.getByText(LARGE_SIZE_CAPTION));
         expect(mockCallBack.mock.calls.length).toEqual(1);
     });
 });
