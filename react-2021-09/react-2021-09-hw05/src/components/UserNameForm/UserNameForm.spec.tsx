@@ -9,7 +9,7 @@ describe('UserNameForm', () => {
         const mockCallBack = jest.fn();
         const rndName = str();
         render(<UserNameForm onName={mockCallBack} />);
-        const input = screen.getByLabelText('Введите имя:');
+        const input = screen.getByLabelText('Enter your name:');
         userEvent.click(input);
         userEvent.type(input, rndName);
         userEvent.click(screen.getByText('submit'));
@@ -20,7 +20,7 @@ describe('UserNameForm', () => {
         const mockCallBack = jest.fn();
         const rndName = str();
         render(<UserNameForm onName={mockCallBack} />);
-        const input = screen.getByLabelText('Введите имя:');
+        const input = screen.getByLabelText('Enter your name:');
         userEvent.click(input);
         userEvent.type(input, rndName);
         userEvent.click(screen.getByText('submit'));

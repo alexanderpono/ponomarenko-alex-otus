@@ -29,3 +29,7 @@ export const sizeToWH = {
     [Size.MIDDLE]: { w: 10, h: 10 },
     [Size.LARGE]: { w: 20, h: 15 },
 };
+
+export const CAPTION_COLOR = '#ddd';
+export const PANEL_BG_COLOR = '#555';
+export const PANEL_BORDER_COLOR = '#333';

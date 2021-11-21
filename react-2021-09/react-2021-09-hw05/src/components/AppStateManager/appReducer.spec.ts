@@ -26,6 +26,7 @@ describe('appReducer', () => {
         };
 
         const rndS = rndSize();
+        const badFieldSize = 'uuu' as unknown as Size;
 
         test.each`
             actions                                 | testName                                      | event                    | stateSelector    | value
@@ -34,6 +35,7 @@ describe('appReducer', () => {
             ${[fieldSize(Size.MIDDLE)]}             | ${'sets .data from FIELD_SIZE action'}        | ${AppActions.FIELD_SIZE} | ${'data.length'} | ${len}
             ${[fieldSize(rndS)]}                    | ${'sets .size from FIELD_SIZE action'}        | ${AppActions.FIELD_SIZE} | ${'size'}        | ${rndS}
             ${[fieldSize(Size.MIDDLE), invert(id)]} | ${'sets .event from INVERT action'}           | ${AppActions.INVERT}     | ${null}          | ${null}
+            ${[fieldSize(badFieldSize)]}            | ${'sets .size=SMALL from badFieldSize'}       | ${AppActions.FIELD_SIZE} | ${'size'}        | ${Size.SMALL}
         `(
             '$testName',
             async ({
@@ -58,7 +60,7 @@ describe('appReducer', () => {
 
     it('inverts .visible of item(num) from from INVERT action', () => {
         const srcState = defaultAppState;
-        const id = Math.round(srcState.fieldWidth * srcState.fieldHeight * Math.random());
+        const id = Math.round(srcState.fieldWidth * srcState.fieldHeight * Math.random()) - 1;
         const oldVisible = srcState.data[id].visible;
         expect(appReducer(srcState, invert(id)).data[id].visible).toBe(!oldVisible);
     });

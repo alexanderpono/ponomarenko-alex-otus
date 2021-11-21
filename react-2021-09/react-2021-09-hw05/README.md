@@ -44,3 +44,71 @@
 
 
 
+## Выполнение д/з №5
+1. В компонент GameField передаются пропсы data(одномерный массив ячеек) и width (ширина поля в ячейках). Текущая версия программы поддерживает изменение размера поля при нажатии на кнопки "small 5x5", "medium 10x10", "large 20x15" в UI. нажатие на эти кнопки приводит к соответствующему изменению размера поля.
+Реализовано сохранение состояния клеток при изменении размера поля.
+Реализована анимация изменения состояния клеток.
+
+2. Добавлены методы жизненного цикла в компоненты AppStateManager (constructor(), render()), GameField (render(), shouldComponentUpdate())
+
+3. Добавлены элементы управления: 
+* размером поля - компонент FieldSize
+* начальный процент заполнености - FillPercent
+* управление скоростью (отображение текущей скорости) - DefineSpeed
+* запустить/поставить на паузу игру (отображение текущего состояния) - DefineMode
+* форма для ввода имени - UserNameForm
+
+4. Добавлено оформление компонентов, UX
+
+5. Дополнены тесты и сторибук.
+
+```
+--------------------------------|---------|----------|---------|---------|-------------------
+File                            | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+--------------------------------|---------|----------|---------|---------|-------------------
+All files                       |     100 |      100 |     100 |     100 |                   
+ src                            |     100 |      100 |     100 |     100 |                   
+  consts.ts                     |     100 |      100 |     100 |     100 |                   
+ src/components/AppStateManager |     100 |      100 |     100 |     100 |                   
+  AppStateManager.tsx           |     100 |      100 |     100 |     100 |                   
+  appReducer.ts                 |     100 |      100 |     100 |     100 |                   
+  playField.consts.ts           |     100 |      100 |     100 |     100 |                   
+  playFieldUtils.ts             |     100 |      100 |     100 |     100 |                   
+ src/components/AppStateView    |     100 |      100 |     100 |     100 |                   
+  AppStateView.tsx              |     100 |      100 |     100 |     100 |                   
+ src/components/Button          |     100 |      100 |     100 |     100 |                   
+  Button.tsx                    |     100 |      100 |     100 |     100 |                   
+ src/components/Cell            |     100 |      100 |     100 |     100 |                   
+  Cell.tsx                      |     100 |      100 |     100 |     100 |                   
+ src/components/DefineMode      |     100 |      100 |     100 |     100 |                   
+  DefineMode.tsx                |     100 |      100 |     100 |     100 |                   
+ src/components/DefineSpeed     |     100 |      100 |     100 |     100 |                   
+  DefineSpeed.tsx               |     100 |      100 |     100 |     100 |                   
+ src/components/FieldSize       |     100 |      100 |     100 |     100 |                   
+  FieldSize.tsx                 |     100 |      100 |     100 |     100 |                   
+ src/components/FlllPercent     |     100 |      100 |     100 |     100 |                   
+  FlllPercent.tsx               |     100 |      100 |     100 |     100 |                   
+ src/components/GameField       |     100 |      100 |     100 |     100 |                   
+  GameField.tsx                 |     100 |      100 |     100 |     100 |                   
+ src/components/UserNameForm    |     100 |      100 |     100 |     100 |                   
+  UserNameForm.tsx              |     100 |      100 |     100 |     100 |                   
+ src/testFramework/lib          |     100 |      100 |     100 |     100 |                   
+  reducer.ts                    |     100 |      100 |     100 |     100 |                   
+--------------------------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 10 passed, 10 total
+Tests:       37 passed, 37 total
+Snapshots:   0 total
+Time:        4.881 s
+Ran all test suites.
+```
+
+
+Текущая версия сторибук в chromatic:
+https://6168a14038f17a003a388098-potjdfcfaf.chromatic.com/?path=/story/appstatemanager--game
+
+Тесты в chromatic:
+https://www.chromatic.com/build?appId=6168a14038f17a003a388098&number=9
+
+
+

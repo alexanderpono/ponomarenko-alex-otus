@@ -56,15 +56,17 @@ export function appReducer(state: AppState, action: AppAction): AppState {
     switch (action.type) {
         case AppActions.FIELD_SIZE: {
             let sizePair: SizePair = sizeToWH[action.payload.size];
+            let sizeName: Size = action.payload.size;
             if (typeof sizePair === 'undefined') {
                 sizePair = sizeToWH[Size.SMALL];
+                sizeName = Size.SMALL;
             }
             return {
                 ...state,
                 event: AppActions.FIELD_SIZE,
                 fieldWidth: sizePair.w,
                 fieldHeight: sizePair.h,
-                size: action.payload.size,
+                size: sizeName,
                 data: recreateData(
                     state.data,
                     state.fieldWidth,

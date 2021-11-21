@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mode, Size, Speed } from '@src/consts';
+import { CAPTION_COLOR, Mode, PANEL_BG_COLOR, PANEL_BORDER_COLOR, Size, Speed } from '@src/consts';
 import { AppStateView } from '@components/AppStateView';
 import { DefineMode } from '@src/components/DefineMode';
 import { FieldSize } from '@components/FieldSize';
@@ -31,14 +31,15 @@ export class AppStateManager extends React.Component<{}, AppState> {
         const showAll = true;
         const dummy = () => {};
         return (
-            <Table>
-                <h1>Game of life proto</h1>
-                <article>
-                    <UserNameForm onName={(name) => console.log('name=', name)} />
-                </article>
-                <article>
-                    <AppStateView appState={this.state} />
-                </article>
+            <TableBg>
+                <TopControls>
+                    <TopBox>
+                        <H1>Game of life</H1>
+                        <article>
+                            <UserNameForm onName={(name) => console.log('name=', name)} />
+                        </article>
+                    </TopBox>
+                </TopControls>
                 <article style={{ display: 'flex', justifyContent: 'center' }}>
                     <GameBox>
                         <GameField
@@ -86,52 +87,68 @@ export class AppStateManager extends React.Component<{}, AppState> {
                         </Buttons>
                     </BottomBox>
                 </BottomControls>
-            </Table>
+            </TableBg>
         );
     }
 }
 
-export const BottomControls = styled.section`
+export const H1 = styled.h1`
+    text-align: center;
+    color: ${CAPTION_COLOR};
+    font-size: 130%;
+    line-height: 140%;
+`;
+
+export const TopControls = styled.section`
     display: flex;
     justify-content: center;
 `;
+const frameCSS = `
+    border: 9px solid ${PANEL_BORDER_COLOR};
+    border-radius: 9px;
+    box-shadow: 0px 16px 30px 0px #200;
+    background: ${PANEL_BG_COLOR};
+`;
+
+const TopBox = styled.section`
+    display: inline-block;
+    width: 400px;
+    ${frameCSS}
+`;
+
+export const BottomControls = TopControls;
 
 export const BottomBox = styled.section`
     display: inline-block;
-    border: 9px solid #333;
-    border-radius: 9px;
-    box-shadow: 0px 16px 30px 0px #200;
+    padding-top: 5px;
     width: 400px;
-    background: #555;
+    ${frameCSS}
 `;
 
 export const GameBox = styled.section`
     display: flex;
     justify-content: center;
-    border: 9px solid #333;
-    border-radius: 9px;
-    box-shadow: 0px 16px 30px 0px #200;
     min-width: 400px;
-    background: #555;
+    ${frameCSS}
 `;
 
 export const Caption = styled.div`
     display: block;
     float: left;
-    font-family: Arial, sans-serif;
     font-size: 14px;
     width: 90px;
     line-height: 27px;
     height: 30px;
     text-align: right;
     margin-right: 5px;
-    color: #ddd;
+    color: ${CAPTION_COLOR};
 `;
 export const Buttons = styled.div`
     display: block;
     height: 30px;
 `;
 
-export const Table = styled.div`
+export const TableBg = styled.div`
     background: #e9e2d7;
+    font-family: Arial, sans-serif;
 `;

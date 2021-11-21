@@ -16,7 +16,7 @@ describe('AppStateController', () => {
 
     it('It renders "Game of life proto"', () => {
         const { container, unmount } = render(<AppStateManager />);
-        const caption = screen.getByText('Game of life proto');
+        const caption = screen.getByText('Game of life');
         expect(caption).toBeInTheDocument();
         unmount();
         expect(container.innerHTML).toBe('');
@@ -76,7 +76,7 @@ describe('AppStateController', () => {
         render(<AppStateManager />);
 
         const rndName = str();
-        const input = screen.getByLabelText('Введите имя:');
+        const input = screen.getByLabelText('Enter your name:');
         userEvent.click(input);
         userEvent.type(input, rndName);
         userEvent.click(screen.getByText('submit'));
