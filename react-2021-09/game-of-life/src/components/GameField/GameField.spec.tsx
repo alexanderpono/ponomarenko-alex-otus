@@ -2,7 +2,7 @@ import React from 'react';
 import { GameField } from './GameField';
 import renderer from 'react-test-renderer';
 import { CELL_WIDTH } from '../Cell';
-import { CellInfo } from '../AppStateController/appReducer';
+import { AppActions, CellInfo } from '../AppStateManager/appReducer';
 import { mount } from 'enzyme';
 import { num } from '../../testFramework/lib/reducer';
 
@@ -26,6 +26,7 @@ describe('GameField', () => {
                     data={data}
                     onCellClick={() => {}}
                     widthPixels={widthPixels}
+                    actionId={AppActions.INVERT}
                 ></GameField>
             )
             .toJSON() as RenderResult;
@@ -52,6 +53,7 @@ describe('GameField', () => {
                 data={data}
                 onCellClick={mockCallBack}
                 widthPixels={widthPixels}
+                actionId={AppActions.INVERT}
             ></GameField>
         );
         wrapper.find('article').last().simulate('click');

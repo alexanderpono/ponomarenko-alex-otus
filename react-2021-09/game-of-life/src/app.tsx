@@ -1,5 +1,5 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { AppStateController } from './components/AppStateController';
+import { AppStateManager } from './components/AppStateManager';
 
-render(<AppStateController />, document.getElementById('app-target'));
+render(<AppStateManager />, document.getElementById('app-target'));
