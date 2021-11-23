@@ -1,4 +1,4 @@
-// Задание 1
+// Задание 1. Получить из A -> B не мутируя оригинальный объект. Поменять объект
 export type OriginalTeam = {
     size: number;
     name: string;
@@ -12,18 +12,18 @@ export type ExpectedTeam = {
 };
 
 export const originalTeamToExpectedTeam = (originalTeam: OriginalTeam): ExpectedTeam => {
-    //
+    const { size, ...originalWithoutSize } = originalTeam;
+    return { ...originalWithoutSize, name: 'New York Badgers', roster: 25 };
 };
 
-// Задание 2
-type SomeArray = Array<number | string>;
+// Задание 2. Получить из A -> B не мутируя оригинальный объект. Поменять массив
+export type SomeArray = Array<number | string>;
 
-const originalArrayToExpectedArray = (originalArray: SomeArray): SomeArray => {
-    //
+export const originalArrayToExpectedArray = (originalArray: SomeArray): SomeArray => {
+    return ([] as SomeArray).concat(['two'], originalArray.slice(2, originalArray.length), [5]);
 };
 
-// Задание 3
-
+// Задание 3. Получить из A -> B не мутируя оригинальный объект. Поменять глубокий объект
 export type Team = {
     name: string;
     captain: {
@@ -32,6 +32,6 @@ export type Team = {
     };
 };
 
-export const originalTeamToExpectedTeam = (originalTeam: Team): Team => {
-    //
+export const originalTeamToExpectedTeam2 = (originalTeam: Team): Team => {
+    return { ...originalTeam, captain: { ...originalTeam.captain, age: 28 } };
 };

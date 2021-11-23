@@ -1,6 +1,13 @@
-import { OriginalTeam, ExpectedTeam } from './immutability';
+import {
+    OriginalTeam,
+    ExpectedTeam,
+    originalTeamToExpectedTeam,
+    originalArrayToExpectedArray,
+    SomeArray,
+    originalTeamToExpectedTeam2,
+} from './immutability';
 
-// Задание 1
+// Задание 1. Получить из A -> B не мутируя оригинальный объект. Поменять объект
 test('team to team', () => {
     const originalTeam: OriginalTeam = Object.freeze({
         size: 15,
@@ -14,19 +21,19 @@ test('team to team', () => {
         roster: 25,
     };
 
-    expect(originalTeamToExpectedTeam(originalTeam)).toBe(expectedTeam);
+    expect(originalTeamToExpectedTeam(originalTeam)).toEqual(expectedTeam);
 });
 
-// Задание 2
+// Задание 2. Получить из A -> B не мутируя оригинальный объект. Поменять массив
 test('array to array', () => {
     const originalArray = Object.freeze([1, 2, 3, 4]);
 
     const expectedArray = ['two', 3, 4, 5];
 
-    expect(originalArrayToExpectedArray(originalArray)).toBe(expectedArray);
+    expect(originalArrayToExpectedArray(originalArray as SomeArray)).toEqual(expectedArray);
 });
 
-// Задание 3
+// Задание 3. Получить из A -> B не мутируя оригинальный объект. Поменять глубокий объект
 test('team to team deep', () => {
     const originalTeam = Object.freeze({
         name: 'Tampa Bay Roosters',
@@ -44,5 +51,5 @@ test('team to team deep', () => {
         },
     };
 
-    expect(originalTeamToExpectedTeam(originalTeam)).toBe(expectedTeam);
+    expect(originalTeamToExpectedTeam2(originalTeam)).toEqual(expectedTeam);
 });
