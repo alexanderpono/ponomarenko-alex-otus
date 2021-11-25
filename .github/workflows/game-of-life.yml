@@ -30,6 +30,7 @@ jobs:
       - run: pwd
       - run: ls
       - run: cd react-2021-09/game-of-life
+      - run: pwd
       - run: npm install
       - run: npm build
 
