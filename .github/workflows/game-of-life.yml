@@ -28,7 +28,8 @@ jobs:
           restore-keys: |
             ${{ runner.OS }}-npm-cache-
       - run: pwd
-      - run: cd game-of-life
+      - run: ls
+      - run: cd react-2021-09/game-of-life
       - run: npm install
       - run: npm build
 
