@@ -27,6 +27,7 @@ jobs:
           key: ${{ runner.OS }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.OS }}-npm-cache-
+      - run: pwd
       - run: cd game-of-life
       - run: npm install
       - run: npm build
