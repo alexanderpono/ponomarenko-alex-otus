@@ -44,7 +44,7 @@ jobs:
         id: Project-build
         run: cd react-2021-09/game-of-life && npm run build
 
-      - name: test "with-path"
+      - name: test with-path
         with:
           path: ./react-2021-09/game-of-life
         run: npm run build
