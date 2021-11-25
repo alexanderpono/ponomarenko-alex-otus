@@ -27,10 +27,12 @@ jobs:
           key: ${{ runner.OS }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.OS }}-npm-cache-
-      - run: pwd
-      - run: ls
-      - run: cd react-2021-09/game-of-life
-      - run: pwd
-      - run: npm install
-      - run: npm build
+      - run: |
+            pwd
+            cd react-2021-09/game-of-life
+            pwd
+            npm install
+      - run: |
+            cd react-2021-09/game-of-life
+            npm build
 
