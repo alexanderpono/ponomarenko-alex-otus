@@ -9,7 +9,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  GOL-build-test-deploy:
     runs-on: ubuntu-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0 # 👈 Required to retrieve git history
       - uses: actions/setup-node@v2
         with:
-          node-version: '16'
+          node-version: '14'
       - name: Cache NPM dependencies
         uses: actions/cache@v2.1.7
         with:
@@ -32,7 +32,5 @@ jobs:
             cd react-2021-09/game-of-life
             pwd
             npm install
-      - run: |
-            cd react-2021-09/game-of-life
-            npm build
+      - run: cd react-2021-09/game-of-life && npm run build
 
