@@ -11,6 +11,9 @@ jobs:
   # This workflow contains a single job called "build"
   GOL-build-test-deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: react-2021-09/game-of-life
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -30,22 +33,18 @@ jobs:
       
       - name: Install dependencies
         id: Npm-install
-        run: cd react-2021-09/game-of-life && npm install
+        run: npm install
 
       - name: Do linter check
         id: linter
-        run: cd react-2021-09/game-of-life && npm run lint
+        run: npm run lint
 
       - name: Run tests
         id: Run-tests
-        run: cd react-2021-09/game-of-life && npm run test
+        run: npm run test
 
       - name: Build project
         id: Project-build
-        run: cd react-2021-09/game-of-life && npm run build
-
-      - name: test with-path
-        with:
-          path: ./react-2021-09/game-of-life
         run: npm run build
+
 
