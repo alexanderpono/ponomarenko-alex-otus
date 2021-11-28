@@ -47,11 +47,11 @@ jobs:
         id: Loki-test
         run: npm run test:loki
 
-      # - name: Run chromatic test
-      #   id: Chromatic-test
-      #   env:
-      #     CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-      #   run: npx chromatic
+      - name: Run chromatic test
+        id: Chromatic-test
+        env:
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+        run: npx chromatic
 
       # - name: Build project
       #   id: Project-build
