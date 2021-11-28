@@ -53,19 +53,19 @@ jobs:
       #     CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
       #   run: npx chromatic
 
-      # - name: Build project
-      #   id: Project-build
-      #   run: npm run build
+      - name: Build project
+        id: Project-build
+        run: npm run build
 
-      # - name: Deploy application to GHP /ponomarenko-alex-otus/react-2021-09/hw04/application 🚀
-      #   id: Deploy-app
-      #   uses: JamesIves/github-pages-deploy-action@3.7.1
-      #   with:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     BRANCH: gh-pages # The branch the action should deploy to.
-      #     FOLDER: react-2021-09/game-of-life/public  # The folder the action should deploy.
-      #     TARGET_FOLDER: react-2021-09/hw04/application
-      #     CLEAN: true # Automatically remove deleted files from the deploy branch
+      - name: Deploy application to GHP /ponomarenko-alex-otus/react-2021-09/hw05/application 🚀
+        id: Deploy-app
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: react-2021-09/game-of-life/public  # The folder the action should deploy.
+          TARGET_FOLDER: react-2021-09/hw05/application
+          CLEAN: true # Automatically remove deleted files from the deploy branch
 
       # - name: Deploy storybook to GHP /ponomarenko-alex-otus/react-2021-09/hw04/storybook 🚀
       #   id: Deploy-storybook
