@@ -44,7 +44,7 @@
 
 7. Дополнены тесты и сторибук.
 Покрытие тестами на данный момент:
-```
+`
 --------------------------------|---------|----------|---------|---------|-------------------
 File                            | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
 --------------------------------|---------|----------|---------|---------|-------------------
@@ -71,7 +71,7 @@ Tests:       25 passed, 25 total
 Snapshots:   0 total
 Time:        5.29 s
 Ran all test suites.
-```
+`
 
 
 [Текущая версия сторибук в chromatic](https://6168a14038f17a003a388098-qfauqmhgsd.chromatic.com/?path=/story/appstatemanager--game)
