@@ -10,7 +10,7 @@
 
 2. Описать constructor как минимум в одном компоненте, объявить в конструкторе стейт и привязать контекст методов
 
-3. Описать componentDidMount как минимум в одном компоненте, получить в нем данные сервера(можно использовать заглушку или сторонние сервисы, например https://jsonplaceholder.typicode.com/). Описать подписку на событие
+3. Описать componentDidMount как минимум в одном компоненте, получить в нем данные сервера(можно использовать заглушку или сторонние сервисы, например [https://jsonplaceholder.typicode.com/](https://jsonplaceholder.typicode.com/)). Описать подписку на событие
 
 4. Описать shouldComponentUpdate как минимум в одном компоненте, произвести в нем оптимизацию производительности(если будет притянутый за уши случай - ничего страшного)
 
@@ -74,11 +74,9 @@ Ran all test suites.
 ```
 
 
-Текущая версия сторибук в chromatic:
-https://6168a14038f17a003a388098-qfauqmhgsd.chromatic.com/?path=/story/appstatemanager--game
+[Текущая версия сторибук в chromatic](https://6168a14038f17a003a388098-qfauqmhgsd.chromatic.com/?path=/story/appstatemanager--game)
 
-Тесты в chromatic:
-https://www.chromatic.com/build?appId=6168a14038f17a003a388098&number=7
+[Тесты в chromatic](https://www.chromatic.com/build?appId=6168a14038f17a003a388098&number=7)
 
-8. Кодовая база см. https://github.com/alexanderpono/ponomarenko-alex-otus/commits/react-hw2
-9. Опубликованные результаты см. https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw04
+8. [Кодовая база hw02](https://github.com/alexanderpono/ponomarenko-alex-otus/commits/react-hw2)
+9. [Опубликованные результаты](https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw04)

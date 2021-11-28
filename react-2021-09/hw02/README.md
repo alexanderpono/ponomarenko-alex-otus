@@ -33,7 +33,7 @@
 * настроить jest
 
 * устанавливаем storybook последней версии вместе с essential
-https://storybook.js.org/docs/react/essentials/introduction
+[https://storybook.js.org/docs/react/essentials/introduction](https://storybook.js.org/docs/react/essentials/introduction)
 
 * родительский компонент должен принимать данные для отображения
 
@@ -42,17 +42,17 @@ https://storybook.js.org/docs/react/essentials/introduction
 * правильно добавляем обработчик события click, выводящий номер квадратика
 
 * покрываем обработчики тестами (самостоятельно разбиритесь с react-testing-library)
-https://www.robinwieruch.de/react-testing-library
+[https://www.robinwieruch.de/react-testing-library](https://www.robinwieruch.de/react-testing-library)
 
 Не забываем про визуальную регрессию (используйте loki или chromatic)
-https://storybook.js.org/addons/chromatic/
-https://storybook.js.org/addons/loki/
+[https://storybook.js.org/addons/chromatic/](https://storybook.js.org/addons/chromatic/)
+[https://storybook.js.org/addons/loki/](https://storybook.js.org/addons/loki/])
 
 ## Шаблон Game of life
-https://codepen.io/freeCodeCamp/pen/reGdqx
+[https://codepen.io/freeCodeCamp/pen/reGdqx](https://codepen.io/freeCodeCamp/pen/reGdqx)
 
 ## Описание Game of life
-https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
+[https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
 
 ## Критерии оценки:
 
@@ -70,7 +70,7 @@ https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
 2. Созданы визуальные компоненты Cell, GameField
 3. Создан компонент-контроллер состояния приложения AppStateController
 4. Компоненты добавлены в storybook
-5. Настроено снепшот-тестирование chromatic https://www.chromatic.com/builds?appId=6168a14038f17a003a388098
+5. Настроено снепшот-тестирование chromatic [https://www.chromatic.com/builds?appId=6168a14038f17a003a388098](https://www.chromatic.com/builds?appId=6168a14038f17a003a388098)
 6. Созданы unit-тесты для функций управления состоянием приложения и для обработчиков событий компонента Cell
-7. Кодовая база см. https://github.com/alexanderpono/ponomarenko-alex-otus/commits/react-hw2
-8. Опубликованные результаты см. https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw02
+7. Кодовая база см. [https://github.com/alexanderpono/ponomarenko-alex-otus/commits/react-hw2](https://github.com/alexanderpono/ponomarenko-alex-otus/commits/react-hw2)
+8. Опубликованные результаты см. [https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw02](https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw02)
