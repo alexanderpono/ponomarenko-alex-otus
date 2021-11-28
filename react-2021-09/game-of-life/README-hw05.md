@@ -107,11 +107,10 @@ Ran all test suites.
 ```
 
 
-Текущая версия сторибук в chromatic:
-https://6168a14038f17a003a388098-potjdfcfaf.chromatic.com/?path=/story/appstatemanager--game
-
-Тесты в chromatic:
-https://www.chromatic.com/build?appId=6168a14038f17a003a388098&number=9
-
-
+8. [Кодовая база hw05](https://github.com/alexanderpono/ponomarenko-alex-otus/tree/react-hw5)
+9. [Опубликованные результаты](https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw05)
+* [application](https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw05/application)
+* [storybook](https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw05/storybook)
+* [test-report](https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw05/test-report/testResult.html)
+* [Тесты в chromatic](https://www.chromatic.com/builds?appId=6168a14038f17a003a388098){:target="_blank"}
 
