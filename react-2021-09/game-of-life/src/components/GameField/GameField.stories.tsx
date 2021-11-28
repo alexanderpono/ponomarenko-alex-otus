@@ -1,8 +1,9 @@
 import React from 'react';
 import { withKnobs, number, boolean } from '@storybook/addon-knobs';
 import { GameField } from './GameField';
-import { CELL_WIDTH } from '../Cell';
-import { AppActions, CellInfo, CELL_DEAD, CELL_LIVE } from '../AppStateManager/appReducer';
+import { AppActions } from '@src/components/AppStateManager/appReducer';
+import { CellInfo } from '@src/components/AppStateManager/playField.types';
+import { CELL_DEAD, CELL_LIVE } from '@src/components/AppStateManager/playField.consts';
 
 export default {
     title: 'GameField',
@@ -19,7 +20,6 @@ export const Dynamic: React.FC<{}> = () => {
     const showAll = boolean('showAll', false);
 
     const [data, setData] = React.useState(START_DATA);
-    const [widthPixels, setWidthPixels] = React.useState(START_WIDTH * CELL_WIDTH);
 
     React.useEffect(() => {
         const cellsNumber = width * height;
@@ -29,7 +29,6 @@ export const Dynamic: React.FC<{}> = () => {
             newData.push({ id: String(i), visible: startCellState });
         }
         setData(newData);
-        setWidthPixels(width * CELL_WIDTH);
     }, [width, height, showAll]);
 
     const onCellClick = (num: number) => {
@@ -47,7 +46,7 @@ export const Dynamic: React.FC<{}> = () => {
             showAll={showAll}
             data={data}
             onCellClick={onCellClick}
-            widthPixels={widthPixels}
+            width={width}
             actionId={AppActions.INVERT}
         />
     );

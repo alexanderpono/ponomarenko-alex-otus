@@ -1,73 +1,68 @@
 import React from 'react';
 import { AppStateManager } from './AppStateManager';
 import { render, screen, cleanup } from '@testing-library/react';
-import fetchMock from 'jest-fetch-mock';
 import userEvent from '@testing-library/user-event';
+import { str } from '@src/testFramework/lib/reducer';
+import {
+    LARGE_SIZE_CAPTION,
+    MIDDLE_SIZE_CAPTION,
+    Size,
+    sizeToWH,
+    SMALL_SIZE_CAPTION,
+} from '@src/consts';
 
-describe('AppStateManager', () => {
+describe('AppStateController', () => {
+    const clearBoth = 1;
+
     it('It renders "Game of life proto"', () => {
-        fetchMock.mockIf('https://jsonplaceholder.typicode.com/todos/1', (req) => {
-            return Promise.resolve('{}');
-        });
-
-        const { container, unmount } = render(<AppStateManager></AppStateManager>);
-        const caption = screen.getByText('Game of life proto');
+        const { container, unmount } = render(<AppStateManager />);
+        const caption = screen.getByText('Game of life');
         expect(caption).toBeInTheDocument();
         unmount();
         expect(container.innerHTML).toBe('');
     });
 
-    it('It renders field of size 10x10 on click at "small 10x10"', () => {
-        fetchMock.mockIf('https://jsonplaceholder.typicode.com/todos/1', (req) => {
-            return Promise.reject('test reject');
-        });
-
-        const { unmount } = render(<AppStateManager></AppStateManager>);
-        const btSmall = screen.getByText('small 10x10');
+    it('It renders field of size 5x5 on click at "small"', () => {
+        const { unmount } = render(<AppStateManager />);
+        const btSmall = screen.getByText(SMALL_SIZE_CAPTION);
         userEvent.click(btSmall);
         const grid = screen.getByRole('grid');
-        expect(grid.children.length).toBe(10 * 10);
+        expect(grid.children.length).toBe(
+            sizeToWH[Size.SMALL].w * sizeToWH[Size.SMALL].h + clearBoth
+        );
         unmount();
     });
 
-    it('It renders field of size 20x20 on click at "medium 20x20"', () => {
-        fetchMock.mockIf('https://jsonplaceholder.typicode.com/todos/1', (req) => {
-            return Promise.reject('test reject');
-        });
-
-        const { unmount } = render(<AppStateManager></AppStateManager>);
-        const btSmall = screen.getByText('medium 20x20');
+    it('It renders field of size 10x10 on click at "medium"', () => {
+        const { unmount } = render(<AppStateManager />);
+        const btSmall = screen.getByText(MIDDLE_SIZE_CAPTION);
         userEvent.click(btSmall);
         const grid = screen.getByRole('grid');
-        expect(grid.children.length).toBe(20 * 20);
+        expect(grid.children.length).toBe(
+            sizeToWH[Size.MIDDLE].w * sizeToWH[Size.MIDDLE].h + clearBoth
+        );
         unmount();
     });
 
-    it('It renders field of size 30x30 on click at "large 30x30"', () => {
-        fetchMock.mockIf('https://jsonplaceholder.typicode.com/todos/1', (req) => {
-            return Promise.reject('test reject');
-        });
-
-        const { unmount } = render(<AppStateManager></AppStateManager>);
-        const btSmall = screen.getByText('large 30x30');
+    it('It renders field of size 20x15 on click at "large"', () => {
+        const { unmount } = render(<AppStateManager />);
+        const btSmall = screen.getByText(LARGE_SIZE_CAPTION);
         userEvent.click(btSmall);
         const grid = screen.getByRole('grid');
-        expect(grid.children.length).toBe(30 * 30);
+        expect(grid.children.length).toBe(
+            sizeToWH[Size.LARGE].w * sizeToWH[Size.LARGE].h + clearBoth
+        );
         unmount();
     });
 
     it('It switch off a cell after click', () => {
-        fetchMock.mockIf('https://jsonplaceholder.typicode.com/todos/1', (req) => {
-            return Promise.reject('test reject');
-        });
-
         const getCellIsAlive = (cell: Element) => {
             const classes = [...cell.children[0].classList];
             const cellIsVisible = classes.filter((s) => s === 'show').length === 1;
             return cellIsVisible;
         };
 
-        const { unmount } = render(<AppStateManager></AppStateManager>);
+        const { unmount } = render(<AppStateManager />);
         const grid = screen.getByRole('grid');
         const firstCell = grid.children[0];
         userEvent.click(firstCell);
@@ -75,6 +70,23 @@ describe('AppStateManager', () => {
 
         expect(cellIsAlive).toBe(false);
         unmount();
+    });
+
+    it('allows to click submit-button at LoginForm', () => {
+        render(<AppStateManager />);
+
+        const rndName = str();
+        const input = screen.getByLabelText('Enter your name:');
+        userEvent.click(input);
+        userEvent.type(input, rndName);
+        userEvent.click(screen.getByText('submit'));
+    });
+
+    it('allows to click gameSpeed-slow-button', () => {
+        render(<AppStateManager />);
+
+        const bt = screen.getByText('slow');
+        userEvent.click(bt);
     });
 
     afterEach(() => {

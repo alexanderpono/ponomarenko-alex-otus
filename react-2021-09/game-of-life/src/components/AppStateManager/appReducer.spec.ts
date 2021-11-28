@@ -1,34 +1,41 @@
-import { getFromState, getVal } from '../../testFramework/lib/reducer';
+import { Size, sizeToWH } from '@src/consts';
+import { getFromState, getVal } from '@src/testFramework/lib/reducer';
 import {
     AppAction,
     AppActions,
     appReducer,
     AppState,
-    dataFromBack,
     defaultAppState,
     fieldSize,
     invert,
-    mouse,
 } from './appReducer';
 
 const num = (size: number) => Math.round(size * Math.random());
 
 describe('appReducer', () => {
     describe('appReducer-parameterized', () => {
-        const w = num(5);
-        const h = num(5);
+        const w = sizeToWH[Size.MIDDLE].w;
+        const h = sizeToWH[Size.MIDDLE].h;
         const len = w * h;
         const id = num(len);
-        const dataFB = {};
-        const rndM = { x: num(5), y: num(5) };
+        const rndSize = (): Size => {
+            const rndNum = num(2);
+            const sizes = Object.keys(Size);
+            const rndSize = sizes[rndNum];
+            return rndSize as Size;
+        };
+
+        const rndS = rndSize();
+        const badFieldSize = 'uuu' as unknown as Size;
+
         test.each`
-            actions                   | testName                                           | event                        | stateSelector     | value
-            ${[fieldSize(w, h)]}      | ${'sets .fieldWidth from FIELD_SIZE action'}       | ${AppActions.FIELD_SIZE}     | ${'fieldWidth'}   | ${'payload.fieldWidth'}
-            ${[fieldSize(w, h)]}      | ${'sets .fieldHeight from FIELD_SIZE action'}      | ${AppActions.FIELD_SIZE}     | ${'fieldHeight'}  | ${'payload.fieldHeight'}
-            ${[fieldSize(w, h)]}      | ${'sets .data from FIELD_SIZE action'}             | ${AppActions.FIELD_SIZE}     | ${'data.length'}  | ${len}
-            ${[invert(id)]}           | ${'sets .event from INVERT action'}                | ${AppActions.INVERT}         | ${null}           | ${null}
-            ${[dataFromBack(dataFB)]} | ${'sets .dataFromBack from DATA_FROM_BACK action'} | ${AppActions.DATA_FROM_BACK} | ${'dataFromBack'} | ${dataFB}
-            ${[mouse(rndM)]}          | ${'sets .dataFromBack from MOUSE action'}          | ${AppActions.MOUSE}          | ${'mouse'}        | ${rndM}
+            actions                                 | testName                                      | event                    | stateSelector    | value
+            ${[fieldSize(Size.MIDDLE)]}             | ${'sets .fieldWidth from FIELD_SIZE action'}  | ${AppActions.FIELD_SIZE} | ${'fieldWidth'}  | ${sizeToWH[Size.MIDDLE].w}
+            ${[fieldSize(Size.LARGE)]}              | ${'sets .fieldHeight from FIELD_SIZE action'} | ${AppActions.FIELD_SIZE} | ${'fieldHeight'} | ${sizeToWH[Size.LARGE].h}
+            ${[fieldSize(Size.MIDDLE)]}             | ${'sets .data from FIELD_SIZE action'}        | ${AppActions.FIELD_SIZE} | ${'data.length'} | ${len}
+            ${[fieldSize(rndS)]}                    | ${'sets .size from FIELD_SIZE action'}        | ${AppActions.FIELD_SIZE} | ${'size'}        | ${rndS}
+            ${[fieldSize(Size.MIDDLE), invert(id)]} | ${'sets .event from INVERT action'}           | ${AppActions.INVERT}     | ${null}          | ${null}
+            ${[fieldSize(badFieldSize)]}            | ${'sets .size=SMALL from badFieldSize'}       | ${AppActions.FIELD_SIZE} | ${'size'}        | ${Size.SMALL}
         `(
             '$testName',
             async ({
@@ -53,7 +60,7 @@ describe('appReducer', () => {
 
     it('inverts .visible of item(num) from from INVERT action', () => {
         const srcState = defaultAppState;
-        const id = Math.round(srcState.fieldWidth * srcState.fieldHeight * Math.random());
+        const id = Math.round(srcState.fieldWidth * srcState.fieldHeight * Math.random()) - 1;
         const oldVisible = srcState.data[id].visible;
         expect(appReducer(srcState, invert(id)).data[id].visible).toBe(!oldVisible);
     });

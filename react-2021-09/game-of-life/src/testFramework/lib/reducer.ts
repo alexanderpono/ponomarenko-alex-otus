@@ -26,3 +26,4 @@ export const getVal = (
 
 export const num = () => faker.datatype.number();
 export const str = () => faker.random.words();
+export const bool = () => faker.datatype.boolean();

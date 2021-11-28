@@ -5,3 +5,4 @@
 2. [Установка и настройка React. JSX как основа ReactJS. Functional components](game-of-life/README-hw02.md)
 3.
 4. [Components lifecycle](game-of-life/README-hw04.md)
+5. [Components lifecycle. Списки, события, формы](game-of-life/README-hw05.md)
