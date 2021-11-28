@@ -77,11 +77,9 @@ Ran all test suites.
 ```
 
 
-[Текущая версия сторибук в chromatic](https://6168a14038f17a003a388098-qfauqmhgsd.chromatic.com/?path=/story/appstatemanager--game)
-
-[Тесты в chromatic](https://www.chromatic.com/build?appId=6168a14038f17a003a388098&number=7)
-
-8. [Кодовая база hw02](https://github.com/alexanderpono/ponomarenko-alex-otus/commits/react-hw2)
+8. [Кодовая база hw04](https://github.com/alexanderpono/ponomarenko-alex-otus/tree/react-hw4)
 9. [Опубликованные результаты](https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw04)
 * [application](./application)
 * [storybook](./storybook)
+* [test-report](./test-report/testResult.html)
+* [Тесты в chromatic](https://www.chromatic.com/builds?appId=6168a14038f17a003a388098){:target="_blank"}
