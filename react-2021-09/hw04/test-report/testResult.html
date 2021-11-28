@@ -1,0 +1,232 @@
+<html><head><meta charset="utf-8"/><title>Test Report</title><style type="text/css">html,
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+body {
+  padding: 2rem 1rem;
+  font-size: 0.85rem;
+}
+#jesthtml-content {
+  margin: 0 auto;
+  max-width: 70rem;
+}
+header {
+  display: flex;
+  align-items: center;
+}
+#title {
+  margin: 0;
+  flex-grow: 1;
+}
+#logo {
+  height: 4rem;
+}
+#timestamp {
+  color: #777;
+  margin-top: 0.5rem;
+}
+
+/** SUMMARY */
+#summary {
+  color: #333;
+  margin: 2rem 0;
+  display: flex;
+  font-family: monospace;
+  font-size: 1rem;
+}
+#summary > div {
+  margin-right: 2rem;
+  background: #eee;
+  padding: 1rem;
+  min-width: 15rem;
+}
+#summary > div:last-child {
+  margin-right: 0;
+}
+@media only screen and (max-width: 720px) {
+  #summary {
+    flex-direction: column;
+  }
+  #summary > div {
+    margin-right: 0;
+    margin-top: 2rem;
+  }
+  #summary > div:first-child {
+    margin-top: 0;
+  }
+}
+
+.summary-total {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.summary-passed {
+  color: #4f8a10;
+  border-left: 0.4rem solid #4f8a10;
+  padding-left: 0.5rem;
+}
+.summary-failed,
+.summary-obsolete-snapshots {
+  color: #d8000c;
+  border-left: 0.4rem solid #d8000c;
+  padding-left: 0.5rem;
+}
+.summary-pending {
+  color: #9f6000;
+  border-left: 0.4rem solid #9f6000;
+  padding-left: 0.5rem;
+}
+.summary-empty {
+  color: #999;
+  border-left: 0.4rem solid #999;
+}
+
+.test-result {
+  padding: 1rem;
+  margin-bottom: 0.25rem;
+}
+.test-result:last-child {
+  border: 0;
+}
+.test-result.passed {
+  background-color: #dff2bf;
+  color: #4f8a10;
+}
+.test-result.failed {
+  background-color: #ffbaba;
+  color: #d8000c;
+}
+.test-result.pending {
+  background-color: #ffdf61;
+  color: #9f6000;
+}
+
+.test-info {
+  display: flex;
+  justify-content: space-between;
+}
+.test-suitename {
+  width: 20%;
+  text-align: left;
+  font-weight: bold;
+  word-break: break-word;
+}
+.test-title {
+  width: 40%;
+  text-align: left;
+  font-style: italic;
+}
+.test-status {
+  width: 20%;
+  text-align: right;
+}
+.test-duration {
+  width: 10%;
+  text-align: right;
+  font-size: 0.75rem;
+}
+
+.failureMessages {
+  padding: 0 1rem;
+  margin-top: 1rem;
+  border-top: 1px dashed #d8000c;
+}
+.failureMessages.suiteFailure {
+  border-top: none;
+}
+.failureMsg {
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+
+.suite-container {
+  margin-bottom: 2rem;
+}
+.suite-info {
+  padding: 1rem;
+  background-color: #eee;
+  color: #777;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+.suite-info .suite-path {
+  word-break: break-all;
+  flex-grow: 1;
+  font-family: monospace;
+  font-size: 1rem;
+}
+.suite-info .suite-time {
+  margin-left: 0.5rem;
+  padding: 0.2rem 0.3rem;
+  font-size: 0.75rem;
+}
+.suite-info .suite-time.warn {
+  background-color: #d8000c;
+  color: #fff;
+}
+
+/* CONSOLE LOGS */
+.suite-consolelog {
+  margin-bottom: 0.25rem;
+  padding: 1rem;
+  background-color: #efefef;
+}
+.suite-consolelog-header {
+  font-weight: bold;
+}
+.suite-consolelog-item {
+  padding: 0.5rem;
+}
+.suite-consolelog-item pre {
+  margin: 0.5rem 0;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+.suite-consolelog-item-origin {
+  color: #777;
+  font-weight: bold;
+}
+.suite-consolelog-item-message {
+  color: #000;
+  font-size: 1rem;
+  padding: 0 0.5rem;
+}
+
+/* OBSOLETE SNAPSHOTS */
+.suite-obsolete-snapshots {
+  margin-bottom: 0.25rem;
+  padding: 1rem;
+  background-color: #ffbaba;
+  color: #d8000c;
+}
+.suite-obsolete-snapshots-header {
+  font-weight: bold;
+}
+.suite-obsolete-snapshots-item {
+  padding: 0.5rem;
+}
+.suite-obsolete-snapshots-item pre {
+  margin: 0.5rem 0;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+.suite-obsolete-snapshots-item-message {
+  color: #000;
+  font-size: 1rem;
+  padding: 0 0.5rem;
+}
+</style></head><body><div id="jesthtml-content"><header><h1 id="title">Test Report</h1></header><div id="metadata-container"><div id="timestamp">Started: 2021-11-28 15:48:59</div><div id="summary"><div id="suite-summary"><div class="summary-total">Suites (7)</div><div class="summary-passed">7 passed</div><div class="summary-failed summary-empty">0 failed</div><div class="summary-pending summary-empty">0 pending</div></div><div id="test-summary"><div class="summary-total">Tests (25)</div><div class="summary-passed">25 passed</div><div class="summary-failed summary-empty">0 failed</div><div class="summary-pending summary-empty">0 pending</div></div></div></div><div id="suite-1" class="suite-container"><div class="suite-info"><div class="suite-path">/home/runner/work/ponomarenko-alex-otus/ponomarenko-alex-otus/react-2021-09/game-of-life/src/components/AppStateManager/AppStateManager.spec.tsx</div><div class="suite-time">4.918s</div></div><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">AppStateManager</div><div class="test-title">It renders "Game of life proto"</div><div class="test-status">passed</div><div class="test-duration">0.128s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">AppStateManager</div><div class="test-title">It renders field of size 10x10 on click at "small 10x10"</div><div class="test-status">passed</div><div class="test-duration">0.314s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">AppStateManager</div><div class="test-title">It renders field of size 20x20 on click at "medium 20x20"</div><div class="test-status">passed</div><div class="test-duration">0.758s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">AppStateManager</div><div class="test-title">It renders field of size 30x30 on click at "large 30x30"</div><div class="test-status">passed</div><div class="test-duration">1.482s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">AppStateManager</div><div class="test-title">It switch off a cell after click</div><div class="test-status">passed</div><div class="test-duration">0.118s</div></div></div></div></div><div id="suite-2" class="suite-container"><div class="suite-info"><div class="suite-path">/home/runner/work/ponomarenko-alex-otus/ponomarenko-alex-otus/react-2021-09/game-of-life/src/components/AppStateManager/appReducer.spec.ts</div><div class="suite-time">1.462s</div></div><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">appReducer &gt; appReducer-parameterized</div><div class="test-title">sets .fieldWidth from FIELD_SIZE action</div><div class="test-status">passed</div><div class="test-duration">0.002s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">appReducer &gt; appReducer-parameterized</div><div class="test-title">sets .fieldHeight from FIELD_SIZE action</div><div class="test-status">passed</div><div class="test-duration">0s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">appReducer &gt; appReducer-parameterized</div><div class="test-title">sets .data from FIELD_SIZE action</div><div class="test-status">passed</div><div class="test-duration">0s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">appReducer &gt; appReducer-parameterized</div><div class="test-title">sets .event from INVERT action</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">appReducer &gt; appReducer-parameterized</div><div class="test-title">sets .dataFromBack from DATA_FROM_BACK action</div><div class="test-status">passed</div><div class="test-duration">0s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">appReducer &gt; appReducer-parameterized</div><div class="test-title">sets .dataFromBack from MOUSE action</div><div class="test-status">passed</div><div class="test-duration">0s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">appReducer</div><div class="test-title">inverts .visible of item(num) from from INVERT action</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div></div></div><div id="suite-3" class="suite-container"><div class="suite-info"><div class="suite-path">/home/runner/work/ponomarenko-alex-otus/ponomarenko-alex-otus/react-2021-09/game-of-life/src/components/GameField/GameField.spec.tsx</div><div class="suite-time">0.656s</div></div><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">GameField</div><div class="test-title">It renders 3 cells from data:[3 items]</div><div class="test-status">passed</div><div class="test-duration">0.027s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">GameField</div><div class="test-title">It calls onCellClick(&lt;cell id&gt;) callback when a cell is clicked</div><div class="test-status">passed</div><div class="test-duration">0.102s</div></div></div></div></div><div id="suite-4" class="suite-container"><div class="suite-info"><div class="suite-path">/home/runner/work/ponomarenko-alex-otus/ponomarenko-alex-otus/react-2021-09/game-of-life/src/components/Cell/Cell.spec.tsx</div><div class="suite-time">0.422s</div></div><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">Cell</div><div class="test-title">It renders &lt;article&gt; using renderer cell with value=2</div><div class="test-status">passed</div><div class="test-duration">0.013s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Cell</div><div class="test-title">It renders &lt;article&gt;&lt;span/&gt;&lt;/article&gt; using renderer cell with value=2</div><div class="test-status">passed</div><div class="test-duration">0.003s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Cell</div><div class="test-title">OnClick callback is called when cell is clicked</div><div class="test-status">passed</div><div class="test-duration">0.076s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Cell</div><div class="test-title">Says number of cell when clicked</div><div class="test-status">passed</div><div class="test-duration">0.006s</div></div></div></div></div><div id="suite-5" class="suite-container"><div class="suite-info"><div class="suite-path">/home/runner/work/ponomarenko-alex-otus/ponomarenko-alex-otus/react-2021-09/game-of-life/src/components/FieldSize/FieldSize.spec.tsx</div><div class="suite-time">0.262s</div></div><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">FieldSize</div><div class="test-title">calls setSmall() callback when #btSmall is clicked</div><div class="test-status">passed</div><div class="test-duration">0.029s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">FieldSize</div><div class="test-title">calls setMedium() callback when #btMedium is clicked</div><div class="test-status">passed</div><div class="test-duration">0.005s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">FieldSize</div><div class="test-title">calls setLarge() callback when #btLarge is clicked</div><div class="test-status">passed</div><div class="test-duration">0.003s</div></div></div></div></div><div id="suite-6" class="suite-container"><div class="suite-info"><div class="suite-path">/home/runner/work/ponomarenko-alex-otus/ponomarenko-alex-otus/react-2021-09/game-of-life/src/components/AppStateView/AppStateView.spec.tsx</div><div class="suite-time">0.538s</div></div><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">AppStateView</div><div class="test-title">It renders fieldWidth from props.appState</div><div class="test-status">passed</div><div class="test-duration">0.004s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">AppStateView</div><div class="test-title">It renders fieldHeight from props.appState</div><div class="test-status">passed</div><div class="test-duration">0.008s</div></div></div></div></div><div id="suite-7" class="suite-container"><div class="suite-info"><div class="suite-path">/home/runner/work/ponomarenko-alex-otus/ponomarenko-alex-otus/react-2021-09/game-of-life/src/testFramework/lib/reducer.spec.ts</div><div class="suite-time">0.485s</div></div><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename"> </div><div class="test-title">getFromState</div><div class="test-status">passed</div><div class="test-duration">0.003s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename"> </div><div class="test-title">getVal</div><div class="test-status">passed</div><div class="test-duration">0s</div></div></div></div></div></div></body></html>
