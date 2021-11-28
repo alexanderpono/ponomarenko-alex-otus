@@ -47,11 +47,11 @@ jobs:
         id: Loki-test
         run: npm run test:loki
 
-      # - name: Run chromatic test
-      #   id: Chromatic-test
-      #   env:
-      #     CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-      #   run: npx chromatic
+      - name: Run chromatic test
+        id: Chromatic-test
+        env:
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+        run: npx chromatic
 
       - name: Build project
         id: Project-build
@@ -87,27 +87,27 @@ jobs:
           TARGET_FOLDER: react-2021-09/hw04/test-report
           CLEAN: true # Automatically remove deleted files from the deploy branch
 
-      # - name: 'Send telegram notification'
-      #   id: Local-sh
-      #   if: ${{ always() }}
-      #   env:
-      #     TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-      #     TELEGRAM_USER_ID: ${{ secrets.TELEGRAM_USER_ID }}
-      #     MSG: |
-      #       Тестирование выполнено: (☉_☉)
-      #       ${{ (job.status == 'success' && '✅' ) || '⛔'}} repository: ${{ github.repository }}
-      #       wf: ${{github.workflow}}
-      #       event: ${{github.event.name}}
-      #       status: ${{job.status}} ${{ (job.status == 'success' && '🚀 🦉 🚀' ) || '🔥🔥 ⛔ 🔥🔥'}}
-      #       отчет unit-tests доступен по ссылке: http://alexanderpono.github.io/tothink/
-      #       ${{ (steps.Npm-install.outcome == 'failure' &&  'NPM ⛔ ') || '' }} 
-      #       ${{ (steps.Linter.outcome == 'failure' &&  'ESLINT ⛔ ') || '' }} 
-      #       ${{ (steps.Run-tests.outcome == 'failure' &&  'TESTS ⛔ ') || '' }} 
-      #       ${{ (steps.Loki-test.outcome == 'failure' &&  'TESTS ⛔ ') || '' }} 
-      #       ${{ (steps.Chromatic-test.outcome == 'failure' &&  'TESTS ⛔ ') || '' }} 
-      #       ${{ (steps.Project-build.outcome == 'failure' &&  'Project-build ⛔ ' ) || ''}} 
-      #       ${{ (steps.Deploy-app.outcome == 'failure' &&  'Deploy-app ⛔ ') || '' }}
-      #       ${{ (steps.Deploy-storybook.outcome == 'failure' &&  'Deploy-storybook ⛔ ') || '' }}
-      #       ${{ (steps.Deploy-test-report.outcome == 'failure' &&  'Deploy-test-report ⛔ ') || '' }}
-      #   run: sh .tg-notify.sh
+      - name: 'Send telegram notification'
+        id: Local-sh
+        if: ${{ always() }}
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_USER_ID: ${{ secrets.TELEGRAM_USER_ID }}
+          MSG: |
+            Тестирование выполнено: (☉_☉)
+            ${{ (job.status == 'success' && '✅' ) || '⛔'}} repository: ${{ github.repository }}
+            wf: ${{github.workflow}}
+            event: ${{github.event.name}}
+            status: ${{job.status}} ${{ (job.status == 'success' && '🚀 🦉 🚀' ) || '🔥🔥 ⛔ 🔥🔥'}}
+            отчет unit-tests доступен по ссылке: https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw04/
+            ${{ (steps.Npm-install.outcome == 'failure' &&  'NPM ⛔ ') || '' }} 
+            ${{ (steps.Linter.outcome == 'failure' &&  'ESLINT ⛔ ') || '' }} 
+            ${{ (steps.Run-tests.outcome == 'failure' &&  'TESTS ⛔ ') || '' }} 
+            ${{ (steps.Loki-test.outcome == 'failure' &&  'TESTS ⛔ ') || '' }} 
+            ${{ (steps.Chromatic-test.outcome == 'failure' &&  'TESTS ⛔ ') || '' }} 
+            ${{ (steps.Project-build.outcome == 'failure' &&  'Project-build ⛔ ' ) || ''}} 
+            ${{ (steps.Deploy-app.outcome == 'failure' &&  'Deploy-app ⛔ ') || '' }}
+            ${{ (steps.Deploy-storybook.outcome == 'failure' &&  'Deploy-storybook ⛔ ') || '' }}
+            ${{ (steps.Deploy-test-report.outcome == 'failure' &&  'Deploy-test-report ⛔ ') || '' }}
+        run: sh .tg-notify.sh
 
