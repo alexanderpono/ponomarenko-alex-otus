@@ -67,7 +67,7 @@ jobs:
           TARGET_FOLDER: react-2021-09/hw04/application
           CLEAN: true # Automatically remove deleted files from the deploy branch
 
-      - name: Deploy storybook to GHP /ponomarenko-alex-otus/eact-2021-09/hw04/storybook 🚀
+      - name: Deploy storybook to GHP /ponomarenko-alex-otus/react-2021-09/hw04/storybook 🚀
         id: Deploy-storybook
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
@@ -77,15 +77,15 @@ jobs:
           TARGET_FOLDER: react-2021-09/hw04/storybook
           CLEAN: true # Automatically remove deleted files from the deploy branch
 
-      # - name: Deploy test-report to GHP /tothink/ui-project/test-report 🚀
-      #   id: Deploy-test-report
-      #   uses: JamesIves/github-pages-deploy-action@3.7.1
-      #   with:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     BRANCH: gh-pages # The branch the action should deploy to.
-      #     FOLDER: ui-project/temp # The folder the action should deploy.
-      #     TARGET_FOLDER: ui-project/test-report
-      #     CLEAN: true # Automatically remove deleted files from the deploy branch
+      - name: Deploy test-report to GHP /ponomarenko-alex-otus/react-2021-09/hw04/test-report 🚀
+        id: Deploy-test-report
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: react-2021-09/game-of-life/temp # The folder the action should deploy.
+          TARGET_FOLDER: react-2021-09/hw04/test-report
+          CLEAN: true # Automatically remove deleted files from the deploy branch
 
       # - name: 'Send telegram notification'
       #   id: Local-sh
