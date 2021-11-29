@@ -2,44 +2,52 @@ const webpackRules = require("../webpack.rules");
 const custom = require('../webpack.config.js');
 
 module.exports = {
-  "stories": [
-    "../src/**/*.stories.mdx",
-    "../src/**/*.stories.@(js|jsx|ts|tsx)"
-  ],
-  "addons": [
-    "@storybook/addon-links",
-    '@storybook/addon-knobs',
-    "@storybook/addon-essentials",
-    '@storybook/addon-storysource'
+  stories: ['../src/**/*.stories.tsx', '../src/**/*.stories.js'],
+  addons: [
+    '@storybook/addon-actions',
+    '@storybook/addon-links',
+    '@storybook/addon-knobs/register',
+    '@storybook/addon-storysource',
   ],
   webpackFinal: (config) => {
-    config.module.rules.push({
-      test: /\.stories\.tsx$/,
-      loaders: [
-        {
-          loader: require.resolve('@storybook/source-loader'),
-          options: { parser: 'typescript' },
-        },
-      ],
-      enforce: 'pre',
-    });
+    const deleteCssRule = (rules) => {
+      return rules.filter( (data) => {
+        if (/css/.test( String( data.test ) )) {
+          return false;
+        }
+        return true;
+      });
+    };
 
-    // 2b. Run `source-loader` on story files to show their source code
-    // automatically in `DocsPage` or the `Source` doc block.
-    config.module.rules.push({
-      test: /\.(stories|story)\.[tj]sx?$/,
-      loader: require.resolve('@storybook/source-loader'),
-      exclude: [/node_modules/],
-      enforce: 'pre',
-    });
+    let rules = [
+      ...deleteCssRule(config.module.rules),
+      {
+        test: /\.stories\.tsx$/,
+        loaders: [
+          {
+            loader: require.resolve('@storybook/source-loader'),
+            options: { parser: 'typescript' },
+          },
+        ],
+        enforce: 'pre',
+      },
+      {
+        test: /\.(stories|story)\.[tj]sx?$/,
+        loader: require.resolve('@storybook/source-loader'),
+        exclude: [/node_modules/],
+        enforce: 'pre',
+      }
+    ];
 
-    return {
+    const result = {
       ...config,
       resolve: custom.resolve,
       module: {
         ...config.module,
-        rules: [...config.module.rules, ...webpackRules],
+        rules: [...rules, ...webpackRules],
       },
     };
+
+    return result;
   },
-}
+};

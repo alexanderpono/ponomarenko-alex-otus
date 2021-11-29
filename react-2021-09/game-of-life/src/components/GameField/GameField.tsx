@@ -1,5 +1,5 @@
 import React from 'react';
-import { CellInfo } from '../AppStateController/appReducer';
+import { AppActions, CellInfo } from '../AppStateManager/appReducer';
 import { Cell } from '../Cell';
 
 export interface GameFieldProps {
@@ -7,26 +7,35 @@ export interface GameFieldProps {
     data: CellInfo[];
     onCellClick: (num: number) => void;
     widthPixels: number;
+    actionId: AppActions;
 }
 
-export const GameField: React.FC<GameFieldProps> = (props: GameFieldProps) => {
-    const onCellClick = (num: number) => {
-        props.onCellClick(num);
+export class GameField extends React.Component<GameFieldProps> {
+    onCellClick = (num: number) => {
+        this.props.onCellClick(num);
     };
 
-    return (
-        <section style={{ width: props.widthPixels }}>
-            {props.data.map((item: CellInfo) => {
-                return (
-                    <Cell
-                        key={item.id}
-                        num={Number(item.id)}
-                        showContent={item.visible}
-                        onClick={onCellClick}
-                        caption={String(item.id)}
-                    ></Cell>
-                );
-            })}
-        </section>
-    );
-};
+    render() {
+        return (
+            <section style={{ width: this.props.widthPixels }} role="grid">
+                {this.props.data.map((item: CellInfo) => {
+                    return (
+                        <Cell
+                            key={item.id}
+                            num={Number(item.id)}
+                            showContent={item.visible}
+                            onClick={this.onCellClick}
+                            caption={String(item.id)}
+                        ></Cell>
+                    );
+                })}
+            </section>
+        );
+    }
+
+    shouldComponentUpdate(nextProps: GameFieldProps) {
+        return (
+            nextProps.actionId === AppActions.FIELD_SIZE || nextProps.actionId === AppActions.INVERT
+        );
+    }
+}
