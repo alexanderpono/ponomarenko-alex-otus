@@ -4,6 +4,8 @@
 module.exports = {
     clearMocks: true,
     coverageDirectory: 'coverage',
+    collectCoverage: true,
+    collectCoverageFrom: ['src/**/*.(ts|tsx)'],
     testEnvironment: 'jsdom',
     setupFilesAfterEnv: [],
     transform: {

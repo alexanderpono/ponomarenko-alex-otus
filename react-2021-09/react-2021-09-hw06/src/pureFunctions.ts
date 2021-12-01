@@ -13,7 +13,7 @@ export const createQs = (qsObj: QsObj): string => {
     const qs = Object.keys(qsObj)
         .map((key: string) => `${key}=${qsObj[key]}`)
         .join('&');
-    return qs ? '?' + qs : '';
+    return '?' + qs;
 };
 
 // Задание 3. Объект из querystring
