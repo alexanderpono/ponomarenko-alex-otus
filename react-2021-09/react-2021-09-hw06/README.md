@@ -61,15 +61,13 @@
 
 # Выполнение д/з №6
 
-    Сделаны части д/з:
-    * Чистые функции
-    * Иммутабельность
-    * Бонус: используем ramda с заданиями про чистые функции
+1. Сделаны части д/з:
+* Чистые функции
+* Иммутабельность
+* Бонус: используем ramda с заданиями про чистые функции
 
-    Результаты:
-    * [Кодовая база hw06](https://github.com/alexanderpono/ponomarenko-alex-otus/tree/react-hw6)
-    * [Пояснительная записка к д/з](https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw06/)
-    * [Отчет о тестировании](https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw06/test-report/testResult.html)
+2. Покрытие кода тестами:
+
 
 ```
 
@@ -93,3 +91,10 @@ Ran all test suites.
 
 
 ```
+
+3. [Кодовая база hw06](https://github.com/alexanderpono/ponomarenko-alex-otus/commits/react-hw6)
+
+4. Опубликованные результаты:
+* [Пояснительная записка к д/з](https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw06/)
+* [Отчет о тестировании](https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw06/test-report/testResult.html)
+
