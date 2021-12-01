@@ -7,9 +7,19 @@ module.exports = {
     collectCoverage: true,
     collectCoverageFrom: ['src/**/*.(ts|tsx)'],
     testEnvironment: 'jsdom',
+    reporters: [
+        'default',
+        [
+            './node_modules/jest-html-reporter',
+            {
+                pageTitle: 'Test Report',
+                outputPath: './temp/testResult.html',
+            },
+        ],
+    ],
     setupFilesAfterEnv: [],
     transform: {
-        '^.+\\.(js|jsx|ts|tsx)$': '<rootDir>/node_modules/babel-jest'
+        '^.+\\.(js|jsx|ts|tsx)$': '<rootDir>/node_modules/babel-jest',
     },
-    moduleNameMapper: {}
+    moduleNameMapper: {},
 };

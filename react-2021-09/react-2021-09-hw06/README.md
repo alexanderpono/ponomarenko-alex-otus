@@ -67,5 +67,29 @@
     * Бонус: используем ramda с заданиями про чистые функции
 
     Результаты:
-    * [Исходные коды решения д/з](url)
-    * [Отчет о тестировании](url)
+    * [Кодовая база hw06](https://github.com/alexanderpono/ponomarenko-alex-otus/tree/react-hw6)
+    * [Пояснительная записка с д/з](https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw06/)
+    * [Отчет о тестировании](https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw06/test-report/testResult.html)
+
+```
+
+ PASS  src/ramdaPureFunctions.test.ts
+ PASS  src/immutability.test.ts
+ PASS  src/pureFunctions.test.ts
+-----------------------|---------|----------|---------|---------|-------------------
+File                   | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-----------------------|---------|----------|---------|---------|-------------------
+All files              |     100 |      100 |     100 |     100 |                   
+ immutability.ts       |     100 |      100 |     100 |     100 |                   
+ pureFunctions.ts      |     100 |      100 |     100 |     100 |                   
+ ramdaPureFunctions.ts |     100 |      100 |     100 |     100 |                   
+-----------------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 3 passed, 3 total
+Tests:       9 passed, 9 total
+Snapshots:   0 total
+Time:        1.189 s
+Ran all test suites.
+
+
+```
