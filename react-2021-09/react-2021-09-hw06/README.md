@@ -68,7 +68,7 @@
 
     Результаты:
     * [Кодовая база hw06](https://github.com/alexanderpono/ponomarenko-alex-otus/tree/react-hw6)
-    * [Пояснительная записка с д/з](https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw06/)
+    * [Пояснительная записка к д/з](https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw06/)
     * [Отчет о тестировании](https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw06/test-report/testResult.html)
 
 ```
