@@ -91,7 +91,7 @@ Ran all test suites.
 
 ```
 
-3. [Кодовая база hw06](https://github.com/alexanderpono/ponomarenko-alex-otus/tree/react-hw6)
+3. [Кодовая база hw06](https://github.com/alexanderpono/ponomarenko-alex-otus/commits/react-hw6)
 
 4. Опубликованные результаты:
 * [Пояснительная записка к д/з](https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw06/)
