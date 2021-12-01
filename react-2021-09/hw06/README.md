@@ -35,11 +35,11 @@
 
 ### Бонус: используем ramda с заданиями про чистые функции
 
-    Бонусное задание: требует прочтения первых 5 глав книги https://github.com/MostlyAdequate/mostly-adequate-guide-ru
+    Бонусное задание: требует прочтения первых 5 глав книги [https://github.com/MostlyAdequate/mostly-adequate-guide-ru](https://github.com/MostlyAdequate/mostly-adequate-guide-ru)
 
     Главы на самом деле небольшие
 
-    И документации https://ramdajs.com
+    И документации [https://ramdajs.com](https://ramdajs.com)
 
     1. Напишем compose для поиска имени с наибольшим количеством очков. Вывести нужно только имя!
 
@@ -66,7 +66,13 @@
   * Иммутабельность
   * Бонус: используем ramda с заданиями про чистые функции
 
-2. Покрытие кода тестами:
+2. [Кодовая база hw06](https://github.com/alexanderpono/ponomarenko-alex-otus/commits/react-hw6)
+
+3. Опубликованные результаты:
+* [Пояснительная записка к д/з](https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw06/)
+* [Отчет о тестировании](https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw06/test-report/testResult.html)
+
+4. Покрытие кода тестами:
 
 ```
 
@@ -90,12 +96,6 @@ Ran all test suites.
 
 
 ```
-
-3. [Кодовая база hw06](https://github.com/alexanderpono/ponomarenko-alex-otus/commits/react-hw6)
-
-4. Опубликованные результаты:
-* [Пояснительная записка к д/з](https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw06/)
-* [Отчет о тестировании](https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw06/test-report/testResult.html)
 
 
 
