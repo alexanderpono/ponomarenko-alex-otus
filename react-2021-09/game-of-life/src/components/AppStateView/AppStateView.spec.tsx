@@ -1,27 +1,22 @@
 import React from 'react';
 import { AppStateView } from './AppStateView';
 import renderer from 'react-test-renderer';
-import { render } from '@testing-library/react';
-import { defaultAppState } from '../AppStateManager/appReducer';
-import { num } from '../../testFramework/lib/reducer';
+import { defaultAppState } from '@src/components/AppStateManager/appReducer';
+import { num } from '@src/testFramework/lib/reducer';
 
 describe('AppStateView', () => {
-    it('It renders fieldWidth from props.appState', () => {
+    it('It renders field size from props.appState', () => {
         const appState = { ...defaultAppState };
         appState.fieldWidth = num();
         const testRenderer = renderer.create(<AppStateView appState={appState}></AppStateView>);
 
         const selector = testRenderer.root
-            .findByProps({ className: 'fieldWidth' })
+            .findByProps({ className: 'fieldSize' })
             .findByProps({ className: 'value' });
-        expect(selector.children).toEqual([String(appState.fieldWidth)]);
-    });
 
-    it('It renders fieldHeight from props.appState', () => {
-        const appState = { ...defaultAppState };
-        appState.fieldHeight = num();
-        const { container } = render(<AppStateView appState={appState}></AppStateView>);
-        const heightValueItem = container.querySelector('.fieldHeight .value');
-        expect(heightValueItem?.innerHTML).toBe(String(appState.fieldHeight));
+        const childrenTexts = selector.children.map((item) => ('' + item).trim());
+        expect(childrenTexts.join(' ')).toEqual(
+            `[ ${appState.fieldWidth} x ${appState.fieldHeight} ]`
+        );
     });
 });

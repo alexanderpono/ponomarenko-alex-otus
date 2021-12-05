@@ -1,10 +1,10 @@
 import React from 'react';
 import { GameField } from './GameField';
 import renderer from 'react-test-renderer';
-import { CELL_WIDTH } from '../Cell';
-import { AppActions, CellInfo } from '../AppStateManager/appReducer';
+import { AppActions } from '@src/components/AppStateManager/appReducer';
 import { mount } from 'enzyme';
-import { num } from '../../testFramework/lib/reducer';
+import { num } from '@src/testFramework/lib/reducer';
+import { CellInfo } from '@src/components/AppStateManager/playField.types';
 
 interface RenderResult {
     type: string;
@@ -18,20 +18,19 @@ describe('GameField', () => {
             { id: '1', visible: false },
             { id: '2', visible: false },
         ];
-        const widthPixels = 3 * CELL_WIDTH;
+        const width = 3;
         const snapshot = renderer
             .create(
                 <GameField
                     showAll={false}
                     data={data}
                     onCellClick={() => {}}
-                    widthPixels={widthPixels}
+                    width={width}
                     actionId={AppActions.INVERT}
                 ></GameField>
             )
             .toJSON() as RenderResult;
         expect(snapshot.type).toBe('section');
-        expect(snapshot.children.length).toBe(3);
         expect(snapshot.children[0].type).toBe('article');
         expect(snapshot.children[1].type).toBe('article');
         expect(snapshot.children[2].type).toBe('article');
@@ -45,14 +44,14 @@ describe('GameField', () => {
             { id: '1', visible: false },
             { id: String(lastID), visible: false },
         ];
-        const widthPixels = data.length * CELL_WIDTH;
+        const width = data.length;
 
         const wrapper = mount(
             <GameField
                 showAll={false}
                 data={data}
                 onCellClick={mockCallBack}
-                widthPixels={widthPixels}
+                width={width}
                 actionId={AppActions.INVERT}
             ></GameField>
         );

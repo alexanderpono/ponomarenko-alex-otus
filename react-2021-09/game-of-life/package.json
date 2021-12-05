@@ -1,7 +1,7 @@
 {
-  "name": "react-2021-09-hw02",
+  "name": "react-2021-09--game-of-life",
   "version": "1.0.0",
-  "description": "[А.Пономаренко. Домашние задания к курсам OTUS](../../README.md) / [< Д/З к курсу React.js-2021-09 OTUS ](../README.md) / Домашнее задание 2",
+  "description": "[А.Пономаренко. Домашние задания к курсам OTUS] / react-2021-09 / game-of-life",
   "main": "src/app.ts",
   "scripts": {
     "test": "jest",
@@ -46,7 +46,9 @@
     "@typescript-eslint/parser": "^4.33.0",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
     "babel-loader": "^8.1.0",
+    "babel-plugin-module-resolver": "^4.1.0",
     "chromatic": "^6.0.4",
+    "css-loader": "^5.2.7",
     "enzyme": "^3.11.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
@@ -58,6 +60,7 @@
     "jest-html-reporter": "^3.4.1",
     "loki": "^0.28.1",
     "prettier": "^2.4.1",
+    "style-loader": "^2.0.0",
     "ts-node": "^10.2.1",
     "typescript": "^4.4.3",
     "webpack": "^4.42.1",
@@ -67,11 +70,9 @@
   "dependencies": {
     "@emotion/react": "^11.4.1",
     "classnames": "^2.3.1",
-    "css-loader": "^5.2.7",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "reset-css": "^5.0.1",
-    "style-loader": "^2.0.0"
+    "reset-css": "^5.0.1"
   },
   "loki": {
     "configurations": {

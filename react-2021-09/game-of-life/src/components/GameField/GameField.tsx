@@ -1,12 +1,14 @@
 import React from 'react';
-import { AppActions, CellInfo } from '../AppStateManager/appReducer';
-import { Cell } from '../Cell';
+import { AppActions } from '@src/components/AppStateManager/appReducer';
+import { CellInfo } from '@src/components/AppStateManager/playField.types';
+import { Cell } from '@components/Cell';
+import styled from '@emotion/styled';
 
 export interface GameFieldProps {
     showAll: boolean;
     data: CellInfo[];
     onCellClick: (num: number) => void;
-    widthPixels: number;
+    width: number;
     actionId: AppActions;
 }
 
@@ -16,9 +18,16 @@ export class GameField extends React.Component<GameFieldProps> {
     };
 
     render() {
+        const widthMinus1 = this.props.width - 1;
+        const heightMinus1 = Math.floor(this.props.data.length / this.props.width) - 1;
         return (
-            <section style={{ width: this.props.widthPixels }} role="grid">
-                {this.props.data.map((item: CellInfo) => {
+            <FieldContainer role="grid">
+                {this.props.data.map((item: CellInfo, index: number) => {
+                    const y = Math.floor(index / this.props.width);
+                    const x = index % this.props.width;
+                    const isRight = x === widthMinus1;
+                    const isBottom = y === heightMinus1;
+                    const isLeft = x === 0;
                     return (
                         <Cell
                             key={item.id}
@@ -26,10 +35,14 @@ export class GameField extends React.Component<GameFieldProps> {
                             showContent={item.visible}
                             onClick={this.onCellClick}
                             caption={String(item.id)}
+                            isLeft={isLeft}
+                            isRight={isRight}
+                            isBottom={isBottom}
                         ></Cell>
                     );
                 })}
-            </section>
+                <div style={{ clear: 'both' }}></div>
+            </FieldContainer>
         );
     }
 
@@ -39,3 +52,11 @@ export class GameField extends React.Component<GameFieldProps> {
         );
     }
 }
+
+export interface ButtonProps {
+    active?: boolean;
+}
+
+export const FieldContainer = styled.section`
+    background: #fff;
+`;
