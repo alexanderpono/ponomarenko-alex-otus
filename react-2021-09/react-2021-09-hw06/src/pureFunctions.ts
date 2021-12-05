@@ -1,7 +1,7 @@
 // Задание 1. Лучшая команда (наибольшее кол-во очков), выводим имя
 export type Team = { name: string; score: number };
 
-export const getTopName = (teams: Team[]): string => {
+export const getTopName = (teams: Team[]) => {
     const best = teams.reduce((prev: Team, cur: Team) => (prev.score > cur.score ? prev : cur));
     return best.name;
 };

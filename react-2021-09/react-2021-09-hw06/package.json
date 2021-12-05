@@ -4,7 +4,7 @@
   "description": "[А.Пономаренко. Домашние задания к курсам OTUS](../../README.md) / [< Д/З к курсу React.js-2021-09 OTUS ](../README.md) / Домашнее задание 6",
   "main": "src/app.ts",
   "scripts": {
-    "test": "jest",
+    "test": "npx jest",
     "lint": "npx eslint src/*.*",
     "lint:fix": "npx eslint --ext .js,.ts --fix src/"
   },
