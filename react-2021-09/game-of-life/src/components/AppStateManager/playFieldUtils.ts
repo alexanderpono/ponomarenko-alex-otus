@@ -1,5 +1,5 @@
 import { DEFAULT_CELL_STATE } from './playField.consts';
-import { CellInfo } from './playField.types';
+import { CellArray, CellInfo } from './playField.types';
 
 export function createData(width: number, height: number): CellInfo[] {
     const cellsNumber = width * height;
@@ -38,3 +38,30 @@ export function recreateData(
 }
 
 export const yx = (y: number, x: number, width: number) => y * width + x;
+
+export const randomFill = (srcAr: CellArray, probability: number): CellArray => {
+    if (probability < 0 || probability > 1) {
+        throw new Error('Probability must be between 0 and 1');
+    }
+
+    const ar = {
+        ...srcAr,
+        data: srcAr.data.concat(),
+    };
+
+    const totalCells = ar.width * ar.height;
+    let unprocessedCells = totalCells;
+    let restAliveCells = Math.floor(unprocessedCells * probability);
+
+    for (let i = 0; i < totalCells; i++) {
+        let alive = false;
+        if (restAliveCells / unprocessedCells > Math.random()) {
+            alive = true;
+            restAliveCells--;
+        }
+        ar.data[i].visible = alive;
+        unprocessedCells--;
+    }
+
+    return ar;
+};
