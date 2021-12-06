@@ -12,6 +12,7 @@ import {
     fillPercent,
     invert,
 } from './appReducer';
+import { getInverted } from './playFieldUtils';
 
 const num = (size: number) => Math.round(size * Math.random());
 
@@ -74,19 +75,59 @@ describe('appReducer', () => {
     it('inverts .visible of item(num) from INVERT action', () => {
         const srcState = defaultAppState;
         const id = Math.round((srcState.fieldWidth * srcState.fieldHeight - 1) * Math.random());
-        const oldVisible = srcState.data[id].visible;
-        expect(appReducer(srcState, invert(id)).data[id].visible).toBe(!oldVisible);
+        const oldVisible = srcState.data[id];
+        const inverted = getInverted(oldVisible);
+        expect(appReducer(srcState, invert(id)).data[id]).toBe(inverted);
     });
 
     it('sets all .data into .visible=false from CLEAR action', () => {
         const srcState = defaultAppState;
         expect(
-            appReducer(srcState, clear()).data.filter((cell: CellInfo) => cell.visible).length
+            appReducer(srcState, clear()).data.filter((cell: CellInfo) => cell === CellInfo.alive)
+                .length
         ).toBe(0);
     });
 
     it('returns original state from unknown action', () => {
         const srcState = defaultAppState;
         expect(appReducer(srcState, { type: -1 } as unknown as AppAction)).toBe(srcState);
+    });
+
+    it('randomizes .data from FILL_PERCENT-25% action', () => {
+        const srcState = defaultAppState;
+        const expectedAliveNumber = Math.floor(srcState.fieldWidth * srcState.fieldHeight * 0.25);
+        const newState = appReducer(srcState, fillPercent(FillPercent.P25));
+        const visibleCells = newState.data.filter((cell: CellInfo) => cell === CellInfo.alive);
+        expect(visibleCells.length).toBe(expectedAliveNumber);
+    });
+
+    it('randomizes .data from FILL_PERCENT-50% action', () => {
+        const srcState = defaultAppState;
+        const expectedAliveNumber = Math.floor(srcState.fieldWidth * srcState.fieldHeight * 0.5);
+        expect(
+            appReducer(srcState, fillPercent(FillPercent.P50)).data.filter(
+                (cell: CellInfo) => cell === CellInfo.alive
+            ).length
+        ).toBe(expectedAliveNumber);
+    });
+
+    it('randomizes .data from FILL_PERCENT-75% action', () => {
+        const srcState = defaultAppState;
+        const expectedAliveNumber = Math.floor(srcState.fieldWidth * srcState.fieldHeight * 0.75);
+        expect(
+            appReducer(srcState, fillPercent(FillPercent.P75)).data.filter(
+                (cell: CellInfo) => cell === CellInfo.alive
+            ).length
+        ).toBe(expectedAliveNumber);
+    });
+
+    it('randomizes .data from FILL_PERCENT-100% action', () => {
+        const srcState = defaultAppState;
+        const expectedAliveNumber = Math.floor(srcState.fieldWidth * srcState.fieldHeight * 1);
+        expect(
+            appReducer(srcState, fillPercent(FillPercent.P100)).data.filter(
+                (cell: CellInfo) => cell === CellInfo.alive
+            ).length
+        ).toBe(expectedAliveNumber);
     });
 });

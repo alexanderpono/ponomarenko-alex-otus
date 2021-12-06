@@ -8,7 +8,6 @@ import { CELL_HEIGHT, CELL_WIDTH } from '@src/consts';
 export interface CellProps {
     num: number;
     showContent: boolean;
-    caption: string;
     onClick: (num: number) => void;
     isLeft: boolean;
     isRight: boolean;

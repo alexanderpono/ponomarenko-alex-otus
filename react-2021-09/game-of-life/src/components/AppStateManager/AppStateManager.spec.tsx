@@ -14,6 +14,22 @@ import {
 describe('AppStateController', () => {
     const clearBoth = 1;
 
+    const getCellIsAlive = (cell: Element) => {
+        const classes = [...cell.children[0].classList];
+        const cellIsVisible = classes.filter((s) => s === 'show').length === 1;
+        return cellIsVisible;
+    };
+
+    const getIdsOfAliveCells = (): number[] => {
+        const grid = screen.getByRole('grid');
+        const cells = [...grid.children].filter((cell: Element) => cell.tagName === 'ARTICLE');
+        const cellsIds = cells.map((cell: Element, index: number) =>
+            getCellIsAlive(cell) ? index : -1
+        );
+        const aliveCellsIds = cellsIds.filter((id: number) => id >= 0);
+        return aliveCellsIds;
+    };
+
     it('renders "Game of life proto"', () => {
         const { container, unmount } = render(<AppStateManager />);
         const caption = screen.getByText('Game of life');
@@ -104,6 +120,50 @@ describe('AppStateController', () => {
         const aliveCells = cells.filter((cell: Element) => getCellIsAlive(cell));
 
         expect(aliveCells.length).toBe(0);
+        unmount();
+    });
+
+    it('updates grid after click at fill-25%-button', () => {
+        const { unmount } = render(<AppStateManager />);
+
+        const aliveIdsBefore = getIdsOfAliveCells();
+        userEvent.click(screen.getByText('25%'));
+        const aliveIdsAfter = getIdsOfAliveCells();
+
+        expect(aliveIdsBefore).not.toEqual(aliveIdsAfter);
+        unmount();
+    });
+
+    it('updates grid after click at fill-50%-button', () => {
+        const { unmount } = render(<AppStateManager />);
+
+        const aliveIdsBefore = getIdsOfAliveCells();
+        userEvent.click(screen.getByText('50%'));
+        const aliveIdsAfter = getIdsOfAliveCells();
+
+        expect(aliveIdsBefore).not.toEqual(aliveIdsAfter);
+        unmount();
+    });
+
+    it('updates grid after click at fill-75%-button', () => {
+        const { unmount } = render(<AppStateManager />);
+
+        const aliveIdsBefore = getIdsOfAliveCells();
+        userEvent.click(screen.getByText('75%'));
+        const aliveIdsAfter = getIdsOfAliveCells();
+
+        expect(aliveIdsBefore).not.toEqual(aliveIdsAfter);
+        unmount();
+    });
+
+    it('updates grid after click at fill-100%-button', () => {
+        const { unmount } = render(<AppStateManager />);
+
+        const aliveIdsBefore = getIdsOfAliveCells();
+        userEvent.click(screen.getByText('100%'));
+        const aliveIdsAfter = getIdsOfAliveCells();
+
+        expect(aliveIdsBefore).not.toEqual(aliveIdsAfter);
         unmount();
     });
 

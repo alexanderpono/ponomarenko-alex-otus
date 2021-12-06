@@ -1,3 +1,5 @@
+import { CellInfo } from './types';
+
 export const SMALL_SIZE = 10;
 export const MIDDLE_SIZE = 20;
 export const LARGE_SIZE = 30;
@@ -6,11 +8,9 @@ export const MIDDLE_SIZE_CAPTION = 'medium 10x10';
 export const LARGE_SIZE_CAPTION = 'large 20x15';
 export const CELL_WIDTH = 20;
 export const CELL_HEIGHT = 20;
-export const CELL_DEAD = false;
-export const CELL_LIVE = true;
 export const DEFAULT_WIDTH = 5;
 export const DEFAULT_HEIGHT = 5;
-export const DEFAULT_CELL_STATE = CELL_DEAD;
+export const DEFAULT_CELL_STATE = CellInfo.dead;
 
 export enum Size {
     SMALL = 'SMALL',

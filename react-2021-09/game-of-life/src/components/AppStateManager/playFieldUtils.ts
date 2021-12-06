@@ -3,10 +3,9 @@ import { CellArray, CellInfo } from '@src/types';
 
 export function createData(width: number, height: number): CellInfo[] {
     const cellsNumber = width * height;
-    const startCellState = DEFAULT_CELL_STATE;
     const newData: CellInfo[] = [];
     for (let i = 0; i < cellsNumber; i++) {
-        newData.push({ id: String(i), visible: startCellState });
+        newData.push(DEFAULT_CELL_STATE);
     }
     return newData;
 }
@@ -19,10 +18,9 @@ export function recreateData(
     height: number
 ): CellInfo[] {
     const cellsNumber = width * height;
-    const startCellState = DEFAULT_CELL_STATE;
     const newData: CellInfo[] = [];
     for (let i = 0; i < cellsNumber; i++) {
-        newData.push({ id: String(i), visible: startCellState });
+        newData.push(DEFAULT_CELL_STATE);
     }
 
     const minWidth = oldWidth < width ? oldWidth : width;
@@ -30,8 +28,8 @@ export function recreateData(
 
     for (let y = 0; y < minHeight; y++) {
         for (let x = 0; x < minWidth; x++) {
-            const visibleVal = oldData[yx(y, x, oldWidth)].visible;
-            newData[yx(y, x, width)].visible = visibleVal;
+            const visibleVal = oldData[yx(y, x, oldWidth)];
+            newData[yx(y, x, width)] = visibleVal;
         }
     }
     return newData;
@@ -46,22 +44,24 @@ export const randomFill = (srcAr: CellArray, probability: number): CellArray => 
 
     const ar = {
         ...srcAr,
-        data: srcAr.data.concat(),
+        data: createData(srcAr.width, srcAr.height),
     };
 
     const totalCells = ar.width * ar.height;
     let unprocessedCells = totalCells;
     let restAliveCells = Math.floor(unprocessedCells * probability);
-
     for (let i = 0; i < totalCells; i++) {
-        let alive = false;
-        if (restAliveCells / unprocessedCells > Math.random()) {
-            alive = true;
+        let alive = CellInfo.dead;
+        if (restAliveCells > 0 && restAliveCells / unprocessedCells > Math.random()) {
+            alive = CellInfo.alive;
             restAliveCells--;
         }
-        ar.data[i].visible = alive;
+        ar.data[i] = alive;
         unprocessedCells--;
     }
 
     return ar;
 };
+
+export const getInverted = (cell: CellInfo): CellInfo =>
+    cell === CellInfo.alive ? CellInfo.dead : CellInfo.alive;

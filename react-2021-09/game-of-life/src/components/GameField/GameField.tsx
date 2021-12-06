@@ -30,11 +30,10 @@ export class GameField extends React.Component<GameFieldProps> {
                     const isLeft = x === 0;
                     return (
                         <Cell
-                            key={item.id}
-                            num={Number(item.id)}
-                            showContent={item.visible}
+                            key={`${y}-${x}`}
+                            num={index}
+                            showContent={item === CellInfo.alive}
                             onClick={this.onCellClick}
-                            caption={String(item.id)}
                             isLeft={isLeft}
                             isRight={isRight}
                             isBottom={isBottom}
@@ -47,11 +46,14 @@ export class GameField extends React.Component<GameFieldProps> {
     }
 
     shouldComponentUpdate(nextProps: GameFieldProps) {
-        return (
-            nextProps.actionId === AppActions.FIELD_SIZE ||
-            nextProps.actionId === AppActions.INVERT ||
-            nextProps.actionId === AppActions.CLEAR
-        );
+        const result =
+            [
+                AppActions.FILL_PERCENT,
+                AppActions.FIELD_SIZE,
+                AppActions.INVERT,
+                AppActions.CLEAR,
+            ].indexOf(nextProps.actionId) >= 0;
+        return result;
     }
 }
 

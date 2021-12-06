@@ -115,7 +115,8 @@ export function appReducer(state: AppState, action: AppAction): AppState {
         }
         case AppActions.INVERT: {
             const newData = state.data.concat();
-            newData[action.payload.cellId].visible = !newData[action.payload.cellId].visible;
+            newData[action.payload.cellId] =
+                newData[action.payload.cellId] === CellInfo.alive ? CellInfo.dead : CellInfo.alive;
             return {
                 ...state,
                 event: AppActions.INVERT,
@@ -127,6 +128,10 @@ export function appReducer(state: AppState, action: AppAction): AppState {
                 ...state,
                 event: AppActions.FILL_PERCENT,
                 fillPercent: action.payload.fillPercent,
+                data: randomFill(
+                    { width: state.fieldWidth, height: state.fieldHeight, data: state.data },
+                    fillPercentToProbability[action.payload.fillPercent]
+                ).data,
             };
         }
         case AppActions.CLEAR: {

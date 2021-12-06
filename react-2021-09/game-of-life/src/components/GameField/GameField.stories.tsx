@@ -3,7 +3,7 @@ import { withKnobs, number, boolean } from '@storybook/addon-knobs';
 import { GameField } from './GameField';
 import { AppActions } from '@src/components/AppStateManager/appReducer';
 import { CellInfo } from '@src/types';
-import { CELL_DEAD, CELL_LIVE } from '@src/consts';
+import { getInverted } from '../AppStateManager/playFieldUtils';
 
 export default {
     title: 'GameField',
@@ -23,10 +23,10 @@ export const Dynamic: React.FC<{}> = () => {
 
     React.useEffect(() => {
         const cellsNumber = width * height;
-        const startCellState = showAll ? CELL_LIVE : CELL_DEAD;
+        const startCellState = showAll ? CellInfo.alive : CellInfo.dead;
         const newData: CellInfo[] = [];
         for (let i = 0; i < cellsNumber; i++) {
-            newData.push({ id: String(i), visible: startCellState });
+            newData.push(startCellState);
         }
         setData(newData);
     }, [width, height, showAll]);
@@ -37,7 +37,7 @@ export const Dynamic: React.FC<{}> = () => {
         }
 
         const newData = data.concat();
-        newData[num].visible = !newData[num].visible;
+        newData[num] = getInverted(newData[num]);
         setData(newData);
     };
 

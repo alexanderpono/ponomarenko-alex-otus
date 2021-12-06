@@ -1,12 +1,28 @@
 import React from 'react';
-import { CAPTION_COLOR, Mode, PANEL_BG_COLOR, PANEL_BORDER_COLOR, Size, Speed } from '@src/consts';
+import {
+    CAPTION_COLOR,
+    FillPercent,
+    Mode,
+    PANEL_BG_COLOR,
+    PANEL_BORDER_COLOR,
+    Size,
+    Speed,
+} from '@src/consts';
 import { DefineMode } from '@src/components/DefineMode';
 import { FieldSize } from '@components/FieldSize';
 import { SetFillPercent } from '@src/components/SetFillPercent';
 import { GameField } from '@components/GameField';
 import { UserNameForm } from '@components/UserNameForm/UserNameForm';
 import { DefineSpeed } from '@src/components/DefineSpeed';
-import { appReducer, AppState, clear, defaultAppState, fieldSize, invert } from './appReducer';
+import {
+    appReducer,
+    AppState,
+    clear,
+    defaultAppState,
+    fieldSize,
+    fillPercent,
+    invert,
+} from './appReducer';
 import '@/node_modules/reset-css/reset.css';
 import styled from '@emotion/styled';
 
@@ -27,6 +43,18 @@ export class AppStateManager extends React.Component<{}, AppState> {
     }
     private clear = () => {
         this.setState(appReducer(this.state, clear()));
+    };
+    private fill25 = () => {
+        this.setState(appReducer(this.state, fillPercent(FillPercent.P25)));
+    };
+    private fill50 = () => {
+        this.setState(appReducer(this.state, fillPercent(FillPercent.P50)));
+    };
+    private fill75 = () => {
+        this.setState(appReducer(this.state, fillPercent(FillPercent.P75)));
+    };
+    private fill100 = () => {
+        this.setState(appReducer(this.state, fillPercent(FillPercent.P100)));
     };
 
     render() {
@@ -72,10 +100,10 @@ export class AppStateManager extends React.Component<{}, AppState> {
                         <Buttons>
                             <SetFillPercent
                                 fill0={this.clear}
-                                fill25={dummy}
-                                fill50={dummy}
-                                fill75={dummy}
-                                fill100={dummy}
+                                fill25={this.fill25}
+                                fill50={this.fill50}
+                                fill75={this.fill75}
+                                fill100={this.fill100}
                                 curPercent={this.state.fillPercent}
                             />
                         </Buttons>
