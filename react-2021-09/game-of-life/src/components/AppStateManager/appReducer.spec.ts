@@ -1,10 +1,12 @@
 import { FillPercent, Size, sizeToWH } from '@src/consts';
 import { getFromState, getVal } from '@src/testFramework/lib/reducer';
+import { CellInfo } from '@src/types';
 import {
     AppAction,
     AppActions,
     appReducer,
     AppState,
+    clear,
     defaultAppState,
     fieldSize,
     fillPercent,
@@ -46,6 +48,7 @@ describe('appReducer', () => {
             ${[fieldSize(Size.MIDDLE), invert(id)]} | ${'sets .event from INVERT action'}             | ${AppActions.INVERT}       | ${null}          | ${null}
             ${[fieldSize(badFieldSize)]}            | ${'sets .size=SMALL from badFieldSize'}         | ${AppActions.FIELD_SIZE}   | ${'size'}        | ${Size.SMALL}
             ${[fillPercent(rndP)]}                  | ${'sets .fillPercent from FILL_PERCENT action'} | ${AppActions.FILL_PERCENT} | ${'fillPercent'} | ${rndP}
+            ${[clear()]}                            | ${'sets .event from CLEAR action'}              | ${AppActions.CLEAR}        | ${null}          | ${null}
         `(
             '$testName',
             async ({
@@ -68,10 +71,22 @@ describe('appReducer', () => {
         );
     });
 
-    it('inverts .visible of item(num) from from INVERT action', () => {
+    it('inverts .visible of item(num) from INVERT action', () => {
         const srcState = defaultAppState;
         const id = Math.round((srcState.fieldWidth * srcState.fieldHeight - 1) * Math.random());
         const oldVisible = srcState.data[id].visible;
         expect(appReducer(srcState, invert(id)).data[id].visible).toBe(!oldVisible);
+    });
+
+    it('sets all .data into .visible=false from CLEAR action', () => {
+        const srcState = defaultAppState;
+        expect(
+            appReducer(srcState, clear()).data.filter((cell: CellInfo) => cell.visible).length
+        ).toBe(0);
+    });
+
+    it('returns original state from unknown action', () => {
+        const srcState = defaultAppState;
+        expect(appReducer(srcState, { type: -1 } as unknown as AppAction)).toBe(srcState);
     });
 });

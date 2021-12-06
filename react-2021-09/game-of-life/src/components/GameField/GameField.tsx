@@ -48,7 +48,9 @@ export class GameField extends React.Component<GameFieldProps> {
 
     shouldComponentUpdate(nextProps: GameFieldProps) {
         return (
-            nextProps.actionId === AppActions.FIELD_SIZE || nextProps.actionId === AppActions.INVERT
+            nextProps.actionId === AppActions.FIELD_SIZE ||
+            nextProps.actionId === AppActions.INVERT ||
+            nextProps.actionId === AppActions.CLEAR
         );
     }
 }

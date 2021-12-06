@@ -14,7 +14,7 @@ import {
 describe('AppStateController', () => {
     const clearBoth = 1;
 
-    it('It renders "Game of life proto"', () => {
+    it('renders "Game of life proto"', () => {
         const { container, unmount } = render(<AppStateManager />);
         const caption = screen.getByText('Game of life');
         expect(caption).toBeInTheDocument();
@@ -22,7 +22,7 @@ describe('AppStateController', () => {
         expect(container.innerHTML).toBe('');
     });
 
-    it('It renders field of size 5x5 on click at "small"', () => {
+    it('renders field of size 5x5 on click at "small"', () => {
         const { unmount } = render(<AppStateManager />);
         const btSmall = screen.getByText(SMALL_SIZE_CAPTION);
         userEvent.click(btSmall);
@@ -33,7 +33,7 @@ describe('AppStateController', () => {
         unmount();
     });
 
-    it('It renders field of size 10x10 on click at "medium"', () => {
+    it('renders field of size 10x10 on click at "medium"', () => {
         const { unmount } = render(<AppStateManager />);
         const btSmall = screen.getByText(MIDDLE_SIZE_CAPTION);
         userEvent.click(btSmall);
@@ -44,7 +44,7 @@ describe('AppStateController', () => {
         unmount();
     });
 
-    it('It renders field of size 20x15 on click at "large"', () => {
+    it('renders field of size 20x15 on click at "large"', () => {
         const { unmount } = render(<AppStateManager />);
         const btSmall = screen.getByText(LARGE_SIZE_CAPTION);
         userEvent.click(btSmall);
@@ -55,7 +55,7 @@ describe('AppStateController', () => {
         unmount();
     });
 
-    it('It inverts a cell after click', () => {
+    it('inverts a cell after click', () => {
         const getCellIsAlive = (cell: Element) => {
             const classes = [...cell.children[0].classList];
             const cellIsVisible = classes.filter((s) => s === 'show').length === 1;
@@ -88,6 +88,23 @@ describe('AppStateController', () => {
 
         const bt = screen.getByText('slow');
         userEvent.click(bt);
+    });
+
+    it('clears all cells after click at clear-button', () => {
+        const getCellIsAlive = (cell: Element) => {
+            const classes = [...cell.children[0].classList];
+            const cellIsVisible = classes.filter((s) => s === 'show').length === 1;
+            return cellIsVisible;
+        };
+
+        const { unmount } = render(<AppStateManager />);
+        userEvent.click(screen.getByText('clear'));
+        const grid = screen.getByRole('grid');
+        const cells = [...grid.children].filter((cell: Element) => cell.tagName === 'ARTICLE');
+        const aliveCells = cells.filter((cell: Element) => getCellIsAlive(cell));
+
+        expect(aliveCells.length).toBe(0);
+        unmount();
     });
 
     afterEach(() => {

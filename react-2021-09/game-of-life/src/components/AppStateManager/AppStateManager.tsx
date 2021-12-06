@@ -6,7 +6,7 @@ import { SetFillPercent } from '@src/components/SetFillPercent';
 import { GameField } from '@components/GameField';
 import { UserNameForm } from '@components/UserNameForm/UserNameForm';
 import { DefineSpeed } from '@src/components/DefineSpeed';
-import { appReducer, AppState, defaultAppState, fieldSize, invert } from './appReducer';
+import { appReducer, AppState, clear, defaultAppState, fieldSize, invert } from './appReducer';
 import '@/node_modules/reset-css/reset.css';
 import styled from '@emotion/styled';
 
@@ -25,6 +25,9 @@ export class AppStateManager extends React.Component<{}, AppState> {
     private invert(num: number) {
         this.setState(appReducer(this.state, invert(num)));
     }
+    private clear = () => {
+        this.setState(appReducer(this.state, clear()));
+    };
 
     render() {
         const showAll = true;
@@ -68,7 +71,7 @@ export class AppStateManager extends React.Component<{}, AppState> {
                         <Caption>Fill percent:</Caption>
                         <Buttons>
                             <SetFillPercent
-                                fill0={dummy}
+                                fill0={this.clear}
                                 fill25={dummy}
                                 fill50={dummy}
                                 fill75={dummy}

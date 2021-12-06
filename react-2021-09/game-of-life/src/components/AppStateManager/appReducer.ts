@@ -17,6 +17,7 @@ export enum AppActions {
     DATA_FROM_BACK = 'DATA_FROM_BACK',
     MOUSE = 'MOUSE',
     FILL_PERCENT = 'FILL_PERCENT',
+    CLEAR = 'CLEAR',
 }
 
 export interface AppState {
@@ -52,10 +53,14 @@ export interface InvertAction {
     type: AppActions.INVERT;
     payload: { cellId: number };
 }
-
 export interface FillPercentAction {
     type: AppActions.FILL_PERCENT;
     payload: { fillPercent: FillPercent };
+}
+
+export interface ClearAction {
+    type: AppActions.CLEAR;
+    payload: {};
 }
 
 export const fieldSize = (size: Size): FieldSizeAction => ({
@@ -73,7 +78,12 @@ export const fillPercent = (fillPercent: FillPercent): FillPercentAction => ({
     payload: { fillPercent },
 });
 
-export type AppAction = FieldSizeAction | InvertAction | FillPercentAction;
+export const clear = (): ClearAction => ({
+    type: AppActions.CLEAR,
+    payload: {},
+});
+
+export type AppAction = FieldSizeAction | InvertAction | FillPercentAction | ClearAction;
 interface SizePair {
     w: number;
     h: number;
@@ -117,6 +127,13 @@ export function appReducer(state: AppState, action: AppAction): AppState {
                 ...state,
                 event: AppActions.FILL_PERCENT,
                 fillPercent: action.payload.fillPercent,
+            };
+        }
+        case AppActions.CLEAR: {
+            return {
+                ...state,
+                event: AppActions.CLEAR,
+                data: createData(state.fieldWidth, state.fieldHeight),
             };
         }
     }
