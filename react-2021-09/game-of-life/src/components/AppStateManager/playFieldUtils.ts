@@ -1,5 +1,5 @@
-import { DEFAULT_CELL_STATE } from './playField.consts';
-import { CellArray, CellInfo } from './playField.types';
+import { DEFAULT_CELL_STATE } from '@src/consts';
+import { CellArray, CellInfo } from '@src/types';
 
 export function createData(width: number, height: number): CellInfo[] {
     const cellsNumber = width * height;

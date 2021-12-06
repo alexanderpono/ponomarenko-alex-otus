@@ -55,7 +55,7 @@ describe('AppStateController', () => {
         unmount();
     });
 
-    it('It switch off a cell after click', () => {
+    it('It inverts a cell after click', () => {
         const getCellIsAlive = (cell: Element) => {
             const classes = [...cell.children[0].classList];
             const cellIsVisible = classes.filter((s) => s === 'show').length === 1;
@@ -65,10 +65,11 @@ describe('AppStateController', () => {
         const { unmount } = render(<AppStateManager />);
         const grid = screen.getByRole('grid');
         const firstCell = grid.children[0];
+        const startCellIsAlive = getCellIsAlive(firstCell);
         userEvent.click(firstCell);
-        const cellIsAlive = getCellIsAlive(firstCell);
+        const newCellIsAlive = getCellIsAlive(firstCell);
 
-        expect(cellIsAlive).toBe(false);
+        expect(newCellIsAlive).toBe(!startCellIsAlive);
         unmount();
     });
 

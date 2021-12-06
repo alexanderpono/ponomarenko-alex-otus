@@ -1,9 +1,8 @@
 import React from 'react';
 import { CAPTION_COLOR, Mode, PANEL_BG_COLOR, PANEL_BORDER_COLOR, Size, Speed } from '@src/consts';
-import { AppStateView } from '@components/AppStateView';
 import { DefineMode } from '@src/components/DefineMode';
 import { FieldSize } from '@components/FieldSize';
-import { FlllPercent } from '@components/FlllPercent';
+import { SetFillPercent } from '@src/components/SetFillPercent';
 import { GameField } from '@components/GameField';
 import { UserNameForm } from '@components/UserNameForm/UserNameForm';
 import { DefineSpeed } from '@src/components/DefineSpeed';
@@ -68,12 +67,13 @@ export class AppStateManager extends React.Component<{}, AppState> {
                         </Buttons>
                         <Caption>Fill percent:</Caption>
                         <Buttons>
-                            <FlllPercent
+                            <SetFillPercent
                                 fill0={dummy}
                                 fill25={dummy}
                                 fill50={dummy}
                                 fill75={dummy}
                                 fill100={dummy}
+                                curPercent={this.state.fillPercent}
                             />
                         </Buttons>
                         <Caption>Game speed:</Caption>

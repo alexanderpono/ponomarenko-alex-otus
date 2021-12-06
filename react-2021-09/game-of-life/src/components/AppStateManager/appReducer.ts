@@ -1,7 +1,14 @@
-import { createData, recreateData } from './playFieldUtils';
-import { DEFAULT_HEIGHT, DEFAULT_WIDTH } from './playField.consts';
-import { CellInfo } from './playField.types';
-import { Size, sizeToWH } from '@src/consts';
+import { createData, randomFill, recreateData } from './playFieldUtils';
+import { CellInfo } from '@src/types';
+import {
+    Size,
+    sizeToWH,
+    DEFAULT_HEIGHT,
+    DEFAULT_WIDTH,
+    FillPercent,
+    DEFAULT_FILL_PERCENT,
+    fillPercentToProbability,
+} from '@src/consts';
 
 export enum AppActions {
     DEFAULT = 'DEFAULT',
@@ -9,6 +16,7 @@ export enum AppActions {
     INVERT = 'INVERT',
     DATA_FROM_BACK = 'DATA_FROM_BACK',
     MOUSE = 'MOUSE',
+    FILL_PERCENT = 'FILL_PERCENT',
 }
 
 export interface AppState {
@@ -17,14 +25,23 @@ export interface AppState {
     fieldHeight: number;
     data: CellInfo[];
     size: Size;
+    fillPercent: FillPercent;
 }
 
 export const defaultAppState: AppState = {
     event: AppActions.DEFAULT,
     fieldWidth: 5,
     fieldHeight: 5,
-    data: createData(DEFAULT_WIDTH, DEFAULT_HEIGHT),
+    data: randomFill(
+        {
+            width: DEFAULT_WIDTH,
+            height: DEFAULT_HEIGHT,
+            data: createData(DEFAULT_WIDTH, DEFAULT_HEIGHT),
+        },
+        fillPercentToProbability[DEFAULT_FILL_PERCENT]
+    ).data,
     size: Size.SMALL,
+    fillPercent: DEFAULT_FILL_PERCENT,
 };
 
 export interface FieldSizeAction {
@@ -34,6 +51,11 @@ export interface FieldSizeAction {
 export interface InvertAction {
     type: AppActions.INVERT;
     payload: { cellId: number };
+}
+
+export interface FillPercentAction {
+    type: AppActions.FILL_PERCENT;
+    payload: { fillPercent: FillPercent };
 }
 
 export const fieldSize = (size: Size): FieldSizeAction => ({
@@ -46,7 +68,12 @@ export const invert = (cellId: number): InvertAction => ({
     payload: { cellId },
 });
 
-export type AppAction = FieldSizeAction | InvertAction;
+export const fillPercent = (fillPercent: FillPercent): FillPercentAction => ({
+    type: AppActions.FILL_PERCENT,
+    payload: { fillPercent },
+});
+
+export type AppAction = FieldSizeAction | InvertAction | FillPercentAction;
 interface SizePair {
     w: number;
     h: number;
@@ -85,5 +112,13 @@ export function appReducer(state: AppState, action: AppAction): AppState {
                 data: newData,
             };
         }
+        case AppActions.FILL_PERCENT: {
+            return {
+                ...state,
+                event: AppActions.FILL_PERCENT,
+                fillPercent: action.payload.fillPercent,
+            };
+        }
     }
+    return state;
 }

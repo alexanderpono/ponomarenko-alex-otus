@@ -1,5 +1,5 @@
 import { createData, randomFill, recreateData, yx } from './playFieldUtils';
-import { CellArray, CellInfo } from './playField.types';
+import { CellArray, CellInfo } from '@src/types';
 import { bool, size } from '@src/testFramework/lib/reducer';
 
 describe('createData', () => {
