@@ -5,6 +5,6 @@ export default {
     title: 'AppStateManager',
 };
 
-export const Game = () => {
-    return <AppStateManager />;
-};
+// export const Game = () => {
+//     return <AppStateManager />;
+// };

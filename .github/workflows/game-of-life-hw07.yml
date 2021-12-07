@@ -1,4 +1,4 @@
-name: GOL build-test-deploy-hw5
+name: GOL build-test-deploy-hw7
 on:
   push:
     branches: [ react-hw7 ]
