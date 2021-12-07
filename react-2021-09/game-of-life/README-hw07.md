@@ -7,7 +7,7 @@
 * Оптимизируем код с помощью react patterns
 * Разрабатываем приложение, используя полученые знания.
 
-## Логика приложения не должна смешиваться с логикой представления.
+## Логика приложения не должна смешиваться с логикой представления
 
 * планируем и разделяем ответственность между контейнерами
 * объединяем все элементы управления и отображения
@@ -39,7 +39,9 @@
 6. Дополнены тесты и сторибук.
 
 7. [Кодовая база hw07](https://github.com/alexanderpono/ponomarenko-alex-otus/commits/react-hw7)
-8. [Опубликованные результаты](https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw07)
+
+8. Опубликованные результаты
+* [Пояснительная записка](https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw07)
 * [application](https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw07/application)
 * [storybook](https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw07/storybook)
 * [test-report](https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw07/test-report/testResult.html)
