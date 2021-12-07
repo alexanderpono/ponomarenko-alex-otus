@@ -6,3 +6,5 @@
 3. .
 4. [Components lifecycle](hw04/README.md)
 5. [Components lifecycle. Списки, события, формы](hw05/README.md)
+6. .
+7. [React patterns](hw07/README.md)
