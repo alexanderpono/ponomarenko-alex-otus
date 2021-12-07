@@ -1,7 +1,7 @@
 name: GOL build-test-deploy-hw5
 on:
   push:
-    branches: [ react-hw5 ]
+    branches: [ react-hw7 ]
 #  pull_request:
 #    branches: [ master ]
   # Allows you to run this workflow manually from the Actions tab
@@ -9,7 +9,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  GOL-build-test-deploy-hw5:
+  GOL-build-test-deploy-hw7:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -57,34 +57,34 @@ jobs:
         id: Project-build
         run: npm run build
 
-      - name: Deploy application to GHP /ponomarenko-alex-otus/react-2021-09/hw05/application 🚀
+      - name: Deploy application to GHP /ponomarenko-alex-otus/react-2021-09/hw07/application 🚀
         id: Deploy-app
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages # The branch the action should deploy to.
           FOLDER: react-2021-09/game-of-life/public  # The folder the action should deploy.
-          TARGET_FOLDER: react-2021-09/hw05/application
+          TARGET_FOLDER: react-2021-09/hw07/application
           CLEAN: true # Automatically remove deleted files from the deploy branch
 
-      - name: Deploy storybook to GHP /ponomarenko-alex-otus/react-2021-09/hw05/storybook 🚀
+      - name: Deploy storybook to GHP /ponomarenko-alex-otus/react-2021-09/hw07/storybook 🚀
         id: Deploy-storybook
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages # The branch the action should deploy to.
           FOLDER: react-2021-09/game-of-life/storybook-static # The folder the action should deploy.
-          TARGET_FOLDER: react-2021-09/hw05/storybook
+          TARGET_FOLDER: react-2021-09/hw07/storybook
           CLEAN: true # Automatically remove deleted files from the deploy branch
 
-      - name: Deploy test-report to GHP /ponomarenko-alex-otus/react-2021-09/hw04/test-report 🚀
+      - name: Deploy test-report to GHP /ponomarenko-alex-otus/react-2021-09/hw07/test-report 🚀
         id: Deploy-test-report
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages # The branch the action should deploy to.
           FOLDER: react-2021-09/game-of-life/temp # The folder the action should deploy.
-          TARGET_FOLDER: react-2021-09/hw05/test-report
+          TARGET_FOLDER: react-2021-09/hw07/test-report
           CLEAN: true # Automatically remove deleted files from the deploy branch
 
       - name: 'Send telegram notification'
@@ -99,7 +99,7 @@ jobs:
             wf: ${{github.workflow}}
             event: ${{github.event.name}}
             status: ${{job.status}} ${{ (job.status == 'success' && '🚀 🦉 🚀' ) || '🔥🔥 ⛔ 🔥🔥'}}
-            отчет unit-tests доступен по ссылке: https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw05/
+            отчет unit-tests доступен по ссылке: https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw07/
             ${{ (steps.Npm-install.outcome == 'failure' &&  'NPM ⛔ ') || '' }} 
             ${{ (steps.Linter.outcome == 'failure' &&  'ESLINT ⛔ ') || '' }} 
             ${{ (steps.Run-tests.outcome == 'failure' &&  'TESTS ⛔ ') || '' }} 
