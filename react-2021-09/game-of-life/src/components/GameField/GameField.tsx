@@ -5,7 +5,6 @@ import { Cell } from '@components/Cell';
 import styled from '@emotion/styled';
 
 export interface GameFieldProps {
-    showAll: boolean;
     data: CellInfo[];
     onCellClick: (num: number) => void;
     width: number;
@@ -32,7 +31,7 @@ export class GameField extends React.Component<GameFieldProps> {
                         <Cell
                             key={`${y}-${x}`}
                             num={index}
-                            showContent={item === CellInfo.alive}
+                            alive={item === CellInfo.alive}
                             onClick={this.onCellClick}
                             isLeft={isLeft}
                             isRight={isRight}

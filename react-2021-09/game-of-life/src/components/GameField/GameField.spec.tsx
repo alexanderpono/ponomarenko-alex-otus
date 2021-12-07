@@ -17,7 +17,6 @@ describe('GameField', () => {
         const snapshot = renderer
             .create(
                 <GameField
-                    showAll={false}
                     data={data}
                     onCellClick={() => {}}
                     width={width}
@@ -39,7 +38,6 @@ describe('GameField', () => {
 
         const wrapper = mount(
             <GameField
-                showAll={false}
                 data={data}
                 onCellClick={mockCallBack}
                 width={width}

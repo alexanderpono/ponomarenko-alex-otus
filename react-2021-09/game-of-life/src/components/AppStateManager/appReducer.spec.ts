@@ -77,7 +77,9 @@ describe('appReducer', () => {
         const id = Math.round((srcState.fieldWidth * srcState.fieldHeight - 1) * Math.random());
         const oldVisible = srcState.data[id];
         const inverted = getInverted(oldVisible);
-        expect(appReducer(srcState, invert(id)).data[id]).toBe(inverted);
+        const state2 = appReducer(srcState, invert(id));
+        expect(state2.data[id]).toBe(inverted);
+        expect(appReducer(state2, invert(id)).data[id]).toBe(oldVisible);
     });
 
     it('sets all .data into .visible=false from CLEAR action', () => {
