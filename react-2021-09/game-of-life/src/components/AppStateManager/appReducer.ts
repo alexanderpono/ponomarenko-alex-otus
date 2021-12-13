@@ -60,7 +60,6 @@ export interface FillPercentAction {
 
 export interface ClearAction {
     type: AppActions.CLEAR;
-    payload: {};
 }
 
 export const fieldSize = (size: Size): FieldSizeAction => ({
@@ -80,7 +79,6 @@ export const fillPercent = (fillPercent: FillPercent): FillPercentAction => ({
 
 export const clear = (): ClearAction => ({
     type: AppActions.CLEAR,
-    payload: {},
 });
 
 export type AppAction = FieldSizeAction | InvertAction | FillPercentAction | ClearAction;

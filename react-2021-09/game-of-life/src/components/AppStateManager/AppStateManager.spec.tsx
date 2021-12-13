@@ -11,7 +11,7 @@ import {
     SMALL_SIZE_CAPTION,
 } from '@src/consts';
 
-describe('AppStateController', () => {
+describe('AppStateManager', () => {
     const clearBoth = 1;
 
     const getCellIsAlive = (cell: Element) => {
@@ -38,37 +38,22 @@ describe('AppStateController', () => {
         expect(container.innerHTML).toBe('');
     });
 
-    it('renders field of size 5x5 on click at "small"', () => {
-        const { unmount } = render(<AppStateManager />);
-        const btSmall = screen.getByText(SMALL_SIZE_CAPTION);
-        userEvent.click(btSmall);
-        const grid = screen.getByRole('grid');
-        expect(grid.children.length).toBe(
-            sizeToWH[Size.SMALL].w * sizeToWH[Size.SMALL].h + clearBoth
-        );
-        unmount();
-    });
-
-    it('renders field of size 10x10 on click at "medium"', () => {
-        const { unmount } = render(<AppStateManager />);
-        const btSmall = screen.getByText(MIDDLE_SIZE_CAPTION);
-        userEvent.click(btSmall);
-        const grid = screen.getByRole('grid');
-        expect(grid.children.length).toBe(
-            sizeToWH[Size.MIDDLE].w * sizeToWH[Size.MIDDLE].h + clearBoth
-        );
-        unmount();
-    });
-
-    it('renders field of size 20x15 on click at "large"', () => {
-        const { unmount } = render(<AppStateManager />);
-        const btSmall = screen.getByText(LARGE_SIZE_CAPTION);
-        userEvent.click(btSmall);
-        const grid = screen.getByRole('grid');
-        expect(grid.children.length).toBe(
-            sizeToWH[Size.LARGE].w * sizeToWH[Size.LARGE].h + clearBoth
-        );
-        unmount();
+    describe('parameterized tests', () => {
+        test.each`
+            clickAt                | testName                                              | sizeId
+            ${SMALL_SIZE_CAPTION}  | ${'renders field of size 5x5 on click at "small"'}    | ${Size.SMALL}
+            ${MIDDLE_SIZE_CAPTION} | ${'renders field of size 10x10 on click at "medium"'} | ${Size.MIDDLE}
+            ${LARGE_SIZE_CAPTION}  | ${'renders field of size 20x15 on click at "large"'}  | ${Size.LARGE}
+        `('$testName', ({ clickAt, testName, sizeId }) => {
+            const { unmount } = render(<AppStateManager />);
+            const bt = screen.getByText(clickAt);
+            userEvent.click(bt);
+            const grid = screen.getByRole('grid');
+            expect(grid.children.length).toBe(
+                sizeToWH[sizeId as Size].w * sizeToWH[sizeId as Size].h + clearBoth
+            );
+            unmount();
+        });
     });
 
     it('inverts a cell after click', () => {

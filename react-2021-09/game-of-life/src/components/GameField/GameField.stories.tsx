@@ -43,7 +43,6 @@ export const Dynamic: React.FC<{}> = () => {
 
     return (
         <GameField
-            showAll={showAll}
             data={data}
             onCellClick={onCellClick}
             width={width}

@@ -45,7 +45,7 @@ describe('GameField', () => {
             ></GameField>
         );
         wrapper.find('article').last().simulate('click');
-        expect(mockCallBack.mock.calls.length).toBe(1);
-        expect(mockCallBack.mock.calls[0][0]).toBe(lastID);
+        expect(mockCallBack).toHaveBeenCalledTimes(1);
+        expect(mockCallBack).toHaveBeenCalledWith(lastID);
     });
 });

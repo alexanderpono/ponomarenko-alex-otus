@@ -24,11 +24,11 @@ describe('recreateData', () => {
         const srcAr = createData(srcW, srcH);
         const rndCell = (): CellInfo => (bool() ? CellInfo.alive : CellInfo.dead);
         const clickedAr = srcAr.map((cell: CellInfo) => rndCell());
-        const newAr = recreateData(clickedAr, srcW, srcH, newW, newH);
+        const recreatedAr = recreateData(clickedAr, srcW, srcH, newW, newH);
 
         for (let y = 0; y < srcH; y++) {
             for (let x = 0; x < srcW; x++) {
-                const newVisibleVal = newAr[yx(y, x, newW)];
+                const newVisibleVal = recreatedAr[yx(y, x, newW)];
                 const oldVisibleVal = clickedAr[yx(y, x, srcW)];
                 expect(`(${y},${x}) ${newVisibleVal}`).toBe(`(${y},${x}) ${oldVisibleVal}`);
             }
@@ -43,11 +43,11 @@ describe('recreateData', () => {
         const srcAr = createData(srcW, srcH);
         const rndCell = (): CellInfo => (bool() ? CellInfo.alive : CellInfo.dead);
         const clickedAr = srcAr.map((cell: CellInfo) => rndCell());
-        const newAr = recreateData(clickedAr, srcW, srcH, newW, newH);
+        const recreatedAr = recreateData(clickedAr, srcW, srcH, newW, newH);
 
         for (let y = 0; y < newH; y++) {
             for (let x = 0; x < newW; x++) {
-                const newVisibleVal = newAr[yx(y, x, newW)];
+                const newVisibleVal = recreatedAr[yx(y, x, newW)];
                 const oldVisibleVal = clickedAr[yx(y, x, srcW)];
                 expect(`(${y},${x}) ${newVisibleVal}`).toBe(`(${y},${x}) ${oldVisibleVal}`);
             }
