@@ -19,9 +19,6 @@ export const createQs = (qsObj: QsObj): string => {
 // Задание 3. Объект из querystring
 export const parseQs = (qs: string): QsObj => {
     const qsWithoutQuestion = qs.substring(1);
-    const equationObjectsAr: QsObj[] = qsWithoutQuestion.split('&').map((equation: string) => {
-        const [key, value] = equation.split('=');
-        return { [key]: value };
-    });
-    return Object.assign({}, ...equationObjectsAr);
+    const equationsAr = qsWithoutQuestion.split('&').map((equation: string) => equation.split('='));
+    return Object.fromEntries(equationsAr);
 };
