@@ -13,3 +13,6 @@ react-2021-09-hw04
 storybook-static
 build-storybook.log
 .loki
+dist
+temp
+
