@@ -1,6 +1,6 @@
-import { createData, recreateData, yx } from './playFieldUtils';
-import { CellInfo } from './playField.types';
-import { bool } from '@src/testFramework/lib/reducer';
+import { createData, getInverted, randomFill, recreateData, yx } from './playFieldUtils';
+import { CellArray, CellInfo } from '@src/types';
+import { bool, size } from '@src/testFramework/lib/reducer';
 
 describe('createData', () => {
     it('It creates array of size=25 from 5x5', () => {
@@ -22,15 +22,14 @@ describe('recreateData', () => {
         const newW = 5;
         const newH = 5;
         const srcAr = createData(srcW, srcH);
-        const clickedAr = srcAr.map((cell: CellInfo) => {
-            return { ...cell, visible: bool() };
-        });
-        const newAr = recreateData(clickedAr, srcW, srcH, newW, newH);
+        const rndCell = (): CellInfo => (bool() ? CellInfo.alive : CellInfo.dead);
+        const clickedAr = srcAr.map((cell: CellInfo) => rndCell());
+        const recreatedAr = recreateData(clickedAr, srcW, srcH, newW, newH);
 
         for (let y = 0; y < srcH; y++) {
             for (let x = 0; x < srcW; x++) {
-                const newVisibleVal = newAr[yx(y, x, newW)].visible;
-                const oldVisibleVal = clickedAr[yx(y, x, srcW)].visible;
+                const newVisibleVal = recreatedAr[yx(y, x, newW)];
+                const oldVisibleVal = clickedAr[yx(y, x, srcW)];
                 expect(`(${y},${x}) ${newVisibleVal}`).toBe(`(${y},${x}) ${oldVisibleVal}`);
             }
         }
@@ -42,17 +41,100 @@ describe('recreateData', () => {
         const newW = 3;
         const newH = 3;
         const srcAr = createData(srcW, srcH);
-        const clickedAr = srcAr.map((cell: CellInfo) => {
-            return { ...cell, visible: bool() };
-        });
-        const newAr = recreateData(clickedAr, srcW, srcH, newW, newH);
+        const rndCell = (): CellInfo => (bool() ? CellInfo.alive : CellInfo.dead);
+        const clickedAr = srcAr.map((cell: CellInfo) => rndCell());
+        const recreatedAr = recreateData(clickedAr, srcW, srcH, newW, newH);
 
         for (let y = 0; y < newH; y++) {
             for (let x = 0; x < newW; x++) {
-                const newVisibleVal = newAr[yx(y, x, newW)].visible;
-                const oldVisibleVal = clickedAr[yx(y, x, srcW)].visible;
+                const newVisibleVal = recreatedAr[yx(y, x, newW)];
+                const oldVisibleVal = clickedAr[yx(y, x, srcW)];
                 expect(`(${y},${x}) ${newVisibleVal}`).toBe(`(${y},${x}) ${oldVisibleVal}`);
             }
         }
+    });
+});
+
+describe('randomFill', () => {
+    it('insert alive cells into array from probability 25%', () => {
+        const srcW = size(5) + 1;
+        const srcH = size(5) + 1;
+        const expectedAliveNumber = Math.floor(srcW * srcH * 0.25);
+        const ar: CellArray = {
+            width: srcW,
+            height: srcH,
+            data: createData(srcW, srcH),
+        };
+        const randomAr = randomFill(ar, 0.25);
+        const aliveNumber = randomAr.data.filter(
+            (cell: CellInfo) => cell === CellInfo.alive
+        ).length;
+        expect(aliveNumber).toBe(expectedAliveNumber);
+    });
+
+    it('insert alive cells into array from probability 50%', () => {
+        const srcW = size(5) + 1;
+        const srcH = size(5) + 1;
+        const expectedAliveNumber = Math.floor(srcW * srcH * 0.5);
+        const ar: CellArray = {
+            width: srcW,
+            height: srcH,
+            data: createData(srcW, srcH),
+        };
+        const randomAr = randomFill(ar, 0.5);
+        const aliveNumber = randomAr.data.filter(
+            (cell: CellInfo) => cell === CellInfo.alive
+        ).length;
+        expect(aliveNumber).toBe(expectedAliveNumber);
+    });
+
+    it('insert alive cells into array from probability 75%', () => {
+        const srcW = size(5) + 1;
+        const srcH = size(5) + 1;
+        const expectedAliveNumber = Math.floor(srcW * srcH * 0.75);
+        const ar: CellArray = {
+            width: srcW,
+            height: srcH,
+            data: createData(srcW, srcH),
+        };
+        const randomAr = randomFill(ar, 0.75);
+        const aliveNumber = randomAr.data.filter(
+            (cell: CellInfo) => cell === CellInfo.alive
+        ).length;
+        expect(aliveNumber).toBe(expectedAliveNumber);
+    });
+
+    it('throws if probability <0', () => {
+        const srcW = size(5);
+        const srcH = size(5);
+        const ar: CellArray = {
+            width: srcW,
+            height: srcH,
+            data: createData(srcW, srcH),
+        };
+        const rndProbability = -1 * Math.random() - 0.1;
+        expect(() => randomFill(ar, rndProbability)).toThrow();
+    });
+
+    it('throws if probability >1', () => {
+        const srcW = size(5);
+        const srcH = size(5);
+        const ar: CellArray = {
+            width: srcW,
+            height: srcH,
+            data: createData(srcW, srcH),
+        };
+        const rndProbability = 1 + Math.random();
+        expect(() => randomFill(ar, rndProbability)).toThrow();
+    });
+});
+
+describe('getInverted', () => {
+    test('returns CellInfo.dead from CellInfo.alive', () => {
+        expect(getInverted(CellInfo.alive)).toBe(CellInfo.dead);
+    });
+
+    test('returns CellInfo.alive from CellInfo.dead', () => {
+        expect(getInverted(CellInfo.dead)).toBe(CellInfo.alive);
     });
 });

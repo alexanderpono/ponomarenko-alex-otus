@@ -2,6 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { Cell } from './Cell';
 import renderer from 'react-test-renderer';
+import { bool } from '@src/testFramework/lib/reducer';
 
 interface RenderResult {
     type: string;
@@ -11,14 +12,32 @@ interface RenderResult {
 describe('Cell', () => {
     it('It renders <article> using renderer cell with value=2', () => {
         const snapshot = renderer
-            .create(<Cell num={2} onClick={() => {}} showContent={false} caption="2"></Cell>)
+            .create(
+                <Cell
+                    num={2}
+                    onClick={() => {}}
+                    alive={bool()}
+                    isLeft={bool()}
+                    isRight={bool()}
+                    isBottom={bool()}
+                ></Cell>
+            )
             .toJSON() as RenderResult;
         expect(snapshot.type).toBe('article');
     });
 
     it('It renders <article><span/></article> using renderer cell with value=2', () => {
         const snapshot = renderer
-            .create(<Cell num={2} onClick={() => {}} showContent={false} caption="2"></Cell>)
+            .create(
+                <Cell
+                    num={2}
+                    onClick={() => {}}
+                    alive={bool()}
+                    isLeft={bool()}
+                    isRight={bool()}
+                    isBottom={bool()}
+                ></Cell>
+            )
             .toJSON() as RenderResult;
         expect(snapshot.children.length).toBe(1);
         expect(snapshot.children[0].type).toBe('span');
@@ -27,7 +46,14 @@ describe('Cell', () => {
     it('OnClick callback is called when cell is clicked', () => {
         const mockCallBack = jest.fn();
         const cell = mount(
-            <Cell num={2} onClick={mockCallBack} showContent={false} caption="2"></Cell>
+            <Cell
+                num={2}
+                onClick={mockCallBack}
+                alive={bool()}
+                isLeft={bool()}
+                isRight={bool()}
+                isBottom={bool()}
+            ></Cell>
         );
         cell.find('article').simulate('click');
         expect(mockCallBack.mock.calls.length).toEqual(1);
@@ -39,7 +65,14 @@ describe('Cell', () => {
             receivedCellNumber = cellNumber;
         };
         const cell = mount(
-            <Cell num={2} onClick={testCallBack} showContent={false} caption="2"></Cell>
+            <Cell
+                num={2}
+                onClick={testCallBack}
+                alive={bool()}
+                isLeft={bool()}
+                isRight={bool()}
+                isBottom={bool()}
+            ></Cell>
         );
         cell.find('article').simulate('click');
         expect(receivedCellNumber).toEqual(2);

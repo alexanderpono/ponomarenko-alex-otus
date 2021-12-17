@@ -1,6 +1,5 @@
 import React from 'react';
 import { DefineSpeed } from './DefineSpeed';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, number, boolean, text } from '@storybook/addon-knobs';
 import { Speed } from '@src/consts';

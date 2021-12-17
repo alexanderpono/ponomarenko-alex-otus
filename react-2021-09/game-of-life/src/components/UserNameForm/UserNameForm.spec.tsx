@@ -13,7 +13,7 @@ describe('UserNameForm', () => {
         userEvent.click(input);
         userEvent.type(input, rndName);
         userEvent.click(screen.getByText('submit'));
-        expect(mockCallBack.mock.calls.length).toEqual(1);
+        expect(mockCallBack).toHaveBeenCalledTimes(1);
     });
 
     it('sends a name into props.onName() callback when submit is clicked and name is not empty', () => {
@@ -24,6 +24,6 @@ describe('UserNameForm', () => {
         userEvent.click(input);
         userEvent.type(input, rndName);
         userEvent.click(screen.getByText('submit'));
-        expect(mockCallBack.mock.calls[0][0]).toEqual(rndName);
+        expect(mockCallBack).toHaveBeenCalledWith(rndName);
     });
 });

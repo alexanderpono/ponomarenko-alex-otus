@@ -1,11 +1,10 @@
 import React from 'react';
 import { AppActions } from '@src/components/AppStateManager/appReducer';
-import { CellInfo } from '@src/components/AppStateManager/playField.types';
+import { CellInfo } from '@src/types';
 import { Cell } from '@components/Cell';
 import styled from '@emotion/styled';
 
 export interface GameFieldProps {
-    showAll: boolean;
     data: CellInfo[];
     onCellClick: (num: number) => void;
     width: number;
@@ -30,11 +29,10 @@ export class GameField extends React.Component<GameFieldProps> {
                     const isLeft = x === 0;
                     return (
                         <Cell
-                            key={item.id}
-                            num={Number(item.id)}
-                            showContent={item.visible}
+                            key={`${y}-${x}`}
+                            num={index}
+                            alive={item === CellInfo.alive}
                             onClick={this.onCellClick}
-                            caption={String(item.id)}
                             isLeft={isLeft}
                             isRight={isRight}
                             isBottom={isBottom}
@@ -47,9 +45,14 @@ export class GameField extends React.Component<GameFieldProps> {
     }
 
     shouldComponentUpdate(nextProps: GameFieldProps) {
-        return (
-            nextProps.actionId === AppActions.FIELD_SIZE || nextProps.actionId === AppActions.INVERT
-        );
+        const result =
+            [
+                AppActions.FILL_PERCENT,
+                AppActions.FIELD_SIZE,
+                AppActions.INVERT,
+                AppActions.CLEAR,
+            ].indexOf(nextProps.actionId) >= 0;
+        return result;
     }
 }
 

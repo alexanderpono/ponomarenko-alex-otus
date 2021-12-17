@@ -1,6 +1,6 @@
-export interface CellInfo {
-    id: string;
-    visible: boolean;
+export enum CellInfo {
+    alive = 1,
+    dead = 0,
 }
 
 export interface CellArray {

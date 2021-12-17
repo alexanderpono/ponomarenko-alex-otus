@@ -6,3 +6,5 @@
 3.
 4. [Components lifecycle](game-of-life/README-hw04.md)
 5. [Components lifecycle. Списки, события, формы](game-of-life/README-hw05.md)
+6.
+7. [React patterns](game-of-life/README-hw07.md)

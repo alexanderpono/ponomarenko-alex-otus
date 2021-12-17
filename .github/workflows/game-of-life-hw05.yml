@@ -77,7 +77,7 @@ jobs:
           TARGET_FOLDER: react-2021-09/hw05/storybook
           CLEAN: true # Automatically remove deleted files from the deploy branch
 
-      - name: Deploy test-report to GHP /ponomarenko-alex-otus/react-2021-09/hw04/test-report 🚀
+      - name: Deploy test-report to GHP /ponomarenko-alex-otus/react-2021-09/hw05/test-report 🚀
         id: Deploy-test-report
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:

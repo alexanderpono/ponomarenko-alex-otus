@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from '@components/Button';
+import { FillPercent } from '@src/consts';
 
 interface FieldSizeProps {
     fill0: () => void;
@@ -7,29 +8,31 @@ interface FieldSizeProps {
     fill50: () => void;
     fill75: () => void;
     fill100: () => void;
+    curPercent: FillPercent;
 }
-export const FlllPercent: React.FC<FieldSizeProps> = ({
+export const SetFillPercent: React.FC<FieldSizeProps> = ({
     fill0,
     fill25,
     fill50,
     fill75,
     fill100,
+    curPercent,
 }) => {
     return (
         <>
             <Button id="btFill0" onClick={fill0}>
                 clear
             </Button>
-            <Button id="btFill25" onClick={fill25}>
+            <Button id="btFill25" onClick={fill25} active={curPercent === FillPercent.P25}>
                 25%
             </Button>
-            <Button id="btFill50" onClick={fill50}>
+            <Button id="btFill50" onClick={fill50} active={curPercent === FillPercent.P50}>
                 50%
             </Button>
-            <Button id="btFill75" onClick={fill75}>
+            <Button id="btFill75" onClick={fill75} active={curPercent === FillPercent.P75}>
                 75%
             </Button>
-            <Button id="btFill100" onClick={fill100}>
+            <Button id="btFill100" onClick={fill100} active={curPercent === FillPercent.P100}>
                 100%
             </Button>
         </>
