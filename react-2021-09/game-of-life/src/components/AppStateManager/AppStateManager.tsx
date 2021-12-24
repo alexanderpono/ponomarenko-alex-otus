@@ -8,6 +8,7 @@ import {
     fieldSize,
     fillPercent,
     invert,
+    user,
 } from './appReducer';
 import { App } from '../App';
 
@@ -41,6 +42,15 @@ export class AppStateManager extends React.Component<{}, AppState> {
     private fill100 = () => {
         this.setState(appReducer(this.state, fillPercent(FillPercent.P100)));
     };
+    private onName = (name: string) => {
+        this.setState(appReducer(this.state, user(name)));
+        // console.error('onName() name=', name);
+    };
+    private onLogout = () => {
+        // this.setState(appReducer(this.state, fillPercent(FillPercent.P100)));
+        // console.error('onLogout()');
+        this.setState(appReducer(this.state, user('')));
+    };
 
     render() {
         return (
@@ -55,6 +65,8 @@ export class AppStateManager extends React.Component<{}, AppState> {
                 fill50={this.fill50}
                 fill75={this.fill75}
                 fill100={this.fill100}
+                onName={this.onName}
+                onLogout={this.onLogout}
             />
         );
     }

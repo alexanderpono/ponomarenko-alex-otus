@@ -44,15 +44,19 @@ describe('AppStateManager', () => {
             ${SMALL_SIZE_CAPTION}  | ${'renders field of size 5x5 on click at "small"'}    | ${Size.SMALL}
             ${MIDDLE_SIZE_CAPTION} | ${'renders field of size 10x10 on click at "medium"'} | ${Size.MIDDLE}
             ${LARGE_SIZE_CAPTION}  | ${'renders field of size 20x15 on click at "large"'}  | ${Size.LARGE}
-        `('$testName', ({ clickAt, testName, sizeId }) => {
-            const { unmount } = render(<AppStateManager />);
-            const bt = screen.getByText(clickAt);
-            userEvent.click(bt);
+        `('$testName', ({ clickAt, sizeId }) => {
+            render(<AppStateManager />);
+
+            const input = screen.getByLabelText('Enter your name:');
+            userEvent.click(input);
+            userEvent.type(input, str());
+            userEvent.click(screen.getByText('Start'));
+
+            userEvent.click(screen.getByText(clickAt));
             const grid = screen.getByRole('grid');
             expect(grid.children.length).toBe(
                 sizeToWH[sizeId as Size].w * sizeToWH[sizeId as Size].h + clearBoth
             );
-            unmount();
         });
     });
 
@@ -63,7 +67,13 @@ describe('AppStateManager', () => {
             return cellIsVisible;
         };
 
-        const { unmount } = render(<AppStateManager />);
+        render(<AppStateManager />);
+
+        const input = screen.getByLabelText('Enter your name:');
+        userEvent.click(input);
+        userEvent.type(input, str());
+        userEvent.click(screen.getByText('Start'));
+
         const grid = screen.getByRole('grid');
         const firstCell = grid.children[0];
         const startCellIsAlive = getCellIsAlive(firstCell);
@@ -71,7 +81,6 @@ describe('AppStateManager', () => {
         const newCellIsAlive = getCellIsAlive(firstCell);
 
         expect(newCellIsAlive).toBe(!startCellIsAlive);
-        unmount();
     });
 
     it('allows to click submit-button at LoginForm', () => {
@@ -81,11 +90,16 @@ describe('AppStateManager', () => {
         const input = screen.getByLabelText('Enter your name:');
         userEvent.click(input);
         userEvent.type(input, rndName);
-        userEvent.click(screen.getByText('submit'));
+        userEvent.click(screen.getByText('Start'));
     });
 
     it('allows to click gameSpeed-slow-button', () => {
         render(<AppStateManager />);
+
+        const input = screen.getByLabelText('Enter your name:');
+        userEvent.click(input);
+        userEvent.type(input, str());
+        userEvent.click(screen.getByText('Start'));
 
         const bt = screen.getByText('slow');
         userEvent.click(bt);
@@ -98,58 +112,91 @@ describe('AppStateManager', () => {
             return cellIsVisible;
         };
 
-        const { unmount } = render(<AppStateManager />);
+        render(<AppStateManager />);
+
+        const input = screen.getByLabelText('Enter your name:');
+        userEvent.click(input);
+        userEvent.type(input, str());
+        userEvent.click(screen.getByText('Start'));
+
         userEvent.click(screen.getByText('clear'));
         const grid = screen.getByRole('grid');
         const cells = [...grid.children].filter((cell: Element) => cell.tagName === 'ARTICLE');
         const aliveCells = cells.filter((cell: Element) => getCellIsAlive(cell));
 
         expect(aliveCells.length).toBe(0);
-        unmount();
     });
 
     it('updates grid after click at fill-25%-button', () => {
-        const { unmount } = render(<AppStateManager />);
+        render(<AppStateManager />);
+
+        const input = screen.getByLabelText('Enter your name:');
+        userEvent.click(input);
+        userEvent.type(input, str());
+        userEvent.click(screen.getByText('Start'));
 
         const aliveIdsBefore = getIdsOfAliveCells();
         userEvent.click(screen.getByText('25%'));
         const aliveIdsAfter = getIdsOfAliveCells();
 
         expect(aliveIdsBefore).not.toEqual(aliveIdsAfter);
-        unmount();
     });
 
     it('updates grid after click at fill-50%-button', () => {
-        const { unmount } = render(<AppStateManager />);
+        render(<AppStateManager />);
+
+        const input = screen.getByLabelText('Enter your name:');
+        userEvent.click(input);
+        userEvent.type(input, str());
+        userEvent.click(screen.getByText('Start'));
 
         const aliveIdsBefore = getIdsOfAliveCells();
         userEvent.click(screen.getByText('50%'));
         const aliveIdsAfter = getIdsOfAliveCells();
 
         expect(aliveIdsBefore).not.toEqual(aliveIdsAfter);
-        unmount();
     });
 
     it('updates grid after click at fill-75%-button', () => {
-        const { unmount } = render(<AppStateManager />);
+        render(<AppStateManager />);
+
+        const input = screen.getByLabelText('Enter your name:');
+        userEvent.click(input);
+        userEvent.type(input, str());
+        userEvent.click(screen.getByText('Start'));
 
         const aliveIdsBefore = getIdsOfAliveCells();
         userEvent.click(screen.getByText('75%'));
         const aliveIdsAfter = getIdsOfAliveCells();
 
         expect(aliveIdsBefore).not.toEqual(aliveIdsAfter);
-        unmount();
     });
 
     it('updates grid after click at fill-100%-button', () => {
-        const { unmount } = render(<AppStateManager />);
+        render(<AppStateManager />);
+
+        const input = screen.getByLabelText('Enter your name:');
+        userEvent.click(input);
+        userEvent.type(input, str());
+        userEvent.click(screen.getByText('Start'));
 
         const aliveIdsBefore = getIdsOfAliveCells();
         userEvent.click(screen.getByText('100%'));
         const aliveIdsAfter = getIdsOfAliveCells();
 
         expect(aliveIdsBefore).not.toEqual(aliveIdsAfter);
-        unmount();
+    });
+
+    it('hides the grid after click at "logout"', () => {
+        render(<AppStateManager />);
+
+        const input = screen.getByLabelText('Enter your name:');
+        userEvent.click(input);
+        userEvent.type(input, str());
+        userEvent.click(screen.getByText('Start'));
+        userEvent.click(screen.getByText('Logout'));
+
+        expect(screen.queryByRole('grid')).not.toBeInTheDocument();
     });
 
     afterEach(() => {
