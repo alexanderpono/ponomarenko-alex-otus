@@ -11,11 +11,16 @@ import {
     user,
 } from './appReducer';
 import { App } from '../App';
+import { MyStorage } from '@src/MyStorage';
 
-export class AppStateManager extends React.Component<{}, AppState> {
+export interface AppStateManagerProps {
+    storage: MyStorage;
+}
+
+export class AppStateManager extends React.Component<AppStateManagerProps, AppState> {
     state: AppState;
 
-    constructor(props: {}) {
+    constructor(props: AppStateManagerProps) {
         super(props);
         this.state = defaultAppState;
         this.invert = this.invert.bind(this);
@@ -44,13 +49,18 @@ export class AppStateManager extends React.Component<{}, AppState> {
     };
     private onName = (name: string) => {
         this.setState(appReducer(this.state, user(name)));
-        // console.error('onName() name=', name);
+        this.props.storage.setName(name);
     };
     private onLogout = () => {
-        // this.setState(appReducer(this.state, fillPercent(FillPercent.P100)));
-        // console.error('onLogout()');
         this.setState(appReducer(this.state, user('')));
+        this.props.storage.clearName();
     };
+
+    componentDidMount() {
+        if (this.props.storage.getName() !== null) {
+            this.onName(this.props.storage.getName() as string);
+        }
+    }
 
     render() {
         return (

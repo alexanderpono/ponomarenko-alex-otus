@@ -12,6 +12,7 @@ module.exports = {
         '!src/**/*.stories.tsx',
         '!src/app.tsx',
         '!src/**/index.tsx',
+        '!src/**/index.ts',
     ],
     testEnvironment: 'jsdom',
     reporters: [
