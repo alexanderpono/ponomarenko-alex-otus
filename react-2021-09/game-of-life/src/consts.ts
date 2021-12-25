@@ -30,6 +30,7 @@ export enum Mode {
 }
 
 export enum FillPercent {
+    P0 = 'P0',
     P25 = 'P25',
     P50 = 'P50',
     P75 = 'P75',
@@ -37,6 +38,7 @@ export enum FillPercent {
 }
 
 export const fillPercentToProbability = {
+    [FillPercent.P0]: 0,
     [FillPercent.P25]: 0.25,
     [FillPercent.P50]: 0.5,
     [FillPercent.P75]: 0.75,

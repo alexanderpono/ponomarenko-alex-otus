@@ -154,6 +154,7 @@ export function appReducer(state: AppState, action: AppAction): AppState {
             return {
                 ...state,
                 event: AppActions.CLEAR,
+                fillPercent: FillPercent.P0,
                 data: createData(state.fieldWidth, state.fieldHeight),
             };
         }

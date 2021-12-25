@@ -20,7 +20,7 @@ export const SetFillPercent: React.FC<FieldSizeProps> = ({
 }) => {
     return (
         <>
-            <Button id="btFill0" onClick={fill0}>
+            <Button id="btFill0" onClick={fill0} active={curPercent === FillPercent.P0}>
                 clear
             </Button>
             <Button id="btFill25" onClick={fill25} active={curPercent === FillPercent.P25}>
