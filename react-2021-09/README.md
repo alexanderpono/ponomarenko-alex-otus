@@ -8,3 +8,4 @@
 5. [Домашнее задание 5. Components lifecycle. Списки, события, формы](game-of-life/README-hw05.md)
 6. [Домашнее задание 6. Основы функционального программирования](react-2021-09-hw06/README.md)
 7. [Домашнее задание 7. React patterns](game-of-life/README-hw07.md)
+8. [Домашнее задание 8. React router](game-of-life/README-hw08.md)
