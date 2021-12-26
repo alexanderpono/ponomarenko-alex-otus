@@ -19,7 +19,7 @@ export class UserNameForm extends React.Component<Props> {
 
     render() {
         return (
-            <BrowserRouter>
+            <>
                 {!this.props.userName && (
                     <Form onSubmit={this.onSubmit}>
                         <Label htmlFor="name">Enter your name: </Label>
@@ -35,7 +35,7 @@ export class UserNameForm extends React.Component<Props> {
                         <Redirect to="/game" />
                     </LoggedInUser>
                 )}
-            </BrowserRouter>
+            </>
         );
     }
 }
