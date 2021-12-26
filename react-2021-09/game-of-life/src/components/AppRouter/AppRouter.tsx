@@ -1,10 +1,10 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { AppUI, AppUIProps } from '@src/components/AppUI';
 
 export const AppRouter: React.FC<AppUIProps> = (props) => {
     return (
-        <BrowserRouter>
+        <HashRouter>
             <Switch>
                 <Route path="/login">
                     <AppUI {...props} />
@@ -18,6 +18,6 @@ export const AppRouter: React.FC<AppUIProps> = (props) => {
             </Switch>
             {!props.appState.userName && <Redirect to="/login" />}
             {props.appState.userName && <Redirect to="/game" />}
-        </BrowserRouter>
+        </HashRouter>
     );
 };
