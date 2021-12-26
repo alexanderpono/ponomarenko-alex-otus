@@ -2,7 +2,6 @@ import React from 'react';
 import { Button } from '@components/Button';
 import styled from '@emotion/styled';
 import { CAPTION_COLOR } from '@src/consts';
-import { BrowserRouter, Redirect } from 'react-router-dom';
 
 interface Props {
     onName: (name: string) => void;
@@ -25,14 +24,12 @@ export class UserNameForm extends React.Component<Props> {
                         <Label htmlFor="name">Enter your name: </Label>
                         <Input id="name" name="name" required role="textbox" />
                         <Button type="submit">Start</Button>
-                        <Redirect to="/login" />
                     </Form>
                 )}
                 {this.props.userName && (
                     <LoggedInUser>
                         <Label>{this.props.userName} </Label>
                         <Button onClick={this.props.onLogout}>Logout</Button>
-                        <Redirect to="/game" />
                     </LoggedInUser>
                 )}
             </>

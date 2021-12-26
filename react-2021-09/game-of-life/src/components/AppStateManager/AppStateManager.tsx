@@ -10,8 +10,8 @@ import {
     invert,
     user,
 } from './appReducer';
-import { App } from '../App';
 import { MyStorage } from '@src/MyStorage';
+import { AppRouter } from '@src/components/AppRouter';
 
 export interface AppStateManagerProps {
     storage: MyStorage;
@@ -64,7 +64,7 @@ export class AppStateManager extends React.Component<AppStateManagerProps, AppSt
 
     render() {
         return (
-            <App
+            <AppRouter
                 appState={this.state}
                 invert={this.invert}
                 setSmall={this.setSmall}
