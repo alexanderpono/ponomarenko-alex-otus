@@ -8,3 +8,4 @@
 5. [Домашнее задание 5. Components lifecycle. Списки, события, формы](hw05/README.md)
 6. [Домашнее задание 6. Основы функционального программирования](hw06/README.md)
 7. [Домашнее задание 7. React patterns](hw07/README.md)
+8. [Домашнее задание 8. React router](hw08/README.md)
