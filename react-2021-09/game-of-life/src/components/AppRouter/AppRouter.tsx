@@ -1,5 +1,4 @@
 import React from 'react';
-import { AppState } from '@src/components/AppStateManager/appReducer';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { AppUI, AppUIProps } from '@src/components/AppUI';
 

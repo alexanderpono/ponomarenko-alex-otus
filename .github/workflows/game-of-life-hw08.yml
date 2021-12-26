@@ -39,17 +39,17 @@ jobs:
         id: linter
         run: npm run lint
 
+      - name: Do typescript check
+        id: ts-check
+        run: npm run check-ts
+
       - name: Run tests
         id: Run-tests
         run: npm run test
 
-      - name: Build storybook
-        id: Build-storybook
-        run: npm run build-storybook
-        
-      # - name: Run loki test
-      #   id: Loki-test
-      #   run: npm run test:loki
+      - name: Run loki test
+        id: Loki-test
+        run: npm run test:loki
 
       - name: Run chromatic test
         id: Chromatic-test
