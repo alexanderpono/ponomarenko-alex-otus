@@ -28,6 +28,8 @@ export const Static = () => {
             fill50={action('fill50')}
             fill75={action('fill75')}
             fill100={action('fill100')}
+            onName={action('onName')}
+            onLogout={action('onLogout')}
         />
     );
 };

@@ -43,9 +43,9 @@ jobs:
         id: Run-tests
         run: npm run test
 
-      - name: Run loki test
-        id: Loki-test
-        run: npm run test:loki
+      # - name: Run loki test
+      #   id: Loki-test
+      #   run: npm run test:loki
 
       - name: Run chromatic test
         id: Chromatic-test

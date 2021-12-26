@@ -10,5 +10,11 @@ export default {
 };
 
 export const Static = () => {
-    return <UserNameForm onName={action('name')} />;
+    return <UserNameForm onName={action('name')} userName="" onLogout={action('onLogout')} />;
+};
+
+export const StaticLoggedIn = () => {
+    return (
+        <UserNameForm onName={action('name')} userName="user123" onLogout={action('onLogout')} />
+    );
 };
