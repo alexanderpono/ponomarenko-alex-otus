@@ -47,7 +47,7 @@ export class AppStateManager extends React.Component<AppStateManagerProps, AppSt
     private fill100 = () => {
         this.setState(appReducer(this.state, fillPercent(FillPercent.P100)));
     };
-    private onName = (name: string) => {
+    private onChangeName = (name: string) => {
         this.setState(appReducer(this.state, user(name)));
         this.props.storage.setName(name);
     };
@@ -58,7 +58,7 @@ export class AppStateManager extends React.Component<AppStateManagerProps, AppSt
 
     componentDidMount() {
         if (this.props.storage.getName() !== null) {
-            this.onName(this.props.storage.getName() as string);
+            this.onChangeName(this.props.storage.getName() as string);
         }
     }
 
@@ -75,7 +75,7 @@ export class AppStateManager extends React.Component<AppStateManagerProps, AppSt
                 fill50={this.fill50}
                 fill75={this.fill75}
                 fill100={this.fill100}
-                onName={this.onName}
+                onChangeName={this.onChangeName}
                 onLogout={this.onLogout}
             />
         );

@@ -55,3 +55,10 @@ export const CAPTION_COLOR = '#ddd';
 export const PANEL_BG_COLOR = '#555';
 export const PANEL_BORDER_COLOR = '#333';
 export const DEFAULT_FILL_PERCENT = FillPercent.P25;
+
+export const frameCSS = `
+    border: 9px solid ${PANEL_BORDER_COLOR};
+    border-radius: 9px;
+    box-shadow: 0px 16px 30px 0px #200;
+    background: ${PANEL_BG_COLOR};
+`;

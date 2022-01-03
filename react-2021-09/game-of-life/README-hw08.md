@@ -56,6 +56,8 @@ All files                       |     100 |      100 |     100 |     100 |
   consts.ts                     |     100 |      100 |     100 |     100 |                   
  src/MyStorage                  |     100 |      100 |     100 |     100 |                   
   MyStorage.ts                  |     100 |      100 |     100 |     100 |                   
+ src/components                 |     100 |      100 |     100 |     100 |                   
+  common.tsx                    |     100 |      100 |     100 |     100 |                   
  src/components/AppRouter       |     100 |      100 |     100 |     100 |                   
   AppRouter.tsx                 |     100 |      100 |     100 |     100 |                   
  src/components/AppStateManager |     100 |      100 |     100 |     100 |                   
@@ -64,8 +66,8 @@ All files                       |     100 |      100 |     100 |     100 |
   playFieldUtils.ts             |     100 |      100 |     100 |     100 |                   
  src/components/AppStateView    |     100 |      100 |     100 |     100 |                   
   AppStateView.tsx              |     100 |      100 |     100 |     100 |                   
- src/components/AppUI           |     100 |      100 |     100 |     100 |                   
-  AppUI.tsx                     |     100 |      100 |     100 |     100 |                   
+ src/components/AuthorizedHead  |     100 |      100 |     100 |     100 |                   
+  AuthorizedHead.tsx            |     100 |      100 |     100 |     100 |                   
  src/components/Button          |     100 |      100 |     100 |     100 |                   
   Button.tsx                    |     100 |      100 |     100 |     100 |                   
  src/components/Cell            |     100 |      100 |     100 |     100 |                   
@@ -78,10 +80,14 @@ All files                       |     100 |      100 |     100 |     100 |
   FieldSize.tsx                 |     100 |      100 |     100 |     100 |                   
  src/components/GameField       |     100 |      100 |     100 |     100 |                   
   GameField.tsx                 |     100 |      100 |     100 |     100 |                   
+ src/components/GameSettings    |     100 |      100 |     100 |     100 |                   
+  GameSettings.tsx              |     100 |      100 |     100 |     100 |                   
+ src/components/GameUI          |     100 |      100 |     100 |     100 |                   
+  GameUI.tsx                    |     100 |      100 |     100 |     100 |                   
+ src/components/LoginForm       |     100 |      100 |     100 |     100 |                   
+  LoginForm.tsx                 |     100 |      100 |     100 |     100 |                   
  src/components/SetFillPercent  |     100 |      100 |     100 |     100 |                   
   SetFillPercent.tsx            |     100 |      100 |     100 |     100 |                   
- src/components/UserNameForm    |     100 |      100 |     100 |     100 |                   
-  UserNameForm.tsx              |     100 |      100 |     100 |     100 |                   
  src/testFramework/lib          |     100 |      100 |     100 |     100 |                   
   reducer.ts                    |     100 |      100 |     100 |     100 |                   
 --------------------------------|---------|----------|---------|---------|-------------------
@@ -89,7 +95,7 @@ All files                       |     100 |      100 |     100 |     100 |
 Test Suites: 11 passed, 11 total
 Tests:       64 passed, 64 total
 Snapshots:   0 total
-Time:        6.422 s, estimated 7 s
+Time:        6.997 s
 Ran all test suites.
 
 
