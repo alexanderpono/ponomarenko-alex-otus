@@ -1,5 +1,5 @@
 import React from 'react';
-import { defaultAppState } from '@src/components/AppStateManager/appReducer';
+import { defaultAppState } from '@src/store/ducks/game';
 import { GameUI } from './GameUI';
 import { action } from '@storybook/addon-actions';
 import { CellInfo } from '@src/types';

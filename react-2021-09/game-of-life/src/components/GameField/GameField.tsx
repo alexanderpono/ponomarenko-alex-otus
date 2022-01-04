@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppActions } from '@src/components/AppStateManager/appReducer';
+import { AppActions } from '@src/store/ducks/game';
 import { CellInfo } from '@src/types';
 import { Cell } from '@components/Cell';
 import styled from '@emotion/styled';

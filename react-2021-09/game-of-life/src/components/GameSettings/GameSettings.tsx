@@ -6,7 +6,7 @@ import { SetFillPercent } from '@src/components/SetFillPercent';
 import { DefineSpeed } from '@src/components/DefineSpeed';
 import '@/node_modules/reset-css/reset.css';
 import styled from '@emotion/styled';
-import { AppState } from '@src/components/AppStateManager/appReducer';
+import { AppState } from '@src/store/ducks/game';
 import { TableBg, TopControls } from '@components/common';
 
 export interface GameSettingsProps {

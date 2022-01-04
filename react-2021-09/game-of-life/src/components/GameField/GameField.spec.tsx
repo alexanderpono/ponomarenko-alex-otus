@@ -1,7 +1,7 @@
 import React from 'react';
 import { GameField } from './GameField';
 import renderer from 'react-test-renderer';
-import { AppActions } from '@src/components/AppStateManager/appReducer';
+import { AppActions } from '@src/store/ducks/game';
 import { mount } from 'enzyme';
 import { CellInfo } from '@src/types';
 

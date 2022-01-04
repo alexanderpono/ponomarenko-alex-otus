@@ -1,7 +1,6 @@
 import React from 'react';
 import { FillPercent, Size } from '@src/consts';
 import {
-    appReducer,
     AppState,
     clear,
     defaultAppState,
@@ -9,12 +8,15 @@ import {
     fillPercent,
     invert,
     user,
-} from './appReducer';
+} from '@src/store/ducks/game';
+import appReducer from '@src/store/ducks/game';
+
 import { MyStorage } from '@src/MyStorage';
 import { AppRouter } from '@src/components/AppRouter';
-
+import { Store } from 'redux';
 export interface AppStateManagerProps {
     storage: MyStorage;
+    store: Store;
 }
 
 export class AppStateManager extends React.Component<AppStateManagerProps, AppState> {
@@ -24,6 +26,7 @@ export class AppStateManager extends React.Component<AppStateManagerProps, AppSt
         super(props);
         this.state = defaultAppState;
         this.invert = this.invert.bind(this);
+        // console.error('store.getState()=', this.props.store.getState());
     }
 
     private setSmall = () => this.setState(appReducer(this.state, fieldSize(Size.SMALL)));

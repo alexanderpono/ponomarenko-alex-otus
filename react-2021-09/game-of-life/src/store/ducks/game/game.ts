@@ -11,14 +11,14 @@ import {
 } from '@src/consts';
 
 export enum AppActions {
-    DEFAULT = 'DEFAULT',
-    FIELD_SIZE = 'FIELD_SIZE',
-    INVERT = 'INVERT',
-    DATA_FROM_BACK = 'DATA_FROM_BACK',
-    MOUSE = 'MOUSE',
-    FILL_PERCENT = 'FILL_PERCENT',
-    CLEAR = 'CLEAR',
-    USER = 'USER',
+    DEFAULT = 'g-o-l/game/DEFAULT',
+    FIELD_SIZE = 'g-o-l/game/FIELD_SIZE',
+    INVERT = 'g-o-l/game/INVERT',
+    DATA_FROM_BACK = 'g-o-l/game/DATA_FROM_BACK',
+    MOUSE = 'g-o-l/game/MOUSE',
+    FILL_PERCENT = 'g-o-l/game/FILL_PERCENT',
+    CLEAR = 'g-o-l/game/CLEAR',
+    USER = 'g-o-l/game/USER',
 }
 
 export interface AppState {
@@ -105,7 +105,10 @@ interface SizePair {
     h: number;
 }
 
-export function appReducer(state: AppState, action: AppAction): AppState {
+export default function gameReducer(
+    state: AppState = defaultAppState,
+    action: AppAction
+): AppState {
     switch (action.type) {
         case AppActions.FIELD_SIZE: {
             let sizePair: SizePair = sizeToWH[action.payload.size];

@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppStateView } from './AppStateView';
-import { defaultAppState } from '@src/components/AppStateManager/appReducer';
+import { defaultAppState } from '@src/store/ducks/game';
 
 export default {
     title: 'AppStateView',

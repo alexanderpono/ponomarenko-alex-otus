@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppState } from '@src/components/AppStateManager/appReducer';
+import { AppState } from '@src/store/ducks/game';
 
 interface AppStateViewProps {
     appState: AppState;

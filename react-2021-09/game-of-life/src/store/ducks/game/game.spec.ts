@@ -4,7 +4,6 @@ import { CellInfo } from '@src/types';
 import {
     AppAction,
     AppActions,
-    appReducer,
     AppState,
     clear,
     defaultAppState,
@@ -12,13 +11,14 @@ import {
     fillPercent,
     invert,
     user,
-} from './appReducer';
+} from './game';
+import gameReducer from './game';
 import { getInverted } from './playFieldUtils';
 
 const num = (size: number) => Math.round(size * Math.random());
 
-describe('appReducer', () => {
-    describe('appReducer-parameterized', () => {
+describe('gameReducer', () => {
+    describe('gameReducer-parameterized', () => {
         const w = sizeToWH[Size.MIDDLE].w;
         const h = sizeToWH[Size.MIDDLE].h;
         const len = w * h;
@@ -65,7 +65,7 @@ describe('appReducer', () => {
             }) => {
                 let state: AppState = defaultAppState;
                 actions.forEach((action: AppAction) => {
-                    state = appReducer(state, action);
+                    state = gameReducer(state, action);
                 });
                 expect(state.event).toEqual(event);
                 if (stateSelector !== null) {
@@ -80,28 +80,28 @@ describe('appReducer', () => {
         const id = Math.round((srcState.fieldWidth * srcState.fieldHeight - 1) * Math.random());
         const oldVisible = srcState.data[id];
         const inverted = getInverted(oldVisible);
-        const state2 = appReducer(srcState, invert(id));
+        const state2 = gameReducer(srcState, invert(id));
         expect(state2.data[id]).toBe(inverted);
-        expect(appReducer(state2, invert(id)).data[id]).toBe(oldVisible);
+        expect(gameReducer(state2, invert(id)).data[id]).toBe(oldVisible);
     });
 
     it('sets all .data into .visible=false from CLEAR action', () => {
         const srcState = defaultAppState;
         expect(
-            appReducer(srcState, clear()).data.filter((cell: CellInfo) => cell === CellInfo.alive)
+            gameReducer(srcState, clear()).data.filter((cell: CellInfo) => cell === CellInfo.alive)
                 .length
         ).toBe(0);
     });
 
     it('returns original state from unknown action', () => {
         const srcState = defaultAppState;
-        expect(appReducer(srcState, { type: -1 } as unknown as AppAction)).toBe(srcState);
+        expect(gameReducer(srcState, { type: -1 } as unknown as AppAction)).toBe(srcState);
     });
 
     it('randomizes .data from FILL_PERCENT-25% action', () => {
         const srcState = defaultAppState;
         const expectedAliveNumber = Math.floor(srcState.fieldWidth * srcState.fieldHeight * 0.25);
-        const newState = appReducer(srcState, fillPercent(FillPercent.P25));
+        const newState = gameReducer(srcState, fillPercent(FillPercent.P25));
         const visibleCells = newState.data.filter((cell: CellInfo) => cell === CellInfo.alive);
         expect(visibleCells.length).toBe(expectedAliveNumber);
     });
@@ -110,7 +110,7 @@ describe('appReducer', () => {
         const srcState = defaultAppState;
         const expectedAliveNumber = Math.floor(srcState.fieldWidth * srcState.fieldHeight * 0.5);
         expect(
-            appReducer(srcState, fillPercent(FillPercent.P50)).data.filter(
+            gameReducer(srcState, fillPercent(FillPercent.P50)).data.filter(
                 (cell: CellInfo) => cell === CellInfo.alive
             ).length
         ).toBe(expectedAliveNumber);
@@ -120,7 +120,7 @@ describe('appReducer', () => {
         const srcState = defaultAppState;
         const expectedAliveNumber = Math.floor(srcState.fieldWidth * srcState.fieldHeight * 0.75);
         expect(
-            appReducer(srcState, fillPercent(FillPercent.P75)).data.filter(
+            gameReducer(srcState, fillPercent(FillPercent.P75)).data.filter(
                 (cell: CellInfo) => cell === CellInfo.alive
             ).length
         ).toBe(expectedAliveNumber);
@@ -130,7 +130,7 @@ describe('appReducer', () => {
         const srcState = defaultAppState;
         const expectedAliveNumber = Math.floor(srcState.fieldWidth * srcState.fieldHeight * 1);
         expect(
-            appReducer(srcState, fillPercent(FillPercent.P100)).data.filter(
+            gameReducer(srcState, fillPercent(FillPercent.P100)).data.filter(
                 (cell: CellInfo) => cell === CellInfo.alive
             ).length
         ).toBe(expectedAliveNumber);

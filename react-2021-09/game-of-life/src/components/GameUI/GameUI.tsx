@@ -3,7 +3,7 @@ import { frameCSS } from '@src/consts';
 import { GameField } from '@components/GameField';
 import '@/node_modules/reset-css/reset.css';
 import styled from '@emotion/styled';
-import { AppState } from '@src/components/AppStateManager/appReducer';
+import { AppState } from '@src/store/ducks/game';
 import { TableBg } from '@components/common';
 
 export interface GameUIProps {
