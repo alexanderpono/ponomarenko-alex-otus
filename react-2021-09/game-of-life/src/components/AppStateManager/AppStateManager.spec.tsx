@@ -11,11 +11,13 @@ import {
     SMALL_SIZE_CAPTION,
 } from '@src/consts';
 import { MyStorage } from '@src/MyStorage';
-import { store } from '@src/store';
+import { combineReducers, createStore, compose, Store } from 'redux';
+import * as reducers from '@src/store/ducks';
 
 describe('AppStateManager', () => {
     const clearBoth = 1;
     let storage: MyStorage;
+    let store: Store;
 
     beforeEach(() => {
         const storageMock = {
@@ -37,6 +39,9 @@ describe('AppStateManager', () => {
             },
         };
         storage = storageMock as MyStorage;
+
+        const rootReducer = combineReducers(reducers);
+        store = createStore(rootReducer);
     });
 
     const getCellIsAlive = (cell: Element) => {
