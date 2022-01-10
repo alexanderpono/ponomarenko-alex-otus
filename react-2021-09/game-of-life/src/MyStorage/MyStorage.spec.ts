@@ -1,3 +1,4 @@
+import { defaultAppState } from '@src/store/ducks/game';
 import { str } from '@src/testFramework/lib/reducer';
 import { MyStorage } from './MyStorage';
 
@@ -25,32 +26,30 @@ describe('MyStorage', () => {
         (global.Storage.prototype.getItem as jest.Mock).mockReset();
     });
 
-    test('.setName(name) writes name to localStorage.name', () => {
+    test('.setState(state) writes state to localStorage.state', () => {
         const myStorage = new MyStorage();
-        const rndName = str();
-        myStorage.setName(rndName);
-        expect(mockFridge['name']).toBe(rndName);
+        const rndState = { ...defaultAppState, userName: str() };
+        myStorage.setState(rndState);
+        expect(JSON.parse(mockFridge['state'])).toEqual(rndState);
     });
 
-    test('.clearName() writes "" to localStorage.name', () => {
-        const myStorage = new MyStorage();
-        myStorage.clearName();
-        expect(mockFridge['name']).toBe('');
-    });
-
-    describe('.getName', () => {
-        it('returns null if localStorage.name == ""', () => {
+    describe('.getState', () => {
+        it('returns null if localStorage.state == ""', () => {
             const myStorage = new MyStorage();
-            // myStorage.clearName();
-            expect(myStorage.getName()).toBe(null);
+            expect(myStorage.getState()).toBe(null);
         });
 
-        it('returns localStorage.name if localStorage.name != ""', () => {
+        it('returns localStorage.name if localStorage.state != ""', () => {
             const myStorage = new MyStorage();
-            // myStorage.clearName();
-            const rndName = str();
-            mockFridge['name'] = rndName;
-            expect(myStorage.getName()).toBe(rndName);
+            const rndState = { ...defaultAppState, userName: str() };
+            mockFridge['state'] = JSON.stringify(rndState);
+            expect(myStorage.getState()).toEqual(rndState);
+        });
+
+        it('returns null if JSON.parse(localStorage.state) throws', () => {
+            const myStorage = new MyStorage();
+            mockFridge['state'] = 'abc';
+            expect(myStorage.getState()).toBe(null);
         });
     });
 });

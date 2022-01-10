@@ -1,6 +1,15 @@
 import React from 'react';
 import { FillPercent, Size } from '@src/consts';
-import { clear, fieldSize, fillPercent, invert, user } from '@src/store/ducks/game';
+import {
+    AppActions,
+    AppState,
+    clear,
+    fieldSize,
+    fillPercent,
+    invert,
+    setState,
+    user,
+} from '@src/store/ducks/game';
 
 import { MyStorage } from '@src/MyStorage';
 import { AppRouter } from '@src/components/AppRouter';
@@ -26,25 +35,23 @@ export class AppStateManager extends React.Component<AppStateManagerProps> {
     private fill50 = () => this.props.store.dispatch(fillPercent(FillPercent.P50));
     private fill75 = () => this.props.store.dispatch(fillPercent(FillPercent.P75));
     private fill100 = () => this.props.store.dispatch(fillPercent(FillPercent.P100));
-
-    private onChangeName = (name: string) => {
-        this.props.store.dispatch(user(name));
-        this.props.storage.setName(name);
-    };
-    private onLogout = () => {
-        this.props.store.dispatch(user(''));
-        this.props.storage.clearName();
-    };
+    private onChangeName = (name: string) => this.props.store.dispatch(user(name));
+    private onLogout = () => this.props.store.dispatch(user(''));
 
     componentDidMount() {
         this.unsubscribe = this.props.store.subscribe(this.storeChange);
-        if (this.props.storage.getName() !== null) {
-            this.onChangeName(this.props.storage.getName() as string);
+        if (this.props.storage.getState() !== null) {
+            const st = this.props.storage.getState() as AppState;
+            this.props.store.dispatch(setState(st));
         }
     }
 
     storeChange = () => {
+        const event = this.props.store.getState().game.event;
         this.forceUpdate();
+        if (event !== AppActions.SET_STATE) {
+            this.props.storage.setState(this.props.store.getState().game);
+        }
     };
 
     componentWillUnmount() {

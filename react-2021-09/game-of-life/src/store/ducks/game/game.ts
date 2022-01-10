@@ -19,6 +19,7 @@ export enum AppActions {
     FILL_PERCENT = 'g-o-l/game/FILL_PERCENT',
     CLEAR = 'g-o-l/game/CLEAR',
     USER = 'g-o-l/game/USER',
+    SET_STATE = 'g-o-l/game/SET_STATE',
 }
 
 export interface AppState {
@@ -70,6 +71,11 @@ export interface ClearAction {
     type: AppActions.CLEAR;
 }
 
+export interface AppStateAction {
+    type: AppActions.SET_STATE;
+    payload: { state: AppState };
+}
+
 export const fieldSize = (size: Size): FieldSizeAction => ({
     type: AppActions.FIELD_SIZE,
     payload: { size },
@@ -94,12 +100,18 @@ export const user = (userName: string): UserAction => ({
     payload: { userName },
 });
 
+export const setState = (state: AppState): AppStateAction => ({
+    type: AppActions.SET_STATE,
+    payload: { state },
+});
+
 export type AppAction =
     | FieldSizeAction
     | InvertAction
     | FillPercentAction
     | ClearAction
-    | UserAction;
+    | UserAction
+    | AppStateAction;
 interface SizePair {
     w: number;
     h: number;
@@ -166,6 +178,13 @@ export default function gameReducer(
                 ...state,
                 event: AppActions.USER,
                 userName: action.payload.userName,
+            };
+        }
+        case AppActions.SET_STATE: {
+            return {
+                ...state,
+                ...action.payload.state,
+                event: AppActions.SET_STATE,
             };
         }
     }

@@ -13,6 +13,7 @@ import {
 import { MyStorage } from '@src/MyStorage';
 import { combineReducers, createStore, compose, Store } from 'redux';
 import * as reducers from '@src/store/ducks';
+import { AppState, defaultAppState } from '@src/store/ducks/game';
 
 describe('AppStateManager', () => {
     const clearBoth = 1;
@@ -21,21 +22,17 @@ describe('AppStateManager', () => {
 
     beforeEach(() => {
         const storageMock = {
-            name: '',
+            state: defaultAppState,
 
-            setName(name: string) {
-                this.name = name;
+            setState(state: AppState) {
+                this.state = state;
             },
 
-            clearName() {
-                this.name = '';
-            },
-
-            getName(): string | null {
-                if (this.name) {
-                    return this.name;
+            getState(): AppState {
+                if (this.state) {
+                    return this.state;
                 }
-                return null;
+                return defaultAppState;
             },
         };
         storage = storageMock as MyStorage;
@@ -229,28 +226,41 @@ describe('AppStateManager', () => {
         expect(screen.queryByRole('grid')).not.toBeInTheDocument();
     });
 
-    it('switches UI to "game" mode after .componentDidMount() if props.storage.getName() is not empty', () => {
+    it('switches UI to "game" mode after .componentDidMount() if props.storage.getState() is not empty', () => {
         const storageMock = {
-            name: str(),
-
-            setName(name: string) {
-                this.name = name;
+            state: { ...defaultAppState, userName: str() },
+            setState(state: AppState) {
+                this.state = state;
             },
-
-            clearName() {
-                this.name = '';
-            },
-
-            getName(): string | null {
-                if (this.name) {
-                    return this.name;
+            getState(): AppState {
+                if (this.state) {
+                    return this.state;
                 }
-                return null;
+                return defaultAppState;
             },
         };
         render(<AppStateManager storage={storageMock} store={store} />);
 
         expect(screen.queryByRole('grid')).toBeInTheDocument();
+    });
+
+    it('switches UI to "login" mode after .componentDidMount() if props.storage.getState() === null', () => {
+        const badState = null as unknown as AppState;
+        const storageMock = {
+            state: badState,
+            setState(state: AppState) {
+                this.state = state;
+            },
+            getState(): AppState {
+                if (this.state) {
+                    return this.state;
+                }
+                return defaultAppState;
+            },
+        };
+        render(<AppStateManager storage={storageMock} store={store} />);
+
+        expect(screen.queryByRole('grid')).not.toBeInTheDocument();
     });
 
     afterEach(() => {

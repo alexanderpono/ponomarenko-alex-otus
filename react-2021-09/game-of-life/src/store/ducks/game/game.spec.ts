@@ -10,6 +10,7 @@ import {
     fieldSize,
     fillPercent,
     invert,
+    setState,
     user,
 } from './game';
 import gameReducer from './game';
@@ -83,6 +84,14 @@ describe('gameReducer', () => {
         const state2 = gameReducer(srcState, invert(id));
         expect(state2.data[id]).toBe(inverted);
         expect(gameReducer(state2, invert(id)).data[id]).toBe(oldVisible);
+    });
+
+    it('sets state from SET_STATE action', () => {
+        const srcState = defaultAppState;
+        const newState = { ...defaultAppState, name: str(), event: AppActions.SET_STATE };
+        const state2 = gameReducer(srcState, setState(newState));
+        expect(state2.event).toEqual(AppActions.SET_STATE);
+        expect(state2).toEqual(newState);
     });
 
     it('sets all .data into .visible=false from CLEAR action', () => {

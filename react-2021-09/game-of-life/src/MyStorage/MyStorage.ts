@@ -1,16 +1,18 @@
+import { AppState } from '@src/store/ducks/game';
+
 export class MyStorage {
-    setName(name: string) {
-        localStorage.setItem('name', name);
+    setState(state: AppState) {
+        localStorage.setItem('state', JSON.stringify(state));
     }
 
-    clearName() {
-        localStorage.setItem('name', '');
-    }
-
-    getName(): string | null {
-        if (localStorage.getItem('name')) {
-            const name = localStorage.getItem('name');
-            return name;
+    getState(): AppState | null {
+        if (localStorage.getItem('state')) {
+            try {
+                const state = JSON.parse(localStorage.getItem('state') as string);
+                return state;
+            } catch (e) {
+                return null;
+            }
         }
         return null;
     }
