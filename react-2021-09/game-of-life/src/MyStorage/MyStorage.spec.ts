@@ -52,4 +52,26 @@ describe('MyStorage', () => {
             expect(myStorage.getState()).toBe(null);
         });
     });
+
+    describe('.loadState', () => {
+        it('rejects if state is empty', () => {
+            const myStorage = new MyStorage();
+            return expect(myStorage.loadState()).rejects.toBe(null);
+        });
+
+        it('resolves if state is not empty', () => {
+            const myStorage = new MyStorage();
+            const rndState = { ...defaultAppState, userName: str() };
+            mockFridge['state'] = JSON.stringify(rndState);
+            return expect(myStorage.loadState()).resolves.toEqual(rndState);
+        });
+    });
+
+    describe('.saveState', () => {
+        it('resolves', () => {
+            const myStorage = new MyStorage();
+            const rndState = { ...defaultAppState, userName: str() };
+            return expect(myStorage.saveState(rndState)).resolves.toEqual(undefined);
+        });
+    });
 });

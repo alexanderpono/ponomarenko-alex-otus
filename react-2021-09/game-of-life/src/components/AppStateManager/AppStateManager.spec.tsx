@@ -34,6 +34,12 @@ describe('AppStateManager', () => {
                 }
                 return defaultAppState;
             },
+
+            loadState: (): Promise<AppState> => {
+                return new Promise((resolve, reject) => resolve(defaultAppState));
+            },
+
+            saveState: (): Promise<void> => Promise.resolve(),
         };
         storage = storageMock as MyStorage;
 
@@ -226,24 +232,6 @@ describe('AppStateManager', () => {
         expect(screen.queryByRole('grid')).not.toBeInTheDocument();
     });
 
-    it('switches UI to "game" mode after .componentDidMount() if props.storage.getState() is not empty', () => {
-        const storageMock = {
-            state: { ...defaultAppState, userName: str() },
-            setState(state: AppState) {
-                this.state = state;
-            },
-            getState(): AppState {
-                if (this.state) {
-                    return this.state;
-                }
-                return defaultAppState;
-            },
-        };
-        render(<AppStateManager storage={storageMock} store={store} />);
-
-        expect(screen.queryByRole('grid')).toBeInTheDocument();
-    });
-
     it('switches UI to "login" mode after .componentDidMount() if props.storage.getState() === null', () => {
         const badState = null as unknown as AppState;
         const storageMock = {
@@ -257,6 +245,11 @@ describe('AppStateManager', () => {
                 }
                 return defaultAppState;
             },
+            loadState: (): Promise<AppState> => {
+                return new Promise((resolve, reject) => resolve(defaultAppState));
+            },
+
+            saveState: (): Promise<void> => Promise.resolve(),
         };
         render(<AppStateManager storage={storageMock} store={store} />);
 

@@ -38,19 +38,29 @@ export class AppStateManager extends React.Component<AppStateManagerProps> {
     private onChangeName = (name: string) => this.props.store.dispatch(user(name));
     private onLogout = () => this.props.store.dispatch(user(''));
 
+    private loadState = () => {
+        console.log('loading state ...');
+        this.props.storage.loadState().then((st: AppState) => {
+            console.log('load success ...');
+            this.props.store.dispatch(setState(st));
+        });
+    };
+
+    private saveState = (st: AppState) => {
+        console.log('saving state ...');
+        this.props.storage.saveState(st);
+    };
+
     componentDidMount() {
         this.unsubscribe = this.props.store.subscribe(this.storeChange);
-        if (this.props.storage.getState() !== null) {
-            const st = this.props.storage.getState() as AppState;
-            this.props.store.dispatch(setState(st));
-        }
+        this.loadState();
     }
 
     storeChange = () => {
         const event = this.props.store.getState().game.event;
         this.forceUpdate();
         if (event !== AppActions.SET_STATE) {
-            this.props.storage.setState(this.props.store.getState().game);
+            this.saveState(this.props.store.getState().game);
         }
     };
 
