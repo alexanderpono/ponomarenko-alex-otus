@@ -9,6 +9,8 @@ import {
     DEFAULT_FILL_PERCENT,
     fillPercentToProbability,
 } from '@src/consts';
+import { MyStorage } from '@src/MyStorage';
+import { store } from '@src/store/store';
 
 export enum AppActions {
     DEFAULT = 'g-o-l/game/DEFAULT',
@@ -104,6 +106,17 @@ export const setState = (state: AppState): AppStateAction => ({
     type: AppActions.SET_STATE,
     payload: { state },
 });
+
+export type AppDispatch = typeof store.dispatch;
+export const loadState = (storage: MyStorage) => (dispatch: AppDispatch) => {
+    return storage.loadState().then((st: AppState) => {
+        dispatch(setState(st));
+    });
+};
+
+export const saveState = (storage: MyStorage, st: AppState) => () => {
+    return storage.saveState(st);
+};
 
 export type AppAction =
     | FieldSizeAction

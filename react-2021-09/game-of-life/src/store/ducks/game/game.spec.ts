@@ -10,11 +10,13 @@ import {
     fieldSize,
     fillPercent,
     invert,
+    loadState,
     setState,
     user,
 } from './game';
 import gameReducer from './game';
 import { getInverted } from './playFieldUtils';
+import { MyStorage } from '@src/MyStorage';
 
 const num = (size: number) => Math.round(size * Math.random());
 
@@ -143,5 +145,36 @@ describe('gameReducer', () => {
                 (cell: CellInfo) => cell === CellInfo.alive
             ).length
         ).toBe(expectedAliveNumber);
+    });
+
+    test('loadState() calls dispatch() if storage.loadState resolves', (done) => {
+        const storageMock = {
+            state: defaultAppState,
+
+            setState(state: AppState) {
+                this.state = state;
+            },
+
+            getState(): AppState {
+                if (this.state) {
+                    return this.state;
+                }
+                return defaultAppState;
+            },
+
+            loadState: (): Promise<AppState> => {
+                return new Promise((resolve, reject) => resolve(defaultAppState));
+            },
+
+            saveState: (): Promise<void> => Promise.resolve(),
+        };
+        const storage = storageMock as MyStorage;
+
+        const thunkAction = loadState(storage);
+        const dispatch = jest.fn();
+        thunkAction(dispatch).then(() => {
+            expect(dispatch).toHaveBeenCalledTimes(1);
+            done();
+        });
     });
 });

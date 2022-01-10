@@ -7,13 +7,14 @@ import {
     fieldSize,
     fillPercent,
     invert,
-    setState,
+    loadState,
+    saveState,
     user,
 } from '@src/store/ducks/game';
 
 import { MyStorage } from '@src/MyStorage';
 import { AppRouter } from '@src/components/AppRouter';
-import { Store } from 'redux';
+import { Store, AnyAction } from 'redux';
 export interface AppStateManagerProps {
     storage: MyStorage;
     store: Store;
@@ -40,15 +41,14 @@ export class AppStateManager extends React.Component<AppStateManagerProps> {
 
     private loadState = () => {
         console.log('loading state ...');
-        this.props.storage.loadState().then((st: AppState) => {
-            console.log('load success ...');
-            this.props.store.dispatch(setState(st));
-        });
+        this.props.store
+            .dispatch(loadState(this.props.storage) as unknown as AnyAction)
+            .then(() => console.log('load success ...'));
     };
 
     private saveState = (st: AppState) => {
         console.log('saving state ...');
-        this.props.storage.saveState(st);
+        this.props.store.dispatch(saveState(this.props.storage, st) as unknown as AnyAction);
     };
 
     componentDidMount() {

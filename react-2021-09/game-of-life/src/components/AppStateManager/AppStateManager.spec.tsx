@@ -11,9 +11,10 @@ import {
     SMALL_SIZE_CAPTION,
 } from '@src/consts';
 import { MyStorage } from '@src/MyStorage';
-import { combineReducers, createStore, compose, Store } from 'redux';
+import { combineReducers, createStore, compose, Store, applyMiddleware } from 'redux';
 import * as reducers from '@src/store/ducks';
 import { AppState, defaultAppState } from '@src/store/ducks/game';
+import thunkMiddleware from 'redux-thunk';
 
 describe('AppStateManager', () => {
     const clearBoth = 1;
@@ -44,7 +45,7 @@ describe('AppStateManager', () => {
         storage = storageMock as MyStorage;
 
         const rootReducer = combineReducers(reducers);
-        store = createStore(rootReducer);
+        store = createStore(rootReducer, compose(applyMiddleware(thunkMiddleware)));
     });
 
     const getCellIsAlive = (cell: Element) => {
