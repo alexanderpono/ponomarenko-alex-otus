@@ -1,5 +1,5 @@
 import { FillPercent, Size, sizeToWH } from '@src/consts';
-import { getFromState, getVal } from '@src/testFramework/lib/reducer';
+import { getFromState, getVal, str } from '@src/testFramework/lib/reducer';
 import { CellInfo } from '@src/types';
 import {
     AppAction,
@@ -11,6 +11,7 @@ import {
     fieldSize,
     fillPercent,
     invert,
+    user,
 } from './appReducer';
 import { getInverted } from './playFieldUtils';
 
@@ -39,6 +40,7 @@ describe('appReducer', () => {
         const rndS = rndSize();
         const badFieldSize = 'uuu' as unknown as Size;
         const rndP = rndPercent();
+        const rndName = str();
 
         test.each`
             actions                                 | testName                                        | event                      | stateSelector    | value
@@ -49,7 +51,8 @@ describe('appReducer', () => {
             ${[fieldSize(Size.MIDDLE), invert(id)]} | ${'sets .event from INVERT action'}             | ${AppActions.INVERT}       | ${null}          | ${null}
             ${[fieldSize(badFieldSize)]}            | ${'sets .size=SMALL from badFieldSize'}         | ${AppActions.FIELD_SIZE}   | ${'size'}        | ${Size.SMALL}
             ${[fillPercent(rndP)]}                  | ${'sets .fillPercent from FILL_PERCENT action'} | ${AppActions.FILL_PERCENT} | ${'fillPercent'} | ${rndP}
-            ${[clear()]}                            | ${'sets .event from CLEAR action'}              | ${AppActions.CLEAR}        | ${null}          | ${null}
+            ${[clear()]}                            | ${'sets .event from CLEAR action'}              | ${AppActions.CLEAR}        | ${'fillPercent'} | ${FillPercent.P0}
+            ${[user(rndName)]}                      | ${'sets .userName from USER action'}            | ${AppActions.USER}         | ${'userName'}    | ${rndName}
         `(
             '$testName',
             async ({

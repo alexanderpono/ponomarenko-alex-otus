@@ -1,5 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { AppStateManager } from './components/AppStateManager';
+import { MyStorage } from './MyStorage';
 
-render(<AppStateManager />, document.getElementById('app-target'));
+const storage = new MyStorage();
+render(<AppStateManager storage={storage} />, document.getElementById('app-target'));

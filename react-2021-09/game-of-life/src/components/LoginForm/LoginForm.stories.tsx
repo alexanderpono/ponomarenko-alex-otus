@@ -1,14 +1,14 @@
 import React from 'react';
-import { UserNameForm } from './UserNameForm';
+import { LoginForm } from './LoginForm';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, number, boolean, text } from '@storybook/addon-knobs';
 
 export default {
-    title: 'UserNameForm',
-    component: UserNameForm,
+    title: 'LoginForm',
+    component: LoginForm,
     decorators: [withKnobs],
 };
 
 export const Static = () => {
-    return <UserNameForm onName={action('name')} />;
+    return <LoginForm onChangeName={action('onChangeName')} />;
 };

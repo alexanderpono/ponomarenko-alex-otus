@@ -12,6 +12,7 @@ module.exports = {
         '!src/**/*.stories.tsx',
         '!src/app.tsx',
         '!src/**/index.tsx',
+        '!src/**/index.ts',
     ],
     testEnvironment: 'jsdom',
     reporters: [
@@ -31,4 +32,5 @@ module.exports = {
     moduleNameMapper: {
         '\\.(css|less)$': '<rootDir>/internals/__mocks__/styleMock.js',
     },
+    testMatch: [ "**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[t]s?(x)" ]
 };

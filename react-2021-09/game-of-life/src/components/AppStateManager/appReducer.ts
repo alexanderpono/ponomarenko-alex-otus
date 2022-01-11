@@ -18,6 +18,7 @@ export enum AppActions {
     MOUSE = 'MOUSE',
     FILL_PERCENT = 'FILL_PERCENT',
     CLEAR = 'CLEAR',
+    USER = 'USER',
 }
 
 export interface AppState {
@@ -27,6 +28,7 @@ export interface AppState {
     data: CellInfo[];
     size: Size;
     fillPercent: FillPercent;
+    userName: string;
 }
 
 export const defaultAppState: AppState = {
@@ -43,6 +45,7 @@ export const defaultAppState: AppState = {
     ).data,
     size: Size.SMALL,
     fillPercent: DEFAULT_FILL_PERCENT,
+    userName: '',
 };
 
 export interface FieldSizeAction {
@@ -56,6 +59,11 @@ export interface InvertAction {
 export interface FillPercentAction {
     type: AppActions.FILL_PERCENT;
     payload: { fillPercent: FillPercent };
+}
+
+export interface UserAction {
+    type: AppActions.USER;
+    payload: { userName: string };
 }
 
 export interface ClearAction {
@@ -81,7 +89,17 @@ export const clear = (): ClearAction => ({
     type: AppActions.CLEAR,
 });
 
-export type AppAction = FieldSizeAction | InvertAction | FillPercentAction | ClearAction;
+export const user = (userName: string): UserAction => ({
+    type: AppActions.USER,
+    payload: { userName },
+});
+
+export type AppAction =
+    | FieldSizeAction
+    | InvertAction
+    | FillPercentAction
+    | ClearAction
+    | UserAction;
 interface SizePair {
     w: number;
     h: number;
@@ -136,7 +154,15 @@ export function appReducer(state: AppState, action: AppAction): AppState {
             return {
                 ...state,
                 event: AppActions.CLEAR,
+                fillPercent: FillPercent.P0,
                 data: createData(state.fieldWidth, state.fieldHeight),
+            };
+        }
+        case AppActions.USER: {
+            return {
+                ...state,
+                event: AppActions.USER,
+                userName: action.payload.userName,
             };
         }
     }

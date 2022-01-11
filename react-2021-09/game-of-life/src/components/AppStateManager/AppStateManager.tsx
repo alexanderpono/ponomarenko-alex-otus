@@ -8,13 +8,19 @@ import {
     fieldSize,
     fillPercent,
     invert,
+    user,
 } from './appReducer';
-import { App } from '../App';
+import { MyStorage } from '@src/MyStorage';
+import { AppRouter } from '@src/components/AppRouter';
 
-export class AppStateManager extends React.Component<{}, AppState> {
+export interface AppStateManagerProps {
+    storage: MyStorage;
+}
+
+export class AppStateManager extends React.Component<AppStateManagerProps, AppState> {
     state: AppState;
 
-    constructor(props: {}) {
+    constructor(props: AppStateManagerProps) {
         super(props);
         this.state = defaultAppState;
         this.invert = this.invert.bind(this);
@@ -41,10 +47,24 @@ export class AppStateManager extends React.Component<{}, AppState> {
     private fill100 = () => {
         this.setState(appReducer(this.state, fillPercent(FillPercent.P100)));
     };
+    private onChangeName = (name: string) => {
+        this.setState(appReducer(this.state, user(name)));
+        this.props.storage.setName(name);
+    };
+    private onLogout = () => {
+        this.setState(appReducer(this.state, user('')));
+        this.props.storage.clearName();
+    };
+
+    componentDidMount() {
+        if (this.props.storage.getName() !== null) {
+            this.onChangeName(this.props.storage.getName() as string);
+        }
+    }
 
     render() {
         return (
-            <App
+            <AppRouter
                 appState={this.state}
                 invert={this.invert}
                 setSmall={this.setSmall}
@@ -55,6 +75,8 @@ export class AppStateManager extends React.Component<{}, AppState> {
                 fill50={this.fill50}
                 fill75={this.fill75}
                 fill100={this.fill100}
+                onChangeName={this.onChangeName}
+                onLogout={this.onLogout}
             />
         );
     }

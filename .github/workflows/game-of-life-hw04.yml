@@ -1,4 +1,4 @@
-name: GOL build-test-deploy
+name: GOL build-test-deploy-hw04
 on:
   push:
     branches: [ react-hw4 ]
@@ -9,7 +9,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  GOL-build-test-deploy:
+  GOL-build-test-deploy-hw04:
     runs-on: ubuntu-latest
     defaults:
       run:
