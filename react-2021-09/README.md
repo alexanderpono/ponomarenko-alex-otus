@@ -9,3 +9,4 @@
 6. [Домашнее задание 6. Основы функционального программирования](hw06/README.md)
 7. [Домашнее задание 7. React patterns](hw07/README.md)
 8. [Домашнее задание 8. React router](hw08/README.md)
+9. [Домашнее задание 9. Redux middlewares and side effects](hw09/README.md)
