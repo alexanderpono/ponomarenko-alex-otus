@@ -10,7 +10,7 @@ import {
     sizeToWH,
     SMALL_SIZE_CAPTION,
 } from '@src/consts';
-import { MyStorage } from '@src/MyStorage';
+import { StorageService } from '@src/StorageService';
 import { combineReducers, createStore, compose, Store, applyMiddleware } from 'redux';
 import * as reducers from '@src/store/ducks';
 import { AppState, defaultAppState } from '@src/store/ducks/game';
@@ -18,7 +18,7 @@ import thunkMiddleware from 'redux-thunk';
 
 describe('AppStateManager', () => {
     const clearBoth = 1;
-    let storage: MyStorage;
+    let storage: StorageService;
     let store: Store;
 
     beforeEach(() => {
@@ -42,7 +42,7 @@ describe('AppStateManager', () => {
 
             saveState: (): Promise<void> => Promise.resolve(),
         };
-        storage = storageMock as MyStorage;
+        storage = storageMock as StorageService;
 
         const rootReducer = combineReducers(reducers);
         store = createStore(rootReducer, compose(applyMiddleware(thunkMiddleware)));

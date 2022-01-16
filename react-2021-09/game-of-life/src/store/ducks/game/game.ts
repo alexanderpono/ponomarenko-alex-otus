@@ -9,7 +9,7 @@ import {
     DEFAULT_FILL_PERCENT,
     fillPercentToProbability,
 } from '@src/consts';
-import { MyStorage } from '@src/MyStorage';
+import { StorageService } from '@src/StorageService';
 import { store } from '@src/store/store';
 
 export enum AppActions {
@@ -21,7 +21,7 @@ export enum AppActions {
     FILL_PERCENT = 'g-o-l/game/FILL_PERCENT',
     CLEAR = 'g-o-l/game/CLEAR',
     USER = 'g-o-l/game/USER',
-    SET_STATE = 'g-o-l/game/SET_STATE',
+    REPLACE_STATE = 'g-o-l/game/REPLACE_STATE',
 }
 
 export interface AppState {
@@ -74,7 +74,7 @@ export interface ClearAction {
 }
 
 export interface AppStateAction {
-    type: AppActions.SET_STATE;
+    type: AppActions.REPLACE_STATE;
     payload: { state: AppState };
 }
 
@@ -102,19 +102,19 @@ export const user = (userName: string): UserAction => ({
     payload: { userName },
 });
 
-export const setState = (state: AppState): AppStateAction => ({
-    type: AppActions.SET_STATE,
+export const replaceState = (state: AppState): AppStateAction => ({
+    type: AppActions.REPLACE_STATE,
     payload: { state },
 });
 
 export type AppDispatch = typeof store.dispatch;
-export const loadState = (storage: MyStorage) => (dispatch: AppDispatch) => {
+export const loadState = (storage: StorageService) => (dispatch: AppDispatch) => {
     return storage.loadState().then((st: AppState) => {
-        dispatch(setState(st));
+        dispatch(replaceState(st));
     });
 };
 
-export const saveState = (storage: MyStorage, st: AppState) => () => {
+export const saveState = (storage: StorageService, st: AppState) => () => {
     return storage.saveState(st);
 };
 
@@ -193,11 +193,11 @@ export default function gameReducer(
                 userName: action.payload.userName,
             };
         }
-        case AppActions.SET_STATE: {
+        case AppActions.REPLACE_STATE: {
             return {
                 ...state,
                 ...action.payload.state,
-                event: AppActions.SET_STATE,
+                event: AppActions.REPLACE_STATE,
             };
         }
     }

@@ -47,17 +47,17 @@
 --------------------------------|---------|----------|---------|---------|-------------------
 File                            | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
 --------------------------------|---------|----------|---------|---------|-------------------
-All files                       |     100 |      100 |   98.55 |     100 |                   
+All files                       |     100 |      100 |   98.53 |     100 |                   
  src                            |     100 |      100 |     100 |     100 |                   
   consts.ts                     |     100 |      100 |     100 |     100 |                   
- src/MyStorage                  |     100 |      100 |     100 |     100 |                   
-  MyStorage.ts                  |     100 |      100 |     100 |     100 |                   
+ src/StorageService             |     100 |      100 |     100 |     100 |                   
+  StorageService.ts             |     100 |      100 |     100 |     100 |                   
  src/components                 |     100 |      100 |     100 |     100 |                   
   common.tsx                    |     100 |      100 |     100 |     100 |                   
  src/components/AppRouter       |     100 |      100 |     100 |     100 |                   
   AppRouter.tsx                 |     100 |      100 |     100 |     100 |                   
- src/components/AppStateManager |     100 |      100 |      95 |     100 |                   
-  AppStateManager.tsx           |     100 |      100 |      95 |     100 |                   
+ src/components/AppStateManager |     100 |      100 |   94.74 |     100 |                   
+  AppStateManager.tsx           |     100 |      100 |   94.74 |     100 |                   
  src/components/AppStateView    |     100 |      100 |     100 |     100 |                   
   AppStateView.tsx              |     100 |      100 |     100 |     100 |                   
  src/components/AuthorizedHead  |     100 |      100 |     100 |     100 |                   
@@ -92,7 +92,7 @@ All files                       |     100 |      100 |   98.55 |     100 |
 Test Suites: 11 passed, 11 total
 Tests:       69 passed, 69 total
 Snapshots:   0 total
-Time:        7.508 s, estimated 8 s
+Time:        7.186 s
 Ran all test suites.
 
 

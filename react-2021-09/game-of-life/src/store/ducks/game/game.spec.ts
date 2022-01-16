@@ -11,12 +11,12 @@ import {
     fillPercent,
     invert,
     loadState,
-    setState,
+    replaceState,
     user,
 } from './game';
 import gameReducer from './game';
 import { getInverted } from './playFieldUtils';
-import { MyStorage } from '@src/MyStorage';
+import { StorageService } from '@src/StorageService';
 
 const num = (size: number) => Math.round(size * Math.random());
 
@@ -88,11 +88,11 @@ describe('gameReducer', () => {
         expect(gameReducer(state2, invert(id)).data[id]).toBe(oldVisible);
     });
 
-    it('sets state from SET_STATE action', () => {
+    it('sets state from REPLACE_STATE action', () => {
         const srcState = defaultAppState;
-        const newState = { ...defaultAppState, name: str(), event: AppActions.SET_STATE };
-        const state2 = gameReducer(srcState, setState(newState));
-        expect(state2.event).toEqual(AppActions.SET_STATE);
+        const newState = { ...defaultAppState, name: str(), event: AppActions.REPLACE_STATE };
+        const state2 = gameReducer(srcState, replaceState(newState));
+        expect(state2.event).toEqual(AppActions.REPLACE_STATE);
         expect(state2).toEqual(newState);
     });
 
@@ -100,8 +100,7 @@ describe('gameReducer', () => {
         const srcState = defaultAppState;
         expect(
             gameReducer(srcState, clear()).data.filter((cell: CellInfo) => cell === CellInfo.alive)
-                .length
-        ).toBe(0);
+        ).toHaveLength(0);
     });
 
     it('returns original state from unknown action', () => {
@@ -168,7 +167,7 @@ describe('gameReducer', () => {
 
             saveState: (): Promise<void> => Promise.resolve(),
         };
-        const storage = storageMock as MyStorage;
+        const storage = storageMock as StorageService;
 
         const thunkAction = loadState(storage);
         const dispatch = jest.fn();

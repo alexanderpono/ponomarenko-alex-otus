@@ -12,11 +12,11 @@ import {
     user,
 } from '@src/store/ducks/game';
 
-import { MyStorage } from '@src/MyStorage';
+import { StorageService } from '@src/StorageService';
 import { AppRouter } from '@src/components/AppRouter';
 import { Store, AnyAction } from 'redux';
 export interface AppStateManagerProps {
-    storage: MyStorage;
+    storage: StorageService;
     store: Store;
 }
 
@@ -40,14 +40,10 @@ export class AppStateManager extends React.Component<AppStateManagerProps> {
     private onLogout = () => this.props.store.dispatch(user(''));
 
     private loadState = () => {
-        console.log('loading state ...');
-        this.props.store
-            .dispatch(loadState(this.props.storage) as unknown as AnyAction)
-            .then(() => console.log('load success ...'));
+        this.props.store.dispatch(loadState(this.props.storage) as unknown as AnyAction);
     };
 
     private saveState = (st: AppState) => {
-        console.log('saving state ...');
         this.props.store.dispatch(saveState(this.props.storage, st) as unknown as AnyAction);
     };
 
@@ -59,7 +55,7 @@ export class AppStateManager extends React.Component<AppStateManagerProps> {
     storeChange = () => {
         const event = this.props.store.getState().game.event;
         this.forceUpdate();
-        if (event !== AppActions.SET_STATE) {
+        if (event !== AppActions.REPLACE_STATE) {
             this.saveState(this.props.store.getState().game);
         }
     };

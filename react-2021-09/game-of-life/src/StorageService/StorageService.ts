@@ -1,6 +1,6 @@
 import { AppState } from '@src/store/ducks/game';
 
-export class MyStorage {
+export class StorageService {
     setState(state: AppState) {
         localStorage.setItem('state', JSON.stringify(state));
     }
