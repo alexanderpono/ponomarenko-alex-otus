@@ -4,10 +4,9 @@ import { GameUI } from '@src/components/GameUI';
 import { AuthorizedHead } from '@src/components/AuthorizedHead';
 import { LoginForm } from '@src/components/LoginForm';
 import { GameSettings } from '@src/components/GameSettings';
-import { AppState } from '@src/store/ducks/game';
+import { useAppState } from '@src/store/hooks';
 
 interface AppRouterProps {
-    appState: AppState;
     invert: (num: number) => void;
     setSmall: () => void;
     setMedium: () => void;
@@ -21,7 +20,8 @@ interface AppRouterProps {
     onLogout: () => void;
 }
 
-export const AppRouter: React.FC<AppRouterProps> = ({ appState, ...func }) => {
+export const AppRouter: React.FC<AppRouterProps> = ({ ...func }) => {
+    const { userName } = useAppState();
     return (
         <HashRouter>
             <Switch>
@@ -29,15 +29,15 @@ export const AppRouter: React.FC<AppRouterProps> = ({ appState, ...func }) => {
                     <LoginForm onChangeName={func.onChangeName} />
                 </Route>
                 <Route path="/">
-                    <AuthorizedHead userName={appState.userName} onLogout={func.onLogout} />
+                    <AuthorizedHead userName={userName} onLogout={func.onLogout} />
                     <GameUI invert={func.invert} />
-                    <GameSettings appState={appState} {...func} />
+                    <GameSettings {...func} />
                 </Route>
                 <Route path="*">
                     <Redirect to="/login" />
                 </Route>
             </Switch>
-            {appState.userName ? <Redirect to="/" /> : <Redirect to="/login" />}
+            {userName ? <Redirect to="/" /> : <Redirect to="/login" />}
         </HashRouter>
     );
 };

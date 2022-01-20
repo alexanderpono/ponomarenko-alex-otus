@@ -69,7 +69,6 @@ export class AppStateManager extends React.Component<AppStateManagerProps> {
         return (
             <Provider store={this.props.store}>
                 <AppRouter
-                    appState={this.props.store.getState().game}
                     invert={this.invert}
                     setSmall={this.setSmall}
                     setMedium={this.setMedium}
