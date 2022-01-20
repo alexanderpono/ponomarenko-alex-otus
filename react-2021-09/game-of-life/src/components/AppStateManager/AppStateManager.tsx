@@ -15,6 +15,7 @@ import {
 import { StorageService } from '@src/StorageService';
 import { AppRouter } from '@src/components/AppRouter';
 import { Store, AnyAction } from 'redux';
+import { Provider } from 'react-redux';
 export interface AppStateManagerProps {
     storage: StorageService;
     store: Store;
@@ -66,20 +67,22 @@ export class AppStateManager extends React.Component<AppStateManagerProps> {
 
     render() {
         return (
-            <AppRouter
-                appState={this.props.store.getState().game}
-                invert={this.invert}
-                setSmall={this.setSmall}
-                setMedium={this.setMedium}
-                setLarge={this.setLarge}
-                clear={this.clear}
-                fill25={this.fill25}
-                fill50={this.fill50}
-                fill75={this.fill75}
-                fill100={this.fill100}
-                onChangeName={this.onChangeName}
-                onLogout={this.onLogout}
-            />
+            <Provider store={this.props.store}>
+                <AppRouter
+                    appState={this.props.store.getState().game}
+                    invert={this.invert}
+                    setSmall={this.setSmall}
+                    setMedium={this.setMedium}
+                    setLarge={this.setLarge}
+                    clear={this.clear}
+                    fill25={this.fill25}
+                    fill50={this.fill50}
+                    fill75={this.fill75}
+                    fill100={this.fill100}
+                    onChangeName={this.onChangeName}
+                    onLogout={this.onLogout}
+                />
+            </Provider>
         );
     }
 }

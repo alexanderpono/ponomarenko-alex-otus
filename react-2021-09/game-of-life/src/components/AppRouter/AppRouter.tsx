@@ -30,7 +30,7 @@ export const AppRouter: React.FC<AppRouterProps> = ({ appState, ...func }) => {
                 </Route>
                 <Route path="/">
                     <AuthorizedHead userName={appState.userName} onLogout={func.onLogout} />
-                    <GameUI appState={appState} invert={func.invert} />
+                    <GameUI invert={func.invert} />
                     <GameSettings appState={appState} {...func} />
                 </Route>
                 <Route path="*">

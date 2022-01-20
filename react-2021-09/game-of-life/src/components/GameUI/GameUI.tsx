@@ -5,12 +5,15 @@ import '@/node_modules/reset-css/reset.css';
 import styled from '@emotion/styled';
 import { AppState } from '@src/store/ducks/game';
 import { TableBg } from '@components/common';
+import { useSelector } from 'react-redux';
+import { RootState } from '@src/store';
 
 export interface GameUIProps {
-    appState: AppState;
     invert: (num: number) => void;
 }
-export const GameUI: React.FC<GameUIProps> = ({ appState, ...func }) => {
+export const GameUI: React.FC<GameUIProps> = ({ ...func }) => {
+    const appState = useSelector<RootState, AppState>((st: RootState) => st.game);
+
     return (
         <TableBg>
             <article style={{ display: 'flex', justifyContent: 'center' }}>
