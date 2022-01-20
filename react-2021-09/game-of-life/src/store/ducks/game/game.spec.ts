@@ -12,11 +12,11 @@ import {
     invert,
     loadState,
     replaceState,
+    saveState,
     user,
 } from './game';
 import gameReducer from './game';
 import { getInverted } from './playFieldUtils';
-import { StorageService } from '@src/StorageService';
 
 const num = (size: number) => Math.round(size * Math.random());
 
@@ -44,6 +44,7 @@ describe('gameReducer', () => {
         const badFieldSize = 'uuu' as unknown as Size;
         const rndP = rndPercent();
         const rndName = str();
+        const rndAppState = { ...defaultAppState, userName: str() };
 
         test.each`
             actions                                 | testName                                        | event                      | stateSelector    | value
@@ -56,6 +57,8 @@ describe('gameReducer', () => {
             ${[fillPercent(rndP)]}                  | ${'sets .fillPercent from FILL_PERCENT action'} | ${AppActions.FILL_PERCENT} | ${'fillPercent'} | ${rndP}
             ${[clear()]}                            | ${'sets .event from CLEAR action'}              | ${AppActions.CLEAR}        | ${'fillPercent'} | ${FillPercent.P0}
             ${[user(rndName)]}                      | ${'sets .userName from USER action'}            | ${AppActions.USER}         | ${'userName'}    | ${rndName}
+            ${[loadState()]}                        | ${'sets .userName from LOAD_STATE action'}      | ${AppActions.LOAD_STATE}   | ${null}          | ${null}
+            ${[saveState(rndAppState)]}             | ${'sets .userName from SAVE_STATE action'}      | ${AppActions.SAVE_STATE}   | ${null}          | ${null}
         `(
             '$testName',
             async ({
@@ -144,36 +147,5 @@ describe('gameReducer', () => {
                 (cell: CellInfo) => cell === CellInfo.alive
             ).length
         ).toBe(expectedAliveNumber);
-    });
-
-    test('loadState() calls dispatch() if storage.loadState resolves', (done) => {
-        const storageMock = {
-            state: defaultAppState,
-
-            setState(state: AppState) {
-                this.state = state;
-            },
-
-            getState(): AppState {
-                if (this.state) {
-                    return this.state;
-                }
-                return defaultAppState;
-            },
-
-            loadState: (): Promise<AppState> => {
-                return new Promise((resolve, reject) => resolve(defaultAppState));
-            },
-
-            saveState: (): Promise<void> => Promise.resolve(),
-        };
-        const storage = storageMock as StorageService;
-
-        const thunkAction = loadState(storage);
-        const dispatch = jest.fn();
-        thunkAction(dispatch).then(() => {
-            expect(dispatch).toHaveBeenCalledTimes(1);
-            done();
-        });
     });
 });

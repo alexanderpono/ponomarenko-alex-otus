@@ -9,8 +9,6 @@ import {
     DEFAULT_FILL_PERCENT,
     fillPercentToProbability,
 } from '@src/consts';
-import { StorageService } from '@src/StorageService';
-import { store } from '@src/store/store';
 
 export enum AppActions {
     DEFAULT = 'g-o-l/game/DEFAULT',
@@ -22,6 +20,8 @@ export enum AppActions {
     CLEAR = 'g-o-l/game/CLEAR',
     USER = 'g-o-l/game/USER',
     REPLACE_STATE = 'g-o-l/game/REPLACE_STATE',
+    LOAD_STATE = 'g-o-l/game/LOAD_STATE',
+    SAVE_STATE = 'g-o-l/game/SAVE_STATE',
 }
 
 export interface AppState {
@@ -78,6 +78,15 @@ export interface AppStateAction {
     payload: { state: AppState };
 }
 
+export interface LoadStateAction {
+    type: AppActions.LOAD_STATE;
+}
+
+export interface SaveStateAction {
+    type: AppActions.SAVE_STATE;
+    payload: { state: AppState };
+}
+
 export const fieldSize = (size: Size): FieldSizeAction => ({
     type: AppActions.FIELD_SIZE,
     payload: { size },
@@ -107,16 +116,14 @@ export const replaceState = (state: AppState): AppStateAction => ({
     payload: { state },
 });
 
-export type AppDispatch = typeof store.dispatch;
-export const loadState = (storage: StorageService) => (dispatch: AppDispatch) => {
-    return storage.loadState().then((st: AppState) => {
-        dispatch(replaceState(st));
-    });
-};
+export const loadState = (): LoadStateAction => ({
+    type: AppActions.LOAD_STATE,
+});
 
-export const saveState = (storage: StorageService, st: AppState) => () => {
-    return storage.saveState(st);
-};
+export const saveState = (state: AppState): SaveStateAction => ({
+    type: AppActions.SAVE_STATE,
+    payload: { state },
+});
 
 export type AppAction =
     | FieldSizeAction
@@ -124,7 +131,10 @@ export type AppAction =
     | FillPercentAction
     | ClearAction
     | UserAction
-    | AppStateAction;
+    | AppStateAction
+    | LoadStateAction
+    | SaveStateAction;
+
 interface SizePair {
     w: number;
     h: number;
@@ -198,6 +208,18 @@ export default function gameReducer(
                 ...state,
                 ...action.payload.state,
                 event: AppActions.REPLACE_STATE,
+            };
+        }
+        case AppActions.LOAD_STATE: {
+            return {
+                ...state,
+                event: AppActions.LOAD_STATE,
+            };
+        }
+        case AppActions.SAVE_STATE: {
+            return {
+                ...state,
+                event: AppActions.SAVE_STATE,
             };
         }
     }

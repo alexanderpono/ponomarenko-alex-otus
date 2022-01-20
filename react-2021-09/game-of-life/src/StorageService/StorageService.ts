@@ -34,4 +34,8 @@ export class StorageService {
             resolve();
         });
     };
+
+    static create(): StorageService {
+        return new StorageService();
+    }
 }

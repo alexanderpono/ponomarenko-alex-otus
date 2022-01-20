@@ -41,11 +41,11 @@ export class AppStateManager extends React.Component<AppStateManagerProps> {
     private onLogout = () => this.props.store.dispatch(user(''));
 
     private loadState = () => {
-        this.props.store.dispatch(loadState(this.props.storage) as unknown as AnyAction);
+        this.props.store.dispatch(loadState() as unknown as AnyAction);
     };
 
     private saveState = (st: AppState) => {
-        this.props.store.dispatch(saveState(this.props.storage, st) as unknown as AnyAction);
+        this.props.store.dispatch(saveState(st) as unknown as AnyAction);
     };
 
     componentDidMount() {
@@ -56,7 +56,12 @@ export class AppStateManager extends React.Component<AppStateManagerProps> {
     storeChange = () => {
         const event = this.props.store.getState().game.event;
         this.forceUpdate();
-        if (event !== AppActions.REPLACE_STATE) {
+        if (
+            event !== AppActions.REPLACE_STATE &&
+            event !== AppActions.DEFAULT &&
+            event !== AppActions.LOAD_STATE &&
+            event !== AppActions.SAVE_STATE
+        ) {
             this.saveState(this.props.store.getState().game);
         }
     };
