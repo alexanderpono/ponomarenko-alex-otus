@@ -10,3 +10,4 @@
 7. [Домашнее задание 7. React patterns](hw07/README.md)
 8. [Домашнее задание 8. React router](hw08/README.md)
 9. [Домашнее задание 9. Redux middlewares and side effects](hw09/README.md)
+10. [Домашнее задание 10. Redux-saga intro](hw10/README.md)
