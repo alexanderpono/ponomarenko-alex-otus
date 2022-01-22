@@ -1,9 +1,9 @@
 import React from 'react';
 import { withKnobs, number, boolean } from '@storybook/addon-knobs';
 import { GameField } from './GameField';
-import { AppActions } from '@src/components/AppStateManager/appReducer';
+import { AppActions } from '@src/store/ducks/game';
 import { CellInfo } from '@src/types';
-import { getInverted } from '../AppStateManager/playFieldUtils';
+import { getInverted } from '@src/store/ducks/game/playFieldUtils';
 
 export default {
     title: 'GameField',

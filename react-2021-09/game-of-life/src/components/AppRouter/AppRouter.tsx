@@ -4,7 +4,7 @@ import { GameUI } from '@src/components/GameUI';
 import { AuthorizedHead } from '@src/components/AuthorizedHead';
 import { LoginForm } from '@src/components/LoginForm';
 import { GameSettings } from '@src/components/GameSettings';
-import { AppState } from '@src/components/AppStateManager/appReducer';
+import { AppState } from '@src/store/ducks/game';
 
 interface AppRouterProps {
     appState: AppState;

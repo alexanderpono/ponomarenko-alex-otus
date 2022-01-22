@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppStateView } from './AppStateView';
 import renderer from 'react-test-renderer';
-import { defaultAppState } from '@src/components/AppStateManager/appReducer';
+import { defaultAppState } from '@src/store/ducks/game';
 import { num } from '@src/testFramework/lib/reducer';
 
 describe('AppStateView', () => {

@@ -10,32 +10,42 @@ import {
     sizeToWH,
     SMALL_SIZE_CAPTION,
 } from '@src/consts';
-import { MyStorage } from '@src/MyStorage';
+import { StorageService } from '@src/StorageService';
+import { combineReducers, createStore, compose, Store, applyMiddleware } from 'redux';
+import * as reducers from '@src/store/ducks';
+import { AppState, defaultAppState } from '@src/store/ducks/game';
+import thunkMiddleware from 'redux-thunk';
 
 describe('AppStateManager', () => {
     const clearBoth = 1;
-    let storage: MyStorage;
+    let storage: StorageService;
+    let store: Store;
 
     beforeEach(() => {
         const storageMock = {
-            name: '',
+            state: defaultAppState,
 
-            setName(name: string) {
-                this.name = name;
+            setState(state: AppState) {
+                this.state = state;
             },
 
-            clearName() {
-                this.name = '';
-            },
-
-            getName(): string | null {
-                if (this.name) {
-                    return this.name;
+            getState(): AppState {
+                if (this.state) {
+                    return this.state;
                 }
-                return null;
+                return defaultAppState;
             },
+
+            loadState: (): Promise<AppState> => {
+                return new Promise((resolve, reject) => resolve(defaultAppState));
+            },
+
+            saveState: (): Promise<void> => Promise.resolve(),
         };
-        storage = storageMock as MyStorage;
+        storage = storageMock as StorageService;
+
+        const rootReducer = combineReducers(reducers);
+        store = createStore(rootReducer, compose(applyMiddleware(thunkMiddleware)));
     });
 
     const getCellIsAlive = (cell: Element) => {
@@ -55,7 +65,7 @@ describe('AppStateManager', () => {
     };
 
     it('renders "Game of life proto"', () => {
-        const { container, unmount } = render(<AppStateManager storage={storage} />);
+        const { container, unmount } = render(<AppStateManager storage={storage} store={store} />);
         const caption = screen.getByText('Game of life');
         expect(caption).toBeInTheDocument();
         unmount();
@@ -69,7 +79,7 @@ describe('AppStateManager', () => {
             ${MIDDLE_SIZE_CAPTION} | ${'renders field of size 10x10 on click at "medium"'} | ${Size.MIDDLE}
             ${LARGE_SIZE_CAPTION}  | ${'renders field of size 20x15 on click at "large"'}  | ${Size.LARGE}
         `('$testName', ({ clickAt, sizeId }) => {
-            render(<AppStateManager storage={storage} />);
+            render(<AppStateManager storage={storage} store={store} />);
 
             const input = screen.getByLabelText('Enter your name:');
             userEvent.click(input);
@@ -91,7 +101,7 @@ describe('AppStateManager', () => {
             return cellIsVisible;
         };
 
-        render(<AppStateManager storage={storage} />);
+        render(<AppStateManager storage={storage} store={store} />);
 
         const input = screen.getByLabelText('Enter your name:');
         userEvent.click(input);
@@ -108,7 +118,7 @@ describe('AppStateManager', () => {
     });
 
     it('allows to click submit-button at LoginForm', () => {
-        render(<AppStateManager storage={storage} />);
+        render(<AppStateManager storage={storage} store={store} />);
 
         const rndName = str();
         const input = screen.getByLabelText('Enter your name:');
@@ -118,7 +128,7 @@ describe('AppStateManager', () => {
     });
 
     it('allows to click gameSpeed-slow-button', () => {
-        render(<AppStateManager storage={storage} />);
+        render(<AppStateManager storage={storage} store={store} />);
 
         const input = screen.getByLabelText('Enter your name:');
         userEvent.click(input);
@@ -136,7 +146,7 @@ describe('AppStateManager', () => {
             return cellIsVisible;
         };
 
-        render(<AppStateManager storage={storage} />);
+        render(<AppStateManager storage={storage} store={store} />);
 
         const input = screen.getByLabelText('Enter your name:');
         userEvent.click(input);
@@ -152,7 +162,7 @@ describe('AppStateManager', () => {
     });
 
     it('updates grid after click at fill-25%-button', () => {
-        render(<AppStateManager storage={storage} />);
+        render(<AppStateManager storage={storage} store={store} />);
 
         const input = screen.getByLabelText('Enter your name:');
         userEvent.click(input);
@@ -167,7 +177,7 @@ describe('AppStateManager', () => {
     });
 
     it('updates grid after click at fill-50%-button', () => {
-        render(<AppStateManager storage={storage} />);
+        render(<AppStateManager storage={storage} store={store} />);
 
         const input = screen.getByLabelText('Enter your name:');
         userEvent.click(input);
@@ -182,7 +192,7 @@ describe('AppStateManager', () => {
     });
 
     it('updates grid after click at fill-75%-button', () => {
-        render(<AppStateManager storage={storage} />);
+        render(<AppStateManager storage={storage} store={store} />);
 
         const input = screen.getByLabelText('Enter your name:');
         userEvent.click(input);
@@ -197,7 +207,7 @@ describe('AppStateManager', () => {
     });
 
     it('updates grid after click at fill-100%-button', () => {
-        render(<AppStateManager storage={storage} />);
+        render(<AppStateManager storage={storage} store={store} />);
 
         const input = screen.getByLabelText('Enter your name:');
         userEvent.click(input);
@@ -212,7 +222,7 @@ describe('AppStateManager', () => {
     });
 
     it('hides the grid after click at "logout"', () => {
-        render(<AppStateManager storage={storage} />);
+        render(<AppStateManager storage={storage} store={store} />);
 
         const input = screen.getByLabelText('Enter your name:');
         userEvent.click(input);
@@ -223,28 +233,28 @@ describe('AppStateManager', () => {
         expect(screen.queryByRole('grid')).not.toBeInTheDocument();
     });
 
-    it('switches UI to "game" mode after .componentDidMount() if props.storage.getName() is not empty', () => {
+    it('switches UI to "login" mode after .componentDidMount() if props.storage.getState() === null', () => {
+        const badState = null as unknown as AppState;
         const storageMock = {
-            name: str(),
-
-            setName(name: string) {
-                this.name = name;
+            state: badState,
+            setState(state: AppState) {
+                this.state = state;
             },
-
-            clearName() {
-                this.name = '';
-            },
-
-            getName(): string | null {
-                if (this.name) {
-                    return this.name;
+            getState(): AppState {
+                if (this.state) {
+                    return this.state;
                 }
-                return null;
+                return defaultAppState;
             },
-        };
-        render(<AppStateManager storage={storageMock} />);
+            loadState: (): Promise<AppState> => {
+                return new Promise((resolve, reject) => resolve(defaultAppState));
+            },
 
-        expect(screen.queryByRole('grid')).toBeInTheDocument();
+            saveState: (): Promise<void> => Promise.resolve(),
+        };
+        render(<AppStateManager storage={storageMock} store={store} />);
+
+        expect(screen.queryByRole('grid')).not.toBeInTheDocument();
     });
 
     afterEach(() => {

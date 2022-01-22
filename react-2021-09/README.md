@@ -9,3 +9,4 @@
 6. [Домашнее задание 6. Основы функционального программирования](react-2021-09-hw06/README.md)
 7. [Домашнее задание 7. React patterns](game-of-life/README-hw07.md)
 8. [Домашнее задание 8. React router](game-of-life/README-hw08.md)
+9. [Домашнее задание 9. Redux middlewares and side effects](game-of-life/README-hw09.md)

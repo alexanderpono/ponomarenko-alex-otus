@@ -9,16 +9,19 @@ import {
     DEFAULT_FILL_PERCENT,
     fillPercentToProbability,
 } from '@src/consts';
+import { StorageService } from '@src/StorageService';
+import { store } from '@src/store/store';
 
 export enum AppActions {
-    DEFAULT = 'DEFAULT',
-    FIELD_SIZE = 'FIELD_SIZE',
-    INVERT = 'INVERT',
-    DATA_FROM_BACK = 'DATA_FROM_BACK',
-    MOUSE = 'MOUSE',
-    FILL_PERCENT = 'FILL_PERCENT',
-    CLEAR = 'CLEAR',
-    USER = 'USER',
+    DEFAULT = 'g-o-l/game/DEFAULT',
+    FIELD_SIZE = 'g-o-l/game/FIELD_SIZE',
+    INVERT = 'g-o-l/game/INVERT',
+    DATA_FROM_BACK = 'g-o-l/game/DATA_FROM_BACK',
+    MOUSE = 'g-o-l/game/MOUSE',
+    FILL_PERCENT = 'g-o-l/game/FILL_PERCENT',
+    CLEAR = 'g-o-l/game/CLEAR',
+    USER = 'g-o-l/game/USER',
+    REPLACE_STATE = 'g-o-l/game/REPLACE_STATE',
 }
 
 export interface AppState {
@@ -70,6 +73,11 @@ export interface ClearAction {
     type: AppActions.CLEAR;
 }
 
+export interface AppStateAction {
+    type: AppActions.REPLACE_STATE;
+    payload: { state: AppState };
+}
+
 export const fieldSize = (size: Size): FieldSizeAction => ({
     type: AppActions.FIELD_SIZE,
     payload: { size },
@@ -94,18 +102,38 @@ export const user = (userName: string): UserAction => ({
     payload: { userName },
 });
 
+export const replaceState = (state: AppState): AppStateAction => ({
+    type: AppActions.REPLACE_STATE,
+    payload: { state },
+});
+
+export type AppDispatch = typeof store.dispatch;
+export const loadState = (storage: StorageService) => (dispatch: AppDispatch) => {
+    return storage.loadState().then((st: AppState) => {
+        dispatch(replaceState(st));
+    });
+};
+
+export const saveState = (storage: StorageService, st: AppState) => () => {
+    return storage.saveState(st);
+};
+
 export type AppAction =
     | FieldSizeAction
     | InvertAction
     | FillPercentAction
     | ClearAction
-    | UserAction;
+    | UserAction
+    | AppStateAction;
 interface SizePair {
     w: number;
     h: number;
 }
 
-export function appReducer(state: AppState, action: AppAction): AppState {
+export default function gameReducer(
+    state: AppState = defaultAppState,
+    action: AppAction
+): AppState {
     switch (action.type) {
         case AppActions.FIELD_SIZE: {
             let sizePair: SizePair = sizeToWH[action.payload.size];
@@ -163,6 +191,13 @@ export function appReducer(state: AppState, action: AppAction): AppState {
                 ...state,
                 event: AppActions.USER,
                 userName: action.payload.userName,
+            };
+        }
+        case AppActions.REPLACE_STATE: {
+            return {
+                ...state,
+                ...action.payload.state,
+                event: AppActions.REPLACE_STATE,
             };
         }
     }

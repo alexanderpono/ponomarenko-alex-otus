@@ -1,71 +1,73 @@
 import React from 'react';
 import { FillPercent, Size } from '@src/consts';
 import {
-    appReducer,
+    AppActions,
     AppState,
     clear,
-    defaultAppState,
     fieldSize,
     fillPercent,
     invert,
+    loadState,
+    saveState,
     user,
-} from './appReducer';
-import { MyStorage } from '@src/MyStorage';
-import { AppRouter } from '@src/components/AppRouter';
+} from '@src/store/ducks/game';
 
+import { StorageService } from '@src/StorageService';
+import { AppRouter } from '@src/components/AppRouter';
+import { Store, AnyAction } from 'redux';
 export interface AppStateManagerProps {
-    storage: MyStorage;
+    storage: StorageService;
+    store: Store;
 }
 
-export class AppStateManager extends React.Component<AppStateManagerProps, AppState> {
-    state: AppState;
+export class AppStateManager extends React.Component<AppStateManagerProps> {
+    unsubscribe: () => void = () => {};
 
     constructor(props: AppStateManagerProps) {
         super(props);
-        this.state = defaultAppState;
-        this.invert = this.invert.bind(this);
     }
 
-    private setSmall = () => this.setState(appReducer(this.state, fieldSize(Size.SMALL)));
-    private setMedium = () => this.setState(appReducer(this.state, fieldSize(Size.MIDDLE)));
-    private setLarge = () => this.setState(appReducer(this.state, fieldSize(Size.LARGE)));
-    private invert(num: number) {
-        this.setState(appReducer(this.state, invert(num)));
-    }
-    private clear = () => {
-        this.setState(appReducer(this.state, clear()));
+    private setSmall = () => this.props.store.dispatch(fieldSize(Size.SMALL));
+    private setMedium = () => this.props.store.dispatch(fieldSize(Size.MIDDLE));
+    private setLarge = () => this.props.store.dispatch(fieldSize(Size.LARGE));
+    private invert = (num: number) => this.props.store.dispatch(invert(num));
+    private clear = () => this.props.store.dispatch(clear());
+    private fill25 = () => this.props.store.dispatch(fillPercent(FillPercent.P25));
+    private fill50 = () => this.props.store.dispatch(fillPercent(FillPercent.P50));
+    private fill75 = () => this.props.store.dispatch(fillPercent(FillPercent.P75));
+    private fill100 = () => this.props.store.dispatch(fillPercent(FillPercent.P100));
+    private onChangeName = (name: string) => this.props.store.dispatch(user(name));
+    private onLogout = () => this.props.store.dispatch(user(''));
+
+    private loadState = () => {
+        this.props.store.dispatch(loadState(this.props.storage) as unknown as AnyAction);
     };
-    private fill25 = () => {
-        this.setState(appReducer(this.state, fillPercent(FillPercent.P25)));
-    };
-    private fill50 = () => {
-        this.setState(appReducer(this.state, fillPercent(FillPercent.P50)));
-    };
-    private fill75 = () => {
-        this.setState(appReducer(this.state, fillPercent(FillPercent.P75)));
-    };
-    private fill100 = () => {
-        this.setState(appReducer(this.state, fillPercent(FillPercent.P100)));
-    };
-    private onChangeName = (name: string) => {
-        this.setState(appReducer(this.state, user(name)));
-        this.props.storage.setName(name);
-    };
-    private onLogout = () => {
-        this.setState(appReducer(this.state, user('')));
-        this.props.storage.clearName();
+
+    private saveState = (st: AppState) => {
+        this.props.store.dispatch(saveState(this.props.storage, st) as unknown as AnyAction);
     };
 
     componentDidMount() {
-        if (this.props.storage.getName() !== null) {
-            this.onChangeName(this.props.storage.getName() as string);
+        this.unsubscribe = this.props.store.subscribe(this.storeChange);
+        this.loadState();
+    }
+
+    storeChange = () => {
+        const event = this.props.store.getState().game.event;
+        this.forceUpdate();
+        if (event !== AppActions.REPLACE_STATE) {
+            this.saveState(this.props.store.getState().game);
         }
+    };
+
+    componentWillUnmount() {
+        this.unsubscribe();
     }
 
     render() {
         return (
             <AppRouter
-                appState={this.state}
+                appState={this.props.store.getState().game}
                 invert={this.invert}
                 setSmall={this.setSmall}
                 setMedium={this.setMedium}
