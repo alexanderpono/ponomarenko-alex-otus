@@ -8,7 +8,7 @@ describe('MyStorage', () => {
     });
 
     test('.setState(state) writes state to localStorage.state', () => {
-        const myStorage = new StorageService();
+        const myStorage = StorageService.create();
         const rndState = { ...defaultAppState, userName: str() };
         myStorage.setState(rndState);
         expect(JSON.parse(localStorage['state'])).toEqual(rndState);

@@ -1,5 +1,10 @@
-import { RootState } from '@src/store';
-import { AppActions, AppState, replaceState, SaveStateAction } from '@src/store/ducks/game';
+import {
+    AppActions,
+    AppState,
+    ioError,
+    replaceState,
+    SaveStateAction,
+} from '@src/store/ducks/game';
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import { StorageService } from '.';
 
@@ -13,11 +18,9 @@ export function* loadStateSaga() {
         const state: AppState = yield call(storageService.loadState);
         yield put(replaceState(state));
     } catch (e) {
-        console.error('loadStateSaga() error ', e);
+        yield put(ioError('loadStateSaga'));
     }
 }
-
-export const getAppState = (state: RootState): AppState => state.game;
 
 export function* saveStateSaga(action: SaveStateAction) {
     try {
@@ -25,7 +28,7 @@ export function* saveStateSaga(action: SaveStateAction) {
         const storageService: StorageService = yield call(getStorageService);
         yield call(storageService.saveState, state);
     } catch (e) {
-        console.error('saveStateSaga() error ', e);
+        yield put(ioError('saveStateSaga'));
     }
 }
 

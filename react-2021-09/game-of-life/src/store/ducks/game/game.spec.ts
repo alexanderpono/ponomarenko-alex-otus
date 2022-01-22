@@ -10,6 +10,7 @@ import {
     fieldSize,
     fillPercent,
     invert,
+    ioError,
     loadState,
     replaceState,
     saveState,
@@ -45,6 +46,7 @@ describe('gameReducer', () => {
         const rndP = rndPercent();
         const rndName = str();
         const rndAppState = { ...defaultAppState, userName: str() };
+        const rndError = str();
 
         test.each`
             actions                                 | testName                                        | event                      | stateSelector    | value
@@ -59,26 +61,17 @@ describe('gameReducer', () => {
             ${[user(rndName)]}                      | ${'sets .userName from USER action'}            | ${AppActions.USER}         | ${'userName'}    | ${rndName}
             ${[loadState()]}                        | ${'sets .userName from LOAD_STATE action'}      | ${AppActions.LOAD_STATE}   | ${null}          | ${null}
             ${[saveState(rndAppState)]}             | ${'sets .userName from SAVE_STATE action'}      | ${AppActions.SAVE_STATE}   | ${null}          | ${null}
-        `(
-            '$testName',
-            async ({
-                // eslint-disable-next-line no-unused-vars
-                actions,
-                testName,
-                event,
-                stateSelector,
-                value,
-            }) => {
-                let state: AppState = defaultAppState;
-                actions.forEach((action: AppAction) => {
-                    state = gameReducer(state, action);
-                });
-                expect(state.event).toEqual(event);
-                if (stateSelector !== null) {
-                    expect(getFromState(state, stateSelector)).toEqual(getVal(actions, value));
-                }
+            ${[ioError(rndError)]}                  | ${'sets .userName from IO_ERROR action'}        | ${AppActions.IO_ERROR}     | ${'errorInfo'}   | ${rndError}
+        `('$testName', async ({ actions, event, stateSelector, value }) => {
+            let state: AppState = defaultAppState;
+            actions.forEach((action: AppAction) => {
+                state = gameReducer(state, action);
+            });
+            expect(state.event).toEqual(event);
+            if (stateSelector !== null) {
+                expect(getFromState(state, stateSelector)).toEqual(getVal(actions, value));
             }
-        );
+        });
     });
 
     it('inverts .visible of item(num) from INVERT action', () => {

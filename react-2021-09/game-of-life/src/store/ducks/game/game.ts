@@ -22,6 +22,7 @@ export enum AppActions {
     REPLACE_STATE = 'g-o-l/game/REPLACE_STATE',
     LOAD_STATE = 'g-o-l/game/LOAD_STATE',
     SAVE_STATE = 'g-o-l/game/SAVE_STATE',
+    IO_ERROR = 'g-o-l/game/IO_ERROR',
 }
 
 export interface AppState {
@@ -32,6 +33,7 @@ export interface AppState {
     size: Size;
     fillPercent: FillPercent;
     userName: string;
+    errorInfo: string;
 }
 
 export const defaultAppState: AppState = {
@@ -49,6 +51,7 @@ export const defaultAppState: AppState = {
     size: Size.SMALL,
     fillPercent: DEFAULT_FILL_PERCENT,
     userName: '',
+    errorInfo: '',
 };
 
 export interface FieldSizeAction {
@@ -85,6 +88,11 @@ export interface LoadStateAction {
 export interface SaveStateAction {
     type: AppActions.SAVE_STATE;
     payload: { state: AppState };
+}
+
+export interface IOErrorAction {
+    type: AppActions.IO_ERROR;
+    payload: { errorInfo: string };
 }
 
 export const fieldSize = (size: Size): FieldSizeAction => ({
@@ -125,6 +133,11 @@ export const saveState = (state: AppState): SaveStateAction => ({
     payload: { state },
 });
 
+export const ioError = (errorInfo: string): IOErrorAction => ({
+    type: AppActions.IO_ERROR,
+    payload: { errorInfo },
+});
+
 export type AppAction =
     | FieldSizeAction
     | InvertAction
@@ -133,7 +146,8 @@ export type AppAction =
     | UserAction
     | AppStateAction
     | LoadStateAction
-    | SaveStateAction;
+    | SaveStateAction
+    | IOErrorAction;
 
 interface SizePair {
     w: number;
@@ -220,6 +234,13 @@ export default function gameReducer(
             return {
                 ...state,
                 event: AppActions.SAVE_STATE,
+            };
+        }
+        case AppActions.IO_ERROR: {
+            return {
+                ...state,
+                event: AppActions.IO_ERROR,
+                errorInfo: action.payload.errorInfo,
             };
         }
     }
