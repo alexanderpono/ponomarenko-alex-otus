@@ -5,7 +5,6 @@ import {
     AppAction,
     AppActions,
     AppState,
-    clear,
     defaultAppState,
     fieldSize,
     fillPercent,
@@ -57,7 +56,6 @@ describe('gameReducer', () => {
             ${[fieldSize(Size.MIDDLE), invert(id)]} | ${'sets .event from INVERT action'}             | ${AppActions.INVERT}       | ${null}          | ${null}
             ${[fieldSize(badFieldSize)]}            | ${'sets .size=SMALL from badFieldSize'}         | ${AppActions.FIELD_SIZE}   | ${'size'}        | ${Size.SMALL}
             ${[fillPercent(rndP)]}                  | ${'sets .fillPercent from FILL_PERCENT action'} | ${AppActions.FILL_PERCENT} | ${'fillPercent'} | ${rndP}
-            ${[clear()]}                            | ${'sets .event from CLEAR action'}              | ${AppActions.CLEAR}        | ${'fillPercent'} | ${FillPercent.P0}
             ${[user(rndName)]}                      | ${'sets .userName from USER action'}            | ${AppActions.USER}         | ${'userName'}    | ${rndName}
             ${[loadState()]}                        | ${'sets .userName from LOAD_STATE action'}      | ${AppActions.LOAD_STATE}   | ${null}          | ${null}
             ${[saveState(rndAppState)]}             | ${'sets .userName from SAVE_STATE action'}      | ${AppActions.SAVE_STATE}   | ${null}          | ${null}
@@ -90,13 +88,6 @@ describe('gameReducer', () => {
         const state2 = gameReducer(srcState, replaceState(newState));
         expect(state2.event).toEqual(AppActions.REPLACE_STATE);
         expect(state2).toEqual(newState);
-    });
-
-    it('sets all .data into .visible=false from CLEAR action', () => {
-        const srcState = defaultAppState;
-        expect(
-            gameReducer(srcState, clear()).data.filter((cell: CellInfo) => cell === CellInfo.alive)
-        ).toHaveLength(0);
     });
 
     it('returns original state from unknown action', () => {

@@ -3,7 +3,6 @@ import { FillPercent, Size } from '@src/consts';
 import {
     AppActions,
     AppState,
-    clear,
     fieldSize,
     fillPercent,
     invert,
@@ -22,21 +21,13 @@ export interface AppStateManagerProps {
 }
 
 export class AppStateManager extends React.Component<AppStateManagerProps> {
-    unsubscribe: () => void = () => {};
-
     constructor(props: AppStateManagerProps) {
         super(props);
     }
 
-    private setSmall = () => this.props.store.dispatch(fieldSize(Size.SMALL));
-    private setMedium = () => this.props.store.dispatch(fieldSize(Size.MIDDLE));
-    private setLarge = () => this.props.store.dispatch(fieldSize(Size.LARGE));
+    private setSize = (size: Size) => this.props.store.dispatch(fieldSize(size));
     private invert = (num: number) => this.props.store.dispatch(invert(num));
-    private clear = () => this.props.store.dispatch(clear());
-    private fill25 = () => this.props.store.dispatch(fillPercent(FillPercent.P25));
-    private fill50 = () => this.props.store.dispatch(fillPercent(FillPercent.P50));
-    private fill75 = () => this.props.store.dispatch(fillPercent(FillPercent.P75));
-    private fill100 = () => this.props.store.dispatch(fillPercent(FillPercent.P100));
+    private fill = (percent: FillPercent) => this.props.store.dispatch(fillPercent(percent));
     private onChangeName = (name: string) => this.props.store.dispatch(user(name));
     private onLogout = () => this.props.store.dispatch(user(''));
 
@@ -49,7 +40,7 @@ export class AppStateManager extends React.Component<AppStateManagerProps> {
     };
 
     componentDidMount() {
-        this.unsubscribe = this.props.store.subscribe(this.storeChange);
+        this.props.store.subscribe(this.storeChange);
         this.loadState();
     }
 
@@ -66,23 +57,13 @@ export class AppStateManager extends React.Component<AppStateManagerProps> {
         }
     };
 
-    componentWillUnmount() {
-        this.unsubscribe();
-    }
-
     render() {
         return (
             <Provider store={this.props.store}>
                 <AppRouter
                     invert={this.invert}
-                    setSmall={this.setSmall}
-                    setMedium={this.setMedium}
-                    setLarge={this.setLarge}
-                    clear={this.clear}
-                    fill25={this.fill25}
-                    fill50={this.fill50}
-                    fill75={this.fill75}
-                    fill100={this.fill100}
+                    setSize={this.setSize}
+                    fill={this.fill}
                     onChangeName={this.onChangeName}
                     onLogout={this.onLogout}
                 />

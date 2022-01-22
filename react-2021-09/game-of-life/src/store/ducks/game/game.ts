@@ -17,7 +17,6 @@ export enum AppActions {
     DATA_FROM_BACK = 'g-o-l/game/DATA_FROM_BACK',
     MOUSE = 'g-o-l/game/MOUSE',
     FILL_PERCENT = 'g-o-l/game/FILL_PERCENT',
-    CLEAR = 'g-o-l/game/CLEAR',
     USER = 'g-o-l/game/USER',
     REPLACE_STATE = 'g-o-l/game/REPLACE_STATE',
     LOAD_STATE = 'g-o-l/game/LOAD_STATE',
@@ -72,10 +71,6 @@ export interface UserAction {
     payload: { userName: string };
 }
 
-export interface ClearAction {
-    type: AppActions.CLEAR;
-}
-
 export interface AppStateAction {
     type: AppActions.REPLACE_STATE;
     payload: { state: AppState };
@@ -110,10 +105,6 @@ export const fillPercent = (fillPercent: FillPercent): FillPercentAction => ({
     payload: { fillPercent },
 });
 
-export const clear = (): ClearAction => ({
-    type: AppActions.CLEAR,
-});
-
 export const user = (userName: string): UserAction => ({
     type: AppActions.USER,
     payload: { userName },
@@ -142,7 +133,6 @@ export type AppAction =
     | FieldSizeAction
     | InvertAction
     | FillPercentAction
-    | ClearAction
     | UserAction
     | AppStateAction
     | LoadStateAction
@@ -200,14 +190,6 @@ export default function gameReducer(
                     { width: state.fieldWidth, height: state.fieldHeight, data: state.data },
                     fillPercentToProbability[action.payload.fillPercent]
                 ).data,
-            };
-        }
-        case AppActions.CLEAR: {
-            return {
-                ...state,
-                event: AppActions.CLEAR,
-                fillPercent: FillPercent.P0,
-                data: createData(state.fieldWidth, state.fieldHeight),
             };
         }
         case AppActions.USER: {
