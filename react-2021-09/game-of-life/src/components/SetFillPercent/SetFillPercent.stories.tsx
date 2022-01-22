@@ -8,53 +8,17 @@ export default {
 };
 
 export const Static25 = () => {
-    return (
-        <SetFillPercent
-            fill0={action('fill0')}
-            fill25={action('fill25')}
-            fill50={action('fill50')}
-            fill75={action('fill75')}
-            fill100={action('fill100')}
-            curPercent={FillPercent.P25}
-        />
-    );
+    return <SetFillPercent fill={action('fill')} curPercent={FillPercent.P25} />;
 };
 
 export const Static50 = () => {
-    return (
-        <SetFillPercent
-            fill0={action('fill0')}
-            fill25={action('fill25')}
-            fill50={action('fill50')}
-            fill75={action('fill75')}
-            fill100={action('fill100')}
-            curPercent={FillPercent.P50}
-        />
-    );
+    return <SetFillPercent fill={action('fill')} curPercent={FillPercent.P50} />;
 };
 
 export const Static75 = () => {
-    return (
-        <SetFillPercent
-            fill0={action('fill0')}
-            fill25={action('fill25')}
-            fill50={action('fill50')}
-            fill75={action('fill75')}
-            fill100={action('fill100')}
-            curPercent={FillPercent.P75}
-        />
-    );
+    return <SetFillPercent fill={action('fill')} curPercent={FillPercent.P75} />;
 };
 
 export const Static100 = () => {
-    return (
-        <SetFillPercent
-            fill0={action('fill0')}
-            fill25={action('fill25')}
-            fill50={action('fill50')}
-            fill75={action('fill75')}
-            fill100={action('fill100')}
-            curPercent={FillPercent.P100}
-        />
-    );
+    return <SetFillPercent fill={action('fill')} curPercent={FillPercent.P100} />;
 };
