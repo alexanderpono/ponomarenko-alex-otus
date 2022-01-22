@@ -59,7 +59,7 @@ jobs:
 
   GOL-hw10-build-deploy:
     runs-on: ubuntu-latest
-    needs: GOL-hw10-test
+    needs: GOL-hw10-tests
     defaults:
       run:
         working-directory: react-2021-09/game-of-life
