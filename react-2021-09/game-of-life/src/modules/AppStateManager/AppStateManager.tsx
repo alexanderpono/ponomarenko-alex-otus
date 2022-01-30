@@ -12,7 +12,7 @@ import {
 } from '@src/store/ducks/game';
 
 import { StorageService } from '@src/StorageService';
-import { AppRouter } from '@src/components/AppRouter';
+import { AppRouter } from '@src/modules/AppRouter';
 import { Store, AnyAction } from 'redux';
 import { Provider } from 'react-redux';
 export interface AppStateManagerProps {
