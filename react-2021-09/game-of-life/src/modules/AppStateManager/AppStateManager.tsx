@@ -48,10 +48,12 @@ export class AppStateManager extends React.Component<AppStateManagerProps> {
         const event = this.props.store.getState().game.event;
         this.forceUpdate();
         if (
-            event !== AppActions.REPLACE_STATE &&
-            event !== AppActions.DEFAULT &&
-            event !== AppActions.LOAD_STATE &&
-            event !== AppActions.SAVE_STATE
+            ![
+                AppActions.REPLACE_STATE,
+                AppActions.DEFAULT,
+                AppActions.LOAD_STATE,
+                AppActions.SAVE_STATE,
+            ].includes(event)
         ) {
             this.saveState(this.props.store.getState().game);
         }
