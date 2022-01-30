@@ -11,3 +11,4 @@
 8. [Домашнее задание 8. React router](game-of-life/README-hw08.md)
 9. [Домашнее задание 9. Redux middlewares and side effects](game-of-life/README-hw09.md)
 10. [Домашнее задание 10. Redux-saga intro](game-of-life/README-hw10.md)
+11. [Домашнее задание 11. Архитектура React-приложения](game-of-life/README-hw11.md)
