@@ -8,34 +8,13 @@ export default {
 };
 
 export const Small = () => {
-    return (
-        <FieldSize
-            setSmall={action('setSmall')}
-            setMedium={action('setMedium')}
-            setLarge={action('setLarge')}
-            size={Size.SMALL}
-        />
-    );
+    return <FieldSize setSize={action('setSize')} size={Size.SMALL} />;
 };
 
 export const Medium = () => {
-    return (
-        <FieldSize
-            setSmall={action('setSmall')}
-            setMedium={action('setMedium')}
-            setLarge={action('setLarge')}
-            size={Size.MIDDLE}
-        />
-    );
+    return <FieldSize setSize={action('setSize')} size={Size.MIDDLE} />;
 };
 
 export const Large = () => {
-    return (
-        <FieldSize
-            setSmall={action('setSmall')}
-            setMedium={action('setMedium')}
-            setLarge={action('setLarge')}
-            size={Size.LARGE}
-        />
-    );
+    return <FieldSize setSize={action('setSize')} size={Size.LARGE} />;
 };

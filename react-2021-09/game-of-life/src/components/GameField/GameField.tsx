@@ -50,7 +50,7 @@ export class GameField extends React.Component<GameFieldProps> {
                 AppActions.FILL_PERCENT,
                 AppActions.FIELD_SIZE,
                 AppActions.INVERT,
-                AppActions.CLEAR,
+                AppActions.SAVE_STATE,
             ].indexOf(nextProps.actionId) >= 0;
         return result;
     }

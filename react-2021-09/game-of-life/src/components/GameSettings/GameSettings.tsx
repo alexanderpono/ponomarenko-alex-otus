@@ -1,26 +1,20 @@
 import React from 'react';
-import { CAPTION_COLOR, frameCSS, Mode, Speed } from '@src/consts';
+import { CAPTION_COLOR, FillPercent, frameCSS, Mode, Size, Speed } from '@src/consts';
 import { DefineMode } from '@src/components/DefineMode';
 import { FieldSize } from '@components/FieldSize';
 import { SetFillPercent } from '@src/components/SetFillPercent';
 import { DefineSpeed } from '@src/components/DefineSpeed';
 import '@/node_modules/reset-css/reset.css';
 import styled from '@emotion/styled';
-import { AppState } from '@src/store/ducks/game';
 import { TableBg, TopControls } from '@components/common';
+import { useAppState } from '@src/store/hooks';
 
 export interface GameSettingsProps {
-    appState: AppState;
-    setSmall: () => void;
-    setMedium: () => void;
-    setLarge: () => void;
-    clear: () => void;
-    fill25: () => void;
-    fill50: () => void;
-    fill75: () => void;
-    fill100: () => void;
+    fill: (percent: FillPercent) => void;
+    setSize: (size: Size) => void;
 }
-export const GameSettings: React.FC<GameSettingsProps> = ({ appState, ...func }) => {
+export const GameSettings: React.FC<GameSettingsProps> = ({ ...func }) => {
+    const { size, fillPercent } = useAppState();
     const dummy = () => {};
     return (
         <TableBg>
@@ -32,23 +26,11 @@ export const GameSettings: React.FC<GameSettingsProps> = ({ appState, ...func })
                     </Buttons>
                     <Caption>Field size:</Caption>
                     <Buttons>
-                        <FieldSize
-                            setSmall={func.setSmall}
-                            setMedium={func.setMedium}
-                            setLarge={func.setLarge}
-                            size={appState.size}
-                        />
+                        <FieldSize setSize={func.setSize} size={size} />
                     </Buttons>
                     <Caption>Fill percent:</Caption>
                     <Buttons>
-                        <SetFillPercent
-                            fill0={func.clear}
-                            fill25={func.fill25}
-                            fill50={func.fill50}
-                            fill75={func.fill75}
-                            fill100={func.fill100}
-                            curPercent={appState.fillPercent}
-                        />
+                        <SetFillPercent fill={func.fill} curPercent={fillPercent} />
                     </Buttons>
                     <Caption>Game speed:</Caption>
                     <Buttons>

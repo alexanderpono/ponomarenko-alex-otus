@@ -9,8 +9,6 @@ import {
     DEFAULT_FILL_PERCENT,
     fillPercentToProbability,
 } from '@src/consts';
-import { StorageService } from '@src/StorageService';
-import { store } from '@src/store/store';
 
 export enum AppActions {
     DEFAULT = 'g-o-l/game/DEFAULT',
@@ -19,9 +17,11 @@ export enum AppActions {
     DATA_FROM_BACK = 'g-o-l/game/DATA_FROM_BACK',
     MOUSE = 'g-o-l/game/MOUSE',
     FILL_PERCENT = 'g-o-l/game/FILL_PERCENT',
-    CLEAR = 'g-o-l/game/CLEAR',
     USER = 'g-o-l/game/USER',
     REPLACE_STATE = 'g-o-l/game/REPLACE_STATE',
+    LOAD_STATE = 'g-o-l/game/LOAD_STATE',
+    SAVE_STATE = 'g-o-l/game/SAVE_STATE',
+    IO_ERROR = 'g-o-l/game/IO_ERROR',
 }
 
 export interface AppState {
@@ -32,6 +32,7 @@ export interface AppState {
     size: Size;
     fillPercent: FillPercent;
     userName: string;
+    errorInfo: string;
 }
 
 export const defaultAppState: AppState = {
@@ -49,6 +50,7 @@ export const defaultAppState: AppState = {
     size: Size.SMALL,
     fillPercent: DEFAULT_FILL_PERCENT,
     userName: '',
+    errorInfo: '',
 };
 
 export interface FieldSizeAction {
@@ -69,13 +71,23 @@ export interface UserAction {
     payload: { userName: string };
 }
 
-export interface ClearAction {
-    type: AppActions.CLEAR;
-}
-
 export interface AppStateAction {
     type: AppActions.REPLACE_STATE;
     payload: { state: AppState };
+}
+
+export interface LoadStateAction {
+    type: AppActions.LOAD_STATE;
+}
+
+export interface SaveStateAction {
+    type: AppActions.SAVE_STATE;
+    payload: { state: AppState };
+}
+
+export interface IOErrorAction {
+    type: AppActions.IO_ERROR;
+    payload: { errorInfo: string };
 }
 
 export const fieldSize = (size: Size): FieldSizeAction => ({
@@ -93,10 +105,6 @@ export const fillPercent = (fillPercent: FillPercent): FillPercentAction => ({
     payload: { fillPercent },
 });
 
-export const clear = (): ClearAction => ({
-    type: AppActions.CLEAR,
-});
-
 export const user = (userName: string): UserAction => ({
     type: AppActions.USER,
     payload: { userName },
@@ -107,24 +115,30 @@ export const replaceState = (state: AppState): AppStateAction => ({
     payload: { state },
 });
 
-export type AppDispatch = typeof store.dispatch;
-export const loadState = (storage: StorageService) => (dispatch: AppDispatch) => {
-    return storage.loadState().then((st: AppState) => {
-        dispatch(replaceState(st));
-    });
-};
+export const loadState = (): LoadStateAction => ({
+    type: AppActions.LOAD_STATE,
+});
 
-export const saveState = (storage: StorageService, st: AppState) => () => {
-    return storage.saveState(st);
-};
+export const saveState = (state: AppState): SaveStateAction => ({
+    type: AppActions.SAVE_STATE,
+    payload: { state },
+});
+
+export const ioError = (errorInfo: string): IOErrorAction => ({
+    type: AppActions.IO_ERROR,
+    payload: { errorInfo },
+});
 
 export type AppAction =
     | FieldSizeAction
     | InvertAction
     | FillPercentAction
-    | ClearAction
     | UserAction
-    | AppStateAction;
+    | AppStateAction
+    | LoadStateAction
+    | SaveStateAction
+    | IOErrorAction;
+
 interface SizePair {
     w: number;
     h: number;
@@ -178,14 +192,6 @@ export default function gameReducer(
                 ).data,
             };
         }
-        case AppActions.CLEAR: {
-            return {
-                ...state,
-                event: AppActions.CLEAR,
-                fillPercent: FillPercent.P0,
-                data: createData(state.fieldWidth, state.fieldHeight),
-            };
-        }
         case AppActions.USER: {
             return {
                 ...state,
@@ -198,6 +204,25 @@ export default function gameReducer(
                 ...state,
                 ...action.payload.state,
                 event: AppActions.REPLACE_STATE,
+            };
+        }
+        case AppActions.LOAD_STATE: {
+            return {
+                ...state,
+                event: AppActions.LOAD_STATE,
+            };
+        }
+        case AppActions.SAVE_STATE: {
+            return {
+                ...state,
+                event: AppActions.SAVE_STATE,
+            };
+        }
+        case AppActions.IO_ERROR: {
+            return {
+                ...state,
+                event: AppActions.IO_ERROR,
+                errorInfo: action.payload.errorInfo,
             };
         }
     }

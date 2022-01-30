@@ -4,40 +4,41 @@ import { GameUI } from '@src/components/GameUI';
 import { AuthorizedHead } from '@src/components/AuthorizedHead';
 import { LoginForm } from '@src/components/LoginForm';
 import { GameSettings } from '@src/components/GameSettings';
-import { AppState } from '@src/store/ducks/game';
+import { useAppState } from '@src/store/hooks';
+import { FillPercent, Size } from '@src/consts';
 
 interface AppRouterProps {
-    appState: AppState;
     invert: (num: number) => void;
-    setSmall: () => void;
-    setMedium: () => void;
-    setLarge: () => void;
-    clear: () => void;
-    fill25: () => void;
-    fill50: () => void;
-    fill75: () => void;
-    fill100: () => void;
+    setSize: (size: Size) => void;
+    fill: (percent: FillPercent) => void;
     onChangeName: (name: string) => void;
     onLogout: () => void;
 }
 
-export const AppRouter: React.FC<AppRouterProps> = ({ appState, ...func }) => {
+export const AppRouter: React.FC<AppRouterProps> = ({
+    invert,
+    onChangeName,
+    onLogout,
+    fill,
+    setSize,
+}) => {
+    const { userName } = useAppState();
     return (
         <HashRouter>
             <Switch>
                 <Route path="/login">
-                    <LoginForm onChangeName={func.onChangeName} />
+                    <LoginForm onChangeName={onChangeName} />
                 </Route>
                 <Route path="/">
-                    <AuthorizedHead userName={appState.userName} onLogout={func.onLogout} />
-                    <GameUI appState={appState} invert={func.invert} />
-                    <GameSettings appState={appState} {...func} />
+                    <AuthorizedHead userName={userName} onLogout={onLogout} />
+                    <GameUI invert={invert} />
+                    <GameSettings fill={fill} setSize={setSize} />
                 </Route>
                 <Route path="*">
                     <Redirect to="/login" />
                 </Route>
             </Switch>
-            {appState.userName ? <Redirect to="/" /> : <Redirect to="/login" />}
+            {userName ? <Redirect to="/" /> : <Redirect to="/login" />}
         </HashRouter>
     );
 };

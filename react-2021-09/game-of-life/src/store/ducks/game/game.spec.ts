@@ -5,18 +5,18 @@ import {
     AppAction,
     AppActions,
     AppState,
-    clear,
     defaultAppState,
     fieldSize,
     fillPercent,
     invert,
+    ioError,
     loadState,
     replaceState,
+    saveState,
     user,
 } from './game';
 import gameReducer from './game';
 import { getInverted } from './playFieldUtils';
-import { StorageService } from '@src/StorageService';
 
 const num = (size: number) => Math.round(size * Math.random());
 
@@ -44,6 +44,8 @@ describe('gameReducer', () => {
         const badFieldSize = 'uuu' as unknown as Size;
         const rndP = rndPercent();
         const rndName = str();
+        const rndAppState = { ...defaultAppState, userName: str() };
+        const rndError = str();
 
         test.each`
             actions                                 | testName                                        | event                      | stateSelector    | value
@@ -54,28 +56,20 @@ describe('gameReducer', () => {
             ${[fieldSize(Size.MIDDLE), invert(id)]} | ${'sets .event from INVERT action'}             | ${AppActions.INVERT}       | ${null}          | ${null}
             ${[fieldSize(badFieldSize)]}            | ${'sets .size=SMALL from badFieldSize'}         | ${AppActions.FIELD_SIZE}   | ${'size'}        | ${Size.SMALL}
             ${[fillPercent(rndP)]}                  | ${'sets .fillPercent from FILL_PERCENT action'} | ${AppActions.FILL_PERCENT} | ${'fillPercent'} | ${rndP}
-            ${[clear()]}                            | ${'sets .event from CLEAR action'}              | ${AppActions.CLEAR}        | ${'fillPercent'} | ${FillPercent.P0}
             ${[user(rndName)]}                      | ${'sets .userName from USER action'}            | ${AppActions.USER}         | ${'userName'}    | ${rndName}
-        `(
-            '$testName',
-            async ({
-                // eslint-disable-next-line no-unused-vars
-                actions,
-                testName,
-                event,
-                stateSelector,
-                value,
-            }) => {
-                let state: AppState = defaultAppState;
-                actions.forEach((action: AppAction) => {
-                    state = gameReducer(state, action);
-                });
-                expect(state.event).toEqual(event);
-                if (stateSelector !== null) {
-                    expect(getFromState(state, stateSelector)).toEqual(getVal(actions, value));
-                }
+            ${[loadState()]}                        | ${'sets .userName from LOAD_STATE action'}      | ${AppActions.LOAD_STATE}   | ${null}          | ${null}
+            ${[saveState(rndAppState)]}             | ${'sets .userName from SAVE_STATE action'}      | ${AppActions.SAVE_STATE}   | ${null}          | ${null}
+            ${[ioError(rndError)]}                  | ${'sets .userName from IO_ERROR action'}        | ${AppActions.IO_ERROR}     | ${'errorInfo'}   | ${rndError}
+        `('$testName', async ({ actions, event, stateSelector, value }) => {
+            let state: AppState = defaultAppState;
+            actions.forEach((action: AppAction) => {
+                state = gameReducer(state, action);
+            });
+            expect(state.event).toEqual(event);
+            if (stateSelector !== null) {
+                expect(getFromState(state, stateSelector)).toEqual(getVal(actions, value));
             }
-        );
+        });
     });
 
     it('inverts .visible of item(num) from INVERT action', () => {
@@ -94,13 +88,6 @@ describe('gameReducer', () => {
         const state2 = gameReducer(srcState, replaceState(newState));
         expect(state2.event).toEqual(AppActions.REPLACE_STATE);
         expect(state2).toEqual(newState);
-    });
-
-    it('sets all .data into .visible=false from CLEAR action', () => {
-        const srcState = defaultAppState;
-        expect(
-            gameReducer(srcState, clear()).data.filter((cell: CellInfo) => cell === CellInfo.alive)
-        ).toHaveLength(0);
     });
 
     it('returns original state from unknown action', () => {
@@ -144,36 +131,5 @@ describe('gameReducer', () => {
                 (cell: CellInfo) => cell === CellInfo.alive
             ).length
         ).toBe(expectedAliveNumber);
-    });
-
-    test('loadState() calls dispatch() if storage.loadState resolves', (done) => {
-        const storageMock = {
-            state: defaultAppState,
-
-            setState(state: AppState) {
-                this.state = state;
-            },
-
-            getState(): AppState {
-                if (this.state) {
-                    return this.state;
-                }
-                return defaultAppState;
-            },
-
-            loadState: (): Promise<AppState> => {
-                return new Promise((resolve, reject) => resolve(defaultAppState));
-            },
-
-            saveState: (): Promise<void> => Promise.resolve(),
-        };
-        const storage = storageMock as StorageService;
-
-        const thunkAction = loadState(storage);
-        const dispatch = jest.fn();
-        thunkAction(dispatch).then(() => {
-            expect(dispatch).toHaveBeenCalledTimes(1);
-            done();
-        });
     });
 });

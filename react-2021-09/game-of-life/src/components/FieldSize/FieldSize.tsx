@@ -3,13 +3,15 @@ import { LARGE_SIZE_CAPTION, MIDDLE_SIZE_CAPTION, Size, SMALL_SIZE_CAPTION } fro
 import { Button } from '@components/Button';
 
 interface FieldSizeProps {
-    setSmall: () => void;
-    setMedium: () => void;
-    setLarge: () => void;
+    setSize: (size: Size) => void;
     size: Size;
 }
 
-export const FieldSize: React.FC<FieldSizeProps> = ({ setSmall, setMedium, setLarge, size }) => {
+export const FieldSize: React.FC<FieldSizeProps> = ({ setSize, size }) => {
+    const setSmall = () => setSize(Size.SMALL);
+    const setMedium = () => setSize(Size.MIDDLE);
+    const setLarge = () => setSize(Size.LARGE);
+
     return (
         <>
             <Button id="btSmall" onClick={setSmall} active={size === Size.SMALL}>
