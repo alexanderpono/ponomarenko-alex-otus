@@ -1,0 +1,59 @@
+name: GOL sanity-check
+on:
+  push:
+    branches: [ react-hw11 ]
+#  pull_request:
+#    branches: [ master ]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  GOL-sanity-check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: react-2021-09/game-of-life
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # 👈 Required to retrieve git history
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Cache NPM dependencies
+        uses: actions/cache@v2.1.7
+        with:
+          path: ~/.npm
+          key: ${{ runner.OS }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-npm-cache-
+      
+      - name: Install dependencies
+        id: Npm-install
+        run: npm install
+
+      - name: Do linter check
+        id: linter
+        run: npm run lint
+
+      - name: Do typescript check
+        id: ts-check
+        run: npm run check-ts
+
+      - name: Run tests
+        id: Run-tests
+        run: npm run test
+
+      - name: Run loki test
+        id: Loki-test
+        run: npm run test:loki
+
+      - name: Run chromatic test
+        id: Chromatic-test
+        env:
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+        run: npx chromatic
+
