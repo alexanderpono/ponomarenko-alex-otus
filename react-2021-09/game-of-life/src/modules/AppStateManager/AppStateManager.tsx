@@ -1,5 +1,5 @@
 import React from 'react';
-import { FillPercent, Size } from '@src/consts';
+import { FillPercent, Mode, Size } from '@src/consts';
 import {
     AppActions,
     AppState,
@@ -7,6 +7,7 @@ import {
     fillPercent,
     invert,
     loadState,
+    mode,
     saveState,
     user,
 } from '@src/store/ducks/game';
@@ -38,6 +39,9 @@ export class AppStateManager extends React.Component<AppStateManagerProps> {
     private saveState = (st: AppState) => {
         this.props.store.dispatch(saveState(st) as unknown as AnyAction);
     };
+    private setMode = (m: Mode) => {
+        this.props.store.dispatch(mode(m));
+    };
 
     componentDidMount() {
         this.props.store.subscribe(this.storeChange);
@@ -68,6 +72,7 @@ export class AppStateManager extends React.Component<AppStateManagerProps> {
                     fill={this.fill}
                     onChangeName={this.onChangeName}
                     onLogout={this.onLogout}
+                    setMode={this.setMode}
                 />
             </Provider>
         );

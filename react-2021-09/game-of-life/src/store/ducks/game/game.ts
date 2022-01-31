@@ -14,6 +14,7 @@ import {
     FillPercent,
     DEFAULT_FILL_PERCENT,
     fillPercentToProbability,
+    Mode,
 } from '@src/consts';
 
 export enum AppActions {
@@ -29,6 +30,7 @@ export enum AppActions {
     SAVE_STATE = 'g-o-l/game/SAVE_STATE',
     IO_ERROR = 'g-o-l/game/IO_ERROR',
     GENERATION = 'g-o-l/game/GENERATION',
+    MODE = 'g-o-l/game/MODE',
 }
 
 export interface AppState {
@@ -40,6 +42,7 @@ export interface AppState {
     fillPercent: FillPercent;
     userName: string;
     errorInfo: string;
+    mode: Mode;
 }
 
 export const defaultAppState: AppState = {
@@ -58,6 +61,7 @@ export const defaultAppState: AppState = {
     fillPercent: DEFAULT_FILL_PERCENT,
     userName: '',
     errorInfo: '',
+    mode: Mode.PAUSE,
 };
 
 export interface FieldSizeAction {
@@ -99,6 +103,11 @@ export interface IOErrorAction {
 
 export interface GenerationAction {
     type: AppActions.GENERATION;
+}
+
+export interface ModeAction {
+    type: AppActions.MODE;
+    payload: { mode: Mode };
 }
 
 export const fieldSize = (size: Size): FieldSizeAction => ({
@@ -144,6 +153,11 @@ export const generation = (): GenerationAction => ({
     type: AppActions.GENERATION,
 });
 
+export const mode = (mode: Mode): ModeAction => ({
+    type: AppActions.MODE,
+    payload: { mode },
+});
+
 export type AppAction =
     | FieldSizeAction
     | InvertAction
@@ -153,7 +167,8 @@ export type AppAction =
     | LoadStateAction
     | SaveStateAction
     | IOErrorAction
-    | GenerationAction;
+    | GenerationAction
+    | ModeAction;
 
 interface SizePair {
     w: number;
@@ -255,6 +270,13 @@ export default function gameReducer(
                 ...state,
                 event: AppActions.GENERATION,
                 data: nextData.data,
+            };
+        }
+        case AppActions.MODE: {
+            return {
+                ...state,
+                event: AppActions.MODE,
+                mode: action.payload.mode,
             };
         }
     }

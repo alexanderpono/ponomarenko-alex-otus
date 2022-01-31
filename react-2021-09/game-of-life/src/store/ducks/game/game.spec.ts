@@ -1,5 +1,5 @@
-import { FillPercent, Size, sizeToWH } from '@src/consts';
-import { getFromState, getVal, str } from '@src/testFramework/lib/reducer';
+import { FillPercent, Mode, Size, sizeToWH } from '@src/consts';
+import { bool, getFromState, getVal, str } from '@src/testFramework/lib/reducer';
 import { CellInfo } from '@src/types';
 import {
     AppAction,
@@ -12,6 +12,7 @@ import {
     invert,
     ioError,
     loadState,
+    mode,
     replaceState,
     saveState,
     user,
@@ -55,6 +56,7 @@ describe('gameReducer', () => {
             },
             getInvertedCellState
         );
+        const rndMode = bool() ? Mode.PLAY : Mode.PAUSE;
 
         test.each`
             actions                                 | testName                                        | event                      | stateSelector    | value
@@ -70,6 +72,7 @@ describe('gameReducer', () => {
             ${[saveState(rndAppState)]}             | ${'sets .userName from SAVE_STATE action'}      | ${AppActions.SAVE_STATE}   | ${null}          | ${null}
             ${[ioError(rndError)]}                  | ${'sets .userName from IO_ERROR action'}        | ${AppActions.IO_ERROR}     | ${'errorInfo'}   | ${rndError}
             ${[generation()]}                       | ${'sets .data from GENERATION action'}          | ${AppActions.GENERATION}   | ${'data'}        | ${nextData.data}
+            ${[mode(rndMode)]}                      | ${'sets .mode from MODE action'}                | ${AppActions.MODE}         | ${'mode'}        | ${rndMode}
         `('$testName', async ({ actions, event, stateSelector, value }) => {
             let state: AppState = { ...defaultAppState, data: [...defaultAppState.data] };
             actions.forEach((action: AppAction) => {
