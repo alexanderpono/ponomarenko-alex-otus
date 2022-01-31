@@ -65,3 +65,65 @@ export const randomFill = (srcAr: CellArray, probability: number): CellArray => 
 
 export const getInverted = (cell: CellInfo): CellInfo =>
     cell === CellInfo.alive ? CellInfo.dead : CellInfo.alive;
+
+export const getCicledX = (srcAr: CellArray, x: number): number => {
+    if (x >= 0) {
+        return x % srcAr.width;
+    }
+
+    return (x % srcAr.width) + srcAr.width;
+};
+
+export const getCicledY = (srcAr: CellArray, y: number): number => {
+    if (y >= 0) {
+        return y % srcAr.height;
+    }
+
+    return (y % srcAr.height) + srcAr.height;
+};
+
+//matrix of cells 3x3:
+//a b c
+//d e f
+//g h i
+type CellCalculator = (
+    a: CellInfo,
+    b: CellInfo,
+    c: CellInfo,
+    d: CellInfo,
+    e: CellInfo,
+    f: CellInfo,
+    g: CellInfo,
+    h: CellInfo,
+    i: CellInfo
+) => CellInfo;
+export const getInvertedCellState: CellCalculator = (
+    a: CellInfo,
+    b: CellInfo,
+    c: CellInfo,
+    d: CellInfo,
+    e: CellInfo,
+    f: CellInfo,
+    g: CellInfo,
+    h: CellInfo,
+    i: CellInfo
+) => (e === CellInfo.dead ? CellInfo.alive : CellInfo.dead);
+export const getNewField = (srcAr: CellArray, calculator: CellCalculator): CellArray => {
+    const newField = { ...srcAr, data: [...srcAr.data] };
+    for (let y = 0; y < srcAr.height; y++) {
+        for (let x = 0; x < srcAr.width; x++) {
+            const a = newField.data[yx(y - 1, x - 1, srcAr.width)];
+            const b = newField.data[yx(y - 1, x, srcAr.width)];
+            const c = newField.data[yx(y - 1, x + 1, srcAr.width)];
+            const d = newField.data[yx(y, x - 1, srcAr.width)];
+            const e = newField.data[yx(y, x, srcAr.width)];
+            const f = newField.data[yx(y, x + 1, srcAr.width)];
+            const g = newField.data[yx(y + 1, x - 1, srcAr.width)];
+            const h = newField.data[yx(y + 1, x, srcAr.width)];
+            const i = newField.data[yx(y + 1, x + 1, srcAr.width)];
+            const newE = calculator(a, b, c, d, e, f, g, h, i);
+            newField.data[yx(y, x, srcAr.width)] = newE;
+        }
+    }
+    return newField;
+};

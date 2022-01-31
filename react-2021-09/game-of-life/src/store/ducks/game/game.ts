@@ -1,4 +1,10 @@
-import { createData, randomFill, recreateData } from './playFieldUtils';
+import {
+    createData,
+    getInvertedCellState,
+    getNewField,
+    randomFill,
+    recreateData,
+} from './playFieldUtils';
 import { CellInfo } from '@src/types';
 import {
     Size,
@@ -22,6 +28,7 @@ export enum AppActions {
     LOAD_STATE = 'g-o-l/game/LOAD_STATE',
     SAVE_STATE = 'g-o-l/game/SAVE_STATE',
     IO_ERROR = 'g-o-l/game/IO_ERROR',
+    GENERATION = 'g-o-l/game/GENERATION',
 }
 
 export interface AppState {
@@ -90,6 +97,10 @@ export interface IOErrorAction {
     payload: { errorInfo: string };
 }
 
+export interface GenerationAction {
+    type: AppActions.GENERATION;
+}
+
 export const fieldSize = (size: Size): FieldSizeAction => ({
     type: AppActions.FIELD_SIZE,
     payload: { size },
@@ -129,6 +140,10 @@ export const ioError = (errorInfo: string): IOErrorAction => ({
     payload: { errorInfo },
 });
 
+export const generation = (): GenerationAction => ({
+    type: AppActions.GENERATION,
+});
+
 export type AppAction =
     | FieldSizeAction
     | InvertAction
@@ -137,7 +152,8 @@ export type AppAction =
     | AppStateAction
     | LoadStateAction
     | SaveStateAction
-    | IOErrorAction;
+    | IOErrorAction
+    | GenerationAction;
 
 interface SizePair {
     w: number;
@@ -223,6 +239,22 @@ export default function gameReducer(
                 ...state,
                 event: AppActions.IO_ERROR,
                 errorInfo: action.payload.errorInfo,
+            };
+        }
+        case AppActions.GENERATION: {
+            const nextData = getNewField(
+                {
+                    data: state.data,
+                    width: state.fieldWidth,
+                    height: state.fieldWidth,
+                },
+                getInvertedCellState
+            );
+
+            return {
+                ...state,
+                event: AppActions.GENERATION,
+                data: nextData.data,
             };
         }
     }
