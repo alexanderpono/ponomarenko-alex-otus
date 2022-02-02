@@ -39,7 +39,7 @@ export class AppStateManager extends React.Component<AppStateManagerProps> {
     private saveState = (st: AppState) => {
         this.props.store.dispatch(saveState(st) as unknown as AnyAction);
     };
-    private setMode = (m: Mode) => {
+    private mode = (m: Mode) => {
         this.props.store.dispatch(mode(m));
     };
 
@@ -61,6 +61,13 @@ export class AppStateManager extends React.Component<AppStateManagerProps> {
         ) {
             this.saveState(this.props.store.getState().game);
         }
+
+        if (event === AppActions.REPLACE_STATE) {
+            const curMode = this.props.store.getState().game.mode;
+            if (curMode === Mode.PLAY) {
+                setTimeout(() => this.mode(Mode.PLAY), 1000);
+            }
+        }
     };
 
     render() {
@@ -72,7 +79,7 @@ export class AppStateManager extends React.Component<AppStateManagerProps> {
                     fill={this.fill}
                     onChangeName={this.onChangeName}
                     onLogout={this.onLogout}
-                    setMode={this.setMode}
+                    setMode={this.mode}
                 />
             </Provider>
         );

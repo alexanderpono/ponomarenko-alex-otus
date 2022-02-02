@@ -31,6 +31,7 @@ export enum AppActions {
     IO_ERROR = 'g-o-l/game/IO_ERROR',
     GENERATION = 'g-o-l/game/GENERATION',
     MODE = 'g-o-l/game/MODE',
+    SET_MODE = 'g-o-l/game/SET_MODE',
 }
 
 export interface AppState {
@@ -110,6 +111,11 @@ export interface ModeAction {
     payload: { mode: Mode };
 }
 
+export interface SetModeAction {
+    type: AppActions.SET_MODE;
+    payload: { mode: Mode };
+}
+
 export const fieldSize = (size: Size): FieldSizeAction => ({
     type: AppActions.FIELD_SIZE,
     payload: { size },
@@ -155,6 +161,11 @@ export const generation = (): GenerationAction => ({
 
 export const mode = (mode: Mode): ModeAction => ({
     type: AppActions.MODE,
+    payload: { mode },
+});
+
+export const setMode = (mode: Mode): SetModeAction => ({
+    type: AppActions.SET_MODE,
     payload: { mode },
 });
 
