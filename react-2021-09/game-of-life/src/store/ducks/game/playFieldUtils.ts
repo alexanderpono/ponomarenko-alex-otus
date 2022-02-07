@@ -108,6 +108,7 @@ export const getInvertedCellState: CellCalculator = (
     h: CellInfo,
     i: CellInfo
 ) => (e === CellInfo.dead ? CellInfo.alive : CellInfo.dead);
+
 export const getNewField = (srcAr: CellArray, calculator: CellCalculator): CellArray => {
     const newField = { ...srcAr, data: [...srcAr.data] };
     for (let y = 0; y < srcAr.height; y++) {
@@ -126,4 +127,21 @@ export const getNewField = (srcAr: CellArray, calculator: CellCalculator): CellA
         }
     }
     return newField;
+};
+
+export const getGOLCellState: CellCalculator = (
+    a: CellInfo,
+    b: CellInfo,
+    c: CellInfo,
+    d: CellInfo,
+    e: CellInfo,
+    f: CellInfo,
+    g: CellInfo,
+    h: CellInfo,
+    i: CellInfo
+) => {
+    const neighbors = [a, b, c, d, f, g, h, i];
+    const aliveNeighbors = neighbors.filter((cell: CellInfo) => cell === CellInfo.alive);
+    const cellToLive = aliveNeighbors.length === 3;
+    return cellToLive ? CellInfo.alive : CellInfo.dead;
 };

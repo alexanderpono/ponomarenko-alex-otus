@@ -19,7 +19,7 @@ import {
     user,
 } from './game';
 import gameReducer from './game';
-import { getInverted, getInvertedCellState, getNewField } from './playFieldUtils';
+import { getGOLCellState, getInverted, getNewField } from './playFieldUtils';
 
 const num = (size: number) => Math.round(size * Math.random());
 
@@ -55,7 +55,7 @@ describe('gameReducer', () => {
                 width: defaultAppState.fieldWidth,
                 height: defaultAppState.fieldWidth,
             },
-            getInvertedCellState
+            getGOLCellState
         );
         const rndMode = bool() ? Mode.PLAY : Mode.PAUSE;
         const rndSpeed = ((): Speed => {

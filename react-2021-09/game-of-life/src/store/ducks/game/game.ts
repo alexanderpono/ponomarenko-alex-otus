@@ -1,6 +1,6 @@
 import {
     createData,
-    getInvertedCellState,
+    getGOLCellState,
     getNewField,
     randomFill,
     recreateData,
@@ -287,9 +287,9 @@ export default function gameReducer(
                 {
                     data: state.data,
                     width: state.fieldWidth,
-                    height: state.fieldWidth,
+                    height: state.fieldHeight,
                 },
-                getInvertedCellState
+                getGOLCellState
             );
 
             return {

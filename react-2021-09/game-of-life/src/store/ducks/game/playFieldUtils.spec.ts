@@ -2,6 +2,7 @@ import {
     createData,
     getCicledX,
     getCicledY,
+    getGOLCellState,
     getInverted,
     getInvertedCellState,
     getNewField,
@@ -214,11 +215,12 @@ describe('getInvertedCellState', () => {
     });
 });
 
+const rndCellState = (): CellInfo => {
+    const b = bool();
+    return b ? CellInfo.alive : CellInfo.dead;
+};
+
 describe('getInvertedCellState', () => {
-    const rndCellState = (): CellInfo => {
-        const b = bool();
-        return b ? CellInfo.alive : CellInfo.dead;
-    };
     const r = rndCellState;
     it('returns alive from dead', () => {
         expect(getInvertedCellState(r(), r(), r(), r(), CellInfo.dead, r(), r(), r(), r())).toBe(
@@ -256,5 +258,35 @@ describe('getNewField', () => {
             height: 2,
             data: [CellInfo.alive, CellInfo.alive, CellInfo.alive, CellInfo.alive],
         });
+    });
+});
+
+describe('getGOLCellState', () => {
+    test.each`
+        abcdfghi       | expected          | about
+        ${'000000000'} | ${CellInfo.dead}  | ${'remains dead'}
+        ${'111101111'} | ${CellInfo.dead}  | ${'remains dead'}
+        ${'111111111'} | ${CellInfo.dead}  | ${'dies of overcrouding'}
+        ${'111000000'} | ${CellInfo.alive} | ${'births'}
+        ${'000101100'} | ${CellInfo.alive} | ${'births'}
+        ${'010110010'} | ${CellInfo.alive} | ${'remains alive'}
+        ${'010100010'} | ${CellInfo.alive} | ${'births'}
+        ${'010110010'} | ${CellInfo.alive} | ${'remains alive'}
+        ${'010010010'} | ${CellInfo.dead}  | ${'dies of loneliness'}
+        ${'010010000'} | ${CellInfo.dead}  | ${'dies of loneliness'}
+        ${'000010000'} | ${CellInfo.dead}  | ${'dies of loneliness'}
+    `('returns $expected ($about) from $abcdfghi', ({ abcdfghi, expected }) => {
+        const toCellInfo = (num: string) => (num === '1' ? CellInfo.alive : CellInfo.dead);
+        const a = toCellInfo(abcdfghi[0]);
+        const b = toCellInfo(abcdfghi[1]);
+        const c = toCellInfo(abcdfghi[2]);
+        const d = toCellInfo(abcdfghi[3]);
+        const e = toCellInfo(abcdfghi[4]);
+        const f = toCellInfo(abcdfghi[5]);
+        const g = toCellInfo(abcdfghi[6]);
+        const h = toCellInfo(abcdfghi[7]);
+        const i = toCellInfo(abcdfghi[8]);
+
+        expect(getGOLCellState(a, b, c, d, e, f, g, h, i)).toBe(expected);
     });
 });
