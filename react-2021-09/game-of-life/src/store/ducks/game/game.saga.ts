@@ -1,4 +1,4 @@
-import { Mode } from '@src/consts';
+import { Mode, speedToDelay } from '@src/consts';
 import { RootState } from '@src/store';
 import { call, put, select, take } from 'redux-saga/effects';
 import { AppAction, AppActions, AppState, generation, setMode } from './game';
@@ -31,7 +31,9 @@ export function* timerLoop() {
     while (state.mode === Mode.PLAY) {
         yield put(generation());
 
-        yield call(waitTimeout, 2000);
+        const delay = speedToDelay[state.speed];
+
+        yield call(waitTimeout, delay);
         state = yield select(getGame);
     }
 }

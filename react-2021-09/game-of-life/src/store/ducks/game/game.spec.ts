@@ -1,4 +1,4 @@
-import { FillPercent, Mode, Size, sizeToWH } from '@src/consts';
+import { FillPercent, Mode, Size, sizeToWH, Speed } from '@src/consts';
 import { bool, getFromState, getVal, str } from '@src/testFramework/lib/reducer';
 import { CellInfo } from '@src/types';
 import {
@@ -15,6 +15,7 @@ import {
     mode,
     replaceState,
     saveState,
+    setSpeed,
     user,
 } from './game';
 import gameReducer from './game';
@@ -57,6 +58,10 @@ describe('gameReducer', () => {
             getInvertedCellState
         );
         const rndMode = bool() ? Mode.PLAY : Mode.PAUSE;
+        const rndSpeed = ((): Speed => {
+            const speedIndex = num(2);
+            return speedIndex === 0 ? Speed.SLOW : speedIndex === 1 ? Speed.MEDIUM : Speed.FAST;
+        })();
 
         test.each`
             actions                                 | testName                                        | event                      | stateSelector    | value
@@ -73,6 +78,7 @@ describe('gameReducer', () => {
             ${[ioError(rndError)]}                  | ${'sets .userName from IO_ERROR action'}        | ${AppActions.IO_ERROR}     | ${'errorInfo'}   | ${rndError}
             ${[generation()]}                       | ${'sets .data from GENERATION action'}          | ${AppActions.GENERATION}   | ${'data'}        | ${nextData.data}
             ${[mode(rndMode)]}                      | ${'sets .mode from MODE action'}                | ${AppActions.MODE}         | ${'mode'}        | ${rndMode}
+            ${[setSpeed(rndSpeed)]}                 | ${'sets .speed from SET_SPEED action'}          | ${AppActions.SET_SPEED}    | ${'speed'}       | ${rndSpeed}
         `('$testName', async ({ actions, event, stateSelector, value }) => {
             let state: AppState = { ...defaultAppState, data: [...defaultAppState.data] };
             actions.forEach((action: AppAction) => {

@@ -15,6 +15,7 @@ import {
     DEFAULT_FILL_PERCENT,
     fillPercentToProbability,
     Mode,
+    Speed,
 } from '@src/consts';
 
 export enum AppActions {
@@ -32,6 +33,7 @@ export enum AppActions {
     GENERATION = 'g-o-l/game/GENERATION',
     MODE = 'g-o-l/game/MODE',
     SET_MODE = 'g-o-l/game/SET_MODE',
+    SET_SPEED = 'g-o-l/game/SET_SPEED',
 }
 
 export interface AppState {
@@ -44,6 +46,7 @@ export interface AppState {
     userName: string;
     errorInfo: string;
     mode: Mode;
+    speed: Speed;
 }
 
 export const defaultAppState: AppState = {
@@ -63,6 +66,7 @@ export const defaultAppState: AppState = {
     userName: '',
     errorInfo: '',
     mode: Mode.PAUSE,
+    speed: Speed.SLOW,
 };
 
 export interface FieldSizeAction {
@@ -114,6 +118,11 @@ export interface ModeAction {
 export interface SetModeAction {
     type: AppActions.SET_MODE;
     payload: { mode: Mode };
+}
+
+export interface SetSpeedAction {
+    type: AppActions.SET_SPEED;
+    payload: { speed: Speed };
 }
 
 export const fieldSize = (size: Size): FieldSizeAction => ({
@@ -169,6 +178,11 @@ export const setMode = (mode: Mode): SetModeAction => ({
     payload: { mode },
 });
 
+export const setSpeed = (speed: Speed): SetSpeedAction => ({
+    type: AppActions.SET_SPEED,
+    payload: { speed },
+});
+
 export type AppAction =
     | FieldSizeAction
     | InvertAction
@@ -179,7 +193,8 @@ export type AppAction =
     | SaveStateAction
     | IOErrorAction
     | GenerationAction
-    | ModeAction;
+    | ModeAction
+    | SetSpeedAction;
 
 interface SizePair {
     w: number;
@@ -288,6 +303,13 @@ export default function gameReducer(
                 ...state,
                 event: AppActions.MODE,
                 mode: action.payload.mode,
+            };
+        }
+        case AppActions.SET_SPEED: {
+            return {
+                ...state,
+                event: AppActions.SET_SPEED,
+                speed: action.payload.speed,
             };
         }
     }
