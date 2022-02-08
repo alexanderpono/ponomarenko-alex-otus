@@ -1,7 +1,7 @@
-import { watchLoadState, watchSaveState } from '@src/StorageService/StorageService.saga';
+import { watchLoadStateSaga, watchSaveStateSaga } from '@src/StorageService/StorageService.saga';
 import { all, AllEffect } from 'redux-saga/effects';
-import { watchPlay } from '@src/store/ducks/game';
+import { watchPlaySaga } from '@src/store/ducks/game';
 
 export function* rootSaga(): Generator<AllEffect<unknown>> {
-    yield all([watchLoadState(), watchSaveState(), watchPlay()]);
+    yield all([watchLoadStateSaga(), watchSaveStateSaga(), watchPlaySaga()]);
 }

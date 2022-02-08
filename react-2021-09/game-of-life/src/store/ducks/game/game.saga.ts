@@ -3,29 +3,25 @@ import { RootState } from '@src/store';
 import { call, put, select, take } from 'redux-saga/effects';
 import { AppAction, AppActions, AppState, generation, setMode } from './game';
 
-async function waitTimeout(waitTime: number) {
-    await sleep(waitTime);
-}
-const getGame = (s: RootState) => s.game;
+export const getGame = (s: RootState) => s.game;
 
 export const sleep = (x: number) => new Promise((r) => setTimeout(r, x));
+export const modePlay = (action: AppAction) =>
+    action.type === AppActions.MODE && action.payload.mode === Mode.PLAY;
 
-export function* watchPlay() {
+export function* watchPlaySaga() {
     while (true) {
-        yield take(
-            (action: AppAction) =>
-                action.type === AppActions.MODE && action.payload.mode === Mode.PLAY
-        );
+        yield take(modePlay);
         yield put(setMode(Mode.PLAY));
 
         const state: AppState = yield select(getGame);
         if (state.mode === Mode.PLAY) {
-            yield call(timerLoop);
+            yield call(timerLoopSaga);
         }
     }
 }
 
-export function* timerLoop() {
+export function* timerLoopSaga() {
     let state: AppState = yield select(getGame);
 
     while (state.mode === Mode.PLAY) {
@@ -33,7 +29,7 @@ export function* timerLoop() {
 
         const delay = speedToDelay[state.speed];
 
-        yield call(waitTimeout, delay);
+        yield call(sleep, delay);
         state = yield select(getGame);
     }
 }
