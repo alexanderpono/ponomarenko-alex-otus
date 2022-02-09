@@ -11,5 +11,5 @@ export default {
 };
 
 export const Static = () => {
-    return <DefineMode play={action('play')} pause={action('pause')} mode={Mode.PLAY} />;
+    return <DefineMode setMode={action('setMode')} mode={Mode.PLAY} />;
 };
