@@ -12,3 +12,4 @@
 9. [Домашнее задание 9. Redux middlewares and side effects](hw09/README.md)
 10. [Домашнее задание 10. Redux-saga intro](hw10/README.md)
 11. [Домашнее задание 11. Архитектура React-приложения](hw11/README.md)
+12. [Домашнее задание 12. Redux-saga advanced concept](hw12/README.md)
