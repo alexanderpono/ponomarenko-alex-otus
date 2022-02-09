@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { AppStateManager } from './components/AppStateManager';
+import { AppStateManager } from './modules/AppStateManager';
 import { StorageService } from './StorageService';
 import { store } from '@src/store';
 

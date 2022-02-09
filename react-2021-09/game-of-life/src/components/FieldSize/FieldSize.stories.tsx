@@ -1,5 +1,5 @@
 import React from 'react';
-import { FieldSize } from '.';
+import { FieldSize } from './FieldSize';
 import { action } from '@storybook/addon-actions';
 import { Size } from '@src/consts';
 
