@@ -1,5 +1,5 @@
 import React from 'react';
-import { FillPercent, Size } from '@src/consts';
+import { FillPercent, Mode, Size, Speed } from '@src/consts';
 import {
     AppActions,
     AppState,
@@ -7,7 +7,9 @@ import {
     fillPercent,
     invert,
     loadState,
+    mode,
     saveState,
+    setSpeed,
     user,
 } from '@src/store/ducks/game';
 
@@ -30,6 +32,7 @@ export class AppStateManager extends React.Component<AppStateManagerProps> {
     private fill = (percent: FillPercent) => this.props.store.dispatch(fillPercent(percent));
     private onChangeName = (name: string) => this.props.store.dispatch(user(name));
     private onLogout = () => this.props.store.dispatch(user(''));
+    private setSpeed = (speed: Speed) => this.props.store.dispatch(setSpeed(speed));
 
     private loadState = () => {
         this.props.store.dispatch(loadState() as unknown as AnyAction);
@@ -37,6 +40,9 @@ export class AppStateManager extends React.Component<AppStateManagerProps> {
 
     private saveState = (st: AppState) => {
         this.props.store.dispatch(saveState(st) as unknown as AnyAction);
+    };
+    private mode = (m: Mode) => {
+        this.props.store.dispatch(mode(m));
     };
 
     componentDidMount() {
@@ -57,6 +63,13 @@ export class AppStateManager extends React.Component<AppStateManagerProps> {
         ) {
             this.saveState(this.props.store.getState().game);
         }
+
+        if (event === AppActions.REPLACE_STATE) {
+            const curMode = this.props.store.getState().game.mode;
+            if (curMode === Mode.PLAY) {
+                setTimeout(() => this.mode(Mode.PLAY), 1000);
+            }
+        }
     };
 
     render() {
@@ -68,6 +81,8 @@ export class AppStateManager extends React.Component<AppStateManagerProps> {
                     fill={this.fill}
                     onChangeName={this.onChangeName}
                     onLogout={this.onLogout}
+                    setMode={this.mode}
+                    setSpeed={this.setSpeed}
                 />
             </Provider>
         );
