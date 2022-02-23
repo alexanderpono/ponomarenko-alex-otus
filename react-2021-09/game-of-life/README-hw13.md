@@ -29,7 +29,7 @@
 * https://github.com/ermakof/lines/issues
 * https://github.com/centralToNowhere/react-otus/issues
 
-2. Проведена по исправлению дефектов:
+2. Проведена работа по исправлению дефектов:
 * Упростить проверки моков для тестов #45  https://github.com/alexanderpono/ponomarenko-alex-otus/issues/45 
 * Ввод пробела вместо имени #46 https://github.com/alexanderpono/ponomarenko-alex-otus/issues/46 
 * Нет информации о статусе игры #49 https://github.com/alexanderpono/ponomarenko-alex-otus/issues/49 
