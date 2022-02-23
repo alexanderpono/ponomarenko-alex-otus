@@ -56,7 +56,7 @@ describe('Cell', () => {
             ></Cell>
         );
         cell.find('article').simulate('click');
-        expect(mockCallBack.mock.calls.length).toEqual(1);
+        expect(mockCallBack).toBeCalledTimes(1);
     });
 
     it('Says number of cell when clicked', () => {
