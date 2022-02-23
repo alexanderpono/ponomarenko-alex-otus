@@ -2,10 +2,12 @@ import styled from '@emotion/styled';
 
 export interface ButtonProps {
     active?: boolean;
+    disabled?: boolean;
 }
 
 export const Button = styled.button`
-    background: ${(props: ButtonProps) => (props.active ? '#faa' : '#222')};
+    background: ${(props: ButtonProps) =>
+        props.disabled ? '#AAA' : props.active ? '#faa' : '#222'};
     color: ${(props: ButtonProps) => (props.active ? '#222' : '#ddd')};
     display: inline-block;
     height: 25px;
