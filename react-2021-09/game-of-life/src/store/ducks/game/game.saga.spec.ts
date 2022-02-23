@@ -10,7 +10,7 @@ import {
     watchPlaySaga,
 } from '@src/store/ducks/game';
 import { testSaga } from 'redux-saga-test-plan';
-import { defaultAppState, generation, invert, mode } from './game';
+import { defaultAppState, generation, invert, mode, setCounter } from './game';
 
 describe('game.saga', () => {
     test('watchPlaySaga', () => {
@@ -50,6 +50,8 @@ describe('game.saga', () => {
 
         const enterWhile = saga.next().select(getGame).next(stateMock);
         const entireFirstLoop = enterWhile
+            .put(setCounter(1))
+            .next()
             .put(generation())
             .next()
             .call(sleep, delay)
@@ -60,6 +62,8 @@ describe('game.saga', () => {
         const reenteredWhile = entireFirstLoop;
 
         const entireSecondLoop = reenteredWhile
+            .put(setCounter(1))
+            .next()
             .put(generation())
             .next()
             .call(sleep, delay)

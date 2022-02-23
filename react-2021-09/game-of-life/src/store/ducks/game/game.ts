@@ -34,6 +34,7 @@ export enum AppActions {
     MODE = 'g-o-l/game/MODE',
     SET_MODE = 'g-o-l/game/SET_MODE',
     SET_SPEED = 'g-o-l/game/SET_SPEED',
+    SET_COUNTER = 'g-o-l/game/SET_COUNTER',
 }
 
 export interface AppState {
@@ -47,6 +48,7 @@ export interface AppState {
     errorInfo: string;
     mode: Mode;
     speed: Speed;
+    counter: number;
 }
 
 export const defaultAppState: AppState = {
@@ -67,6 +69,7 @@ export const defaultAppState: AppState = {
     errorInfo: '',
     mode: Mode.PAUSE,
     speed: Speed.SLOW,
+    counter: 0,
 };
 
 export interface FieldSizeAction {
@@ -123,6 +126,11 @@ export interface SetModeAction {
 export interface SetSpeedAction {
     type: AppActions.SET_SPEED;
     payload: { speed: Speed };
+}
+
+export interface SetCounterAction {
+    type: AppActions.SET_COUNTER;
+    payload: { counter: number };
 }
 
 export const fieldSize = (size: Size): FieldSizeAction => ({
@@ -183,6 +191,11 @@ export const setSpeed = (speed: Speed): SetSpeedAction => ({
     payload: { speed },
 });
 
+export const setCounter = (counter: number): SetCounterAction => ({
+    type: AppActions.SET_COUNTER,
+    payload: { counter },
+});
+
 export type AppAction =
     | FieldSizeAction
     | InvertAction
@@ -194,7 +207,8 @@ export type AppAction =
     | IOErrorAction
     | GenerationAction
     | ModeAction
-    | SetSpeedAction;
+    | SetSpeedAction
+    | SetCounterAction;
 
 interface SizePair {
     w: number;
@@ -310,6 +324,13 @@ export default function gameReducer(
                 ...state,
                 event: AppActions.SET_SPEED,
                 speed: action.payload.speed,
+            };
+        }
+        case AppActions.SET_COUNTER: {
+            return {
+                ...state,
+                event: AppActions.SET_COUNTER,
+                counter: action.payload.counter,
             };
         }
     }

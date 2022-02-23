@@ -15,6 +15,7 @@ import {
     mode,
     replaceState,
     saveState,
+    setCounter,
     setSpeed,
     user,
 } from './game';
@@ -62,6 +63,7 @@ describe('gameReducer', () => {
             const speedIndex = num(2);
             return speedIndex === 0 ? Speed.SLOW : speedIndex === 1 ? Speed.MEDIUM : Speed.FAST;
         })();
+        const rndCounter = num(100);
 
         test.each`
             actions                                 | testName                                        | event                      | stateSelector    | value
@@ -79,6 +81,7 @@ describe('gameReducer', () => {
             ${[generation()]}                       | ${'sets .data from GENERATION action'}          | ${AppActions.GENERATION}   | ${'data'}        | ${nextData.data}
             ${[mode(rndMode)]}                      | ${'sets .mode from MODE action'}                | ${AppActions.MODE}         | ${'mode'}        | ${rndMode}
             ${[setSpeed(rndSpeed)]}                 | ${'sets .speed from SET_SPEED action'}          | ${AppActions.SET_SPEED}    | ${'speed'}       | ${rndSpeed}
+            ${[setCounter(rndCounter)]}             | ${'sets .counter from SET_COUNTER action'}      | ${AppActions.SET_COUNTER}  | ${'counter'}     | ${rndCounter}
         `('$testName', async ({ actions, event, stateSelector, value }) => {
             let state: AppState = { ...defaultAppState, data: [...defaultAppState.data] };
             actions.forEach((action: AppAction) => {

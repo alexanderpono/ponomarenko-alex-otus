@@ -1,7 +1,7 @@
 import { Mode, speedToDelay } from '@src/consts';
 import { RootState } from '@src/store';
 import { call, put, select, take } from 'redux-saga/effects';
-import { AppAction, AppActions, AppState, generation, setMode } from './game';
+import { AppAction, AppActions, AppState, generation, setCounter, setMode } from './game';
 
 export const getGame = (s: RootState) => s.game;
 
@@ -25,6 +25,7 @@ export function* timerLoopSaga() {
     let state: AppState = yield select(getGame);
 
     while (state.mode === Mode.PLAY) {
+        yield put(setCounter(state.counter + 1));
         yield put(generation());
 
         const delay = speedToDelay[state.speed];

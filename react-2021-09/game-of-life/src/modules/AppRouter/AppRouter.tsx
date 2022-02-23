@@ -15,6 +15,7 @@ interface AppRouterProps {
     onLogout: () => void;
     setMode: (mode: Mode) => void;
     setSpeed: (speed: Speed) => void;
+    counter: number;
 }
 
 export const AppRouter: React.FC<AppRouterProps> = ({
@@ -25,6 +26,7 @@ export const AppRouter: React.FC<AppRouterProps> = ({
     setSize,
     setMode,
     setSpeed,
+    counter,
 }) => {
     const { userName } = useAppState();
     return (
@@ -34,7 +36,7 @@ export const AppRouter: React.FC<AppRouterProps> = ({
                     <LoginForm onChangeName={onChangeName} />
                 </Route>
                 <Route path="/">
-                    <AuthorizedHead userName={userName} onLogout={onLogout} />
+                    <AuthorizedHead userName={userName} onLogout={onLogout} counter={counter} />
                     <GameUI invert={invert} />
                     <GameSettings
                         fill={fill}

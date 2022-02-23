@@ -9,6 +9,7 @@ import {
     loadState,
     mode,
     saveState,
+    setCounter,
     setSpeed,
     user,
 } from '@src/store/ducks/game';
@@ -43,6 +44,7 @@ export class AppStateManager extends React.Component<AppStateManagerProps> {
     };
     private mode = (m: Mode) => {
         this.props.store.dispatch(mode(m));
+        this.props.store.dispatch(setCounter(0));
     };
 
     componentDidMount() {
@@ -83,6 +85,7 @@ export class AppStateManager extends React.Component<AppStateManagerProps> {
                     onLogout={this.onLogout}
                     setMode={this.mode}
                     setSpeed={this.setSpeed}
+                    counter={this.props.store.getState().game.counter}
                 />
             </Provider>
         );
