@@ -10,10 +10,11 @@ import {
     Size,
     sizeToWH,
     SMALL_SIZE_CAPTION,
+    Speed,
 } from '@src/consts';
 import { StorageService } from '@src/StorageService';
 import { Store } from 'redux';
-import { AppState, defaultAppState, replaceState } from '@src/store/ducks/game';
+import { AppActions, AppState, defaultAppState, replaceState } from '@src/store/ducks/game';
 import { createMockStore } from '@src/testFramework/lib/store';
 
 describe('AppStateManager', () => {
@@ -128,7 +129,7 @@ describe('AppStateManager', () => {
         userEvent.click(screen.getByText('Start'));
     });
 
-    it('allows to click gameSpeed-slow-button', () => {
+    it('allows to click gameSpeed-medium-button', () => {
         render(<AppStateManager storage={storage} store={store} />);
 
         const input = screen.getByLabelText('Enter your name:');
@@ -136,8 +137,10 @@ describe('AppStateManager', () => {
         userEvent.type(input, str());
         userEvent.click(screen.getByText('Start'));
 
-        const bt = screen.getByText('slow');
+        const bt = screen.getByText('medium');
         userEvent.click(bt);
+
+        expect(store.getState().game.speed).toBe(Speed.MEDIUM);
     });
 
     it('clears all cells after click at clear-button', () => {
@@ -298,6 +301,12 @@ describe('AppStateManager', () => {
         store.dispatch(replaceState(store.getState().game));
         jest.runOnlyPendingTimers();
         expect(setTimeout).toHaveBeenCalled();
+    });
+
+    it('dispatches loadState() after mount', () => {
+        render(<AppStateManager storage={storage} store={store} />);
+
+        expect(store.getState().game.event).toBe(AppActions.LOAD_STATE);
     });
 
     afterEach(() => {
