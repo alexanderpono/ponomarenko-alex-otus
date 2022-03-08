@@ -14,6 +14,7 @@ module.exports = {
         '!src/**/index.tsx',
         '!src/**/index.ts',
         '!src/store/store.ts',
+        '!src/**/*.d.ts',
     ],
     testEnvironment: 'jsdom',
     reporters: [
@@ -32,6 +33,7 @@ module.exports = {
     },
     moduleNameMapper: {
         '\\.(css|less)$': '<rootDir>/internals/__mocks__/styleMock.js',
+        '\\.(scss)$': 'identity-obj-proxy',
     },
     testMatch: [ "**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[t]s?(x)" ]
 };

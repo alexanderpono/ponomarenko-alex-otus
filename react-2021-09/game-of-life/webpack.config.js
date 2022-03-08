@@ -10,7 +10,7 @@ module.exports = {
         }),
     ],
     resolve: {
-        extensions: ['.js', '.ts', '.tsx']
+        extensions: ['.js', '.ts', '.tsx', '.scss']
     },
     entry: './src/app.tsx',
     output: {
