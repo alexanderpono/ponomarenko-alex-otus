@@ -111,17 +111,24 @@ export const getInvertedCellState: CellCalculator = (
 
 export const getNewField = (srcAr: CellArray, calculator: CellCalculator): CellArray => {
     const newField = { ...srcAr, data: [...srcAr.data] };
+    const getVal = (ar: CellArray, y: number, x: number) => {
+        if (y < 0 || y >= ar.height || x < 0 || x >= ar.width) {
+            return CellInfo.dead;
+        }
+        return ar.data[yx(y, x, ar.width)];
+    };
+
     for (let y = 0; y < srcAr.height; y++) {
         for (let x = 0; x < srcAr.width; x++) {
-            const a = newField.data[yx(y - 1, x - 1, srcAr.width)];
-            const b = newField.data[yx(y - 1, x, srcAr.width)];
-            const c = newField.data[yx(y - 1, x + 1, srcAr.width)];
-            const d = newField.data[yx(y, x - 1, srcAr.width)];
-            const e = newField.data[yx(y, x, srcAr.width)];
-            const f = newField.data[yx(y, x + 1, srcAr.width)];
-            const g = newField.data[yx(y + 1, x - 1, srcAr.width)];
-            const h = newField.data[yx(y + 1, x, srcAr.width)];
-            const i = newField.data[yx(y + 1, x + 1, srcAr.width)];
+            const a = getVal(srcAr, y - 1, x - 1);
+            const b = getVal(srcAr, y - 1, x);
+            const c = getVal(srcAr, y - 1, x + 1);
+            const d = getVal(srcAr, y, x - 1);
+            const e = getVal(srcAr, y, x);
+            const f = getVal(srcAr, y, x + 1);
+            const g = getVal(srcAr, y + 1, x - 1);
+            const h = getVal(srcAr, y + 1, x);
+            const i = getVal(srcAr, y + 1, x + 1);
             const newE = calculator(a, b, c, d, e, f, g, h, i);
             newField.data[yx(y, x, srcAr.width)] = newE;
         }
@@ -142,6 +149,7 @@ export const getGOLCellState: CellCalculator = (
 ) => {
     const neighbors = [a, b, c, d, f, g, h, i];
     const aliveNeighbors = neighbors.filter((cell: CellInfo) => cell === CellInfo.alive);
-    const cellToLive = aliveNeighbors.length === 3;
+    const cellToLive =
+        aliveNeighbors.length === 3 || (aliveNeighbors.length === 2 && e == CellInfo.alive);
     return cellToLive ? CellInfo.alive : CellInfo.dead;
 };

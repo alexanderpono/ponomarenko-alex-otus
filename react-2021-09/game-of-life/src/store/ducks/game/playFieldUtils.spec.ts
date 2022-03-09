@@ -272,9 +272,10 @@ describe('getGOLCellState', () => {
         ${'010110010'} | ${CellInfo.alive} | ${'remains alive'}
         ${'010100010'} | ${CellInfo.alive} | ${'births'}
         ${'010110010'} | ${CellInfo.alive} | ${'remains alive'}
-        ${'010010010'} | ${CellInfo.dead}  | ${'dies of loneliness'}
+        ${'010010010'} | ${CellInfo.alive} | ${'remains alive'}
         ${'010010000'} | ${CellInfo.dead}  | ${'dies of loneliness'}
         ${'000010000'} | ${CellInfo.dead}  | ${'dies of loneliness'}
+        ${'000111000'} | ${CellInfo.alive} | ${'remains alive'}
     `('returns $expected ($about) from $abcdfghi', ({ abcdfghi, expected }) => {
         const toCellInfo = (num: string) => (num === '1' ? CellInfo.alive : CellInfo.dead);
         const a = toCellInfo(abcdfghi[0]);
@@ -288,5 +289,22 @@ describe('getGOLCellState', () => {
         const i = toCellInfo(abcdfghi[8]);
 
         expect(getGOLCellState(a, b, c, d, e, f, g, h, i)).toBe(expected);
+    });
+});
+
+describe('getNewField2', () => {
+    test.each`
+        src            | target         | about
+        ${'000000000'} | ${'000000000'} | ${''}
+        ${'000111000'} | ${'010010010'} | ${''}
+    `('returns $expected ($about) from $abcdefgh', ({ src, target }) => {
+        const toCellInfo = (num: string) => (num === '1' ? CellInfo.alive : CellInfo.dead);
+        const srcData = src.split('').map(toCellInfo);
+        const targetData = target.split('').map(toCellInfo);
+        const srcAr: CellArray = { width: 3, height: 3, data: srcData };
+        const expected: CellArray = { width: 3, height: 3, data: targetData };
+        const fact = getNewField(srcAr, getGOLCellState);
+
+        expect(fact).toEqual(expected);
     });
 });
