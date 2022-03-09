@@ -20,11 +20,11 @@ $frameColor: #ddd;
         background: #e44;
     }
     &.right {
-        width: ($CELL_WIDTH - 2)px;
+        width: #{$CELL_WIDTH - 2}px;
         border-right: 1px solid $frameColor;
     }
     &.bottom {
-        height: ($CELL_HEIGHT - 2)px;
+        height: #{$CELL_WIDTH - 2}px;
         border-bottom: 1px solid $frameColor;
     }
     &.left {

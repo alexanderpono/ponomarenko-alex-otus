@@ -68,6 +68,7 @@
     "jest-fetch-mock": "^3.0.3",
     "jest-html-reporter": "^3.4.1",
     "loki": "^0.28.1",
+    "node-sass": "^6.0.0",
     "prettier": "^2.4.1",
     "redux-devtools-extension": "^2.13.9",
     "redux-saga-test-plan": "^4.0.4",

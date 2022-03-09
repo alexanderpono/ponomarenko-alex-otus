@@ -1,0 +1,46 @@
+$CAPTION_COLOR: #ddd;
+$PANEL_BG_COLOR: #555;
+$PANEL_BORDER_COLOR: #333;
+
+.frame {
+    border: 9px solid $PANEL_BORDER_COLOR;
+    border-radius: 9px;
+    box-shadow: 0px 16px 30px 0px #200;
+    background: $PANEL_BG_COLOR;
+}
+
+.topBox {
+    display: inline-block;
+    position: relative;
+    width: 400px;
+}    
+
+.h1 {
+    text-align: center;
+    color: $CAPTION_COLOR;
+    font-size: 130%;
+    line-height: 140%;
+}
+
+.loggedInUser{
+    text-align: center;
+}
+
+.label {
+    color: $CAPTION_COLOR;
+    font-size: 14px;
+}
+
+.counterArticle {
+    color: $CAPTION_COLOR;
+    font-size: 14px;
+    position: absolute;
+    left: 10px;
+    top: calc(50% - 17px);
+    height: 40px;
+}
+
+.counter {
+    color: $CAPTION_COLOR;
+    margin-top: 11px;
+}

@@ -1,23 +1,32 @@
-import styled from '@emotion/styled';
+import React from 'react';
+import cn from 'classnames';
+import styles from './Button.scss';
 
 export interface ButtonProps {
     active?: boolean;
     disabled?: boolean;
+    onClick?: () => void;
+    id?: string;
+    type?: 'submit' | 'reset';
 }
 
-export const Button = styled.button`
-    background: ${(props: ButtonProps) =>
-        props.disabled ? '#AAA' : props.active ? '#faa' : '#222'};
-    color: ${(props: ButtonProps) => (props.active ? '#222' : '#ddd')};
-    display: inline-block;
-    height: 25px;
-    margin: 0px 5px 0px 0px;
-    font-size: 14px;
-    border-radius: 5px;
-    letter-spacing: 0px;
-    border-style: outset;
-    border-color: #777;
-    border-width: 2px;
-    padding: 1px 6px;
-    box-sizing: border-box;
-`;
+export const Button: React.FC<ButtonProps> = ({
+    active,
+    disabled,
+    children,
+    onClick,
+    id,
+    type,
+}) => {
+    return (
+        <button
+            className={cn(styles.but, { disabled: disabled, active: active })}
+            disabled={disabled}
+            onClick={onClick}
+            id={id}
+            type={type}
+        >
+            {children}
+        </button>
+    );
+};

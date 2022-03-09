@@ -8,7 +8,7 @@ export const AppStateView: React.FC<AppStateViewProps> = ({ appState }) => {
     return (
         <>
             <article className="fieldSize">
-                <span className="label">field size=</span>
+                <span className="label1">field size=</span>
                 <span className="value">
                     [{appState.fieldWidth} x {appState.fieldHeight}]
                 </span>
