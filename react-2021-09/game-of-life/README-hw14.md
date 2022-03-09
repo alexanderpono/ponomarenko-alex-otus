@@ -1,4 +1,4 @@
-[А.Пономаренко. Домашние задания к курсам OTUS](../../README.md) / [Д/З к курсу React.js-2021-09 OTUS ](../README.md) / Домашнее задание 13
+[А.Пономаренко. Домашние задания к курсам OTUS](../../README.md) / [Д/З к курсу React.js-2021-09 OTUS ](../README.md) / Домашнее задание 14
 
 # Домашнее задание 14. Test quality tools
 
@@ -30,7 +30,7 @@
 * [application](https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw14/application)
 * [storybook](https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw14/storybook)
 * [test-report](https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw14/test-report/testResult.html)
-* [stryker-report](https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw14/stryker-report/testResult.html)
+* [stryker-report](https://alexanderpono.github.io/ponomarenko-alex-otus/react-2021-09/hw14/stryker-report/index.html)
 * [Тесты в chromatic](https://www.chromatic.com/builds?appId=6168a14038f17a003a388098){:target="_blank"}
 
 5. Покрытие кода тестами:
