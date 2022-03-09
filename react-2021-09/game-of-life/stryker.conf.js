@@ -8,4 +8,5 @@ module.exports = {
     reporters: ['html', 'clear-text', 'progress'],
     testRunner: 'jest',
     coverageAnalysis: 'perTest',
+    ignorePatterns: ['src/components/**/*.stories.ts*'],
 };
