@@ -14,3 +14,4 @@
 11. [Домашнее задание 11. Архитектура React-приложения](hw11/README.md)
 12. [Домашнее задание 12. Redux-saga advanced concept](hw12/README.md)
 13. [Домашнее задание 13. Продвинутая конфигурация приложения](hw13/README.md)
+14. [Домашнее задание 14. Test quality tools](hw14/README.md)

@@ -15,4 +15,5 @@ build-storybook.log
 .loki
 dist
 temp
+.stryker-tmp
 
