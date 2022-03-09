@@ -101,6 +101,7 @@ Ran all test suites.
 
 
 6. Отчет stryker (оценка качества тестов)
+
 ```
 
 Ran 16.42 tests per mutant on average.
