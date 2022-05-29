@@ -12,3 +12,6 @@
 9. [Домашнее задание 9. Redux middlewares and side effects](game-of-life/README-hw09.md)
 10. [Домашнее задание 10. Redux-saga intro](game-of-life/README-hw10.md)
 11. [Домашнее задание 11. Архитектура React-приложения](game-of-life/README-hw11.md)
+12. [Домашнее задание 12. Redux-saga advanced concept](game-of-life/README-hw12.md)
+13. [Домашнее задание 13. Продвинутая конфигурация приложения](game-of-life/README-hw13.md)
+14. [Домашнее задание 14. Test quality tools](game-of-life/README-hw14.md)

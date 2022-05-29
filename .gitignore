@@ -9,3 +9,6 @@ node-hw4-bkp
 node-hw4-ts-try
 node-hw4-UI-tests
 dist
+
+# stryker temp files
+.stryker-tmp

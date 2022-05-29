@@ -3,3 +3,6 @@ build-storybook.log
 temp
 dist
 
+
+# stryker temp files
+.stryker-tmp
