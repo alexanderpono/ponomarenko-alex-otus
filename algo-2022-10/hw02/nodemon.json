@@ -1,0 +1,13 @@
+{
+    "watch": ["src"],
+    "ext": "ts,json",
+    "ignore": ["src/**/*.spec.ts"],
+    "exec2": "ts-node --project tsconfig.json -r tsconfig-paths/register src/app.ts -c buildComponent -m auditPage",
+    "exec3": "ts-node --project tsconfig.json -r tsconfig-paths/register src/app.ts -c buildReducer -m auditReducer",
+    "exec5": "ts-node --project tsconfig.json -r tsconfig-paths/register src/app.ts -c buildReducer -m screenSharingReducer",
+    "exec6": "ts-node --project tsconfig.json -r tsconfig-paths/register src/app.ts -c buildReducer -m settingsReducer",
+    "exec7": "ts-node --project tsconfig.json -r tsconfig-paths/register src/app.ts -c buildComponent -m settingsMenu",
+    "exec": "ts-node --project tsconfig.json -r tsconfig-paths/register src/app.ts -c buildReducer -m settingsChannelReducer",
+    "exec8": "ts-node --project tsconfig.json -r tsconfig-paths/register src/app.ts -c buildComponent -m settingsAddChannelModal",
+    "exec4": "ts-node --project tsconfig.json -r tsconfig-paths/register src/app.ts -c buildReducer -m smartSearchSelectReducer"
+}
