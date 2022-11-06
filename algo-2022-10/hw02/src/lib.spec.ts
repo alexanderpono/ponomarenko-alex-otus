@@ -24,7 +24,7 @@ describe('get10eN', () => {
         ${1} | ${10}
         ${2} | ${100}
         ${5} | ${100000}
-    `('it returns $expected from $size', ({ N, expected }) => {
+    `('it returns $expected from $N', ({ N, expected }) => {
         expect(get10eN(N)).toEqual(expected);
     });
 });

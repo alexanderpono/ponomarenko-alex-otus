@@ -1,3 +1,5 @@
+import fs from 'fs';
+
 export function getCountOfSummasForNumber(nDigits: number): number {
     return nDigits * 9 + 1;
 }
@@ -92,4 +94,30 @@ export function getCountOfLuckyNumbers(N: number): number {
     const result = getVectorSumma(squares);
 
     return result;
+}
+
+export function getInput(id: number): number {
+    const inputData = fs
+        .readFileSync(`./src/1.Tickets/test.${id}.in`, { encoding: 'utf8', flag: 'r' })
+        .trim();
+
+    return parseInt(inputData);
+}
+
+export function getOutput(id: number): number {
+    const expectedOutput = fs
+        .readFileSync(`./src/1.Tickets/test.${id}.out`, {
+            encoding: 'utf8',
+            flag: 'r'
+        })
+        .trim();
+
+    return parseInt(expectedOutput);
+}
+export function doTest(id: number, input: number, expected: number) {
+    const result = getCountOfLuckyNumbers(input);
+    const resume = result === expected ? 'PASSED' : `FAILED actual: ${result}`;
+    console.log(
+        `test-${id}: getCountOfLuckyNumbers(${input}) should return ${expected}: \t${resume}`
+    );
 }
