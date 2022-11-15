@@ -45,8 +45,33 @@
 
 ## Выполнение д/з №3
 
+УРОВЕНЬ JUNIOR
+
 01. Реализован итеративный O(N) алгоритм возведения числа в степень. https://github.com/alexanderpono/ponomarenko-alex-otus/blob/master/algo-2022-10/hw03/src/pow.ts
 02. Реализован рекурсивный O(2^N) и итеративный O(N) алгоритмы поиска чисел Фибоначчи. https://github.com/alexanderpono/ponomarenko-alex-otus/blob/master/algo-2022-10/hw03/src/fib.ts
 03. Реализован алгоритм поиска количества простых чисел через перебор делителей, O(N^2). https://github.com/alexanderpono/ponomarenko-alex-otus/blob/master/algo-2022-10/hw03/src/primeNumbers.ts
 
 Собрано 3 байта. Потрачено время 1,5 часа
+
+УРОВЕНЬ MIDDLE
+
+11. +1 байт. Реализовать алгоритм возведения в степень через домножение O(N/2+LogN) = O(N). 
+- см. функцию powMult() 
+https://github.com/alexanderpono/ponomarenko-alex-otus/blob/master/algo-2022-10/hw03/src/pow.ts
+
+12. +1 байт. Реализовать алгоритм возведения в степень через двоичное разложение показателя степени O(2LogN) = O(LogN).
+- см. функцию powMultBinary() в 
+https://github.com/alexanderpono/ponomarenko-alex-otus/blob/master/algo-2022-10/hw03/src/pow.ts
+
+13. +1 байт. Реализовать алгоритм поиска чисел Фибоначчи по формуле золотого сечения. - см. функцию fibGoldenSection() в файле https://github.com/alexanderpono/ponomarenko-alex-otus/blob/master/algo-2022-10/hw03/src/fib.ts
+
+14. +1 байт. Написать класс умножения матриц, реализовать алгоритм возведения матрицы в степень через двоичное разложение показателя степени, реализовать алгоритм поиска чисел Фибоначчи O(LogN) через умножение матриц, используя созданный класс. 
+- написал функции fibMatrixBinaryDecompositionOfPower(), mult2x2()
+https://github.com/alexanderpono/ponomarenko-alex-otus/blob/master/algo-2022-10/hw03/src/fib.ts
+
+
+### Байты и затраты времени:
+задачи JUNIOR - 3 байта, 1,5 ч
+задачи MIDDLE - 4 байта, 3 ч
+
+### Язык программы: JS/TypeScript
