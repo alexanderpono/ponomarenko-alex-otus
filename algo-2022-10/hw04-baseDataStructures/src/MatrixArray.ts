@@ -1,6 +1,6 @@
 import { IArray } from './array.types';
 import { SingleArray } from './SingleArray';
-import { VectorArray } from './VecrorArray';
+import { VectorArray } from './VectorArray';
 
 export class MatrixArray implements IArray {
     public myName = 'MatrixArray';
@@ -35,5 +35,24 @@ export class MatrixArray implements IArray {
 
     public resize() {
         this.array.add(new VectorArray(this.vector));
+    }
+
+    public remove(index: number) {
+        const segmentIndex = Math.floor(index / this.vector);
+        const segment = this.array.get(segmentIndex) as VectorArray;
+        const localIndex = index % this.vector;
+        const result = segment.remove(localIndex);
+        return result;
+    }
+
+    public getArray(): unknown[] {
+        let result: unknown[] = [];
+        const arSize = this.array.size();
+        for (let i = 0; i < this.array.size(); i++) {
+            const segment: VectorArray = this.array.get(i) as VectorArray;
+            const segmentArray = segment.getArray();
+            result = [...result, ...segmentArray];
+        }
+        return result;
     }
 }

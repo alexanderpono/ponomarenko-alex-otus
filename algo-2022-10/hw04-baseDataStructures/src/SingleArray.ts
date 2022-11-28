@@ -8,6 +8,10 @@ export class SingleArray implements IArray {
         this.array = [];
     }
 
+    public getArray(): unknown[] {
+        return this.array;
+    }
+
     public add(item: unknown) {
         this.resize();
         this.array[this.size() - 1] = item;
@@ -27,5 +31,12 @@ export class SingleArray implements IArray {
             newArray[i] = this.array[i];
         }
         this.array = newArray;
+    }
+
+    public remove(index: number) {
+        const result = this.array[index];
+        const newAr: unknown[] = [...this.array.slice(0, index), ...this.array.slice(index + 1)];
+        this.array = newAr;
+        return result;
     }
 }

@@ -2,7 +2,7 @@ import { IArray } from './array.types';
 import { FactorArray } from './FactorArray';
 import { MatrixArray } from './MatrixArray';
 import { SingleArray } from './SingleArray';
-import { VectorArray } from './VecrorArray';
+import { VectorArray } from './VectorArray';
 
 export class Program {
     public static main() {

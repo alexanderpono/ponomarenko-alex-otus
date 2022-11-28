@@ -38,4 +38,19 @@ export class FactorArray implements IArray {
         }
         this.array = newArray;
     }
+
+    public remove(index: number) {
+        const result = this.array[index];
+        const newAr: unknown[] = [
+            ...this.array.slice(0, index),
+            ...this.array.slice(index + 1),
+            undefined
+        ];
+        this.array = newAr;
+        return result;
+    }
+
+    public getArray(): unknown[] {
+        return this.array;
+    }
 }

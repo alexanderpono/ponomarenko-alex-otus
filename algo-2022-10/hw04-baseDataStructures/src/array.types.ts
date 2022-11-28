@@ -4,4 +4,6 @@ export interface IArray {
     get: (index: number) => unknown;
     size: () => number;
     resize: () => void;
+    remove: (index: number) => unknown;
+    getArray: () => unknown;
 }
