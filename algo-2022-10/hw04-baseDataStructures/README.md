@@ -58,10 +58,16 @@ T dequeue() - выбрать элемент из очереди
 ## Выполнение д/з №4
 Сделано 1 задание (Динамические массивы)
 - реализованы классы SingleArray, VectorArray, FactorArray, MatrixArray.
+https://github.com/alexanderpono/ponomarenko-alex-otus/blob/master/algo-2022-10/hw04-baseDataStructures/src/SingleArray.ts
+https://github.com/alexanderpono/ponomarenko-alex-otus/blob/master/algo-2022-10/hw04-baseDataStructures/src/VectorArray.ts
+https://github.com/alexanderpono/ponomarenko-alex-otus/blob/master/algo-2022-10/hw04-baseDataStructures/src/FactorArray.ts
+https://github.com/alexanderpono/ponomarenko-alex-otus/blob/master/algo-2022-10/hw04-baseDataStructures/src/MatrixArray.ts
+
 - реализованы методы добавления и удаления элементов:
     void add(T item, int index);
     T remove(int index); 
-- созданы unit-тесты для проверки правильности работы кода.
+- созданы unit-тесты для проверки правильности работы кода:
+https://github.com/alexanderpono/ponomarenko-alex-otus/blob/master/algo-2022-10/hw04-baseDataStructures/src/Arrays.spec.ts
 
 ### Байты и затраты времени:
 - +3 байта
