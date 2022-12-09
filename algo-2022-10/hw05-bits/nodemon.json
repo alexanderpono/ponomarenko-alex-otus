@@ -1,6 +1,6 @@
 {
     "watch": ["src"],
-    "ext": "ts,json",
+    "ext": "ts,json,cpp",
     "ignore": ["src/**/*.spec.ts"],
-    "exec": "ts-node --project tsconfig.json -r tsconfig-paths/register src/app.ts"
+    "exec": "bash ./compile_run.sh"
 }
