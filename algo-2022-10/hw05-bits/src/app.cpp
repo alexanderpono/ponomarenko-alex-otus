@@ -1,24 +1,57 @@
 #include <stdio.h>
 #include <iostream>
 
-
 ulong getKingMoves(int pos);
-void printMoves(std::string s, int pos, ulong moveMask, int bitsCount); //
+void printMoves(std::string s, int pos, ulong moveMask, int bitsCount);
 int getBitsCount(ulong mask);
+ulong getHorseMoves(ulong horses, int pos);
+void printHorse(ulong horses, int pos);
+void printKing(int pos);
 
 int main(void) {
-    printMoves("kingMoves", 0, getKingMoves(0), getBitsCount(getKingMoves(0)));
-    printMoves("kingMoves", 63, getKingMoves(63), getBitsCount(getKingMoves(63)));
-    printMoves("kingMoves", 7, getKingMoves(7), getBitsCount(getKingMoves(7)));
-    printMoves("kingMoves", 56, getKingMoves(56), getBitsCount(getKingMoves(56)));
+    printKing(0);
+    printKing(63);
+    printKing(7);
+    printKing(56);
+    
+    printf("\n");
+
+    printHorse(1UL, 0);
+    printHorse(1UL, 7);
+    printHorse(1UL, 56);
+    printHorse(1UL, 63);
 
     return 0;
 }
 
+ulong noA = 0xfefefefefefefefe;
+ulong noH = 0x7f7f7f7f7f7f7f7f;
+ulong noG = 0xbfbfbfbfbfbfbfbf;
+ulong noB = 0xfdfdfdfdfdfdfdfd;
+
+ulong getHorseMoves(ulong horses, int pos) {
+    ulong H = horses << pos;
+
+    ulong a = H << 15;
+    ulong b = H << 17;
+    ulong c = H << 6;
+    ulong d = H << 10;
+    ulong e = H >> 10;
+    ulong f = H >> 6;
+    ulong g = H >> 17;
+    ulong h = H >> 15;
+
+    ulong mask = 
+        ((c | e) & (noH & noG)) |
+        ((a | g) & noH) |
+        ((b | h) & noA) |
+        ((d | f) & (noA & noB));
+
+    return mask;
+}
+
 ulong getKingMoves(int pos) {
     ulong K = 1UL << pos;
-    ulong noA = 0xfefefefefefefefe;
-    ulong noH = 0x7f7f7f7f7f7f7f7f;
     ulong Ka = K & noA;
     ulong Kh = K & noH;
     ulong mask = 
@@ -44,4 +77,12 @@ int getBitsCount(ulong mask) {
         curMask = curMask >> 1;
     }
     return bitsCount;
+}
+
+void printHorse(ulong horses, int pos) {
+    printMoves("horseMoves", pos, getHorseMoves(horses, pos), getBitsCount(getHorseMoves(horses, pos)));
+}
+
+void printKing(int pos) {
+    printMoves("kingMoves", pos, getKingMoves(pos), getBitsCount(getKingMoves(pos)));
 }
