@@ -7,6 +7,7 @@ int getBitsCount(ulong mask);
 ulong getHorseMoves(ulong horses, int pos);
 void printHorse(ulong horses, int pos);
 void printKing(int pos);
+int getBitsCountFaster(ulong mask);
 
 int main(void) {
     printKing(0);
@@ -80,9 +81,19 @@ int getBitsCount(ulong mask) {
 }
 
 void printHorse(ulong horses, int pos) {
-    printMoves("horseMoves", pos, getHorseMoves(horses, pos), getBitsCount(getHorseMoves(horses, pos)));
+    printMoves("horseMoves", pos, getHorseMoves(horses, pos), getBitsCountFaster(getHorseMoves(horses, pos)));
 }
 
 void printKing(int pos) {
-    printMoves("kingMoves", pos, getKingMoves(pos), getBitsCount(getKingMoves(pos)));
+    printMoves("kingMoves", pos, getKingMoves(pos), getBitsCountFaster(getKingMoves(pos)));
+}
+
+int getBitsCountFaster(ulong mask) {
+    int bitsCount = 0;
+    while (mask != 0)
+    {
+        mask &= (mask - 1);
+        bitsCount ++;
+    }
+    return bitsCount;
 }
