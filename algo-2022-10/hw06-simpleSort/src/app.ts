@@ -1,8 +1,8 @@
 import { Sort } from './Sort';
 
 class App {
-    doSort(method: string) {
-        for (let N = 100; N <= 100000; N *= 10) {
+    doSort(method: string, maxN: number) {
+        for (let N = 100; N <= maxN; N *= 10) {
             const sort = new Sort();
             sort.setRandom(N);
             const start = Date.now();
@@ -13,11 +13,11 @@ class App {
     }
 
     main() {
-        this.doSort('bubble');
-        this.doSort('insertion');
-        this.doSort('insertionShift');
-        this.doSort('insertionBinarySearch');
-        this.doSort('shell');
+        this.doSort('bubble', 100000);
+        this.doSort('insertion', 100000);
+        this.doSort('insertionShift', 100000);
+        this.doSort('insertionBinarySearch', 100000);
+        this.doSort('shell', 1000000);
     }
 
     static create(): App {
