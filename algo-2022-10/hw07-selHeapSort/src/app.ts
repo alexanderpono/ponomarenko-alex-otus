@@ -14,6 +14,12 @@ class App {
 
     main() {
         this.doSort('bubble', 100000);
+        this.doSort('insertion', 100000);
+        this.doSort('insertionShift', 100000);
+        this.doSort('insertionBinarySearch', 100000);
+        this.doSort('shell', 1000000);
+        this.doSort('selection', 100000);
+        this.doSort('heapSort', 1000000);
     }
 
     static create(): App {
