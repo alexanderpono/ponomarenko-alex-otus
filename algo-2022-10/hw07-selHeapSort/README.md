@@ -48,8 +48,34 @@ HIP1. +1 байт. Реализовать алгоритм HeapSort.
 ```
 
 ## Выполнение д/з №7
+УРОВЕНЬ JUNIOR.
+
+SEL1. +1 байт. Реализовать алгоритм SelectionSort.
+- см. Sort::selection() в файле https://github.com/alexanderpono/ponomarenko-alex-otus/blob/master/algo-2022-10/hw07-selHeapSort/src/Sort.ts
+
+HIP1. +1 байт. Реализовать алгоритм HeapSort.
+- см. Sort::heapSort() в файле https://github.com/alexanderpono/ponomarenko-alex-otus/blob/master/algo-2022-10/hw07-selHeapSort/src/Sort.ts
+
+УРОВЕНЬ MIDDLE.
+
++3 байта. Занести в сравнительную таблицу время сортировки случайного массива размером 10^2, 10^3, 10^4, 10^5, 10^6 для каждого реализованного алгоритма (дольше двух минут можно не ждать).
+
+N | 100 | 1000 | 10000 | 100_000 | 1_000_000
+--- | --- | --- | --- | --- | ---
+Метод | msec | msec | msec | msec | msec
+bubble | 1 | 6 | 314 | 29787 | > 2min
+insertion | 0 | 3 | 71 | 6719 | > 2min
+insertionShift | 1 | 3 | 79 | 6696 | > 2min
+insertionBinarySearch | 1 | 4 | 54 | 5124 | > 2min
+shell | 8 | 53 | 570 | 5667 | 68641
+selection | 1 | 2 | 49 | 4085 | > 2min
+heapSort | 1 | 2 | 6 | 41 | 450
+
 
 ### Байты и затраты времени:
++5 байт
+
+затраты времени: 1,5 часа
 
 ### Язык программы: Javascript/Typescript
 

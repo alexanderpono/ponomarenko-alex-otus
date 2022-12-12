@@ -7,3 +7,4 @@
 4. [Домашнее задание 4. Динамические массивы, неполный массив, очередь с приоритетом](hw04-baseDataStructures/README.md)
 5. [Домашнее задание 5. Битовая арифметика](hw05-bits/README.md)
 6. [Домашнее задание 6. BubbleSort, InsertionSort, ShellSort](hw06-simpleSort/README.md)
+7. [Домашнее задание 7. SelectionSort, HeapSort](hw07-selHeapSort/README.md)

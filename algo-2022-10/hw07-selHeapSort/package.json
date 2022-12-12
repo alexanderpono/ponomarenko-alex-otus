@@ -1,7 +1,7 @@
 {
-  "name": "ap-otus-algo-2022-10-hw06",
+  "name": "ap-otus-algo-2022-10-hw07",
   "version": "1.0.0",
-  "description": "Домашнее задание 6. BubbleSort, InsertionSort, ShellSort",
+  "description": "Домашнее задание 7. SelectionSort, HeapSort",
   "main": "src/app.ts",
   "scripts": {
     "start": "ts-node --project tsconfig.json -r tsconfig-paths/register src/app.ts",
