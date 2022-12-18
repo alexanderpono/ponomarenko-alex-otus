@@ -1,3 +1,5 @@
+import { SortResult } from './types';
+
 export class Sort {
     N: number = 0;
     cmp: number = 0;
@@ -19,7 +21,7 @@ export class Sort {
         this.A[indexB] = tmp;
     };
 
-    insertion = () => {
+    insertion = (): SortResult => {
         for (let j = 1; j < this.N; j++) {
             for (let i = j - 1; i >= 0 && ++this.cmp > 0 && this.A[i] > this.A[i + 1]; i--) {
                 this.swap(i, i + 1);
@@ -33,7 +35,7 @@ export class Sort {
         };
     };
 
-    insertionShift = () => {
+    insertionShift = (): SortResult => {
         for (let j = 1; j < this.N; j++) {
             let K = this.A[j];
             this.asg++;
@@ -51,11 +53,28 @@ export class Sort {
         };
     };
 
-    insertionBinarySearch = () => {
+    insertionBinarySearch = (): SortResult => {
+        const binarySearch = (key: number, low: number, high: number) => {
+            if (high <= low) {
+                if (key > this.A[low]) {
+                    return low + 1;
+                } else {
+                    return low;
+                }
+            }
+            let mid = Math.floor((low + high) / 2);
+            this.cmp++;
+            if (key > this.A[mid]) {
+                return binarySearch(key, mid + 1, high);
+            } else {
+                return binarySearch(key, low, mid - 1);
+            }
+        };
+
         for (let j = 1; j < this.N; j++) {
             let K = this.A[j];
             this.asg++;
-            const p = this.binarySearch(K, 0, j - 1);
+            const p = binarySearch(K, 0, j - 1);
             let i = 0;
             for (i = j - 1; i >= p; i--) {
                 this.A[i + 1] = this.A[i];
@@ -72,24 +91,7 @@ export class Sort {
         };
     };
 
-    binarySearch = (key: number, low: number, high: number) => {
-        if (high <= low) {
-            if (key > this.A[low]) {
-                return low + 1;
-            } else {
-                return low;
-            }
-        }
-        let mid = Math.floor((low + high) / 2);
-        this.cmp++;
-        if (key > this.A[mid]) {
-            return this.binarySearch(key, mid + 1, high);
-        } else {
-            return this.binarySearch(key, low, mid - 1);
-        }
-    };
-
-    shell = () => {
+    shell = (): SortResult => {
         for (let gap = this.N / 2; gap > 0; gap /= 2) {
             for (let i = gap; i < this.N; i++) {
                 for (
@@ -133,13 +135,31 @@ export class Sort {
         }
     };
 
-    heapSort = () => {
+    heapSort = (): SortResult => {
+        const heapify = (root: number, size: number) => {
+            let X = root;
+            let L = 2 * X + 1;
+            let R = L + 1;
+
+            if (L < size && this.A[L] > this.A[X]) {
+                X = L;
+            }
+            if (R < size && this.A[R] > this.A[X]) {
+                X = R;
+            }
+            if (X === root) {
+                return;
+            }
+            this.swap(root, X);
+            heapify(X, size);
+        };
+
         for (let h = this.A.length / 2 - 1; h >= 0; h--) {
-            this.heapify(h, this.A.length);
+            heapify(h, this.A.length);
         }
         for (let j = this.A.length - 1; j > 0; j--) {
             this.swap(0, j);
-            this.heapify(0, j);
+            heapify(0, j);
         }
         return {
             method: 'heapSort',
@@ -149,27 +169,19 @@ export class Sort {
         };
     };
 
-    heapify = (root: number, size: number) => {
-        let X = root;
-        let L = 2 * X + 1;
-        let R = L + 1;
+    selection = (): SortResult => {
+        const findMax = (lastIndex: number) => {
+            let maxIndex = 0;
+            for (let i = 1; i <= lastIndex; i++) {
+                if (this.A[i] > this.A[maxIndex]) {
+                    maxIndex = i;
+                }
+            }
+            return maxIndex;
+        };
 
-        if (L < size && this.A[L] > this.A[X]) {
-            X = L;
-        }
-        if (R < size && this.A[R] > this.A[X]) {
-            X = R;
-        }
-        if (X === root) {
-            return;
-        }
-        this.swap(root, X);
-        this.heapify(X, size);
-    };
-
-    selection = () => {
         for (let j = this.A.length - 1; j > 0; j--) {
-            this.swap(this.findMax(j), j);
+            this.swap(findMax(j), j);
         }
         return {
             method: 'selection',
@@ -179,13 +191,36 @@ export class Sort {
         };
     };
 
-    findMax = (lastIndex: number) => {
-        let maxIndex = 0;
-        for (let i = 1; i <= lastIndex; i++) {
-            if (this.A[i] > this.A[maxIndex]) {
-                maxIndex = i;
+    quickSort = (): SortResult => {
+        const split = (L: number, R: number): number => {
+            const P = this.A[R];
+            let m = L - 1;
+            for (let j = L; j <= R; j++) {
+                this.cmp++;
+                if (this.A[j] <= P) {
+                    this.swap(++m, j);
+                }
             }
-        }
-        return maxIndex;
+            return m;
+        };
+
+        const sort = (L: number, R: number): void => {
+            this.cmp++;
+            if (L >= R) {
+                return;
+            }
+            const M = split(L, R);
+            sort(L, M - 1);
+            sort(M + 1, R);
+        };
+
+        sort(0, this.A.length - 1);
+
+        return {
+            method: 'quickSort',
+            array: this.A,
+            compares: this.cmp,
+            assignments: this.asg
+        };
     };
 }
