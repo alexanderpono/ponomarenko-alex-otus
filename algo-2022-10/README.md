@@ -7,4 +7,5 @@
 4. [Домашнее задание 5. Битовая арифметика](hw05-bits/README.md)
 5. [Домашнее задание 6. BubbleSort, InsertionSort, ShellSort](hw06-simpleSort/README.md)
 6. [Домашнее задание 7. SelectionSort, HeapSort](hw07-selHeapSort/README.md)
-7. [Домашнее задание 13. Хэш-таблицы, часть I](hw13-hashTables1/README.md)
+7. [Домашнее задание 8. QuickSort, MergeSort, ExternalSort](hw08-quickExtSort/README.md)
+8. [Домашнее задание 13. Хэш-таблицы, часть I](hw13-hashTables1/README.md)

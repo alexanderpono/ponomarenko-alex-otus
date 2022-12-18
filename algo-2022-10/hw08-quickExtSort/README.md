@@ -57,10 +57,65 @@ T = 10, N. (всего 10 вариантов сочетания N и T).
 ```
 
 ## Выполнение д/з №8
+УРОВЕНЬ JUNIOR.
+
+QS1. +1 байт. Реализован алгоритм быстрой сортировки QuickSort.
+
+(см. функцию quickSort() в файле https://github.com/alexanderpono/ponomarenko-alex-otus/blob/master/algo-2022-10/hw08-quickExtSort/src/Sort.ts)
+
+MS2. +1 байт. Реализован алгоритм сортировки слиянием MergeSort.
+
+(см. функцию mergeSort() в файле https://github.com/alexanderpono/ponomarenko-alex-otus/blob/master/algo-2022-10/hw08-quickExtSort/src/Sort.ts)
+
++2 байта. Занести в сравнительную таблицу время сортировки
+случайного массива размером 10^2, 10^3, 10^4, 10^5, 10^6
+для каждого реализованного алгоритма, timeout 2 минуты.
+
+N | 100 | 1000 | 10000 | 100_000 | 1_000_000
+--- | --- | --- | --- | --- | ---
+Метод | msec | msec | msec | msec | msec
+bubble | 1 | 6 | 314 | 29787 | > 2min
+insertion | 0 | 3 | 71 | 6719 | > 2min
+insertionShift | 1 | 3 | 79 | 6696 | > 2min
+insertionBinarySearch | 1 | 4 | 54 | 5124 | > 2min
+shell | 8 | 53 | 570 | 5667 | 68641
+selection | 1 | 2 | 49 | 4085 | > 2min
+heapSort | 1 | 2 | 6 | 41 | 450
+quickSort | 0 | 2 | 3 | 18 | 444
+mergeSort | 1 | 2 | 4 | 31 | 276
+
 
 ### Байты и затраты времени:
++4 байта
 
+Затрачено времени: 2,5 часа
 ### Язык программы: Javascript/Typescript
+
+### Запуск программы
+Предусловие: необходима установленная версия node.js 12.22.12 или 14.x
+- https://nodejs.org/download/release/v12.22.12/
+- https://nodejs.org/download/release/v14.21.2/
+
+1. Клонировать проект: 
+```
+git clone https://github.com/alexanderpono/ponomarenko-alex-otus.git
+```
+
+2. Зайти в папку д/з №8: 
+```
+cd ./ponomarenko-alex-otus/algo-2022-10/hw08-quickExtSort 
+```
+
+3. установить зависимости:  
+```
+npm i
+```
+
+4. Запустить программу (см. https://github.com/alexanderpono/ponomarenko-alex-otus/blob/master/algo-2022-10/hw08-quickExtSort/src/app.ts)
+```
+npm start
+```
+
 
 
 

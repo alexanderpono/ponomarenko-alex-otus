@@ -10,19 +10,16 @@ class App {
             const result: SortResult = sort[method]();
             const end = Date.now();
             console.log(`${result.method} N:${result.array.length} time: ${end - start}`);
-            // console.log(
-            //     `${result.method} N:${result.array.length} ar:${result.array} time: ${end - start}`
-            // );
         }
     }
 
     main() {
-        // this.doSort('bubble', 100000);
-        // this.doSort('insertion', 100000);
-        // this.doSort('insertionShift', 100000);
-        // this.doSort('insertionBinarySearch', 100000);
-        // this.doSort('shell', 1000000);
-        // this.doSort('selection', 100000);
+        this.doSort('bubble', 100000);
+        this.doSort('insertion', 100000);
+        this.doSort('insertionShift', 100000);
+        this.doSort('insertionBinarySearch', 100000);
+        this.doSort('shell', 1000000);
+        this.doSort('selection', 100000);
         this.doSort('heapSort', 1000000);
         this.doSort('quickSort', 1000000);
         this.doSort('mergeSort', 1000000);

@@ -14,6 +14,23 @@ export class Sort {
         return this;
     }
 
+    bubble = (): SortResult => {
+        for (let j = this.N - 1; j >= 0; j--) {
+            for (let i = 0; i < j; i++) {
+                this.cmp++;
+                if (this.A[i] > this.A[i + 1]) {
+                    this.swap(i, i + 1);
+                }
+            }
+        }
+        return {
+            method: 'bubble',
+            array: this.A,
+            compares: this.cmp,
+            assignments: this.asg
+        };
+    };
+
     swap = (indexA: number, indexB: number) => {
         this.asg += 3;
         const tmp = this.A[indexA];
