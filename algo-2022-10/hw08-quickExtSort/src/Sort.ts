@@ -223,4 +223,47 @@ export class Sort {
             assignments: this.asg
         };
     };
+
+    mergeSort = (): SortResult => {
+        const merge = (L: number, M: number, R: number): void => {
+            const T: number[] = new Array(R - L + 1);
+            let a = L;
+            let b = M + 1;
+            let m = 0;
+            while (a <= M && b <= R) {
+                if (this.A[a] < this.A[b]) {
+                    T[m++] = this.A[a++];
+                } else {
+                    T[m++] = this.A[b++];
+                }
+            }
+            while (a <= M) {
+                T[m++] = this.A[a++];
+            }
+            while (b <= R) {
+                T[m++] = this.A[b++];
+            }
+            for (let i = L; i <= R; i++) {
+                this.A[i] = T[i - L];
+            }
+        };
+        const sort = (L: number, R: number): void => {
+            if (L >= R) {
+                return;
+            }
+            const M = Math.floor((L + R) / 2);
+            sort(L, M);
+            sort(M + 1, R);
+            merge(L, M, R);
+        };
+
+        sort(0, this.A.length - 1);
+
+        return {
+            method: 'mergeSort',
+            array: this.A,
+            compares: this.cmp,
+            assignments: this.asg
+        };
+    };
 }

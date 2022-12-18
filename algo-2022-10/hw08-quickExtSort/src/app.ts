@@ -25,6 +25,7 @@ class App {
         // this.doSort('selection', 100000);
         this.doSort('heapSort', 1000000);
         this.doSort('quickSort', 1000000);
+        this.doSort('mergeSort', 1000000);
     }
 
     static create(): App {
