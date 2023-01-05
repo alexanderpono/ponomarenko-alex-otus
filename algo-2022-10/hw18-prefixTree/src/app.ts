@@ -1,1 +1,3 @@
-console.log('app!!');
+import { Program } from './Program';
+
+Program.create().main();
