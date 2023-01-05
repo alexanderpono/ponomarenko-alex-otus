@@ -10,3 +10,4 @@
 7. [Домашнее задание 8. QuickSort, MergeSort, ExternalSort](hw08-quickExtSort/README.md)
 8. [Домашнее задание 13. Хэш-таблицы, часть I](hw13-hashTables1/README.md)
 9. [Домашнее задание 17. Алгоритм Демукрона](hw17-searchAndSort/README.md)
+10. [Домашнее задание 18. Создание префиксного дерева](hw18-prefixTree/README.md)
