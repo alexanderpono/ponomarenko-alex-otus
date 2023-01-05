@@ -43,3 +43,69 @@
 ```
 
 ## Выполнение д/з №17
+1. Реализован алгоритм Демукрона для топологической сортировки графа
+
+- создан класс Graph, основной метод - sortDemucron() (см. https://github.com/alexanderpono/ponomarenko-alex-otus/blob/master/algo-2022-10/hw17-searchAndSort/src/Graph.ts)
+
+- Код класса Graph частично покрыт unit-тестами (см. https://github.com/alexanderpono/ponomarenko-alex-otus/blob/master/algo-2022-10/hw17-searchAndSort/src/Graph.spec.ts)
+
+### затраты времени:
+- Затраты времени - 3 часа.
+### Язык программы: Javascript/Typescript
+
+### Запуск программы
+Предусловие: необходима установленная версия node.js 12.22.12 или 14.x
+- https://nodejs.org/download/release/v12.22.12/
+- https://nodejs.org/download/release/v14.21.2/
+
+1. Клонировать проект: 
+```
+git clone https://github.com/alexanderpono/ponomarenko-alex-otus.git
+```
+
+2. Зайти в папку д/з №17: 
+```
+cd ./ponomarenko-alex-otus/algo-2022-10/hw17-searchAndSort  
+```
+
+3. установить зависимости:  
+```
+npm i
+```
+
+4. Запустить unit-тесты
+```
+npm test
+```
+
+5. Запустить программу (см. https://github.com/alexanderpono/ponomarenko-alex-otus/blob/master/algo-2022-10/hw17-searchAndSort/src/app.ts).
+В качестве исходных данных взята метрица смежности графа из соответствующего вебинара.
+
+```
+npm start
+```
+
+Вывод программы:
+```
+[[0,1,0,0,0,0,0,0],[0,0,0,0,1,0,0,0],[0,0,0,1,0,0,0,0],[1,1,0,0,1,1,0,0],[0,0,0,0,0,0,1,0],[0,0,0,0,1,0,0,1],[0,0,0,0,0,0,0,1],[0,0,0,0,0,0,0,0]]
+[1,2,0,1,3,1,1,2]
+sort() summa= [1,2,0,1,3,1,1,2]
+sort() curLevel= [2]
+sort() summa(1)= [1,2,-1,0,3,1,1,2]
+sort() curLevel= [3]
+sort() summa(2)= [0,1,-1,-1,2,0,1,2]
+sort() curLevel= [0,5]
+sort() summa(3)= [-1,0,-1,-1,1,-1,1,1]
+sort() curLevel= [1]
+sort() summa(4)= [-1,-1,-1,-1,0,-1,1,1]
+sort() curLevel= [4]
+sort() summa(5)= [-1,-1,-1,-1,-1,-1,0,1]
+sort() curLevel= [6]
+sort() summa(6)= [-1,-1,-1,-1,-1,-1,-1,0]
+sort() curLevel= [7]
+sort() summa(7)= [-1,-1,-1,-1,-1,-1,-1,-1]
+sort() curLevel= []
+[[2],[3],[0,5],[1],[4],[6],[7]]
+
+```
+
