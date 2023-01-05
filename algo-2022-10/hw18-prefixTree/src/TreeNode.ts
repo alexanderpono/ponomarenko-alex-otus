@@ -2,12 +2,14 @@ export const A = 96;
 export const MIN_CODE = ' '.charCodeAt(0);
 
 export class TreeNode {
-    child: TreeNode[];
+    child: (TreeNode | null)[];
     isEnd: boolean;
+    value: unknown;
 
     constructor() {
         this.child = new Array(A).fill(null);
         this.isEnd = false;
+        this.value = undefined;
     }
 
     getIndex = (char: string) => {
@@ -15,7 +17,7 @@ export class TreeNode {
         return index;
     };
 
-    next = (c: string): TreeNode => {
+    next = (c: string): TreeNode | null => {
         const index = this.getIndex(c);
         if (!this.exists(c)) {
             this.child[index] = new TreeNode();

@@ -7,13 +7,18 @@ export class Trie {
         this.root = new TreeNode();
     }
 
-    insert(word: string): Trie {
+    protected insert_ = (word: string): TreeNode => {
         let node = this.root;
         const chars = word.split('');
         chars.forEach((char: string) => {
-            node = node.next(char);
+            node = node.next(char) as TreeNode;
         });
         node.isEnd = true;
+        return node;
+    };
+
+    insert(word: string): Trie {
+        this.insert_(word);
         return this;
     }
 
@@ -23,7 +28,7 @@ export class Trie {
         for (let i = 0; i < chars.length; i++) {
             const char = chars[i];
             if (node.exists(char)) {
-                node = node.next(char);
+                node = node.next(char) as TreeNode;
             } else {
                 return null;
             }
