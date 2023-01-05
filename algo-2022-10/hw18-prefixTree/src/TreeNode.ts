@@ -1,5 +1,5 @@
-const A = 96;
-const MIN_CODE = ' '.charCodeAt(0);
+export const A = 96;
+export const MIN_CODE = ' '.charCodeAt(0);
 
 export class TreeNode {
     child: TreeNode[];
