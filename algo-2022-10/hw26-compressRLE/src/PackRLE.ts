@@ -1,4 +1,4 @@
-interface ArchiveRecord {
+export interface ArchiveRecord {
     char: number;
     count: number;
 }
@@ -50,6 +50,24 @@ export class PackRLE {
             .map((record: ArchiveRecord) => `${record.count}-${String.fromCharCode(record.char)}`)
             .join(',');
 
+    static archiveDataToNumbers = (archiveData: ArchiveRecord[]): number[] =>
+        archiveData.reduce((prev: number[], record: ArchiveRecord) => {
+            return [...prev, record.count, record.char];
+        }, []);
+
+    static numbersToArchiveData = (data: number[]): ArchiveRecord[] => {
+        const archiveData: ArchiveRecord[] = [];
+        for (let i = 0; i < data.length; i += 2) {
+            const count = data[i];
+            const charCode = data[i + 1];
+            archiveData.push({
+                count,
+                char: charCode
+            });
+        }
+        return archiveData;
+    };
+
     static stringToCodesArray = (text: string): number[] =>
         text.split('').map((char: string) => char.charCodeAt(0));
 
@@ -64,6 +82,11 @@ export class PackRLE {
 
     static codesArrayToString = (codes: number[]): string =>
         codes.map((code: number) => String.fromCharCode(code)).join('');
+
+    static bufferToCodesArray = (buffer: Buffer): number[] =>
+        buffer.reduce((prev: number[], code: number) => {
+            return [...prev, code];
+        }, []);
 
     static create(): PackRLE {
         return new PackRLE();
