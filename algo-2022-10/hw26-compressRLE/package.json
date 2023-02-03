@@ -1,5 +1,5 @@
 {
-  "name": "pack",
+  "name": "rle",
   "version": "1.0.0",
   "description": "Домашнее задание 26. Программа сжатия файлов на основе алгоритма RLE",
   "main": "src/app.ts",
