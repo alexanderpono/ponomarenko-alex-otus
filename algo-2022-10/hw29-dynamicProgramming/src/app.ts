@@ -1,10 +1,12 @@
 import { CristmasTree } from './CristmasTree';
+import { Islands } from './Islands';
 import { Solve5x8 } from './Solve5x8';
 
 class Program {
     main() {
         this.runCristmasTree();
         this.run5x8();
+        this.runIslands();
     }
 
     runCristmasTree = () => {
@@ -29,6 +31,21 @@ class Program {
         console.log(
             `run5x8 count of 5/8(no555/no888) numbers of length(${N})=`,
             solve5x8.countNumbers(solve5x8.getResultsTable(solve5x8.getWorkTable(N)), N)
+        );
+    };
+
+    runIslands = () => {
+        console.log('\n================ runIslands ================');
+        const islands = new Islands();
+        const srcIslands = `
+1 1 0 0
+1 0 0 1
+1 0 1 0
+0 1 1 0
+`;
+        console.log(
+            `runIslands result =`,
+            islands.countIslands(islands.getMatrixFromString(srcIslands))
         );
     };
 
