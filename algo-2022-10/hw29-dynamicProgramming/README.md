@@ -67,3 +67,250 @@ https://www.robotsharp.info/otus/
 ```
 
 ## Выполнение д/з №29
+Реализована первая часть д/з:
+1. Цифровая ёлочка +1 байт
+   https://github.com/alexanderpono/ponomarenko-alex-otus/blob/master/algo-2022-10/hw29-dynamicProgramming/src/CristmasTree.ts
+    
+2. Пятью-восемь +1байт
+   https://github.com/alexanderpono/ponomarenko-alex-otus/blob/master/algo-2022-10/hw29-dynamicProgramming/src/Solve5x8.ts
+    
+3. Острова +1 байт.
+   https://github.com/alexanderpono/ponomarenko-alex-otus/blob/master/algo-2022-10/hw29-dynamicProgramming/src/Islands.ts
+
+4. Поиск наибольшего общего делителя +1 байт
+    Программа на JavaScript: 
+    https://github.com/alexanderpono/ponomarenko-alex-otus/blob/master/algo-2022-10/hw29-dynamicProgramming/src/GCD.ts
+
+    Unit-тесты для программы на JavaScript:
+    https://github.com/alexanderpono/ponomarenko-alex-otus/blob/master/algo-2022-10/hw29-dynamicProgramming/src/GCD.spec.ts
+
+    Программа на C++:
+    https://github.com/alexanderpono/ponomarenko-alex-otus/blob/master/algo-2022-10/hw29-dynamicProgramming/src/GCD.cpp
+
+   
+
+### Затраты времени:
+4,5 часа
+
+### Количество байт:
+4
+### Языки программы: Javascript/Typescript, C++
+
+
+### Запуск программы. Предусловия: 
+1. необходима установленная версия node.js 12.22.12 или 14.x
+- https://nodejs.org/download/release/v12.22.12/
+- https://nodejs.org/download/release/v14.21.2/
+
+2. необходим компилятор C++ для компиляции программы на C++
+3. скрипт автоматического запуска рассчитан на ОС Linux. на других операционных системах потребуется раздельный запуск:
+```
+npm start
+g++ -Wall -g --std=c++11 src/GCD.cpp -o output/GCD -lstdc++
+./output/GCD
+```
+
+### Запуск программы. Пошаговая инструкция: 
+
+1. Клонировать проект: 
+```
+git clone https://github.com/alexanderpono/ponomarenko-alex-otus.git
+```
+
+2. Зайти в папку д/з №29: 
+```
+cd ./ponomarenko-alex-otus/algo-2022-10/hw29-dynamicProgramming
+```
+
+3. установить зависимости:  
+```
+npm i
+```
+
+4. Запустить unit-тесты
+```
+npm test
+```
+
+5. Если есть Linux и установлены все зависимости - запустить общий скрипт. В противном случае - перейти к п. 6
+```
+bash ./compile_run.sh 
+```
+
+
+### Запуск программы. Резервный вариант запуска программы (требуется предварителтно выполнить пп.1-4 выше):
+
+6. Запустить JS-программу (см. https://github.com/alexanderpono/ponomarenko-alex-otus/blob/master/algo-2022-10/hw29-dynamicProgramming/src/app.ts)
+```
+npm start
+```
+
+7. Откомпилировать  CPP-программу 
+```
+g++ -Wall -g --std=c++11 src/GCD.cpp -o output/GCD -lstdc++
+```
+
+8. Запустить CPP-программу
+```
+./output/GCD
+```
+
+
+### Результаты вывода программы с комментариями
+Задача "Цифровая ёлочка"
+
+```
+================ runCristmasTree ================
+```
+
+В качестве входных данных использованы данные из урока, представленные в виде человекочитаемого текста - пирамиды цифр:
+```
+CristmasTree::toTree() s= 
+1
+2 3
+4 5 6
+9 8 0 3
+```
+
+Результат преобразования входного текста к структуре данных "двумерный массив чисел":
+
+```
+CristmasTree::getMaxPathCost() srcTree= [ [ 1 ], [ 2, 3 ], [ 4, 5, 6 ], [ 9, 8, 0, 3 ] ]
+
+CristmasTree::getMaxPathCost() tree= [ [ 1 ], [ 2, 3 ], [ 4, 5, 6 ], [ 9, 8, 0, 3 ] ]
+
+```
+В соответствии с алгоритмом - идет движение по елочке снизу вверх с расчетом наибольшего количества очков, достижимого из текущего узла ёлочки:
+```
+CristmasTree::getMaxPathCost() tree[y]= [ 13, 13, 9 ]
+CristmasTree::getMaxPathCost() tree[y]= [ 15, 16 ]
+CristmasTree::getMaxPathCost() tree[y]= [ 17 ]
+```
+
+Результат вычисления:
+```
+runCristmasTree max cost= 17
+```
+
+В задаче "5x8" идет поиск количества целых чисел длины N, которые состоят только из цифр 5 и 8 при условии, что подряд может идти не больше двух 5 и 8, для длины чисел N = 8.
+
+В соответствии с алгоритмом - расчет идет от коротких чисел к длинным, следующий этап опирается на результат предыдущего.
+
+Исходные структуры данных:
+```
+================ run5x8 ================
+Solve5x8::getWorkTable() N= 8
+Solve5x8::getWorkTable() workTable= [
+  [ 0, 0, 0, 0 ],
+  [ 0, 0, 0, 0 ],
+  [ 0, 0, 0, 0 ],
+  [ 0, 0, 0, 0 ],
+  [ 0, 0, 0, 0 ],
+  [ 0, 0, 0, 0 ],
+  [ 0, 0, 0, 0 ],
+  [ 0, 0, 0, 0 ]
+]
+```
+
+Рассчитана рабочая таблица. Каждая строка таблицы - вспомогательные данные для чисел длины N=1, 2, 3 ... 8.
+В строках приведены 4 числа - количесто чисел соответствующей длины N, которые оканчиваются на: x5, x55, x8, x88
+```
+Solve5x8::getWorkTable() workTable= [
+  [ 1, 0, 1, 0 ],
+  [ 1, 1, 1, 1 ],
+  [ 2, 1, 2, 1 ],
+  [ 3, 2, 3, 2 ],
+  [ 5, 3, 5, 3 ],
+  [ 8, 5, 8, 5 ],
+  [ 13, 8, 13, 8 ],
+  [ 21, 13, 21, 13 ]
+]
+```
+В каждой строке 4 числа суммируются и получается массив с результатами для чисел длины от 1 до 8:
+```
+Solve5x8::getResultsTable() resultTable= [
+   2,  4,  6, 10,
+  16, 26, 42, 68
+]
+
+```
+Результат для чисел длины N = 8:
+
+```
+run5x8 count of 5/8(no555/no888) numbers of length(8)= 68
+
+```
+
+Задача "Острова" - найти количество островов на карте. Две ячейки принадлежат к одному острову, если они являются соседями по вертикали или горизонтали.
+
+Исходная карта. Единицами 1 обозначена суша:
+```
+================ runIslands ================
+Islands::getMatrixFromString() s= 
+1 1 0 0
+1 0 0 1
+1 0 1 0
+0 1 1 0
+
+Islands::countIslands() islandsMatrix= 
+1 1 0 0
+1 0 0 1
+1 0 1 0
+0 1 1 0
+```
+
+Карта после шага 1. Найденный остров стирается с рабочей копии карты:
+```
+Islands::countIslands() after del islandsMatrix= 
+0 0 0 0
+0 0 0 1
+0 0 1 0
+0 1 1 0
+```
+
+Карта после 2 шага:
+```
+Islands::countIslands() after del islandsMatrix= 
+0 0 0 0
+0 0 0 0
+0 0 1 0
+0 1 1 0
+```
+
+Карта после 3 шага:
+```
+Islands::countIslands() after del islandsMatrix= 
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+```
+
+Ответ:
+```
+runIslands result = 3
+```
+
+Поиск наибольшего общего делителя, реализация на JavaScript:
+```
+================ JS-GCD ================
+GCD(1, 1) = 1
+GCD(10, 10) = 10
+GCD(12, 6) = 6
+GCD(36, 42) = 6
+GCD(75, 35) = 5
+```
+
+Поиск наибольшего общего делителя, реализация на C++:
+
+```
+================ CPP-GCD ================
+GCD(1, 1) = 1
+GCD(10, 10) = 10
+GCD(12, 6) = 6
+GCD(36, 42) = 6
+GCD(75, 35) = 5
+
+```
+
+
