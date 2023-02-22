@@ -1,4 +1,5 @@
 import { CristmasTree } from './CristmasTree';
+import { GCD } from './GCD';
 import { Islands } from './Islands';
 import { Solve5x8 } from './Solve5x8';
 
@@ -7,6 +8,7 @@ class Program {
         this.runCristmasTree();
         this.run5x8();
         this.runIslands();
+        this.runGCD();
     }
 
     runCristmasTree = () => {
@@ -47,6 +49,15 @@ class Program {
             `runIslands result =`,
             islands.countIslands(islands.getMatrixFromString(srcIslands))
         );
+    };
+
+    runGCD = () => {
+        console.log('\n================ JS-GCD ================');
+        console.log(`GCD(1, 1) =`, GCD(1, 1));
+        console.log(`GCD(10, 10) =`, GCD(10, 10));
+        console.log(`GCD(12, 6) =`, GCD(12, 6));
+        console.log(`GCD(36, 42) =`, GCD(36, 42));
+        console.log(`GCD(75, 35) =`, GCD(75, 35));
     };
 
     static create(): Program {
