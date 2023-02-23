@@ -172,14 +172,11 @@ export class Graph {
     };
 
     printEdgesInCheapestPath = (fromVertex: number, toVertex: number) => {
-        console.log(`\nprintEdgesInCheapestPath() from Vertex ${fromVertex} to ${toVertex}`);
+        console.log(`\nprintEdgesInCheapestPath() \nfrom Vertex ${fromVertex} to ${toVertex}`);
         for (let i = 0; i < this.cheapestPath.length; i++) {
-            console.log(
-                `printEdgesInCheapestPath() edge ${this.cheapestPath[i]}`,
-                this.edges[this.cheapestPath[i]]
-            );
+            console.log(`edge ${this.cheapestPath[i]}`, this.edges[this.cheapestPath[i]]);
         }
-        console.log(`printEdgesInCheapestPath() to Vertex ${toVertex}`, this.vertices[toVertex]);
+        console.log(`target Vertex ${toVertex}`, this.vertices[toVertex]);
         return '';
     };
 
