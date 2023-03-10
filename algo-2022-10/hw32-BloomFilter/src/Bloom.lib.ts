@@ -1,4 +1,4 @@
-import { Bloom, sha256 } from './Bloom';
+import { Bloom } from './Bloom';
 
 export const wordsPresent = [
     'abound',
@@ -52,10 +52,9 @@ export interface BloomStats {
 export const getBloomStats = (
     wordsPresent: string[],
     wordsAbsent: string[],
-    testWords: string[]
+    testWords: string[],
+    bloom: Bloom
 ): BloomStats => {
-    const bloom = Bloom.create(100, 2, sha256);
-
     wordsPresent.forEach((word) => bloom.insert(word));
 
     const result: BloomStats = {
