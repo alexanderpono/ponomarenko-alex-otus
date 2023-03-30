@@ -34,12 +34,10 @@ export class Graph {
     edges: Edge[] = [];
     adjacencyComponents: number[][] = [];
     skippedEdges: number[] = [];
-    verticesNumber: number = 0;
+    verticesNumber = 0;
     smallestSkeleton: number[] = [];
     vertices: Vertex[] = [];
     cheapestPath: number[] = [];
-
-    constructor() {}
 
     initFromAdjacencyString = (s: string) => {
         const trimmed = s.trim();
@@ -157,11 +155,11 @@ export class Graph {
 
     calcCheapestPath = (fromVertex: number, toVertex: number) => {
         let curVertexIndex = toVertex;
-        let pathFromDestToSrc: number[] = [];
+        const pathFromDestToSrc: number[] = [];
         const deadLoopProtection = 10;
         let stepNo = 0;
         while (curVertexIndex !== fromVertex && stepNo < deadLoopProtection) {
-            let curVertex = this.vertices[curVertexIndex];
+            const curVertex = this.vertices[curVertexIndex];
             pathFromDestToSrc.push(curVertex.edgeIndex);
             curVertexIndex = this.edges[curVertex.edgeIndex].vertex0;
             stepNo++;

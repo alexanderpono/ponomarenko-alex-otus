@@ -3,8 +3,6 @@ import { render } from 'react-dom';
 import { App } from './components';
 import { Graph, SILENT, VERBOSE } from './Graph';
 
-render([<App key="1" />], document.getElementById('root'));
-
 const adjacencyMatrix = `
   AABBCCDDEEFFGG
 AA..020306......
@@ -41,12 +39,12 @@ console.log(
         .printEdgesInCheapestPath(6, 0)
 );
 
-console.log(
-    Graph.create()
-        .initFromAdjacencyString(adjacencyMatrix)
-        .calcEdges()
-        .calcVertices()
-        .calcVerticesCost(6, 0, SILENT)
-        .calcCheapestPath(6, 0)
-        .printPathFromTo(6, 0)
-);
+const g = Graph.create()
+    .initFromAdjacencyString(adjacencyMatrix)
+    .calcEdges()
+    .calcVertices()
+    .calcVerticesCost(6, 0, SILENT)
+    .calcCheapestPath(6, 0);
+console.log(g.printPathFromTo(6, 0));
+
+render([<App key="1" graph={g} />], document.getElementById('root'));
