@@ -2,7 +2,7 @@ const NULL = -1;
 export const VERBOSE = true;
 export const SILENT = false;
 
-interface Edge {
+export interface Edge {
     vertex0: number;
     vertex1: number;
     cost: number;

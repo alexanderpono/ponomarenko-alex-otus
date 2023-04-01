@@ -1,5 +1,5 @@
 import React from 'react';
-import { GraphUI } from '@ui-src/components/GraphUI';
+import { GraphFromLesson } from '@ui-src/components/GraphFromLesson';
 import { Graph } from '@ui-src/Graph';
 
 interface Props {
@@ -10,10 +10,7 @@ export const App: React.FC<Props> = ({ graph }) => {
     return (
         <div>
             <div>UI-aa</div>
-            <canvas height="440" width="670" id="first_example">
-                Пример
-            </canvas>
-            <GraphUI graph={graph} />
+            <GraphFromLesson graph={graph} />
         </div>
     );
 };
