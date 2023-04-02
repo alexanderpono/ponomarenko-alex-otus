@@ -1,15 +1,14 @@
 import React from 'react';
 import { withKnobs } from '@storybook/addon-knobs';
-import { App } from './App';
+import { GraphFromLesson } from './GraphFromLesson';
 import { Graph, SILENT } from '@ui-src/Graph';
-import { GameField } from '@ui-src/GameField';
 
 export default {
-    title: 'App',
+    title: 'GraphFromLesson',
     decorators: [withKnobs]
 };
 
-export const App1 = () => {
+export const Static = () => {
     const adjacencyMatrix = `
   AABBCCDDEEFFGG
 AA..020306......
@@ -21,6 +20,14 @@ FF....060401..08
 GG........0508..
 `;
 
+    console.log('adjacencyMatrix=', adjacencyMatrix);
+    console.log(
+        '\nadjacencyMatrix=',
+        JSON.stringify(Graph.create().initFromAdjacencyString(adjacencyMatrix).getMatrix())
+    );
+
+    console.log(Graph.create().initFromAdjacencyString(adjacencyMatrix).calcEdges().printEdges());
+
     const g = Graph.create()
         .initFromAdjacencyString(adjacencyMatrix)
         .calcEdges()
@@ -28,7 +35,5 @@ GG........0508..
         .calcVerticesCost(6, 0, SILENT)
         .calcCheapestPath(6, 0);
 
-    const field = GameField.create();
-
-    return <App graph={g} field={field} />;
+    return <GraphFromLesson graph={g} />;
 };

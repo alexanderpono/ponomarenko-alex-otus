@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { App } from './components';
 import { Graph, SILENT, VERBOSE } from './Graph';
+import { GameField } from './GameField';
 
 const adjacencyMatrix = `
   AABBCCDDEEFFGG
@@ -47,4 +48,18 @@ const g = Graph.create()
     .calcCheapestPath(6, 0);
 console.log(g.printPathFromTo(6, 0));
 
-render([<App key="1" graph={g} />], document.getElementById('root'));
+const fieldString = `
+▓ M             ▓
+▓▓▓▓▓▓▓▓╡▓▓▓▓▓▓▓▓
+▓       ╡       ▓
+▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓
+▓           ╡   ▓
+▓▓▓╡▓▓▓▓▓▓▓▓▓▓▓▓▓
+▓  ╡         $  ▓
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+`;
+
+const field = GameField.create();
+field.initFromText(fieldString);
+
+render([<App key="1" graph={g} field={field} />], document.getElementById('root'));
