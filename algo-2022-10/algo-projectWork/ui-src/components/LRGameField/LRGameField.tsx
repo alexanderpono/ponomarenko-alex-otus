@@ -1,8 +1,10 @@
 import { Cell, GameField } from '@ui-src/GameField';
+import { Edge, Graph } from '@ui-src/Graph';
 import React from 'react';
 
 interface LRGameFieldProps {
     field: GameField;
+    graph: Graph;
 }
 
 const SPRITE_WIDTH = 40;
@@ -32,7 +34,7 @@ const gold: Sprite = {
     y: 120
 };
 
-export const LRGameField: React.FC<LRGameFieldProps> = ({ field }) => {
+export const LRGameField: React.FC<LRGameFieldProps> = ({ field, graph }) => {
     const canvasRef = React.useRef(null);
 
     let canvas: HTMLCanvasElement | null = null;
@@ -57,8 +59,8 @@ export const LRGameField: React.FC<LRGameFieldProps> = ({ field }) => {
                 return;
             }
 
-            const renderer = RenderField.create(context, field, pic);
-            renderer.draw();
+            RenderField.create(context, field, pic).draw();
+            RenderFieldGraph.create(context, field, graph).draw();
         };
     }, []);
 
@@ -112,4 +114,59 @@ class RenderField {
         field: GameField,
         pic: CanvasImageSource
     ): RenderField => new RenderField(context, field, pic);
+}
+
+const w2 = SPRITE_WIDTH / 2;
+const h2 = SPRITE_HEIGHT / 2;
+
+class RenderFieldGraph {
+    constructor(
+        private context: CanvasRenderingContext2D,
+        private field: GameField,
+        private graph: Graph
+    ) {}
+
+    draw = () => {
+        this.context.strokeStyle = 'green';
+        this.graph.edges.forEach((edge: Edge) => this.drawEdge(edge));
+
+        this.context.strokeStyle = 'green';
+        this.context.fillStyle = 'white';
+        this.context.lineWidth = 3;
+        this.field.field.forEach((line: Cell[], y: number) => {
+            line.forEach((cell: Cell, x: number) => this.drawVertex(x, y));
+        });
+    };
+
+    drawVertex = (x: number, y: number) =>
+        drawCircle(this.context, w2 + x * SPRITE_WIDTH, h2 + y * SPRITE_HEIGHT, 6);
+
+    drawEdge = (edge: Edge) => {
+        const w = this.field.field[0].length;
+        const v0x = edge.vertex0 % w;
+        const v0y = Math.floor(edge.vertex0 / w);
+        const v1x = edge.vertex1 % w;
+        const v1y = Math.floor(edge.vertex1 / w);
+
+        this.context.beginPath();
+        this.context.moveTo(w2 + v0x * SPRITE_WIDTH, h2 + v0y * SPRITE_HEIGHT);
+        this.context.lineTo(w2 + v1x * SPRITE_WIDTH, h2 + v1y * SPRITE_HEIGHT);
+        this.context.closePath();
+        this.context.stroke();
+    };
+
+    static create = (
+        context: CanvasRenderingContext2D,
+        field: GameField,
+        graph: Graph
+    ): RenderFieldGraph => new RenderFieldGraph(context, field, graph);
+}
+
+function drawCircle(context: CanvasRenderingContext2D, xPos: number, yPos: number, radius: number) {
+    const startAngle = 0 * (Math.PI / 180);
+    const endAngle = 360 * (Math.PI / 180);
+    context.beginPath();
+    context.arc(xPos, yPos, radius, startAngle, endAngle, false);
+    context.fill();
+    context.stroke();
 }

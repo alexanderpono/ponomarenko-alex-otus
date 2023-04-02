@@ -1,3 +1,5 @@
+import { GameField } from './GameField';
+
 const NULL = -1;
 export const VERBOSE = true;
 export const SILENT = false;
@@ -194,14 +196,47 @@ export class Graph {
         console.log('\nedges=\n[');
         this.edges.forEach((edge, index) => console.log('  ', index, edge));
         console.log(']');
-        return '';
+        return this;
     };
 
     printVertices = (caption: string) => {
         console.log(`${caption} =\n[`);
         this.vertices.forEach((vertex, index) => console.log('  ', index, vertex));
         console.log(']');
-        return '';
+        return this;
+    };
+
+    initFromField = (field: GameField) => {
+        const h = field.field.length;
+        const w = field.field[0].length;
+        const verticesNumber = w * h;
+        this.vertices = Array(verticesNumber).fill(defaultVertex);
+
+        const COST = 1;
+        for (let y = 0; y < h; y++) {
+            const vertexStartLine = y * w;
+            for (let x = 0; x < w - 1; x++) {
+                const vertexIndex = vertexStartLine + x;
+                this.edges.push({
+                    vertex0: vertexIndex,
+                    vertex1: vertexIndex + 1,
+                    cost: COST
+                });
+            }
+        }
+
+        for (let y = 0; y < h - 1; y++) {
+            const vertexStartLine = y * w;
+            for (let x = 0; x < w; x++) {
+                const vertexIndex = vertexStartLine + x;
+                this.edges.push({
+                    vertex0: vertexIndex,
+                    vertex1: vertexIndex + w,
+                    cost: COST
+                });
+            }
+        }
+        return this;
     };
 
     static create(): Graph {

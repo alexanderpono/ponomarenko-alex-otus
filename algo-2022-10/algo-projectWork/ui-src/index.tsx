@@ -62,4 +62,6 @@ const fieldString = `
 const field = GameField.create();
 field.initFromText(fieldString);
 
-render([<App key="1" graph={g} field={field} />], document.getElementById('root'));
+const g2 = Graph.create().initFromField(field); //.printVertices('vertices').printEdges();
+
+render([<App key="1" graph={g} field={field} fieldGraph={g2} />], document.getElementById('root'));
