@@ -118,6 +118,7 @@ class RenderField {
 
 const w2 = SPRITE_WIDTH / 2;
 const h2 = SPRITE_HEIGHT / 2;
+const w4 = SPRITE_WIDTH / 4;
 
 class RenderFieldGraph {
     constructor(
@@ -128,7 +129,11 @@ class RenderFieldGraph {
 
     draw = () => {
         this.context.strokeStyle = 'green';
-        this.graph.edges.forEach((edge: Edge) => this.drawEdge(edge));
+        this.context.font = 'bold 15px sans-serif';
+        this.graph.edges.forEach((edge: Edge) => {
+            this.drawEdge(edge);
+            this.drawEdgeCost(edge);
+        });
 
         this.context.strokeStyle = 'green';
         this.context.fillStyle = 'white';
@@ -153,6 +158,28 @@ class RenderFieldGraph {
         this.context.lineTo(w2 + v1x * SPRITE_WIDTH, h2 + v1y * SPRITE_HEIGHT);
         this.context.closePath();
         this.context.stroke();
+    };
+
+    drawEdgeCost = (edge: Edge) => {
+        const w = this.field.field[0].length;
+        const v0x = edge.vertex0 % w;
+        const v0y = Math.floor(edge.vertex0 / w);
+        const v1x = edge.vertex1 % w;
+        const v1y = Math.floor(edge.vertex1 / w);
+        this.context.fillStyle = 'white';
+        if (v0y === v1y) {
+            this.context.fillText(
+                '' + edge.cost,
+                w4 + 3 + ((v0x + v1x) / 2) * SPRITE_WIDTH,
+                -h2 - 2 + ((v0y + v1y) / 2) * SPRITE_HEIGHT
+            );
+        } else {
+            this.context.fillText(
+                '' + edge.cost,
+                w2 + ((v0x + v1x) / 2) * SPRITE_WIDTH,
+                h2 + 3 + ((v0y + v1y) / 2) * SPRITE_HEIGHT
+            );
+        }
     };
 
     static create = (
