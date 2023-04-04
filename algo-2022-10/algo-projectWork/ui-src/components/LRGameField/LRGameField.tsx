@@ -132,7 +132,7 @@ class RenderFieldGraph {
         this.context.font = 'bold 15px sans-serif';
         this.graph.edges.forEach((edge: Edge) => {
             this.drawEdge(edge);
-            this.drawEdgeCost(edge);
+            // this.drawEdgeCost(edge);
         });
 
         this.context.strokeStyle = 'green';
@@ -140,6 +140,12 @@ class RenderFieldGraph {
         this.context.lineWidth = 3;
         this.field.field.forEach((line: Cell[], y: number) => {
             line.forEach((cell: Cell, x: number) => this.drawVertex(x, y));
+        });
+
+        this.context.lineWidth = 6;
+        this.context.strokeStyle = 'magenta';
+        this.graph.cheapestPath.forEach((edgeIndex) => {
+            this.drawEdge(this.graph.edges[edgeIndex]);
         });
     };
 

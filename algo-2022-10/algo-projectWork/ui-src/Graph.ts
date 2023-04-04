@@ -75,6 +75,7 @@ export class Graph {
 
     getEdges_ = (): Edge[] => {
         const result: Edge[] = [];
+        const edges = new Set();
         for (let i = 0; i < this.matrix.length; i++) {
             const line = this.matrix[i];
             for (let j = 0; j < line.length; j++) {
@@ -82,6 +83,17 @@ export class Graph {
                 if (cost === NULL) {
                     continue;
                 }
+                let minIndex = i;
+                let maxIndex = j;
+                if (i > j) {
+                    minIndex = j;
+                    maxIndex = i;
+                }
+                const edgeName = `${minIndex}-${maxIndex}`;
+                if (edges.has(edgeName)) {
+                    continue;
+                }
+                edges.add(edgeName);
                 result.push({
                     vertex0: i,
                     vertex1: j,
@@ -109,18 +121,24 @@ export class Graph {
 
         let curVertexIndex = fromVertex;
         let n = 0;
-        while (n < this.vertices.length) {
+        while (n < this.vertices.length && curVertexIndex !== -1) {
             const curVertex = this.vertices[curVertexIndex];
             this.vertices[curVertexIndex].processed = true;
             const edgesOfVertex = this.edges
-                .map((edge: Edge, index: number) => (edge.vertex0 === curVertexIndex ? index : -1))
+                .map((edge: Edge, index: number) =>
+                    edge.vertex0 === curVertexIndex || edge.vertex1 === curVertexIndex ? index : -1
+                )
                 .filter((index) => index !== -1);
             verbose && console.log(`\nedgesOfVertex ${curVertexIndex} =`, edgesOfVertex);
             for (let i = 0; i < edgesOfVertex.length; i++) {
                 const edgeIndex = edgesOfVertex[i];
                 const adjacentEdge = this.edges[edgeIndex];
-                const adjacentVertex = this.vertices[adjacentEdge.vertex1];
-                verbose && console.log('adjacentVertex=', adjacentEdge.vertex1, adjacentVertex);
+                const adjacentVertexIndex =
+                    adjacentEdge.vertex0 === curVertexIndex
+                        ? adjacentEdge.vertex1
+                        : adjacentEdge.vertex0;
+                const adjacentVertex = this.vertices[adjacentVertexIndex];
+                verbose && console.log('adjacentVertex=', adjacentVertexIndex, adjacentVertex);
                 if (adjacentVertex.processed) {
                     continue;
                 }
@@ -138,13 +156,17 @@ export class Graph {
             for (let i = 0; i < edgesOfVertex.length; i++) {
                 const edgeIndex = edgesOfVertex[i];
                 const adjacentEdge = this.edges[edgeIndex];
-                const adjacentVertex = this.vertices[adjacentEdge.vertex1];
+                const adjacentVertexIndex =
+                    adjacentEdge.vertex0 === curVertexIndex
+                        ? adjacentEdge.vertex1
+                        : adjacentEdge.vertex0;
+                const adjacentVertex = this.vertices[adjacentVertexIndex];
                 if (
                     adjacentVertex.processed === false &&
                     adjacentVertex.accessCost < minAccessCost
                 ) {
                     minAccessCost = adjacentVertex.accessCost;
-                    adjacentVertexWithMinCost = adjacentEdge.vertex1;
+                    adjacentVertexWithMinCost = adjacentVertexIndex;
                 }
             }
             verbose && this.printVertices(`vertices after step ${n}`);
@@ -158,12 +180,13 @@ export class Graph {
     calcCheapestPath = (fromVertex: number, toVertex: number) => {
         let curVertexIndex = toVertex;
         const pathFromDestToSrc: number[] = [];
-        const deadLoopProtection = 10;
+        const deadLoopProtection = 100;
         let stepNo = 0;
         while (curVertexIndex !== fromVertex && stepNo < deadLoopProtection) {
             const curVertex = this.vertices[curVertexIndex];
             pathFromDestToSrc.push(curVertex.edgeIndex);
-            curVertexIndex = this.edges[curVertex.edgeIndex].vertex0;
+            const edge = this.edges[curVertex.edgeIndex];
+            curVertexIndex = edge.vertex0 === curVertexIndex ? edge.vertex1 : edge.vertex0;
             stepNo++;
         }
 
@@ -210,7 +233,9 @@ export class Graph {
         const h = field.field.length;
         const w = field.field[0].length;
         const verticesNumber = w * h;
-        this.vertices = Array(verticesNumber).fill(defaultVertex);
+        this.vertices = Array(verticesNumber)
+            .fill(defaultVertex)
+            .map(() => ({ ...defaultVertex }));
 
         const COST = 1;
         for (let y = 0; y < h; y++) {
@@ -237,6 +262,11 @@ export class Graph {
             }
         }
         return this;
+    };
+
+    getVertexIndex = (fieldString: string, char: string): number => {
+        const s = fieldString.trim().split('\n').join('');
+        return s.indexOf(char);
     };
 
     static create(): Graph {
