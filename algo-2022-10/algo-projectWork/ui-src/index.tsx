@@ -84,7 +84,7 @@ function renderLRField(fieldString: string, algo: CostAlgorithm, target: string)
             <LRGameField
                 field={field}
                 graph={g2}
-                render={{ nodes: false, lines: false, path: false, nodesCost: true }}
+                render={{ nodes: false, lines: false, path: true, nodesCost: false }}
             />
         ],
         document.getElementById(target)
