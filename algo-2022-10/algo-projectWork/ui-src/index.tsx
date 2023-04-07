@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Graph, SILENT } from './Graph';
+import { Graph, SILENT, VERBOSE } from './Graph';
 import { GameField } from './GameField';
 import { GraphFromLesson } from './components/GraphFromLesson';
 import { LRGameField } from './components/LRGameField';
@@ -84,7 +84,7 @@ function renderLRField(fieldString: string, algo: CostAlgorithm, target: string)
             <LRGameField
                 field={field}
                 graph={g2}
-                render={{ nodes: false, lines: false, path: false }}
+                render={{ nodes: false, lines: false, path: false, nodesCost: true }}
             />
         ],
         document.getElementById(target)

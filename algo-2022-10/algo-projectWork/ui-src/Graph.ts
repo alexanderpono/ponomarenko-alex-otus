@@ -19,6 +19,7 @@ export interface RenderOptions {
     nodes: boolean;
     lines: boolean;
     path: boolean;
+    nodesCost: boolean;
 }
 const UNDEFINED_COST = -1;
 const UNDEFINED_INDEX = -1;

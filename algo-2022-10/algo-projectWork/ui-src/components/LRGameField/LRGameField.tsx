@@ -44,9 +44,11 @@ export const LRGameField: React.FC<LRGameFieldProps> = ({ field, graph, render: 
     const [nodesChecked, setNodesChecked] = React.useState(startRender.nodes);
     const [linesChecked, setLinesChecked] = React.useState(startRender.lines);
     const [pathChecked, setPathChecked] = React.useState(startRender.path);
+    const [nodesCostChecked, setNodesCostChecked] = React.useState(startRender.nodesCost);
     const nodesClicked = () => setNodesChecked(!nodesChecked);
     const linesClicked = () => setLinesChecked(!linesChecked);
     const pathClicked = () => setPathChecked(!pathChecked);
+    const nodesCostClicked = () => setNodesCostChecked(!nodesCostChecked);
     const [picLoaded, setPicLoaded] = React.useState(false);
     const [pic] = React.useState(new Image());
 
@@ -80,12 +82,13 @@ export const LRGameField: React.FC<LRGameFieldProps> = ({ field, graph, render: 
         const options: RenderOptions = {
             nodes: nodesChecked,
             lines: linesChecked,
-            path: pathChecked
+            path: pathChecked,
+            nodesCost: nodesCostChecked
         };
 
         RenderField.create(context, field, pic).draw();
         RenderFieldGraph.create(context, field, graph, options).draw();
-    }, [picLoaded, nodesChecked, linesChecked, pathChecked]);
+    }, [picLoaded, nodesChecked, linesChecked, pathChecked, nodesCostChecked]);
 
     return (
         <div>
@@ -95,6 +98,7 @@ export const LRGameField: React.FC<LRGameFieldProps> = ({ field, graph, render: 
                 {Label(nodesChecked, nodesClicked, 'nodes', 'Узлы сетки')}
                 {Label(linesChecked, linesClicked, 'lines', 'Линии сетки')}
                 {Label(pathChecked, pathClicked, 'path', 'Траектория')}
+                {Label(nodesCostChecked, nodesCostClicked, 'nodesCost', 'Стоимость узлов')}
             </fieldset>
         </div>
     );
@@ -204,10 +208,23 @@ class RenderFieldGraph {
         });
     };
 
+    renderVerticesCost = () => {
+        if (!this.options.nodesCost) {
+            return;
+        }
+        this.context.strokeStyle = 'green';
+        this.context.fillStyle = 'white';
+        this.context.lineWidth = 3;
+        this.field.field.forEach((line: Cell[], y: number) => {
+            line.forEach((cell: Cell, x: number) => this.drawVertexCost(x, y));
+        });
+    };
+
     draw = () => {
         this.renderLines();
         this.renderVertices();
         this.renderPath();
+        this.renderVerticesCost();
     };
 
     drawVertex = (x: number, y: number) =>
@@ -247,6 +264,18 @@ class RenderFieldGraph {
                 h2 + 3 + ((v0y + v1y) / 2) * SPRITE_HEIGHT
             );
         }
+    };
+
+    drawVertexCost = (x: number, y: number) => {
+        const w = this.field.field[0].length;
+        const vIndex = y * w + x;
+        const vertex = this.graph.vertices[vIndex];
+        this.context.fillStyle = 'white';
+        this.context.fillText(
+            '' + vertex.accessCost,
+            x * SPRITE_WIDTH + w4,
+            y * SPRITE_HEIGHT + h2
+        );
     };
 
     static create = (
