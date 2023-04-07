@@ -15,6 +15,11 @@ interface Vertex {
     accessCost: number;
     edgeIndex: number;
 }
+export interface RenderOptions {
+    nodes: boolean;
+    lines: boolean;
+    path: boolean;
+}
 const UNDEFINED_COST = -1;
 const UNDEFINED_INDEX = -1;
 const defaultVertex: Vertex = {
@@ -229,7 +234,7 @@ export class Graph {
         return this;
     };
 
-    initFromField = (field: GameField) => {
+    initFromField = (field: GameField, getEdgeCost: (v0: number, v1: number) => number) => {
         const h = field.field.length;
         const w = field.field[0].length;
         const verticesNumber = w * h;
@@ -237,15 +242,15 @@ export class Graph {
             .fill(defaultVertex)
             .map(() => ({ ...defaultVertex }));
 
-        const COST = 1;
         for (let y = 0; y < h; y++) {
             const vertexStartLine = y * w;
             for (let x = 0; x < w - 1; x++) {
                 const vertexIndex = vertexStartLine + x;
+                const cost = getEdgeCost(vertexIndex, vertexIndex + 1);
                 this.edges.push({
                     vertex0: vertexIndex,
                     vertex1: vertexIndex + 1,
-                    cost: COST
+                    cost
                 });
             }
         }
@@ -254,10 +259,12 @@ export class Graph {
             const vertexStartLine = y * w;
             for (let x = 0; x < w; x++) {
                 const vertexIndex = vertexStartLine + x;
+                const cost = getEdgeCost(vertexIndex, vertexIndex + w);
+
                 this.edges.push({
                     vertex0: vertexIndex,
                     vertex1: vertexIndex + w,
-                    cost: COST
+                    cost
                 });
             }
         }

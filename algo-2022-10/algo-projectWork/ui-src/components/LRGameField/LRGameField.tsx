@@ -1,10 +1,11 @@
 import { Cell, GameField } from '@ui-src/GameField';
-import { Edge, Graph } from '@ui-src/Graph';
+import { Edge, Graph, RenderOptions } from '@ui-src/Graph';
 import React from 'react';
 
 interface LRGameFieldProps {
     field: GameField;
     graph: Graph;
+    render: RenderOptions;
 }
 
 const SPRITE_WIDTH = 40;
@@ -34,13 +35,34 @@ const gold: Sprite = {
     y: 120
 };
 
-export const LRGameField: React.FC<LRGameFieldProps> = ({ field, graph }) => {
+export const LRGameField: React.FC<LRGameFieldProps> = ({ field, graph, render: startRender }) => {
     const canvasRef = React.useRef(null);
 
     let canvas: HTMLCanvasElement | null = null;
     let context: CanvasRenderingContext2D | null = null;
 
+    const [nodesChecked, setNodesChecked] = React.useState(startRender.nodes);
+    const [linesChecked, setLinesChecked] = React.useState(startRender.lines);
+    const [pathChecked, setPathChecked] = React.useState(startRender.path);
+    const nodesClicked = () => setNodesChecked(!nodesChecked);
+    const linesClicked = () => setLinesChecked(!linesChecked);
+    const pathClicked = () => setPathChecked(!pathChecked);
+    const [picLoaded, setPicLoaded] = React.useState(false);
+    const [pic] = React.useState(new Image());
+
     React.useEffect(() => {
+        pic.src = 'sprite.png';
+
+        pic.onload = function () {
+            setPicLoaded(true);
+        };
+    }, []);
+
+    React.useEffect(() => {
+        if (!picLoaded) {
+            return;
+        }
+
         canvas = canvasRef.current as unknown as HTMLCanvasElement;
         if (canvas === null) {
             return;
@@ -51,21 +73,41 @@ export const LRGameField: React.FC<LRGameFieldProps> = ({ field, graph }) => {
         context.lineWidth = 3;
         context.strokeRect(0, 0, canvas.width, canvas.height);
 
-        const pic = new Image();
-        pic.src = 'sprite.png';
+        if (canvas === null || context === null) {
+            return;
+        }
 
-        pic.onload = function () {
-            if (canvas === null || context === null) {
-                return;
-            }
-
-            RenderField.create(context, field, pic).draw();
-            RenderFieldGraph.create(context, field, graph).draw();
+        const options: RenderOptions = {
+            nodes: nodesChecked,
+            lines: linesChecked,
+            path: pathChecked
         };
-    }, []);
 
-    return <canvas height="440" width="670" id="GraphUI" ref={canvasRef}></canvas>;
+        RenderField.create(context, field, pic).draw();
+        RenderFieldGraph.create(context, field, graph, options).draw();
+    }, [picLoaded, nodesChecked, linesChecked, pathChecked]);
+
+    return (
+        <div>
+            <canvas height="320" width="670" id="GraphUI" ref={canvasRef}></canvas>
+            <fieldset>
+                <legend>Отображать</legend>
+                {Label(nodesChecked, nodesClicked, 'nodes', 'Узлы сетки')}
+                {Label(linesChecked, linesClicked, 'lines', 'Линии сетки')}
+                {Label(pathChecked, pathClicked, 'path', 'Траектория')}
+            </fieldset>
+        </div>
+    );
 };
+
+function Label(val: boolean, setter: () => void, id: string, caption: string) {
+    return (
+        <label htmlFor={id}>
+            <input type="checkbox" checked={val} onChange={setter} id={id} />
+            {caption}
+        </label>
+    );
+}
 
 class RenderField {
     constructor(
@@ -124,29 +166,48 @@ class RenderFieldGraph {
     constructor(
         private context: CanvasRenderingContext2D,
         private field: GameField,
-        private graph: Graph
+        private graph: Graph,
+        private options: RenderOptions
     ) {}
 
-    draw = () => {
-        this.context.strokeStyle = 'green';
-        this.context.font = 'bold 15px sans-serif';
-        this.graph.edges.forEach((edge: Edge) => {
-            this.drawEdge(edge);
-            // this.drawEdgeCost(edge);
-        });
-
+    renderVertices = () => {
+        if (!this.options.nodes) {
+            return;
+        }
         this.context.strokeStyle = 'green';
         this.context.fillStyle = 'white';
         this.context.lineWidth = 3;
         this.field.field.forEach((line: Cell[], y: number) => {
             line.forEach((cell: Cell, x: number) => this.drawVertex(x, y));
         });
+    };
+    renderLines = () => {
+        if (!this.options.lines) {
+            return;
+        }
+        this.context.strokeStyle = 'green';
+        this.context.font = 'bold 15px sans-serif';
+        this.graph.edges.forEach((edge: Edge) => {
+            this.drawEdge(edge);
+            // this.drawEdgeCost(edge);
+        });
+    };
 
+    renderPath = () => {
+        if (!this.options.path) {
+            return;
+        }
         this.context.lineWidth = 6;
         this.context.strokeStyle = 'magenta';
         this.graph.cheapestPath.forEach((edgeIndex) => {
             this.drawEdge(this.graph.edges[edgeIndex]);
         });
+    };
+
+    draw = () => {
+        this.renderLines();
+        this.renderVertices();
+        this.renderPath();
     };
 
     drawVertex = (x: number, y: number) =>
@@ -191,8 +252,9 @@ class RenderFieldGraph {
     static create = (
         context: CanvasRenderingContext2D,
         field: GameField,
-        graph: Graph
-    ): RenderFieldGraph => new RenderFieldGraph(context, field, graph);
+        graph: Graph,
+        options: RenderOptions
+    ): RenderFieldGraph => new RenderFieldGraph(context, field, graph, options);
 }
 
 function drawCircle(context: CanvasRenderingContext2D, xPos: number, yPos: number, radius: number) {
