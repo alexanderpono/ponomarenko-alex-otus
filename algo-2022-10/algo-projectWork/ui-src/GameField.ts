@@ -52,6 +52,7 @@ export class GameField {
             });
             return fieldLine;
         });
+        return this;
     };
 
     vertexIndexToCoords = (vertexIndex: number, w: number): Point2D => {

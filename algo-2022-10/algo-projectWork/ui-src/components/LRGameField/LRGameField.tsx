@@ -6,6 +6,8 @@ interface LRGameFieldProps {
     field: GameField;
     graph: Graph;
     render: RenderOptions;
+    id: string;
+    title: string;
 }
 
 const SPRITE_WIDTH = 40;
@@ -35,7 +37,13 @@ const gold: Sprite = {
     y: 120
 };
 
-export const LRGameField: React.FC<LRGameFieldProps> = ({ field, graph, render: startRender }) => {
+export const LRGameField: React.FC<LRGameFieldProps> = ({
+    field,
+    graph,
+    render: startRender,
+    id,
+    title
+}) => {
     const canvasRef = React.useRef(null);
 
     let canvas: HTMLCanvasElement | null = null;
@@ -45,10 +53,12 @@ export const LRGameField: React.FC<LRGameFieldProps> = ({ field, graph, render: 
     const [linesChecked, setLinesChecked] = React.useState(startRender.lines);
     const [pathChecked, setPathChecked] = React.useState(startRender.path);
     const [nodesCostChecked, setNodesCostChecked] = React.useState(startRender.nodesCost);
+    const [mapChecked, setMapChecked] = React.useState(startRender.map);
     const nodesClicked = () => setNodesChecked(!nodesChecked);
     const linesClicked = () => setLinesChecked(!linesChecked);
     const pathClicked = () => setPathChecked(!pathChecked);
     const nodesCostClicked = () => setNodesCostChecked(!nodesCostChecked);
+    const mapClicked = () => setMapChecked(!mapChecked);
     const [picLoaded, setPicLoaded] = React.useState(false);
     const [pic] = React.useState(new Image());
 
@@ -83,22 +93,25 @@ export const LRGameField: React.FC<LRGameFieldProps> = ({ field, graph, render: 
             nodes: nodesChecked,
             lines: linesChecked,
             path: pathChecked,
-            nodesCost: nodesCostChecked
+            nodesCost: nodesCostChecked,
+            map: mapChecked
         };
 
-        RenderField.create(context, field, pic).draw();
+        RenderField.create(context, field, pic, options).draw();
         RenderFieldGraph.create(context, field, graph, options).draw();
-    }, [picLoaded, nodesChecked, linesChecked, pathChecked, nodesCostChecked]);
+    }, [picLoaded, nodesChecked, linesChecked, pathChecked, nodesCostChecked, mapChecked]);
 
     return (
         <div>
+            <h1>{title}</h1>
             <canvas height="320" width="670" id="GraphUI" ref={canvasRef}></canvas>
             <fieldset>
                 <legend>Отображать</legend>
-                {Label(nodesChecked, nodesClicked, 'nodes', 'Узлы сетки')}
-                {Label(linesChecked, linesClicked, 'lines', 'Линии сетки')}
-                {Label(pathChecked, pathClicked, 'path', 'Траектория')}
-                {Label(nodesCostChecked, nodesCostClicked, 'nodesCost', 'Стоимость узлов')}
+                {Label(nodesChecked, nodesClicked, `${id}-nodes`, 'Узлы сетки')}
+                {Label(linesChecked, linesClicked, `${id}-lines`, 'Линии сетки')}
+                {Label(pathChecked, pathClicked, `${id}-path`, 'Траектория')}
+                {Label(nodesCostChecked, nodesCostClicked, `${id}-nodesCost`, 'Стоимость узлов')}
+                {Label(mapChecked, mapClicked, `${id}-map`, 'Карта')}
             </fieldset>
         </div>
     );
@@ -117,17 +130,18 @@ class RenderField {
     constructor(
         private context: CanvasRenderingContext2D,
         private field: GameField,
-        private pic: CanvasImageSource
+        private pic: CanvasImageSource,
+        private options: RenderOptions
     ) {}
 
     draw = () => {
         this.field.field.forEach((line: Cell[], y: number) => {
             line.forEach((cell: Cell, x: number) => {
                 let sprite: Sprite = space;
-                if (cell === Cell.wall) {
+                if (cell === Cell.wall && this.options.map) {
                     sprite = wall;
                 }
-                if (cell === Cell.stairs) {
+                if (cell === Cell.stairs && this.options.map) {
                     sprite = stairs;
                 }
                 if (cell === Cell.man) {
@@ -158,8 +172,9 @@ class RenderField {
     static create = (
         context: CanvasRenderingContext2D,
         field: GameField,
-        pic: CanvasImageSource
-    ): RenderField => new RenderField(context, field, pic);
+        pic: CanvasImageSource,
+        options: RenderOptions
+    ): RenderField => new RenderField(context, field, pic, options);
 }
 
 const w2 = SPRITE_WIDTH / 2;
