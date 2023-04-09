@@ -62,6 +62,10 @@ export class GameField {
     };
 
     coordsToCell = (point: Point2D): Cell => {
+        const h = this.field.length;
+        if (point.y < 0 || point.y >= h) {
+            return Cell.wall;
+        }
         return this.field[point.y][point.x];
     };
 

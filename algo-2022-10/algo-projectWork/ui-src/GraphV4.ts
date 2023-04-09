@@ -31,7 +31,7 @@ export class GraphV4 extends Graph {
                     continue;
                 }
                 verticesToProcess.add(adjacentVertexIndex);
-                const newAccessCost = curVertex.accessCost + adjacentEdge.cost;
+                const newAccessCost = curVertex.accessCost + adjacentEdge.cost.cost;
                 if (
                     adjacentVertex.accessCost === UNDEFINED_COST ||
                     newAccessCost < adjacentVertex.accessCost

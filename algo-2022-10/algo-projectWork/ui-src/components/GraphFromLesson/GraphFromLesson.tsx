@@ -112,7 +112,7 @@ const drawEdgeCost = (context: CanvasRenderingContext2D, edge: Edge) => {
     const v0 = vertices[edge.vertex0];
     const v1 = vertices[edge.vertex1];
     context.fillStyle = 'black';
-    context.fillText('' + edge.cost, (v0.x + v1.x) / 2, (v0.y + v1.y) / 2);
+    context.fillText('' + edge.cost.cost, (v0.x + v1.x) / 2, (v0.y + v1.y) / 2);
 };
 
 function drawEdges(context: CanvasRenderingContext2D, graph: Graph) {

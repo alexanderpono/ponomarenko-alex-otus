@@ -5,6 +5,7 @@ import { GraphFromLesson } from './components/GraphFromLesson';
 import { GameField } from './GameField';
 import { LRGameField } from './components/LRGameField';
 import { GraphV4 } from './GraphV4';
+import { GraphV5 } from './GraphV5';
 
 export const slide0 = () => {
     renderGraphFromLesson();
@@ -64,7 +65,8 @@ export const slide1 = () => {
             map: false
         },
         graph0,
-        field0
+        field0,
+        SILENT
     );
 };
 
@@ -74,11 +76,12 @@ export function renderLRField(
     target: string,
     options: RenderOptions,
     graph: Graph,
-    field: GameField
+    field: GameField,
+    echoMode: boolean
 ) {
     const mIndex = graph.getVertexIndex(fieldString, 'M');
     const dIndex = graph.getVertexIndex(fieldString, '$');
-    graph.calcVerticesCost(mIndex, dIndex, SILENT).calcCheapestPath(mIndex, dIndex);
+    graph.calcVerticesCost(mIndex, dIndex, echoMode).calcCheapestPath(mIndex, dIndex);
     // console.log(graph.printPathFromTo(mIndex, dIndex));
     render(
         [<LRGameField field={field} graph={graph} render={options} id={target} title={title} />],
@@ -100,7 +103,8 @@ export const slide2 = () => {
             map: true
         },
         graph1,
-        field0
+        field0,
+        SILENT
     );
 };
 
@@ -129,7 +133,8 @@ export const slide3a = () => {
             map: true
         },
         graph2,
-        field2
+        field2,
+        SILENT
     );
 };
 
@@ -158,7 +163,8 @@ export const slide3 = () => {
             map: true
         },
         graph2,
-        field2
+        field2,
+        SILENT
     );
 };
 
@@ -183,13 +189,14 @@ export const slide4 = () => {
         'slide4',
         {
             nodes: false,
-            lines: true,
+            lines: false,
             path: true,
             nodesCost: true,
             map: true
         },
         graph3,
-        field3
+        field3,
+        SILENT
     );
 };
 
@@ -206,20 +213,149 @@ export const slide5 = () => {
     `;
 
     const field = GameField.create().initFromText(fieldS);
-    const graph = GraphV4.create().initFromField(field, field.getEdgeAdvancedCost);
+    const graph = GraphV5.create().initFromField(field);
 
     renderLRField(
-        'Проблема2: персонаж должен падать в отверстие в полу',
+        'Персонаж должен падать в отверстие в полу - 1: добавляем разную стоимость перемещения по ребру в в зависимости от направления',
         fieldS,
-        'slide5',
+        'V5',
         {
             nodes: false,
             lines: true,
+            path: false,
+            nodesCost: false,
+            map: true
+        },
+        graph,
+        field,
+        SILENT
+    );
+};
+
+export const slideV5_2 = () => {
+    const fieldS = `
+▓ M             ▓
+▓▓▓▓ ▓▓▓╡▓▓▓▓▓▓▓▓
+▓       ╡       ▓
+▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓
+▓           ╡   ▓
+▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓
+▓  ╡     ╡   $╡ ▓
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+    `;
+
+    const field = GameField.create().initFromText(fieldS);
+    const graph = GraphV5.create().initFromField(field);
+
+    renderLRField(
+        'Персонаж должен падать в отверстие в полу - 2: дорабатываем расчет доступности узлов',
+        fieldS,
+        'V5_2',
+        {
+            nodes: false,
+            lines: true,
+            path: false,
+            nodesCost: true,
+            map: true
+        },
+        graph,
+        field,
+        SILENT
+    );
+};
+
+export const slideV5_3 = () => {
+    const fieldS = `
+▓ M             ▓
+▓▓▓▓ ▓▓▓╡▓▓▓▓▓▓▓▓
+▓       ╡       ▓
+▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓
+▓           ╡   ▓
+▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓
+▓  ╡     ╡   $╡ ▓
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+    `;
+
+    const field = GameField.create().initFromText(fieldS);
+    const graph = GraphV5.create().initFromField(field);
+
+    renderLRField(
+        'Персонаж должен падать в отверстие в полу - 3: правильная траектория',
+        fieldS,
+        'V5_3',
+        {
+            nodes: false,
+            lines: false,
+            path: true,
+            nodesCost: false,
+            map: true
+        },
+        graph,
+        field,
+        SILENT
+    );
+};
+
+export const slideV5_4 = () => {
+    const fieldS = `
+▓     $         ▓
+▓▓▓▓ ▓▓▓╡▓▓▓▓▓▓▓▓
+▓ M     ╡       ▓
+▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓
+▓           ╡   ▓
+▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓
+▓  ╡     ╡    ╡ ▓
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+    `;
+
+    const field = GameField.create().initFromText(fieldS);
+    const graph = GraphV5.create().initFromField(field);
+
+    renderLRField(
+        'Проверка, разрешает ли алгоритм двигаться вверх через отверстие в потолке',
+        fieldS,
+        'V5_4',
+        {
+            nodes: false,
+            lines: false,
+            path: false,
+            nodesCost: false,
+            map: true
+        },
+        graph,
+        field,
+        SILENT
+    );
+};
+
+export const slideV5_5 = () => {
+    const fieldS = `
+▓     $         ▓
+▓▓▓▓ ▓▓▓╡▓▓▓▓▓▓▓▓
+▓ M     ╡       ▓
+▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓
+▓           ╡   ▓
+▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓
+▓  ╡     ╡    ╡ ▓
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+    `;
+
+    const field = GameField.create().initFromText(fieldS);
+    const graph = GraphV5.create().initFromField(field);
+
+    renderLRField(
+        'Проверка, разрешает ли алгоритм двигаться вверх через отверстие в потолке',
+        fieldS,
+        'V5_5',
+        {
+            nodes: false,
+            lines: false,
             path: true,
             nodesCost: true,
             map: true
         },
         graph,
-        field
+        field,
+        SILENT
     );
 };

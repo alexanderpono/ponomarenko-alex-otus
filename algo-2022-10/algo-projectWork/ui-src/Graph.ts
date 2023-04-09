@@ -4,10 +4,26 @@ const NULL = -1;
 export const VERBOSE = true;
 export const SILENT = false;
 
+export interface EdgeCost {
+    cost: number;
+    v0v1Cost: number;
+    v1v0Cost: number;
+}
+
+export const UNDEFINED_COST = -1;
+export const COST_WALL = 100;
+export const COST_SPACE = 1;
+
+export const defaultEdgeCost: EdgeCost = {
+    cost: UNDEFINED_COST,
+    v0v1Cost: UNDEFINED_COST,
+    v1v0Cost: UNDEFINED_COST
+};
+
 export interface Edge {
     vertex0: number;
     vertex1: number;
-    cost: number;
+    cost: EdgeCost;
 }
 
 interface Vertex {
@@ -22,9 +38,8 @@ export interface RenderOptions {
     nodesCost: boolean;
     map: boolean;
 }
-export const UNDEFINED_COST = -1;
 const UNDEFINED_INDEX = -1;
-const defaultVertex: Vertex = {
+export const defaultVertex: Vertex = {
     processed: false,
     accessCost: UNDEFINED_COST,
     edgeIndex: UNDEFINED_INDEX
@@ -104,7 +119,7 @@ export class Graph {
                 result.push({
                     vertex0: i,
                     vertex1: j,
-                    cost
+                    cost: { ...defaultEdgeCost, cost }
                 });
             }
         }
@@ -147,7 +162,7 @@ export class Graph {
                 if (adjacentVertex.processed) {
                     continue;
                 }
-                const newAccessCost = curVertex.accessCost + adjacentEdge.cost;
+                const newAccessCost = curVertex.accessCost + adjacentEdge.cost.cost;
                 if (
                     adjacentVertex.accessCost === UNDEFINED_COST ||
                     newAccessCost < adjacentVertex.accessCost
@@ -218,7 +233,7 @@ export class Graph {
         let moveCost = 0;
         for (let i = this.cheapestPath.length - 1; i >= 0; i--) {
             const edge = this.edges[this.cheapestPath[i]];
-            moveCost += edge.cost;
+            moveCost += edge.cost.cost;
             console.log(`->${edge.vertex1}(edgeCost:${edge.cost}, moveCost:${moveCost})`);
         }
         console.log(`TO: ${toVertex}(accessCost: ${this.vertices[toVertex].accessCost})`);
@@ -255,7 +270,7 @@ export class Graph {
                 this.edges.push({
                     vertex0: vertexIndex,
                     vertex1: vertexIndex + 1,
-                    cost
+                    cost: { ...defaultEdgeCost, cost }
                 });
             }
         }
@@ -269,7 +284,7 @@ export class Graph {
                 this.edges.push({
                     vertex0: vertexIndex,
                     vertex1: vertexIndex + w,
-                    cost
+                    cost: { ...defaultEdgeCost, cost }
                 });
             }
         }

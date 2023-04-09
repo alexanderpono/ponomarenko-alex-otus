@@ -1,5 +1,5 @@
 import { Cell, GameField } from '@ui-src/GameField';
-import { Edge, Graph, RenderOptions } from '@ui-src/Graph';
+import { COST_SPACE, Edge, Graph, RenderOptions, UNDEFINED_COST } from '@ui-src/Graph';
 import React from 'react';
 
 interface LRGameFieldProps {
@@ -204,8 +204,6 @@ class RenderFieldGraph {
         if (!this.options.lines) {
             return;
         }
-        this.context.strokeStyle = 'green';
-        this.context.font = 'bold 15px sans-serif';
         this.graph.edges.forEach((edge: Edge) => {
             this.drawEdge(edge);
             // this.drawEdgeCost(edge);
@@ -219,7 +217,7 @@ class RenderFieldGraph {
         this.context.lineWidth = 6;
         this.context.strokeStyle = 'magenta';
         this.graph.cheapestPath.forEach((edgeIndex) => {
-            this.drawEdge(this.graph.edges[edgeIndex]);
+            this.drawPath(this.graph.edges[edgeIndex]);
         });
     };
 
@@ -227,6 +225,7 @@ class RenderFieldGraph {
         if (!this.options.nodesCost) {
             return;
         }
+        this.context.font = 'bold 15px sans-serif';
         this.context.strokeStyle = 'green';
         this.context.fillStyle = 'white';
         this.context.lineWidth = 3;
@@ -246,6 +245,34 @@ class RenderFieldGraph {
         drawCircle(this.context, w2 + x * SPRITE_WIDTH, h2 + y * SPRITE_HEIGHT, 6);
 
     drawEdge = (edge: Edge) => {
+        const w = this.field.field[0].length;
+        const v0x = edge.vertex0 % w;
+        const v0y = Math.floor(edge.vertex0 / w);
+        const v1x = edge.vertex1 % w;
+        const v1y = Math.floor(edge.vertex1 / w);
+
+        this.context.beginPath();
+        this.context.moveTo(w2 + v0x * SPRITE_WIDTH, h2 + v0y * SPRITE_HEIGHT);
+        if (edge.cost.v0v1Cost !== UNDEFINED_COST) {
+            this.context.strokeStyle = edge.cost.v0v1Cost === COST_SPACE ? 'green' : 'red';
+            const midX = w2 + ((v0x + v1x) / 2) * SPRITE_WIDTH;
+            const midY = h2 + ((v0y + v1y) / 2) * SPRITE_HEIGHT;
+            this.context.lineTo(midX, midY);
+            this.context.stroke();
+            this.context.closePath();
+
+            this.context.beginPath();
+            this.context.strokeStyle = edge.cost.v1v0Cost === COST_SPACE ? 'green' : 'red';
+            this.context.moveTo(midX, midY);
+        } else {
+            this.context.strokeStyle = 'green';
+        }
+        this.context.lineTo(w2 + v1x * SPRITE_WIDTH, h2 + v1y * SPRITE_HEIGHT);
+        this.context.stroke();
+        this.context.closePath();
+    };
+
+    drawPath = (edge: Edge) => {
         const w = this.field.field[0].length;
         const v0x = edge.vertex0 % w;
         const v0y = Math.floor(edge.vertex0 / w);
