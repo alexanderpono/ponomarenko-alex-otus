@@ -18,7 +18,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "include": [ "api-src/**/*", "ui-src/components"  ],
+  "include": [ "api-src/**/*", "ui-src/components", "ui-src/GR/GR.types.ts", "ui-src/GR/GRField.ts", "ui-src/GR/GRGraph.ts"  ],
   "exclude": [
     "node_modules",
     "**/*.spec.ts",

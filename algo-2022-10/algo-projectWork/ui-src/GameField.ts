@@ -55,6 +55,8 @@ export class GameField {
         return this;
     };
 
+    getWidth = () => this.field[0].length;
+
     vertexIndexToCoords = (vertexIndex: number, w: number): Point2D => {
         const x = vertexIndex % w;
         const y = Math.floor(vertexIndex / w);
@@ -67,18 +69,6 @@ export class GameField {
             return Cell.wall;
         }
         return this.field[point.y][point.x];
-    };
-
-    getEdgeSimpleCost = (): number => 1;
-
-    getEdgeAdvancedCost = (v0Index: number, v1Index: number): number => {
-        const COST_WALL = 100;
-        const COST_SPACE = 1;
-        const w = this.field[0].length;
-        const cell0 = this.coordsToCell(this.vertexIndexToCoords(v0Index, w));
-        const cell1 = this.coordsToCell(this.vertexIndexToCoords(v1Index, w));
-        const cost = cell0 === Cell.wall || cell1 === Cell.wall ? COST_WALL : COST_SPACE;
-        return cost;
     };
 
     static create = (): GameField => {

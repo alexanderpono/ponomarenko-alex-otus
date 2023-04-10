@@ -6,6 +6,7 @@ import {
     slide3a,
     slide4,
     slide5,
+    slideGame1,
     slideV5_2,
     slideV5_3,
     slideV5_4,
@@ -23,3 +24,4 @@ slideV5_2();
 slideV5_3();
 slideV5_4();
 slideV5_5();
+slideGame1();

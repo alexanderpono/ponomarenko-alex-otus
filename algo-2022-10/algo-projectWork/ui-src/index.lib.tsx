@@ -1,11 +1,12 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Graph, RenderOptions, SILENT, VERBOSE } from './Graph';
+import { Graph, RenderOptions, SILENT } from './Graph';
 import { GraphFromLesson } from './components/GraphFromLesson';
 import { GameField } from './GameField';
 import { LRGameField } from './components/LRGameField';
 import { GraphV4 } from './GraphV4';
 import { GraphV5 } from './GraphV5';
+import { AppController } from './AppController';
 
 export const slide0 = () => {
     renderGraphFromLesson();
@@ -51,7 +52,7 @@ const fieldS0 = `
 const field0 = GameField.create().initFromText(fieldS0);
 
 export const slide1 = () => {
-    const graph0 = Graph.create().initFromField(field0, field0.getEdgeSimpleCost);
+    const graph0 = Graph.create().initFromField(field0, Graph.create().getEdgeSimpleCost);
 
     renderLRField(
         'Траектория движения на сетке из ребер с одинаковыми стоимостями',
@@ -90,7 +91,7 @@ export function renderLRField(
 }
 
 export const slide2 = () => {
-    const graph1 = Graph.create().initFromField(field0, field0.getEdgeAdvancedCost);
+    const graph1 = Graph.create().initFromField(field0, Graph.create().getEdgeAdvancedCost);
     renderLRField(
         'Траектория движения с обходом препятствий. Доступен только один путь',
         fieldS0,
@@ -120,7 +121,7 @@ export const slide3a = () => {
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
     `;
     const field2 = GameField.create().initFromText(fieldS2);
-    const graph2 = Graph.create().initFromField(field2, field2.getEdgeAdvancedCost);
+    const graph2 = Graph.create().initFromField(field2, Graph.create().getEdgeAdvancedCost);
     renderLRField(
         'Проблема: алгоритм не нашел оптимальный путь (ошибка в реализации)',
         fieldS2,
@@ -150,7 +151,7 @@ export const slide3 = () => {
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
     `;
     const field2 = GameField.create().initFromText(fieldS2);
-    const graph2 = GraphV4.create().initFromField(field2, field2.getEdgeAdvancedCost);
+    const graph2 = GraphV4.create().initFromField(field2, Graph.create().getEdgeAdvancedCost);
     renderLRField(
         'Результат выбора оптимального пути',
         fieldS2,
@@ -181,7 +182,7 @@ export const slide4 = () => {
     `;
 
     const field3 = GameField.create().initFromText(fieldS3);
-    const graph3 = GraphV4.create().initFromField(field3, field3.getEdgeAdvancedCost);
+    const graph3 = GraphV4.create().initFromField(field3, Graph.create().getEdgeAdvancedCost);
 
     renderLRField(
         'Проблема: персонаж должен падать в отверстие в полу',
@@ -358,4 +359,10 @@ export const slideV5_5 = () => {
         field,
         SILENT
     );
+};
+
+let app: AppController | null = null;
+export const slideGame1 = () => {
+    app = new AppController();
+    app.run();
 };

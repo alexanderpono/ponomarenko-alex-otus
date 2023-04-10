@@ -1,4 +1,4 @@
-import { GameField } from './GameField';
+import { Cell, GameField } from './GameField';
 
 const NULL = -1;
 export const VERBOSE = true;
@@ -254,7 +254,10 @@ export class Graph {
         return this;
     };
 
-    initFromField = (field: GameField, getEdgeCost: (v0: number, v1: number) => number) => {
+    initFromField = (
+        field: GameField,
+        getEdgeCost: (field: GameField, v0: number, v1: number) => number
+    ) => {
         const h = field.field.length;
         const w = field.field[0].length;
         const verticesNumber = w * h;
@@ -266,7 +269,7 @@ export class Graph {
             const vertexStartLine = y * w;
             for (let x = 0; x < w - 1; x++) {
                 const vertexIndex = vertexStartLine + x;
-                const cost = getEdgeCost(vertexIndex, vertexIndex + 1);
+                const cost = getEdgeCost(field, vertexIndex, vertexIndex + 1);
                 this.edges.push({
                     vertex0: vertexIndex,
                     vertex1: vertexIndex + 1,
@@ -279,7 +282,7 @@ export class Graph {
             const vertexStartLine = y * w;
             for (let x = 0; x < w; x++) {
                 const vertexIndex = vertexStartLine + x;
-                const cost = getEdgeCost(vertexIndex, vertexIndex + w);
+                const cost = getEdgeCost(field, vertexIndex, vertexIndex + w);
 
                 this.edges.push({
                     vertex0: vertexIndex,
@@ -294,6 +297,18 @@ export class Graph {
     getVertexIndex = (fieldString: string, char: string): number => {
         const s = fieldString.trim().split('\n').join('');
         return s.indexOf(char);
+    };
+
+    getEdgeSimpleCost = (): number => 1;
+
+    getEdgeAdvancedCost = (field: GameField, v0Index: number, v1Index: number): number => {
+        const COST_WALL = 100;
+        const COST_SPACE = 1;
+        const w = field.field[0].length;
+        const cell0 = field.coordsToCell(field.vertexIndexToCoords(v0Index, w));
+        const cell1 = field.coordsToCell(field.vertexIndexToCoords(v1Index, w));
+        const cost = cell0 === Cell.wall || cell1 === Cell.wall ? COST_WALL : COST_SPACE;
+        return cost;
     };
 
     static create(): Graph {
