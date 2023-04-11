@@ -6,7 +6,7 @@ import { GraphV5 } from './GraphV5';
 import { AppUI } from './components/AppUI';
 import { GRField } from './GR/GRField';
 import { GRGraph } from './GR/GRGraph';
-import { ManAni } from './GR/GR.types';
+import { ManAni, SPRITE_HEIGHT, SPRITE_WIDTH } from './GR/GR.types';
 import { GRMan } from './GR/GRMan';
 
 const fieldS = `
@@ -25,11 +25,14 @@ export class AppController {
     emptyField: GameField;
     graph: GraphV5;
     pic;
-    manXY: Point2D;
+    manScreenXY: Point2D;
+    manFieldXY: Point2D;
+    nextManFieldXY: Point2D;
     manVIndex: number;
     nextManVIndex: number;
     manAni: ManAni = ManAni.STAND;
     curPathPos = 0;
+    w: number;
 
     loadPic = () => {
         return new Promise((resolve) => {
@@ -84,35 +87,71 @@ export class AppController {
         this.manVIndex = mIndex;
         this.nextManVIndex = mIndex;
         this.curPathPos = 0;
-        this.manXY = this.field.vertexIndexToCoords(mIndex, this.field.getWidth());
-        console.error('run() this.manXY=', this.manXY);
+        this.w = this.field.getWidth();
         this.graph.calcVerticesCost(mIndex, dIndex, SILENT).calcCheapestPath(mIndex, dIndex);
+
+        this.doTrajectoryStep();
+        this.manFieldXY = this.field.vertexIndexToCoords(mIndex, this.w);
+        this.nextManFieldXY = this.field.vertexIndexToCoords(this.nextManVIndex, this.w);
+        this.calcManScreenPos();
 
         Promise.all([this.loadPic(), this.renderUI()]).then(() => {
             console.error('pic loaded & UI ready');
-            this.renderLoop();
+            this.tick();
         });
     };
 
+    calcManScreenPos = () => {
+        const deltaX = this.nextManFieldXY.x - this.manFieldXY.x;
+        const deltaY = this.nextManFieldXY.y - this.manFieldXY.y;
+        this.manScreenXY = {
+            x: (this.manFieldXY.x + (deltaX / 10) * (this.miniCounter % 10)) * SPRITE_WIDTH,
+            y: (this.manFieldXY.y + (deltaY / 10) * (this.miniCounter % 10)) * SPRITE_HEIGHT
+        };
+        console.log(
+            'this.curPathPos, this.stepNo, deltaX, deltaY, this.miniCounter, x, y, this.manVIndex, this.nextManVIndex=',
+            this.curPathPos,
+            this.stepNo,
+            deltaX,
+            deltaY,
+            this.miniCounter,
+            this.manScreenXY,
+            this.manVIndex,
+            this.nextManVIndex
+        );
+    };
     stepNo = 0;
-    renderLoop = () => {
-        if (
-            this.nextManVIndex !== this.manVIndex &&
-            this.curPathPos < this.graph.cheapestPath.length
-        ) {
+    miniCounter = 0;
+    maxMiniCounter = 9;
+    tick = () => {
+        if ((this.miniCounter + 1) % 10 === 0) {
+            if (
+                // this.nextManVIndex !== this.manVIndex &&
+                this.curPathPos < this.graph.cheapestPath.length
+            ) {
+                this.curPathPos++;
+                this.stepNo++;
+            }
             this.manVIndex = this.nextManVIndex;
-            this.manXY = this.field.vertexIndexToCoords(this.manVIndex, this.field.getWidth());
-            this.curPathPos++;
+            this.doTrajectoryStep();
+            this.manFieldXY = this.field.vertexIndexToCoords(this.manVIndex, this.w);
+            this.nextManFieldXY = this.field.vertexIndexToCoords(this.nextManVIndex, this.w);
+
+            // this.miniCounter = 0;
+            this.miniCounter++;
+            this.calcManScreenPos();
+            this.renderScene();
+        } else {
+            this.miniCounter++;
+            this.calcManScreenPos();
+            this.renderScene();
         }
-        this.calcMan();
-        this.renderScene();
-        this.stepNo++;
-        if (this.stepNo <= 10) {
-            setTimeout(() => this.renderLoop(), 2000);
+        if (this.stepNo < 10) {
+            setTimeout(() => this.tick(), 100);
         }
     };
 
-    calcMan = () => {
+    doTrajectoryStep = () => {
         console.error('calcMan() this.graph.cheapestPath=', this.graph.cheapestPath);
         if (this.curPathPos >= this.graph.cheapestPath.length) {
             return;
@@ -143,7 +182,7 @@ export class AppController {
         }
         if (direction === 'up' && v1xy.y > v0xy.y) {
             this.nextManVIndex = edge.vertex0;
-            this.manAni = ManAni.STAND;
+            this.manAni = ManAni.STAIRS;
         }
         if (direction === 'left' && v1xy.x > v0xy.x) {
             this.nextManVIndex = edge.vertex0;
@@ -180,6 +219,6 @@ export class AppController {
         };
         GRField.create(context, this.emptyField, this.pic, options).draw();
         GRGraph.create(context, this.field, this.graph, options).draw();
-        GRMan.create(context, this.manXY, this.manAni, this.pic).draw();
+        GRMan.create(context, this.manScreenXY, this.manAni, this.pic, this.miniCounter).draw();
     };
 }
