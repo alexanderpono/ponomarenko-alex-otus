@@ -68,7 +68,7 @@ export const GraphFromLesson: React.FC<GraphFromLessonProps> = ({ graph }) => {
         drawVertices(context);
     }, []);
 
-    return <canvas height="440" width="670" id="GraphUI" ref={canvasRef}></canvas>;
+    return <canvas height="440" width="720" id="GraphUI" ref={canvasRef}></canvas>;
 };
 
 function drawVertices(context: CanvasRenderingContext2D) {

@@ -10,6 +10,9 @@ interface LRGameFieldProps {
     render: RenderOptions;
     id: string;
     title: string;
+    canvasW?: number;
+    canvasH?: number;
+    showControls?: boolean;
 }
 
 export const LRGameField: React.FC<LRGameFieldProps> = ({
@@ -17,7 +20,10 @@ export const LRGameField: React.FC<LRGameFieldProps> = ({
     graph,
     render: startRender,
     id,
-    title
+    title,
+    canvasW,
+    canvasH,
+    showControls
 }) => {
     const canvasRef = React.useRef(null);
 
@@ -76,18 +82,28 @@ export const LRGameField: React.FC<LRGameFieldProps> = ({
         GRGraph.create(context, field, graph, options).draw();
     }, [picLoaded, nodesChecked, linesChecked, pathChecked, nodesCostChecked, mapChecked]);
 
+    const w = typeof canvasW === 'number' ? canvasW : 720;
+    const h = typeof canvasH === 'number' ? canvasH : 320;
+    const show = typeof showControls === 'boolean' ? showControls : true;
     return (
-        <div>
+        <div style={{ width: '720px' }}>
             <h1>{title}</h1>
-            <canvas height="320" width="670" id="GraphUI" ref={canvasRef}></canvas>
-            <fieldset>
-                <legend>Отображать</legend>
-                {Label(nodesChecked, nodesClicked, `${id}-nodes`, 'Узлы сетки')}
-                {Label(linesChecked, linesClicked, `${id}-lines`, 'Линии сетки')}
-                {Label(pathChecked, pathClicked, `${id}-path`, 'Траектория')}
-                {Label(nodesCostChecked, nodesCostClicked, `${id}-nodesCost`, 'Стоимость узлов')}
-                {Label(mapChecked, mapClicked, `${id}-map`, 'Карта')}
-            </fieldset>
+            <canvas height={h} width={w} id="GraphUI" ref={canvasRef}></canvas>
+            {show && (
+                <fieldset>
+                    <legend>Отображать</legend>
+                    {Label(nodesChecked, nodesClicked, `${id}-nodes`, 'Узлы сетки')}
+                    {Label(linesChecked, linesClicked, `${id}-lines`, 'Линии сетки')}
+                    {Label(pathChecked, pathClicked, `${id}-path`, 'Траектория')}
+                    {Label(
+                        nodesCostChecked,
+                        nodesCostClicked,
+                        `${id}-nodesCost`,
+                        'Стоимость узлов'
+                    )}
+                    {Label(mapChecked, mapClicked, `${id}-map`, 'Карта')}
+                </fieldset>
+            )}
         </div>
     );
 };

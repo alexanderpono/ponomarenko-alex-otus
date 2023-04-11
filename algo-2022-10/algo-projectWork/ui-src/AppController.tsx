@@ -10,14 +10,14 @@ import { ManAni, SPRITE_HEIGHT, SPRITE_WIDTH } from './GR/GR.types';
 import { GRMan } from './GR/GRMan';
 
 const fieldS = `
-▓     $         ▓
-▓▓▓▓ ▓▓▓╡▓▓▓▓▓▓▓▓
-▓ M     ╡       ▓
-▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓
-▓           ╡   ▓
-▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓
-▓  ╡     ╡    ╡ ▓
-▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+▓     $          ▓
+▓▓▓▓ ▓▓▓╡▓▓▓▓▓▓▓▓▓
+▓ M     ╡        ▓
+▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓▓
+▓           ╡    ▓
+▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓▓
+▓  ╡     ╡    ╡  ▓
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
     `;
 
 export class AppController {

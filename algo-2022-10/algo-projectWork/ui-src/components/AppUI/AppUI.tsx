@@ -18,8 +18,10 @@ export const AppUI: React.FC<AppUIProps> = ({ ctrl, title, onMount }) => {
     return (
         <div>
             <h1>{title}</h1>
-            <canvas height="320" width="670" id="AppUI-canvas"></canvas>
-            <button onClick={ctrl.onBtStartClick}>Start</button>
+            <canvas height="320" width="720" id="AppUI-canvas"></canvas>
+            <div>
+                <button onClick={ctrl.onBtStartClick}>Start</button>
+            </div>
         </div>
     );
 };

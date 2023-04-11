@@ -10,7 +10,8 @@ import {
     slideV5_2,
     slideV5_3,
     slideV5_4,
-    slideV5_5
+    slideV5_5,
+    slide_finish
 } from './index.lib';
 
 slide0();
@@ -25,3 +26,4 @@ slideV5_3();
 slideV5_4();
 slideV5_5();
 slideGame1();
+slide_finish();

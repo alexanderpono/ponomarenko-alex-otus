@@ -40,14 +40,14 @@ GG........0508..
     render([<GraphFromLesson graph={g} />], document.getElementById('GraphFromLesson'));
 }
 const fieldS0 = `
-▓ M             ▓
-▓▓▓▓▓▓▓▓╡▓▓▓▓▓▓▓▓
-▓       ╡       ▓
-▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓
-▓           ╡   ▓
-▓▓▓╡▓▓▓▓▓▓▓▓▓▓▓▓▓
-▓  ╡         $  ▓
-▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+▓ M              ▓
+▓▓▓▓▓▓▓▓╡▓▓▓▓▓▓▓▓▓
+▓       ╡        ▓
+▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓▓
+▓           ╡    ▓
+▓▓▓╡▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+▓  ╡         $   ▓
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 `;
 const field0 = GameField.create().initFromText(fieldS0);
 
@@ -111,14 +111,14 @@ export const slide2 = () => {
 
 export const slide3a = () => {
     const fieldS2 = `
-▓ M             ▓
-▓▓▓▓▓▓▓▓╡▓▓▓▓▓▓▓▓
-▓       ╡       ▓
-▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓
-▓           ╡   ▓
-▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓
-▓  ╡     ╡   $╡ ▓
-▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+▓ M              ▓
+▓▓▓▓▓▓▓▓╡▓▓▓▓▓▓▓▓▓
+▓       ╡        ▓
+▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓▓
+▓           ╡    ▓
+▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓▓
+▓  ╡     ╡   $╡  ▓
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
     `;
     const field2 = GameField.create().initFromText(fieldS2);
     const graph2 = Graph.create().initFromField(field2, Graph.create().getEdgeAdvancedCost);
@@ -141,14 +141,14 @@ export const slide3a = () => {
 
 export const slide3 = () => {
     const fieldS2 = `
-▓ M             ▓
-▓▓▓▓▓▓▓▓╡▓▓▓▓▓▓▓▓
-▓       ╡       ▓
-▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓
-▓           ╡   ▓
-▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓
-▓  ╡     ╡   $╡ ▓
-▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+▓ M              ▓
+▓▓▓▓▓▓▓▓╡▓▓▓▓▓▓▓▓▓
+▓       ╡        ▓
+▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓▓
+▓           ╡    ▓
+▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓▓
+▓  ╡     ╡   $╡  ▓
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
     `;
     const field2 = GameField.create().initFromText(fieldS2);
     const graph2 = GraphV4.create().initFromField(field2, Graph.create().getEdgeAdvancedCost);
@@ -171,14 +171,14 @@ export const slide3 = () => {
 
 export const slide4 = () => {
     const fieldS3 = `
-▓ M             ▓
-▓▓▓▓ ▓▓▓╡▓▓▓▓▓▓▓▓
-▓       ╡       ▓
-▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓
-▓           ╡   ▓
-▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓
-▓  ╡     ╡   $╡ ▓
-▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+▓ M              ▓
+▓▓▓▓ ▓▓▓╡▓▓▓▓▓▓▓▓▓
+▓       ╡        ▓
+▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓▓
+▓           ╡    ▓
+▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓▓
+▓  ╡     ╡   $╡  ▓
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
     `;
 
     const field3 = GameField.create().initFromText(fieldS3);
@@ -203,14 +203,14 @@ export const slide4 = () => {
 
 export const slide5 = () => {
     const fieldS = `
-▓ M             ▓
-▓▓▓▓ ▓▓▓╡▓▓▓▓▓▓▓▓
-▓       ╡       ▓
-▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓
-▓           ╡   ▓
-▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓
-▓  ╡     ╡   $╡ ▓
-▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+▓ M              ▓
+▓▓▓▓ ▓▓▓╡▓▓▓▓▓▓▓▓▓
+▓       ╡        ▓
+▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓▓
+▓           ╡    ▓
+▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓▓
+▓  ╡     ╡   $╡  ▓
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
     `;
 
     const field = GameField.create().initFromText(fieldS);
@@ -235,14 +235,14 @@ export const slide5 = () => {
 
 export const slideV5_2 = () => {
     const fieldS = `
-▓ M             ▓
-▓▓▓▓ ▓▓▓╡▓▓▓▓▓▓▓▓
-▓       ╡       ▓
-▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓
-▓           ╡   ▓
-▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓
-▓  ╡     ╡   $╡ ▓
-▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+▓ M              ▓
+▓▓▓▓ ▓▓▓▓╡▓▓▓▓▓▓▓▓
+▓       ╡        ▓
+▓▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓
+▓           ╡    ▓
+▓▓▓╡▓▓▓▓▓▓╡▓▓▓╡▓▓▓
+▓  ╡     ╡   $╡  ▓
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
     `;
 
     const field = GameField.create().initFromText(fieldS);
@@ -267,14 +267,14 @@ export const slideV5_2 = () => {
 
 export const slideV5_3 = () => {
     const fieldS = `
-▓ M             ▓
-▓▓▓▓ ▓▓▓╡▓▓▓▓▓▓▓▓
-▓       ╡       ▓
-▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓
-▓           ╡   ▓
-▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓
-▓  ╡     ╡   $╡ ▓
-▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+▓ M              ▓
+▓▓▓▓ ▓▓▓╡▓▓▓▓▓▓▓▓▓
+▓       ╡        ▓
+▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓▓
+▓           ╡    ▓
+▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓▓
+▓  ╡     ╡   $╡  ▓
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
     `;
 
     const field = GameField.create().initFromText(fieldS);
@@ -299,14 +299,14 @@ export const slideV5_3 = () => {
 
 export const slideV5_4 = () => {
     const fieldS = `
-▓     $         ▓
-▓▓▓▓ ▓▓▓╡▓▓▓▓▓▓▓▓
-▓ M     ╡       ▓
-▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓
-▓           ╡   ▓
-▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓
-▓  ╡     ╡    ╡ ▓
-▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+▓     $          ▓
+▓▓▓▓ ▓▓▓╡▓▓▓▓▓▓▓▓▓
+▓ M     ╡        ▓
+▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓▓
+▓           ╡    ▓
+▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓▓
+▓  ╡     ╡    ╡  ▓
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
     `;
 
     const field = GameField.create().initFromText(fieldS);
@@ -331,14 +331,14 @@ export const slideV5_4 = () => {
 
 export const slideV5_5 = () => {
     const fieldS = `
-▓     $         ▓
-▓▓▓▓ ▓▓▓╡▓▓▓▓▓▓▓▓
-▓ M     ╡       ▓
-▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓
-▓           ╡   ▓
-▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓
-▓  ╡     ╡    ╡ ▓
-▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+▓     $          ▓
+▓▓▓▓ ▓▓▓╡▓▓▓▓▓▓▓▓▓
+▓ M     ╡        ▓
+▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓▓
+▓           ╡    ▓
+▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓▓
+▓  ╡     ╡    ╡  ▓
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
     `;
 
     const field = GameField.create().initFromText(fieldS);
@@ -365,4 +365,50 @@ let app: AppController | null = null;
 export const slideGame1 = () => {
     app = new AppController();
     app.run();
+};
+
+export const slide_finish = () => {
+    const fieldS = `
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+▓                ▓
+▓ ▓▓ ▓▓▓ ▓▓▓     ▓
+▓ ▓  ▓ ▓ ▓ ▓     ▓
+▓ ▓  ▓ ▓ ▓▓▓ ▓▓  ▓
+▓ ▓  ▓ ▓ ▓ ▓     ▓
+▓ ▓▓ ▓ ▓ ▓ ▓     ▓
+▓             M  ▓
+▓ ▓▓ ▓ ▓ ▓▓▓ ▓▓▓ ▓
+▓ ▓  ▓ ▓ ▓   ▓ ▓ ▓
+▓ ▓  ▓ ▓ ▓▓▓ ▓ ▓ ▓
+▓ ▓  ▓▓▓ ▓ ▓ ▓$▓ ▓
+▓ ▓▓ ▓ ▓ ▓▓▓ ▓▓▓ ▓
+▓                ▓
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 
+`;
+
+    const field = GameField.create().initFromText(fieldS);
+    const graph = GraphV5.create().initFromField(field);
+
+    const options = {
+        nodes: false,
+        lines: false,
+        path: false,
+        nodesCost: false,
+        map: true
+    };
+    render(
+        [
+            <LRGameField
+                field={field}
+                graph={graph}
+                render={options}
+                id="finish"
+                title=""
+                canvasW={720}
+                canvasH={600}
+                showControls={false}
+            />
+        ],
+        document.getElementById('finish')
+    );
 };
