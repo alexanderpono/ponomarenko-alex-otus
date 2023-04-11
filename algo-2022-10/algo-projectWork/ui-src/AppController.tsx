@@ -52,7 +52,6 @@ export class AppController {
                         ctrl={this}
                         title="Результат"
                         onMount={() => {
-                            console.error('onMount()');
                             resolve(true);
                         }}
                     />
@@ -62,12 +61,9 @@ export class AppController {
         });
     };
 
-    onHtmlUIReady = () => {
-        console.error('onHtmlUIReady()');
-    };
-
     onBtStartClick = () => {
-        console.error('onBtStartClick()');
+        this.manAni = ManAni.RIGHT;
+        this.tick();
     };
 
     run = () => {
@@ -97,7 +93,8 @@ export class AppController {
 
         Promise.all([this.loadPic(), this.renderUI()]).then(() => {
             console.error('pic loaded & UI ready');
-            this.tick();
+            this.manAni = ManAni.STAND;
+            this.renderScene();
         });
     };
 
@@ -108,27 +105,13 @@ export class AppController {
             x: (this.manFieldXY.x + (deltaX / 10) * (this.miniCounter % 10)) * SPRITE_WIDTH,
             y: (this.manFieldXY.y + (deltaY / 10) * (this.miniCounter % 10)) * SPRITE_HEIGHT
         };
-        console.log(
-            'this.curPathPos, this.stepNo, deltaX, deltaY, this.miniCounter, x, y, this.manVIndex, this.nextManVIndex=',
-            this.curPathPos,
-            this.stepNo,
-            deltaX,
-            deltaY,
-            this.miniCounter,
-            this.manScreenXY,
-            this.manVIndex,
-            this.nextManVIndex
-        );
     };
     stepNo = 0;
     miniCounter = 0;
     maxMiniCounter = 9;
     tick = () => {
         if ((this.miniCounter + 1) % 10 === 0) {
-            if (
-                // this.nextManVIndex !== this.manVIndex &&
-                this.curPathPos < this.graph.cheapestPath.length
-            ) {
+            if (this.curPathPos < this.graph.cheapestPath.length) {
                 this.curPathPos++;
                 this.stepNo++;
             }
@@ -137,7 +120,6 @@ export class AppController {
             this.manFieldXY = this.field.vertexIndexToCoords(this.manVIndex, this.w);
             this.nextManFieldXY = this.field.vertexIndexToCoords(this.nextManVIndex, this.w);
 
-            // this.miniCounter = 0;
             this.miniCounter++;
             this.calcManScreenPos();
             this.renderScene();
@@ -147,18 +129,19 @@ export class AppController {
             this.renderScene();
         }
         if (this.stepNo < 10) {
-            setTimeout(() => this.tick(), 100);
+            setTimeout(() => this.tick(), 25);
+        } else {
+            this.manAni = ManAni.STAND;
+            this.renderScene();
         }
     };
 
     doTrajectoryStep = () => {
-        console.error('calcMan() this.graph.cheapestPath=', this.graph.cheapestPath);
         if (this.curPathPos >= this.graph.cheapestPath.length) {
             return;
         }
         const curEdgeIndex = this.graph.cheapestPath[this.curPathPos];
         const edge = this.graph.edges[curEdgeIndex];
-        console.error('calcMan() edge=', edge);
         const v0xy = this.field.vertexIndexToCoords(edge.vertex0, this.field.getWidth());
         const v1xy = this.field.vertexIndexToCoords(edge.vertex1, this.field.getWidth());
         const edgeOrientation = v0xy.y === v1xy.y ? 'hor' : 'vert';
@@ -188,15 +171,6 @@ export class AppController {
             this.nextManVIndex = edge.vertex0;
             this.manAni = ManAni.LEFT;
         }
-        console.log('this.curPathPos=', this.curPathPos);
-        console.log('curEdgeIndex=', curEdgeIndex);
-        console.log('edge=', edge);
-        console.log('edgeOrientation=', edgeOrientation);
-        console.log('this.manAni=', this.manAni);
-
-        console.log('this.manVIndex=', this.manVIndex);
-        console.log('this.nextManVIndex=', this.nextManVIndex);
-        console.log('direction=', direction);
     };
 
     renderScene = () => {

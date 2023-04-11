@@ -1,7 +1,6 @@
 import React from 'react';
 
 interface AppControllerForUI {
-    onHtmlUIReady: () => void;
     onBtStartClick: () => void;
 }
 
@@ -13,7 +12,6 @@ interface AppUIProps {
 
 export const AppUI: React.FC<AppUIProps> = ({ ctrl, title, onMount }) => {
     React.useEffect(() => {
-        ctrl.onHtmlUIReady();
         onMount();
     }, []);
 

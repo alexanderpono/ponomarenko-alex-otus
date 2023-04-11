@@ -6,7 +6,7 @@ export interface Sprite {
 }
 export const man: Sprite = {
     x: 0,
-    y: 0
+    y: 160
 };
 export const manR0: Sprite = {
     x: 40,
