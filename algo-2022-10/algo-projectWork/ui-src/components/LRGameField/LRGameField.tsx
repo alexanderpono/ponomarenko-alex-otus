@@ -1,8 +1,8 @@
 import { GameField } from '@ui-src/GameField';
 import { Graph, RenderOptions } from '@ui-src/Graph';
 import React from 'react';
-import { GRField } from '../../GR/GRField';
-import { GRGraph } from '../../GR/GRGraph';
+import { GRField } from '@ui-src/GR/GRField';
+import { GRGraph } from '@ui-src/GR/GRGraph';
 
 interface LRGameFieldProps {
     field: GameField;

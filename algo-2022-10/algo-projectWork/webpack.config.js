@@ -2,6 +2,7 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpackRules = require('./webpackRules');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: './ui-src/index.tsx',
@@ -28,6 +29,9 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: './public/index.html'
+        }),
+        new CopyPlugin({
+            patterns: [{ from: 'public/sprite.png' }]
         })
     ]
 };
