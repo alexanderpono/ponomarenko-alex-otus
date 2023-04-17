@@ -35,7 +35,7 @@ export class AppController {
     manAni: ManAni = ManAni.STAND;
     curPathPos = 0;
     w: number;
-    pathChecked = true;
+    pathChecked = false;
 
     loadPic = () => {
         return new Promise((resolve) => {

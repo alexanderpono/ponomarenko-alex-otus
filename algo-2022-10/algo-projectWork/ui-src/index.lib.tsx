@@ -10,7 +10,7 @@ import { AppController } from './AppController';
 
 export const slide0 = () => {
     renderGraphFromLesson(
-        'Пример с вебинара «Алгоритм Дейкстры». Исходный вариант',
+        'Пример с вебинара «Алгоритм Дейкстры». Исходный граф',
         false,
         'GraphFromLesson'
     );
@@ -18,7 +18,7 @@ export const slide0 = () => {
 
 export const slide0_1 = () => {
     renderGraphFromLesson(
-        'Пример с вебинара «Алгоритм Дейкстры». Кратчайший путь',
+        'Пример с вебинара «Алгоритм Дейкстры». Рассчитан кратчайший путь',
         true,
         'GraphFromLesson-2'
     );
@@ -70,7 +70,7 @@ export const slide1 = () => {
     const graph0 = Graph.create().initFromField(field0, Graph.create().getEdgeSimpleCost);
 
     renderLRField(
-        'Траектория движения на сетке из ребер с одинаковыми стоимостями',
+        'Квадратная сетка: ребра с одинаковыми стоимостями',
         fieldS0,
         'slide1',
         {
@@ -78,6 +78,46 @@ export const slide1 = () => {
             lines: true,
             path: false,
             nodesCost: false,
+            map: false
+        },
+        graph0,
+        field0,
+        SILENT
+    );
+};
+
+export const slide1_2 = () => {
+    const graph0 = Graph.create().initFromField(field0, Graph.create().getEdgeSimpleCost);
+
+    renderLRField(
+        'Квадратная сетка: ребра с одинаковыми стоимостями',
+        fieldS0,
+        'slide1_2',
+        {
+            nodes: false,
+            lines: true,
+            path: false,
+            nodesCost: true,
+            map: false
+        },
+        graph0,
+        field0,
+        SILENT
+    );
+};
+
+export const slide1_3 = () => {
+    const graph0 = Graph.create().initFromField(field0, Graph.create().getEdgeSimpleCost);
+
+    renderLRField(
+        'Квадратная сетка: ребра с одинаковыми стоимостями',
+        fieldS0,
+        'slide1_3',
+        {
+            nodes: false,
+            lines: true,
+            path: true,
+            nodesCost: true,
             map: false
         },
         graph0,
@@ -108,7 +148,7 @@ export function renderLRField(
 export const slide2 = () => {
     const graph1 = Graph.create().initFromField(field0, Graph.create().getEdgeAdvancedCost);
     renderLRField(
-        'Траектория движения с обходом препятствий. Доступен только один путь',
+        'Траектория движения с обходом препятствий',
         fieldS0,
         'slide2',
         {
@@ -116,6 +156,63 @@ export const slide2 = () => {
             lines: false,
             path: false,
             nodesCost: false,
+            map: true
+        },
+        graph1,
+        field0,
+        SILENT
+    );
+};
+
+export const slide2_2 = () => {
+    const graph1 = Graph.create().initFromField(field0, Graph.create().getEdgeAdvancedCost);
+    renderLRField(
+        'Траектория движения с обходом препятствий',
+        fieldS0,
+        'slide2_2',
+        {
+            nodes: false,
+            lines: true,
+            path: false,
+            nodesCost: false,
+            map: true
+        },
+        graph1,
+        field0,
+        SILENT
+    );
+};
+
+export const slide2_3 = () => {
+    const graph1 = Graph.create().initFromField(field0, Graph.create().getEdgeAdvancedCost);
+    renderLRField(
+        'Траектория движения с обходом препятствий',
+        fieldS0,
+        'slide2_3',
+        {
+            nodes: false,
+            lines: false,
+            path: false,
+            nodesCost: true,
+            map: true
+        },
+        graph1,
+        field0,
+        SILENT
+    );
+};
+
+export const slide2_4 = () => {
+    const graph1 = Graph.create().initFromField(field0, Graph.create().getEdgeAdvancedCost);
+    renderLRField(
+        'Траектория движения с обходом препятствий',
+        fieldS0,
+        'slide2_4',
+        {
+            nodes: false,
+            lines: false,
+            path: true,
+            nodesCost: true,
             map: true
         },
         graph1,
@@ -154,6 +251,66 @@ export const slide3a = () => {
     );
 };
 
+export const slide3a_2 = () => {
+    const fieldS2 = `
+▓ M              ▓
+▓▓▓▓▓▓▓▓╡▓▓▓▓▓▓▓▓▓
+▓       ╡        ▓
+▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓▓
+▓           ╡    ▓
+▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓▓
+▓  ╡     ╡   $╡  ▓
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+    `;
+    const field2 = GameField.create().initFromText(fieldS2);
+    const graph2 = Graph.create().initFromField(field2, Graph.create().getEdgeAdvancedCost);
+    renderLRField(
+        'Проблема: алгоритм не нашел оптимальный путь (ошибка в реализации)',
+        fieldS2,
+        'slide3a_2',
+        {
+            nodes: false,
+            lines: false,
+            path: true,
+            nodesCost: false,
+            map: true
+        },
+        graph2,
+        field2,
+        SILENT
+    );
+};
+
+export const slide3a_3 = () => {
+    const fieldS2 = `
+▓ M              ▓
+▓▓▓▓▓▓▓▓╡▓▓▓▓▓▓▓▓▓
+▓       ╡        ▓
+▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓▓
+▓           ╡    ▓
+▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓▓
+▓  ╡     ╡   $╡  ▓
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+    `;
+    const field2 = GameField.create().initFromText(fieldS2);
+    const graph2 = Graph.create().initFromField(field2, Graph.create().getEdgeAdvancedCost);
+    renderLRField(
+        'Проблема: алгоритм не нашел оптимальный путь (ошибка в реализации)',
+        fieldS2,
+        'slide3a_3',
+        {
+            nodes: false,
+            lines: false,
+            path: true,
+            nodesCost: true,
+            map: true
+        },
+        graph2,
+        field2,
+        SILENT
+    );
+};
+
 export const slide3 = () => {
     const fieldS2 = `
 ▓ M              ▓
@@ -184,6 +341,66 @@ export const slide3 = () => {
     );
 };
 
+export const slide3_2 = () => {
+    const fieldS2 = `
+▓ M              ▓
+▓▓▓▓▓▓▓▓╡▓▓▓▓▓▓▓▓▓
+▓       ╡        ▓
+▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓▓
+▓           ╡    ▓
+▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓▓
+▓  ╡     ╡   $╡  ▓
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+    `;
+    const field2 = GameField.create().initFromText(fieldS2);
+    const graph2 = GraphV4.create().initFromField(field2, Graph.create().getEdgeAdvancedCost);
+    renderLRField(
+        'Результат выбора оптимального пути',
+        fieldS2,
+        'slide3_2',
+        {
+            nodes: false,
+            lines: false,
+            path: false,
+            nodesCost: true,
+            map: true
+        },
+        graph2,
+        field2,
+        SILENT
+    );
+};
+
+export const slide3_3 = () => {
+    const fieldS2 = `
+▓ M              ▓
+▓▓▓▓▓▓▓▓╡▓▓▓▓▓▓▓▓▓
+▓       ╡        ▓
+▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓▓
+▓           ╡    ▓
+▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓▓
+▓  ╡     ╡   $╡  ▓
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+    `;
+    const field2 = GameField.create().initFromText(fieldS2);
+    const graph2 = GraphV4.create().initFromField(field2, Graph.create().getEdgeAdvancedCost);
+    renderLRField(
+        'Результат выбора оптимального пути',
+        fieldS2,
+        'slide3_3',
+        {
+            nodes: false,
+            lines: false,
+            path: true,
+            nodesCost: true,
+            map: true
+        },
+        graph2,
+        field2,
+        SILENT
+    );
+};
+
 export const slide4 = () => {
     const fieldS3 = `
 ▓ M              ▓
@@ -200,14 +417,110 @@ export const slide4 = () => {
     const graph3 = GraphV4.create().initFromField(field3, Graph.create().getEdgeAdvancedCost);
 
     renderLRField(
-        'Проблема: персонаж должен падать в отверстие в полу',
+        'Задача: персонаж должен падать в отверстие в полу',
         fieldS3,
         'slide4',
         {
             nodes: false,
             lines: false,
+            path: false,
+            nodesCost: false,
+            map: true
+        },
+        graph3,
+        field3,
+        SILENT
+    );
+};
+
+export const slide4_2 = () => {
+    const fieldS3 = `
+▓ M              ▓
+▓▓▓▓ ▓▓▓╡▓▓▓▓▓▓▓▓▓
+▓       ╡        ▓
+▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓▓
+▓           ╡    ▓
+▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓▓
+▓  ╡     ╡   $╡  ▓
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+    `;
+
+    const field3 = GameField.create().initFromText(fieldS3);
+    const graph3 = GraphV4.create().initFromField(field3, Graph.create().getEdgeAdvancedCost);
+
+    renderLRField(
+        'Задача: персонаж должен падать в отверстие в полу',
+        fieldS3,
+        'slide4_2',
+        {
+            nodes: false,
+            lines: false,
+            path: false,
+            nodesCost: true,
+            map: true
+        },
+        graph3,
+        field3,
+        SILENT
+    );
+};
+
+export const slide4_3 = () => {
+    const fieldS3 = `
+▓ M              ▓
+▓▓▓▓ ▓▓▓╡▓▓▓▓▓▓▓▓▓
+▓       ╡        ▓
+▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓▓
+▓           ╡    ▓
+▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓▓
+▓  ╡     ╡   $╡  ▓
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+    `;
+
+    const field3 = GameField.create().initFromText(fieldS3);
+    const graph3 = GraphV4.create().initFromField(field3, Graph.create().getEdgeAdvancedCost);
+
+    renderLRField(
+        'Задача: персонаж должен падать в отверстие в полу',
+        fieldS3,
+        'slide4_3',
+        {
+            nodes: false,
+            lines: false,
             path: true,
             nodesCost: true,
+            map: true
+        },
+        graph3,
+        field3,
+        SILENT
+    );
+};
+
+export const slide4_4 = () => {
+    const fieldS3 = `
+▓ M              ▓
+▓▓▓▓ ▓▓▓╡▓▓▓▓▓▓▓▓▓
+▓       ╡        ▓
+▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓▓
+▓           ╡    ▓
+▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓▓
+▓  ╡     ╡   $╡  ▓
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+    `;
+
+    const field3 = GameField.create().initFromText(fieldS3);
+    const graph3 = GraphV4.create().initFromField(field3, Graph.create().getEdgeAdvancedCost);
+
+    renderLRField(
+        'Задача: персонаж должен падать в отверстие в полу',
+        fieldS3,
+        'slide4_4',
+        {
+            nodes: false,
+            lines: true,
+            path: false,
+            nodesCost: false,
             map: true
         },
         graph3,
@@ -232,7 +545,7 @@ export const slide5 = () => {
     const graph = GraphV5.create().initFromField(field);
 
     renderLRField(
-        'Персонаж должен падать в отверстие в полу - 1: добавляем разную стоимость перемещения по ребру в в зависимости от направления',
+        'Задача: персонаж должен падать в отверстие в полу',
         fieldS,
         'V5',
         {
@@ -252,11 +565,11 @@ export const slideV5_2 = () => {
     const fieldS = `
 ▓ M              ▓
 ▓▓▓▓ ▓▓▓▓╡▓▓▓▓▓▓▓▓
-▓       ╡        ▓
+▓        ╡       ▓
 ▓▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓
-▓           ╡    ▓
+▓            ╡   ▓
 ▓▓▓╡▓▓▓▓▓▓╡▓▓▓╡▓▓▓
-▓  ╡     ╡   $╡  ▓
+▓  ╡      ╡  $╡  ▓
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
     `;
 
@@ -264,12 +577,12 @@ export const slideV5_2 = () => {
     const graph = GraphV5.create().initFromField(field);
 
     renderLRField(
-        'Персонаж должен падать в отверстие в полу - 2: дорабатываем расчет доступности узлов',
+        'Задача: персонаж должен падать в отверстие в полу',
         fieldS,
         'V5_2',
         {
             nodes: false,
-            lines: true,
+            lines: false,
             path: false,
             nodesCost: true,
             map: true
@@ -296,7 +609,7 @@ export const slideV5_3 = () => {
     const graph = GraphV5.create().initFromField(field);
 
     renderLRField(
-        'Персонаж должен падать в отверстие в полу - 3: правильная траектория',
+        'Задача: персонаж должен падать в отверстие в полу',
         fieldS,
         'V5_3',
         {
@@ -328,12 +641,44 @@ export const slideV5_4 = () => {
     const graph = GraphV5.create().initFromField(field);
 
     renderLRField(
-        'Проверка, разрешает ли алгоритм двигаться вверх через отверстие в потолке',
+        'Проверка: персонаж не должен уметь подниматься вверх по воздуху',
         fieldS,
         'V5_4',
         {
             nodes: false,
             lines: false,
+            path: false,
+            nodesCost: false,
+            map: true
+        },
+        graph,
+        field,
+        SILENT
+    );
+};
+
+export const slideV5_4_1 = () => {
+    const fieldS = `
+▓     $          ▓
+▓▓▓▓ ▓▓▓╡▓▓▓▓▓▓▓▓▓
+▓ M     ╡        ▓
+▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓▓
+▓           ╡    ▓
+▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓▓
+▓  ╡     ╡    ╡  ▓
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+    `;
+
+    const field = GameField.create().initFromText(fieldS);
+    const graph = GraphV5.create().initFromField(field);
+
+    renderLRField(
+        'Проверка: персонаж не должен уметь подниматься вверх по воздуху',
+        fieldS,
+        'V5_4_1',
+        {
+            nodes: false,
+            lines: true,
             path: false,
             nodesCost: false,
             map: true
@@ -360,9 +705,41 @@ export const slideV5_5 = () => {
     const graph = GraphV5.create().initFromField(field);
 
     renderLRField(
-        'Проверка, разрешает ли алгоритм двигаться вверх через отверстие в потолке',
+        'Проверка: персонаж не должен уметь подниматься вверх по воздуху',
         fieldS,
         'V5_5',
+        {
+            nodes: false,
+            lines: false,
+            path: false,
+            nodesCost: true,
+            map: true
+        },
+        graph,
+        field,
+        SILENT
+    );
+};
+
+export const slideV5_6 = () => {
+    const fieldS = `
+▓     $          ▓
+▓▓▓▓ ▓▓▓╡▓▓▓▓▓▓▓▓▓
+▓ M     ╡        ▓
+▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓▓
+▓           ╡    ▓
+▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓▓
+▓  ╡     ╡    ╡  ▓
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+    `;
+
+    const field = GameField.create().initFromText(fieldS);
+    const graph = GraphV5.create().initFromField(field);
+
+    renderLRField(
+        'Проверка: персонаж не должен уметь подниматься вверх по воздуху',
+        fieldS,
+        'V5_6',
         {
             nodes: false,
             lines: false,
