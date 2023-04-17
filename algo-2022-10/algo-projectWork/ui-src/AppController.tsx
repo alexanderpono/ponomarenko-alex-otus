@@ -8,6 +8,7 @@ import { GRField } from './GR/GRField';
 import { GRGraph } from './GR/GRGraph';
 import { ManAni, SPRITE_HEIGHT, SPRITE_WIDTH } from './GR/GR.types';
 import { GRMan } from './GR/GRMan';
+import { GRGold } from './GR/GRGold';
 
 const fieldS = `
 ▓     $          ▓
@@ -26,6 +27,7 @@ export class AppController {
     graph: GraphV5;
     pic;
     manScreenXY: Point2D;
+    goldScreenXY: Point2D;
     manFieldXY: Point2D;
     nextManFieldXY: Point2D;
     manVIndex: number;
@@ -111,6 +113,7 @@ export class AppController {
         this.manFieldXY = this.field.vertexIndexToCoords(mIndex, this.w);
         this.nextManFieldXY = this.field.vertexIndexToCoords(this.nextManVIndex, this.w);
         this.calcManScreenPos();
+        this.goldScreenXY = this.field.vertexIndexToCoords(dIndex, this.w);
 
         Promise.all([this.loadPic(), this.renderUI()]).then(() => {
             console.error('pic loaded & UI ready');
@@ -213,6 +216,7 @@ export class AppController {
             map: true
         };
         GRField.create(context, this.emptyField, this.pic, options).draw();
+        GRGold.create(context, this.goldScreenXY, this.pic).draw();
         GRGraph.create(context, this.field, this.graph, options).draw();
         GRMan.create(context, this.manScreenXY, this.manAni, this.pic, this.miniCounter).draw();
     };
