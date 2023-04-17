@@ -66,6 +66,25 @@ export class AppController {
         this.tick();
     };
 
+    onBtClearClick = () => {
+        this.stepNo = 0;
+        this.miniCounter = 0;
+        this.maxMiniCounter = 9;
+        this.manAni = ManAni.STAND;
+        const mIndex = this.graph.getVertexIndex(fieldS, 'M');
+        this.manVIndex = mIndex;
+        this.nextManVIndex = mIndex;
+        this.curPathPos = 0;
+
+        this.doTrajectoryStep();
+        this.manFieldXY = this.field.vertexIndexToCoords(mIndex, this.w);
+        this.nextManFieldXY = this.field.vertexIndexToCoords(this.nextManVIndex, this.w);
+        this.calcManScreenPos();
+
+        this.manAni = ManAni.STAND;
+        this.renderScene();
+    };
+
     run = () => {
         const getEmptyField = (s: string): string => {
             let s2 = s.replace('$', ' ');

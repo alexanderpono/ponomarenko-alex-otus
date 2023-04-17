@@ -2,6 +2,7 @@ import React from 'react';
 
 interface AppControllerForUI {
     onBtStartClick: () => void;
+    onBtClearClick: () => void;
 }
 
 interface AppUIProps {
@@ -21,6 +22,7 @@ export const AppUI: React.FC<AppUIProps> = ({ ctrl, title, onMount }) => {
             <canvas height="320" width="720" id="AppUI-canvas"></canvas>
             <div>
                 <button onClick={ctrl.onBtStartClick}>Start</button>
+                <button onClick={ctrl.onBtClearClick}>Clear</button>
             </div>
         </div>
     );
