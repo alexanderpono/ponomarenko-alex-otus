@@ -33,6 +33,7 @@ export class AppController {
     manAni: ManAni = ManAni.STAND;
     curPathPos = 0;
     w: number;
+    pathChecked = true;
 
     loadPic = () => {
         return new Promise((resolve) => {
@@ -54,6 +55,7 @@ export class AppController {
                         onMount={() => {
                             resolve(true);
                         }}
+                        pathChecked={this.pathChecked}
                     />
                 ],
                 document.getElementById('game1')
@@ -206,12 +208,18 @@ export class AppController {
         const options: RenderOptions = {
             nodes: false,
             lines: false,
-            path: true,
+            path: this.pathChecked,
             nodesCost: false,
             map: true
         };
         GRField.create(context, this.emptyField, this.pic, options).draw();
         GRGraph.create(context, this.field, this.graph, options).draw();
         GRMan.create(context, this.manScreenXY, this.manAni, this.pic, this.miniCounter).draw();
+    };
+
+    pathClicked = () => {
+        this.pathChecked = !this.pathChecked;
+        this.renderUI();
+        this.renderScene();
     };
 }

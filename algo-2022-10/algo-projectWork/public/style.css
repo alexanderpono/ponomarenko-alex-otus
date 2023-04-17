@@ -75,6 +75,6 @@ h2 {
 
 }
 
-label {
+label, .appButton {
     margin: 0px 10px 0px 0px;
 }

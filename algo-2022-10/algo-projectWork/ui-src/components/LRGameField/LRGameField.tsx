@@ -108,7 +108,7 @@ export const LRGameField: React.FC<LRGameFieldProps> = ({
     );
 };
 
-function Label(val: boolean, setter: () => void, id: string, caption: string) {
+export function Label(val: boolean, setter: () => void, id: string, caption: string) {
     return (
         <label htmlFor={id}>
             <input type="checkbox" checked={val} onChange={setter} id={id} />
