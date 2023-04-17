@@ -59,9 +59,9 @@ export const slide1 = () => {
         fieldS0,
         'slide1',
         {
-            nodes: true,
+            nodes: false,
             lines: true,
-            path: true,
+            path: false,
             nodesCost: false,
             map: false
         },
@@ -99,7 +99,7 @@ export const slide2 = () => {
         {
             nodes: false,
             lines: false,
-            path: true,
+            path: false,
             nodesCost: false,
             map: true
         },
@@ -129,7 +129,7 @@ export const slide3a = () => {
         {
             nodes: false,
             lines: false,
-            path: true,
+            path: false,
             nodesCost: false,
             map: true
         },
@@ -159,7 +159,7 @@ export const slide3 = () => {
         {
             nodes: false,
             lines: false,
-            path: true,
+            path: false,
             nodesCost: false,
             map: true
         },
