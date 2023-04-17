@@ -9,10 +9,22 @@ import { GraphV5 } from './GraphV5';
 import { AppController } from './AppController';
 
 export const slide0 = () => {
-    renderGraphFromLesson();
+    renderGraphFromLesson(
+        'Пример с вебинара «Алгоритм Дейкстры». Исходный вариант',
+        false,
+        'GraphFromLesson'
+    );
 };
 
-function renderGraphFromLesson() {
+export const slide0_1 = () => {
+    renderGraphFromLesson(
+        'Пример с вебинара «Алгоритм Дейкстры». Кратчайший путь',
+        true,
+        'GraphFromLesson-2'
+    );
+};
+
+function renderGraphFromLesson(caption: string, showBestPath: boolean, targetHtmlId: string) {
     const adjacencyMatrix = `
   AABBCCDDEEFFGG
 AA..020306......
@@ -37,7 +49,10 @@ GG........0508..
         .calcCheapestPath(6, 0);
     console.log(g.printPathFromTo(6, 0));
 
-    render([<GraphFromLesson graph={g} />], document.getElementById('GraphFromLesson'));
+    render(
+        [<GraphFromLesson graph={g} caption={caption} showBestPath={showBestPath} />],
+        document.getElementById(targetHtmlId)
+    );
 }
 const fieldS0 = `
 ▓ M              ▓

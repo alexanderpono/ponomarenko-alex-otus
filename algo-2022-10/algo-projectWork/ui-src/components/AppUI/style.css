@@ -21,11 +21,13 @@ p.greeting {
 }
 
 h1 {
-    font-size: 120%;
+    font-size: 160%;
+    margin: 80px 0 80px 0;
 }
 
 h2 {
     font-size: 120%;
+    margin: 40px 0px 10px 0px;
 }
 
 .table{
@@ -81,4 +83,8 @@ label, .appButton {
 
 .graph {
     margin: 0px 0px 20px 0px;
+}
+
+section {
+    height: 100vh;
 }

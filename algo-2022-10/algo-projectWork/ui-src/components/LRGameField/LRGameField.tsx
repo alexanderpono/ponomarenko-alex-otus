@@ -87,7 +87,7 @@ export const LRGameField: React.FC<LRGameFieldProps> = ({
     const show = typeof showControls === 'boolean' ? showControls : true;
     return (
         <div style={{ width: '720px' }}>
-            <h1>{title}</h1>
+            <h2>{title}</h2>
             <canvas height={h} width={w} id="GraphUI" ref={canvasRef}></canvas>
             {show && (
                 <fieldset>

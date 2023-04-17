@@ -47,9 +47,15 @@ const vertices: Vertex2D[] = [
 
 interface GraphFromLessonProps {
     graph: Graph;
+    caption: string;
+    showBestPath: boolean;
 }
 
-export const GraphFromLesson: React.FC<GraphFromLessonProps> = ({ graph }) => {
+export const GraphFromLesson: React.FC<GraphFromLessonProps> = ({
+    graph,
+    caption,
+    showBestPath
+}) => {
     const canvasRef = React.useRef(null);
 
     React.useEffect(() => {
@@ -64,11 +70,18 @@ export const GraphFromLesson: React.FC<GraphFromLessonProps> = ({ graph }) => {
         context.strokeRect(0, 0, canvas.width, canvas.height);
         context.font = 'bold 30px sans-serif';
         drawEdges(context, graph);
-        drawBestEdges(context, graph);
+        if (showBestPath) {
+            drawBestEdges(context, graph);
+        }
         drawVertices(context);
     }, []);
 
-    return <canvas height="440" width="720" id="GraphUI" ref={canvasRef}></canvas>;
+    return (
+        <>
+            <h2>{caption}</h2>
+            <canvas height="440" width="720" id="GraphUI" ref={canvasRef}></canvas>
+        </>
+    );
 };
 
 function drawVertices(context: CanvasRenderingContext2D) {

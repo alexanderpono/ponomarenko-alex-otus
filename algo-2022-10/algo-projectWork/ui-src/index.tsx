@@ -1,5 +1,6 @@
 import {
     slide0,
+    slide0_1,
     slide1,
     slide2,
     slide3,
@@ -15,6 +16,7 @@ import {
 } from './index.lib';
 
 slide0();
+slide0_1();
 slide1();
 slide2();
 slide3a();
