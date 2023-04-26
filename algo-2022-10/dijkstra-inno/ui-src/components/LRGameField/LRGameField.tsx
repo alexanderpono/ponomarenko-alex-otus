@@ -87,13 +87,12 @@ export const LRGameField: React.FC<LRGameFieldProps> = ({
     const show = typeof showControls === 'boolean' ? showControls : true;
     return (
         <div style={{ width: '720px' }}>
-            <h2>{title}</h2>
+            <p>{title}</p>
             <canvas height={h} width={w} id="GraphUI" ref={canvasRef}></canvas>
             {show && (
-                <fieldset>
-                    <legend>Отображать</legend>
-                    {Label(nodesChecked, nodesClicked, `${id}-nodes`, 'Узлы сетки')}
-                    {Label(linesChecked, linesClicked, `${id}-lines`, 'Линии сетки')}
+                <div>
+                    {Label(nodesChecked, nodesClicked, `${id}-nodes`, 'Узлы')}
+                    {Label(linesChecked, linesClicked, `${id}-lines`, 'Ребра')}
                     {Label(pathChecked, pathClicked, `${id}-path`, 'Траектория')}
                     {Label(
                         nodesCostChecked,
@@ -102,7 +101,7 @@ export const LRGameField: React.FC<LRGameFieldProps> = ({
                         'Стоимость узлов'
                     )}
                     {Label(mapChecked, mapClicked, `${id}-map`, 'Карта')}
-                </fieldset>
+                </div>
             )}
         </div>
     );

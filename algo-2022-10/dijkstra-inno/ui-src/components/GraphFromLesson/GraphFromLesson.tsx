@@ -78,7 +78,7 @@ export const GraphFromLesson: React.FC<GraphFromLessonProps> = ({
 
     return (
         <>
-            <h2>{caption}</h2>
+            <p>{caption}</p>
             <canvas height="440" width="720" id="GraphUI" ref={canvasRef}></canvas>
         </>
     );

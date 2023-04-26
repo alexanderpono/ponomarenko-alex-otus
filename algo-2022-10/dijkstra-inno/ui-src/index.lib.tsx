@@ -10,7 +10,7 @@ import { AppController } from './AppController';
 
 export const slide0 = () => {
     renderGraphFromLesson(
-        'Пример с вебинара «Алгоритм Дейкстры». Исходный граф',
+        'Пример работы алгоритма Дейкстры. Исходный граф',
         false,
         'GraphFromLesson'
     );
@@ -18,7 +18,7 @@ export const slide0 = () => {
 
 export const slide0_1 = () => {
     renderGraphFromLesson(
-        'Пример с вебинара «Алгоритм Дейкстры». Рассчитан кратчайший путь',
+        'Пример работы алгоритма Дейкстры. Рассчитан кратчайший путь',
         true,
         'GraphFromLesson-2'
     );
@@ -235,7 +235,7 @@ export const slide3a = () => {
     const field2 = GameField.create().initFromText(fieldS2);
     const graph2 = Graph.create().initFromField(field2, Graph.create().getEdgeAdvancedCost);
     renderLRField(
-        'Проблема: алгоритм не нашел оптимальный путь (ошибка в реализации)',
+        'Ошибка реализации: алгоритм не нашел оптимальный путь',
         fieldS2,
         'slide3a',
         {
@@ -265,7 +265,7 @@ export const slide3a_2 = () => {
     const field2 = GameField.create().initFromText(fieldS2);
     const graph2 = Graph.create().initFromField(field2, Graph.create().getEdgeAdvancedCost);
     renderLRField(
-        'Проблема: алгоритм не нашел оптимальный путь (ошибка в реализации)',
+        'Ошибка реализации: алгоритм не нашел оптимальный путь',
         fieldS2,
         'slide3a_2',
         {
@@ -295,7 +295,7 @@ export const slide3a_3 = () => {
     const field2 = GameField.create().initFromText(fieldS2);
     const graph2 = Graph.create().initFromField(field2, Graph.create().getEdgeAdvancedCost);
     renderLRField(
-        'Проблема: алгоритм не нашел оптимальный путь (ошибка в реализации)',
+        'Ошибка реализации: алгоритм не нашел оптимальный путь',
         fieldS2,
         'slide3a_3',
         {
@@ -641,7 +641,7 @@ export const slideV5_4 = () => {
     const graph = GraphV5.create().initFromField(field);
 
     renderLRField(
-        'Проверка: персонаж не должен уметь подниматься вверх по воздуху',
+        'Проверка: персонаж не должен подниматься вверх по воздуху',
         fieldS,
         'V5_4',
         {
@@ -673,7 +673,7 @@ export const slideV5_4_1 = () => {
     const graph = GraphV5.create().initFromField(field);
 
     renderLRField(
-        'Проверка: персонаж не должен уметь подниматься вверх по воздуху',
+        'Проверка: персонаж не должен подниматься вверх по воздуху',
         fieldS,
         'V5_4_1',
         {
@@ -705,7 +705,7 @@ export const slideV5_5 = () => {
     const graph = GraphV5.create().initFromField(field);
 
     renderLRField(
-        'Проверка: персонаж не должен уметь подниматься вверх по воздуху',
+        'Проверка: персонаж не должен подниматься вверх по воздуху',
         fieldS,
         'V5_5',
         {
@@ -737,7 +737,7 @@ export const slideV5_6 = () => {
     const graph = GraphV5.create().initFromField(field);
 
     renderLRField(
-        'Проверка: персонаж не должен уметь подниматься вверх по воздуху',
+        'Проверка: персонаж не должен подниматься вверх по воздуху',
         fieldS,
         'V5_6',
         {
@@ -761,7 +761,6 @@ export const slideGame1 = () => {
 
 export const slide_finish = () => {
     const fieldS = `
-▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 ▓                ▓
 ▓ ▓▓ ▓▓▓ ▓▓▓     ▓
 ▓ ▓  ▓ ▓ ▓ ▓     ▓
@@ -774,8 +773,6 @@ export const slide_finish = () => {
 ▓ ▓  ▓ ▓ ▓▓▓ ▓ ▓ ▓
 ▓ ▓  ▓▓▓ ▓ ▓ ▓$▓ ▓
 ▓ ▓▓ ▓ ▓ ▓▓▓ ▓▓▓ ▓
-▓                ▓
-▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 
 `;
 
     const field = GameField.create().initFromText(fieldS);
