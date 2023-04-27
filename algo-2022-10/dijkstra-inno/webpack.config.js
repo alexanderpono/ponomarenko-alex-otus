@@ -1,6 +1,5 @@
 const path = require('path');
 
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpackRules = require('./webpackRules');
 const CopyPlugin = require('copy-webpack-plugin');
 
@@ -14,7 +13,7 @@ module.exports = {
         }
     },
     output: {
-        path: path.join(__dirname, '/ui-dist'),
+        path: path.join(__dirname, '/ui-dist/ui-dist'),
         filename: 'index.js'
     },
     module: {
@@ -27,11 +26,12 @@ module.exports = {
         contentBase: './public'
     },
     plugins: [
-        new HtmlWebpackPlugin({
-            template: './public/index.html'
-        }),
         new CopyPlugin({
-            patterns: [{ from: 'public/sprite.png' }]
+            patterns: [
+                { from: 'public/sprite.png', to: path.join(__dirname, '/ui-dist/sprite.png') },
+                { from: 'bundled/index.html', to: path.join(__dirname, '/ui-dist/index.html') },
+                { from: 'bundled/shower', to: path.join(__dirname, '/ui-dist/shower') }
+            ]
         })
     ]
 };
