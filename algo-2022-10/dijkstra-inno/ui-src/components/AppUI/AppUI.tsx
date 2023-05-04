@@ -23,7 +23,7 @@ export const AppUI: React.FC<AppUIProps> = ({ ctrl, title, onMount, pathChecked 
     const id = 'AppUI';
     return (
         <div>
-            <p>{title}</p>
+            <h3>{title}</h3>
             <canvas height="320" width="720" id="AppUI-canvas"></canvas>
             <div>
                 <button onClick={ctrl.onBtStartClick} className="appButton">

@@ -1,4 +1,11 @@
 import {
+    gl_s0,
+    gl_s1,
+    gl_s2,
+    gl_s3,
+    gl_s4,
+    gl_s5,
+    gl_s6,
     slide0,
     slide0_1,
     slide1,
@@ -30,6 +37,13 @@ import {
 } from './index.lib';
 
 slide0();
+gl_s0();
+gl_s1();
+gl_s2();
+gl_s3();
+gl_s4();
+gl_s5();
+gl_s6();
 slide0_1();
 slide1();
 slide1_2();

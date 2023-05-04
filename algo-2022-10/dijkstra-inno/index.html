@@ -9,6 +9,20 @@
         .shower {
             --slide-ratio: calc(16 / 9);
         }
+        .ok {
+            color: #059B00;
+            position: relative;
+        }
+        .ok::before {
+            content: '';
+            display: block;
+            position: absolute;
+            left: -39px;
+            top: 13px;
+            background: url(./ok.png) no-repeat;
+            width: 29px;
+            height: 23px;
+        }
     </style>
 
     <script defer src="./ui-dist/index.js"></script>
@@ -31,18 +45,33 @@
     </section>
 
     <section class="slide">
-        <p>Структура доклада</p>
+        <h3>Структура доклада</h3>
         <p>1. Пример работы алгоритма Дейкстры</p>
         <p>2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
-        <p>3. Решение задач расчета траектории движения, которые возникают при создании 2D-игры (движение из точки A в точку Б, обход препятствий, поиск кратчайшего пути) 
-</p>
+        <p>3. Решение задач расчета траектории движения, которые возникают при создании 2D-игры (движение из точки A в точку Б, обход препятствий, поиск кратчайшего пути) </p>
     </section>
 
     <section class="slide">
         <div id="GraphFromLesson" class="graph"></div>
     </section>
+
+    <section class="slide"><div id="gl-s0" class="graph"></div></section>
+    <section class="slide"><div id="gl-s1" class="graph"></div></section>
+    <section class="slide"><div id="gl-s2" class="graph"></div></section>
+    <section class="slide"><div id="gl-s3" class="graph"></div></section>
+    <section class="slide"><div id="gl-s4" class="graph"></div></section>
+    <section class="slide"><div id="gl-s5" class="graph"></div></section>
+    <section class="slide"><div id="gl-s6" class="graph"></div></section>
+
     <section class="slide">
         <div id="GraphFromLesson-2" class="graph"></div>
+    </section>
+
+    <section class="slide">
+        <h3>Структура доклада</h3>
+        <p class="ok">1. Пример работы алгоритма Дейкстры</p>
+        <p>2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
+        <p>3. Решение задач расчета траектории движения, которые возникают при создании 2D-игры (движение из точки A в точку Б, обход препятствий, поиск кратчайшего пути) </p>
     </section>
 
     <section class="slide">
@@ -57,6 +86,13 @@
         <div id="slide1_3" class="graph"></div>
     </section>
     
+    <section class="slide">
+        <h3>Структура доклада</h3>
+        <p class="ok">1. Пример работы алгоритма Дейкстры</p>
+        <p class="ok">2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
+        <p>3. Решение задач расчета траектории движения, которые возникают при создании 2D-игры (движение из точки A в точку Б, обход препятствий, поиск кратчайшего пути) </p>
+    </section>
+
     <section class="slide">
         <div id="slide2" class="graph"></div>
     </section>
@@ -143,6 +179,30 @@
 
     <section class="slide">
         <div id="game1" class="graph"></div>
+    </section>
+
+    <section class="slide">
+        <h3>Структура доклада</h3>
+        <p class="ok">1. Пример работы алгоритма Дейкстры</p>
+        <p class="ok">2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
+        <p class="ok">3. Решение задач расчета траектории движения, которые возникают при создании 2D-игры (движение из точки A в точку Б, обход препятствий, поиск кратчайшего пути) </p>
+    </section>
+
+    <section class="slide">
+        <h3>Что дальше?</h3>
+        <ui>
+            <li>Добавить поддержку горизонтальных веревок</li>
+            <li>Добавить компьютерных соперников</li>
+            <li>Доделать игру</li>
+        </ui>
+    </section>
+
+    <section class="slide">
+        <h3>Что еще интересного?</h3>
+        <ui>
+            <li>A* - развитие алгоритма Дейкстры https://www.redblobgames.com/pathfinding/a-star/introduction.html</li>
+            <li>Репозиторий - https://github.com/alexanderpono/ponomarenko-alex-otus/tree/dijkstra-inno/algo-2022-10/dijkstra-inno</li>
+        </ui>
     </section>
 
     <section class="slide">

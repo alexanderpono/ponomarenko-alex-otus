@@ -10,37 +10,37 @@ interface Vertex2D {
 const vertices: Vertex2D[] = [
     {
         x: 70,
-        y: 190,
+        y: 170,
         letter: 'A'
     },
     {
         x: 190,
-        y: 50,
+        y: 30,
         letter: 'B'
     },
     {
         x: 260,
-        y: 200,
+        y: 170,
         letter: 'C'
     },
     {
         x: 200,
-        y: 380,
+        y: 320,
         letter: 'D'
     },
     {
         x: 400,
-        y: 70,
+        y: 50,
         letter: 'E'
     },
     {
         x: 460,
-        y: 300,
+        y: 280,
         letter: 'F'
     },
     {
         x: 590,
-        y: 160,
+        y: 140,
         letter: 'G'
     }
 ];
@@ -65,7 +65,7 @@ export const GraphFromLesson: React.FC<GraphFromLessonProps> = ({
         }
         const context = canvas.getContext('2d') as CanvasRenderingContext2D;
         context.fillStyle = 'orange';
-        context.strokeStyle = '#FF0000';
+        context.strokeStyle = '#FFFFFF';
         context.lineWidth = 3;
         context.strokeRect(0, 0, canvas.width, canvas.height);
         context.font = 'bold 30px sans-serif';
@@ -73,22 +73,67 @@ export const GraphFromLesson: React.FC<GraphFromLessonProps> = ({
         if (showBestPath) {
             drawBestEdges(context, graph);
         }
-        drawVertices(context);
+        drawVertices(context, graph);
     }, []);
 
     return (
         <>
-            <p>{caption}</p>
-            <canvas height="440" width="720" id="GraphUI" ref={canvasRef}></canvas>
+            <h3>{caption}</h3>
+            <canvas height="350" width="720" id="GraphUI" ref={canvasRef}></canvas>
         </>
     );
 };
 
-function drawVertices(context: CanvasRenderingContext2D) {
-    vertices.forEach((vertex) => {
+function drawVertices(context: CanvasRenderingContext2D, graph: Graph) {
+    vertices.forEach((vertex, index) => {
         drawCircle(context, vertex.x, vertex.y, 20, 'green', 'white');
         context.fillStyle = 'green';
         context.fillText(vertex.letter, vertex.x - 10, vertex.y + 10);
+
+        let caption = '';
+        let circleColor = '';
+        let fillStyle = '';
+        const vertex2 = graph.vertices[index];
+        if (graph.curVertexIndex === -1) {
+            circleColor = 'green';
+            fillStyle = 'green';
+            if (vertex2.accessCost >= 0) {
+                caption = `${vertex.letter}(${vertex2.accessCost})`;
+            } else {
+                caption = vertex.letter;
+            }
+        }
+
+        if (graph.curVertexIndex !== -1 && index !== graph.curVertexIndex) {
+            circleColor = 'green';
+            fillStyle = 'green';
+            if (vertex2.accessCost >= 0) {
+                caption = `${vertex.letter}(${vertex2.accessCost})`;
+            } else {
+                caption = vertex.letter;
+            }
+        }
+
+        if (graph.curVertexIndex !== -1 && index !== graph.curVertexIndex && vertex2.processed) {
+            circleColor = 'lightgrey';
+            fillStyle = 'lightgrey';
+            caption = `${vertex.letter}(${vertex2.accessCost})`;
+        }
+
+        if (graph.curVertexIndex !== -1 && index === graph.curVertexIndex) {
+            if (vertex2.accessCost !== -1) {
+                circleColor = 'red';
+                fillStyle = 'red';
+                caption = `${vertex.letter}(${vertex2.accessCost})`;
+            } else {
+                circleColor = 'green';
+                fillStyle = 'green';
+                caption = `${vertex.letter}`;
+            }
+        }
+        drawCircle(context, vertex.x, vertex.y, 20, circleColor, 'white');
+        context.fillStyle = fillStyle;
+        context.fillText(caption, vertex.x - 10, vertex.y + 10);
     });
 }
 

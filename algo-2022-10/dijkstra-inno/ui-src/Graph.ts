@@ -62,6 +62,7 @@ export class Graph {
     smallestSkeleton: number[] = [];
     vertices: Vertex[] = [];
     cheapestPath: number[] = [];
+    curVertexIndex = 0;
 
     initFromAdjacencyString = (s: string) => {
         const trimmed = s.trim();
@@ -134,27 +135,35 @@ export class Graph {
 
     calcVertices_ = (): Vertex[] => this.matrix.map(() => ({ ...defaultVertex }));
 
-    calcVerticesCost = (fromVertex: number, toVertex: number, verbose: boolean) => {
+    calcVerticesCost = (
+        fromVertex: number,
+        toVertex: number,
+        verbose: boolean,
+        maxStep: number
+    ) => {
         verbose && console.log('calcVerticesCost() fromVertex=', fromVertex, 'toVertex=', toVertex);
 
-        this.vertices[fromVertex].accessCost = 0;
-
-        let curVertexIndex = fromVertex;
+        if (maxStep !== -1) {
+            this.vertices[fromVertex].accessCost = 0;
+            this.curVertexIndex = fromVertex;
+        }
         let n = 0;
-        while (n < this.vertices.length && curVertexIndex !== -1) {
-            const curVertex = this.vertices[curVertexIndex];
-            this.vertices[curVertexIndex].processed = true;
+        while (n < this.vertices.length && this.curVertexIndex !== -1 && n < maxStep) {
+            const curVertex = this.vertices[this.curVertexIndex];
+            this.vertices[this.curVertexIndex].processed = true;
             const edgesOfVertex = this.edges
                 .map((edge: Edge, index: number) =>
-                    edge.vertex0 === curVertexIndex || edge.vertex1 === curVertexIndex ? index : -1
+                    edge.vertex0 === this.curVertexIndex || edge.vertex1 === this.curVertexIndex
+                        ? index
+                        : -1
                 )
                 .filter((index) => index !== -1);
-            verbose && console.log(`\nedgesOfVertex ${curVertexIndex} =`, edgesOfVertex);
+            verbose && console.log(`\nedgesOfVertex ${this.curVertexIndex} =`, edgesOfVertex);
             for (let i = 0; i < edgesOfVertex.length; i++) {
                 const edgeIndex = edgesOfVertex[i];
                 const adjacentEdge = this.edges[edgeIndex];
                 const adjacentVertexIndex =
-                    adjacentEdge.vertex0 === curVertexIndex
+                    adjacentEdge.vertex0 === this.curVertexIndex
                         ? adjacentEdge.vertex1
                         : adjacentEdge.vertex0;
                 const adjacentVertex = this.vertices[adjacentVertexIndex];
@@ -179,7 +188,7 @@ export class Graph {
                     const edgeIndex = edgesOfVertex[i];
                     const adjacentEdge = this.edges[edgeIndex];
                     const adjacentVertexIndex =
-                        adjacentEdge.vertex0 === curVertexIndex
+                        adjacentEdge.vertex0 === this.curVertexIndex
                             ? adjacentEdge.vertex1
                             : adjacentEdge.vertex0;
                     const adjacentVertex = this.vertices[adjacentVertexIndex];
@@ -196,7 +205,7 @@ export class Graph {
             const nextVertex = getNextVertex();
             verbose && this.printVertices(`vertices after step ${n}`);
             verbose && console.log('next vertex index = ', nextVertex);
-            curVertexIndex = nextVertex;
+            this.curVertexIndex = nextVertex;
             n++;
         }
         return this;

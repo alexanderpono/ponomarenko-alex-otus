@@ -12,19 +12,54 @@ export const slide0 = () => {
     renderGraphFromLesson(
         'Пример работы алгоритма Дейкстры. Исходный граф',
         false,
-        'GraphFromLesson'
+        'GraphFromLesson',
+        -1
     );
+};
+
+export const gl_s0 = () => {
+    renderGraphFromLesson('Пример работы алгоритма Дейкстры. Шаг 0', true, 'gl-s0', 0);
+};
+
+export const gl_s1 = () => {
+    renderGraphFromLesson('Пример работы алгоритма Дейкстры. Шаг 1', true, 'gl-s1', 1);
+};
+
+export const gl_s2 = () => {
+    renderGraphFromLesson('Пример работы алгоритма Дейкстры. Шаг 2', true, 'gl-s2', 2);
+};
+
+export const gl_s3 = () => {
+    renderGraphFromLesson('Пример работы алгоритма Дейкстры. Шаг 3', true, 'gl-s3', 3);
+};
+
+export const gl_s4 = () => {
+    renderGraphFromLesson('Пример работы алгоритма Дейкстры. Шаг 4', true, 'gl-s4', 4);
+};
+
+export const gl_s5 = () => {
+    renderGraphFromLesson('Пример работы алгоритма Дейкстры. Шаг 5', true, 'gl-s5', 5);
+};
+
+export const gl_s6 = () => {
+    renderGraphFromLesson('Пример работы алгоритма Дейкстры. Шаг 6', true, 'gl-s6', 6);
 };
 
 export const slide0_1 = () => {
     renderGraphFromLesson(
-        'Пример работы алгоритма Дейкстры. Рассчитан кратчайший путь',
+        'Алгоритм Дейкстры: рассчитан кратчайший путь',
         true,
-        'GraphFromLesson-2'
+        'GraphFromLesson-2',
+        100
     );
 };
 
-function renderGraphFromLesson(caption: string, showBestPath: boolean, targetHtmlId: string) {
+function renderGraphFromLesson(
+    caption: string,
+    showBestPath: boolean,
+    targetHtmlId: string,
+    stepNo: number
+) {
     const adjacencyMatrix = `
   AABBCCDDEEFFGG
 AA..020306......
@@ -35,19 +70,15 @@ EE..0907....0105
 FF....060401..08
 GG........0508..
 `;
-    console.log('adjacencyMatrix=', adjacencyMatrix);
-    console.log(
-        '\nadjacencyMatrix=',
-        JSON.stringify(Graph.create().initFromAdjacencyString(adjacencyMatrix).getMatrix())
-    );
-
     const g = Graph.create()
         .initFromAdjacencyString(adjacencyMatrix)
         .calcEdges()
         .calcVertices()
-        .calcVerticesCost(6, 0, SILENT)
-        .calcCheapestPath(6, 0);
-    console.log(g.printPathFromTo(6, 0));
+        .calcVerticesCost(6, 0, SILENT, stepNo);
+    if (stepNo === 100) {
+        g.calcCheapestPath(6, 0);
+        console.log(g.printPathFromTo(6, 0));
+    }
 
     render(
         [<GraphFromLesson graph={g} caption={caption} showBestPath={showBestPath} />],
@@ -137,8 +168,7 @@ export function renderLRField(
 ) {
     const mIndex = graph.getVertexIndex(fieldString, 'M');
     const dIndex = graph.getVertexIndex(fieldString, '$');
-    graph.calcVerticesCost(mIndex, dIndex, echoMode).calcCheapestPath(mIndex, dIndex);
-    // console.log(graph.printPathFromTo(mIndex, dIndex));
+    graph.calcVerticesCost(mIndex, dIndex, echoMode, 10000).calcCheapestPath(mIndex, dIndex);
     render(
         [<LRGameField field={field} graph={graph} render={options} id={target} title={title} />],
         document.getElementById(target)
@@ -235,7 +265,7 @@ export const slide3a = () => {
     const field2 = GameField.create().initFromText(fieldS2);
     const graph2 = Graph.create().initFromField(field2, Graph.create().getEdgeAdvancedCost);
     renderLRField(
-        'Ошибка реализации: алгоритм не нашел оптимальный путь',
+        'Ошибка реализации: не нашел оптимальный путь',
         fieldS2,
         'slide3a',
         {
@@ -265,7 +295,7 @@ export const slide3a_2 = () => {
     const field2 = GameField.create().initFromText(fieldS2);
     const graph2 = Graph.create().initFromField(field2, Graph.create().getEdgeAdvancedCost);
     renderLRField(
-        'Ошибка реализации: алгоритм не нашел оптимальный путь',
+        'Ошибка реализации: не нашел оптимальный путь',
         fieldS2,
         'slide3a_2',
         {
@@ -295,7 +325,7 @@ export const slide3a_3 = () => {
     const field2 = GameField.create().initFromText(fieldS2);
     const graph2 = Graph.create().initFromField(field2, Graph.create().getEdgeAdvancedCost);
     renderLRField(
-        'Ошибка реализации: алгоритм не нашел оптимальный путь',
+        'Ошибка реализации: не нашел оптимальный путь',
         fieldS2,
         'slide3a_3',
         {
@@ -641,7 +671,7 @@ export const slideV5_4 = () => {
     const graph = GraphV5.create().initFromField(field);
 
     renderLRField(
-        'Проверка: персонаж не должен подниматься вверх по воздуху',
+        'Персонаж не должен подниматься вверх по воздуху',
         fieldS,
         'V5_4',
         {
@@ -673,7 +703,7 @@ export const slideV5_4_1 = () => {
     const graph = GraphV5.create().initFromField(field);
 
     renderLRField(
-        'Проверка: персонаж не должен подниматься вверх по воздуху',
+        'Персонаж не должен подниматься вверх по воздуху',
         fieldS,
         'V5_4_1',
         {
@@ -705,7 +735,7 @@ export const slideV5_5 = () => {
     const graph = GraphV5.create().initFromField(field);
 
     renderLRField(
-        'Проверка: персонаж не должен подниматься вверх по воздуху',
+        'Персонаж не должен подниматься вверх по воздуху',
         fieldS,
         'V5_5',
         {

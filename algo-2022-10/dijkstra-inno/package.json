@@ -73,7 +73,7 @@
     "@shower/cli": "^0.3.1"
   },
   "scripts": {
-    "uidev": "npx webpack-dev-server --mode development",
+    "uidev": "npx webpack-dev-server --mode development --app present0",
     "test": "npx jest",
     "ts-check": "tsc",
     "build": "shower bundle && webpack --mode production",
