@@ -53,7 +53,7 @@ export class AppController {
                 [
                     <AppUI
                         ctrl={this}
-                        title="Результат"
+                        title="3. Результат"
                         onMount={() => {
                             resolve(true);
                         }}

@@ -18,14 +18,40 @@
             display: block;
             position: absolute;
             left: -39px;
-            top: 13px;
+            top: 16px;
             background: url(./ok.png) no-repeat;
             width: 29px;
             height: 23px;
         }
+        .picText {
+            display: flex;
+        }
+        .text {
+            padding-left: 30px;
+        }
+        .slide::after {
+            background: url(public/ribbon.svg) no-repeat;
+        }
+        h1, h3, p, label, li {
+            color: #04267E;
+        }
+
+        .slide.portrait {
+            background: url(public/photo2.jpg);
+            background-position: left;
+            background-size: cover;
+        }
+        .portrait h3, .portrait p {
+            color: white;
+        }
+        .portrait .textBack {
+            background-color: rgba(0, 0, 0, 0.5);;
+            margin-right: 40%;
+            padding-left: 20px;
+        }
     </style>
 
-    <script defer src="./ui-dist/index.js"></script>
+    <script defer src="./ui-dist/ui-dist/index.js"></script>
 </head>
 <body class="shower list">
 
@@ -36,19 +62,74 @@
 
     <section class="slide">
         <h1>Применение алгоритма Дейкстры для построения траектории движения в 2D-пространстве</h1>
-        <h2>Александр Пономаренко</h2>
+        <h3>Александр Пономаренко</h3>
+    </section>
+
+    <section class="slide portrait">
+        <div class="picText">
+            <div class="textBack">
+                <h3>Александр Пономаренко</h3>
+                <p>ГК Иннотех, Frontend-разработчик React</p>
+                <p>В программировании с 1999 года.</p>
+                <p>Отрасли: Компьютерные симуляторы (тренажеры), Гос. web-проекты, Телеком, Финтех.</p>
+                <p>Telegram: https://t.me/brain16383</p>
+            </div>
+        </div>
     </section>
 
     <section class="slide">
-        <h2>Язык программирования: Javascript / Typescript</h2>
-        <h2>Цель: Адаптируем и применяем алгоритм Дейкстры для расчета траектории с обходом препятствий</h2>
+        <h3>Постановка задачи. Источник вдохновения</h3>
+        <div class="picText">
+            <div class="pic">
+                <img src="public/07.png" />
+            </div>
+            <div class="text">
+                <p>Игра «Lode runner»</p>
+                <p>для ZX Spectrum</p>
+                <p>Broderbund 1984</p>
+            </div>
+        </div>
     </section>
 
     <section class="slide">
-        <h3>Структура доклада</h3>
-        <p>1. Пример работы алгоритма Дейкстры</p>
-        <p>2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
-        <p>3. Решение задач расчета траектории движения, которые возникают при создании 2D-игры (движение из точки A в точку Б, обход препятствий, поиск кратчайшего пути) </p>
+        <h3>Постановка задачи</h3>
+        <p>Построить траекторию движения персонажа из точки A в точку Б на карте</p>
+    </section>
+
+    <section class="slide">
+        <h3>1. Алгоритм Дейкстры</h3>
+        <h3>2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</h3>
+        <h3>3. Решение задач расчета траектории движения</h3>
+    </section>
+
+    <section class="slide">
+        <h3>1. Алгоритм Дейкстры</h3>
+        <p>Алгоритм Дейкстры — алгоритм на графах, изобретённый нидерландским учёным Эдсгером Дейкстрой в 1959 году. Находит кратчайшие пути от одной из вершин графа до всех остальных (wikipedia).</p>
+    </section>
+
+    <section class="slide">
+        <div class="picText">
+            <div class="pic">
+                <img src="public/dijkra.png" />
+            </div>
+            <div class="text">
+                <p>&nbsp;</p>
+                <h3>1.Алгоритм Дейкстры</h3>
+                <p>Основная часть</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="picText">
+            <div class="pic">
+                <img src="public/dijkra2.png" />
+            </div>
+            <div class="text">
+                <h3>1. Алгоритм Дейкстры</h3>
+                <p>Расчет накопленной стоимости узла Ni</p>
+            </div>
+        </div>
     </section>
 
     <section class="slide">
@@ -68,10 +149,9 @@
     </section>
 
     <section class="slide">
-        <h3>Структура доклада</h3>
-        <p class="ok">1. Пример работы алгоритма Дейкстры</p>
-        <p>2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
-        <p>3. Решение задач расчета траектории движения, которые возникают при создании 2D-игры (движение из точки A в точку Б, обход препятствий, поиск кратчайшего пути) </p>
+        <h3 class="ok">1. Алгоритм Дейкстры</h3>
+        <h3>2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</h3>
+        <h3>3. Решение задач расчета траектории движения, которые возникают при создании 2D-игры</h3>
     </section>
 
     <section class="slide">
@@ -87,10 +167,9 @@
     </section>
     
     <section class="slide">
-        <h3>Структура доклада</h3>
-        <p class="ok">1. Пример работы алгоритма Дейкстры</p>
-        <p class="ok">2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
-        <p>3. Решение задач расчета траектории движения, которые возникают при создании 2D-игры (движение из точки A в точку Б, обход препятствий, поиск кратчайшего пути) </p>
+        <h3 class="ok">1. Алгоритм Дейкстры</h3>
+        <h3 class="ok">2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</h3>
+        <h3>3. Решение задач расчета траектории движения, которые возникают при создании 2D-игры </p>
     </section>
 
     <section class="slide">
@@ -122,6 +201,31 @@
     </section>
     
     <section class="slide">
+        <div class="picText">
+            <div class="pic">
+                <img src="public/v1-v4-1.png" />
+            </div>
+            <div class="text">
+                <p>&nbsp;</p>
+                <p>Доработки реализации</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="picText">
+            <div class="pic">
+                <img src="public/v1-v4-2.png" />
+                <img src="public/v1-v4-3.png" />
+            </div>
+            <div class="text">
+                <p>&nbsp;</p>
+                <p>getNext Vertex()</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="slide">
         <div id="slide3" class="graph"></div>
     </section>
     
@@ -132,7 +236,7 @@
     <section class="slide">
         <div id="slide3_3" class="graph"></div>
     </section>
-    
+
     <section class="slide">
         <div id="slide4" class="graph"></div>
     </section>
@@ -182,15 +286,15 @@
     </section>
 
     <section class="slide">
-        <h3>Структура доклада</h3>
-        <p class="ok">1. Пример работы алгоритма Дейкстры</p>
-        <p class="ok">2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
-        <p class="ok">3. Решение задач расчета траектории движения, которые возникают при создании 2D-игры (движение из точки A в точку Б, обход препятствий, поиск кратчайшего пути) </p>
+        <h3 class="ok">1. Алгоритм Дейкстры</h3>
+        <h3 class="ok">2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</h3>
+        <h3 class="ok">3. Решение задач расчета траектории движения, которые возникают при создании 2D-игры</h3>
     </section>
 
     <section class="slide">
         <h3>Что дальше?</h3>
         <ui>
+            <li>Оптимизировать реализацию алгоритма</li>
             <li>Добавить поддержку горизонтальных веревок</li>
             <li>Добавить компьютерных соперников</li>
             <li>Доделать игру</li>
@@ -198,19 +302,44 @@
     </section>
 
     <section class="slide">
-        <h3>Что еще интересного?</h3>
+        <h3>Где еще может пригодиться алгоритм Дейкстры?</h3>
         <ui>
-            <li>A* - развитие алгоритма Дейкстры https://www.redblobgames.com/pathfinding/a-star/introduction.html</li>
-            <li>Репозиторий - https://github.com/alexanderpono/ponomarenko-alex-otus/tree/dijkstra-inno/algo-2022-10/dijkstra-inno</li>
+            <li>Расчет электрических цепей: ток течет по пути наименьшего сопротивления.</li>
+            <li>Маршрутизация в компьютерных сетях.</li>
+            <li>Программы-навигаторы: поиск маршрута, чтобы быстрее добраться из точки А в точку Б.</li>
+            <li>...</li>
         </ui>
     </section>
 
     <section class="slide">
-        <div id="finish" class="graph"></div>
+        <h3>Что еще почитать?</h3>
+        <div class="picText">
+            <div class="pic">
+                <img src="public/A-qr-code.gif" />
+            </div>
+            <div class="text">
+                A* - развитие алгоритма Дейкстры https://www.redblobgames.com/pathfinding/a-star/introduction.html
+            </div>
+        </div>
+        <div class="picText">
+            <div class="pic">
+                <img src="public/repo-qr-code.gif" />
+            </div>
+            <div class="text">
+                Репозиторий с исходниками презентации https://github.com/alexanderpono/ponomarenko-alex-otus/tree/dijkstra-inno/algo-2022-10/dijkstra-inno
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h3>Спасибо за внимание!</h3>
+        <h3>Вопросы?</h3>
+        <p>Александр Пономаренко</p>
+        <p>Telegram: https://t.me/brain16383</p>
     </section>
 
     <footer class="badge">
-        <a href="https://github.com/shower/shower">Fork me on GitHub</a>
+        <a href="https://github.com/alexanderpono/ponomarenko-alex-otus/tree/dijkstra-inno/algo-2022-10/dijkstra-inno">Проект на GitHub</a>
     </footer>
 
     <div class="progress"></div>

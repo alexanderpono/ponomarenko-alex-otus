@@ -11,37 +11,37 @@ const vertices: Vertex2D[] = [
     {
         x: 70,
         y: 170,
-        letter: 'A'
+        letter: 'А'
     },
     {
         x: 190,
         y: 30,
-        letter: 'B'
+        letter: 'Б'
     },
     {
         x: 260,
         y: 170,
-        letter: 'C'
+        letter: 'В'
     },
     {
         x: 200,
         y: 320,
-        letter: 'D'
+        letter: 'Г'
     },
     {
         x: 400,
         y: 50,
-        letter: 'E'
+        letter: 'Д'
     },
     {
         x: 460,
         y: 280,
-        letter: 'F'
+        letter: 'Е'
     },
     {
         x: 590,
         y: 140,
-        letter: 'G'
+        letter: 'Ё'
     }
 ];
 

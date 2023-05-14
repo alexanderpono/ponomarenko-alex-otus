@@ -135,14 +135,67 @@ export class Graph {
 
     calcVertices_ = (): Vertex[] => this.matrix.map(() => ({ ...defaultVertex }));
 
+    getEdgesOfVertex = (): number[] => {
+        const edgesOfVertex = this.edges
+            .map((edge: Edge, index: number) =>
+                edge.vertex0 === this.curVertexIndex || edge.vertex1 === this.curVertexIndex
+                    ? index
+                    : -1
+            )
+            .filter((index) => index !== -1);
+        return edgesOfVertex;
+    };
+
+    getAdjancedVertexIndex = (edgeIndex: number): number => {
+        const adjacentEdge = this.edges[edgeIndex];
+        const adjacentVertexIndex =
+            adjacentEdge.vertex0 === this.curVertexIndex
+                ? adjacentEdge.vertex1
+                : adjacentEdge.vertex0;
+        return adjacentVertexIndex;
+    };
+
+    updateAccessCostAndEdgeIndex = (
+        adjacentVertex: Vertex,
+        curVertex: Vertex,
+        edgeIndex: number
+    ) => {
+        const adjacentEdge = this.edges[edgeIndex];
+        const newAccessCost = curVertex.accessCost + adjacentEdge.cost.cost;
+        if (
+            adjacentVertex.accessCost === UNDEFINED_COST ||
+            newAccessCost < adjacentVertex.accessCost
+        ) {
+            adjacentVertex.accessCost = newAccessCost;
+            adjacentVertex.edgeIndex = edgeIndex;
+        }
+    };
+
+    getNextVertex = (edgesOfVertex: number[]): number => {
+        let minAccessCost = Number.MAX_SAFE_INTEGER;
+        let adjacentVertexWithMinCost = -1;
+        for (let i = 0; i < edgesOfVertex.length; i++) {
+            const edgeIndex = edgesOfVertex[i];
+            const adjacentEdge = this.edges[edgeIndex];
+            const adjacentVertexIndex =
+                adjacentEdge.vertex0 === this.curVertexIndex
+                    ? adjacentEdge.vertex1
+                    : adjacentEdge.vertex0;
+            const adjacentVertex = this.vertices[adjacentVertexIndex];
+            if (adjacentVertex.processed === false && adjacentVertex.accessCost < minAccessCost) {
+                minAccessCost = adjacentVertex.accessCost;
+                adjacentVertexWithMinCost = adjacentVertexIndex;
+            }
+        }
+        return adjacentVertexWithMinCost;
+    };
+
     calcVerticesCost = (
         fromVertex: number,
         toVertex: number,
         verbose: boolean,
         maxStep: number
     ) => {
-        verbose && console.log('calcVerticesCost() fromVertex=', fromVertex, 'toVertex=', toVertex);
-
         if (maxStep !== -1) {
             this.vertices[fromVertex].accessCost = 0;
             this.curVertexIndex = fromVertex;
@@ -151,58 +204,18 @@ export class Graph {
         while (n < this.vertices.length && this.curVertexIndex !== -1 && n < maxStep) {
             const curVertex = this.vertices[this.curVertexIndex];
             this.vertices[this.curVertexIndex].processed = true;
-            const edgesOfVertex = this.edges
-                .map((edge: Edge, index: number) =>
-                    edge.vertex0 === this.curVertexIndex || edge.vertex1 === this.curVertexIndex
-                        ? index
-                        : -1
-                )
-                .filter((index) => index !== -1);
-            verbose && console.log(`\nedgesOfVertex ${this.curVertexIndex} =`, edgesOfVertex);
+            const edgesOfVertex = this.getEdgesOfVertex();
             for (let i = 0; i < edgesOfVertex.length; i++) {
                 const edgeIndex = edgesOfVertex[i];
-                const adjacentEdge = this.edges[edgeIndex];
-                const adjacentVertexIndex =
-                    adjacentEdge.vertex0 === this.curVertexIndex
-                        ? adjacentEdge.vertex1
-                        : adjacentEdge.vertex0;
+                const adjacentVertexIndex = this.getAdjancedVertexIndex(edgeIndex);
                 const adjacentVertex = this.vertices[adjacentVertexIndex];
-                verbose && console.log('adjacentVertex=', adjacentVertexIndex, adjacentVertex);
                 if (adjacentVertex.processed) {
                     continue;
                 }
-                const newAccessCost = curVertex.accessCost + adjacentEdge.cost.cost;
-                if (
-                    adjacentVertex.accessCost === UNDEFINED_COST ||
-                    newAccessCost < adjacentVertex.accessCost
-                ) {
-                    adjacentVertex.accessCost = newAccessCost;
-                    adjacentVertex.edgeIndex = edgeIndex;
-                }
+                this.updateAccessCostAndEdgeIndex(adjacentVertex, curVertex, edgeIndex);
             }
 
-            const getNextVertex = (): number => {
-                let minAccessCost = Number.MAX_SAFE_INTEGER;
-                let adjacentVertexWithMinCost = -1;
-                for (let i = 0; i < edgesOfVertex.length; i++) {
-                    const edgeIndex = edgesOfVertex[i];
-                    const adjacentEdge = this.edges[edgeIndex];
-                    const adjacentVertexIndex =
-                        adjacentEdge.vertex0 === this.curVertexIndex
-                            ? adjacentEdge.vertex1
-                            : adjacentEdge.vertex0;
-                    const adjacentVertex = this.vertices[adjacentVertexIndex];
-                    if (
-                        adjacentVertex.processed === false &&
-                        adjacentVertex.accessCost < minAccessCost
-                    ) {
-                        minAccessCost = adjacentVertex.accessCost;
-                        adjacentVertexWithMinCost = adjacentVertexIndex;
-                    }
-                }
-                return adjacentVertexWithMinCost;
-            };
-            const nextVertex = getNextVertex();
+            const nextVertex = this.getNextVertex(edgesOfVertex);
             verbose && this.printVertices(`vertices after step ${n}`);
             verbose && console.log('next vertex index = ', nextVertex);
             this.curVertexIndex = nextVertex;

@@ -1,65 +1,47 @@
-import { Edge, Graph, UNDEFINED_COST } from './Graph';
+import { Graph } from './Graph';
 
 export class GraphV4 extends Graph {
-    calcVerticesCost = (fromVertex: number, toVertex: number, verbose: boolean) => {
-        verbose && console.log('calcVerticesCost() fromVertex=', fromVertex, 'toVertex=', toVertex);
+    getNextVertex = (verticesToProcess: number[]): number => {
+        let minAccessCost = Number.MAX_SAFE_INTEGER;
+        let result = -1;
+        verticesToProcess.forEach((nodeIndex) => {
+            const vertex = this.vertices[nodeIndex as number];
+            if (vertex.processed === false && vertex.accessCost < minAccessCost) {
+                minAccessCost = vertex.accessCost;
+                result = nodeIndex as number;
+            }
+        });
+        return result;
+    };
 
-        this.vertices[fromVertex].accessCost = 0;
-
-        let curVertexIndex = fromVertex;
+    calcVerticesCost = (fromVertex: number, toVertex: number, verbose: boolean, maxStep = 2000) => {
+        if (maxStep !== -1) {
+            this.vertices[fromVertex].accessCost = 0;
+            this.curVertexIndex = fromVertex;
+        }
         let n = 0;
-        const verticesToProcess = new Set();
-        while (n < this.vertices.length && curVertexIndex !== -1) {
-            const curVertex = this.vertices[curVertexIndex];
-            this.vertices[curVertexIndex].processed = true;
-            const edgesOfVertex = this.edges
-                .map((edge: Edge, index: number) =>
-                    edge.vertex0 === curVertexIndex || edge.vertex1 === curVertexIndex ? index : -1
-                )
-                .filter((index) => index !== -1);
-            verbose && console.log(`\nedgesOfVertex ${curVertexIndex} =`, edgesOfVertex);
+        const verticesToProcess = new Set<number>();
+        while (n < this.vertices.length && this.curVertexIndex !== -1 && n < maxStep) {
+            const curVertex = this.vertices[this.curVertexIndex];
+            this.vertices[this.curVertexIndex].processed = true;
+            const edgesOfVertex = this.getEdgesOfVertex();
             for (let i = 0; i < edgesOfVertex.length; i++) {
                 const edgeIndex = edgesOfVertex[i];
-                const adjacentEdge = this.edges[edgeIndex];
-                const adjacentVertexIndex =
-                    adjacentEdge.vertex0 === curVertexIndex
-                        ? adjacentEdge.vertex1
-                        : adjacentEdge.vertex0;
+                const adjacentVertexIndex = this.getAdjancedVertexIndex(edgeIndex);
                 const adjacentVertex = this.vertices[adjacentVertexIndex];
-                verbose && console.log('adjacentVertex=', adjacentVertexIndex, adjacentVertex);
                 if (adjacentVertex.processed) {
                     continue;
                 }
                 verticesToProcess.add(adjacentVertexIndex);
-                const newAccessCost = curVertex.accessCost + adjacentEdge.cost.cost;
-                if (
-                    adjacentVertex.accessCost === UNDEFINED_COST ||
-                    newAccessCost < adjacentVertex.accessCost
-                ) {
-                    adjacentVertex.accessCost = newAccessCost;
-                    adjacentVertex.edgeIndex = edgeIndex;
-                }
+                this.updateAccessCostAndEdgeIndex(adjacentVertex, curVertex, edgeIndex);
             }
-            verbose && console.log('verticesToProcess=', verticesToProcess);
 
-            const getNextVertex = (): number => {
-                let minAccessCost = Number.MAX_SAFE_INTEGER;
-                let result = -1;
-                verticesToProcess.forEach((nodeIndex) => {
-                    const vertex = this.vertices[nodeIndex as number];
-                    if (vertex.processed === false && vertex.accessCost < minAccessCost) {
-                        minAccessCost = vertex.accessCost;
-                        result = nodeIndex as number;
-                    }
-                });
-                return result;
-            };
-            const nextVertex = getNextVertex();
+            const nextVertex = this.getNextVertex([...verticesToProcess]);
             verbose && this.printVertices(`vertices after step ${n}`);
             verbose && console.log('next vertex index = ', nextVertex);
-            curVertexIndex = nextVertex;
-            if (curVertexIndex !== -1) {
-                verticesToProcess.delete(curVertexIndex);
+            this.curVertexIndex = nextVertex;
+            if (this.curVertexIndex !== -1) {
+                verticesToProcess.delete(this.curVertexIndex);
             }
             n++;
         }

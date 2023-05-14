@@ -1,73 +1,37 @@
-import {
-    gl_s0,
-    gl_s1,
-    gl_s2,
-    gl_s3,
-    gl_s4,
-    gl_s5,
-    gl_s6,
-    slide0,
-    slide0_1,
-    slide1,
-    slide1_2,
-    slide1_3,
-    slide2,
-    slide2_2,
-    slide2_3,
-    slide2_4,
-    slide3,
-    slide3_2,
-    slide3_3,
-    slide3a,
-    slide3a_2,
-    slide3a_3,
-    slide4,
-    slide4_2,
-    slide4_3,
-    slide4_4,
-    slide5,
-    slideGame1,
-    slideV5_2,
-    slideV5_3,
-    slideV5_4,
-    slideV5_4_1,
-    slideV5_5,
-    slideV5_6,
-    slide_finish
-} from './index.lib';
+import { slides } from './index.lib';
 
-slide0();
-gl_s0();
-gl_s1();
-gl_s2();
-gl_s3();
-gl_s4();
-gl_s5();
-gl_s6();
-slide0_1();
-slide1();
-slide1_2();
-slide1_3();
-slide2();
-slide2_2();
-slide2_3();
-slide2_4();
-slide3a();
-slide3a_2();
-slide3a_3();
-slide3();
-slide3_2();
-slide3_3();
-slide4();
-slide4_2();
-slide4_3();
-slide4_4();
-slide5();
-slideV5_2();
-slideV5_3();
-slideV5_4();
-slideV5_4_1();
-slideV5_5();
-slideV5_6();
-slideGame1();
-slide_finish();
+slides.slide0();
+slides.gl_s0();
+slides.gl_s1();
+slides.gl_s2();
+slides.gl_s3();
+slides.gl_s4();
+slides.gl_s5();
+slides.gl_s6();
+slides.slide0_1();
+slides.slide1();
+slides.slide1_2();
+slides.slide1_3();
+slides.slide2();
+slides.slide2_2();
+slides.slide2_3();
+slides.slide2_4();
+slides.slide3a();
+slides.slide3a_2();
+slides.slide3a_3();
+slides.slide3();
+slides.slide3_2();
+slides.slide3_3();
+slides.slide4();
+slides.slide4_2();
+slides.slide4_3();
+slides.slide4_4();
+slides.slide5();
+slides.slideV5_2();
+slides.slideV5_3();
+slides.slideV5_4();
+slides.slideV5_4_1();
+slides.slideV5_5();
+slides.slideV5_6();
+slides.slideGame1();
+slides.slide_finish();
