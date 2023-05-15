@@ -32,7 +32,8 @@ module.exports = (env, argv) => {
                               to: path.join(__dirname, '/ui-dist/index.html')
                           },
                           { from: 'bundled/shower', to: path.join(__dirname, '/ui-dist/shower') },
-                          { from: 'bundled/ok.png', to: path.join(__dirname, '/ui-dist/ok.png') }
+                          { from: 'bundled/ok.png', to: path.join(__dirname, '/ui-dist/ok.png') },
+                          { from: 'bundled/public', to: path.join(__dirname, '/ui-dist/public') }
                       ]
                   })
               ];
