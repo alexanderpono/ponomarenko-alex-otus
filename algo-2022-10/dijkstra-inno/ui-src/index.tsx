@@ -1,5 +1,6 @@
 import { slides } from './index.lib';
 
+slides.slide00();
 slides.slide0();
 slides.gl_s0();
 slides.gl_s1();

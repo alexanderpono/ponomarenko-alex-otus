@@ -8,6 +8,10 @@ import { GraphV4 } from './GraphV4';
 import { GraphV5 } from './GraphV5';
 import { AppController } from './AppController';
 
+export const slide00 = () => {
+    renderGraphFromLesson('Пример графа', false, 'slide00', -1);
+};
+
 export const slide0 = () => {
     renderGraphFromLesson('1. Алгоритм Дейкстры. Исходный граф', false, 'GraphFromLesson', -1);
 };
@@ -835,6 +839,7 @@ export const slides = {
     gl_s4,
     gl_s5,
     gl_s6,
+    slide00,
     slide0,
     slide0_1,
     slide1,
