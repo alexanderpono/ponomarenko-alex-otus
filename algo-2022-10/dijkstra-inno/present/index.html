@@ -49,6 +49,21 @@
             margin-right: 40%;
             padding-left: 20px;
         }
+        .tg {
+            display: flex;
+            align-items: center;
+        }
+
+        .tg p {
+            margin-right: 20px;
+        }
+
+        .smaller {
+            font-size: 80%;
+        }
+        .smaller70 {
+            font-size: 70%;
+        }
     </style>
 
     <script defer src="./ui-dist/index.js"></script>
@@ -70,9 +85,10 @@
             <div class="textBack">
                 <h3>Александр Пономаренко</h3>
                 <p>ГК Иннотех, Frontend-разработчик React</p>
-                <p>В программировании с 1999 года.</p>
                 <p>Отрасли: Компьютерные симуляторы (тренажеры), Гос. web-проекты, Телеком, Финтех.</p>
-                <p>Telegram: https://t.me/brain16383</p>
+                <div class="picText">
+                    <img src="public/TG-qr-code.gif" /> <p class="text">Telegram: https://t.me/brain16383</p> 
+                </div>
             </div>
         </div>
     </section>
@@ -107,6 +123,8 @@
         <p>Алгоритм Дейкстры — алгоритм на графах, изобретённый нидерландским учёным Эдсгером Дейкстрой в 1959 году. Находит кратчайшие пути от одной из вершин графа до всех остальных (wikipedia).</p>
     </section>
 
+    <section class="slide"><div id="slide00" class="graph"></div></section>
+
     <section class="slide">
         <div class="picText">
             <div class="pic">
@@ -118,6 +136,38 @@
                 <p>Основная часть</p>
             </div>
         </div>
+    </section>
+
+    <section class="slide smaller">
+        <pre>
+            <code>calcVerticesCost = (fromVertex: number) => {</code>
+            <code class="next">    this.vertices[fromVertex].accessCost = 0;</code>
+            <code class="next">    this.curVertexIndex = fromVertex;</code>
+            <code class="next">    while (this.curVertexIndex !== -1) {</code>
+            <code class="next">        const curVertex = this.vertices[this.curVertexIndex];</code>
+            <code class="next">        this.vertices[this.curVertexIndex].processed = true;</code>
+            <code class="next">        const edgesOfVertex = this.getEdgesOfVertex();</code>
+            <code class="next">        for (let i = 0; i < edgesOfVertex.length; i++) <mark>{ ... }</mark></code>
+            <code class="next">        const nextVertex = this.getNextVertex(edgesOfVertex);</code>
+            <code class="next">        this.curVertexIndex = nextVertex;</code>
+            <code class="next">    }</code>
+            <code class="next">};</code>
+        </pre>        
+    </section>
+
+    <section class="slide">
+
+        <pre>
+            <code>for (let i = 0; i < edgesOfVertex.length; i++) {</code>
+            <code class="next">    const edgeIndex = edgesOfVertex[i];</code>
+            <code class="next">    const adjVIndex = this.getAdjancedVIndex(edgeIndex);</code>
+            <code class="next">    const adjVertex = this.vertices[adjacentVIndex];</code>
+            <code class="next">    if (adjacentVertex.processed) {</code>
+            <code class="next">        continue;</code>
+            <code class="next">    }</code>
+            <code class="next">    this.updateAccCostAndEdgeIdx(adjVertex, curVertex, edgeIndex);</code>
+            <code class="next">}</code>
+        </pre>        
     </section>
 
     <section class="slide">
@@ -200,6 +250,59 @@
         <div id="slide3a_3" class="graph"></div>
     </section>
     
+    <section class="slide smaller">
+        <pre>
+            <code>calcVerticesCost = (fromVertex: number) => {</code>
+            <code>    this.vertices[fromVertex].accessCost = 0;</code>
+            <code>    this.curVertexIndex = fromVertex;</code>
+            <code>    while (this.curVertexIndex !== -1) {</code>
+            <code>        const curVertex = this.vertices[this.curVertexIndex];</code>
+            <code>        this.vertices[this.curVertexIndex].processed = true;</code>
+            <code>        const edgesOfVertex = this.getEdgesOfVertex();</code>
+            <code>        for (let i = 0; i < edgesOfVertex.length; i++) <mark>{ ... }</mark></code>
+            <code>        <mark class="important">const nextVertex = this.getNextVertex(edgesOfVertex);</mark></code>
+            <code>        this.curVertexIndex = nextVertex;</code>
+            <code>    }</code>
+            <code>};</code>
+        </pre>        
+    </section>
+
+    <section class="slide smaller70">
+        <pre>
+            <code> <mark class="important">getNextVertex = (edgesOfVertex: number[]): number => {</mark></code>
+            <code>    let minAccessCost = Number.MAX_SAFE_INTEGER;</code>
+            <code>    let adjacentVertexWithMinCost = -1;</code>
+            <code>    <mark class="important">for (let i = 0; i < edgesOfVertex.length; i++) {</mark></code>
+            <code>        const adjacentEdge = this.edges[edgesOfVertex[i]];</code>
+            <code>        const adjVIndex = ...</code>
+            <code>        const adjVertex = this.vertices[adjVIndex];</code>
+            <code>        if (adjVertex.processed === false && adjVertex.accessCost < minAccessCost) {</code>
+            <code>            minAccessCost = adjVertex.accessCost;</code>
+            <code>            adjacentVertexWithMinCost = adjVIndex;</code>
+            <code>        }</code>
+            <code>    }</code>
+            <code>    return adjacentVertexWithMinCost;</code>
+            <code><mark class="important">};</mark></code>
+        </pre>        
+    </section>
+
+    <section class="slide smaller">
+        <pre>
+            <code>getNextVertex = (verticesToProcess: number[]): number => {</code>
+            <code>    let minAccessCost = Number.MAX_SAFE_INTEGER;</code>
+            <code>    let result = -1;</code>
+            <code class="next">    verticesToProcess.forEach((nodeIndex) => {</code>
+            <code class="next">        const vertex = this.vertices[nodeIndex as number];</code>
+            <code class="next">        if (vertex.processed === false && vertex.accessCost < minAccessCost) {</code>
+            <code class="next">            minAccessCost = vertex.accessCost;</code>
+            <code class="next">            result = nodeIndex as number;</code>
+            <code class="next">        }</code>
+            <code class="next">    });</code>
+            <code>    return result;</code>
+            <code>};</code>
+        </pre>        
+    </section>
+
     <section class="slide">
         <div class="picText">
             <div class="pic">
@@ -335,7 +438,9 @@
         <h3>Спасибо за внимание!</h3>
         <h3>Вопросы?</h3>
         <p>Александр Пономаренко</p>
-        <p>Telegram: https://t.me/brain16383</p>
+        <div class="tg">
+            <img src="public/TG-qr-code.gif" /> <p class="text">Telegram: https://t.me/brain16383</p> 
+        </div>
     </section>
 
     <footer class="badge">
