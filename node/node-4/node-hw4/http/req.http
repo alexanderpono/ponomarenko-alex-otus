@@ -1,0 +1,125 @@
+#get Anauthorized HTTP code
+POST http://localhost:3000/api/users
+Content-type: application/json
+
+{
+    "bookName": "Evgeniy Onegin"
+}
+
+###
+#get answer: name: This parameter is required
+POST http://localhost:3000/api/users
+Content-type: application/json
+Authorization: Basic user:password
+X-User-Name: Anton2
+
+{
+    "bookName": "Evgeniy Onegin"
+}
+
+###
+#get answer: name: Invalid parameter data type, expected: String
+POST http://localhost:3000/api/users
+Content-type: application/json
+Authorization: Basic user:password
+X-User-Name: Anton2
+
+{
+    "name": 123
+}
+
+###
+POST http://localhost:3000/api/users
+Content-type: application/json
+Authorization: Basic user:password
+X-User-Name: Anton2
+
+{
+    "name": "Kate",
+    "role": "user"
+}
+
+###
+#get forbidden: user Peter has not role 'admin'. Admin is required for this route
+GET http://localhost:3000/api/users
+Authorization: Basic user:password
+X-User-Name: Peter
+
+
+###
+#get 401: user Peter12341235412 doesnot exist
+GET http://localhost:3000/api/users
+Authorization: Basic user:password
+X-User-Name: Peter12341235412
+
+
+###
+GET http://localhost:3000/api/users
+Authorization: Basic user:password
+X-User-Name: Anton2
+
+
+###
+#get answer: x-user-name is empty - so 401 unauthorized
+GET http://localhost:3000/api/users
+Authorization: Basic user:password
+###
+
+
+GET http://localhost:3000/api/users/1
+Authorization: Basic user:password
+X-User-Name: Anton2
+###
+
+
+PUT http://localhost:3000/api/users/1
+Content-type: application/json
+Authorization: Basic user:password
+X-User-Name: Anton2
+
+{
+    "id": 1,
+    "name": "Anton2",
+    "role": "admin"
+}
+
+###
+PUT http://localhost:3000/api/users/1
+Content-type: application/json
+Authorization: Basic user:password
+X-User-Name: Anton2
+
+{
+    "id": 2,
+    "name": "Anton2"
+}
+
+###
+DELETE http://localhost:3000/api/users/39
+Content-type: application/json
+Authorization: Basic user:password
+X-User-Name: Anton2
+
+{
+}
+
+
+
+###
+#auth 
+POST http://localhost:3000/api/auth
+Content-type: application/json
+
+{
+    "userName": "Kate"
+}
+
+###
+#auth 
+POST http://localhost:3000/api/auth
+Content-type: application/json
+
+{
+    "userName": "Anton2"
+}
+
