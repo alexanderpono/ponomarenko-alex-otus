@@ -1,0 +1,66 @@
+<mxfile host="65bd71144e">
+    <diagram id="B_yJiZcyhZHxWvBdPLsg" name="Page-1">
+        <mxGraphModel dx="1125" dy="443" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="4" value="(граф, исходный_узел,конечный_узел)" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;fontSize=14;" parent="1" target="2" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="40" y="110" as="sourcePoint"/>
+                        <mxPoint x="470" y="200" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="2" value="Начало&lt;br style=&quot;font-size: 14px;&quot;&gt;Алгоритм Дейкстры" style="ellipse;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=14;" parent="1" vertex="1">
+                    <mxGeometry x="370" y="80" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=14;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="2" target="6" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="430" y="150"/>
+                            <mxPoint x="430" y="150"/>
+                        </Array>
+                        <mxPoint x="610" y="130" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="12" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;fontSize=14;" parent="1" source="6" target="7" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;fontSize=14;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="6" target="21" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="800" y="430" as="sourcePoint"/>
+                        <mxPoint x="150" y="390" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="600" y="185"/>
+                            <mxPoint x="600" y="410"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="6" value="Цикл&amp;nbsp; по всем узлам" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;strokeWidth=2;fontSize=14;" parent="1" vertex="1">
+                    <mxGeometry x="290" y="170" width="280" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="Цикл&amp;nbsp;&lt;br style=&quot;font-size: 14px;&quot;&gt;по соседним узлам&amp;nbsp;&lt;br style=&quot;font-size: 14px;&quot;&gt;текущего узла: &lt;br&gt;расчет стоимости перехода в узел и ребра, &lt;br&gt;откуда пришли" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;strokeWidth=2;fontSize=14;" parent="1" vertex="1">
+                    <mxGeometry x="320" y="230" width="220" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;strokeWidth=2;fontSize=14;" parent="1" source="7" target="6" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="630" y="485" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="430" y="360"/>
+                            <mxPoint x="270" y="360"/>
+                            <mxPoint x="270" y="185"/>
+                        </Array>
+                        <mxPoint x="320" y="475" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="29" value="Граф с рассчитанными весами и информацией, из какого ребра пришли в узел" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;fontSize=14;" parent="1" source="21" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="420" y="520" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="21" value="Конец" style="ellipse;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=14;" parent="1" vertex="1">
+                    <mxGeometry x="360" y="380" width="120" height="60" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
