@@ -32,8 +32,8 @@ GG........0508..
         .initFromAdjacencyString(adjacencyMatrix)
         .calcEdges()
         .calcVertices()
-        .calcVerticesCost(6, 0, SILENT)
+        .calcVerticesCost(6, 0, SILENT, 10)
         .calcCheapestPath(6, 0);
 
-    return <GraphFromLesson graph={g} />;
+    return <GraphFromLesson graph={g} caption={'caption'} showBestPath={true} />;
 };
