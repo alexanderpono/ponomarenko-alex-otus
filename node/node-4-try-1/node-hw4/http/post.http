@@ -1,0 +1,55 @@
+#
+GET http://localhost:3001/courses
+
+###
+#
+GET http://localhost:3001/courses?json
+
+###
+#
+GET http://localhost:3001/courses?json=1&test
+
+###
+
+
+#
+POST http://localhost:3001/courses?test
+Content-Type: application/json
+
+{
+  "caption": "course1"
+}
+###
+
+
+#
+POST http://localhost:3001/post
+Content-Type: application/json
+
+{
+  "data": "test"
+}
+
+###
+
+#
+GET http://localhost:3001/
+
+###
+
+#
+GET http://localhost:3001/users
+
+###
+
+
+
+#
+POST http://localhost:3001/post-test
+Content-Type: application/json
+
+{
+  "caption": "course1"
+}
+###
+
