@@ -7,7 +7,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  ALGO-PW-build-deploy:
+  build-deploy-dijkra-inno-beer-2023-08:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -43,6 +43,6 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: algo-2022-10/dijkstra-inno-beer-2023-08/demo-dist  # The folder the action should deploy.
+          FOLDER: algo-2022-10/dijkstra-inno-beer-2023-08/demo/demo-dist  # The folder the action should deploy.
           TARGET_FOLDER: algo-2022-10/dijkstra-inno-beer-2023-08/present
           CLEAN: true # Automatically remove deleted files from the deploy branch
