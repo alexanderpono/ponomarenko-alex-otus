@@ -1,8 +1,9 @@
 import React from 'react';
 import { withKnobs } from '@storybook/addon-knobs';
 import { AbstractGraphUI } from './AbstractGraphUI';
-import { GraphCalculator, SILENT } from './GraphCalculator';
+import { ALL_NODES, GraphCalculator, SILENT } from './GraphCalculator';
 import { Vertex2D } from './2D.types';
+import { GraphFromAdjString } from './GraphFromAdjString';
 
 export default {
     title: 'AbstractGraphUI',
@@ -60,25 +61,16 @@ GG........0508..
     ];
 
     console.log('adjacencyMatrix=', adjacencyMatrix);
-    console.log(
-        '\nadjacencyMatrix=',
-        JSON.stringify(
-            GraphCalculator.create().initFromAdjacencyString(adjacencyMatrix).getMatrix()
-        )
-    );
 
-    console.log(
-        GraphCalculator.create().initFromAdjacencyString(adjacencyMatrix).calcEdges().printEdges()
-    );
-
-    const g = GraphCalculator.create()
-        .initFromAdjacencyString(adjacencyMatrix)
-        .calcEdges()
-        .calcVertices()
-        .calcVerticesCost(6, 0, SILENT, 10)
-        .calcCheapestPath(6, 0);
+    let graph = new GraphFromAdjString().graphFromAdjacencyString(adjacencyMatrix);
+    graph = new GraphCalculator().calculateGraph(graph, 6, 0, SILENT, ALL_NODES);
 
     return (
-        <AbstractGraphUI graph={g} caption={'caption'} showBestPath={true} vertices2D={vertices} />
+        <AbstractGraphUI
+            graph={graph}
+            caption={'caption'}
+            showBestPath={true}
+            vertices2D={vertices}
+        />
     );
 };

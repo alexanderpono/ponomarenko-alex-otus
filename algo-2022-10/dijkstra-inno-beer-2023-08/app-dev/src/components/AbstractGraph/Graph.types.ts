@@ -4,6 +4,12 @@ export interface AbstractGraph {
     cheapestPath: number[];
     curVertexIndex: number;
 }
+export const defaultAbstractGraph: AbstractGraph = {
+    edges: [],
+    vertices: [],
+    cheapestPath: [],
+    curVertexIndex: -1
+};
 
 export interface Edge {
     vertex0: number;
@@ -16,6 +22,14 @@ export interface Vertex {
     accessCost: number;
     edgeIndex: number;
 }
+
+const UNDEFINED_INDEX = -1;
+export const UNDEFINED_COST = -1;
+export const defaultVertex: Vertex = {
+    processed: false,
+    accessCost: UNDEFINED_COST,
+    edgeIndex: UNDEFINED_INDEX
+};
 
 export interface EdgeCost {
     cost: number;
