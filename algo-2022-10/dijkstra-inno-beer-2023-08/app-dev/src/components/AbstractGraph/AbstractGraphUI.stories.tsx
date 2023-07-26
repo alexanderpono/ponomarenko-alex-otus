@@ -1,9 +1,9 @@
 import React from 'react';
 import { withKnobs } from '@storybook/addon-knobs';
 import { AbstractGraphUI } from './AbstractGraphUI';
-import { ALL_NODES, GraphCalculator, SILENT } from './GraphCalculator';
-import { Vertex2D } from './2D.types';
-import { GraphFromAdjString } from './GraphFromAdjString';
+import { ALL_NODES, GraphCalculator, SILENT } from '@src/game/GraphCalculator';
+import { Vertex2D } from '@src/ports/2D.types';
+import { GraphFromAdjString } from '@src/game/GraphFromAdjString';
 
 export default {
     title: 'AbstractGraphUI',

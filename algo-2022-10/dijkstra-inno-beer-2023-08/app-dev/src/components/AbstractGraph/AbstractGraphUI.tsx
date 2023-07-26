@@ -1,7 +1,7 @@
 import React from 'react';
-import { drawEdge, drawEdgeCost, drawVertex } from './canvas.lib';
-import { Vertex2D } from './2D.types';
-import { AbstractGraph } from './Graph.types';
+import { drawEdge, drawEdgeCost, drawVertex } from '@src/ports/canvas.lib';
+import { Vertex2D } from '@src/ports/2D.types';
+import { AbstractGraph } from '@src/game/Graph.types';
 
 interface AbstractGraphUIProps {
     graph: AbstractGraph;

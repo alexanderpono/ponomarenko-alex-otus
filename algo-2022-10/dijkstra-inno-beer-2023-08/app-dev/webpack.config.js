@@ -21,7 +21,8 @@ module.exports = {
         }
     },
     entry: {
-        arm: './src/app-index.tsx'
+        abstractGraph: './src/abstractGraph.tsx',
+        gameField: './src/gameField.tsx'
     },
     output: {
         filename: '[name].js',

@@ -14,13 +14,6 @@ export const defaultEdgeCost: EdgeCost = {
     v1v0Cost: UNDEFINED_COST
 };
 
-export interface RenderOptions {
-    nodes: boolean;
-    lines: boolean;
-    path: boolean;
-    nodesCost: boolean;
-    map: boolean;
-}
 export class GraphCalculator {
     public calculateGraph = (
         graph: AbstractGraph,

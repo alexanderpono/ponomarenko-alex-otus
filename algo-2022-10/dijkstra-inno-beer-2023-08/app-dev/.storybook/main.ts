@@ -13,6 +13,7 @@ const config: StorybookConfig = {
   docs: {
     autodocs: "tag",
   },
+  staticDirs: ['../src/assets'],
   webpackFinal: (config) => {
     let rules = config.module?.rules || [];
     rules = [

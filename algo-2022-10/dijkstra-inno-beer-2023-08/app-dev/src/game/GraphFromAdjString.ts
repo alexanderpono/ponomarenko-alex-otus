@@ -1,5 +1,11 @@
-import { AbstractGraph, Edge, Vertex, defaultAbstractGraph, defaultVertex } from './Graph.types';
-import { defaultEdgeCost } from './GraphCalculator';
+import {
+    AbstractGraph,
+    Edge,
+    Vertex,
+    defaultAbstractGraph,
+    defaultVertex
+} from '@src/game/Graph.types';
+import { defaultEdgeCost } from '@src/game/GraphCalculator';
 
 const NULL = -1;
 const getPairs = (chars: string[]): string[] => {
