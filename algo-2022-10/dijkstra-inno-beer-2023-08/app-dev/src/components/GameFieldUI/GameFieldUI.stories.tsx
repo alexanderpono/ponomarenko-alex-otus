@@ -3,14 +3,15 @@ import { withKnobs } from '@storybook/addon-knobs';
 import { GameFieldUI } from './GameFieldUI';
 import { GameField } from '@src/game/GameField';
 import { GraphFromField } from '@src/game/GraphFromField';
+import { ALL_NODES, GraphCalculator, SILENT } from '@src/game/GraphCalculator';
+import { GraphCalculatorV2 } from '@src/game/GraphCalculatorV2';
 
 export default {
     title: 'GameFieldUI',
     decorators: [withKnobs]
 };
 
-export const Static2 = () => {
-    const fieldS2 = `
+const map = `
 ▓ M              ▓
 ▓▓▓▓▓▓▓▓╡▓▓▓▓▓▓▓▓▓
 ▓       ╡        ▓
@@ -20,17 +21,42 @@ export const Static2 = () => {
 ▓  ╡     ╡   $╡  ▓
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
     `;
-    const gameField = GameField.create().initFromText(fieldS2);
-    const getEdgeSimpleCost = (): number => 1;
-    const graph = new GraphFromField().graphFromField(gameField, getEdgeSimpleCost);
 
-    const options = {
-        nodes: false,
-        lines: false,
-        path: false,
-        nodesCost: false,
-        map: true
-    };
+const options = {
+    nodes: false,
+    lines: false,
+    path: true,
+    nodesCost: false,
+    map: true
+};
+
+export const CalcWrong = () => {
+    const gameField = GameField.create().initFromText(map);
+    let graph = new GraphFromField().graphFromField(gameField, GraphFromField.getEdgeAdvancedCost);
+
+    const mIndex = GraphFromField.getVertexIndex(map, 'M');
+    const dIndex = GraphFromField.getVertexIndex(map, '$');
+    graph = new GraphCalculator().calculateGraph(graph, mIndex, dIndex, SILENT, ALL_NODES);
+
+    return (
+        <GameFieldUI
+            field={gameField}
+            graph={graph}
+            render={options}
+            id="GameFieldUI"
+            title="GameFieldUI"
+        />
+    );
+};
+
+export const CalcRight = () => {
+    const gameField = GameField.create().initFromText(map);
+    let graph = new GraphFromField().graphFromField(gameField, GraphFromField.getEdgeAdvancedCost);
+
+    const mIndex = GraphFromField.getVertexIndex(map, 'M');
+    const dIndex = GraphFromField.getVertexIndex(map, '$');
+    graph = new GraphCalculatorV2().calculateGraph(graph, mIndex, dIndex, SILENT, ALL_NODES);
+
     return (
         <GameFieldUI
             field={gameField}

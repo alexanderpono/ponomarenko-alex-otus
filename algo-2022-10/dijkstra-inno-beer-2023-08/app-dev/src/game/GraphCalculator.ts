@@ -6,7 +6,7 @@ export const SILENT = false;
 
 export const COST_WALL = 100;
 export const COST_SPACE = 1;
-export const ALL_NODES = 10;
+export const ALL_NODES = 1000;
 
 export const defaultEdgeCost: EdgeCost = {
     cost: UNDEFINED_COST,
@@ -29,7 +29,7 @@ export class GraphCalculator {
         return newGraph;
     };
 
-    private getEdgesOfVertex = (graph: AbstractGraph): number[] => {
+    protected getEdgesOfVertex = (graph: AbstractGraph): number[] => {
         const edgesOfVertex = graph.edges
             .map((edge: Edge, index: number) =>
                 edge.vertex0 === graph.curVertexIndex || edge.vertex1 === graph.curVertexIndex
@@ -40,7 +40,7 @@ export class GraphCalculator {
         return edgesOfVertex;
     };
 
-    private getAdjancedVertexIndex = (graph: AbstractGraph, edgeIndex: number): number => {
+    protected getAdjancedVertexIndex = (graph: AbstractGraph, edgeIndex: number): number => {
         const adjacentEdge = graph.edges[edgeIndex];
         const adjacentVertexIndex =
             adjacentEdge.vertex0 === graph.curVertexIndex
@@ -49,7 +49,7 @@ export class GraphCalculator {
         return adjacentVertexIndex;
     };
 
-    private updateAccessCostAndEdgeIndex = (
+    protected updateAccessCostAndEdgeIndex = (
         graph: AbstractGraph,
         adjacentVertex: Vertex,
         curVertex: Vertex,
@@ -66,7 +66,7 @@ export class GraphCalculator {
         }
     };
 
-    private getNextVertex = (graph: AbstractGraph, edgesOfVertex: number[]): number => {
+    protected getNextVertex = (graph: AbstractGraph, edgesOfVertex: number[]): number => {
         let minAccessCost = Number.MAX_SAFE_INTEGER;
         let adjacentVertexWithMinCost = -1;
         for (let i = 0; i < edgesOfVertex.length; i++) {
@@ -85,7 +85,7 @@ export class GraphCalculator {
         return adjacentVertexWithMinCost;
     };
 
-    private calcVerticesCost = (
+    protected calcVerticesCost = (
         graph: AbstractGraph,
         fromVertex: number,
         verbose: boolean,
@@ -119,7 +119,7 @@ export class GraphCalculator {
         return newGraph;
     };
 
-    private calcCheapestPath = (graph: AbstractGraph, fromVertex: number, toVertex: number) => {
+    protected calcCheapestPath = (graph: AbstractGraph, fromVertex: number, toVertex: number) => {
         const newGraph = { ...graph };
         let curVertexIndex = toVertex;
         const pathFromDestToSrc: number[] = [];
