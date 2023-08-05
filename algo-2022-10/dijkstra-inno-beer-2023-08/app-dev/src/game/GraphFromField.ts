@@ -7,9 +7,7 @@ export class GraphFromField {
         field: GameField,
         getEdgeCost: (field: GameField, v0: number, v1: number) => number
     ): AbstractGraph => {
-        let graph = {
-            ...defaultAbstractGraph
-        };
+        let graph = JSON.parse(JSON.stringify(defaultAbstractGraph));
 
         const h = field.field.length;
         const w = field.field[0].length;

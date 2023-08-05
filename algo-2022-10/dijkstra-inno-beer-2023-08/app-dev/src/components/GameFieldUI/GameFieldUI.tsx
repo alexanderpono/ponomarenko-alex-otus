@@ -12,7 +12,13 @@ export interface RenderOptions {
     nodesCost: boolean;
     map: boolean;
 }
-
+export const defaultRenderOptions: RenderOptions = {
+    nodes: false,
+    lines: false,
+    path: false,
+    nodesCost: false,
+    map: false
+};
 interface GameFieldUIProps {
     field: GameField;
     graph: AbstractGraph;

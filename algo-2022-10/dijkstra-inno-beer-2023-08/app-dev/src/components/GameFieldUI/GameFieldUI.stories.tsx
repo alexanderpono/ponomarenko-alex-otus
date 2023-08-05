@@ -67,3 +67,28 @@ export const CalcRight = () => {
         />
     );
 };
+
+export const CalcRightLines = () => {
+    const gameField = GameField.create().initFromText(map);
+    let graph = new GraphFromField().graphFromField(gameField, GraphFromField.getEdgeAdvancedCost);
+
+    const mIndex = GraphFromField.getVertexIndex(map, 'M');
+    const dIndex = GraphFromField.getVertexIndex(map, '$');
+    graph = new GraphCalculatorV2().calculateGraph(graph, mIndex, dIndex, SILENT, ALL_NODES);
+
+    return (
+        <GameFieldUI
+            field={gameField}
+            graph={graph}
+            render={{
+                nodes: false,
+                lines: true,
+                path: false,
+                nodesCost: false,
+                map: true
+            }}
+            id="GameFieldUI"
+            title="GameFieldUI"
+        />
+    );
+};
