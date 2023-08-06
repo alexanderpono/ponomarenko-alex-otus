@@ -16,6 +16,11 @@ export interface Point2D {
     x: number;
     y: number;
 }
+export const defaultPoint2D: Point2D = {
+    x: 0,
+    y: 0
+};
+
 export class GameField {
     field: Cell[][] = [];
 

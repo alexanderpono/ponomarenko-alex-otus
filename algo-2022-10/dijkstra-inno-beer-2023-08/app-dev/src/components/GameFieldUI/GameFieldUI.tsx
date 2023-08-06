@@ -4,6 +4,8 @@ import { GRField } from '@src/ports/GRField';
 import { GRGraph } from '@src/ports/GRGraph';
 import { AbstractGraph } from '@src/game/Graph.types';
 import { GameFieldController, GameState } from './Game.types';
+import { GRGold } from '@src/ports/GRGold';
+import { GRMan } from '@src/ports/GRMan';
 
 export interface RenderOptions {
     nodes: boolean;
@@ -22,6 +24,7 @@ export const defaultRenderOptions: RenderOptions = {
 
 interface GameFieldUIProps {
     field: GameField;
+    emptyField: GameField;
     graph: AbstractGraph;
     id: string;
     title: string;
@@ -30,12 +33,28 @@ interface GameFieldUIProps {
     canvas: HTMLCanvasElement;
     ctrl: GameFieldController;
     gameState: GameState;
+    picLoaded: boolean;
 }
 
 export const GameFieldUI = React.forwardRef<HTMLCanvasElement, GameFieldUIProps>(
-    ({ field, graph, id, title, canvasW, canvasH, canvas, ctrl, gameState }, canvasRef) => {
+    (
+        {
+            field,
+            graph,
+            id,
+            title,
+            canvasW,
+            canvasH,
+            canvas,
+            ctrl,
+            gameState,
+            emptyField,
+            picLoaded
+        },
+        canvasRef
+    ) => {
         React.useEffect(() => {
-            if (!gameState.picLoaded) {
+            if (!picLoaded) {
                 return;
             }
 
@@ -60,9 +79,17 @@ export const GameFieldUI = React.forwardRef<HTMLCanvasElement, GameFieldUIProps>
                 map: gameState.mapChecked
             };
 
-            GRField.create(context, field, gameState.pic, options).draw();
+            GRField.create(context, emptyField, gameState.pic, options).draw();
+            GRGold.create(context, gameState.goldScreenXY, gameState.pic).draw();
             GRGraph.create(context, field, graph, options).draw();
-        }, [gameState, canvas, graph]);
+            GRMan.create(
+                context,
+                gameState.manScreenXY,
+                gameState.manAni,
+                gameState.pic,
+                gameState.miniCounter
+            ).draw();
+        }, [gameState, canvas, graph, picLoaded]);
 
         return (
             <div style={{ width: '720px' }}>

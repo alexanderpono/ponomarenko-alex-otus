@@ -1,3 +1,6 @@
+import { Point2D, defaultPoint2D } from '@src/game/GameField';
+import { ManAni } from '@src/ports/GR.types';
+
 export interface GameFieldController {
     nodesClicked: () => void;
     linesClicked: () => void;
@@ -13,9 +16,12 @@ export interface GameState {
     pathChecked: boolean;
     nodesCostChecked: boolean;
     mapChecked: boolean;
-    picLoaded: boolean;
     showControls: boolean;
     pic: InstanceType<typeof Image>;
+    goldScreenXY: Point2D;
+    manScreenXY: Point2D;
+    manAni: ManAni;
+    miniCounter: number;
 }
 export const defaultGameState: GameState = {
     nodesChecked: false,
@@ -23,7 +29,10 @@ export const defaultGameState: GameState = {
     pathChecked: false,
     nodesCostChecked: false,
     mapChecked: false,
-    picLoaded: false,
     showControls: false,
-    pic: null
+    pic: null,
+    goldScreenXY: { ...defaultPoint2D },
+    manScreenXY: { ...defaultPoint2D },
+    manAni: ManAni.STAND,
+    miniCounter: 0
 };
