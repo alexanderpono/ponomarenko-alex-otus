@@ -4,7 +4,7 @@ import './app.css';
 import { ALL_NODES, GraphCalculator, SILENT } from './game/GraphCalculator';
 import { GameField } from './game/GameField';
 import { GraphFromField } from './game/GraphFromField';
-import { GameFieldUI, RenderOptions, defaultRenderOptions } from './components/GameFieldUI';
+import { GameApp, RenderOptions, defaultRenderOptions } from './components/GameFieldUI';
 import { GraphCalculatorV2 } from './game/GraphCalculatorV2';
 import { GraphCalculatorV3 } from './game/GraphCalculatorV3';
 import { GraphFromFieldV2 } from './game/GraphFromFieldV2';
@@ -116,7 +116,7 @@ function renderGameField(
     graph = new calculator().calculateGraph(graph, mIndex, dIndex, SILENT, ALL_NODES);
 
     render(
-        <GameFieldUI field={gameField} graph={graph} render={options} id={target} title={title} />,
+        <GameApp field={gameField} graph={graph} render={options} id={target} title={title} />,
         document.getElementById(target)
     );
 }

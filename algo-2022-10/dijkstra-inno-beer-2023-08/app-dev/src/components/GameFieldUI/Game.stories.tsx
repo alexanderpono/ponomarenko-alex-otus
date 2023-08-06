@@ -1,6 +1,6 @@
 import React from 'react';
 import { withKnobs } from '@storybook/addon-knobs';
-import { GameFieldUI } from './GameFieldUI';
+import { GameApp } from './Game';
 import { GameField } from '@src/game/GameField';
 import { GraphFromField } from '@src/game/GraphFromField';
 import { ALL_NODES, GraphCalculator, SILENT } from '@src/game/GraphCalculator';
@@ -9,7 +9,7 @@ import { GraphFromFieldV2 } from '@src/game/GraphFromFieldV2';
 import { GraphCalculatorV3 } from '@src/game/GraphCalculatorV3';
 
 export default {
-    title: 'GameFieldUI',
+    title: 'GameApp',
     decorators: [withKnobs]
 };
 
@@ -41,7 +41,7 @@ export const CalcWrong = () => {
     graph = new GraphCalculator().calculateGraph(graph, mIndex, dIndex, SILENT, ALL_NODES);
 
     return (
-        <GameFieldUI
+        <GameApp
             field={gameField}
             graph={graph}
             render={options}
@@ -60,7 +60,7 @@ export const CalcRight = () => {
     graph = new GraphCalculatorV2().calculateGraph(graph, mIndex, dIndex, SILENT, ALL_NODES);
 
     return (
-        <GameFieldUI
+        <GameApp
             field={gameField}
             graph={graph}
             render={options}
@@ -79,7 +79,7 @@ export const CalcRightLines = () => {
     graph = new GraphCalculatorV2().calculateGraph(graph, mIndex, dIndex, SILENT, ALL_NODES);
 
     return (
-        <GameFieldUI
+        <GameApp
             field={gameField}
             graph={graph}
             render={{
@@ -118,7 +118,7 @@ export const AdvancedGraphLines = () => {
     graph = new GraphCalculatorV3().calculateGraph(graph, mIndex, dIndex, SILENT, ALL_NODES);
 
     return (
-        <GameFieldUI
+        <GameApp
             field={gameField}
             graph={graph}
             render={{
@@ -146,7 +146,7 @@ export const AdvancedGraphPath = () => {
     graph = new GraphCalculatorV3().calculateGraph(graph, mIndex, dIndex, SILENT, ALL_NODES);
 
     return (
-        <GameFieldUI
+        <GameApp
             field={gameField}
             graph={graph}
             render={{

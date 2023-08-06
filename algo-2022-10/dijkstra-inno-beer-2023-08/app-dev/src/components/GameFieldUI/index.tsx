@@ -1,1 +1,1 @@
-export * from './GameFieldUI';
+export * from './Game';
