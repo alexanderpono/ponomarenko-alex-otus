@@ -1,15 +1,14 @@
 import React from 'react';
 import { withKnobs } from '@storybook/addon-knobs';
-import { GameApp } from './Game';
-import { GameField } from '@src/game/GameField';
+import { Game } from './Game';
 import { GraphFromField } from '@src/game/GraphFromField';
-import { ALL_NODES, GraphCalculator, SILENT } from '@src/game/GraphCalculator';
+import { GraphCalculator } from '@src/game/GraphCalculator';
 import { GraphCalculatorV2 } from '@src/game/GraphCalculatorV2';
 import { GraphFromFieldV2 } from '@src/game/GraphFromFieldV2';
 import { GraphCalculatorV3 } from '@src/game/GraphCalculatorV3';
 
 export default {
-    title: 'GameApp',
+    title: 'Game',
     decorators: [withKnobs]
 };
 
@@ -33,56 +32,35 @@ const options = {
 };
 
 export const CalcWrong = () => {
-    const gameField = GameField.create().initFromText(map);
-    let graph = new GraphFromField().graphFromField(gameField, GraphFromField.getEdgeAdvancedCost);
-
-    const mIndex = GraphFromField.getVertexIndex(map, 'M');
-    const dIndex = GraphFromField.getVertexIndex(map, '$');
-    graph = new GraphCalculator().calculateGraph(graph, mIndex, dIndex, SILENT, ALL_NODES);
-
     return (
-        <GameApp
-            field={gameField}
-            graph={graph}
-            render={options}
+        <Game
+            options={options}
             id="GameFieldUI"
             title="GameFieldUI"
+            map={map}
+            calcCost={GraphFromField.getEdgeAdvancedCost}
+            calculator={GraphCalculator}
         />
     );
 };
 
 export const CalcRight = () => {
-    const gameField = GameField.create().initFromText(map);
-    let graph = new GraphFromField().graphFromField(gameField, GraphFromField.getEdgeAdvancedCost);
-
-    const mIndex = GraphFromField.getVertexIndex(map, 'M');
-    const dIndex = GraphFromField.getVertexIndex(map, '$');
-    graph = new GraphCalculatorV2().calculateGraph(graph, mIndex, dIndex, SILENT, ALL_NODES);
-
     return (
-        <GameApp
-            field={gameField}
-            graph={graph}
-            render={options}
+        <Game
+            options={options}
             id="GameFieldUI"
             title="GameFieldUI"
+            map={map}
+            calcCost={GraphFromField.getEdgeAdvancedCost}
+            calculator={GraphCalculatorV2}
         />
     );
 };
 
 export const CalcRightLines = () => {
-    const gameField = GameField.create().initFromText(map);
-    let graph = new GraphFromField().graphFromField(gameField, GraphFromField.getEdgeAdvancedCost);
-
-    const mIndex = GraphFromField.getVertexIndex(map, 'M');
-    const dIndex = GraphFromField.getVertexIndex(map, '$');
-    graph = new GraphCalculatorV2().calculateGraph(graph, mIndex, dIndex, SILENT, ALL_NODES);
-
     return (
-        <GameApp
-            field={gameField}
-            graph={graph}
-            render={{
+        <Game
+            options={{
                 nodes: false,
                 lines: true,
                 path: false,
@@ -91,6 +69,9 @@ export const CalcRightLines = () => {
             }}
             id="GameFieldUI"
             title="GameFieldUI"
+            map={map}
+            calcCost={GraphFromField.getEdgeAdvancedCost}
+            calculator={GraphCalculatorV2}
         />
     );
 };
@@ -107,21 +88,9 @@ const map3 = `
     `;
 
 export const AdvancedGraphLines = () => {
-    const gameField = GameField.create().initFromText(map3);
-    let graph = new GraphFromField().graphFromField(
-        gameField,
-        GraphFromFieldV2.getEdgeAdvancedCost
-    );
-
-    const mIndex = GraphFromField.getVertexIndex(map3, 'M');
-    const dIndex = GraphFromField.getVertexIndex(map3, '$');
-    graph = new GraphCalculatorV3().calculateGraph(graph, mIndex, dIndex, SILENT, ALL_NODES);
-
     return (
-        <GameApp
-            field={gameField}
-            graph={graph}
-            render={{
+        <Game
+            options={{
                 nodes: false,
                 lines: true,
                 path: false,
@@ -130,26 +99,17 @@ export const AdvancedGraphLines = () => {
             }}
             id="GameFieldUI"
             title="GameFieldUI"
+            map={map3}
+            calcCost={GraphFromFieldV2.getEdgeAdvancedCost}
+            calculator={GraphCalculatorV3}
         />
     );
 };
 
 export const AdvancedGraphPath = () => {
-    const gameField = GameField.create().initFromText(map3);
-    let graph = new GraphFromField().graphFromField(
-        gameField,
-        GraphFromFieldV2.getEdgeAdvancedCost
-    );
-
-    const mIndex = GraphFromField.getVertexIndex(map3, 'M');
-    const dIndex = GraphFromField.getVertexIndex(map3, '$');
-    graph = new GraphCalculatorV3().calculateGraph(graph, mIndex, dIndex, SILENT, ALL_NODES);
-
     return (
-        <GameApp
-            field={gameField}
-            graph={graph}
-            render={{
+        <Game
+            options={{
                 nodes: false,
                 lines: false,
                 path: true,
@@ -158,6 +118,9 @@ export const AdvancedGraphPath = () => {
             }}
             id="GameFieldUI"
             title="GameFieldUI"
+            map={map3}
+            calcCost={GraphFromFieldV2.getEdgeAdvancedCost}
+            calculator={GraphCalculatorV3}
         />
     );
 };

@@ -1,10 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom';
 import './app.css';
-import { ALL_NODES, GraphCalculator, SILENT } from './game/GraphCalculator';
-import { GameField } from './game/GameField';
+import { GraphCalculator } from './game/GraphCalculator';
 import { GraphFromField } from './game/GraphFromField';
-import { GameApp, RenderOptions, defaultRenderOptions } from './components/GameFieldUI';
+import { Game, RenderOptions, defaultRenderOptions } from './components/GameFieldUI';
 import { GraphCalculatorV2 } from './game/GraphCalculatorV2';
 import { GraphCalculatorV3 } from './game/GraphCalculatorV3';
 import { GraphFromFieldV2 } from './game/GraphFromFieldV2';
@@ -108,15 +107,15 @@ function renderGameField(
     calcCost,
     calculator: typeof GraphCalculator
 ) {
-    const gameField = GameField.create().initFromText(map);
-    let graph = new GraphFromField().graphFromField(gameField, calcCost);
-
-    const mIndex = GraphFromField.getVertexIndex(map, 'M');
-    const dIndex = GraphFromField.getVertexIndex(map, '$');
-    graph = new calculator().calculateGraph(graph, mIndex, dIndex, SILENT, ALL_NODES);
-
     render(
-        <GameApp field={gameField} graph={graph} render={options} id={target} title={title} />,
+        <Game
+            options={options}
+            id={target}
+            title={title}
+            map={map}
+            calcCost={calcCost}
+            calculator={calculator}
+        />,
         document.getElementById(target)
     );
 }

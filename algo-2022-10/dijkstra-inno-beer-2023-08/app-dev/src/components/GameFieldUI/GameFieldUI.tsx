@@ -3,6 +3,7 @@ import React from 'react';
 import { GRField } from '@src/ports/GRField';
 import { GRGraph } from '@src/ports/GRGraph';
 import { AbstractGraph } from '@src/game/Graph.types';
+import { GameFieldController, GameState } from './Game.types';
 
 export interface RenderOptions {
     nodes: boolean;
@@ -31,34 +32,6 @@ interface GameFieldUIProps {
     gameState: GameState;
 }
 
-export interface GameFieldController {
-    nodesClicked: () => void;
-    linesClicked: () => void;
-    pathClicked: () => void;
-    nodesCostClicked: () => void;
-    mapClicked: () => void;
-}
-export interface GameState {
-    nodesChecked: boolean;
-    linesChecked: boolean;
-    pathChecked: boolean;
-    nodesCostChecked: boolean;
-    mapChecked: boolean;
-    picLoaded: boolean;
-    showControls: boolean;
-    pic: InstanceType<typeof Image>;
-}
-export const defaultGameState: GameState = {
-    nodesChecked: false,
-    linesChecked: false,
-    pathChecked: false,
-    nodesCostChecked: false,
-    mapChecked: false,
-    picLoaded: false,
-    showControls: false,
-    pic: null
-};
-
 export const GameFieldUI = React.forwardRef<HTMLCanvasElement, GameFieldUIProps>(
     ({ field, graph, id, title, canvasW, canvasH, canvas, ctrl, gameState }, canvasRef) => {
         React.useEffect(() => {
@@ -75,7 +48,7 @@ export const GameFieldUI = React.forwardRef<HTMLCanvasElement, GameFieldUIProps>
             context.lineWidth = 3;
             context.strokeRect(0, 0, canvas.width, canvas.height);
 
-            if (canvas === null || context === null) {
+            if (canvas === null || context === null || graph === null) {
                 return;
             }
 
@@ -89,7 +62,7 @@ export const GameFieldUI = React.forwardRef<HTMLCanvasElement, GameFieldUIProps>
 
             GRField.create(context, field, gameState.pic, options).draw();
             GRGraph.create(context, field, graph, options).draw();
-        }, [gameState, canvas]);
+        }, [gameState, canvas, graph]);
 
         return (
             <div style={{ width: '720px' }}>
@@ -107,6 +80,12 @@ export const GameFieldUI = React.forwardRef<HTMLCanvasElement, GameFieldUIProps>
                             'Стоимость узлов'
                         )}
                         {Label(gameState.mapChecked, ctrl.mapClicked, `${id}-map`, 'Карта')}
+                        <button onClick={ctrl.onBtStartClick} className="appButton">
+                            Start
+                        </button>
+                        <button onClick={ctrl.onBtClearClick} className="appButton">
+                            Clear
+                        </button>
                     </div>
                 )}
             </div>
