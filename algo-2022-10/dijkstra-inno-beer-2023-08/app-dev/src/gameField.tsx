@@ -6,6 +6,8 @@ import { GameField } from './game/GameField';
 import { GraphFromField } from './game/GraphFromField';
 import { GameFieldUI, RenderOptions, defaultRenderOptions } from './components/GameFieldUI';
 import { GraphCalculatorV2 } from './game/GraphCalculatorV2';
+import { GraphCalculatorV3 } from './game/GraphCalculatorV3';
+import { GraphFromFieldV2 } from './game/GraphFromFieldV2';
 
 console.log('gameField!');
 
@@ -29,6 +31,7 @@ const MAP_COST_PATH = { ...defaultRenderOptions, map: true, nodesCost: true, pat
 const MAP_PATH = { ...defaultRenderOptions, map: true, path: true };
 const SIMPLE = GraphFromField.getEdgeSimpleCost;
 const ADVANCED = GraphFromField.getEdgeAdvancedCost;
+const ADVANCED_V2 = GraphFromFieldV2.getEdgeAdvancedCost;
 const GROUP_1 = '2. Квадратная сетка';
 renderGameField(GROUP_1, map1, 'slide1', LINES, SIMPLE, GraphCalculator);
 renderGameField(GROUP_1, map1, 'slide1_2', LINES_COST, SIMPLE, GraphCalculator);
@@ -76,6 +79,26 @@ renderGameField(GROUP_5, map3, 'slide4_2', MAP_PATH, ADVANCED, GraphCalculatorV2
 renderGameField(GROUP_5, map3, 'slide4_3', MAP_COST_PATH, ADVANCED, GraphCalculatorV2);
 renderGameField(GROUP_5, map3, 'slide4_3', MAP_COST_PATH, ADVANCED, GraphCalculatorV2);
 renderGameField(GROUP_5, map3, 'slide4_4', MAP_LINES, ADVANCED, GraphCalculatorV2);
+
+renderGameField(GROUP_5, map3, 'V5', MAP_LINES, ADVANCED_V2, GraphCalculatorV3);
+renderGameField(GROUP_5, map3, 'V5_2', MAP_COST, ADVANCED_V2, GraphCalculatorV3);
+renderGameField(GROUP_5, map3, 'V5_3', MAP_PATH, ADVANCED_V2, GraphCalculatorV3);
+
+const map4 = `
+▓     $          ▓
+▓▓▓▓ ▓▓▓╡▓▓▓▓▓▓▓▓▓
+▓ M     ╡        ▓
+▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓▓
+▓           ╡    ▓
+▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓▓
+▓  ╡     ╡    ╡  ▓
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+    `;
+const GROUP_6 = '3. Персонаж не должен подниматься вверх по воздуху';
+renderGameField(GROUP_6, map4, 'V5_4', MAP, ADVANCED_V2, GraphCalculatorV3);
+renderGameField(GROUP_6, map4, 'V5_4_1', MAP_LINES, ADVANCED_V2, GraphCalculatorV3);
+renderGameField(GROUP_6, map4, 'V5_5', MAP_COST, ADVANCED_V2, GraphCalculatorV3);
+renderGameField(GROUP_6, map4, 'V5_6', MAP_COST_PATH, ADVANCED_V2, GraphCalculatorV3);
 
 function renderGameField(
     title: string,
