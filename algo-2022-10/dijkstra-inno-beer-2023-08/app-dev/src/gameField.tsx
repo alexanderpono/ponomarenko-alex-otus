@@ -1,12 +1,11 @@
-import React from 'react';
-import { render } from 'react-dom';
 import './app.css';
 import { GraphCalculator } from './game/GraphCalculator';
 import { GraphFromField } from './game/GraphFromField';
-import { Game, RenderOptions, defaultRenderOptions } from './components/GameFieldUI';
+import { RenderOptions, defaultRenderOptions } from './components/GameFieldUI';
 import { GraphCalculatorV2 } from './game/GraphCalculatorV2';
 import { GraphCalculatorV3 } from './game/GraphCalculatorV3';
 import { GraphFromFieldV2 } from './game/GraphFromFieldV2';
+import { GameController } from './game/GameController';
 
 console.log('gameField!');
 
@@ -107,15 +106,5 @@ function renderGameField(
     calcCost,
     calculator: typeof GraphCalculator
 ) {
-    render(
-        <Game
-            options={options}
-            id={target}
-            title={title}
-            map={map}
-            calcCost={calcCost}
-            calculator={calculator}
-        />,
-        document.getElementById(target)
-    );
+    new GameController(title, map, target, options, calcCost, calculator).renderUI();
 }
