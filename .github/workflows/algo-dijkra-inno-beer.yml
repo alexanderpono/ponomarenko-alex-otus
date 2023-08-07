@@ -79,12 +79,12 @@ jobs:
         id: Project-build
         run: npm run build
 
-      - name: Deploy application to GHP /ponomarenko-alex-otus/algo-2022-10/dijkstra-inno-beer-2023-08/present 🚀
+      - name: Deploy application to GHP /ponomarenko-alex-otus/algo-2022-10/dijkstra-inno-beer-2023-08/present/app-static 🚀
         id: Deploy-app
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: algo-2022-10/dijkstra-inno-beer-2023-08/app-dev/temp/demo-dist  # The folder the action should deploy.
+          FOLDER: algo-2022-10/dijkstra-inno-beer-2023-08/app-dev/temp/ui-dist  # The folder the action should deploy.
           TARGET_FOLDER: algo-2022-10/dijkstra-inno-beer-2023-08/present/app-static
           CLEAN: true # Automatically remove deleted files from the deploy branch
