@@ -9,17 +9,14 @@ module.exports = (env, argv) => {
                   new CopyPlugin({
                       patterns: [
                           {
-                              from: 'app-static/sprite.png',
-                              to: path.join(__dirname, '/demo-dist/sprite.png')
-                          },
-                          {
                               from: 'bundled/index.html',
                               to: path.join(__dirname, '/demo-dist/index.html')
                           },
                           { from: 'bundled/shower', to: path.join(__dirname, '/demo-dist/shower') },
                           { from: 'bundled/demo-static', to: path.join(__dirname, '/demo-dist/demo-static') },
-                          { from: 'bundled/app-static', to: path.join(__dirname, '/demo-dist/app-static') }
-                      ]
+                          { from: 'bundled/app-static', to: path.join(__dirname, '/demo-dist/app-static') },
+                          { from: '../app-dev/temp/ui-dist', to: path.join(__dirname, '/demo-dist/app-static') }
+                    ]
                   })
               ];
 

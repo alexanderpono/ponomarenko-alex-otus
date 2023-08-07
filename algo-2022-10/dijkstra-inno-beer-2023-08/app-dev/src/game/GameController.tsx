@@ -5,7 +5,7 @@ import { ALL_NODES, GraphCalculator, SILENT } from './GraphCalculator';
 import { GameState, defaultGameState } from '@src/components/GameFieldUI/Game.types';
 import { Cell, GameField, Point2D, defaultPoint2D } from './GameField';
 import { ManAni, SPRITE_HEIGHT, SPRITE_WIDTH } from '@src/ports/GR.types';
-import ImgSprite from './sprite.png';
+import ImgSprite from '@src/components/GameFieldUI/sprite.png';
 import { GameFieldUI } from '@src/components/GameFieldUI/GameFieldUI';
 import { GraphFromField } from './GraphFromField';
 import { AbstractGraph } from './Graph.types';
