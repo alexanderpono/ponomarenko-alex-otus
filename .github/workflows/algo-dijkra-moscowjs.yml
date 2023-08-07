@@ -43,8 +43,8 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: algo-2022-10/dijkstra-inno-beer-2023-08/demo/demo-dist  # The folder the action should deploy.
-          TARGET_FOLDER: algo-2022-10/dijkstra-inno-beer-2023-08/present
+          FOLDER: algo-2022-10/dijkstra-moscowjs-2023-08/demo/demo-dist  # The folder the action should deploy.
+          TARGET_FOLDER: algo-2022-10/dijkstra-moscowjs-2023-08/present
           CLEAN: true # Automatically remove deleted files from the deploy branch
 
 
