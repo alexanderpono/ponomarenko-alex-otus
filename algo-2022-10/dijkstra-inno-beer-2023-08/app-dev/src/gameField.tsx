@@ -75,7 +75,6 @@ const GROUP_5 = '3. Задача: персонаж должен падать в 
 renderGameField(GROUP_5, map3, 'slide4', MAP, ADVANCED, GraphCalculatorV2);
 renderGameField(GROUP_5, map3, 'slide4_2', MAP_PATH, ADVANCED, GraphCalculatorV2);
 renderGameField(GROUP_5, map3, 'slide4_3', MAP_COST_PATH, ADVANCED, GraphCalculatorV2);
-renderGameField(GROUP_5, map3, 'slide4_3', MAP_COST_PATH, ADVANCED, GraphCalculatorV2);
 renderGameField(GROUP_5, map3, 'slide4_4', MAP_LINES, ADVANCED, GraphCalculatorV2);
 
 renderGameField(GROUP_5, map3, 'V5', MAP_LINES, ADVANCED_V2, GraphCalculatorV3);
