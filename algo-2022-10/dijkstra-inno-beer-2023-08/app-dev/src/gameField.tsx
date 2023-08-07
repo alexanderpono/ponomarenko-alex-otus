@@ -98,6 +98,9 @@ renderGameField(GROUP_6, map4, 'V5_4_1', MAP_LINES, ADVANCED_V2, GraphCalculator
 renderGameField(GROUP_6, map4, 'V5_5', MAP_COST, ADVANCED_V2, GraphCalculatorV3);
 renderGameField(GROUP_6, map4, 'V5_6', MAP_COST_PATH, ADVANCED_V2, GraphCalculatorV3);
 
+const GROUP_7 = '3. Результат';
+renderGameField(GROUP_7, map4, 'game1', MAP, ADVANCED_V2, GraphCalculatorV3);
+
 function renderGameField(
     title: string,
     map: string,
