@@ -144,12 +144,12 @@ export class GameController {
     onBtStartClick = () => {
         this.patchState({ manAni: ManAni.RIGHT });
         this.doTrajectoryStep();
+        this.nextManFieldXY = this.gameField.vertexIndexToCoords(this.nextManVIndex, this.w);
         this.tick();
     };
     onBtClearClick = () => {};
 
     stepNo = 0;
-    miniCounter = 0;
     maxMiniCounter = 9;
     curPathPos = 0;
     manVIndex: number;
@@ -157,14 +157,14 @@ export class GameController {
     tick = () => {
         console.log(
             'tick() this.miniCounter=',
-            this.miniCounter,
+            this.gameState.miniCounter,
             this.curPathPos,
             this.stepNo,
             this.manVIndex,
             this.nextManVIndex
         );
         // console.log('tick() this.curPathPos=', this.curPathPos);
-        if ((this.miniCounter + 1) % 10 === 0) {
+        if ((this.gameState.miniCounter + 1) % 10 === 0) {
             if (this.curPathPos < this.graph.cheapestPath.length) {
                 this.curPathPos++;
                 this.stepNo++;
@@ -174,12 +174,14 @@ export class GameController {
             this.manFieldXY = this.gameField.vertexIndexToCoords(this.manVIndex, this.w);
             this.nextManFieldXY = this.gameField.vertexIndexToCoords(this.nextManVIndex, this.w);
 
-            this.miniCounter++;
-            calcManScreenPos(this.manFieldXY, this.nextManFieldXY, this.gameState.miniCounter);
+            const miniCounter = this.gameState.miniCounter + 1;
+            const manScreenXY = calcManScreenPos(this.manFieldXY, this.nextManFieldXY, miniCounter);
+            this.patchState({ manScreenXY, miniCounter });
             this.renderUI();
         } else {
-            this.miniCounter++;
-            calcManScreenPos(this.manFieldXY, this.nextManFieldXY, this.gameState.miniCounter);
+            const miniCounter = this.gameState.miniCounter + 1;
+            const manScreenXY = calcManScreenPos(this.manFieldXY, this.nextManFieldXY, miniCounter);
+            this.patchState({ manScreenXY, miniCounter });
             this.renderUI();
         }
         if (this.stepNo < 10) {
