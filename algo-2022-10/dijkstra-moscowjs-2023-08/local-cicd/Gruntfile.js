@@ -25,7 +25,7 @@ module.exports = function (grunt) {
         },
         exec: {
             build: {
-                cmd: `./build-app.sh`
+                cmd: `bash ./build-app.sh`
             },
         },
         run: {

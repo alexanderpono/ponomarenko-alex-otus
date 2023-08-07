@@ -1,10 +1,10 @@
 import React from 'react';
 import { render } from 'react-dom';
 import './app.css';
-import { Vertex2D } from './ports/2D.types';
 import { GraphFromAdjString } from './game/GraphFromAdjString';
 import { ALL_NODES, GraphCalculator, SILENT } from './game/GraphCalculator';
 import { AbstractGraphUI } from './components/AbstractGraph/AbstractGraphUI';
+import { renderEdges2D, renderVertices } from './components/AbstractGraph/AbstractGraph.const';
 
 renderAbstractGraph('Пример графа', false, 'slide00', -1);
 renderAbstractGraph('1. Алгоритм Дейкстры. Исходный граф', false, 'GraphFromLesson', -1);
@@ -39,44 +39,6 @@ FF....060401..08
 GG........0508..
 `;
 
-    const vertices: Vertex2D[] = [
-        {
-            x: 70,
-            y: 170,
-            letter: 'А'
-        },
-        {
-            x: 190,
-            y: 30,
-            letter: 'Б'
-        },
-        {
-            x: 260,
-            y: 170,
-            letter: 'В'
-        },
-        {
-            x: 200,
-            y: 320,
-            letter: 'Г'
-        },
-        {
-            x: 400,
-            y: 50,
-            letter: 'Д'
-        },
-        {
-            x: 460,
-            y: 280,
-            letter: 'Е'
-        },
-        {
-            x: 590,
-            y: 140,
-            letter: 'Ё'
-        }
-    ];
-
     let graph = new GraphFromAdjString().graphFromAdjacencyString(adjacencyMatrix);
     graph = new GraphCalculator().calculateGraph(graph, 6, 0, SILENT, stepNo);
 
@@ -85,7 +47,8 @@ GG........0508..
             graph={graph}
             caption={caption}
             showBestPath={showBestPath}
-            vertices2D={vertices}
+            vertices2D={renderVertices}
+            edges2D={renderEdges2D}
         />,
         document.getElementById(targetHtmlId)
     );

@@ -1,6 +1,6 @@
 import React from 'react';
 import { drawEdge, drawEdgeCost, drawVertex } from '@src/ports/canvas.lib';
-import { Vertex2D } from '@src/ports/2D.types';
+import { Edge2D, Vertex2D } from '@src/ports/2D.types';
 import { AbstractGraph } from '@src/game/Graph.types';
 
 interface AbstractGraphUIProps {
@@ -8,13 +8,15 @@ interface AbstractGraphUIProps {
     caption: string;
     showBestPath: boolean;
     vertices2D: Vertex2D[];
+    edges2D: Edge2D[];
 }
 
 export const AbstractGraphUI: React.FC<AbstractGraphUIProps> = ({
     graph,
     caption,
     showBestPath,
-    vertices2D
+    vertices2D,
+    edges2D
 }) => {
     const canvasRef = React.useRef(null);
 
@@ -29,7 +31,7 @@ export const AbstractGraphUI: React.FC<AbstractGraphUIProps> = ({
         context.lineWidth = 3;
         context.strokeRect(0, 0, canvas.width, canvas.height);
         context.font = 'bold 30px sans-serif';
-        drawEdges(context, graph, vertices2D);
+        drawEdges(context, graph, vertices2D, edges2D);
         if (showBestPath) {
             drawBestEdges(context, graph, vertices2D);
         }
@@ -65,13 +67,20 @@ function drawVertices(
 function drawEdges(
     context: CanvasRenderingContext2D,
     graph: AbstractGraph,
-    vertices2D: Vertex2D[]
+    vertices2D: Vertex2D[],
+    edges2D: Edge2D[]
 ) {
     context.strokeStyle = '#000000';
 
-    graph.edges.forEach((edge) => {
+    graph.edges.forEach((edge, index) => {
         drawEdge(context, vertices2D[edge.vertex0], vertices2D[edge.vertex1]);
-        drawEdgeCost(context, vertices2D[edge.vertex0], vertices2D[edge.vertex1], edge.cost.cost);
+        drawEdgeCost(
+            context,
+            vertices2D[edge.vertex0],
+            vertices2D[edge.vertex1],
+            edge.cost.cost,
+            edges2D[index]
+        );
     });
 }
 
@@ -86,7 +95,8 @@ function drawBestEdges(
         drawEdge(
             context,
             vertices2D[graph.edges[edgeIndex].vertex0],
-            vertices2D[graph.edges[edgeIndex].vertex1]
+            vertices2D[graph.edges[edgeIndex].vertex1],
+            6
         );
     });
 }
