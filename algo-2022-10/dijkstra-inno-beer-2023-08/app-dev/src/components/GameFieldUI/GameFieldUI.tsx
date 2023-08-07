@@ -3,24 +3,9 @@ import React from 'react';
 import { GRField } from '@src/ports/GRField';
 import { GRGraph } from '@src/ports/GRGraph';
 import { AbstractGraph } from '@src/game/Graph.types';
-import { GameFieldController, GameState } from './Game.types';
+import { GameFieldController, GameState, RenderOptions } from './Game.types';
 import { GRGold } from '@src/ports/GRGold';
 import { GRMan } from '@src/ports/GRMan';
-
-export interface RenderOptions {
-    nodes: boolean;
-    lines: boolean;
-    path: boolean;
-    nodesCost: boolean;
-    map: boolean;
-}
-export const defaultRenderOptions: RenderOptions = {
-    nodes: false,
-    lines: false,
-    path: false,
-    nodesCost: false,
-    map: false
-};
 
 interface GameFieldUIProps {
     field: GameField;
@@ -76,7 +61,8 @@ export const GameFieldUI = React.forwardRef<HTMLCanvasElement, GameFieldUIProps>
                 lines: gameState.linesChecked,
                 path: gameState.pathChecked,
                 nodesCost: gameState.nodesCostChecked,
-                map: gameState.mapChecked
+                map: gameState.mapChecked,
+                showBtMap: gameState.showBtMap
             };
 
             GRField.create(context, emptyField, gameState.pic, options).draw();
@@ -99,19 +85,20 @@ export const GameFieldUI = React.forwardRef<HTMLCanvasElement, GameFieldUIProps>
                     <div>
                         {Label(gameState.nodesChecked, ctrl.nodesClicked, `${id}-nodes`, 'Узлы')}
                         {Label(gameState.linesChecked, ctrl.linesClicked, `${id}-lines`, 'Ребра')}
-                        {Label(gameState.pathChecked, ctrl.pathClicked, `${id}-path`, 'Траектория')}
+                        {Label(gameState.pathChecked, ctrl.pathClicked, `${id}-path`, 'Путь')}
                         {Label(
                             gameState.nodesCostChecked,
                             ctrl.nodesCostClicked,
                             `${id}-nodesCost`,
-                            'Стоимость узлов'
+                            'Стоимость'
                         )}
-                        {Label(gameState.mapChecked, ctrl.mapClicked, `${id}-map`, 'Карта')}
+                        {gameState.showBtMap &&
+                            Label(gameState.mapChecked, ctrl.mapClicked, `${id}-map`, 'Карта')}
                         <button onClick={ctrl.onBtStartClick} className="appButton">
-                            Start
+                            Старт
                         </button>
                         <button onClick={ctrl.onBtClearClick} className="appButton">
-                            Clear
+                            Стоп
                         </button>
                     </div>
                 )}

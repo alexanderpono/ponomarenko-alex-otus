@@ -22,6 +22,7 @@ export interface GameState {
     manScreenXY: Point2D;
     manAni: ManAni;
     miniCounter: number;
+    showBtMap: boolean;
 }
 export const defaultGameState: GameState = {
     nodesChecked: false,
@@ -34,5 +35,23 @@ export const defaultGameState: GameState = {
     goldScreenXY: { ...defaultPoint2D },
     manScreenXY: { ...defaultPoint2D },
     manAni: ManAni.STAND,
-    miniCounter: 0
+    miniCounter: 0,
+    showBtMap: false
+};
+
+export interface RenderOptions {
+    nodes: boolean;
+    lines: boolean;
+    path: boolean;
+    nodesCost: boolean;
+    map: boolean;
+    showBtMap: boolean;
+}
+export const defaultRenderOptions: RenderOptions = {
+    nodes: false,
+    lines: false,
+    path: false,
+    nodesCost: false,
+    map: false,
+    showBtMap: false
 };
