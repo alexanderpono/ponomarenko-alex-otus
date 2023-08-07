@@ -1,9 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { RenderOptions, Game } from '@src/components/GameFieldUI';
+import { RenderOptions } from '@src/components/GameFieldUI';
 import { ALL_NODES, GraphCalculator, SILENT } from './GraphCalculator';
 import { GameState, defaultGameState } from '@src/components/GameFieldUI/Game.types';
-import { GameField, Point2D, defaultPoint2D } from './GameField';
+import { Cell, GameField, Point2D, defaultPoint2D } from './GameField';
 import { ManAni, SPRITE_HEIGHT, SPRITE_WIDTH } from '@src/ports/GR.types';
 import ImgSprite from './sprite.png';
 import { GameFieldUI } from '@src/components/GameFieldUI/GameFieldUI';
@@ -27,9 +27,10 @@ export class GameController {
         private title: string,
         private map: string,
         private target: string,
-        private options: RenderOptions,
-        private calcCost,
-        private calculator: typeof GraphCalculator
+        options: RenderOptions,
+        calcCost,
+        calculator: typeof GraphCalculator,
+        private verbose: boolean
     ) {
         this.gameState = {
             ...defaultGameState,
@@ -147,7 +148,23 @@ export class GameController {
         this.nextManFieldXY = this.gameField.vertexIndexToCoords(this.nextManVIndex, this.w);
         this.tick();
     };
-    onBtClearClick = () => {};
+    onBtClearClick = () => {
+        this.stepNo = 0;
+        this.maxMiniCounter = 9;
+        const mIndex = GraphFromField.getVertexIndex(this.map, 'M');
+        this.manVIndex = mIndex;
+        this.nextManVIndex = mIndex;
+        this.curPathPos = 0;
+
+        this.doTrajectoryStep();
+        this.manFieldXY = this.gameField.vertexIndexToCoords(mIndex, this.w);
+        this.nextManFieldXY = this.gameField.vertexIndexToCoords(this.nextManVIndex, this.w);
+        const miniCounter = 0;
+        const manScreenXY = calcManScreenPos(this.manFieldXY, this.nextManFieldXY, miniCounter);
+
+        this.patchState({ miniCounter, manAni: ManAni.STAND, manScreenXY });
+        this.renderUI();
+    };
 
     stepNo = 0;
     maxMiniCounter = 9;
@@ -155,15 +172,15 @@ export class GameController {
     manVIndex: number;
     nextManVIndex: number;
     tick = () => {
-        console.log(
-            'tick() this.miniCounter=',
-            this.gameState.miniCounter,
-            this.curPathPos,
-            this.stepNo,
-            this.manVIndex,
-            this.nextManVIndex
-        );
-        // console.log('tick() this.curPathPos=', this.curPathPos);
+        this.verbose &&
+            console.log(
+                'tick() this.miniCounter=',
+                this.gameState.miniCounter,
+                this.curPathPos,
+                this.stepNo,
+                this.manVIndex,
+                this.nextManVIndex
+            );
         if ((this.gameState.miniCounter + 1) % 10 === 0) {
             if (this.curPathPos < this.graph.cheapestPath.length) {
                 this.curPathPos++;
@@ -184,8 +201,8 @@ export class GameController {
             this.patchState({ manScreenXY, miniCounter });
             this.renderUI();
         }
-        if (this.stepNo < 10) {
-            setTimeout(() => this.tick(), 250);
+        if (this.stepNo < this.graph.cheapestPath.length) {
+            setTimeout(() => this.tick(), 25);
         } else {
             this.patchState({ manAni: ManAni.STAND });
             this.renderUI();
@@ -214,8 +231,8 @@ export class GameController {
         if (edgeOrientation === 'vert' && v1xy.y > v0xy.y && this.manVIndex === edge.vertex1) {
             direction = 'up';
         }
-        console.log(`doTrajectoryStep() edge=`, edge);
-        console.log(`doTrajectoryStep() v1xy=`, v1xy, v0xy);
+        this.verbose && console.log(`doTrajectoryStep() edge=`, edge, direction);
+        this.verbose && console.log(`doTrajectoryStep() v1xy=`, v1xy, v0xy);
 
         if (direction === 'right') {
             this.nextManVIndex = edge.vertex1;
@@ -229,13 +246,24 @@ export class GameController {
             this.nextManVIndex = edge.vertex0;
             this.patchState({ manAni: ManAni.LEFT });
         }
-        console.log(
-            `doTrajectoryStep() this.manVIndex="${this.manVIndex}"`,
-            this.curPathPos,
-            this.graph.cheapestPath.length,
-            edgeOrientation,
-            direction
-        );
+        if (direction === 'down' && v1xy.y > v0xy.y) {
+            this.nextManVIndex = edge.vertex1;
+            const cell1 = this.gameField.field[v0xy.y][v0xy.x];
+            const cell2 = this.gameField.field[v1xy.y][v1xy.x];
+            let manAni = ManAni.STAND;
+            if (cell1 === Cell.stairs || cell2 === Cell.stairs) {
+                manAni = ManAni.STAIRS;
+            }
+            this.patchState({ manAni });
+        }
+        this.verbose &&
+            console.log(
+                `doTrajectoryStep() this.manVIndex="${this.manVIndex}"`,
+                this.curPathPos,
+                this.graph.cheapestPath.length,
+                edgeOrientation,
+                direction
+            );
     };
 }
 

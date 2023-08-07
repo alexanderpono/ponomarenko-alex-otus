@@ -1,5 +1,5 @@
 import './app.css';
-import { GraphCalculator } from './game/GraphCalculator';
+import { GraphCalculator, SILENT } from './game/GraphCalculator';
 import { GraphFromField } from './game/GraphFromField';
 import { RenderOptions, defaultRenderOptions } from './components/GameFieldUI';
 import { GraphCalculatorV2 } from './game/GraphCalculatorV2';
@@ -106,5 +106,5 @@ function renderGameField(
     calcCost,
     calculator: typeof GraphCalculator
 ) {
-    new GameController(title, map, target, options, calcCost, calculator).renderUI();
+    new GameController(title, map, target, options, calcCost, calculator, SILENT).renderUI();
 }
