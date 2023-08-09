@@ -56,14 +56,14 @@ export const renderVertices: Vertex2D[] = [
         x: 80,
         y: 170,
         letter: 'А',
-        costDx: -68,
+        costDx: -79,
         costDy: 10
     },
     {
         x: 190,
         y: 50,
         letter: 'Б',
-        costDx: -25,
+        costDx: -28,
         costDy: -28
     },
     {
@@ -71,34 +71,34 @@ export const renderVertices: Vertex2D[] = [
         y: 170,
         letter: 'В',
         costDx: 25,
-        costDy: 10
+        costDy: 5
     },
     {
         x: 200,
         y: 290,
         letter: 'Г',
-        costDx: -20,
+        costDx: -28,
         costDy: 50
     },
     {
         x: 400,
         y: 50,
         letter: 'Д',
-        costDx: -10,
+        costDx: -19,
         costDy: -28
     },
     {
         x: 460,
         y: 290,
         letter: 'Е',
-        costDx: -10,
+        costDx: -19,
         costDy: 50
     },
     {
         x: 590,
         y: 140,
         letter: 'Ё',
-        costDx: 30,
+        costDx: 25,
         costDy: 10
     }
 ];

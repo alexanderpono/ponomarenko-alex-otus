@@ -84,21 +84,17 @@ export const drawVertex = (
         circleColor = VERTEX_COLOR;
         fillStyle = VERTEX_COLOR;
         if (accessCost >= 0) {
-            caption = `${vertex2D.letter}`;
-            accessCostS = `${accessCost}`;
-        } else {
-            caption = vertex2D.letter;
+            accessCostS = `(${accessCost})`;
         }
+        caption = vertex2D.letter;
     }
     if (curVertexIndex !== -1 && index !== curVertexIndex) {
         circleColor = VERTEX_COLOR;
         fillStyle = VERTEX_COLOR;
         if (accessCost >= 0) {
-            caption = `${vertex2D.letter}`;
-            accessCostS = `${accessCost}`;
-        } else {
-            caption = vertex2D.letter;
+            accessCostS = `(${accessCost})`;
         }
+        caption = vertex2D.letter;
     }
 
     if (curVertexIndex !== -1 && index !== curVertexIndex && processed) {
@@ -108,7 +104,7 @@ export const drawVertex = (
         vertexCostColor = PROCESSED_COST;
         vertexLetterColor = PROCESSED_VERTEX_COLOR;
         caption = `${vertex2D.letter}`;
-        accessCostS = `${accessCost}`;
+        accessCostS = `(${accessCost})`;
     }
 
     if (curVertexIndex !== -1 && index === curVertexIndex) {
@@ -117,13 +113,12 @@ export const drawVertex = (
             circleBg = CURRENT_VERTEX_BG;
             vertexLetterColor = CURRENT_VERTEX_COLOR;
             vertexCostColor = CURRENT_COST;
-            caption = `${vertex2D.letter}`;
-            accessCostS = `${accessCost}`;
+            accessCostS = `(${accessCost})`;
         } else {
             circleColor = 'green';
             fillStyle = 'green';
-            caption = `${vertex2D.letter}`;
         }
+        caption = `${vertex2D.letter}`;
     }
     drawCircle(context, vertex2D.x, vertex2D.y, 20, circleColor, circleBg);
     context.fillStyle = vertexLetterColor;

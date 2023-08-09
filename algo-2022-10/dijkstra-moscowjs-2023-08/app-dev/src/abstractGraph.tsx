@@ -6,8 +6,7 @@ import { ALL_NODES, GraphCalculator, SILENT } from './game/GraphCalculator';
 import { AbstractGraphUI } from './components/AbstractGraph/AbstractGraphUI';
 import { renderEdges2D, renderVertices } from './components/AbstractGraph/AbstractGraph.const';
 
-renderAbstractGraph('Пример графа', false, 'slide00', -1);
-renderAbstractGraph('1. Алгоритм Дейкстры. Исходный граф', false, 'GraphFromLesson', -1);
+renderAbstractGraph('1. Алгоритм Дейкстры. Исходный граф', false, 'slide00', -1);
 renderAbstractGraph('1. Алгоритм Дейкстры. Шаг 0', true, 'gl-s0', 0);
 renderAbstractGraph('1. Алгоритм Дейкстры. Шаг 1', true, 'gl-s1', 1);
 renderAbstractGraph('1. Алгоритм Дейкстры. Шаг 2', true, 'gl-s2', 2);
