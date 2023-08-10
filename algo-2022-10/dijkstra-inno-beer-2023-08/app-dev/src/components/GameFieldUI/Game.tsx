@@ -12,14 +12,18 @@ export interface RenderOptions {
     lines: boolean;
     path: boolean;
     nodesCost: boolean;
+    nodesShortCost: boolean;
     map: boolean;
+    highlightCells: Point2D[];
 }
 export const defaultRenderOptions: RenderOptions = {
     nodes: false,
     lines: false,
     path: false,
     nodesCost: false,
-    map: false
+    nodesShortCost: true,
+    map: false,
+    highlightCells: []
 };
 interface GameProps {
     options: RenderOptions;
@@ -58,6 +62,7 @@ export const Game: React.FC<GameProps> = ({
         linesChecked: startRender.lines,
         pathChecked: startRender.path,
         nodesCostChecked: startRender.nodesCost,
+        nodesShortCost: startRender.nodesShortCost,
         mapChecked: startRender.map,
         showControls: typeof showControls === 'boolean' ? showControls : true,
         pic: new Image(),
@@ -66,7 +71,9 @@ export const Game: React.FC<GameProps> = ({
         manScreenXY: { ...defaultPoint2D },
         manFieldXY: { ...defaultPoint2D },
         miniCounter: 0,
-        manAni: ManAni.STAND
+        manAni: ManAni.STAND,
+        highlightCells: startRender.highlightCells,
+        showBtMap: false
     });
 
     React.useEffect(() => {

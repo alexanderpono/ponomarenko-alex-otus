@@ -57,7 +57,11 @@ export class GRGraph {
         this.context.fillStyle = 'white';
         this.context.lineWidth = 3;
         this.field.field.forEach((line: Cell[], y: number) => {
-            line.forEach((cell: Cell, x: number) => this.drawVertexCost(x, y));
+            line.forEach((cell: Cell, x: number) => {
+                if (cell !== Cell.wall || !this.options.nodesShortCost) {
+                    this.drawVertexCost(x, y);
+                }
+            });
         });
     };
 

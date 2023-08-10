@@ -38,13 +38,15 @@ export class GameController {
             linesChecked: options.lines,
             pathChecked: options.path,
             nodesCostChecked: options.nodesCost,
+            nodesShortCost: options.nodesShortCost,
             mapChecked: options.map,
             showControls: true,
             pic: new Image(),
             goldScreenXY: { ...defaultPoint2D },
             manScreenXY: { ...defaultPoint2D },
             miniCounter: 0,
-            manAni: ManAni.STAND
+            manAni: ManAni.STAND,
+            highlightCells: options.highlightCells
         };
         this.canvasRef = React.createRef<HTMLCanvasElement>();
 

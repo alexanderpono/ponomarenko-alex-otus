@@ -28,7 +28,9 @@ const options = {
     lines: false,
     path: true,
     nodesCost: false,
-    map: true
+    nodesShortCost: false,
+    map: true,
+    highlightCells: []
 };
 
 export const CalcWrong = () => {
@@ -65,7 +67,9 @@ export const CalcRightLines = () => {
                 lines: true,
                 path: false,
                 nodesCost: false,
-                map: true
+                nodesShortCost: false,
+                map: true,
+                highlightCells: []
             }}
             id="GameFieldUI"
             title="GameFieldUI"
@@ -95,7 +99,12 @@ export const AdvancedGraphLines = () => {
                 lines: true,
                 path: false,
                 nodesCost: false,
-                map: true
+                nodesShortCost: false,
+                map: true,
+                highlightCells: [
+                    { x: 4, y: 0 },
+                    { x: 4, y: 1 }
+                ]
             }}
             id="GameFieldUI"
             title="GameFieldUI"
@@ -114,7 +123,9 @@ export const AdvancedGraphPath = () => {
                 lines: false,
                 path: true,
                 nodesCost: false,
-                map: true
+                nodesShortCost: false,
+                map: true,
+                highlightCells: []
             }}
             id="GameFieldUI"
             title="GameFieldUI"

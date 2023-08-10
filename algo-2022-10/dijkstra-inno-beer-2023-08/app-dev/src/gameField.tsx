@@ -38,7 +38,25 @@ renderGameField(GROUP_1, map1, 'slide1_3', LINES_COST_PATH, SIMPLE, GraphCalcula
 const GROUP_2 = '3. Траектория движения с обходом препятствий';
 renderGameField(GROUP_2, map1, 'slide2', MAP, ADVANCED, GraphCalculator);
 renderGameField(GROUP_2, map1, 'slide2_2', MAP_LINES, ADVANCED, GraphCalculator);
-renderGameField(GROUP_2, map1, 'slide2_3', MAP_COST, ADVANCED, GraphCalculator);
+renderGameField(
+    GROUP_2,
+    map1,
+    'slide2_3',
+    {
+        ...MAP_COST,
+        nodesShortCost: false,
+        highlightCells: [
+            { x: 0, y: 0 },
+            { x: 0, y: 1 },
+            { x: 1, y: 1 },
+            { x: 2, y: 1 },
+            { x: 2, y: 1 },
+            { x: 0, y: 2 }
+        ]
+    },
+    ADVANCED,
+    GraphCalculator
+);
 renderGameField(GROUP_2, map1, 'slide2_4', MAP_COST_PATH, ADVANCED, GraphCalculator);
 
 const map2 = `
@@ -54,12 +72,26 @@ const map2 = `
 const GROUP_3 = '3. Ошибка реализации: не нашел оптимальный путь';
 renderGameField(GROUP_3, map2, 'slide3a', MAP, ADVANCED, GraphCalculator);
 renderGameField(GROUP_3, map2, 'slide3a_2', MAP_PATH, ADVANCED, GraphCalculator);
-renderGameField(GROUP_3, map2, 'slide3a_3', MAP_COST_PATH, ADVANCED, GraphCalculator);
+renderGameField(
+    GROUP_3,
+    map2,
+    'slide3a_3',
+    { ...MAP_COST_PATH, highlightCells: [{ x: 14, y: 4 }] },
+    ADVANCED,
+    GraphCalculator
+);
 
 const GROUP_4 = '3. Результат выбора оптимального пути';
 renderGameField(GROUP_4, map2, 'slide3', MAP, ADVANCED, GraphCalculatorV2);
 renderGameField(GROUP_4, map2, 'slide3_2', MAP_PATH, ADVANCED, GraphCalculatorV2);
-renderGameField(GROUP_4, map2, 'slide3_3', MAP_COST_PATH, ADVANCED, GraphCalculatorV2);
+renderGameField(
+    GROUP_4,
+    map2,
+    'slide3_3',
+    { ...MAP_COST_PATH, highlightCells: [{ x: 14, y: 4 }] },
+    ADVANCED,
+    GraphCalculatorV2
+);
 
 const map3 = `
 ▓ M              ▓
@@ -74,11 +106,39 @@ const map3 = `
 const GROUP_5 = '3. Задача: персонаж должен падать в отверстие в полу';
 renderGameField(GROUP_5, map3, 'slide4', MAP, ADVANCED, GraphCalculatorV2);
 renderGameField(GROUP_5, map3, 'slide4_2', MAP_PATH, ADVANCED, GraphCalculatorV2);
-renderGameField(GROUP_5, map3, 'slide4_3', MAP_COST_PATH, ADVANCED, GraphCalculatorV2);
-renderGameField(GROUP_5, map3, 'slide4_4', MAP_LINES, ADVANCED, GraphCalculatorV2);
+renderGameField(
+    GROUP_5,
+    map3,
+    'slide4_3',
+    { ...MAP_COST_PATH, highlightCells: [{ x: 5, y: 0 }] },
+    ADVANCED,
+    GraphCalculatorV2
+);
+renderGameField(
+    GROUP_5,
+    map3,
+    'slide4_4',
+    { ...MAP_LINES, highlightCells: [{ x: 4, y: 0 }] },
+    ADVANCED,
+    GraphCalculatorV2
+);
 
-renderGameField(GROUP_5, map3, 'V5', MAP_LINES, ADVANCED_V2, GraphCalculatorV3);
-renderGameField(GROUP_5, map3, 'V5_2', MAP_COST, ADVANCED_V2, GraphCalculatorV3);
+renderGameField(
+    GROUP_5,
+    map3,
+    'V5',
+    { ...MAP_LINES, highlightCells: [{ x: 4, y: 0 }] },
+    ADVANCED_V2,
+    GraphCalculatorV3
+);
+renderGameField(
+    GROUP_5,
+    map3,
+    'V5_2',
+    { ...MAP_COST, highlightCells: [{ x: 5, y: 0 }] },
+    ADVANCED_V2,
+    GraphCalculatorV3
+);
 renderGameField(GROUP_5, map3, 'V5_3', MAP_PATH, ADVANCED_V2, GraphCalculatorV3);
 
 const map4 = `
@@ -93,7 +153,14 @@ const map4 = `
     `;
 const GROUP_6 = '3. Персонаж не должен подниматься вверх по воздуху';
 renderGameField(GROUP_6, map4, 'V5_4', MAP, ADVANCED_V2, GraphCalculatorV3);
-renderGameField(GROUP_6, map4, 'V5_4_1', MAP_LINES, ADVANCED_V2, GraphCalculatorV3);
+renderGameField(
+    GROUP_6,
+    map4,
+    'V5_4_1',
+    { ...MAP_LINES, highlightCells: [{ x: 4, y: 2 }] },
+    ADVANCED_V2,
+    GraphCalculatorV3
+);
 renderGameField(GROUP_6, map4, 'V5_5', MAP_COST, ADVANCED_V2, GraphCalculatorV3);
 renderGameField(GROUP_6, map4, 'V5_6', MAP_COST_PATH, ADVANCED_V2, GraphCalculatorV3);
 
