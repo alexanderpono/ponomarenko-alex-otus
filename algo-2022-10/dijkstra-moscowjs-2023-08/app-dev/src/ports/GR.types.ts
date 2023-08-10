@@ -56,6 +56,10 @@ export const gold: Sprite = {
     x: 200,
     y: 120
 };
+export const select: Sprite = {
+    x: 0,
+    y: 40
+};
 
 export enum ManAni {
     STAND = 'STAND',

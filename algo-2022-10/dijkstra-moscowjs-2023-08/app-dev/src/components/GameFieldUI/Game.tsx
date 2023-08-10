@@ -13,13 +13,15 @@ export interface RenderOptions {
     path: boolean;
     nodesCost: boolean;
     map: boolean;
+    highlightCells: Point2D[];
 }
 export const defaultRenderOptions: RenderOptions = {
     nodes: false,
     lines: false,
     path: false,
     nodesCost: false,
-    map: false
+    map: false,
+    highlightCells: []
 };
 interface GameProps {
     options: RenderOptions;
@@ -66,7 +68,9 @@ export const Game: React.FC<GameProps> = ({
         manScreenXY: { ...defaultPoint2D },
         manFieldXY: { ...defaultPoint2D },
         miniCounter: 0,
-        manAni: ManAni.STAND
+        manAni: ManAni.STAND,
+        highlightCells: startRender.highlightCells,
+        showBtMap: false
     });
 
     React.useEffect(() => {

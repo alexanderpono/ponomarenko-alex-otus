@@ -1,4 +1,4 @@
-import { GameField } from '@src/game/GameField';
+import { GameField, Point2D } from '@src/game/GameField';
 import React from 'react';
 import { GRField } from '@src/ports/GRField';
 import { GRGraph } from '@src/ports/GRGraph';
@@ -6,6 +6,7 @@ import { AbstractGraph } from '@src/game/Graph.types';
 import { GameFieldController, GameState, RenderOptions } from './Game.types';
 import { GRGold } from '@src/ports/GRGold';
 import { GRMan } from '@src/ports/GRMan';
+import { GRSelect } from '@src/ports/GRSelect';
 
 interface GameFieldUIProps {
     field: GameField;
@@ -62,7 +63,8 @@ export const GameFieldUI = React.forwardRef<HTMLCanvasElement, GameFieldUIProps>
                 path: gameState.pathChecked,
                 nodesCost: gameState.nodesCostChecked,
                 map: gameState.mapChecked,
-                showBtMap: gameState.showBtMap
+                showBtMap: gameState.showBtMap,
+                highlightCells: gameState.highlightCells
             };
 
             GRField.create(context, emptyField, gameState.pic, options).draw();
@@ -75,6 +77,9 @@ export const GameFieldUI = React.forwardRef<HTMLCanvasElement, GameFieldUIProps>
                 gameState.pic,
                 gameState.miniCounter
             ).draw();
+            gameState.highlightCells.forEach((point: Point2D) => {
+                GRSelect.create(context, point, gameState.pic).draw();
+            });
         }, [gameState, canvas, graph, picLoaded]);
 
         return (

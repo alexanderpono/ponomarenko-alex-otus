@@ -44,7 +44,8 @@ export class GameController {
             goldScreenXY: { ...defaultPoint2D },
             manScreenXY: { ...defaultPoint2D },
             miniCounter: 0,
-            manAni: ManAni.STAND
+            manAni: ManAni.STAND,
+            highlightCells: options.highlightCells
         };
         this.canvasRef = React.createRef<HTMLCanvasElement>();
 
