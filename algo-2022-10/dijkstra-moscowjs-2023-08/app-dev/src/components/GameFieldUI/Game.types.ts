@@ -15,6 +15,7 @@ export interface GameState {
     linesChecked: boolean;
     pathChecked: boolean;
     nodesCostChecked: boolean;
+    nodesShortCost: boolean;
     mapChecked: boolean;
     showControls: boolean;
     pic: InstanceType<typeof Image>;
@@ -30,6 +31,7 @@ export const defaultGameState: GameState = {
     linesChecked: false,
     pathChecked: false,
     nodesCostChecked: false,
+    nodesShortCost: true,
     mapChecked: false,
     showControls: false,
     pic: null,
@@ -46,6 +48,7 @@ export interface RenderOptions {
     lines: boolean;
     path: boolean;
     nodesCost: boolean;
+    nodesShortCost: boolean;
     map: boolean;
     showBtMap: boolean;
     highlightCells: Point2D[];
@@ -55,6 +58,7 @@ export const defaultRenderOptions: RenderOptions = {
     lines: false,
     path: false,
     nodesCost: false,
+    nodesShortCost: false,
     map: false,
     showBtMap: false,
     highlightCells: []

@@ -28,6 +28,7 @@ const options = {
     lines: false,
     path: true,
     nodesCost: false,
+    nodesShortCost: false,
     map: true,
     highlightCells: []
 };
@@ -66,6 +67,7 @@ export const CalcRightLines = () => {
                 lines: true,
                 path: false,
                 nodesCost: false,
+                nodesShortCost: false,
                 map: true,
                 highlightCells: []
             }}
@@ -97,6 +99,7 @@ export const AdvancedGraphLines = () => {
                 lines: true,
                 path: false,
                 nodesCost: false,
+                nodesShortCost: false,
                 map: true,
                 highlightCells: [
                     { x: 4, y: 0 },
@@ -120,6 +123,7 @@ export const AdvancedGraphPath = () => {
                 lines: false,
                 path: true,
                 nodesCost: false,
+                nodesShortCost: false,
                 map: true,
                 highlightCells: []
             }}

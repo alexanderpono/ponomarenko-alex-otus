@@ -38,7 +38,25 @@ renderGameField(GROUP_1, map1, 'slide1_3', LINES_COST_PATH, SIMPLE, GraphCalcula
 const GROUP_2 = '3. Траектория движения с обходом препятствий';
 renderGameField(GROUP_2, map1, 'slide2', MAP, ADVANCED, GraphCalculator);
 renderGameField(GROUP_2, map1, 'slide2_2', MAP_LINES, ADVANCED, GraphCalculator);
-renderGameField(GROUP_2, map1, 'slide2_3', MAP_COST, ADVANCED, GraphCalculator);
+renderGameField(
+    GROUP_2,
+    map1,
+    'slide2_3',
+    {
+        ...MAP_COST,
+        nodesShortCost: false,
+        highlightCells: [
+            { x: 0, y: 0 },
+            { x: 0, y: 1 },
+            { x: 1, y: 1 },
+            { x: 2, y: 1 },
+            { x: 2, y: 1 },
+            { x: 0, y: 2 }
+        ]
+    },
+    ADVANCED,
+    GraphCalculator
+);
 renderGameField(GROUP_2, map1, 'slide2_4', MAP_COST_PATH, ADVANCED, GraphCalculator);
 
 const map2 = `

@@ -12,6 +12,7 @@ export interface RenderOptions {
     lines: boolean;
     path: boolean;
     nodesCost: boolean;
+    nodesShortCost: boolean;
     map: boolean;
     highlightCells: Point2D[];
 }
@@ -20,6 +21,7 @@ export const defaultRenderOptions: RenderOptions = {
     lines: false,
     path: false,
     nodesCost: false,
+    nodesShortCost: true,
     map: false,
     highlightCells: []
 };
@@ -60,6 +62,7 @@ export const Game: React.FC<GameProps> = ({
         linesChecked: startRender.lines,
         pathChecked: startRender.path,
         nodesCostChecked: startRender.nodesCost,
+        nodesShortCost: startRender.nodesShortCost,
         mapChecked: startRender.map,
         showControls: typeof showControls === 'boolean' ? showControls : true,
         pic: new Image(),

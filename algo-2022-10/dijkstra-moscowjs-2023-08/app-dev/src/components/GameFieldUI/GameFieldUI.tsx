@@ -62,6 +62,7 @@ export const GameFieldUI = React.forwardRef<HTMLCanvasElement, GameFieldUIProps>
                 lines: gameState.linesChecked,
                 path: gameState.pathChecked,
                 nodesCost: gameState.nodesCostChecked,
+                nodesShortCost: gameState.nodesShortCost,
                 map: gameState.mapChecked,
                 showBtMap: gameState.showBtMap,
                 highlightCells: gameState.highlightCells

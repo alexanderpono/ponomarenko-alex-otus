@@ -38,6 +38,7 @@ export class GameController {
             linesChecked: options.lines,
             pathChecked: options.path,
             nodesCostChecked: options.nodesCost,
+            nodesShortCost: options.nodesShortCost,
             mapChecked: options.map,
             showControls: true,
             pic: new Image(),
