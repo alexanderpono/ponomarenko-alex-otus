@@ -31,9 +31,39 @@ const SIMPLE = GraphFromField.getEdgeSimpleCost;
 const ADVANCED = GraphFromField.getEdgeAdvancedCost;
 const ADVANCED_V2 = GraphFromFieldV2.getEdgeAdvancedCost;
 const GROUP_1 = '2. Квадратная сетка';
-renderGameField(GROUP_1, map1, 'slide1', LINES, SIMPLE, GraphCalculator);
-renderGameField(GROUP_1, map1, 'slide1_2', LINES_COST, SIMPLE, GraphCalculator);
-renderGameField(GROUP_1, map1, 'slide1_3', LINES_COST_PATH, SIMPLE, GraphCalculator);
+renderGameField(
+    GROUP_1,
+    map1,
+    'slide1',
+    {
+        ...LINES,
+        nodesShortCost: false
+    },
+    SIMPLE,
+    GraphCalculator
+);
+renderGameField(
+    GROUP_1,
+    map1,
+    'slide1_2',
+    {
+        ...LINES_COST,
+        nodesShortCost: false
+    },
+    SIMPLE,
+    GraphCalculator
+);
+renderGameField(
+    GROUP_1,
+    map1,
+    'slide1_3',
+    {
+        ...LINES_COST_PATH,
+        nodesShortCost: false
+    },
+    SIMPLE,
+    GraphCalculator
+);
 
 const GROUP_2 = '3. Траектория движения с обходом препятствий';
 renderGameField(GROUP_2, map1, 'slide2', MAP, ADVANCED, GraphCalculator);
