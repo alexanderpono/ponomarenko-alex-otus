@@ -41,7 +41,9 @@ export const AbstractGraphUI: React.FC<AbstractGraphUIProps> = ({
     return (
         <>
             <h3>{caption}</h3>
-            <canvas height="350" width="720" id="GraphUI" ref={canvasRef}></canvas>
+            <div className="canvas">
+                <canvas height="350" width="720" id="GraphUI" ref={canvasRef}></canvas>
+            </div>
         </>
     );
 };

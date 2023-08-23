@@ -18,12 +18,7 @@ renderAbstractGraph('1. Алгоритм Дейкстры. Шаг 3', true, 'gl-
 renderAbstractGraph('1. Алгоритм Дейкстры. Шаг 4', true, 'gl-s4', 4);
 renderAbstractGraph('1. Алгоритм Дейкстры. Шаг 5', true, 'gl-s5', 5);
 renderAbstractGraph('1. Алгоритм Дейкстры. Шаг 6', true, 'gl-s6', 6);
-renderAbstractGraph(
-    '1. Алгоритм Дейкстры: рассчитан кратчайший путь',
-    true,
-    'GraphFromLesson-2',
-    ALL_NODES
-);
+renderAbstractGraph('1. Алгоритм Дейкстры: рассчитан кратчайший путь', true, 'graph-ok', ALL_NODES);
 
 function renderAbstractGraph(
     caption: string,

@@ -133,7 +133,7 @@ const map3 = `
 ▓  ╡     ╡   $╡  ▓
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
     `;
-const GROUP_5 = '3. Задача: персонаж должен падать в отверстие в полу';
+const GROUP_5 = '3. персонаж должен падать в отверстие в полу';
 renderGameField(GROUP_5, map3, 'slide4', MAP, ADVANCED, GraphCalculatorV2);
 renderGameField(GROUP_5, map3, 'slide4_2', MAP_PATH, ADVANCED, GraphCalculatorV2);
 renderGameField(
@@ -181,7 +181,7 @@ const map4 = `
 ▓  ╡     ╡    ╡  ▓
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
     `;
-const GROUP_6 = '3. Персонаж не должен подниматься вверх по воздуху';
+const GROUP_6 = '3. Персонаж не должен подниматься вверх <br/> по воздуху';
 renderGameField(GROUP_6, map4, 'V5_4', MAP, ADVANCED_V2, GraphCalculatorV3);
 renderGameField(
     GROUP_6,

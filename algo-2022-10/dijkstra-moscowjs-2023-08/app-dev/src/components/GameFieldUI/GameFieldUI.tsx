@@ -7,6 +7,7 @@ import { GameFieldController, GameState, RenderOptions } from './Game.types';
 import { GRGold } from '@src/ports/GRGold';
 import { GRMan } from '@src/ports/GRMan';
 import { GRSelect } from '@src/ports/GRSelect';
+import parse from 'html-react-parser';
 
 interface GameFieldUIProps {
     field: GameField;
@@ -84,11 +85,13 @@ export const GameFieldUI = React.forwardRef<HTMLCanvasElement, GameFieldUIProps>
         }, [gameState, canvas, graph, picLoaded]);
 
         return (
-            <div style={{ width: '850px' }}>
-                <h3>{title}</h3>
-                <canvas height={canvasH} width={canvasW} id="GraphUI" ref={canvasRef}></canvas>
+            <>
+                <h3>{parse(title)}</h3>
+                <div className="canvas">
+                    <canvas height={canvasH} width={canvasW} id="GraphUI" ref={canvasRef}></canvas>
+                </div>
                 {gameState.showControls && (
-                    <div>
+                    <div className="controls">
                         {Label(gameState.nodesChecked, ctrl.nodesClicked, `${id}-nodes`, 'Узлы')}
                         {Label(gameState.linesChecked, ctrl.linesClicked, `${id}-lines`, 'Ребра')}
                         {Label(gameState.pathChecked, ctrl.pathClicked, `${id}-path`, 'Путь')}
@@ -108,7 +111,7 @@ export const GameFieldUI = React.forwardRef<HTMLCanvasElement, GameFieldUIProps>
                         </button>
                     </div>
                 )}
-            </div>
+            </>
         );
     }
 );
