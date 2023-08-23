@@ -48,6 +48,7 @@
         h1, h3 {
             color: #000;
             text-transform: uppercase;
+            font-family: 'Arial Bold', Arial, Helvetica, sans-serif;
         }
         h3 {
             margin: 0px 0px 50px 0px;
@@ -81,6 +82,11 @@
             max-width: 70%;
             margin-bottom: 1rem;
         }
+
+        .slide li {
+            margin-left: 1.5rem;
+        }
+
         .slide.speaker p, .slide.inspiration p {
             max-width: 100%;
         }
@@ -93,20 +99,23 @@
         .abstractGraph .canvas {
             display: flex;
             justify-content: center;
+            align-items: center;
         }
 
         .game {
             height: calc(100% - var(--slide-side));
             display: grid;
-            grid-template-rows: 83px auto 35px;
+            grid-template-rows: 83px auto 65px;
         }
         .game .canvas {
             display: flex;
             justify-content: center;
+            align-items: center;
         }
         .game .controls {
             display: flex;
             justify-content: center;
+            align-items:flex-start;
         }
 
         .speaker .photo {
@@ -147,6 +156,72 @@
         .progress {
             --color-blue: #0038ff;
         }
+
+        .slide li::before {
+            color: #0038ff;
+        }
+
+        .link {
+            color: #0038ff;
+        }
+
+        .qrs {
+            margin-top: 50px;
+            display: grid;
+            grid-template-areas: "a algos app ap inno" "a_qr algos_qr app_qr ap_qr inno_qr";
+            grid-template-columns: 20% 20% 20% 20% 20%;
+            grid-template-rows: auto 200px;
+        }
+        .a, .algos, .app, .ap, .inno {
+            text-align: center;
+        }
+
+        .a {
+            grid-area: a;
+        }
+        .a_qr {
+            grid-area: a_qr;
+            background: url(./demo-static/A-qr-code.gif) no-repeat;
+            background-size: contain;
+        }
+
+        .algos {
+            grid-area: algos;
+        }
+        .algos_qr {
+            grid-area: algos_qr;
+            background: url(./demo-static/more-algorithms-qr-code.gif) no-repeat;
+            background-size: contain;
+        }
+
+        .ap {
+            grid-area: ap;
+        }
+        .ap_qr {
+            grid-area: ap_qr;
+            background: url(./demo-static/TG-qr-code.gif) no-repeat;
+            background-size: contain;
+        }
+
+        .inno {
+            grid-area: inno;
+        }
+        .inno_qr {
+            grid-area: inno_qr;
+            background: url(./demo-static/INNO-qr-code.gif) no-repeat;
+            background-size: contain;
+
+        }
+
+        .app {
+            grid-area: app;
+        }
+        .app_qr {
+            grid-area: app_qr;
+            background: url(./demo-static/gameSrc-qr-code.gif) no-repeat;
+            background-size: contain;
+        }
+
     </style>
 
     <script defer src="./app-static/abstractGraph.js"></script>
@@ -172,7 +247,7 @@
                 <p>В web-разработке 20 лет, фронтенд &ndash; 4 года. </p>
                 <p>Опыт создания обучающих игр на JS</p>
                 <div class="picText">
-                    <img src="demo-static/TG-qr-code.gif" /> <p class="text">Telegram: https://t.me/brain16383</p> 
+                    <img src="demo-static/TG-qr-code.gif" /> <p class="text">Telegram: <span class="link">https://t.me/brain16383</span></p> 
                 </div>
             </div>
             <div>
@@ -190,18 +265,18 @@
 
     <section class="slide">
         <h3>1. Алгоритм Дейкстры</h3>
-        <p>Алгоритм Дейкстры — алгоритм на графах, изобретённый нидерландским учёным Эдсгером Дейкстрой в 1959 году. Находит кратчайшие пути от одной из вершин графа до всех остальных (wikipedia).</p>
+        <p>Алгоритм Дейкстры — алгоритм на графах, изобретённый нидерландским учёным Эдсгером Дейкстрой в 1959 году. Находит кратчайшие пути от одной из вершин графа до всех остальных</p>
     </section>
 
     <section class="slide">
         <h3>Где может пригодиться алгоритм Дейкстры?</h3>
-        <ui>
-            <li>Маршрутизация в компьютерных сетях.</li>
-            <li>Программы-навигаторы: поиск маршрута, чтобы быстрее добраться из точки А в точку Б.</li>
-            <li>В играх (вычисление оптимальной траектории движения).</li>
-            <li>Расчет электрических цепей: ток течет по пути наименьшего сопротивления.</li>
+        <ul>
+            <li>Маршрутизация в компьютерных сетях</li>
+            <li>Программы-навигаторы: поиск маршрута, чтобы быстрее добраться из точки А в точку Б</li>
+            <li>В играх (вычисление оптимальной траектории движения)</li>
+            <li>Расчет электрических цепей: ток течет по пути наименьшего сопротивления</li>
             <li>...</li>
-        </ui>
+        </ul>
     </section>
 
     <section class="slide"><div id="slide00" class="abstractGraph"></div></section>
@@ -271,12 +346,12 @@
         <h3>2. Источник вдохновения</h3>
         <div class="picText">
             <div>
-                <img src="demo-static/inspiration.png" />
+                <p>Игра «Lode runner» <br />
+                для ZX Spectrum <br />
+                Broderbund 1984</p>
             </div>
             <div class="text">
-                <p>Игра «Lode runner»</p>
-                <p>для ZX Spectrum</p>
-                <p>Broderbund 1984</p>
+                <img src="demo-static/inspiration.png" />
             </div>
         </div>
     </section>
@@ -419,7 +494,7 @@
         <h3>Выводы</h3>
         <p>1. Фронтенд - это еще и про алгоритмы</p>
         <p>2. Можно создавать свои игры на основе работающего примера: <br />
-            https://github.com/alexanderpono/bricks-runner
+            <span class="link">https://github.com/alexanderpono/bricks-runner</span>
         </p>
         <p>3. Не бойтесь экспериментировать. Преимущество фронтенда &ndash; можно сразу увидеть результат!</p>
     </section>
@@ -427,8 +502,8 @@
     <section class="slide">
         <h3>Что еще почитать?</h3>
         <ul>
-            <li>A* - развитие алгоритма Дейкстры https://www.redblobgames.com/pathfinding/a-star/introduction.html</li>
-            <li>Еще об алгоритмах на графах https://habr.com/ru/companies/timeweb/articles/751762/</li>
+            <li>A* - развитие алгоритма Дейкстры <span class="link">https://www.redblobgames.com/pathfinding/a-star/introduction.html</span></li>
+            <li>Еще об алгоритмах на графах <span class="link">https://habr.com/ru/companies/timeweb/articles/751762/</span></li>
         </ul>
 
     </section>
@@ -437,9 +512,22 @@
         <h3>Спасибо за внимание!</h3>
         <h3>Вопросы?</h3>
         <p>Александр Пономаренко</p>
-        <p>Telegram: https://t.me/brain16383</p>
-        <div class="tg">
-            <img src="demo-static/A-qr-code.gif" /> <p class="text">Ссылки на материалы к статье: https://www.redblobgames.com/pathfinding/a-star/introduction.html</p> 
+        <div class="qrs">
+            <div class="a">Описание A*</div>
+            <div class="a_qr"></div>
+
+            <div class="algos">Алгоритмы <br /> на графах</div>
+            <div class="algos_qr"></div>
+
+            <div class="ap">Александр Пономаренко</div>
+            <div class="ap_qr"></div>
+
+            <div class="inno">Новости ИТ <br /> в Иннотехе и Т1</div>
+            <div class="inno_qr"></div>
+
+            <div class="app">Исходники игры</div>
+            <div class="app_qr"></div>
+            
         </div>
     </section>
 
