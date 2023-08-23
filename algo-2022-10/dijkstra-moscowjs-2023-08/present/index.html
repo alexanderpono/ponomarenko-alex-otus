@@ -8,12 +8,13 @@
     <style>
         .shower {
             --slide-ratio: calc(16 / 9);
+            --slide-side: 27px;
         }
         .ok {
-            color: #059B00;
+            color: #888;
             position: relative;
         }
-        .ok::before {
+        /* .ok::before {
             content: '';
             display: block;
             position: absolute;
@@ -22,32 +23,62 @@
             background: url(./demo-static/ok.png) no-repeat;
             width: 29px;
             height: 23px;
-        }
+        } */
         .picText {
             display: flex;
+        }
+
+        .pic {
+            padding: var(--slide-side) var(--slide-side) 0px var(--slide-side);
         }
         .text {
             padding-left: 30px;
         }
+        .slide {
+            padding: var(--slide-side) var(--slide-side) 0px var(--slide-side);
+        }
         .slide::after {
             background: url(demo-static/ribbon.svg) no-repeat;
         }
-        h1, h3, p, label, li {
-            color: #04267E;
+        h1, h3 {
+            color: #000;
+            text-transform: uppercase;
+        }
+        h3 {
+            margin: 0px;
+        }
+        p, label, li {
+            color: #000;
         }
 
-        .slide.portrait {
-            background: url(demo-static/speaker.jpg);
+        .slide.title {
+            background: url(demo-static/bgTitle.png);
             background-position: left;
             background-size: cover;
         }
-        .portrait h3, .portrait p {
+        .slide.title h1, .slide.title h3 {
             color: white;
         }
-        .portrait .textBack {
-            background-color: rgba(0, 0, 0, 0.5);;
-            margin-right: 40%;
-            padding-left: 20px;
+
+        .slide.title h1 {
+            font-size: 3rem;
+            line-height: 120%;
+            margin-top: 33%;
+            margin-bottom: 0px;
+        }
+        .slide.title h3 {
+            margin: 0px;
+        }         
+
+        .speaker .photo {
+            margin: 60px 0px 0px 100px;
+            width: 256px;
+            height: 256px;
+            border-radius: 128px;
+            overflow: hidden;
+        }
+        .speaker .text {
+            margin-top: 35px;
         }
         .tg {
             display: flex;
@@ -58,14 +89,18 @@
             margin-right: 20px;
         }
 
-        .smaller {
+        .smaller, #smaller {
             font-size: 80%;
+            padding-left: 26px;
         }
         .smaller70 {
             font-size: 70%;
         }
         .slide mark.orange {
             background-color: #ffae00;
+        }
+        .slide pre {
+            margin-left: calc(var(--slide-side) * 2);
         }
     </style>
 
@@ -80,21 +115,27 @@
         <p>Александр Пономаренко</p>
     </header>
 
-    <section class="slide">
-        <h1>Применение алгоритма Дейкстры для построения траектории движения в 2D-пространстве</h1>
+    <section class="slide title">
+        <h1>Применение алгоритма Дейкстры <br />для построения траектории движения <br />в 2D-пространстве</h1>
         <h3>Александр Пономаренко</h3>
     </section>
 
-    <section class="slide portrait">
+    <section class="slide speaker">
         <div class="picText">
-            <div class="textBack">
+            <div>
                 <h3>Александр Пономаренко</h3>
-                <p>ГК Иннотех, Frontend-разработчик React.<br />
-                В web-разработке 20 лет, фронтенд - 4 года. Гос. web-проекты, телеком, финтех. Опыт создания обучающих игр на JS</p>
+                <p>
+                    ГК Иннотех, Frontend-разработчик React.<br />
+                    В web-разработке 20 лет, фронтенд &ndash; 4 года. <br /> 
+                    Опыт создания обучающих игр на JS
+                </p>
                 <div class="picText">
                     <img src="demo-static/TG-qr-code.gif" /> <p class="text">Telegram: https://t.me/brain16383</p> 
                 </div>
             </div>
+            <div>
+                <div class="photo"><img src="demo-static/photo256x256.jpg" /></div>
+            </div>             
         </div>
     </section>
 
@@ -122,7 +163,7 @@
 
     <section class="slide">
         <div class="picText">
-            <div id="slide00" class="pic">
+            <div id="slide00">
             </div>
         </div>
     </section>
@@ -152,7 +193,7 @@
         </div>
     </section>
 
-    <section class="slide smaller">
+    <section class="slide">
         <pre>
             <code>calcVerticesCost = (fromVertex: number) => {</code>
             <code>    this.vertices[fromVertex].accessCost = 0;</code>
@@ -252,7 +293,7 @@
         <div id="slide3a_3" class="graph"></div>
     </section>
 
-    <section class="slide smaller">
+    <section class="slide">
         <pre>
             <code>calcVerticesCost = (fromVertex: number) => {</code>
             <code>    this.vertices[fromVertex].accessCost = 0;</code>
@@ -269,7 +310,7 @@
         </pre>        
     </section>
 
-    <section class="slide smaller70">
+    <section class="slide">
         <pre>
             <code> <mark class="important">getNextVertex = (edgesOfVertex: number[]): number => {</mark></code>
             <code>    let minAccessCost = Number.MAX_SAFE_INTEGER;</code>
@@ -288,7 +329,7 @@
         </pre>        
     </section>
 
-    <section class="slide smaller">
+    <section class="slide">
         <pre>
             <code><mark>getNextVertex = (verticesToProcess: number[]): number => {</mark></code>
             <code>    let minAccessCost = Number.MAX_SAFE_INTEGER;</code>
