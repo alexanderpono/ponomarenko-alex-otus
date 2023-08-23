@@ -84,7 +84,7 @@ export const GameFieldUI = React.forwardRef<HTMLCanvasElement, GameFieldUIProps>
         }, [gameState, canvas, graph, picLoaded]);
 
         return (
-            <div style={{ width: '720px' }}>
+            <div style={{ width: '850px' }}>
                 <h3>{title}</h3>
                 <canvas height={canvasH} width={canvasW} id="GraphUI" ref={canvasRef}></canvas>
                 {gameState.showControls && (
