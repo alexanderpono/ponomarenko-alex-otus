@@ -1,17 +1,17 @@
-name: build-deploy-moscowjs-2023-08
+name: dijkstra-holyjs-2023-11
 on:
   push:
-    branches: [ dijkra-moscowjs ]
+    branches: [ dijkra-holyjs  ]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build-demo-moscowjs-2023-08:
+  demo-dijkstra-holyjs-2023-11:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: algo-2022-10/dijkstra-moscowjs-2023-08/demo
+        working-directory: algo-2022-10/dijkstra-holyjs-2023-11/demo
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -37,23 +37,23 @@ jobs:
         id: Project-build
         run: npm run build
 
-      - name: Deploy application to GHP /ponomarenko-alex-otus/algo-2022-10/dijkstra-moscowjs-2023-08/present 🚀
+      - name: Deploy application to GHP /ponomarenko-alex-otus/algo-2022-10/dijkstra-holyjs-2023-11/present 🚀
         id: Deploy-app
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: algo-2022-10/dijkstra-moscowjs-2023-08/demo/demo-dist  # The folder the action should deploy.
-          TARGET_FOLDER: algo-2022-10/dijkstra-moscowjs-2023-08/present
+          FOLDER: algo-2022-10/dijkstra-holyjs-2023-11/demo/demo-dist  # The folder the action should deploy.
+          TARGET_FOLDER: algo-2022-10/dijkstra-holyjs-2023-11/present
           CLEAN: true # Automatically remove deleted files from the deploy branch
 
 
-  build-app-moscowjs-2023-08:
+  app-dijkstra-holyjs-2023-11:
     runs-on: ubuntu-latest
-    needs: build-demo-moscowjs-2023-08
+    needs: demo-dijkstra-holyjs-2023-11
     defaults:
       run:
-        working-directory: algo-2022-10/dijkstra-moscowjs-2023-08/app-dev
+        working-directory: algo-2022-10/dijkstra-holyjs-2023-11/app-dev
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -79,12 +79,12 @@ jobs:
         id: Project-build
         run: npm run build
 
-      - name: Deploy application to GHP /ponomarenko-alex-otus/algo-2022-10/dijkstra-moscowjs-2023-08/present/app-static 🚀
+      - name: Deploy application to GHP /ponomarenko-alex-otus/algo-2022-10/dijkstra-holyjs-2023-11/present/app-static 🚀
         id: Deploy-app
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: algo-2022-10/dijkstra-moscowjs-2023-08/app-dev/temp/ui-dist  # The folder the action should deploy.
-          TARGET_FOLDER: algo-2022-10/dijkstra-moscowjs-2023-08/present/app-static
+          FOLDER: algo-2022-10/dijkstra-holyjs-2023-11/app-dev/temp/ui-dist  # The folder the action should deploy.
+          TARGET_FOLDER: algo-2022-10/dijkstra-holyjs-2023-11/present/app-static
           CLEAN: true # Automatically remove deleted files from the deploy branch
