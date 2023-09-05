@@ -1,17 +1,17 @@
-name: build-deploy-dijkstra-work
+name: build-deploy-beer-2023-08
 on:
   push:
-    branches: [ master ]
+    branches: [ dijkstra-inno-beer ]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build-work-demo:
+  build-demo-beer-2023-08:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: algo-2022-10/dijkstra-work/demo
+        working-directory: algo-2022-10/dijkstra-inno-beer-2023-08/demo
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -37,27 +37,27 @@ jobs:
         id: Project-build
         run: npm run build
 
-      - name: Deploy application to GHP /ponomarenko-alex-otus/algo-2022-10/dijkstra-work/present 🚀
+      - name: Deploy application to GHP /ponomarenko-alex-otus/algo-2022-10/dijkstra-inno-beer-2023-08/present 🚀
         id: Deploy-app
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: algo-2022-10/dijkstra-work/demo/demo-dist  # The folder the action should deploy.
-          TARGET_FOLDER: algo-2022-10/dijkstra-work/present
+          FOLDER: algo-2022-10/dijkstra-inno-beer-2023-08/demo/demo-dist  # The folder the action should deploy.
+          TARGET_FOLDER: algo-2022-10/dijkstra-inno-beer-2023-08/present
           CLEAN: true # Automatically remove deleted files from the deploy branch
 
 
-  build-app-work:
+  build-app-beer-2023-08:
     runs-on: ubuntu-latest
-    needs: build-work-demo
+    needs: build-demo-beer-2023-08
     defaults:
       run:
-        working-directory: algo-2022-10/dijkstra-work/app-dev
+        working-directory: algo-2022-10/dijkstra-inno-beer-2023-08/app-dev
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
         with:
           fetch-depth: 0 # 👈 Required to retrieve git history
       - uses: actions/setup-node@v2
@@ -79,12 +79,12 @@ jobs:
         id: Project-build
         run: npm run build
 
-      - name: Deploy application to GHP /ponomarenko-alex-otus/algo-2022-10/dijkstra-work/present/app-static 🚀
+      - name: Deploy application to GHP /ponomarenko-alex-otus/algo-2022-10/dijkstra-inno-beer-2023-08/present/app-static 🚀
         id: Deploy-app
-        uses: JamesIves/github-pages-deploy-action@v4
+        uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          branch: gh-pages # The branch the action should deploy to.
-          folder: algo-2022-10/dijkstra-work/app-dev/temp/ui-dist  # The folder the action should deploy.
-          target-folder: algo-2022-10/dijkstra-work/present/app-static
-          clean: true # Automatically remove deleted files from the deploy branch
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: algo-2022-10/dijkstra-inno-beer-2023-08/app-dev/temp/ui-dist  # The folder the action should deploy.
+          TARGET_FOLDER: algo-2022-10/dijkstra-inno-beer-2023-08/present/app-static
+          CLEAN: true # Automatically remove deleted files from the deploy branch
