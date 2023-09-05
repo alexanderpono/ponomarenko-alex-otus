@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Применение алгоритма Дейкстры для построения траектории движения в 2D-пространстве</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="shower/themes/ribbon/styles/styles.css">
+    <style>
+        .shower {
+            --slide-ratio: calc(16 / 9);
+            --slide-side: 27px;
+            --ribbon-side: 40px;
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 130%;
+        }
+        .ok {
+            color: #888;
+            position: relative;
+        }
+        .picText {
+            display: flex;
+        }
+
+        .pic {
+            padding: var(--slide-side) var(--slide-side) 0px var(--slide-side);
+        }
+        .text {
+            padding-left: 30px;
+        }
+        .slide {
+            padding: var(--slide-side) var(--slide-side) 0px var(--slide-side);
+        }
+        .slide::after {
+            background: none;
+            color: black;
+            border: 1px solid black;
+            width: var(--ribbon-side);
+            height: var(--ribbon-side);
+            padding: 0px;
+            margin: 0px;
+            display: block;
+            line-height: var(--ribbon-side);
+            border-radius: 8px;
+            left: auto;
+            top: var(--slide-side);
+            right: var(--slide-side);
+        }
+        h1, h3 {
+            color: #000;
+            text-transform: uppercase;
+            font-family: 'Arial Bold', Arial, Helvetica, sans-serif;
+        }
+        h3 {
+            margin: 0px 0px 50px 0px;
+        }
+        p, label, li {
+            color: #000;
+        }
+
+        .slide.title {
+            background: url(demo-static/bgTitle.png);
+            background-position: left;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+        .slide.title h1, .slide.title h3 {
+            color: white;
+        }
+
+        .slide.title h1 {
+            font-size: 3rem;
+            line-height: 120%;
+            margin-top: 0%;
+            margin-bottom: 0px;
+        }
+        .slide.title h3 {
+            margin: 30px 0px 0px 0px;
+        }
+        .slide p, .slide li {
+            max-width: 70%;
+            margin-bottom: 1rem;
+        }
+
+        .slide li {
+            margin-left: 1.5rem;
+        }
+
+        .slide.speaker p, .slide.inspiration p {
+            max-width: 100%;
+        }
+
+        .abstractGraph {
+            height: calc(100% - var(--slide-side));
+            display: grid;
+            grid-template-rows: 60px auto;
+        }
+        .abstractGraph .canvas {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .game {
+            height: calc(100% - var(--slide-side));
+            display: grid;
+            grid-template-rows: 83px auto 65px;
+        }
+        .game .canvas {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .game .controls {
+            display: flex;
+            justify-content: center;
+            align-items:flex-start;
+        }
+
+        .speaker .photo {
+            margin: 60px 0px 0px 100px;
+            width: 256px;
+            height: 256px;
+            border-radius: 128px;
+            overflow: hidden;
+        }
+        .speaker .text {
+            margin-top: 35px;
+        }
+        .tg {
+            display: flex;
+            align-items: center;
+        }
+
+        .tg p {
+            margin-right: 20px;
+        }
+
+        .smaller, #smaller {
+            font-size: 80%;
+            padding-left: 26px;
+        }
+        .smaller70 {
+            font-size: 70%;
+        }
+        .slide mark.orange {
+            background-color: #ffae00;
+        }
+        .slide pre {
+            margin-left: calc(var(--slide-side) * 2);
+        }
+        .slide pre code {
+            line-height: 130%;
+        }
+        .progress {
+            --color-blue: #0038ff;
+        }
+
+        .slide li::before {
+            color: #0038ff;
+        }
+
+        .link {
+            color: #0038ff;
+        }
+
+        .qrs {
+            margin-top: 50px;
+            display: grid;
+            grid-template-areas: "a algos app ap inno" "a_qr algos_qr app_qr ap_qr inno_qr";
+            grid-template-columns: 20% 20% 20% 20% 20%;
+            grid-template-rows: auto 200px;
+        }
+        .a, .algos, .app, .ap, .inno {
+            text-align: center;
+        }
+
+        .a {
+            grid-area: a;
+        }
+        .a_qr {
+            grid-area: a_qr;
+            background: url(./demo-static/A-qr-code.gif) no-repeat;
+            background-size: contain;
+        }
+
+        .algos {
+            grid-area: algos;
+        }
+        .algos_qr {
+            grid-area: algos_qr;
+            background: url(./demo-static/more-algorithms-qr-code.gif) no-repeat;
+            background-size: contain;
+        }
+
+        .ap {
+            grid-area: ap;
+        }
+        .ap_qr {
+            grid-area: ap_qr;
+            background: url(./demo-static/TG-qr-code.gif) no-repeat;
+            background-size: contain;
+        }
+
+        .inno {
+            grid-area: inno;
+        }
+        .inno_qr {
+            grid-area: inno_qr;
+            background: url(./demo-static/INNO-qr-code.gif) no-repeat;
+            background-size: contain;
+
+        }
+
+        .app {
+            grid-area: app;
+        }
+        .app_qr {
+            grid-area: app_qr;
+            background: url(./demo-static/gameSrc-qr-code.gif) no-repeat;
+            background-size: contain;
+        }
+
+    </style>
+
+    <script defer src="./app-static/abstractGraph.js"></script>
+    <script defer src="./app-static/gameField.js"></script>
+</head>
+<body class="shower list">
+
+    <header class="caption">
+        <h1>Применение алгоритма Дейкстры для построения траектории движения в 2D-пространстве</h1>
+        <p>Александр Пономаренко</p>
+    </header>
+
+    <section class="slide title">
+        <h1>Применение алгоритма Дейкстры <br />для построения траектории движения <br />в 2D-пространстве</h1>
+        <h3>Александр Пономаренко</h3>
+    </section>
+
+    <section class="slide speaker">
+        <div class="picText">
+            <div>
+                <h3>Александр Пономаренко</h3>
+                <p>ГК Иннотех, Frontend-разработчик React.</p>
+                <p>В web-разработке 20 лет, фронтенд &ndash; 4 года. </p>
+                <p>Опыт создания обучающих игр на JS</p>
+                <div class="picText">
+                    <img src="demo-static/TG-qr-code.gif" /> <p class="text">Telegram: <span class="link">https://t.me/brain16383</span></p> 
+                </div>
+            </div>
+            <div>
+                <div class="photo"><img src="demo-static/photo256x256.jpg" /></div>
+            </div>             
+        </div>
+    </section>
+
+    <section class="slide">
+        <h3>Содержание</h3>
+        <p>1. Алгоритм Дейкстры</p>
+        <p>2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
+        <p>3. Решение задач расчета траектории движения</p>
+    </section>
+
+    <section class="slide">
+        <h3>1. Алгоритм Дейкстры</h3>
+        <p>Алгоритм Дейкстры — алгоритм на графах, изобретённый нидерландским учёным Эдсгером Дейкстрой в 1959 году. Находит кратчайшие пути от одной из вершин графа до всех остальных</p>
+    </section>
+
+    <section class="slide">
+        <h3>Где может пригодиться алгоритм Дейкстры?</h3>
+        <ul>
+            <li>Маршрутизация в компьютерных сетях</li>
+            <li>Программы-навигаторы: поиск маршрута, чтобы быстрее добраться из точки А в точку Б</li>
+            <li>В играх (вычисление оптимальной траектории движения)</li>
+            <li>Расчет электрических цепей: ток течет по пути наименьшего сопротивления</li>
+            <li>...</li>
+        </ul>
+    </section>
+
+    <section class="slide">
+        <h3>1. Алгоритм Дейкстры. Основные моменты</h3>
+        <ul>
+            <li>Внешний цикл - обходим все вершины графа</li>
+            <li>Внутренний цикл - обходим соседние вершины относительно текущей</li>
+            <li>Расчет стоимости перехода в соседнюю вершину из текущей</li>
+            <li>При расчете стоимости запоминаем, по какому ребру перешли в данную вершину</li>
+        </ul>
+    </section>
+
+    <section class="slide"><div id="slide00" class="abstractGraph"></div></section>
+    <section class="slide"><div id="gl-s0" class="abstractGraph"></div></section>
+    <section class="slide"><div id="gl-s1" class="abstractGraph"></div></section>
+    <section class="slide"><div id="gl-s2" class="abstractGraph"></div></section>
+    <section class="slide"><div id="gl-s3" class="abstractGraph"></div></section>
+    <section class="slide"><div id="gl-s4" class="abstractGraph"></div></section>
+    <section class="slide"><div id="gl-s5" class="abstractGraph"></div></section>
+    <section class="slide"><div id="gl-s6" class="abstractGraph"></div></section>
+
+    <section class="slide">
+        <div id="graph-ok" class="abstractGraph"></div>
+    </section>
+
+    <section class="slide">
+        <div class="abstractGraph">
+            <h3>1. Алгоритм Дейкстры</h3>
+            <div class="canvas"><img src="demo-static/dijkra3-short.png" /></div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h3>1. Внешний и внутренний циклы алгоритма</h3>
+        <pre>
+            <code>calcVerticesCost = (fromVertex: number) => {</code>
+            <code>    this.vertices[fromVertex].accessCost = 0;</code>
+            <code>    this.curVertexIndex = fromVertex;</code>
+                <code><mark>    while (this.curVertexIndex !== -1) {</mark></code>
+                <code><mark>        const curVertex = this.vertices[this.curVertexIndex];</mark></code>
+                <code><mark>        this.vertices[this.curVertexIndex].processed = true;</mark></code>
+                <code><mark>        const edgesOfVertex = this.getEdgesOfVertex();</mark></code>
+                <code><mark class="orange">        for (let i = 0; i < edgesOfVertex.length; i++) { ... }</mark></code>
+                <code><mark>        const nextVertex = this.getNextVertex(edgesOfVertex);</mark></code>
+                <code><mark>        this.curVertexIndex = nextVertex;</mark></code>
+                <code>    }</code>
+            <code>};</code>
+        </pre>        
+    </section>
+
+    <section class="slide">
+        <h3>1. Внутренний цикл алгоритма</h3>
+        <pre>
+            <code>for (let i = 0; i < edgesOfVertex.length; i++) {</code>
+            <code>    const edgeIndex = edgesOfVertex[i];</code>
+            <code>    const adjVIndex = this.getAdjancedVIndex(edgeIndex);</code>
+            <code>    const adjVertex = this.vertices[adjacentVIndex];</code>
+            <code><mark>    if (adjacentVertex.processed) {</mark></code>
+            <code><mark>        continue;</mark></code>
+            <code><mark>    }</mark></code>
+            <code>    this.updateAccCostAndEdgeIdx(adjVertex, curVertex, </code>
+            <code>        edgeIndex); </code>
+            <code>}</code>
+        </pre>        
+    </section>
+
+
+
+    <section class="slide">
+        <h3>Содержание</h3>
+        <p class="ok">1. Алгоритм Дейкстры</p>
+        <p>2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
+        <p>3. Решение задач расчета траектории движения</p>
+    </section>
+
+    <section class="slide inspiration">
+        <h3>2. Источник вдохновения</h3>
+        <div class="picText">
+            <div>
+                <p>Игра «Lode runner» <br />
+                для ZX Spectrum <br />
+                Broderbund 1984</p>
+            </div>
+            <div class="text">
+                <img src="demo-static/inspiration.png" />
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div id="slide1" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="slide1_2" class="game"></div>
+    </section>
+    
+    <section class="slide">
+        <div id="slide1_3" class="game"></div>
+    </section>
+    
+    <section class="slide">
+        <h3>Содержание</h3>
+        <p class="ok">1. Алгоритм Дейкстры</p>
+        <p class="ok">2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
+        <p>3. Решение задач расчета траектории движения</p>
+    </section>
+
+    <section class="slide">
+        <div id="slide2_2" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="slide2" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="slide2_3" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="slide2_4" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="slide3a" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="slide3a_2" class="game"></div>
+    </section>
+    
+    <section class="slide">
+        <div id="slide3a_3" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <h3>3. Исправленная функция вычисления следующей вершины</h3>
+        <pre>
+            <code><mark>getNextVertex = (verticesToProcess: number[]): number => {</mark></code>
+            <code>    let minAccessCost = Number.MAX_SAFE_INTEGER;</code>
+            <code>    let result = -1;</code>
+            <code><mark>    verticesToProcess.forEach((nodeIndex) => {</mark></code>
+            <code><mark>        const vertex = this.vertices[nodeIndex as number];</mark></code>
+            <code><mark>        if (vertex.processed === false && </mark></code>
+            <code><mark>            vertex.accessCost < minAccessCost)</mark></code>
+            <code><mark>        {</mark></code>
+            <code><mark>            minAccessCost = vertex.accessCost;</mark></code>
+            <code><mark>            result = nodeIndex as number;</mark></code>
+            <code><mark>        }</mark></code>
+            <code><mark>    });</mark></code>
+            <code>    return result;</code>
+            <code>};</code>
+        </pre>        
+    </section>
+
+    <section class="slide">
+        <div id="slide3" class="game"></div>
+    </section>
+    
+    <section class="slide">
+        <div id="slide3_2" class="game"></div>
+    </section>
+    
+    <section class="slide">
+        <div id="slide3_3" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="slide4" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="slide4_2" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="slide4_3" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="slide4_4" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="V5" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="V5_2" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="V5_3" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="V5_4" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="V5_4_1" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="V5_5" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="V5_6" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="game1" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <h3>Содержание</h3>
+        <p class="ok">1. Алгоритм Дейкстры</p>
+        <p class="ok">2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
+        <p class="ok">3. Решение задач расчета траектории движения</p>
+    </section>
+
+    <section class="slide">
+        <h3>Выводы</h3>
+        <p>1. Фронтенд - это еще и про алгоритмы</p>
+        <p>2. Можно создавать свои игры на основе работающего примера: <br />
+            <span class="link">https://github.com/alexanderpono/bricks-runner</span>
+        </p>
+        <p>3. Не бойтесь экспериментировать. Преимущество фронтенда &ndash; можно сразу увидеть результат!</p>
+    </section>
+
+    <section class="slide">
+        <h3>Что еще почитать?</h3>
+        <ul>
+            <li>A* - развитие алгоритма Дейкстры <span class="link">https://www.redblobgames.com/pathfinding/a-star/introduction.html</span></li>
+            <li>Еще об алгоритмах на графах <span class="link">https://habr.com/ru/companies/timeweb/articles/751762/</span></li>
+        </ul>
+
+    </section>
+
+    <section class="slide">
+        <h3>Спасибо за внимание!</h3>
+        <h3>Вопросы?</h3>
+        <p>Александр Пономаренко</p>
+        <div class="qrs">
+            <div class="a">Описание A*</div>
+            <div class="a_qr"></div>
+
+            <div class="algos">Алгоритмы <br /> на графах</div>
+            <div class="algos_qr"></div>
+
+            <div class="ap">Александр Пономаренко</div>
+            <div class="ap_qr"></div>
+
+            <div class="inno">Новости ИТ <br /> в Иннотехе и Т1</div>
+            <div class="inno_qr"></div>
+
+            <div class="app">Исходники игры</div>
+            <div class="app_qr"></div>
+            
+        </div>
+    </section>
+
+    <footer class="badge">
+        <a href="https://github.com/alexanderpono/ponomarenko-alex-otus/tree/dijkstra-inno/algo-2022-10/dijkstra-inno">Проект на GitHub</a>
+    </footer>
+
+    <div class="progress"></div>
+
+    <script src="shower/shower.js"></script>
+
+</body>
+</html>
