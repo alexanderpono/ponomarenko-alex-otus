@@ -109,6 +109,17 @@ export const GameFieldUI = React.forwardRef<HTMLCanvasElement, GameFieldUIProps>
                         <button onClick={ctrl.onBtClearClick} className="appButton">
                             Стоп
                         </button>
+                        <label>
+                            {gameState.maxCalcStep}
+                            <input
+                                type="range"
+                                name="volume"
+                                min="0"
+                                max="200"
+                                value={gameState.maxCalcStep}
+                                onChange={ctrl.onMaxStepChange}
+                            />
+                        </label>
                     </div>
                 )}
             </>

@@ -143,6 +143,9 @@ export class GRGraph {
         const w = this.field.field[0].length;
         const vIndex = y * w + x;
         const vertex = this.graph.vertices[vIndex];
+        if (vertex.accessCost === UNDEFINED_COST) {
+            return;
+        }
         this.context.fillStyle = 'white';
         this.context.fillText(
             '' + vertex.accessCost,

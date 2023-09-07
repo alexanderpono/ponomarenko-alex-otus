@@ -1,5 +1,5 @@
 import './app.css';
-import { GraphCalculator, SILENT } from './game/GraphCalculator';
+import { ALL_NODES, GraphCalculator, SILENT } from './game/GraphCalculator';
 import { GraphFromField } from './game/GraphFromField';
 import { RenderOptions, defaultRenderOptions } from './components/GameFieldUI';
 import { GraphCalculatorV2 } from './game/GraphCalculatorV2';
@@ -203,7 +203,41 @@ function renderGameField(
     target: string,
     options: RenderOptions,
     calcCost,
-    calculator: typeof GraphCalculator
+    calculator: typeof GraphCalculator,
+    stepNo: number = ALL_NODES
 ) {
-    new GameController(title, map, target, options, calcCost, calculator, SILENT).renderUI();
+    new GameController(
+        title,
+        map,
+        target,
+        options,
+        calcCost,
+        calculator,
+        SILENT,
+        stepNo
+    ).renderUI();
 }
+
+const map5 = `
+▓                 
+                  
+  M               
+                  
+                  
+                  
+            $     
+                 ▓
+`;
+renderGameField('1', map5, 'V5_7_1', LINES_COST_PATH, SIMPLE, GraphCalculatorV2, ALL_NODES);
+renderGameField('2', map5, 'V5_7_2', LINES_COST_PATH, SIMPLE, GraphCalculatorV2, 1);
+renderGameField('3', map5, 'V5_7_3', LINES_COST_PATH, SIMPLE, GraphCalculatorV2, 3);
+renderGameField('4', map5, 'V5_7_4', LINES_COST_PATH, SIMPLE, GraphCalculatorV2, 4);
+renderGameField('5', map5, 'V5_7_5', LINES_COST_PATH, SIMPLE, GraphCalculatorV2, 5);
+renderGameField('6', map5, 'V5_7_6', LINES_COST_PATH, SIMPLE, GraphCalculatorV2, 6);
+renderGameField('7', map5, 'V5_7_7', LINES_COST_PATH, SIMPLE, GraphCalculatorV2, 7);
+renderGameField('8', map5, 'V5_7_8', LINES_COST_PATH, SIMPLE, GraphCalculatorV2, 8);
+renderGameField('9', map5, 'V5_7_9', LINES_COST_PATH, SIMPLE, GraphCalculatorV2, 9);
+renderGameField('10', map5, 'V5_7_10', LINES_COST_PATH, SIMPLE, GraphCalculatorV2, 10);
+renderGameField('11', map5, 'V5_7_11', LINES_COST_PATH, SIMPLE, GraphCalculatorV2, 11);
+renderGameField('12', map5, 'V5_7_12', LINES_COST_PATH, SIMPLE, GraphCalculatorV2, 12);
+renderGameField('13', map5, 'V5_7_13', LINES_COST_PATH, SIMPLE, GraphCalculatorV2, 13);
