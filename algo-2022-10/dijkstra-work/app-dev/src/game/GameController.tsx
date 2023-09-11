@@ -28,9 +28,10 @@ export class GameController {
         private map: string,
         private target: string,
         options: RenderOptions,
-        calcCost,
-        calculator: typeof GraphCalculator,
-        private verbose: boolean
+        private calcCost,
+        private calculator: typeof GraphCalculator,
+        private verbose: boolean,
+        stepNo: number = ALL_NODES
     ) {
         this.gameState = {
             ...defaultGameState,
@@ -46,7 +47,8 @@ export class GameController {
             manScreenXY: { ...defaultPoint2D },
             miniCounter: 0,
             manAni: ManAni.STAND,
-            highlightCells: options.highlightCells
+            highlightCells: options.highlightCells,
+            maxCalcStep: stepNo
         };
         this.canvasRef = React.createRef<HTMLCanvasElement>();
 
@@ -66,7 +68,7 @@ export class GameController {
             let graph = new GraphFromField().graphFromField(gameField, calcCost);
             const mIndex = GraphFromField.getVertexIndex(map, 'M');
             const dIndex = GraphFromField.getVertexIndex(map, '$');
-            graph = new calculator().calculateGraph(graph, mIndex, dIndex, SILENT, ALL_NODES);
+            graph = new calculator().calculateGraph(graph, mIndex, dIndex, SILENT, stepNo);
             this.w = gameField.getWidth();
             const goldScreenXY = gameField.vertexIndexToCoords(dIndex, this.w);
             const manFieldXY = gameField.vertexIndexToCoords(mIndex, this.w);
@@ -266,6 +268,20 @@ export class GameController {
                 edgeOrientation,
                 direction
             );
+    };
+
+    onMaxStepChange = (evt) => {
+        console.log(evt.target.value);
+        const maxStep = parseInt(evt.target.value);
+        this.patchState({ maxCalcStep: maxStep });
+        let graph = new GraphFromField().graphFromField(this.gameField, this.calcCost);
+        const mIndex = GraphFromField.getVertexIndex(this.map, 'M');
+        const dIndex = GraphFromField.getVertexIndex(this.map, '$');
+        graph = new this.calculator().calculateGraph(graph, mIndex, dIndex, SILENT, maxStep);
+
+        this.graph = graph;
+
+        this.renderUI();
     };
 }
 

@@ -1,4 +1,5 @@
 import { Point2D, defaultPoint2D } from '@src/game/GameField';
+import { ALL_NODES } from '@src/game/GraphCalculator';
 import { ManAni } from '@src/ports/GR.types';
 
 export interface GameFieldController {
@@ -9,6 +10,7 @@ export interface GameFieldController {
     mapClicked: () => void;
     onBtStartClick: () => void;
     onBtClearClick: () => void;
+    onMaxStepChange: (evt) => void;
 }
 export interface GameState {
     nodesChecked: boolean;
@@ -25,6 +27,7 @@ export interface GameState {
     miniCounter: number;
     showBtMap: boolean;
     highlightCells: Point2D[];
+    maxCalcStep: number;
 }
 export const defaultGameState: GameState = {
     nodesChecked: false,
@@ -40,7 +43,8 @@ export const defaultGameState: GameState = {
     manAni: ManAni.STAND,
     miniCounter: 0,
     showBtMap: false,
-    highlightCells: []
+    highlightCells: [],
+    maxCalcStep: ALL_NODES
 };
 
 export interface RenderOptions {

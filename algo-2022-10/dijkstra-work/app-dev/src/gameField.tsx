@@ -1,11 +1,12 @@
 import './app.css';
-import { GraphCalculator, SILENT } from './game/GraphCalculator';
+import { ALL_NODES, GraphCalculator, SILENT } from './game/GraphCalculator';
 import { GraphFromField } from './game/GraphFromField';
 import { RenderOptions, defaultRenderOptions } from './components/GameFieldUI';
 import { GraphCalculatorV2 } from './game/GraphCalculatorV2';
 import { GraphCalculatorV3 } from './game/GraphCalculatorV3';
 import { GraphFromFieldV2 } from './game/GraphFromFieldV2';
 import { GameController } from './game/GameController';
+import { GraphCalculatorV4 } from './game/GraphCalculatorV4';
 
 console.log('gameField!');
 
@@ -203,7 +204,33 @@ function renderGameField(
     target: string,
     options: RenderOptions,
     calcCost,
-    calculator: typeof GraphCalculator
+    calculator: typeof GraphCalculator,
+    stepNo: number = ALL_NODES
 ) {
-    new GameController(title, map, target, options, calcCost, calculator, SILENT).renderUI();
+    new GameController(
+        title,
+        map,
+        target,
+        options,
+        calcCost,
+        calculator,
+        SILENT,
+        stepNo
+    ).renderUI();
 }
+
+const map5 = `
+▓                 
+                  
+  M               
+                  
+                  
+                  
+            $     
+                 ▓
+`;
+renderGameField('1', map5, 'V5_7_1', LINES_COST_PATH, SIMPLE, GraphCalculatorV2, ALL_NODES);
+renderGameField('2', map5, 'V5_7_2', LINES_COST_PATH, SIMPLE, GraphCalculatorV2, 1);
+renderGameField('3', map5, 'V5_7_3', LINES_COST_PATH, SIMPLE, GraphCalculatorV2, 3);
+renderGameField('4', map5, 'V5_7_4', LINES_COST_PATH, SIMPLE, GraphCalculatorV2, 4);
+renderGameField('5', map5, 'V5_7_5', LINES_COST_PATH, SIMPLE, GraphCalculatorV4, ALL_NODES);
