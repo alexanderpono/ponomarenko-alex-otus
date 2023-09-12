@@ -68,7 +68,7 @@ export class GameController {
             let graph = new GraphFromField().graphFromField(gameField, calcCost);
             const mIndex = GraphFromField.getVertexIndex(map, 'M');
             const dIndex = GraphFromField.getVertexIndex(map, '$');
-            graph = new calculator().calculateGraph(graph, mIndex, dIndex, SILENT, stepNo);
+            graph = new calculator().calculateGraph(graph, mIndex, dIndex, SILENT, stepNo, gameField);
             this.w = gameField.getWidth();
             const goldScreenXY = gameField.vertexIndexToCoords(dIndex, this.w);
             const manFieldXY = gameField.vertexIndexToCoords(mIndex, this.w);
@@ -277,7 +277,7 @@ export class GameController {
         let graph = new GraphFromField().graphFromField(this.gameField, this.calcCost);
         const mIndex = GraphFromField.getVertexIndex(this.map, 'M');
         const dIndex = GraphFromField.getVertexIndex(this.map, '$');
-        graph = new this.calculator().calculateGraph(graph, mIndex, dIndex, SILENT, maxStep);
+        graph = new this.calculator().calculateGraph(graph, mIndex, dIndex, SILENT, maxStep, this.gameField);
 
         this.graph = graph;
 

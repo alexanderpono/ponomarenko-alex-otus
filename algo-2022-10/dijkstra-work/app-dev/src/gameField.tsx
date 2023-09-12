@@ -7,6 +7,10 @@ import { GraphCalculatorV3 } from './game/GraphCalculatorV3';
 import { GraphFromFieldV2 } from './game/GraphFromFieldV2';
 import { GameController } from './game/GameController';
 import { GraphCalculatorV4 } from './game/GraphCalculatorV4';
+import { GraphCalculatorV5c } from './game/GraphCalculatorV5c';
+import { GraphCalculatorV5a } from './game/GraphCalculatorV5a';
+import { GraphCalculatorV5b } from './game/GraphCalculatorV5b';
+import { GraphCalculatorV5d } from './game/GraphCalculatorV5d';
 
 console.log('gameField!');
 
@@ -222,7 +226,7 @@ function renderGameField(
 const map5 = `
 ▓                 
                   
-  M               
+    M             
                   
                   
                   
@@ -233,4 +237,8 @@ renderGameField('1', map5, 'V5_7_1', LINES_COST_PATH, SIMPLE, GraphCalculatorV2,
 renderGameField('2', map5, 'V5_7_2', LINES_COST_PATH, SIMPLE, GraphCalculatorV2, 1);
 renderGameField('3', map5, 'V5_7_3', LINES_COST_PATH, SIMPLE, GraphCalculatorV2, 3);
 renderGameField('4', map5, 'V5_7_4', LINES_COST_PATH, SIMPLE, GraphCalculatorV2, 4);
-renderGameField('5', map5, 'V5_7_5', LINES_COST_PATH, SIMPLE, GraphCalculatorV4, ALL_NODES);
+renderGameField('Оптимизация: ранний выход', map5, 'V5_7_5', LINES_COST_PATH, SIMPLE, GraphCalculatorV4, ALL_NODES);
+renderGameField('Оптимизация: эвристика-1. Добавляем эвристику в стоимость вершины', map5, 'V5_heurisic_1', LINES_COST_PATH, SIMPLE, GraphCalculatorV5a, ALL_NODES);
+renderGameField('Оптимизация: эвристика-2. Увеличиваем вес эвристики в стоимости вершины', map5, 'V5_heurisic_2', LINES_COST_PATH, SIMPLE, GraphCalculatorV5b, ALL_NODES);
+renderGameField('Оптимизация: эвристика-3. Используем эвристику при выборе следующей текущей вершины', map5, 'V5_heurisic_3', LINES_COST_PATH, SIMPLE, GraphCalculatorV5c, ALL_NODES);
+renderGameField('Оптимизация: эвристика-4. Увеличиваем вес эвристической функции x2', map5, 'V5_heurisic_4', LINES_COST_PATH, SIMPLE, GraphCalculatorV5d, ALL_NODES);

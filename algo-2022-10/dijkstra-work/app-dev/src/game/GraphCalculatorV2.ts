@@ -1,3 +1,4 @@
+import { GameField } from './GameField';
 import { AbstractGraph } from './Graph.types';
 import { ALL_NODES, GraphCalculator } from './GraphCalculator';
 
@@ -7,7 +8,8 @@ export class GraphCalculatorV2 extends GraphCalculator {
         fromVertex: number,
         toVertex: number,
         verbose: boolean,
-        maxStep: number
+        maxStep: number,
+        gameField: GameField
     ) => {
         let newGraph = this.calcVerticesCost(graph, fromVertex, verbose, maxStep);
         if (maxStep >= ALL_NODES) {
@@ -55,7 +57,7 @@ export class GraphCalculatorV2 extends GraphCalculator {
                     continue;
                 }
                 verticesToProcess.add(adjacentVertexIndex);
-                this.updateAccessCostAndEdgeIndex(newGraph, adjacentVertex, curVertex, edgeIndex);
+                this.updateAccessCostAndEdgeIndex(newGraph, adjacentVertexIndex, curVertex, edgeIndex);
             }
 
             const nextVertex = this.getNextVertex(newGraph, [...verticesToProcess]);
