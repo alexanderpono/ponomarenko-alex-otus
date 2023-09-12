@@ -1,11 +1,12 @@
 import { GameField, Point2D } from './GameField';
-import { AbstractGraph, UNDEFINED_COST, Vertex } from './Graph.types';
+import { AbstractGraph } from './Graph.types';
 import { ALL_NODES } from './GraphCalculator';
-import { GraphCalculatorV4 } from './GraphCalculatorV4';
+import { GraphCalculatorV5d } from './GraphCalculatorV5d';
 
-export class GraphCalculatorV5a extends GraphCalculatorV4 {
-    protected toVertex = -1;
-    protected gameField: GameField = null;
+export class GraphCalculatorV5e extends GraphCalculatorV5d {
+    private A: number;
+    private B: number;
+    private C: number;
     public calculateGraph = (
         graph: AbstractGraph,
         fromVertex: number,
@@ -16,6 +17,12 @@ export class GraphCalculatorV5a extends GraphCalculatorV4 {
     ) => {
         this.gameField = gameField;
         this.toVertex = toVertex;
+        const v0 = this.gameField.vertexIndexToCoords(fromVertex, this.gameField.getWidth());
+        const v1 = this.gameField.vertexIndexToCoords(toVertex, this.gameField.getWidth());
+        this.A = this.getA(v0, v1);
+        this.B = this.getB(v0, v1);
+        this.C = this.getC(v0, v1);
+
         let newGraph = this.myCalcVerticesCost(graph, fromVertex, verbose, maxStep, toVertex);
         if (maxStep >= ALL_NODES) {
             newGraph = this.calcCheapestPath(newGraph, fromVertex, toVertex);
@@ -30,27 +37,14 @@ export class GraphCalculatorV5a extends GraphCalculatorV4 {
             this.gameField.getWidth()
         );
         const h = Math.abs(v0.x - v1.x) + Math.abs(v0.y - v1.y);
-        return h;
+        const d = this.getDistance(this.A, this.B, this.C, v0);
+        return h * 2 + d;
     };
 
-    protected updateAccessCostAndEdgeIndex = (
-        graph: AbstractGraph,
-        adjacentVertexIndex: number,
-        curVertex: Vertex,
-        edgeIndex: number
-    ) => {
-        const adjacentEdge = graph.edges[edgeIndex];
-        const adjacentVertex = graph.vertices[adjacentVertexIndex];
-        const newAccessCost =
-            curVertex.accessCost +
-            adjacentEdge.cost.cost +
-            this.heuristic(adjacentVertexIndex, this.toVertex);
-        if (
-            adjacentVertex.accessCost === UNDEFINED_COST ||
-            newAccessCost < adjacentVertex.accessCost
-        ) {
-            adjacentVertex.accessCost = newAccessCost;
-            adjacentVertex.edgeIndex = edgeIndex;
-        }
-    };
+    private getDistance = (A: number, B: number, C: number, v: Point2D) =>
+        Math.abs(A * v.x + B * v.y + C) / Math.sqrt(A * A + B * B);
+
+    private getA = (v1: Point2D, v2: Point2D) => v2.y - v1.y;
+    private getB = (v1: Point2D, v2: Point2D) => v1.x - v2.x;
+    private getC = (v1: Point2D, v2: Point2D) => v1.x * (v1.y - v2.y) + v1.y * (v2.x - v1.x);
 }
