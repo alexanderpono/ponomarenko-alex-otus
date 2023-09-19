@@ -28,6 +28,14 @@ const map1 = `
 const LINES = { ...defaultRenderOptions, lines: true };
 const LINES_COST = { ...defaultRenderOptions, lines: true, nodesCost: true };
 const LINES_COST_PATH = { ...defaultRenderOptions, lines: true, nodesCost: true, path: true };
+const LINES_COST_PATH_MAP = {
+    ...defaultRenderOptions,
+    lines: true,
+    nodesCost: true,
+    path: true,
+    map: true,
+    nodesShortCost: false
+};
 const MAP = { ...defaultRenderOptions, map: true };
 const MAP_LINES = { ...defaultRenderOptions, map: true, lines: true };
 const MAP_COST = { ...defaultRenderOptions, map: true, nodesCost: true };
@@ -289,6 +297,66 @@ renderGameField(
     'V5_heurisic_5',
     LINES_COST_PATH,
     SIMPLE,
+    GraphCalculatorV5e,
+    ALL_NODES
+);
+
+const map6 = `
+▓                ▓
+▓                ▓
+▓   M            ▓
+▓       ▓        ▓
+▓       ▓        ▓
+▓       ▓        ▓
+▓           $    ▓
+▓                ▓
+`;
+renderGameField(
+    'Добавляем барьер',
+    map6,
+    'V5_barrier',
+    LINES_COST_PATH_MAP,
+    ADVANCED,
+    GraphCalculatorV5e,
+    ALL_NODES
+);
+
+const map7 = `
+▓                ▓
+▓                ▓
+▓   M            ▓
+▓       ▓        ▓
+▓       ▓        ▓
+▓       ▓        ▓
+▓       ▓   $    ▓
+▓       ▓        ▓
+`;
+renderGameField(
+    'Добавляем барьер-2',
+    map7,
+    'V5_barrier2',
+    LINES_COST_PATH_MAP,
+    ADVANCED,
+    GraphCalculatorV5e,
+    ALL_NODES
+);
+
+const map8 = `
+▓       ▓        ▓
+▓       ▓        ▓
+▓   M   ▓        ▓
+▓       ▓        ▓
+▓       ▓        ▓
+▓       ▓        ▓
+▓       ▓   $    ▓
+▓       ▓        ▓
+`;
+renderGameField(
+    'Добавляем барьер-3',
+    map8,
+    'V5_barrier3',
+    LINES_COST_PATH_MAP,
+    ADVANCED,
     GraphCalculatorV5e,
     ALL_NODES
 );
