@@ -12,6 +12,7 @@ import { GraphCalculatorV5a } from './game/GraphCalculatorV5a';
 import { GraphCalculatorV5b } from './game/GraphCalculatorV5b';
 import { GraphCalculatorV5d } from './game/GraphCalculatorV5d';
 import { GraphCalculatorV5e } from './game/GraphCalculatorV5e';
+import { GraphCalculatorV5f } from './game/GraphCalculatorV5f';
 
 console.log('gameField!');
 
@@ -358,5 +359,65 @@ renderGameField(
     LINES_COST_PATH_MAP,
     ADVANCED,
     GraphCalculatorV5e,
+    ALL_NODES
+);
+
+const map9 = `
+▓                ▓
+▓         ▓▓     ▓
+▓          ▓     ▓
+▓   M      ▓     ▓
+▓          ▓ $   ▓
+▓          ▓     ▓
+▓       ▓▓▓▓     ▓
+▓                ▓
+`;
+renderGameField(
+    'Добавляем барьер-4',
+    map9,
+    'V5_barrier4',
+    LINES_COST_PATH_MAP,
+    ADVANCED,
+    GraphCalculatorV5e,
+    ALL_NODES
+);
+
+const map10 = `
+▓                ▓
+▓         ▓▓     ▓
+▓          ▓     ▓
+▓   M      ▓     ▓
+▓          ▓ $   ▓
+▓          ▓     ▓
+▓       ▓▓▓▓     ▓
+▓                ▓
+`;
+renderGameField(
+    'Добавляем барьер-5. Увеличиваем вес эвристической функции',
+    map10,
+    'V5_barrier5',
+    LINES_COST_PATH_MAP,
+    ADVANCED,
+    GraphCalculatorV5f,
+    ALL_NODES
+);
+
+const map11 = `
+▓                ▓
+▓       ▓▓▓▓     ▓
+▓          ▓     ▓
+▓   M      ▓     ▓
+▓          ▓ $   ▓
+▓          ▓     ▓
+▓       ▓▓▓▓     ▓
+▓                ▓
+`;
+renderGameField(
+    'Добавляем барьер-6. Меняем форму препятствия',
+    map11,
+    'V5_barrier6',
+    LINES_COST_PATH_MAP,
+    ADVANCED,
+    GraphCalculatorV5f,
     ALL_NODES
 );

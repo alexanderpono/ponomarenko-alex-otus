@@ -4,9 +4,9 @@ import { ALL_NODES } from './GraphCalculator';
 import { GraphCalculatorV5d } from './GraphCalculatorV5d';
 
 export class GraphCalculatorV5e extends GraphCalculatorV5d {
-    private A: number;
-    private B: number;
-    private C: number;
+    protected A: number;
+    protected B: number;
+    protected C: number;
     public calculateGraph = (
         graph: AbstractGraph,
         fromVertex: number,
@@ -41,10 +41,10 @@ export class GraphCalculatorV5e extends GraphCalculatorV5d {
         return h * 2 + d;
     };
 
-    private getDistance = (A: number, B: number, C: number, v: Point2D) =>
+    protected getDistance = (A: number, B: number, C: number, v: Point2D) =>
         Math.abs(A * v.x + B * v.y + C) / Math.sqrt(A * A + B * B);
 
-    private getA = (v1: Point2D, v2: Point2D) => v2.y - v1.y;
-    private getB = (v1: Point2D, v2: Point2D) => v1.x - v2.x;
-    private getC = (v1: Point2D, v2: Point2D) => v1.x * (v1.y - v2.y) + v1.y * (v2.x - v1.x);
+    protected getA = (v1: Point2D, v2: Point2D) => v2.y - v1.y;
+    protected getB = (v1: Point2D, v2: Point2D) => v1.x - v2.x;
+    protected getC = (v1: Point2D, v2: Point2D) => v1.x * (v1.y - v2.y) + v1.y * (v2.x - v1.x);
 }
