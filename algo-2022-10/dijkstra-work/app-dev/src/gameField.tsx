@@ -26,9 +26,14 @@ const map1 = `
 ▓  ╡         $   ▓
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 `;
-const LINES = { ...defaultRenderOptions, lines: true };
+const LINES = { ...defaultRenderOptions, lines: true, showBtNodes: true };
 const LINES_COST = { ...defaultRenderOptions, lines: true, nodesCost: true };
-const LINES_COST_PATH = { ...defaultRenderOptions, lines: true, nodesCost: true, path: true };
+const LINES_COST_PATH = {
+    ...defaultRenderOptions,
+    lines: true,
+    nodesCost: true,
+    path: true
+};
 const LINES_COST_PATH_MAP = {
     ...defaultRenderOptions,
     lines: true,
@@ -40,7 +45,12 @@ const LINES_COST_PATH_MAP = {
 const MAP = { ...defaultRenderOptions, map: true };
 const MAP_LINES = { ...defaultRenderOptions, map: true, lines: true };
 const MAP_COST = { ...defaultRenderOptions, map: true, nodesCost: true };
-const MAP_COST_PATH = { ...defaultRenderOptions, map: true, nodesCost: true, path: true };
+const MAP_COST_PATH = {
+    ...defaultRenderOptions,
+    map: true,
+    nodesCost: true,
+    path: true
+};
 const MAP_PATH = { ...defaultRenderOptions, map: true, path: true };
 const SIMPLE = GraphFromField.getEdgeSimpleCost;
 const ADVANCED = GraphFromField.getEdgeAdvancedCost;

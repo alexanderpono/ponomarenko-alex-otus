@@ -48,7 +48,8 @@ export class GameController {
             miniCounter: 0,
             manAni: ManAni.STAND,
             highlightCells: options.highlightCells,
-            maxCalcStep: stepNo
+            maxCalcStep: stepNo,
+            showBtNodes: options.showBtNodes
         };
         this.canvasRef = React.createRef<HTMLCanvasElement>();
 
@@ -68,7 +69,14 @@ export class GameController {
             let graph = new GraphFromField().graphFromField(gameField, calcCost);
             const mIndex = GraphFromField.getVertexIndex(map, 'M');
             const dIndex = GraphFromField.getVertexIndex(map, '$');
-            graph = new calculator().calculateGraph(graph, mIndex, dIndex, SILENT, stepNo, gameField);
+            graph = new calculator().calculateGraph(
+                graph,
+                mIndex,
+                dIndex,
+                SILENT,
+                stepNo,
+                gameField
+            );
             this.w = gameField.getWidth();
             const goldScreenXY = gameField.vertexIndexToCoords(dIndex, this.w);
             const manFieldXY = gameField.vertexIndexToCoords(mIndex, this.w);
@@ -93,10 +101,8 @@ export class GameController {
         });
     }
 
-    renderUI = (): Promise<boolean> => {
-        return new Promise((resolve) => {
-            render(this.getUI(), document.getElementById(this.target));
-        });
+    renderUI = () => {
+        render(this.getUI(), document.getElementById(this.target));
     };
 
     getUI = () => (
@@ -277,7 +283,14 @@ export class GameController {
         let graph = new GraphFromField().graphFromField(this.gameField, this.calcCost);
         const mIndex = GraphFromField.getVertexIndex(this.map, 'M');
         const dIndex = GraphFromField.getVertexIndex(this.map, '$');
-        graph = new this.calculator().calculateGraph(graph, mIndex, dIndex, SILENT, maxStep, this.gameField);
+        graph = new this.calculator().calculateGraph(
+            graph,
+            mIndex,
+            dIndex,
+            SILENT,
+            maxStep,
+            this.gameField
+        );
 
         this.graph = graph;
 

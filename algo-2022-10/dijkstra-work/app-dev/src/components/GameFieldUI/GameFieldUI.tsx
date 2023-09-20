@@ -66,6 +66,7 @@ export const GameFieldUI = React.forwardRef<HTMLCanvasElement, GameFieldUIProps>
                 nodesShortCost: gameState.nodesShortCost,
                 map: gameState.mapChecked,
                 showBtMap: gameState.showBtMap,
+                showBtNodes: gameState.showBtNodes,
                 highlightCells: gameState.highlightCells
             };
 
@@ -92,7 +93,8 @@ export const GameFieldUI = React.forwardRef<HTMLCanvasElement, GameFieldUIProps>
                 </div>
                 {gameState.showControls && (
                     <div className="controls">
-                        {Label(gameState.nodesChecked, ctrl.nodesClicked, `${id}-nodes`, 'Узлы')}
+                        {gameState.showBtNodes &&
+                            Label(gameState.nodesChecked, ctrl.nodesClicked, `${id}-nodes`, 'Узлы')}
                         {Label(gameState.linesChecked, ctrl.linesClicked, `${id}-lines`, 'Ребра')}
                         {Label(gameState.pathChecked, ctrl.pathClicked, `${id}-path`, 'Путь')}
                         {Label(

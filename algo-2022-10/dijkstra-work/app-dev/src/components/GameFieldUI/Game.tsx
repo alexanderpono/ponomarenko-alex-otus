@@ -15,6 +15,7 @@ export interface RenderOptions {
     nodesShortCost: boolean;
     map: boolean;
     highlightCells: Point2D[];
+    showBtNodes: boolean;
 }
 export const defaultRenderOptions: RenderOptions = {
     nodes: false,
@@ -23,7 +24,8 @@ export const defaultRenderOptions: RenderOptions = {
     nodesCost: false,
     nodesShortCost: true,
     map: false,
-    highlightCells: []
+    highlightCells: [],
+    showBtNodes: false
 };
 interface GameProps {
     options: RenderOptions;
@@ -73,7 +75,9 @@ export const Game: React.FC<GameProps> = ({
         miniCounter: 0,
         manAni: ManAni.STAND,
         highlightCells: startRender.highlightCells,
-        showBtMap: false
+        showBtMap: false,
+        showBtNodes: true,
+        maxCalcStep: 1
     });
 
     React.useEffect(() => {
@@ -112,7 +116,14 @@ export const Game: React.FC<GameProps> = ({
         setManVIndex(mIndex);
         setNextManVIndex(nextManVIndex);
         let graph = new GraphFromField().graphFromField(emptyField, calcCost);
-        graph = new calculator().calculateGraph(graph, mIndex, dIndex, SILENT, ALL_NODES);
+        graph = new calculator().calculateGraph(
+            graph,
+            mIndex,
+            dIndex,
+            SILENT,
+            ALL_NODES,
+            gameField
+        );
         setGraph(graph);
         const w = emptyField.getWidth();
         const manFieldXY = gameField.vertexIndexToCoords(mIndex, w);
@@ -130,7 +141,14 @@ export const Game: React.FC<GameProps> = ({
         let graph = new GraphFromField().graphFromField(gameField, calcCost);
         const mIndex = GraphFromField.getVertexIndex(map, 'M');
         const dIndex = GraphFromField.getVertexIndex(map, '$');
-        graph = new calculator().calculateGraph(graph, mIndex, dIndex, SILENT, ALL_NODES);
+        graph = new calculator().calculateGraph(
+            graph,
+            mIndex,
+            dIndex,
+            SILENT,
+            ALL_NODES,
+            gameField
+        );
         const w = gameField.getWidth();
         const goldScreenXY = gameField.vertexIndexToCoords(dIndex, w);
         const manFieldXY = gameField.vertexIndexToCoords(mIndex, w);
@@ -160,7 +178,8 @@ export const Game: React.FC<GameProps> = ({
         nodesCostClicked: () => setGameState({ ...game, nodesCostChecked: !game.nodesCostChecked }),
         mapClicked: () => setGameState({ ...game, mapChecked: !game.mapChecked }),
         onBtStartClick,
-        onBtClearClick: () => {}
+        onBtClearClick: () => {},
+        onMaxStepChange: () => {}
     };
     const w = typeof canvasW === 'number' ? canvasW : 720;
     const h = typeof canvasH === 'number' ? canvasH : 320;

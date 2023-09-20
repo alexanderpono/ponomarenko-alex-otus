@@ -111,7 +111,12 @@ export class GraphCalculator {
                 if (adjacentVertex.processed) {
                     continue;
                 }
-                this.updateAccessCostAndEdgeIndex(newGraph, adjacentVertexIndex, curVertex, edgeIndex);
+                this.updateAccessCostAndEdgeIndex(
+                    newGraph,
+                    adjacentVertexIndex,
+                    curVertex,
+                    edgeIndex
+                );
             }
 
             const nextVertex = this.getNextVertex(newGraph, edgesOfVertex);
