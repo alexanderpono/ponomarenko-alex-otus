@@ -11,6 +11,11 @@ export interface GameFieldController {
     onBtStartClick: () => void;
     onBtClearClick: () => void;
     onMaxStepChange: (evt) => void;
+    onBtToStartClick: () => void;
+    onBtPrevClick: () => void;
+    onBtNextClick: () => void;
+    onBtNextJumpClick: () => void;
+    onBtToFinishClick: () => void;
 }
 export interface GameState {
     nodesChecked: boolean;
@@ -27,6 +32,11 @@ export interface GameState {
     miniCounter: number;
     showBtMap: boolean;
     showBtNodes: boolean;
+    showBtEdges: boolean;
+    showBtStartStop: boolean;
+    showBtPath: boolean;
+    showBtCost: boolean;
+    showProgress: boolean;
     highlightCells: Point2D[];
     maxCalcStep: number;
 }
@@ -45,6 +55,11 @@ export const defaultGameState: GameState = {
     miniCounter: 0,
     showBtMap: false,
     showBtNodes: false,
+    showBtEdges: false,
+    showBtStartStop: false,
+    showBtPath: false,
+    showBtCost: false,
+    showProgress: false,
     highlightCells: [],
     maxCalcStep: ALL_NODES
 };
@@ -58,6 +73,11 @@ export interface RenderOptions {
     map: boolean;
     showBtMap: boolean;
     showBtNodes: boolean;
+    showBtEdges: boolean;
+    showBtStartStop: boolean;
+    showBtPath: boolean;
+    showBtCost: boolean;
+    showProgress: boolean;
     highlightCells: Point2D[];
 }
 export const defaultRenderOptions: RenderOptions = {
@@ -69,5 +89,10 @@ export const defaultRenderOptions: RenderOptions = {
     map: false,
     showBtMap: false,
     showBtNodes: false,
+    showBtEdges: false,
+    showBtStartStop: false,
+    showBtPath: false,
+    showBtCost: false,
+    showProgress: false,
     highlightCells: []
 };

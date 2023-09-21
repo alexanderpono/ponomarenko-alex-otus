@@ -67,7 +67,12 @@ export const GameFieldUI = React.forwardRef<HTMLCanvasElement, GameFieldUIProps>
                 map: gameState.mapChecked,
                 showBtMap: gameState.showBtMap,
                 showBtNodes: gameState.showBtNodes,
-                highlightCells: gameState.highlightCells
+                showBtEdges: gameState.showBtEdges,
+                showBtStartStop: gameState.showBtStartStop,
+                highlightCells: gameState.highlightCells,
+                showBtPath: gameState.showBtPath,
+                showBtCost: gameState.showBtCost,
+                showProgress: gameState.showProgress
             };
 
             GRField.create(context, emptyField, gameState.pic, options).draw();
@@ -95,33 +100,64 @@ export const GameFieldUI = React.forwardRef<HTMLCanvasElement, GameFieldUIProps>
                     <div className="controls">
                         {gameState.showBtNodes &&
                             Label(gameState.nodesChecked, ctrl.nodesClicked, `${id}-nodes`, 'Узлы')}
-                        {Label(gameState.linesChecked, ctrl.linesClicked, `${id}-lines`, 'Ребра')}
-                        {Label(gameState.pathChecked, ctrl.pathClicked, `${id}-path`, 'Путь')}
-                        {Label(
-                            gameState.nodesCostChecked,
-                            ctrl.nodesCostClicked,
-                            `${id}-nodesCost`,
-                            'Стоимость'
-                        )}
+                        {gameState.showBtEdges &&
+                            Label(
+                                gameState.linesChecked,
+                                ctrl.linesClicked,
+                                `${id}-lines`,
+                                'Ребра'
+                            )}
+                        {gameState.showBtPath &&
+                            Label(gameState.pathChecked, ctrl.pathClicked, `${id}-path`, 'Путь')}
+                        {gameState.showBtCost &&
+                            Label(
+                                gameState.nodesCostChecked,
+                                ctrl.nodesCostClicked,
+                                `${id}-nodesCost`,
+                                'Стоимость'
+                            )}
                         {gameState.showBtMap &&
                             Label(gameState.mapChecked, ctrl.mapClicked, `${id}-map`, 'Карта')}
-                        <button onClick={ctrl.onBtStartClick} className="appButton">
-                            Старт
-                        </button>
-                        <button onClick={ctrl.onBtClearClick} className="appButton">
-                            Стоп
-                        </button>
-                        <label>
-                            {gameState.maxCalcStep}
-                            <input
-                                type="range"
-                                name="volume"
-                                min="0"
-                                max="200"
-                                value={gameState.maxCalcStep}
-                                onChange={ctrl.onMaxStepChange}
-                            />
-                        </label>
+                        {gameState.showBtStartStop && (
+                            <>
+                                <button onClick={ctrl.onBtStartClick} className="appButton">
+                                    Старт
+                                </button>
+                                <button onClick={ctrl.onBtClearClick} className="appButton">
+                                    Стоп
+                                </button>
+                            </>
+                        )}
+                        {gameState.showProgress && (
+                            <>
+                                <button onClick={ctrl.onBtToStartClick} className="appButton">
+                                    |&lt;
+                                </button>
+                                <button onClick={ctrl.onBtPrevClick} className="appButton">
+                                    &lt;
+                                </button>
+                                <button onClick={ctrl.onBtNextClick} className="appButton">
+                                    &gt;
+                                </button>
+                                <button onClick={ctrl.onBtNextJumpClick} className="appButton">
+                                    &gt;&gt;
+                                </button>
+                                <button onClick={ctrl.onBtToFinishClick} className="appButton">
+                                    &gt;|
+                                </button>
+                                <label>
+                                    {gameState.maxCalcStep}
+                                    <input
+                                        type="range"
+                                        name="volume"
+                                        min="0"
+                                        max="200"
+                                        value={gameState.maxCalcStep}
+                                        onChange={ctrl.onMaxStepChange}
+                                    />
+                                </label>
+                            </>
+                        )}
                     </div>
                 )}
             </>

@@ -1,8 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { RenderOptions } from '@src/components/GameFieldUI';
 import { ALL_NODES, GraphCalculator, SILENT } from './GraphCalculator';
-import { GameState, defaultGameState } from '@src/components/GameFieldUI/Game.types';
+import { GameState, RenderOptions, defaultGameState } from '@src/components/GameFieldUI/Game.types';
 import { Cell, GameField, Point2D, defaultPoint2D } from './GameField';
 import { ManAni, SPRITE_HEIGHT, SPRITE_WIDTH } from '@src/ports/GR.types';
 import ImgSprite from '@src/components/GameFieldUI/sprite.png';
@@ -49,7 +48,12 @@ export class GameController {
             manAni: ManAni.STAND,
             highlightCells: options.highlightCells,
             maxCalcStep: stepNo,
-            showBtNodes: options.showBtNodes
+            showBtNodes: options.showBtNodes,
+            showBtEdges: options.showBtEdges,
+            showBtStartStop: options.showBtStartStop,
+            showBtPath: options.showBtPath,
+            showBtCost: options.showBtCost,
+            showProgress: options.showProgress
         };
         this.canvasRef = React.createRef<HTMLCanvasElement>();
 
@@ -279,6 +283,11 @@ export class GameController {
     onMaxStepChange = (evt) => {
         console.log(evt.target.value);
         const maxStep = parseInt(evt.target.value);
+        this.recalcGraph(maxStep);
+        this.renderUI();
+    };
+
+    recalcGraph = (maxStep: number) => {
         this.patchState({ maxCalcStep: maxStep });
         let graph = new GraphFromField().graphFromField(this.gameField, this.calcCost);
         const mIndex = GraphFromField.getVertexIndex(this.map, 'M');
@@ -293,7 +302,35 @@ export class GameController {
         );
 
         this.graph = graph;
+    };
 
+    onBtToStartClick = () => {
+        const maxStep = 1;
+        this.recalcGraph(maxStep);
+        this.renderUI();
+    };
+    onBtPrevClick = () => {
+        const maxStep = this.gameState.maxCalcStep > 1 ? this.gameState.maxCalcStep - 1 : 1;
+        this.recalcGraph(maxStep);
+        this.renderUI();
+    };
+    onBtNextClick = () => {
+        const maxStep =
+            this.gameState.maxCalcStep < ALL_NODES ? this.gameState.maxCalcStep + 1 : ALL_NODES;
+        this.recalcGraph(maxStep);
+        this.renderUI();
+    };
+    onBtNextJumpClick = () => {
+        const maxStep =
+            this.gameState.maxCalcStep + 10 < ALL_NODES
+                ? this.gameState.maxCalcStep + 10
+                : ALL_NODES;
+        this.recalcGraph(maxStep);
+        this.renderUI();
+    };
+    onBtToFinishClick = () => {
+        const maxStep = ALL_NODES;
+        this.recalcGraph(maxStep);
         this.renderUI();
     };
 }

@@ -2,31 +2,11 @@ import { GameField, Point2D, defaultPoint2D } from '@src/game/GameField';
 import React from 'react';
 import ImgSprite from './sprite.png';
 import { GameFieldUI } from './GameFieldUI';
-import { GameFieldController } from './Game.types';
+import { GameFieldController, RenderOptions } from './Game.types';
 import { GraphFromField } from '@src/game/GraphFromField';
 import { ALL_NODES, GraphCalculator, SILENT } from '@src/game/GraphCalculator';
 import { ManAni, SPRITE_HEIGHT, SPRITE_WIDTH } from '@src/ports/GR.types';
 
-export interface RenderOptions {
-    nodes: boolean;
-    lines: boolean;
-    path: boolean;
-    nodesCost: boolean;
-    nodesShortCost: boolean;
-    map: boolean;
-    highlightCells: Point2D[];
-    showBtNodes: boolean;
-}
-export const defaultRenderOptions: RenderOptions = {
-    nodes: false,
-    lines: false,
-    path: false,
-    nodesCost: false,
-    nodesShortCost: true,
-    map: false,
-    highlightCells: [],
-    showBtNodes: false
-};
 interface GameProps {
     options: RenderOptions;
     id: string;
@@ -77,6 +57,11 @@ export const Game: React.FC<GameProps> = ({
         highlightCells: startRender.highlightCells,
         showBtMap: false,
         showBtNodes: true,
+        showBtEdges: true,
+        showBtStartStop: true,
+        showBtPath: true,
+        showBtCost: true,
+        showProgress: true,
         maxCalcStep: 1
     });
 
@@ -179,7 +164,12 @@ export const Game: React.FC<GameProps> = ({
         mapClicked: () => setGameState({ ...game, mapChecked: !game.mapChecked }),
         onBtStartClick,
         onBtClearClick: () => {},
-        onMaxStepChange: () => {}
+        onMaxStepChange: () => {},
+        onBtPrevClick: () => {},
+        onBtNextClick: () => {},
+        onBtNextJumpClick: () => {},
+        onBtToFinishClick: () => {},
+        onBtToStartClick: () => {}
     };
     const w = typeof canvasW === 'number' ? canvasW : 720;
     const h = typeof canvasH === 'number' ? canvasH : 320;
