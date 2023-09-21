@@ -72,7 +72,8 @@ export const GameFieldUI = React.forwardRef<HTMLCanvasElement, GameFieldUIProps>
                 highlightCells: gameState.highlightCells,
                 showBtPath: gameState.showBtPath,
                 showBtCost: gameState.showBtCost,
-                showProgress: gameState.showProgress
+                showProgress: gameState.showProgress,
+                curVertexIndex: gameState.curVertexIndex
             };
 
             GRField.create(context, emptyField, gameState.pic, options).draw();

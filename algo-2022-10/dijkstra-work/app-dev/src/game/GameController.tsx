@@ -92,10 +92,13 @@ export class GameController {
 
             this.graph = graph;
             this.gameField = gameField;
-            this.gameState.goldScreenXY = goldScreenXY;
             this.manFieldXY = manFieldXY;
-            this.gameState.manScreenXY = manScreenXY;
-            this.gameState = { ...this.gameState };
+            this.gameState = {
+                ...this.gameState,
+                manScreenXY,
+                goldScreenXY,
+                curVertexIndex: graph.curVertexIndex
+            };
 
             this.manVIndex = mIndex;
             this.nextManVIndex = mIndex;
@@ -302,6 +305,10 @@ export class GameController {
         );
 
         this.graph = graph;
+        this.gameState = {
+            ...this.gameState,
+            curVertexIndex: graph.curVertexIndex
+        };
     };
 
     onBtToStartClick = () => {

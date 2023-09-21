@@ -27,13 +27,30 @@ export class GRGraph {
             line.forEach((cell: Cell, x: number) => this.drawVertex(x, y));
         });
     };
+    renderCurVertex = () => {
+        if (!this.options.showProgress) {
+            return;
+        }
+        this.context.strokeStyle = 'red';
+        this.context.fillStyle = 'white';
+        this.context.lineWidth = 5;
+        const curVertex = this.field.vertexIndexToCoords(
+            this.options.curVertexIndex,
+            this.field.getWidth()
+        );
+        drawCircle(
+            this.context,
+            w2 + curVertex.x * SPRITE_WIDTH,
+            h2 + curVertex.y * SPRITE_HEIGHT,
+            8
+        );
+    };
     renderLines = () => {
         if (!this.options.lines) {
             return;
         }
         this.graph.edges.forEach((edge: Edge) => {
             this.drawEdge(edge);
-            // this.drawEdgeCost(edge);
         });
     };
 
@@ -70,6 +87,7 @@ export class GRGraph {
         this.renderVertices();
         this.renderPath();
         this.renderVerticesCost();
+        this.renderCurVertex();
     };
 
     drawVertex = (x: number, y: number) =>

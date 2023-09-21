@@ -39,6 +39,7 @@ export interface GameState {
     showProgress: boolean;
     highlightCells: Point2D[];
     maxCalcStep: number;
+    curVertexIndex: number;
 }
 export const defaultGameState: GameState = {
     nodesChecked: false,
@@ -61,7 +62,8 @@ export const defaultGameState: GameState = {
     showBtCost: false,
     showProgress: false,
     highlightCells: [],
-    maxCalcStep: ALL_NODES
+    maxCalcStep: ALL_NODES,
+    curVertexIndex: 0
 };
 
 export interface RenderOptions {
@@ -78,6 +80,7 @@ export interface RenderOptions {
     showBtPath: boolean;
     showBtCost: boolean;
     showProgress: boolean;
+    curVertexIndex: number;
     highlightCells: Point2D[];
 }
 export const defaultRenderOptions: RenderOptions = {
@@ -94,5 +97,6 @@ export const defaultRenderOptions: RenderOptions = {
     showBtPath: false,
     showBtCost: false,
     showProgress: false,
+    curVertexIndex: 0,
     highlightCells: []
 };

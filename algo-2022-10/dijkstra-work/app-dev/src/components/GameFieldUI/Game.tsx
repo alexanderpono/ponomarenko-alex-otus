@@ -62,7 +62,8 @@ export const Game: React.FC<GameProps> = ({
         showBtPath: true,
         showBtCost: true,
         showProgress: true,
-        maxCalcStep: 1
+        maxCalcStep: 1,
+        curVertexIndex: 0
     });
 
     React.useEffect(() => {
