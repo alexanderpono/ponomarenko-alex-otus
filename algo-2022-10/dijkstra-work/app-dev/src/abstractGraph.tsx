@@ -9,6 +9,7 @@ import {
     renderEdges2D,
     renderVertices
 } from './components/AbstractGraph/AbstractGraph.const';
+import { GameField } from './game/GameField';
 
 renderAbstractGraph('1. Алгоритм Дейкстры. Исходный граф', false, 'slide00', -1);
 renderAbstractGraph('1. Алгоритм Дейкстры. Шаг 0', true, 'gl-s0', 0);
@@ -27,7 +28,7 @@ function renderAbstractGraph(
     stepNo: number
 ) {
     let graph = new GraphFromAdjString().graphFromAdjacencyString(adjacencyMatrix);
-    graph = new GraphCalculator().calculateGraph(graph, 6, 0, SILENT, stepNo);
+    graph = new GraphCalculator().calculateGraph(graph, 6, 0, SILENT, stepNo, GameField.create());
 
     render(
         <AbstractGraphUI

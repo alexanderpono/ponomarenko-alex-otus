@@ -1,8 +1,8 @@
 import { Cell, GameField } from '@src/game/GameField';
 import { SPRITE_HEIGHT, SPRITE_WIDTH } from './GR.types';
 import { AbstractGraph, Edge, UNDEFINED_COST } from '@src/game/Graph.types';
-import { RenderOptions } from '@src/components/GameFieldUI';
 import { COST_SPACE } from '@src/game/GraphCalculator';
+import { RenderOptions } from '@src/components/GameFieldUI/Game.types';
 
 const w2 = SPRITE_WIDTH / 2;
 const h2 = SPRITE_HEIGHT / 2;
