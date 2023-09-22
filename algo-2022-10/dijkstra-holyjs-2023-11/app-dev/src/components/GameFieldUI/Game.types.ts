@@ -1,4 +1,5 @@
 import { Point2D, defaultPoint2D } from '@src/game/GameField';
+import { ALL_NODES } from '@src/game/GraphCalculator';
 import { ManAni } from '@src/ports/GR.types';
 
 export interface GameFieldController {
@@ -9,6 +10,12 @@ export interface GameFieldController {
     mapClicked: () => void;
     onBtStartClick: () => void;
     onBtClearClick: () => void;
+    onMaxStepChange: (evt) => void;
+    onBtToStartClick: () => void;
+    onBtPrevClick: () => void;
+    onBtNextClick: () => void;
+    onBtNextJumpClick: () => void;
+    onBtToFinishClick: () => void;
 }
 export interface GameState {
     nodesChecked: boolean;
@@ -24,7 +31,15 @@ export interface GameState {
     manAni: ManAni;
     miniCounter: number;
     showBtMap: boolean;
+    showBtNodes: boolean;
+    showBtEdges: boolean;
+    showBtStartStop: boolean;
+    showBtPath: boolean;
+    showBtCost: boolean;
+    showProgress: boolean;
     highlightCells: Point2D[];
+    maxCalcStep: number;
+    curVertexIndex: number;
 }
 export const defaultGameState: GameState = {
     nodesChecked: false,
@@ -40,7 +55,15 @@ export const defaultGameState: GameState = {
     manAni: ManAni.STAND,
     miniCounter: 0,
     showBtMap: false,
-    highlightCells: []
+    showBtNodes: false,
+    showBtEdges: false,
+    showBtStartStop: false,
+    showBtPath: false,
+    showBtCost: false,
+    showProgress: false,
+    highlightCells: [],
+    maxCalcStep: ALL_NODES,
+    curVertexIndex: 0
 };
 
 export interface RenderOptions {
@@ -51,6 +74,13 @@ export interface RenderOptions {
     nodesShortCost: boolean;
     map: boolean;
     showBtMap: boolean;
+    showBtNodes: boolean;
+    showBtEdges: boolean;
+    showBtStartStop: boolean;
+    showBtPath: boolean;
+    showBtCost: boolean;
+    showProgress: boolean;
+    curVertexIndex: number;
     highlightCells: Point2D[];
 }
 export const defaultRenderOptions: RenderOptions = {
@@ -61,5 +91,12 @@ export const defaultRenderOptions: RenderOptions = {
     nodesShortCost: false,
     map: false,
     showBtMap: false,
+    showBtNodes: false,
+    showBtEdges: false,
+    showBtStartStop: false,
+    showBtPath: false,
+    showBtCost: false,
+    showProgress: false,
+    curVertexIndex: 0,
     highlightCells: []
 };

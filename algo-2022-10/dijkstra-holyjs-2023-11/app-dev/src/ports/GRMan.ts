@@ -1,4 +1,3 @@
-import { Point2D } from '../GameField';
 import {
     ManAni,
     Sprite,
@@ -13,6 +12,7 @@ import {
     manU1
 } from './GR.types';
 import { putSprite_ } from './GR.lib';
+import { Point2D } from '@src/game/GameField';
 
 export class GRMan {
     constructor(

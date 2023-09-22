@@ -4,6 +4,7 @@ import { AbstractGraphUI } from './AbstractGraphUI';
 import { ALL_NODES, GraphCalculator, SILENT } from '@src/game/GraphCalculator';
 import { GraphFromAdjString } from '@src/game/GraphFromAdjString';
 import { adjacencyMatrix, renderEdges2D, renderVertices } from './AbstractGraph.const';
+import { GameField } from '@src/game/GameField';
 
 export default {
     title: 'AbstractGraphUI',
@@ -12,7 +13,14 @@ export default {
 
 export const Static = () => {
     let graph = new GraphFromAdjString().graphFromAdjacencyString(adjacencyMatrix);
-    graph = new GraphCalculator().calculateGraph(graph, 6, 0, SILENT, ALL_NODES);
+    graph = new GraphCalculator().calculateGraph(
+        graph,
+        6,
+        0,
+        SILENT,
+        ALL_NODES,
+        GameField.create()
+    );
 
     return (
         <AbstractGraphUI

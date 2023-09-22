@@ -1,7 +1,7 @@
 import { Cell, GameField } from '@src/game/GameField';
 import { Sprite, gold, man, space, stairs, wall } from '@src/ports/GR.types';
 import { putSprite } from '@src/ports/GR.lib';
-import { RenderOptions } from '@src/components/GameFieldUI';
+import { RenderOptions } from '@src/components/GameFieldUI/Game.types';
 
 export class GRField {
     constructor(

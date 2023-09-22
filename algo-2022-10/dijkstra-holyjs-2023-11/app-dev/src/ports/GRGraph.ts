@@ -1,8 +1,8 @@
 import { Cell, GameField } from '@src/game/GameField';
 import { SPRITE_HEIGHT, SPRITE_WIDTH } from './GR.types';
 import { AbstractGraph, Edge, UNDEFINED_COST } from '@src/game/Graph.types';
-import { RenderOptions } from '@src/components/GameFieldUI';
 import { COST_SPACE } from '@src/game/GraphCalculator';
+import { RenderOptions } from '@src/components/GameFieldUI/Game.types';
 
 const w2 = SPRITE_WIDTH / 2;
 const h2 = SPRITE_HEIGHT / 2;
@@ -27,13 +27,30 @@ export class GRGraph {
             line.forEach((cell: Cell, x: number) => this.drawVertex(x, y));
         });
     };
+    renderCurVertex = () => {
+        if (!this.options.showProgress) {
+            return;
+        }
+        this.context.strokeStyle = 'red';
+        this.context.fillStyle = 'white';
+        this.context.lineWidth = 5;
+        const curVertex = this.field.vertexIndexToCoords(
+            this.options.curVertexIndex,
+            this.field.getWidth()
+        );
+        drawCircle(
+            this.context,
+            w2 + curVertex.x * SPRITE_WIDTH,
+            h2 + curVertex.y * SPRITE_HEIGHT,
+            8
+        );
+    };
     renderLines = () => {
         if (!this.options.lines) {
             return;
         }
         this.graph.edges.forEach((edge: Edge) => {
             this.drawEdge(edge);
-            // this.drawEdgeCost(edge);
         });
     };
 
@@ -70,6 +87,7 @@ export class GRGraph {
         this.renderVertices();
         this.renderPath();
         this.renderVerticesCost();
+        this.renderCurVertex();
     };
 
     drawVertex = (x: number, y: number) =>
@@ -143,6 +161,9 @@ export class GRGraph {
         const w = this.field.field[0].length;
         const vIndex = y * w + x;
         const vertex = this.graph.vertices[vIndex];
+        if (vertex.accessCost === UNDEFINED_COST) {
+            return;
+        }
         this.context.fillStyle = 'white';
         this.context.fillText(
             '' + vertex.accessCost,

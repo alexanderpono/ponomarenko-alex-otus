@@ -6,6 +6,7 @@ import { GraphCalculator } from '@src/game/GraphCalculator';
 import { GraphCalculatorV2 } from '@src/game/GraphCalculatorV2';
 import { GraphFromFieldV2 } from '@src/game/GraphFromFieldV2';
 import { GraphCalculatorV3 } from '@src/game/GraphCalculatorV3';
+import { defaultRenderOptions } from './Game.types';
 
 export default {
     title: 'Game',
@@ -24,6 +25,7 @@ const map = `
     `;
 
 const options = {
+    ...defaultRenderOptions,
     nodes: false,
     lines: false,
     path: true,
@@ -63,6 +65,7 @@ export const CalcRightLines = () => {
     return (
         <Game
             options={{
+                ...defaultRenderOptions,
                 nodes: false,
                 lines: true,
                 path: false,
@@ -95,6 +98,7 @@ export const AdvancedGraphLines = () => {
     return (
         <Game
             options={{
+                ...defaultRenderOptions,
                 nodes: false,
                 lines: true,
                 path: false,
@@ -119,6 +123,7 @@ export const AdvancedGraphPath = () => {
     return (
         <Game
             options={{
+                ...defaultRenderOptions,
                 nodes: false,
                 lines: false,
                 path: true,

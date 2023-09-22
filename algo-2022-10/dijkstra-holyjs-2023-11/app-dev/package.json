@@ -13,9 +13,10 @@
     "ts-check": "npx tsc --skipLibCheck"
   },
   "keywords": [],
-  "author": "",
+  "author": "Alexander Ponomarenko",
   "license": "ISC",
   "dependencies": {
+    "html-react-parser": "^4.2.1",
     "react-redux": "^8.1.1",
     "redux-actions": "2.6.5",
     "redux-devtools-extension": "2.13.9",
