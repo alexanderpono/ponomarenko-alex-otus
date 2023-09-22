@@ -277,7 +277,7 @@ const map5 = `
                  ▓
 `;
 renderGameField(
-    'Результат расчета графа',
+    '4. Алгоритм Дейкстры. Результат расчета графа',
     map5,
     'V5_7_1',
     LINES_COST_PATH,
@@ -285,11 +285,35 @@ renderGameField(
     GraphCalculatorV2,
     ALL_NODES
 );
-renderGameField('Шаг 1', map5, 'V5_7_2', LINES_COST_PATH, SIMPLE, GraphCalculatorV2, 1);
-renderGameField('Шаг 2', map5, 'V5_7_3', LINES_COST_PATH, SIMPLE, GraphCalculatorV2, 3);
-renderGameField('Шаг 3', map5, 'V5_7_4', LINES_COST_PATH, SIMPLE, GraphCalculatorV2, 4);
 renderGameField(
-    'Оптимизация вычислений: ранний выход',
+    '4. Алгоритм Дейкстры. В конце шага 1',
+    map5,
+    'V5_7_2',
+    LINES_COST_PATH,
+    SIMPLE,
+    GraphCalculatorV2,
+    1
+);
+renderGameField(
+    '4. Алгоритм Дейкстры. В конце шага 2',
+    map5,
+    'V5_7_3',
+    LINES_COST_PATH,
+    SIMPLE,
+    GraphCalculatorV2,
+    3
+);
+renderGameField(
+    '4. Алгоритм Дейкстры. В конце шага 3',
+    map5,
+    'V5_7_4',
+    LINES_COST_PATH,
+    SIMPLE,
+    GraphCalculatorV2,
+    4
+);
+renderGameField(
+    '4. Оптимизация вычислений: ранний выход',
     map5,
     'V5_7_5',
     LINES_COST_PATH_PROGRESS,
@@ -298,7 +322,7 @@ renderGameField(
     ALL_NODES
 );
 renderGameField(
-    'Оптимизация не работает: добавляем эвристику в вычисление стоимости перехода в вершину',
+    '4. Эвристика при вычислении стоимости перехода в вершину',
     map5,
     'V5_heurisic_1',
     LINES_COST_PATH_PROGRESS,
@@ -307,7 +331,7 @@ renderGameField(
     ALL_NODES
 );
 renderGameField(
-    'Оптимизация не работает: эвристика при вычислении стоимости перехода в вершину. Увеличиваем вес эвристики x100',
+    '4. Эвристика при вычислении стоимости перехода. Увеличиваем вес x100',
     map5,
     'V5_heurisic_2',
     LINES_COST_PATH_PROGRESS,
@@ -316,7 +340,7 @@ renderGameField(
     ALL_NODES
 );
 renderGameField(
-    'Оптимизация: добавляем эвристику при выборе вершины',
+    '4. Эвристика при выборе вершины',
     map5,
     'V5_heurisic_3',
     LINES_COST_PATH_PROGRESS,
@@ -325,7 +349,7 @@ renderGameField(
     ALL_NODES
 );
 renderGameField(
-    'Оптимизация: добавляем эвристику при выборе вершины. Увеличиваем вес эвристической функции x2',
+    '4. Эвристика при выборе вершины. Увеличиваем вес эвристической функции x2',
     map5,
     'V5_heurisic_4',
     LINES_COST_PATH_PROGRESS,
@@ -334,7 +358,7 @@ renderGameField(
     ALL_NODES
 );
 renderGameField(
-    'Оптимизация: эвристика при выборе вершины. Учитываем отклонение от прямой',
+    '4. Эвристика при выборе вершины. Учитываем отклонение от прямой',
     map5,
     'V5_heurisic_5',
     LINES_COST_PATH_PROGRESS,
@@ -354,7 +378,7 @@ const map6 = `
 ▓                ▓
 `;
 renderGameField(
-    'Добавляем барьер',
+    '4. Добавляем барьер',
     map6,
     'V5_barrier',
     LINES_COST_PATH_MAP_PROGRESS,
@@ -374,7 +398,7 @@ const map7 = `
 ▓       ▓        ▓
 `;
 renderGameField(
-    'Добавляем барьер-2',
+    '4. Добавляем барьер-2',
     map7,
     'V5_barrier2',
     LINES_COST_PATH_MAP_PROGRESS,
@@ -394,7 +418,7 @@ const map8 = `
 ▓       ▓        ▓
 `;
 renderGameField(
-    'Добавляем барьер-3',
+    '4. Добавляем барьер-3',
     map8,
     'V5_barrier3',
     LINES_COST_PATH_MAP_PROGRESS,
@@ -414,7 +438,7 @@ const map9 = `
 ▓                ▓
 `;
 renderGameField(
-    'Добавляем барьер-4',
+    '4. Добавляем барьер-4',
     map9,
     'V5_barrier4',
     LINES_COST_PATH_MAP_PROGRESS,
@@ -434,7 +458,7 @@ const map10 = `
 ▓                ▓
 `;
 renderGameField(
-    'Добавляем барьер-5. Увеличиваем вес эвристической функции',
+    '4. Добавляем барьер-5. Увеличиваем вес эвристической функции',
     map10,
     'V5_barrier5',
     LINES_COST_PATH_MAP_PROGRESS,
@@ -454,7 +478,7 @@ const map11 = `
 ▓                ▓
 `;
 renderGameField(
-    'Добавляем барьер-6. Меняем форму препятствия',
+    '4. Добавляем барьер-6. Меняем форму препятствия',
     map11,
     'V5_barrier6',
     LINES_COST_PATH_MAP_PROGRESS,
