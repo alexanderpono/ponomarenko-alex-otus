@@ -262,6 +262,10 @@
             background: url(./demo-static/gameSrc-qr-code.gif) no-repeat;
             background-size: contain;
         }
+        table {
+            margin: 0px 0px 50px 0px;
+            width: 70%;
+        }
 
     </style>
 
@@ -303,6 +307,7 @@
         <p>2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
         <p>3. Решение задач расчета траектории движения</p>
         <p>4. Алгоритм A*</p>
+        <p>5. Алгоритм Дейкстры vs A*</p>
     </section>
 
     <section class="slide">
@@ -393,6 +398,7 @@
         <p>2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
         <p>3. Решение задач расчета траектории движения</p>
         <p>4. Алгоритм A*</p>
+        <p>5. Алгоритм Дейкстры vs A*</p>
     </section>
 
     <section class="slide inspiration">
@@ -427,6 +433,7 @@
         <p class="ok">2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
         <p>3. Решение задач расчета траектории движения</p>
         <p>4. Алгоритм A*</p>
+        <p>5. Алгоритм Дейкстры vs A*</p>
     </section>
 
     <section class="slide">
@@ -543,6 +550,7 @@
         <p class="ok">2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
         <p class="ok">3. Решение задач расчета траектории движения</p>
         <p>4. Алгоритм A*</p>
+        <p>5. Алгоритм Дейкстры vs A*</p>
     </section>
 
     <section class="slide">
@@ -566,9 +574,10 @@
     </section>
 
     <section class="slide">
-        <h3>4. Оптимизация. Эвристическая функция</h3>
-        <p>F(x0, x1, y0, y1) = (x1 - x0) ** 2 + (y1 - y0) ** 2</p>
+        <h3>4. Оптимизация. Эвристическая функция H()</h3>
+        <p>H(x0, x1, y0, y1) = |x1 - x0| + |y1 - y0|</p>
     </section>
+
     <section class="slide">
         <div id="V5_heurisic_1" class="game"></div>
     </section>
@@ -588,6 +597,74 @@
     <section class="slide">
         <div id="V5_heurisic_5" class="game"></div>
     </section>
+
+    <section class="slide">
+        <h3>4. Настраиваем эвристическую функцию H()</h3>
+        <p>H1(x, y, xT, yT) = |xT - x| + |yT - y|</p>
+        <p>H2(x, y, xT, yT) = 2 * H1()</p>
+        <p>H3(x, y, xT, yT, xS, yS) = 2 * H1() + D(), где</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;D(x, y, A, B, C) = |A * x + B * y + C| / sqrt(A * A + B * B)</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;A = yT - yS</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;B = xS - xT</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;C = xS * (yS - yT) + yS * (xT - xS)</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;(xT, yT) - целевая вершина</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;(xS, yS) - исходная вершина</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;(x, y) - вершина, для которой вычисляем значение H()</p>
+    </section>
+
+    <section class="slide">
+        <h3>4. Функция вычисления следующей вершины</h3>
+        <pre>
+            <code>getNextVertex = (verticesToProcess: number[]): number => {</code>
+            <code>    let minAccessCost = Number.MAX_SAFE_INTEGER;</code>
+            <code>    let result = -1;</code>
+            <code>    verticesToProcess.forEach((nodeIndex) => {</code>
+            <code>        const vertex = this.vertices[nodeIndex as number];</code>
+            <code><mark>        const h = this.heuristic(nodeIndex, this.toVertex);</mark></code>
+            <code>        if (vertex.processed === false &&</code>
+            <code>            vertex.accessCost <mark>+ h</mark> < minAccessCost)</code>
+            <code>        {</code>
+            <code>            minAccessCost = vertex.accessCost <mark>+ h</mark>;</code>
+            <code>            result = nodeIndex as number;</code>
+            <code>        }</code>
+            <code>    });</code>
+            <code>    return result;</code>
+            <code>};</code>
+        </pre>        
+    </section>
+
+    <section class="slide">
+        <h3>4. Эвристическая функция H2()</h3>
+        <pre>
+            <code>function heuristic(v0Index: number, v1Index: number) {</code>
+            <code>    const v0 = field.<mark>vIndexToPoint2D</mark>(v0Index, field.getWidth());</code>
+            <code>    const v1 = field.<mark>vIndexToPoint2D</mark>(v1Index, field.getWidth());</code>
+            <code>    const <mark>h</mark> = Math.abs(v0.x - v1.x) + Math.abs(v0.y - v1.y);</code>
+            <code>    return <mark>h * 2</mark>;</code>
+            <code>};</code>
+        </pre>        
+    </section>
+
+    <section class="slide">
+        <h3>4. Эвристическая функция H3()</h3>
+        <pre>
+            <code>function heuristic(v0Index: number, v1Index: number) {</code>
+            <code>    const v0: Point2D = field.vIndexToPoint2D(v0Index);</code>
+            <code>    const v1: Point2D = field.vIndexToPoint2D(v1Index);</code>
+            <code>    const h = Math.abs(v0.x - v1.x) + Math.abs(v0.y - v1.y);</code>
+            <code>    <mark>const d = getDistance(A, B, C, v0);</mark></code>
+            <code>    return <mark>h * 2 + d</mark>;</code>
+            <code>};</code>
+            <code><mark>const getDistance = (A, B, C: number, v: Point2D) => </mark></code>
+            <code><mark>    Math.abs(A * v.x + B * v.y + C) / Math.sqrt(A * A + B * B);</mark></code>
+            <code><mark>const getA = (vS: Point2D, vT: Point2D) => vT.y - vS.y;</mark></code>
+            <code><mark>const getB = (vS: Point2D, vT: Point2D) => vS.x - vT.x;</mark></code>
+            <code><mark>const getC = (vS: Point2D, vT: Point2D) => </mark></code>
+            <code><mark>    vS.x * (vS.y - vT.y) + vS.y * (vT.x - vS.x);</mark></code>
+        </pre>        
+    </section>
+
+
 
     <section class="slide">
         <div id="V5_barrier" class="game"></div>
@@ -610,12 +687,118 @@
     </section>
 
     <section class="slide">
+        <h3>4. Эвристическая функция H4()</h3>
+        <p>H1(x, y, xT, yT) = |xT - x| + |yT - y|</p>
+        <p>H2(x, y, xT, yT) = 2 * H1()</p>
+        <p>H3(x, y, xT, yT, xS, yS) = 2 * H1() + D()</p>
+        <p>H4(x, y, xT, yT, xS, yS) = 5 * (4 * H1() + D())</p>
+    </section>
+
+    <section class="slide">
         <div id="V5_barrier6" class="game"></div>
     </section>
 
     <section class="slide">
+        <h3>4. Эвристическая функция H4()</h3>
+        <p>H1(x, y, xT, yT) = |xT - x| + |yT - y|</p>
+        <p>H2(x, y, xT, yT) = 2 * H1()</p>
+        <p>H3(x, y, xT, yT, xS, yS) = 2 * H1() + D()</p>
+        <p>H4(x, y, xT, yT, xS, yS) = 5 * (4 * H1() + D())</p>
+    </section>
+
+    <section class="slide">
+        <h3>Содержание</h3>
+        <p class="ok">1. Алгоритм Дейкстры</p>
+        <p class="ok">2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
+        <p class="ok">3. Решение задач расчета траектории движения</p>
+        <p class="ok">4. Алгоритм A*</p>
+        <p>5. Алгоритм Дейкстры vs A*</p>
+    </section>    
+
+    <section class="slide">
+        <div id="O_1" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <h3>5. T(N) &ndash; время расчета графа</h3>
+        <p>Реализация алгоритма Дейкстры</p>
+        <table>
+            <tbody>
+                <tr>
+                    <th>N, сторона квадрата</th><th>N2, узлов в графе</th><th>T, миллисекунд</th>
+                </tr>
+                <tr>
+                    <td>10</td><td>100</td><td>3</td>
+                </tr>
+                <tr>
+                    <td>100</td><td>10 000</td><td>557</td>
+                </tr>
+                <tr>
+                    <td>1 000</td><td>1 000 000</td><td>51 555</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>    
+
+    <section class="slide">
+        <div id="O_2" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <h3>5. T(N) &ndash; время расчета графа</h3>
+        <p>Реализация алгоритма Дейкстры</p>
+        <table>
+            <tbody>
+                <tr>
+                    <th>N, сторона квадрата</th><th>N2, узлов в графе</th><th>T, миллисекунд</th>
+                </tr>
+                <tr>
+                    <td>10</td><td>100</td><td>3</td>
+                </tr>
+                <tr>
+                    <td>100</td><td>10 000</td><td>557</td>
+                </tr>
+                <tr>
+                    <td>1 000</td><td>1 000 000</td><td>51 555</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>Реализация алгоритма A*</p>
+        <table>
+            <tbody>
+                <tr>
+                    <th>N, сторона квадрата</th><th>N2, узлов в графе</th><th>T, миллисекунд</th>
+                </tr>
+                <tr>
+                    <td>10</td><td>100</td><td>2</td>
+                </tr>
+                <tr>
+                    <td>100</td><td>10 000</td><td>14</td>
+                </tr>
+                <tr>
+                    <td>1 000</td><td>1 000 000</td><td>835</td>
+                </tr>
+                <tr>
+                    <td>10 000</td><td>100 000 000</td><td>*out of memory</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>    
+
+
+    <section class="slide">
+        <h3>Содержание</h3>
+        <p class="ok">1. Алгоритм Дейкстры</p>
+        <p class="ok">2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
+        <p class="ok">3. Решение задач расчета траектории движения</p>
+        <p class="ok">4. Алгоритм A*</p>
+        <p class="ok">5. Алгоритм Дейкстры vs A*</p>
+    </section>
+
+    <section class="slide">
         <h3>Выводы</h3>
-        <p>1. Фронтенд - это еще и про алгоритмы</p>
+        <p>1. A* лучше подходит для промышленного применения, чем алгоритм Дейкстры</p>
         <p>2. Можно создавать свои игры на основе работающего примера: <br />
             <span class="link">https://github.com/alexanderpono/bricks-runner</span>
         </p>
