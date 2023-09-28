@@ -322,7 +322,7 @@ renderGameField(
     ALL_NODES
 );
 renderGameField(
-    '4. Эвристика при вычислении стоимости перехода в вершину',
+    '4. Стоимость перехода в вершину с учетом эвристики',
     map5,
     'V5_heurisic_1',
     LINES_COST_PATH_PROGRESS,
@@ -331,7 +331,7 @@ renderGameField(
     ALL_NODES
 );
 renderGameField(
-    '4. Эвристика при вычислении стоимости перехода. Увеличиваем вес x100',
+    '4. Стоимость перехода. Увеличиваем вес H()*100',
     map5,
     'V5_heurisic_2',
     LINES_COST_PATH_PROGRESS,
@@ -340,7 +340,7 @@ renderGameField(
     ALL_NODES
 );
 renderGameField(
-    '4. Эвристика при выборе вершины',
+    '4. Эвристика H1() при выборе следующей вершины',
     map5,
     'V5_heurisic_3',
     LINES_COST_PATH_PROGRESS,
@@ -349,7 +349,7 @@ renderGameField(
     ALL_NODES
 );
 renderGameField(
-    '4. Эвристика при выборе вершины. Увеличиваем вес эвристической функции x2',
+    '4. Выбор следующей вершины. H2() = H1()*2',
     map5,
     'V5_heurisic_4',
     LINES_COST_PATH_PROGRESS,
@@ -358,7 +358,7 @@ renderGameField(
     ALL_NODES
 );
 renderGameField(
-    '4. Эвристика при выборе вершины. Учитываем отклонение от прямой',
+    '4. Эвристика при выборе следующей вершины. H3(): учитываем отклонение от прямой',
     map5,
     'V5_heurisic_5',
     LINES_COST_PATH_PROGRESS,
@@ -398,7 +398,7 @@ const map7 = `
 ▓       ▓        ▓
 `;
 renderGameField(
-    '4. Добавляем барьер-2',
+    '4. Сплошной барьер снизу',
     map7,
     'V5_barrier2',
     LINES_COST_PATH_MAP_PROGRESS,
@@ -418,7 +418,7 @@ const map8 = `
 ▓       ▓        ▓
 `;
 renderGameField(
-    '4. Добавляем барьер-3',
+    '4. Проходим сквозь стену',
     map8,
     'V5_barrier3',
     LINES_COST_PATH_MAP_PROGRESS,
@@ -438,7 +438,7 @@ const map9 = `
 ▓                ▓
 `;
 renderGameField(
-    '4. Добавляем барьер-4',
+    '4. Другой барьер',
     map9,
     'V5_barrier4',
     LINES_COST_PATH_MAP_PROGRESS,
@@ -458,7 +458,7 @@ const map10 = `
 ▓                ▓
 `;
 renderGameField(
-    '4. Добавляем барьер-5. Увеличиваем вес эвристической функции',
+    '4. H4() - эвристика с новыми коэффициентами',
     map10,
     'V5_barrier5',
     LINES_COST_PATH_MAP_PROGRESS,
@@ -478,11 +478,31 @@ const map11 = `
 ▓                ▓
 `;
 renderGameField(
-    '4. Добавляем барьер-6. Меняем форму препятствия',
+    '4. Барьер: меняем форму препятствия',
     map11,
     'V5_barrier6',
     LINES_COST_PATH_MAP_PROGRESS,
     ADVANCED,
+    GraphCalculatorV5f,
+    ALL_NODES
+);
+
+renderGameField(
+    '5. Алгоритм Дейкстры. Результат расчета графа',
+    map5,
+    'O_1',
+    LINES_COST_PATH,
+    SIMPLE,
+    GraphCalculatorV2,
+    ALL_NODES
+);
+
+renderGameField(
+    '5. A* с эвристикой H4()',
+    map5,
+    'O_2',
+    LINES_COST_PATH_PROGRESS,
+    SIMPLE,
     GraphCalculatorV5f,
     ALL_NODES
 );
