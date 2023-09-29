@@ -88,7 +88,7 @@ export const defaultRenderOptions: RenderOptions = {
     lines: false,
     path: false,
     nodesCost: false,
-    nodesShortCost: false,
+    nodesShortCost: true,
     map: false,
     showBtMap: false,
     showBtNodes: false,
