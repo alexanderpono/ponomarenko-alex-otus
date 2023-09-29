@@ -367,6 +367,16 @@ renderGameField(
     ALL_NODES
 );
 
+renderGameField(
+    '4. Эвристика при выборе следующей вершины. H3(): учитываем отклонение от прямой',
+    map5,
+    'V5_heurisic_5_2',
+    LINES_COST_PATH_PROGRESS,
+    SIMPLE,
+    GraphCalculatorV5e,
+    ALL_NODES
+);
+
 const map6 = `
 ▓                ▓
 ▓                ▓
