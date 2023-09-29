@@ -11,6 +11,7 @@ import {
 } from './components/AbstractGraph/AbstractGraph.const';
 import { GameField } from './game/GameField';
 
+renderAbstractGraph('Что здесь изображено?', false, 'slide00-pre', -1);
 renderAbstractGraph('1. Алгоритм Дейкстры. Исходный граф', false, 'slide00', -1);
 renderAbstractGraph('1. Алгоритм Дейкстры. Шаг 0', true, 'gl-s0', 0);
 renderAbstractGraph('1. Алгоритм Дейкстры. Шаг 1', true, 'gl-s1', 1);
