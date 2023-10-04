@@ -15,7 +15,7 @@ export const GameControls = React.forwardRef<HTMLCanvasElement, GameFieldUIProps
     ({ id, title, canvasW, canvasH, ctrl, gameState }, canvasRef) => {
         return (
             <>
-                <h3>{parse(title)}</h3>
+                {title && <h3>{parse(title)}</h3>}
                 <div className="canvas">
                     <canvas height={canvasH} width={canvasW} id="GraphUI" ref={canvasRef}></canvas>
                 </div>
