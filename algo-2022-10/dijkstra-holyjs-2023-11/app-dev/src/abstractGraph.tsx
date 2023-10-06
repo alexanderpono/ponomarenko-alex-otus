@@ -41,3 +41,5 @@ function renderAbstractGraph(
         document.getElementById(targetHtmlId)
     );
 }
+
+renderAbstractGraph('', true, 'brief_2', ALL_NODES);

@@ -13,6 +13,7 @@ import { GraphCalculatorV5d } from './game/GraphCalculatorV5d';
 import { GraphCalculatorV5e } from './game/GraphCalculatorV5e';
 import { GraphCalculatorV5f } from './game/GraphCalculatorV5f';
 import { RenderOptions, defaultRenderOptions } from './components/GameFieldUI/Game.types';
+import { SupaController } from './game/SupaController';
 
 console.log('gameField!');
 
@@ -60,6 +61,7 @@ const LINES_COST_PATH_MAP_PROGRESS: RenderOptions = {
 };
 const MAP: RenderOptions = { ...defaultRenderOptions, map: true };
 const MAP_START_STOP: RenderOptions = { ...defaultRenderOptions, map: true, showBtStartStop: true };
+const START_STOP: RenderOptions = { ...defaultRenderOptions, showBtStartStop: true };
 const MAP_LINES: RenderOptions = { ...defaultRenderOptions, map: true, lines: true };
 const MAP_COST: RenderOptions = { ...defaultRenderOptions, map: true, nodesCost: true };
 const MAP_COST_PATH: RenderOptions = {
@@ -358,9 +360,19 @@ renderGameField(
     ALL_NODES
 );
 renderGameField(
-    '4. Эвристика при выборе следующей вершины. H3(): учитываем отклонение от прямой',
+    '4. Эвристика H3(): учитываем отклонение от прямой',
     map5,
     'V5_heurisic_5',
+    LINES_COST_PATH_PROGRESS,
+    SIMPLE,
+    GraphCalculatorV5e,
+    ALL_NODES
+);
+
+renderGameField(
+    '4. Эвристика H3(): учитываем отклонение от прямой',
+    map5,
+    'V5_heurisic_5_2',
     LINES_COST_PATH_PROGRESS,
     SIMPLE,
     GraphCalculatorV5e,
@@ -506,3 +518,42 @@ renderGameField(
     GraphCalculatorV5f,
     ALL_NODES
 );
+
+renderSupaField('И наконец...', map5, 'game2', START_STOP, SIMPLE, GraphCalculatorV5f, ALL_NODES);
+
+function renderSupaField(
+    title: string,
+    map: string,
+    target: string,
+    options: RenderOptions,
+    calcCost,
+    calculator: typeof GraphCalculator,
+    stepNo: number = ALL_NODES
+) {
+    new SupaController(
+        title,
+        map,
+        target,
+        options,
+        calcCost,
+        calculator,
+        SILENT,
+        stepNo
+    ).renderUI();
+}
+
+renderGameField('', map3, 'brief_1', MAP_PATH, ADVANCED, GraphCalculatorV2);
+renderGameField(
+    '',
+    map1,
+    'brief_3',
+    {
+        ...LINES,
+        nodesShortCost: false
+    },
+    SIMPLE,
+    GraphCalculator
+);
+renderGameField('', map1, 'brief_4', MAP_LINES, ADVANCED, GraphCalculator);
+renderGameField('', map2, 'brief_5', MAP_PATH, ADVANCED, GraphCalculatorV2);
+renderGameField('', map5, 'brief_6', LINES_COST_PATH, SIMPLE, GraphCalculatorV5e, ALL_NODES);

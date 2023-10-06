@@ -10,26 +10,26 @@ import { GraphFromField } from './GraphFromField';
 import { AbstractGraph } from './Graph.types';
 
 export class GameController {
-    private gameState: GameState;
-    private picLoaded: boolean = false;
-    private emptyField: GameField = GameField.create();
-    private manFieldXY: Point2D = { ...defaultPoint2D };
-    private nextManFieldXY: Point2D = { ...defaultPoint2D };
-    private graph: AbstractGraph = null;
-    private gameField: GameField = null;
-    private canvasW = 720;
-    private canvasH = 320;
-    private canvasRef: React.RefObject<HTMLCanvasElement>;
-    private w: number = 0;
+    protected gameState: GameState;
+    protected picLoaded: boolean = false;
+    protected emptyField: GameField = GameField.create();
+    protected manFieldXY: Point2D = { ...defaultPoint2D };
+    protected nextManFieldXY: Point2D = { ...defaultPoint2D };
+    protected graph: AbstractGraph = null;
+    protected gameField: GameField = null;
+    protected canvasW = 720;
+    protected canvasH = 320;
+    protected canvasRef: React.RefObject<HTMLCanvasElement>;
+    protected w: number = 0;
 
     constructor(
-        private title: string,
-        private map: string,
-        private target: string,
+        protected title: string,
+        protected map: string,
+        protected target: string,
         options: RenderOptions,
-        private calcCost,
-        private calculator: typeof GraphCalculator,
-        private verbose: boolean,
+        protected calcCost,
+        protected calculator: typeof GraphCalculator,
+        protected verbose: boolean,
         stepNo: number = ALL_NODES
     ) {
         this.gameState = {
