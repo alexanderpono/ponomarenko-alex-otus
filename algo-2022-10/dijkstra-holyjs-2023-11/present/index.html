@@ -20,6 +20,66 @@
         .picText {
             display: flex;
         }
+        .w20 {
+            width: 25%;
+        }
+        .w66 {
+            width: 66%;
+        }
+        .w50 {
+            width: 50%;
+        }
+        .h60 {
+            height: 60%;
+        }
+        .enigmas {
+            background: url(demo-static/enigmas.jpg);
+            background-position: top -10px left -90px;
+        }
+        .river {
+            background: url(demo-static/river4.jpg);
+        }
+        .img1 {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            overflow: hidden;
+            width: 440px;
+            height: 250px;
+        }
+        .img2 {
+            position: absolute;
+            bottom: 30px;
+            left: 500px;
+            width: 440px;
+            height: 250px;
+        }
+        .pathfind {
+            background: url(demo-static/pathfinding.jpg);
+            background-position: top -250px left -20px;
+        }
+        .gamedev {
+            background: url(demo-static/game05.jpg);
+            background-position: top -10px left 0px;
+        }
+
+
+        .speaker .photo {
+            margin: 0px 50px 0px 100px;
+            width: 256px;
+            height: 256px;
+            border-radius: 128px;
+            overflow: hidden;
+        }
+        .speaker .text {
+            margin-top: 35px;
+        }
+
+        .vmiddle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
         .text {
             padding-left: 30px;
         }
@@ -123,6 +183,16 @@
             max-width: 70%;
             margin-bottom: 1rem;
         }
+        .slide p.pretty {
+            text-indent: -1em;
+            max-width: 100%;
+            margin-left: 1em;
+        }
+
+        .slide .maxw100 {
+            max-width: 100%;
+        }
+
 
         .slide li {
             margin-left: 1.5rem;
@@ -137,16 +207,10 @@
             display: grid;
             grid-template-rows: 60px auto;
         }
-        .abstractGraph .canvas {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
 
-        .game {
-            height: calc(100% - var(--slide-side));
-            display: grid;
-            grid-template-rows: 83px auto 65px;
+        .impulse-logo {
+            position: relative;
+            top: -35px;
         }
         .game .canvas {
             display: flex;
@@ -157,18 +221,9 @@
             display: flex;
             justify-content: center;
             align-items:flex-start;
+            padding-top: 15px;
         }
 
-        .speaker .photo {
-            margin: 60px 0px 0px 100px;
-            width: 256px;
-            height: 256px;
-            border-radius: 128px;
-            overflow: hidden;
-        }
-        .speaker .text {
-            margin-top: 35px;
-        }
         .tg {
             display: flex;
             align-items: center;
@@ -288,16 +343,268 @@
         <div class="picText">
             <div>
                 <h3>Александр Пономаренко</h3>
-                <p>ГК Иннотех, Frontend-разработчик React.</p>
-                <p>В web-разработке 20 лет, фронтенд &ndash; 4 года. </p>
-                <p>Опыт создания обучающих игр на JS</p>
-                <div class="picText">
-                    <img src="demo-static/TG-qr-code.gif" /> <p class="text">Telegram: <span class="link">https://t.me/brain16383</span></p> 
-                </div>
+                <p>ГК Иннотех, Frontend-разработчик React</p>
+                <p>Программирую для web 20 лет</p>
+                <p>Создал 5 игр в рамках обучающих проектов для школьников</p>
+                <div class="enigmas img1"></div>
+                <div class="river img2"></div>
             </div>
             <div>
                 <div class="photo"><img src="demo-static/photo256x256.jpg" /></div>
             </div>             
+        </div>
+    </section>
+
+    <section class="slide inspiration">
+        <h3>Источник вдохновения</h3>
+        <div class="picText">
+            <div>
+                <p>Игра «Lode runner» <br />
+                для ZX Spectrum <br />
+                Broderbund 1984</p>
+            </div>
+            <div class="text">
+                <img src="demo-static/inspiration.png" />
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h3>Если вы &mdash; IT-специалист и ваша задача:</h3>
+
+        <div class="picText">
+            <div class="w50">
+                <ul>
+                    <li class="maxw100">маршрутизировать трафик по сети</li>
+                </ul>
+            </div>
+            <div class="text">
+                <img src="demo-static/routing.png" width="500"/>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h3>Если вы &mdash; IT-специалист и ваша задача:</h3>
+
+        <div class="picText">
+            <div class="w50">
+                <ul>
+                    <li class="maxw100">маршрутизировать трафик по сети</li>
+                    <li class="maxw100">или создать программу-навигатор, который будет находить кратчайший путь из точки А в точку Б</li>
+                </ul>
+            </div>
+            <div class="text">
+                <img src="demo-static/navigator.jpg" width="500"/>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h3>Если вы &mdash; IT-специалист и ваша задача:</h3>
+
+        <div class="picText">
+            <div class="w50">
+                <ul>
+                    <li class="maxw100">маршрутизировать трафик по сети</li>
+                    <li class="maxw100">или создать программу-навигатор, который будет находить кратчайший путь из точки А в точку Б</li>
+                    <li class="maxw100">или создать программу расчета электрических цепей</li>
+                </ul>
+            </div>
+            <div class="text">
+                <img src="demo-static/circuit.jpg" width="500"/>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h3>Если вы &mdash; IT-специалист и ваша задача:</h3>
+
+        <div class="picText">
+            <div class="w50">
+                <ul>
+                    <li class="maxw100">маршрутизировать трафик по сети</li>
+                    <li class="maxw100">или создать программу-навигатор, который будет находить кратчайший путь из точки А в точку Б</li>
+                    <li class="maxw100">или создать программу расчета электрических цепей</li>
+                    <li class="maxw100">или создать компьютерную игру &mdash;</li>
+                </ul>
+            </div>
+            <div class="text">
+                <img src="demo-static/inspiration.png" width="500"/>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h3>Если вы &mdash; IT-специалист и ваша задача:</h3>
+
+        <div class="picText">
+            <div class="w50">
+                <ul>
+                    <li class="maxw100">маршрутизировать трафик по сети</li>
+                    <li class="maxw100">или создать программу-навигатор, который будет находить кратчайший путь из точки А в точку Б</li>
+                    <li class="maxw100">или создать программу расчета электрических цепей</li>
+                    <li class="maxw100">или создать компьютерную игру &mdash;</li>
+                </ul>
+            </div>
+            <div class="text">
+                <img src="demo-static/inspiration.png" width="500"/>
+            </div>
+        </div>
+        <h3>То этот доклад для вас</h3>
+    </section>
+
+    <section class="slide">
+        <h3>Через 40 минут</h3>
+        <p>вы будете знать:</p>
+        <ul>
+            <li>как реализовать алгоритм Дейкстры </li>
+            <li>как на его базе создать компьютерную игру, где персонаж обходит препятствия и движется к цели</li>
+        </ul>
+        <p>у вас будет ссылка:</p>
+        <ul>
+            <li>на репозиторий с исходниками алгоритма и игры</li>
+            <li>на работающую игру в интернете</li>
+        </ul>
+    </section>
+
+    <section class="slide">
+        <h3>Вы сможете</h3>
+        <ul>
+            <li>сами создавать собственные игры</li>
+            <li>и решать задачи поиска оптимального пути, опираясь на представленный пример</li>
+        </ul>
+        <div class="gamedev img1"></div>
+        <div class="pathfind img2"></div>
+    </section>
+
+    <section class="slide">
+        <h3>Вы сэкономите 1 неделю своего времени </h3>
+
+        <div class="picText">
+            <div class="w20">
+                <p>потому что:</p>
+                <ul>
+                    <li class="maxw100">я предложу вам готовую реализацию алгоритма</li>
+                    <li class="maxw100">расскажу о подводных камнях, с которыми столкнулся при решении задачи</li>
+                </ul>
+            </div>
+            <div class="text">
+                <div id="brief_1" class="game"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h3>В докладе мы:</h3>
+
+        <div class="picText">
+            <div class="w20">
+                <p class="pretty">1. Применим алгоритм Дейкстры для поиска кратчайшего пути на графе</p>
+            </div>
+            <div class="text">
+                <div id="brief_2" class="abstractGraph"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h3>В докладе мы:</h3>
+
+        <div class="picText">
+            <div class="w20">
+                <p class="pretty">2. Преобразуем граф в квадратную сетку</p>
+            </div>
+            <div class="text">
+                <div id="brief_3" class="game"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h3>В докладе мы:</h3>
+
+        <div class="picText">
+            <div class="w20">
+                <p class="pretty">3. Наложим квадратную сетку на карту уровня 2D-игры</p>
+            </div>
+            <div class="text">
+                <div id="brief_4" class="game"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h3>В докладе мы:</h3>
+
+        <div class="picText">
+            <div class="w20">
+                <p>Найдем кратчайший путь, добавляя на карту разные элементы</p>
+            </div>
+            <div class="text">
+                <div id="brief_5" class="game"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h3>В докладе мы:</h3>
+
+        <div class="picText">
+            <div class="w20">
+                <p class="pretty">4. Оптимизируем алгоритм Дейкстры и получим вариант A*</p>
+            </div>
+            <div class="text">
+                <div id="brief_6" class="game"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h3>В докладе мы:</h3>
+
+        <div class="picText">
+            <div class="w20">
+                <p class="pretty">5. Сравним быстродействие алгоритма Дейкстры и A*</p>
+            </div>
+            <div class="text">
+                <p>Алгоритм Дейкстры</p>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>N, узлов</th><th>T, сек</th>
+                        </tr>
+                        <tr>
+                            <td>...</td><td>...</td>
+                        </tr>
+                        <tr>
+                            <td>...</td><td>...</td>
+                        </tr>
+                        <tr>
+                            <td>...</td><td>...</td>
+                        </tr>
+                    </tbody>
+                </table>
+        
+                <p>A*</p>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>N, узлов</th><th>T, сек</th>
+                        </tr>
+                        <tr>
+                            <td>...</td><td>...</td>
+                        </tr>
+                        <tr>
+                            <td>...</td><td>...</td>
+                        </tr>
+                        <tr>
+                            <td>...</td><td>...</td>
+                        </tr>
+                    </tbody>
+                </table>
+        
+            </div>
         </div>
     </section>
 
@@ -307,7 +614,7 @@
         <p>2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
         <p>3. Решение задач расчета траектории движения</p>
         <p>4. Алгоритм A*</p>
-        <p>5. Алгоритм Дейкстры vs A*</p>
+        <p>5. Сравнение алгоритмов Дейкстры и A*</p>
     </section>
 
     <section class="slide">
@@ -398,21 +705,7 @@
         <p>2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
         <p>3. Решение задач расчета траектории движения</p>
         <p>4. Алгоритм A*</p>
-        <p>5. Алгоритм Дейкстры vs A*</p>
-    </section>
-
-    <section class="slide inspiration">
-        <h3>2. Источник вдохновения</h3>
-        <div class="picText">
-            <div>
-                <p>Игра «Lode runner» <br />
-                для ZX Spectrum <br />
-                Broderbund 1984</p>
-            </div>
-            <div class="text">
-                <img src="demo-static/inspiration.png" />
-            </div>
-        </div>
+        <p>5. Сравнение алгоритмов Дейкстры и A*</p>
     </section>
 
     <section class="slide">
@@ -433,7 +726,7 @@
         <p class="ok">2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
         <p>3. Решение задач расчета траектории движения</p>
         <p>4. Алгоритм A*</p>
-        <p>5. Алгоритм Дейкстры vs A*</p>
+        <p>5. Сравнение алгоритмов Дейкстры и A*</p>
     </section>
 
     <section class="slide">
@@ -550,7 +843,7 @@
         <p class="ok">2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
         <p class="ok">3. Решение задач расчета траектории движения</p>
         <p>4. Алгоритм A*</p>
-        <p>5. Алгоритм Дейкстры vs A*</p>
+        <p>5. Сравнение алгоритмов Дейкстры и A*</p>
     </section>
 
     <section class="slide">
@@ -664,7 +957,9 @@
         </pre>        
     </section>
 
-
+    <section class="slide">
+        <div id="V5_heurisic_5_2" class="game"></div>
+    </section>
 
     <section class="slide">
         <div id="V5_barrier" class="game"></div>
@@ -704,7 +999,7 @@
         <p class="ok">2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
         <p class="ok">3. Решение задач расчета траектории движения</p>
         <p class="ok">4. Алгоритм A*</p>
-        <p>5. Алгоритм Дейкстры vs A*</p>
+        <p>5. Сравнение алгоритмов Дейкстры и A*</p>
     </section>    
 
     <section class="slide">
@@ -785,16 +1080,17 @@
         <p class="ok">2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
         <p class="ok">3. Решение задач расчета траектории движения</p>
         <p class="ok">4. Алгоритм A*</p>
-        <p class="ok">5. Алгоритм Дейкстры vs A*</p>
+        <p class="ok">5. Сравнение алгоритмов Дейкстры и A*</p>
     </section>
 
     <section class="slide">
         <h3>Выводы</h3>
-        <p>1. A* лучше подходит для промышленного применения, чем алгоритм Дейкстры</p>
-        <p>2. Можно создавать свои игры на основе работающего примера: <br />
+        <p>1. Алгоритм Дейкстры проще в реализации, чем A*</p>
+        <p>2. A* эффективнее, чем алгоритм Дейкстры</p>
+        <p>3. Можно создавать свои игры на основе работающего примера: <br />
             <span class="link">https://github.com/alexanderpono/bricks-runner</span>
         </p>
-        <p>3. Не бойтесь экспериментировать. Преимущество фронтенда &ndash; можно сразу увидеть результат!</p>
+        <p>4. Не бойтесь экспериментировать. Преимущество фронтенда &ndash; можно сразу увидеть результат!</p>
     </section>
 
     <section class="slide">
@@ -804,6 +1100,10 @@
             <li>Еще об алгоритмах на графах <span class="link">https://habr.com/ru/companies/timeweb/articles/751762/</span></li>
         </ul>
 
+    </section>
+   
+    <section class="slide">
+        <div id="game2" class="game"></div>
     </section>
 
     <section class="slide">
