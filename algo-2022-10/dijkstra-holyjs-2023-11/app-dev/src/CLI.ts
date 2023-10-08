@@ -1,7 +1,7 @@
 import { description, name, version } from '../package.json';
 import { GraphFromField } from './game/GraphFromField';
 import { GameField } from './game/GameField';
-import { GraphFromFieldAdvancedV2, GraphFromFieldV2 } from './game/GraphFromFieldAdvancedV2';
+import { GraphFromFieldAdvancedV2 } from './game/GraphFromFieldAdvancedV2';
 import { GraphCalculatorV2 } from './game/GraphCalculatorV2';
 import { ALL_NODES, SILENT } from './game/GraphCalculator';
 import { GraphCalculatorV5f } from './game/GraphCalculatorV5f';

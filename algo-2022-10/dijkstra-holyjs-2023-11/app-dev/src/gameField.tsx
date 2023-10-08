@@ -15,6 +15,7 @@ import { GraphCalculatorV5f } from './game/GraphCalculatorV5f';
 import { RenderOptions, defaultRenderOptions } from './components/GameFieldUI/Game.types';
 import { SupaController } from './game/SupaController';
 import { GraphFromFieldAdvanced } from './game/GraphFromFieldAdvanced';
+import { GraphFromFieldTeleport } from './game/GraphFromFieldTeleport';
 
 console.log('gameField!');
 
@@ -558,3 +559,53 @@ renderGameField(
 renderGameField('', map1, 'brief_4', MAP_LINES, ADVANCED, GraphCalculator);
 renderGameField('', map2, 'brief_5', MAP_PATH, ADVANCED, GraphCalculatorV2);
 renderGameField('', map5, 'brief_6', LINES_COST_PATH, SIMPLE, GraphCalculatorV5e, ALL_NODES);
+
+const map12 = `
+▓ M         1    ▓
+▓▓▓▓▓▓▓▓╡▓▓▓▓▓▓▓▓▓
+▓       ╡        ▓
+▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓▓
+▓           ╡    ▓
+▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓▓
+▓  ╡     ╡   $╡ 1▓
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+    `;
+renderGameField(
+    '',
+    map12,
+    'teleport_1',
+    LINES_COST_PATH_MAP_PROGRESS,
+    new GraphFromField(),
+    GraphCalculatorV5f,
+    ALL_NODES
+);
+
+renderGameField(
+    '',
+    map12,
+    'teleport_2',
+    LINES_COST_PATH_MAP_PROGRESS,
+    new GraphFromFieldTeleport(),
+    GraphCalculatorV5f,
+    ALL_NODES
+);
+
+renderGameField(
+    '',
+    map12,
+    'teleport_3',
+    LINES_COST_PATH_MAP_PROGRESS,
+    new GraphFromFieldTeleport(),
+    GraphCalculatorV4,
+    ALL_NODES
+);
+
+renderGameField(
+    '',
+    map12,
+    'teleport_4',
+    MAP_PATH_START_STOP,
+    new GraphFromFieldTeleport(),
+    GraphCalculatorV4,
+    ALL_NODES
+);

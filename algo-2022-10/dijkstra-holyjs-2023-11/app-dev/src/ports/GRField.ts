@@ -27,6 +27,9 @@ export class GRField {
                 if (cell === Cell.gold) {
                     sprite = gold;
                 }
+                if (cell === Cell.teleport) {
+                    sprite = gold;
+                }
                 putSprite(this.context, this.pic, sprite, x, y);
             });
         });
