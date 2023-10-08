@@ -1,12 +1,13 @@
 import { description, name, version } from '../package.json';
 import { GraphFromField } from './game/GraphFromField';
 import { GameField } from './game/GameField';
-import { GraphFromFieldV2 } from './game/GraphFromFieldV2';
+import { GraphFromFieldAdvancedV2, GraphFromFieldV2 } from './game/GraphFromFieldAdvancedV2';
 import { GraphCalculatorV2 } from './game/GraphCalculatorV2';
 import { ALL_NODES, SILENT } from './game/GraphCalculator';
 import { GraphCalculatorV5f } from './game/GraphCalculatorV5f';
 
 console.log(`${name} ${version}`);
+const ADVANCED_V2 = new GraphFromFieldAdvancedV2();
 
 // for (let i = 10; i <= 100; i *= 10) {
 //     console.log('i=', i);
@@ -25,9 +26,9 @@ console.log(`${name} ${version}`);
 
 //     const gameField = GameField.create().initFromText(map);
 //     const ADVANCED_V2 = GraphFromFieldV2.getEdgeAdvancedCost;
-//     let graph = new GraphFromField().graphFromField(gameField, ADVANCED_V2);
-//     const mIndex = GraphFromField.getVertexIndex(map, 'M');
-//     const dIndex = GraphFromField.getVertexIndex(map, '$');
+//     let graph = ADVANCED_V2.graphFromField(gameField, ADVANCED_V2);
+//     const mIndex = ADVANCED_V2.getVertexIndex(map, 'M');
+//     const dIndex = ADVANCED_V2.getVertexIndex(map, '$');
 //     const start = Date.now();
 //     graph = new GraphCalculatorV2().calculateGraph(
 //         graph,
@@ -64,10 +65,9 @@ for (let i = 10; i <= 10000; i *= 10) {
     const map = mapAr.map((lineAr) => lineAr.join('')).join('\n');
 
     const gameField = GameField.create().initFromText(map);
-    const ADVANCED_V2 = GraphFromFieldV2.getEdgeAdvancedCost;
-    let graph = new GraphFromField().graphFromField(gameField, ADVANCED_V2);
-    const mIndex = GraphFromField.getVertexIndex(map, 'M');
-    const dIndex = GraphFromField.getVertexIndex(map, '$');
+    let graph = ADVANCED_V2.graphFromField(gameField);
+    const mIndex = ADVANCED_V2.getVertexIndex(map, 'M');
+    const dIndex = ADVANCED_V2.getVertexIndex(map, '$');
     const start = Date.now();
     graph = new GraphCalculatorV5f().calculateGraph(
         graph,

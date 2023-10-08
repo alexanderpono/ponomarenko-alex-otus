@@ -27,7 +27,7 @@ export class GameController {
         protected map: string,
         protected target: string,
         options: RenderOptions,
-        protected calcCost,
+        protected graphBuilder: GraphFromField,
         protected calculator: typeof GraphCalculator,
         protected verbose: boolean,
         stepNo: number = ALL_NODES
@@ -70,9 +70,9 @@ export class GameController {
             this.emptyField = field;
 
             const gameField = GameField.create().initFromText(map);
-            let graph = new GraphFromField().graphFromField(gameField, calcCost);
-            const mIndex = GraphFromField.getVertexIndex(map, 'M');
-            const dIndex = GraphFromField.getVertexIndex(map, '$');
+            let graph = this.graphBuilder.graphFromField(gameField);
+            const mIndex = this.graphBuilder.getVertexIndex(map, 'M');
+            const dIndex = this.graphBuilder.getVertexIndex(map, '$');
             graph = new calculator().calculateGraph(
                 graph,
                 mIndex,
@@ -168,7 +168,7 @@ export class GameController {
     onBtClearClick = () => {
         this.stepNo = 0;
         this.maxMiniCounter = 9;
-        const mIndex = GraphFromField.getVertexIndex(this.map, 'M');
+        const mIndex = this.graphBuilder.getVertexIndex(this.map, 'M');
         this.manVIndex = mIndex;
         this.nextManVIndex = mIndex;
         this.curPathPos = 0;
@@ -292,9 +292,9 @@ export class GameController {
 
     recalcGraph = (maxStep: number) => {
         this.patchState({ maxCalcStep: maxStep });
-        let graph = new GraphFromField().graphFromField(this.gameField, this.calcCost);
-        const mIndex = GraphFromField.getVertexIndex(this.map, 'M');
-        const dIndex = GraphFromField.getVertexIndex(this.map, '$');
+        let graph = this.graphBuilder.graphFromField(this.gameField);
+        const mIndex = this.graphBuilder.getVertexIndex(this.map, 'M');
+        const dIndex = this.graphBuilder.getVertexIndex(this.map, '$');
         graph = new this.calculator().calculateGraph(
             graph,
             mIndex,

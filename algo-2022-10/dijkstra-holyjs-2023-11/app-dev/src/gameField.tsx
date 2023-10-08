@@ -3,7 +3,7 @@ import { ALL_NODES, GraphCalculator, SILENT } from './game/GraphCalculator';
 import { GraphFromField } from './game/GraphFromField';
 import { GraphCalculatorV2 } from './game/GraphCalculatorV2';
 import { GraphCalculatorV3 } from './game/GraphCalculatorV3';
-import { GraphFromFieldV2 } from './game/GraphFromFieldV2';
+import { GraphFromFieldAdvancedV2 } from './game/GraphFromFieldAdvancedV2';
 import { GameController } from './game/GameController';
 import { GraphCalculatorV4 } from './game/GraphCalculatorV4';
 import { GraphCalculatorV5c } from './game/GraphCalculatorV5c';
@@ -14,6 +14,7 @@ import { GraphCalculatorV5e } from './game/GraphCalculatorV5e';
 import { GraphCalculatorV5f } from './game/GraphCalculatorV5f';
 import { RenderOptions, defaultRenderOptions } from './components/GameFieldUI/Game.types';
 import { SupaController } from './game/SupaController';
+import { GraphFromFieldAdvanced } from './game/GraphFromFieldAdvanced';
 
 console.log('gameField!');
 
@@ -77,9 +78,9 @@ const MAP_PATH_START_STOP: RenderOptions = {
     path: true,
     showBtStartStop: true
 };
-const SIMPLE = GraphFromField.getEdgeSimpleCost;
-const ADVANCED = GraphFromField.getEdgeAdvancedCost;
-const ADVANCED_V2 = GraphFromFieldV2.getEdgeAdvancedCost;
+const SIMPLE = new GraphFromField();
+const ADVANCED = new GraphFromFieldAdvanced();
+const ADVANCED_V2 = new GraphFromFieldAdvancedV2();
 const GROUP_1 = '2. Квадратная сетка';
 renderGameField(
     GROUP_1,
@@ -252,7 +253,7 @@ function renderGameField(
     map: string,
     target: string,
     options: RenderOptions,
-    calcCost,
+    graphBuilder: GraphFromField,
     calculator: typeof GraphCalculator,
     stepNo: number = ALL_NODES
 ) {
@@ -261,7 +262,7 @@ function renderGameField(
         map,
         target,
         options,
-        calcCost,
+        graphBuilder,
         calculator,
         SILENT,
         stepNo
