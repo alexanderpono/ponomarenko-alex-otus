@@ -108,6 +108,10 @@ export const spark4: Sprite = {
     x: 560,
     y: 40
 };
+export const telePortal: Sprite = {
+    x: 520,
+    y: 120
+};
 
 export enum ManAni {
     STAND = 'STAND',
