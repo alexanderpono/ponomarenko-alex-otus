@@ -82,6 +82,7 @@ export const GameFieldUI = React.forwardRef<HTMLCanvasElement, GameFieldUIProps>
             GRMan.create(
                 context,
                 gameState.manScreenXY,
+                gameState.manTargetScreenXY,
                 gameState.manAni,
                 gameState.pic,
                 gameState.miniCounter

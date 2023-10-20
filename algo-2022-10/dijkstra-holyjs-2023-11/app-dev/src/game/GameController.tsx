@@ -196,7 +196,8 @@ export class GameController {
                 this.curPathPos,
                 this.stepNo,
                 this.manVIndex,
-                this.nextManVIndex
+                this.nextManVIndex,
+                this.gameState.manAni
             );
         if ((this.gameState.miniCounter + 1) % 10 === 0) {
             if (this.curPathPos < this.graph.cheapestPath.length) {
@@ -210,12 +211,30 @@ export class GameController {
 
             const miniCounter = this.gameState.miniCounter + 1;
             const manScreenXY = calcManScreenPos(this.manFieldXY, this.nextManFieldXY, miniCounter);
-            this.patchState({ manScreenXY, miniCounter });
+            let manTargetScreenXY: Point2D = { ...defaultPoint2D };
+            if (this.gameState.manAni === ManAni.TELEPORT) {
+                manTargetScreenXY = {
+                    x: this.nextManFieldXY.x * SPRITE_WIDTH,
+                    y: this.nextManFieldXY.y * SPRITE_HEIGHT
+                };
+            }
+            this.patchState({ manScreenXY, miniCounter, manTargetScreenXY });
             this.renderUI();
         } else {
             const miniCounter = this.gameState.miniCounter + 1;
-            const manScreenXY = calcManScreenPos(this.manFieldXY, this.nextManFieldXY, miniCounter);
-            this.patchState({ manScreenXY, miniCounter });
+            let manScreenXY = calcManScreenPos(this.manFieldXY, this.nextManFieldXY, miniCounter);
+            let manTargetScreenXY: Point2D = { ...defaultPoint2D };
+            if (this.gameState.manAni === ManAni.TELEPORT) {
+                manScreenXY = {
+                    x: this.manFieldXY.x * SPRITE_WIDTH,
+                    y: this.manFieldXY.y * SPRITE_HEIGHT
+                };
+                manTargetScreenXY = {
+                    x: this.nextManFieldXY.x * SPRITE_WIDTH,
+                    y: this.nextManFieldXY.y * SPRITE_HEIGHT
+                };
+            }
+            this.patchState({ manScreenXY, miniCounter, manTargetScreenXY });
             this.renderUI();
         }
         if (this.stepNo < this.graph.cheapestPath.length) {
@@ -234,6 +253,8 @@ export class GameController {
         const edge = this.graph.edges[curEdgeIndex];
         const v0xy = this.gameField.vertexIndexToCoords(edge.vertex0, this.gameField.getWidth());
         const v1xy = this.gameField.vertexIndexToCoords(edge.vertex1, this.gameField.getWidth());
+        const v0Cell = this.gameField.coordsToCell(v0xy);
+        const v1Cell = this.gameField.coordsToCell(v1xy);
         const edgeOrientation = v0xy.y === v1xy.y ? 'hor' : 'vert';
         let direction = '';
         if (edgeOrientation === 'hor' && v1xy.x > v0xy.x && this.manVIndex === edge.vertex0) {
@@ -272,6 +293,10 @@ export class GameController {
                 manAni = ManAni.STAIRS;
             }
             this.patchState({ manAni });
+        }
+
+        if (v0Cell === Cell.teleport && v1Cell === Cell.teleport) {
+            this.patchState({ manAni: ManAni.TELEPORT });
         }
         this.verbose &&
             console.log(

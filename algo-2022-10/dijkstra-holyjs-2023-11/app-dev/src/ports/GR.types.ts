@@ -88,6 +88,26 @@ export const eater: Sprite = {
     x: 40,
     y: 160
 };
+export const spark0: Sprite = {
+    x: 400,
+    y: 40
+};
+export const spark1: Sprite = {
+    x: 440,
+    y: 40
+};
+export const spark2: Sprite = {
+    x: 480,
+    y: 40
+};
+export const spark3: Sprite = {
+    x: 520,
+    y: 40
+};
+export const spark4: Sprite = {
+    x: 560,
+    y: 40
+};
 
 export enum ManAni {
     STAND = 'STAND',
@@ -95,5 +115,6 @@ export enum ManAni {
     LEFT = 'LEFT',
     STAIRS = 'STAIRS',
     UP = 'UP',
-    DOWN = 'DOWN'
+    DOWN = 'DOWN',
+    TELEPORT = 'TELEPORT'
 }

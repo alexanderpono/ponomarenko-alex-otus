@@ -28,6 +28,7 @@ export interface GameState {
     pic: InstanceType<typeof Image>;
     goldScreenXY: Point2D;
     manScreenXY: Point2D;
+    manTargetScreenXY: Point2D;
     manAni: ManAni;
     miniCounter: number;
     showBtMap: boolean;
@@ -52,6 +53,7 @@ export const defaultGameState: GameState = {
     pic: null,
     goldScreenXY: { ...defaultPoint2D },
     manScreenXY: { ...defaultPoint2D },
+    manTargetScreenXY: { ...defaultPoint2D },
     manAni: ManAni.STAND,
     miniCounter: 0,
     showBtMap: false,
