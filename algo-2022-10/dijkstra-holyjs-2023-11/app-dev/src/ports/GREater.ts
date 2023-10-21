@@ -25,7 +25,7 @@ export class GREater {
         let sprite: Sprite = eater;
         if (this.manAni === ManAni.RIGHT) {
             const frames = [eaterR0, eaterR1];
-            sprite = frames[Number(this.counter % 4 > 2)];
+            sprite = frames[Math.floor((this.counter % 8) / 4)];
         }
         if (this.manAni === ManAni.LEFT) {
             const frames = [eaterL];
@@ -37,7 +37,7 @@ export class GREater {
         }
         if (this.manAni === ManAni.DOWN) {
             const frames = [eaterD0, eaterD1];
-            sprite = frames[Number(this.counter % 4 > 2)];
+            sprite = frames[Math.floor((this.counter % 8) / 4)];
         }
         putSprite_(this.context, this.pic, sprite, this.manXY.x, this.manXY.y);
     };

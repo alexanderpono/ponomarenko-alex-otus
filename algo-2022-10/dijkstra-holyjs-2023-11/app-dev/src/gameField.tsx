@@ -502,7 +502,7 @@ renderGameField(
 );
 
 renderGameField(
-    '5. Алгоритм Дейкстры. Результат расчета графа',
+    '6. Алгоритм Дейкстры. Результат расчета графа',
     map5,
     'O_1',
     LINES_COST_PATH,
@@ -512,7 +512,7 @@ renderGameField(
 );
 
 renderGameField(
-    '5. A* с эвристикой H4()',
+    '6. A* с эвристикой H4()',
     map5,
     'O_2',
     LINES_COST_PATH_PROGRESS,
@@ -570,18 +570,61 @@ const map12 = `
 ▓  ╡     ╡   $╡ 1▓
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
     `;
+
+renderGameField('', map12, 'brief_7', MAP_PATH, new GraphFromField(), GraphCalculatorV5f, 0);
+
+const map12a = `
+▓ M              ▓
+▓▓▓▓▓▓▓▓╡▓▓▓▓▓▓▓▓▓
+▓       ╡        ▓
+▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓▓
+▓           ╡    ▓
+▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓▓
+▓  ╡     ╡   $╡  ▓
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+    `;
 renderGameField(
-    '',
-    map12,
-    'teleport_1',
-    LINES_COST_PATH_MAP_PROGRESS,
-    new GraphFromField(),
-    GraphCalculatorV5f,
-    ALL_NODES
+    '5. Ограничены ли мы 2D-пространством?',
+    map12a,
+    'teleport_intro_1',
+    LINES_COST_PATH,
+    SIMPLE,
+    GraphCalculatorV2,
+    0
 );
 
 renderGameField(
-    '',
+    '5. Ограничены ли мы 2D-пространством?',
+    map12a,
+    'teleport_intro_2',
+    LINES_COST_PATH_MAP,
+    new GraphFromField(),
+    GraphCalculatorV5f,
+    0
+);
+
+renderGameField(
+    '5. Ограничены ли мы 2D-пространством?',
+    map12,
+    'teleport_intro_3',
+    LINES_COST_PATH_MAP,
+    new GraphFromField(),
+    GraphCalculatorV5f,
+    0
+);
+
+renderGameField(
+    '5. Ограничены ли мы 2D-пространством?',
+    map12,
+    'teleport_intro_4',
+    LINES_COST_PATH_MAP,
+    new GraphFromFieldTeleport(),
+    GraphCalculatorV5f,
+    0
+);
+
+renderGameField(
+    '5. Телепортация и A*: не нашли кратчайший путь',
     map12,
     'teleport_2',
     LINES_COST_PATH_MAP_PROGRESS,
@@ -591,7 +634,7 @@ renderGameField(
 );
 
 renderGameField(
-    '',
+    '5. Возвращаемся к алгоритму Дейкстры',
     map12,
     'teleport_3',
     LINES_COST_PATH_MAP_PROGRESS,
@@ -601,7 +644,7 @@ renderGameField(
 );
 
 renderGameField(
-    '',
+    '5. Телепортация: как это работает',
     map12,
     'teleport_4',
     MAP_PATH_START_STOP,
