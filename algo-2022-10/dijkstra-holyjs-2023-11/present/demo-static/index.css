@@ -96,12 +96,21 @@
     height: 50px;
     position: absolute;
 }
-.slide.title::before, .slide.title h3::before {
+.slide.title::before, .slide.title h3::before, .nologo::before {
     display: none;
 }
 .slide.title::after {
     color: #1964f3;
 }
+.slide mark {
+    background-color: #dfeafb;
+    color: #0027ff;
+}
+.slide mark.orange {
+    background-color: #f4e6ff;
+    color: #a321fe;
+}
+
 
 h3::before {
     position: absolute;
@@ -168,10 +177,6 @@ h1, h3, p, label, li {
 .smaller70 {
     font-size: 70%;
 }
-.slide mark.orange {
-    background-color: #ffae00;
-}
-
 .pic {
     padding: var(--slide-side) var(--slide-side) 0px var(--slide-side);
 }
@@ -292,9 +297,7 @@ p, label, li {
 .smaller70 {
     font-size: 70%;
 }
-.slide mark.orange {
-    background-color: #ffae00;
-}
+
 .slide pre {
     margin-left: calc(var(--slide-side) * 2);
 }
@@ -303,6 +306,17 @@ p, label, li {
 }
 .progress {
     --color-blue: #0038ff;
+}
+.lh110 p, .lh110 pre code {
+    line-height: 110%;
+}
+
+.lh100 p, .lh100 pre code {
+    line-height: 100%;
+}
+
+.lh90 p, .lh90 pre code {
+    line-height: 90%;
 }
 
 .slide li::before {
@@ -314,14 +328,15 @@ p, label, li {
 }
 
 .qrs {
-    margin-top: 50px;
     display: grid;
-    grid-template-areas: "a algos app ap inno" "a_qr algos_qr app_qr ap_qr inno_qr";
-    grid-template-columns: 20% 20% 20% 20% 20%;
-    grid-template-rows: auto 200px;
+    grid-template-areas: "ap_qr e e e e" "ap_qr a algos app  inno" "ap_qr a_qr algos_qr app_qr inno_qr";
+    grid-template-columns: 28% 16% 16% 16% 16%;
+    grid-template-rows: 40px auto 160px;
+    grid-column-gap: 2%;
 }
 .a, .algos, .app, .ap, .inno {
-    text-align: center;
+    text-align: left;
+    font-size: 80%;
 }
 
 .a {
@@ -331,6 +346,7 @@ p, label, li {
     grid-area: a_qr;
     background: url(A-qr-code.gif) no-repeat;
     background-size: contain;
+    background-position: bottom;
 }
 
 .algos {
@@ -340,6 +356,7 @@ p, label, li {
     grid-area: algos_qr;
     background: url(more-algorithms-qr-code.gif) no-repeat;
     background-size: contain;
+    background-position: bottom;
 }
 
 .ap {
@@ -349,6 +366,7 @@ p, label, li {
     grid-area: ap_qr;
     background: url(TG-qr-code.gif) no-repeat;
     background-size: contain;
+    background-position: bottom;
 }
 
 .inno {
@@ -358,7 +376,7 @@ p, label, li {
     grid-area: inno_qr;
     background: url(INNO-qr-code.gif) no-repeat;
     background-size: contain;
-
+    background-position: bottom;
 }
 
 .app {
@@ -368,8 +386,16 @@ p, label, li {
     grid-area: app_qr;
     background: url(gameSrc-qr-code.gif) no-repeat;
     background-size: contain;
+    background-position: bottom;
 }
 table {
     margin: 0px 0px 50px 0px;
     width: 70%;
+}
+strong {
+    font-weight: normal;
+    color: #0038FF;
+}
+.ok strong {
+    color: inherit;
 }
