@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'ArialBlack';
-    src: url('demo-static/ariblk.ttf')  format('truetype'); /* Safari, Android, iOS */
+    src: url('ariblk.ttf')  format('truetype'); /* Safari, Android, iOS */
         
 }
 .shower {
@@ -30,11 +30,11 @@
     height: 60%;
 }
 .enigmas {
-    background: url(demo-static/enigmas.jpg);
+    background: url(enigmas.jpg);
     background-position: top -10px left -90px;
 }
 .river {
-    background: url(demo-static/river4.jpg);
+    background: url(river4.jpg);
 }
 .img1 {
     position: absolute;
@@ -52,11 +52,11 @@
     height: 250px;
 }
 .pathfind {
-    background: url(demo-static/pathfinding.jpg);
+    background: url(pathfinding.jpg);
     background-position: top -250px left -20px;
 }
 .gamedev {
-    background: url(demo-static/game05.jpg);
+    background: url(game05.jpg);
     background-position: top -10px left 0px;
 }
 
@@ -81,21 +81,13 @@
     padding-left: 30px;
 }
 .slide::before {
-    /* background: url(demo-static/ribbon.svg) no-repeat; */
-    /* background: red; */
-
-    background: url(demo-static/INNO-logo2.svg) no-repeat;
+    background: url(INNO-logo2.svg) no-repeat;
     background-size: contain;
-    /* background-color: red; */
     color: black;
-    /* border: 1px solid black; */
-    /* width: var(--ribbon-side);
-    height: var(--ribbon-side); */
     padding: 0px;
     margin: 0px;
     display: block;
     line-height: var(--ribbon-side);
-    /* border-radius: 8px; */
     left: auto;
     top: calc(var(--slide-side) - 10px);
     right: var(--slide-side);
@@ -103,11 +95,14 @@
     width: 200px;
     height: 50px;
     position: absolute;
-    /* font-size: 0.8em; */
 }
-.slide.title::before, .slide.title::after, .slide.title h3::before {
+.slide.title::before, .slide.title h3::before {
     display: none;
 }
+.slide.title::after {
+    color: #1964f3;
+}
+
 h3::before {
     position: absolute;
     bottom: calc(var(--slide-side));
@@ -124,53 +119,17 @@ h3::before {
 .nocopy::before {
     display: none;
 }
-/* h3:first-child {
-    color: lime;
-    background-color: black;
-    padding: 5px;
-  } */
-  
-section:first-child {
-    /* background: url(demo-static/ribbon.svg) no-repeat; */
-    /* background: red; */
-
-    /* background: url(demo-static/INNO-logo2.svg) no-repeat; */
-    /* background-size: contain; */
-    background-color: red;
-    color: lime;
-    /* 
-    border: 1px solid black;
-    padding: 0px;
-    margin: 0px;
-    display: block;
-    line-height: var(--ribbon-side);
-    border-radius: 8px; */
-    /* left: auto;
-    top: calc(var(--slide-side) - 10px);
-    right: var(--slide-side);
-    content: 'aaa';
-    width: 200px;
-    height: 50px;
-    position: absolute; */
-}
-
 
 .slide::after {
-    /* background: url(demo-static/ribbon.svg) no-repeat; */
-    /* background: red; */
-
     background: none;
     color: black;
-    /* border: 1px solid black; */
     width: var(--ribbon-side);
     height: var(--ribbon-side);
     padding: 0px;
     margin: 0px;
     display: block;
     line-height: var(--ribbon-side);
-    /* border-radius: 8px; */
     left: auto;
-    /* top: var(--slide-side); */
     right: var(--slide-side);
     top: auto;
     bottom: var(--slide-side);
@@ -182,7 +141,7 @@ h1, h3, p, label, li {
 }
 
 .slide.portrait {
-    background: url(demo-static/speaker.jpg);
+    background: url(speaker.jpg);
     background-position: left;
     background-size: cover;
 }
@@ -246,7 +205,7 @@ p, label, li {
 }
 
 .slide.title {
-    background: url(demo-static/bgTitle.png);
+    background: url(bgTitle.png);
     background-position: left;
     background-size: cover;
     display: flex;
@@ -370,7 +329,7 @@ p, label, li {
 }
 .a_qr {
     grid-area: a_qr;
-    background: url(./demo-static/A-qr-code.gif) no-repeat;
+    background: url(A-qr-code.gif) no-repeat;
     background-size: contain;
 }
 
@@ -379,7 +338,7 @@ p, label, li {
 }
 .algos_qr {
     grid-area: algos_qr;
-    background: url(./demo-static/more-algorithms-qr-code.gif) no-repeat;
+    background: url(more-algorithms-qr-code.gif) no-repeat;
     background-size: contain;
 }
 
@@ -388,7 +347,7 @@ p, label, li {
 }
 .ap_qr {
     grid-area: ap_qr;
-    background: url(./demo-static/TG-qr-code.gif) no-repeat;
+    background: url(TG-qr-code.gif) no-repeat;
     background-size: contain;
 }
 
@@ -397,7 +356,7 @@ p, label, li {
 }
 .inno_qr {
     grid-area: inno_qr;
-    background: url(./demo-static/INNO-qr-code.gif) no-repeat;
+    background: url(INNO-qr-code.gif) no-repeat;
     background-size: contain;
 
 }
@@ -407,7 +366,7 @@ p, label, li {
 }
 .app_qr {
     grid-area: app_qr;
-    background: url(./demo-static/gameSrc-qr-code.gif) no-repeat;
+    background: url(gameSrc-qr-code.gif) no-repeat;
     background-size: contain;
 }
 table {
