@@ -96,9 +96,13 @@
     height: 50px;
     position: absolute;
 }
-.slide.title::before, .slide.title::after, .slide.title h3::before {
+.slide.title::before, .slide.title h3::before {
     display: none;
 }
+.slide.title::after {
+    color: #1964f3;
+}
+
 h3::before {
     position: absolute;
     bottom: calc(var(--slide-side));
