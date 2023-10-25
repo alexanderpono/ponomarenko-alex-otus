@@ -5,322 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="node_modules/@shower/ribbon/styles/styles.css">
+    <link rel="stylesheet" href="index.css">
     <style>
-        .shower {
-            --slide-ratio: calc(16 / 9);
-            --slide-side: 27px;
-            --ribbon-side: 40px;
-            font-family: Arial, Helvetica, sans-serif;
-            line-height: 130%;
-        }
-        .ok {
-            color: #888;
-            position: relative;
-        }
-        .picText {
-            display: flex;
-        }
-        .w20 {
-            width: 25%;
-        }
-        .w66 {
-            width: 66%;
-        }
-        .w50 {
-            width: 50%;
-        }
-        .h60 {
-            height: 60%;
-        }
-        .enigmas {
-            background: url(demo-static/enigmas.jpg);
-            background-position: top -10px left -90px;
-        }
-        .river {
-            background: url(demo-static/river4.jpg);
-        }
-        .img1 {
-            position: absolute;
-            bottom: 30px;
-            left: 30px;
-            overflow: hidden;
-            width: 440px;
-            height: 250px;
-        }
-        .img2 {
-            position: absolute;
-            bottom: 30px;
-            left: 500px;
-            width: 440px;
-            height: 250px;
-        }
-        .pathfind {
-            background: url(demo-static/pathfinding.jpg);
-            background-position: top -250px left -20px;
-        }
-        .gamedev {
-            background: url(demo-static/game05.jpg);
-            background-position: top -10px left 0px;
-        }
-
-
-        .speaker .photo {
-            margin: 0px 50px 0px 100px;
-            width: 256px;
-            height: 256px;
-            border-radius: 128px;
-            overflow: hidden;
-        }
-        .speaker .text {
-            margin-top: 35px;
-        }
-
-        .vmiddle {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .text {
-            padding-left: 30px;
-        }
-        .slide::after {
-            background: url(demo-static/ribbon.svg) no-repeat;
-        }
-        h1, h3, p, label, li {
-            color: #04267E;
-        }
-
-        .slide.portrait {
-            background: url(demo-static/speaker.jpg);
-            background-position: left;
-            background-size: cover;
-        }
-        .portrait h3, .portrait p {
-            color: white;
-        }
-        .portrait .textBack {
-            background-color: rgba(0, 0, 0, 0.5);;
-            margin-right: 40%;
-            padding-left: 20px;
-        }
-        .tg {
-            display: flex;
-            align-items: center;
-        }
-
-        .tg p {
-            margin-right: 20px;
-        }
-
-        .smaller {
-            font-size: 80%;
-        }
-        .smaller70 {
-            font-size: 70%;
-        }
-        .slide mark.orange {
-            background-color: #ffae00;
-        }
-
-        .pic {
-            padding: var(--slide-side) var(--slide-side) 0px var(--slide-side);
-        }
-        .text {
-            padding-left: 30px;
-        }
-        .slide {
-            padding: var(--slide-side) var(--slide-side) 0px var(--slide-side);
-        }
-        .slide::after {
-            background: none;
-            color: black;
-            border: 1px solid black;
-            width: var(--ribbon-side);
-            height: var(--ribbon-side);
-            padding: 0px;
-            margin: 0px;
-            display: block;
-            line-height: var(--ribbon-side);
-            border-radius: 8px;
-            left: auto;
-            top: var(--slide-side);
-            right: var(--slide-side);
-        }
-        h1, h3 {
-            color: #000;
-            text-transform: uppercase;
-            font-family: 'Arial Bold', Arial, Helvetica, sans-serif;
-        }
-        h3 {
-            margin: 0px 0px 50px 0px;
-        }
-        p, label, li {
-            color: #000;
-        }
-
-        .slide.title {
-            background: url(demo-static/bgTitle.png);
-            background-position: left;
-            background-size: cover;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-        }
-        .slide.title h1, .slide.title h3 {
-            color: white;
-        }
-
-        .slide.title h1 {
-            font-size: 3rem;
-            line-height: 120%;
-            margin-top: 0%;
-            margin-bottom: 0px;
-        }
-        .slide.title h3 {
-            margin: 30px 0px 0px 0px;
-        }
-        .slide p, .slide li {
-            max-width: 70%;
-            margin-bottom: 1rem;
-        }
-        .slide p.pretty {
-            text-indent: -1em;
-            max-width: 100%;
-            margin-left: 1em;
-        }
-
-        .slide .maxw100 {
-            max-width: 100%;
-        }
-
-
-        .slide li {
-            margin-left: 1.5rem;
-        }
-
-        .slide.speaker p, .slide.inspiration p {
-            max-width: 100%;
-        }
-
-        .abstractGraph {
-            height: calc(100% - var(--slide-side));
-            display: grid;
-            grid-template-rows: 60px auto;
-        }
-
-        .impulse-logo {
-            position: relative;
-            top: -35px;
-        }
-        .game .canvas {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .game .controls {
-            display: flex;
-            justify-content: center;
-            align-items:flex-start;
-            padding-top: 15px;
-        }
-
-        .tg {
-            display: flex;
-            align-items: center;
-        }
-
-        .tg p {
-            margin-right: 20px;
-        }
-
-        .smaller, #smaller {
-            font-size: 80%;
-            padding-left: 26px;
-        }
-        .smaller70 {
-            font-size: 70%;
-        }
-        .slide mark.orange {
-            background-color: #ffae00;
-        }
-        .slide pre {
-            margin-left: calc(var(--slide-side) * 2);
-        }
-        .slide pre code {
-            line-height: 130%;
-        }
-        .progress {
-            --color-blue: #0038ff;
-        }
-
-        .slide li::before {
-            color: #0038ff;
-        }
-
-        .link {
-            color: #0038ff;
-        }
-
-        .qrs {
-            margin-top: 50px;
-            display: grid;
-            grid-template-areas: "a algos app ap inno" "a_qr algos_qr app_qr ap_qr inno_qr";
-            grid-template-columns: 20% 20% 20% 20% 20%;
-            grid-template-rows: auto 200px;
-        }
-        .a, .algos, .app, .ap, .inno {
-            text-align: center;
-        }
-
-        .a {
-            grid-area: a;
-        }
-        .a_qr {
-            grid-area: a_qr;
-            background: url(./demo-static/A-qr-code.gif) no-repeat;
-            background-size: contain;
-        }
-
-        .algos {
-            grid-area: algos;
-        }
-        .algos_qr {
-            grid-area: algos_qr;
-            background: url(./demo-static/more-algorithms-qr-code.gif) no-repeat;
-            background-size: contain;
-        }
-
-        .ap {
-            grid-area: ap;
-        }
-        .ap_qr {
-            grid-area: ap_qr;
-            background: url(./demo-static/TG-qr-code.gif) no-repeat;
-            background-size: contain;
-        }
-
-        .inno {
-            grid-area: inno;
-        }
-        .inno_qr {
-            grid-area: inno_qr;
-            background: url(./demo-static/INNO-qr-code.gif) no-repeat;
-            background-size: contain;
-
-        }
-
-        .app {
-            grid-area: app;
-        }
-        .app_qr {
-            grid-area: app_qr;
-            background: url(./demo-static/gameSrc-qr-code.gif) no-repeat;
-            background-size: contain;
-        }
-        table {
-            margin: 0px 0px 50px 0px;
-            width: 70%;
-        }
 
     </style>
 
@@ -335,14 +21,15 @@
     </header>
 
     <section class="slide title">
-        <h1>Алгоритм Дейкстры + 2D-игра = Просто</h1>
-        <h3>Александр Пономаренко</h3>
+        <img class="logo" src="demo-static/INNO-logo.svg" />
+        <h1>Алгоритм Дейкстры <br />+ 2D-игра = Просто</h1>
+        <h3 class="noindent">Александр Пономаренко</h3>
     </section>
 
     <section class="slide speaker">
         <div class="picText">
             <div>
-                <h3>Александр Пономаренко</h3>
+                <h3 class="d10 noindent">Александр Пономаренко</h3>
                 <p>ГК Иннотех, Frontend-разработчик React</p>
                 <p>Программирую для web 20 лет</p>
                 <p>Создал 5 игр в рамках обучающих проектов для школьников</p>
@@ -370,12 +57,12 @@
     </section>
 
     <section class="slide">
-        <h3>Если вы &mdash; IT-специалист и ваша задача:</h3>
+        <h3 class="noindent">Если вы &mdash; IT-специалист <br />и ваша задача:</h3>
 
         <div class="picText">
             <div class="w50">
                 <ul>
-                    <li class="maxw100">маршрутизировать трафик по сети</li>
+                    <li class="maxw100">Маршрутизировать трафик по сети</li>
                 </ul>
             </div>
             <div class="text">
@@ -385,13 +72,13 @@
     </section>
 
     <section class="slide">
-        <h3>Если вы &mdash; IT-специалист и ваша задача:</h3>
+        <h3 class="noindent">Если вы &mdash; IT-специалист <br />и ваша задача:</h3>
 
         <div class="picText">
             <div class="w50">
                 <ul>
-                    <li class="maxw100">маршрутизировать трафик по сети</li>
-                    <li class="maxw100">или создать программу-навигатор, который будет находить кратчайший путь из точки А в точку Б</li>
+                    <li class="maxw100">Маршрутизировать трафик по сети</li>
+                    <li class="maxw100">Или создать программу-навигатор, который будет находить кратчайший путь из точки А <br />в точку Б</li>
                 </ul>
             </div>
             <div class="text">
@@ -401,14 +88,14 @@
     </section>
 
     <section class="slide">
-        <h3>Если вы &mdash; IT-специалист и ваша задача:</h3>
+        <h3 class="noindent">Если вы &mdash; IT-специалист <br />и ваша задача:</h3>
 
         <div class="picText">
             <div class="w50">
                 <ul>
-                    <li class="maxw100">маршрутизировать трафик по сети</li>
-                    <li class="maxw100">или создать программу-навигатор, который будет находить кратчайший путь из точки А в точку Б</li>
-                    <li class="maxw100">или создать программу расчета электрических цепей</li>
+                    <li class="maxw100">Маршрутизировать трафик по сети</li>
+                    <li class="maxw100">Или создать программу-навигатор, который будет находить кратчайший путь из точки А <br />в точку Б</li>
+                    <li class="maxw100">Или создать программу расчета электрических цепей</li>
                 </ul>
             </div>
             <div class="text">
@@ -418,15 +105,15 @@
     </section>
 
     <section class="slide">
-        <h3>Если вы &mdash; IT-специалист и ваша задача:</h3>
+        <h3 class="noindent">Если вы &mdash; IT-специалист <br />и ваша задача:</h3>
 
         <div class="picText">
             <div class="w50">
                 <ul>
-                    <li class="maxw100">маршрутизировать трафик по сети</li>
-                    <li class="maxw100">или создать программу-навигатор, который будет находить кратчайший путь из точки А в точку Б</li>
-                    <li class="maxw100">или создать программу расчета электрических цепей</li>
-                    <li class="maxw100">или создать компьютерную игру &mdash;</li>
+                    <li class="maxw100">Маршрутизировать трафик по сети</li>
+                    <li class="maxw100">Или создать программу-навигатор, который будет находить кратчайший путь из точки А <br />в точку Б</li>
+                    <li class="maxw100">Или создать программу расчета электрических цепей</li>
+                    <li class="maxw100">Или создать компьютерную игру &mdash;</li>
                 </ul>
             </div>
             <div class="text">
@@ -436,57 +123,57 @@
     </section>
 
     <section class="slide">
-        <h3>Если вы &mdash; IT-специалист и ваша задача:</h3>
+        <h3 class="noindent nocopy">Если вы &mdash; IT-специалист <br />и ваша задача:</h3>
 
         <div class="picText">
             <div class="w50">
                 <ul>
-                    <li class="maxw100">маршрутизировать трафик по сети</li>
-                    <li class="maxw100">или создать программу-навигатор, который будет находить кратчайший путь из точки А в точку Б</li>
-                    <li class="maxw100">или создать программу расчета электрических цепей</li>
-                    <li class="maxw100">или создать компьютерную игру &mdash;</li>
+                    <li class="maxw100">Маршрутизировать трафик по сети</li>
+                    <li class="maxw100">Или создать программу-навигатор, который будет находить кратчайший путь из точки А <br />в точку Б</li>
+                    <li class="maxw100">Или создать программу расчета электрических цепей</li>
+                    <li class="maxw100">Или создать компьютерную игру &mdash;</li>
                 </ul>
             </div>
             <div class="text">
                 <img src="demo-static/inspiration.png" width="500"/>
             </div>
         </div>
-        <h3>То этот доклад для вас</h3>
+        <h3 class="nocopy">То этот доклад для вас</h3>
     </section>
 
     <section class="slide">
         <h3>Через 40 минут</h3>
-        <p>вы будете знать:</p>
+        <p>Вы будете знать:</p>
         <ul>
-            <li>как реализовать алгоритм Дейкстры </li>
-            <li>как на его базе создать компьютерную игру, где персонаж обходит препятствия и движется к цели</li>
+            <li>Как реализовать алгоритм Дейкстры </li>
+            <li>Как на его базе создать компьютерную игру, где персонаж обходит препятствия и движется к цели</li>
         </ul>
-        <p>у вас будет ссылка:</p>
+        <p>У вас будет ссылка:</p>
         <ul>
-            <li>на репозиторий с исходниками алгоритма и игры</li>
-            <li>на работающую игру в интернете</li>
+            <li>На репозиторий с исходниками алгоритма и игры</li>
+            <li>На работающую игру в интернете</li>
         </ul>
     </section>
 
     <section class="slide">
         <h3>Вы сможете</h3>
         <ul>
-            <li>сами создавать собственные игры</li>
-            <li>и решать задачи поиска оптимального пути, опираясь на представленный пример</li>
+            <li>Сами создавать собственные игры</li>
+            <li>И решать задачи поиска оптимального пути, опираясь на представленный пример</li>
         </ul>
         <div class="gamedev img1"></div>
         <div class="pathfind img2"></div>
     </section>
 
     <section class="slide">
-        <h3>Вы сэкономите 1 неделю своего времени </h3>
+        <h3 class="noindent">Вы сэкономите 1 неделю своего времени </h3>
 
         <div class="picText">
             <div class="w20">
-                <p>потому что:</p>
+                <p>Потому что:</p>
                 <ul>
-                    <li class="maxw100">я предложу вам готовую реализацию алгоритма</li>
-                    <li class="maxw100">расскажу о подводных камнях, с которыми столкнулся при решении задачи</li>
+                    <li class="maxw100">Я предложу вам готовую реализацию алгоритма</li>
+                    <li class="maxw100">Расскажу о подводных камнях, с которыми столкнулся при решении задачи</li>
                 </ul>
             </div>
             <div class="text">
@@ -498,7 +185,7 @@
     <section class="slide">
         <h3>В докладе мы:</h3>
 
-        <div class="picText">
+        <div class="picText h60">
             <div class="w20">
                 <p class="pretty">1. Применим алгоритм Дейкстры для поиска кратчайшего пути на графе</p>
             </div>
@@ -513,7 +200,7 @@
 
         <div class="picText">
             <div class="w20">
-                <p class="pretty">2. Преобразуем граф в квадратную сетку</p>
+                <p class="pretty maxw100">2. Преобразуем граф в квадратную сетку</p>
             </div>
             <div class="text">
                 <div id="brief_3" class="game"></div>
@@ -552,7 +239,7 @@
 
         <div class="picText">
             <div class="w20">
-                <p class="pretty">4. Оптимизируем алгоритм Дейкстры и получим вариант A*</p>
+                <p class="pretty maxw100">4. Оптимизируем алгоритм Дейкстры и получим вариант A*</p>
             </div>
             <div class="text">
                 <div id="brief_6" class="game"></div>
@@ -624,7 +311,7 @@
     <section class="slide">
         <h3>Содержание</h3>
         <p>1. Алгоритм Дейкстры</p>
-        <p>2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
+        <p class="pretty">2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
         <p>3. Решение задач расчета траектории движения</p>
         <p>4. Алгоритм A*</p>
         <p>5. Решение задачи телепортации</p>
@@ -637,7 +324,7 @@
     </section>
 
     <section class="slide">
-        <h3>Где может пригодиться алгоритм Дейкстры?</h3>
+        <h3 class="noindent">Где может пригодиться алгоритм Дейкстры?</h3>
         <ul>
             <li>Маршрутизация в компьютерных сетях</li>
             <li>Программы-навигаторы: поиск маршрута, чтобы быстрее добраться из точки А в точку Б</li>
@@ -652,7 +339,7 @@
         <ul>
             <li>Внешний цикл - обходим все вершины графа</li>
             <li>Внутренний цикл - обходим соседние вершины относительно текущей</li>
-            <li>Расчет стоимости перехода в соседнюю вершину из текущей</li>
+            <li>Расчет стоимости перехода в соседнюю вершину <br />из текущей</li>
             <li>При расчете стоимости запоминаем, по какому ребру перешли в данную вершину</li>
         </ul>
     </section>
@@ -716,7 +403,7 @@
     <section class="slide">
         <h3>Содержание</h3>
         <p class="ok">1. Алгоритм Дейкстры</p>
-        <p>2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
+        <p class="pretty">2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
         <p>3. Решение задач расчета траектории движения</p>
         <p>4. Алгоритм A*</p>
         <p>5. Решение задачи телепортации</p>
@@ -738,7 +425,7 @@
     <section class="slide">
         <h3>Содержание</h3>
         <p class="ok">1. Алгоритм Дейкстры</p>
-        <p class="ok">2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
+        <p class="ok pretty">2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
         <p>3. Решение задач расчета траектории движения</p>
         <p>4. Алгоритм A*</p>
         <p>5. Решение задачи телепортации</p>
@@ -774,7 +461,7 @@
     </section>
 
     <section class="slide">
-        <h3>3. Исправленная функция вычисления следующей вершины</h3>
+        <h3>3. Функция вычисления следующей вершины</h3>
         <pre>
             <code><mark>getNextVertex = (verticesToProcess: number[]): number => {</mark></code>
             <code>    let minAccessCost = Number.MAX_SAFE_INTEGER;</code>
@@ -852,7 +539,7 @@
     <section class="slide">
         <h3>Содержание</h3>
         <p class="ok">1. Алгоритм Дейкстры</p>
-        <p class="ok">2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
+        <p class="ok pretty">2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
         <p class="ok">3. Решение задач расчета траектории движения</p>
         <p>4. Алгоритм A*</p>
         <p>5. Решение задачи телепортации</p>
@@ -905,7 +592,7 @@
     </section>
 
     <section class="slide">
-        <h3>4. Настраиваем эвристическую функцию H()</h3>
+        <h3>4. Настраиваем эвристическую функцию</h3>
         <p>H1(x, y, xT, yT) = |xT - x| + |yT - y|</p>
         <p>H2(x, y, xT, yT) = 2 * H1()</p>
         <p>H3(x, y, xT, yT, xS, yS) = 2 * H1() + D(), где</p>
@@ -1009,7 +696,7 @@
     <section class="slide">
         <h3>Содержание</h3>
         <p class="ok">1. Алгоритм Дейкстры</p>
-        <p class="ok">2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
+        <p class="ok pretty">2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
         <p class="ok">3. Решение задач расчета траектории движения</p>
         <p class="ok">4. Алгоритм A*</p>
         <p>5. Решение задачи телепортации</p>
@@ -1047,7 +734,7 @@
     <section class="slide">
         <h3>Содержание</h3>
         <p class="ok">1. Алгоритм Дейкстры</p>
-        <p class="ok">2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
+        <p class="ok pretty">2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
         <p class="ok">3. Решение задач расчета траектории движения</p>
         <p class="ok">4. Алгоритм A*</p>
         <p class="ok">5. Решение задачи телепортации</p>
@@ -1059,7 +746,7 @@
     </section>
 
     <section class="slide">
-        <h3>6. T(N) &ndash; время расчета графа</h3>
+        <h3>6. T(N) &ndash; время расчета</h3>
         <p>Реализация алгоритма Дейкстры</p>
         <table>
             <tbody>
@@ -1084,7 +771,7 @@
     </section>
 
     <section class="slide">
-        <h3>6. T(N) &ndash; время расчета графа</h3>
+        <h3>6. T(N) &ndash; время расчета</h3>
         <p>Реализация алгоритма Дейкстры</p>
         <table>
             <tbody>
@@ -1129,7 +816,7 @@
     <section class="slide">
         <h3>Содержание</h3>
         <p class="ok">1. Алгоритм Дейкстры</p>
-        <p class="ok">2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
+        <p class="ok pretty">2. Адаптация алгоритма Дейкстры к работе на графе - квадратной сетке</p>
         <p class="ok">3. Решение задач расчета траектории движения</p>
         <p class="ok">4. Алгоритм A*</p>
         <p class="ok">5. Решение задачи телепортации</p>
@@ -1140,10 +827,10 @@
         <h3>Выводы</h3>
         <p>1. Алгоритм Дейкстры проще в реализации, чем A*</p>
         <p>2. A* эффективнее, чем алгоритм Дейкстры</p>
-        <p>3. Можно создавать свои игры на основе работающего примера: <br />
+        <p class="pretty">3. Можно создавать свои игры на основе работающего примера: <br />
             <span class="link">https://github.com/alexanderpono/bricks-runner</span>
         </p>
-        <p>4. Не бойтесь экспериментировать. Преимущество фронтенда &ndash; можно сразу увидеть результат!</p>
+        <p class="pretty">4. Не бойтесь экспериментировать. Преимущество фронтенда &ndash; можно сразу увидеть результат!</p>
     </section>
 
     <section class="slide">
@@ -1160,8 +847,7 @@
     </section>
 
     <section class="slide">
-        <h3>Спасибо за внимание!</h3>
-        <h3>Вопросы?</h3>
+        <h3 class="noindent">Спасибо за внимание! <br />Вопросы?</h3>
         <p>Александр Пономаренко</p>
         <div class="qrs">
             <div class="a">Описание A*</div>
