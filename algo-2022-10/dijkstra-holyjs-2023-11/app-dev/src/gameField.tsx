@@ -185,7 +185,7 @@ const map3 = `
 ▓  ╡     ╡   $╡  ▓
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
     `;
-const GROUP_5 = '3. Персонаж должен падать в отверстие';
+const GROUP_5 = '3. Персонаж должен <br />падать в отверстие';
 renderGameField(GROUP_5, map3, 'slide4', MAP_START_STOP, ADVANCED, GraphCalculatorV2);
 renderGameField(GROUP_5, map3, 'slide4_2', MAP_PATH, ADVANCED, GraphCalculatorV2);
 renderGameField(
@@ -326,7 +326,7 @@ renderGameField(
     ALL_NODES
 );
 renderGameField(
-    '4. Стоимость перехода с учетом эвристики',
+    '4. Стоимость перехода <br />с учетом эвристики',
     map5,
     'V5_heurisic_1',
     LINES_COST_PATH_PROGRESS,
