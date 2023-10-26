@@ -3,6 +3,7 @@
     src: url('ariblk.ttf')  format('truetype'); /* Safari, Android, iOS */
         
 }
+
 .shower {
     --slide-ratio: calc(16 / 9);
     --slide-side: 27px;
@@ -14,11 +15,26 @@
     color: #888;
     position: relative;
 }
+.r {
+    border: 1px solid red;
+}
 .picText {
     display: flex;
 }
 .w20 {
     width: 25%;
+}
+.w10 {
+    width: 10%;
+}
+.w14 {
+    width: 14%;
+}
+.w40 {
+    width: 40%;
+}
+.w60 {
+    width: 60%;
 }
 .w66 {
     width: 66%;
@@ -29,16 +45,10 @@
 .h60 {
     height: 60%;
 }
-.enigmas {
-    background: url(enigmas.jpg);
-    background-position: top -10px left -90px;
-}
-.river {
-    background: url(river4.jpg);
-}
+
 .img1 {
     position: absolute;
-    bottom: 30px;
+    bottom: 70px;
     left: 30px;
     overflow: hidden;
     width: 440px;
@@ -46,11 +56,38 @@
 }
 .img2 {
     position: absolute;
-    bottom: 30px;
+    bottom: 70px;
     left: 500px;
     width: 440px;
     height: 250px;
 }
+
+
+.speaker .img1 {
+    position: static;
+    bottom: 0px;
+    left: 0px;
+    width: 400px;
+    height: 200px;
+    text-align: right;
+    padding-bottom: 20px;
+}
+
+.speaker .img1 img {
+    margin-right: 20px;
+}
+.speaker .img2 {
+    position: static;
+    bottom: 0px;
+    left: 0px;
+    width: 400px;
+    height: 200px;
+    text-align: right;
+}
+.speaker .img2 img {
+    margin-right: 20px;
+}
+
 .pathfind {
     background: url(pathfinding.jpg);
     background-position: top -250px left -20px;
@@ -60,12 +97,25 @@
     background-position: top -10px left 0px;
 }
 
+h4 {
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    color: #0027ff;
+    font-weight: bold;
+    padding: 0px;
+    margin: 0px 0px 17px 0px;
+}
+th {
+    color: #0027ff;
+}
 
 .speaker .photo {
-    margin: 0px 50px 0px 100px;
-    width: 256px;
-    height: 256px;
-    border-radius: 128px;
+    margin: 0px 50px 23px 0px;
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
     overflow: hidden;
 }
 .speaker .text {
@@ -80,7 +130,7 @@
 .text {
     padding-left: 30px;
 }
-.slide::before {
+h3::before {
     background: url(INNO-logo2.svg) no-repeat;
     background-size: contain;
     color: black;
@@ -89,14 +139,14 @@
     display: block;
     line-height: var(--ribbon-side);
     left: auto;
-    top: calc(var(--slide-side) - 10px);
+    top: calc(var(--slide-side) - 5px);
     right: var(--slide-side);
     content: '';
     width: 200px;
     height: 50px;
     position: absolute;
 }
-.slide.title::before, .slide.title h3::before, .nologo::before {
+.slide.title::before, .nologo::before {
     display: none;
 }
 .slide.title::after {
@@ -112,15 +162,14 @@
 }
 
 
-h3::before {
+.slide::before {
     position: absolute;
     bottom: calc(var(--slide-side));
     display: block;
-    content: '\A9 2023 ГК \ABИннотех\00BB. Все права защищены. Все товарные знаки являются собственностью их владельцев';
+    content: '\A9  2023 ГК \ABИннотех\00BB. Все права защищены. Все товарные знаки являются собственностью их владельцев';
     font-family: Arial, Helvetica, sans-serif;
     font-size: 0.7rem;
     text-transform: none;
-    /* border: 1px solid black; */
     line-height: 1rem;
     color: #cdcdcd;
     z-index: 100;
@@ -128,7 +177,6 @@ h3::before {
 .nocopy::before {
     display: none;
 }
-
 .slide::after {
     background: none;
     color: black;
@@ -201,6 +249,9 @@ h3 {
 h3.d10 {
     margin: 0px 0px 10px 0px;
 }
+h3.d20 {
+    margin: 0px 0px 20px 0px;
+}
 h3.noindent {
     text-indent: 0;
     margin-left: 0;
@@ -224,7 +275,7 @@ p, label, li {
 .slide.title .logo {
     position: absolute;
     left: 0px;
-    top: 0px;
+    top: 15px;
     width: 320px;
 }
 
@@ -235,8 +286,11 @@ p, label, li {
     margin-bottom: 0px;
 }
 .slide.title h3 {
-    margin: 30px 0px 0px 0px;
+    margin: 20px 0px 30px 0px;
+    font-size: 1.2em;
+    text-transform: none;
 }
+
 .slide p, .slide li {
     max-width: 70%;
     margin-bottom: 1rem;
@@ -330,13 +384,17 @@ p, label, li {
 .qrs {
     display: grid;
     grid-template-areas: "ap_qr e e e e" "ap_qr a algos app  inno" "ap_qr a_qr algos_qr app_qr inno_qr";
-    grid-template-columns: 28% 16% 16% 16% 16%;
-    grid-template-rows: 40px auto 160px;
-    grid-column-gap: 2%;
+    grid-template-columns: 28% 13% 13% 13% 13%;
+    grid-template-rows: 60px auto 140px;
+    grid-column-gap: 5%;
 }
 .a, .algos, .app, .ap, .inno {
     text-align: left;
     font-size: 80%;
+    /* border: 1px solid red; */
+    display: flex;
+    align-items: end;
+    line-height: 1.1em;
 }
 
 .a {
@@ -398,4 +456,11 @@ strong {
 }
 .ok strong {
     color: inherit;
+}
+.schemeContainer {
+    overflow: hidden;
+}
+.scheme {
+    position: relative;
+    top: -100px;
 }
