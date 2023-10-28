@@ -391,12 +391,14 @@ p, label, li {
 .a, .algos, .app, .ap, .inno {
     text-align: left;
     font-size: 80%;
-    /* border: 1px solid red; */
     display: flex;
     align-items: end;
     line-height: 1.1em;
 }
 
+.inno {
+    font-size: 60%;
+}
 .a {
     grid-area: a;
 }
