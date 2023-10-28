@@ -117,7 +117,7 @@ renderGameField(
     GraphCalculator
 );
 
-const GROUP_2 = '3. Траектория движения с обходом препятствий';
+const GROUP_2 = '3. Траектория движения <br />с обходом препятствий';
 renderGameField(GROUP_2, map1, 'slide2', MAP_START_STOP, ADVANCED, GraphCalculator);
 renderGameField(GROUP_2, map1, 'slide2_2', MAP_LINES, ADVANCED, GraphCalculator);
 renderGameField(
