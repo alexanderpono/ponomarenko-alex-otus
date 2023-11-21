@@ -7,11 +7,12 @@ const V1V0 = 2;
 export class GraphCalculatorV3 extends GraphCalculatorV2 {
     protected updateAccessCostAndEdgeIndex = (
         graph: AbstractGraph,
-        adjacentVertex: Vertex,
+        adjacentVertexIndex: number,
         curVertex: Vertex,
         edgeIndex: number
     ) => {
         const adjacentEdge = graph.edges[edgeIndex];
+        const adjacentVertex = graph.vertices[adjacentVertexIndex];
         const direction = adjacentEdge.vertex0 === graph.curVertexIndex ? V0V1 : V1V0;
         const moveCost =
             direction === V0V1 ? adjacentEdge.cost.v0v1Cost : adjacentEdge.cost.v1v0Cost;

@@ -1,8 +1,9 @@
 import { GameField } from './GameField';
 import { AbstractGraph } from './Graph.types';
-import { ALL_NODES, GraphCalculator } from './GraphCalculator';
+import { ALL_NODES } from './GraphCalculator';
+import { GraphCalculatorV2 } from './GraphCalculatorV2';
 
-export class GraphCalculatorV2 extends GraphCalculator {
+export class GraphCalculatorV4 extends GraphCalculatorV2 {
     public calculateGraph = (
         graph: AbstractGraph,
         fromVertex: number,
@@ -11,32 +12,19 @@ export class GraphCalculatorV2 extends GraphCalculator {
         maxStep: number,
         gameField: GameField
     ) => {
-        let newGraph = this.calcVerticesCost(graph, fromVertex, verbose, maxStep);
+        let newGraph = this.myCalcVerticesCost(graph, fromVertex, verbose, maxStep, toVertex);
         if (maxStep >= ALL_NODES) {
             newGraph = this.calcCheapestPath(newGraph, fromVertex, toVertex);
         }
         return newGraph;
     };
 
-    protected getNextVertex = (graph: AbstractGraph, verticesToProcess: number[]): number => {
-        let minAccessCost = Number.MAX_SAFE_INTEGER;
-        let result = -1;
-        verticesToProcess.forEach((nodeIndex) => {
-            const vertex = graph.vertices[nodeIndex as number];
-            if (vertex.processed === false && vertex.accessCost < minAccessCost) {
-                minAccessCost = vertex.accessCost;
-                result = nodeIndex as number;
-            }
-        });
-
-        return result;
-    };
-
-    protected calcVerticesCost = (
+    protected myCalcVerticesCost = (
         graph: AbstractGraph,
         fromVertex: number,
         verbose: boolean,
-        maxStep: number
+        maxStep: number,
+        toVertex: number
     ) => {
         const newGraph = { ...graph };
         if (maxStep !== -1) {
@@ -46,6 +34,10 @@ export class GraphCalculatorV2 extends GraphCalculator {
         let n = 0;
         const verticesToProcess = new Set<number>();
         while (n < newGraph.vertices.length && newGraph.curVertexIndex !== -1 && n < maxStep) {
+            if (newGraph.curVertexIndex === toVertex) {
+                return newGraph;
+            }
+
             const curVertex = newGraph.vertices[newGraph.curVertexIndex];
             newGraph.vertices[newGraph.curVertexIndex].processed = true;
             const edgesOfVertex = this.getEdgesOfVertex(newGraph);

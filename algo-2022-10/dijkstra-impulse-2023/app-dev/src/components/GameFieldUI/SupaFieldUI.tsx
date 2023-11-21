@@ -5,11 +5,11 @@ import { GRGraph } from '@src/ports/GRGraph';
 import { AbstractGraph } from '@src/game/Graph.types';
 import { GameFieldController, GameState, RenderOptions } from './Game.types';
 import { GRGold } from '@src/ports/GRGold';
-import { GRMan } from '@src/ports/GRMan';
 import { GRSelect } from '@src/ports/GRSelect';
 import { GameControls } from './GameControls';
+import { GREater } from '@src/ports/GREater';
 
-interface GameFieldUIProps {
+interface SupaFieldUIProps {
     field: GameField;
     emptyField: GameField;
     graph: AbstractGraph;
@@ -23,7 +23,7 @@ interface GameFieldUIProps {
     picLoaded: boolean;
 }
 
-export const GameFieldUI = React.forwardRef<HTMLCanvasElement, GameFieldUIProps>(
+export const SupaFieldUI = React.forwardRef<HTMLCanvasElement, SupaFieldUIProps>(
     (
         {
             field,
@@ -79,10 +79,9 @@ export const GameFieldUI = React.forwardRef<HTMLCanvasElement, GameFieldUIProps>
             GRField.create(context, emptyField, gameState.pic, options).draw();
             GRGold.create(context, gameState.goldScreenXY, gameState.pic).draw();
             GRGraph.create(context, field, graph, options).draw();
-            GRMan.create(
+            GREater.create(
                 context,
                 gameState.manScreenXY,
-                gameState.manTargetScreenXY,
                 gameState.manAni,
                 gameState.pic,
                 gameState.miniCounter

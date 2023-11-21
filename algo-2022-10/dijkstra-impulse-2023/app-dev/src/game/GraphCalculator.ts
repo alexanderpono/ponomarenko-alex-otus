@@ -1,3 +1,4 @@
+import { GameField } from './GameField';
 import { AbstractGraph, Edge, EdgeCost, UNDEFINED_COST, Vertex } from './Graph.types';
 
 const NULL = -1;
@@ -20,7 +21,8 @@ export class GraphCalculator {
         fromVertex: number,
         toVertex: number,
         verbose: boolean,
-        maxStep: number
+        maxStep: number,
+        gameField: GameField
     ) => {
         let newGraph = this.calcVerticesCost(graph, fromVertex, verbose, maxStep);
         if (maxStep >= ALL_NODES) {
@@ -51,11 +53,12 @@ export class GraphCalculator {
 
     protected updateAccessCostAndEdgeIndex = (
         graph: AbstractGraph,
-        adjacentVertex: Vertex,
+        adjacentVertexIndex: number,
         curVertex: Vertex,
         edgeIndex: number
     ) => {
         const adjacentEdge = graph.edges[edgeIndex];
+        const adjacentVertex = graph.vertices[adjacentVertexIndex];
         const newAccessCost = curVertex.accessCost + adjacentEdge.cost.cost;
         if (
             adjacentVertex.accessCost === UNDEFINED_COST ||
@@ -108,7 +111,12 @@ export class GraphCalculator {
                 if (adjacentVertex.processed) {
                     continue;
                 }
-                this.updateAccessCostAndEdgeIndex(newGraph, adjacentVertex, curVertex, edgeIndex);
+                this.updateAccessCostAndEdgeIndex(
+                    newGraph,
+                    adjacentVertexIndex,
+                    curVertex,
+                    edgeIndex
+                );
             }
 
             const nextVertex = this.getNextVertex(newGraph, edgesOfVertex);

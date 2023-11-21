@@ -2,7 +2,7 @@
   "name": "dijkra_2d_app",
   "version": "1.0.0",
   "description": "dijkra_2d_app",
-  "main": "src/index.tsx",
+  "main": "src/CLI.ts",
   "scripts": {
     "test": "jest",
     "build": "webpack --node-env=production",
@@ -10,7 +10,8 @@
     "dev": "webpack serve --node-env=development",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "ts-check": "npx tsc --skipLibCheck"
+    "ts-check": "npx tsc --skipLibCheck",
+    "watch": "nodemon -r tsconfig-paths/register"
   },
   "keywords": [],
   "author": "Alexander Ponomarenko",
@@ -72,6 +73,7 @@
     "jest-environment-jsdom": "^29.5.0",
     "jest-html-reporter": "^3.10.1",
     "mini-css-extract-plugin": "^2.7.6",
+    "nodemon": "^3.0.1",
     "prettier": "^2.8.8",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

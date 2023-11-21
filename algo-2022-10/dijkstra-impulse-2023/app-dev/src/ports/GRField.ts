@@ -1,7 +1,7 @@
 import { Cell, GameField } from '@src/game/GameField';
-import { Sprite, gold, man, space, stairs, wall } from '@src/ports/GR.types';
+import { Sprite, gold, man, space, stairs, telePortal, wall } from '@src/ports/GR.types';
 import { putSprite } from '@src/ports/GR.lib';
-import { RenderOptions } from '@src/components/GameFieldUI';
+import { RenderOptions } from '@src/components/GameFieldUI/Game.types';
 
 export class GRField {
     constructor(
@@ -26,6 +26,9 @@ export class GRField {
                 }
                 if (cell === Cell.gold) {
                     sprite = gold;
+                }
+                if (cell === Cell.teleport) {
+                    sprite = telePortal;
                 }
                 putSprite(this.context, this.pic, sprite, x, y);
             });

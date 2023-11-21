@@ -1,56 +1,10 @@
-import {
-    AbstractGraph,
-    EdgeCost,
-    defaultAbstractGraph,
-    defaultVertex
-} from '@src/game/Graph.types';
+import { EdgeCost } from '@src/game/Graph.types';
 import { COST_SPACE, COST_WALL, defaultEdgeCost } from '@src/game/GraphCalculator';
 import { Cell, GameField } from './GameField';
+import { GraphFromField } from './GraphFromField';
 
-export class GraphFromFieldV2 {
-    graphFromField = (
-        field: GameField,
-        getEdgeCost: (field: GameField, v0: number, v1: number) => EdgeCost
-    ): AbstractGraph => {
-        let graph = JSON.parse(JSON.stringify(defaultAbstractGraph));
-
-        const h = field.field.length;
-        const w = field.field[0].length;
-        const verticesNumber = w * h;
-        graph.vertices = Array(verticesNumber)
-            .fill(defaultVertex)
-            .map(() => ({ ...defaultVertex }));
-
-        for (let y = 0; y < h; y++) {
-            const vertexStartLine = y * w;
-            for (let x = 0; x < w - 1; x++) {
-                const vertexIndex = vertexStartLine + x;
-                const cost = getEdgeCost(field, vertexIndex, vertexIndex + 1);
-                graph.edges.push({
-                    vertex0: vertexIndex,
-                    vertex1: vertexIndex + 1,
-                    cost
-                });
-            }
-        }
-
-        for (let y = 0; y < h - 1; y++) {
-            const vertexStartLine = y * w;
-            for (let x = 0; x < w; x++) {
-                const vertexIndex = vertexStartLine + x;
-                const cost = getEdgeCost(field, vertexIndex, vertexIndex + w);
-
-                graph.edges.push({
-                    vertex0: vertexIndex,
-                    vertex1: vertexIndex + w,
-                    cost
-                });
-            }
-        }
-        return graph;
-    };
-
-    static getEdgeAdvancedCost = (field: GameField, v0Index: number, v1Index: number): EdgeCost => {
+export class GraphFromFieldAdvancedV2 extends GraphFromField {
+    getEdgeCost = (field: GameField, v0Index: number, v1Index: number): EdgeCost => {
         const w = field.field[0].length;
         const v0xy = field.vertexIndexToCoords(v0Index, w);
         const v1xy = field.vertexIndexToCoords(v1Index, w);

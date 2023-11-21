@@ -1,8 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { RenderOptions } from '@src/components/GameFieldUI';
 import { ALL_NODES, GraphCalculator, SILENT } from './GraphCalculator';
-import { GameState, defaultGameState } from '@src/components/GameFieldUI/Game.types';
+import { GameState, RenderOptions, defaultGameState } from '@src/components/GameFieldUI/Game.types';
 import { Cell, GameField, Point2D, defaultPoint2D } from './GameField';
 import { ManAni, SPRITE_HEIGHT, SPRITE_WIDTH } from '@src/ports/GR.types';
 import ImgSprite from '@src/components/GameFieldUI/sprite.png';
@@ -11,26 +10,27 @@ import { GraphFromField } from './GraphFromField';
 import { AbstractGraph } from './Graph.types';
 
 export class GameController {
-    private gameState: GameState;
-    private picLoaded: boolean = false;
-    private emptyField: GameField = GameField.create();
-    private manFieldXY: Point2D = { ...defaultPoint2D };
-    private nextManFieldXY: Point2D = { ...defaultPoint2D };
-    private graph: AbstractGraph = null;
-    private gameField: GameField = null;
-    private canvasW = 720;
-    private canvasH = 320;
-    private canvasRef: React.RefObject<HTMLCanvasElement>;
-    private w: number = 0;
+    protected gameState: GameState;
+    protected picLoaded: boolean = false;
+    protected emptyField: GameField = GameField.create();
+    protected manFieldXY: Point2D = { ...defaultPoint2D };
+    protected nextManFieldXY: Point2D = { ...defaultPoint2D };
+    protected graph: AbstractGraph = null;
+    protected gameField: GameField = null;
+    protected canvasW = 720;
+    protected canvasH = 320;
+    protected canvasRef: React.RefObject<HTMLCanvasElement>;
+    protected w: number = 0;
 
     constructor(
-        private title: string,
-        private map: string,
-        private target: string,
+        protected title: string,
+        protected map: string,
+        protected target: string,
         options: RenderOptions,
-        calcCost,
-        calculator: typeof GraphCalculator,
-        private verbose: boolean
+        protected graphBuilder: GraphFromField,
+        protected calculator: typeof GraphCalculator,
+        protected verbose: boolean,
+        stepNo: number = ALL_NODES
     ) {
         this.gameState = {
             ...defaultGameState,
@@ -46,7 +46,14 @@ export class GameController {
             manScreenXY: { ...defaultPoint2D },
             miniCounter: 0,
             manAni: ManAni.STAND,
-            highlightCells: options.highlightCells
+            highlightCells: options.highlightCells,
+            maxCalcStep: stepNo,
+            showBtNodes: options.showBtNodes,
+            showBtEdges: options.showBtEdges,
+            showBtStartStop: options.showBtStartStop,
+            showBtPath: options.showBtPath,
+            showBtCost: options.showBtCost,
+            showProgress: options.showProgress
         };
         this.canvasRef = React.createRef<HTMLCanvasElement>();
 
@@ -63,10 +70,17 @@ export class GameController {
             this.emptyField = field;
 
             const gameField = GameField.create().initFromText(map);
-            let graph = new GraphFromField().graphFromField(gameField, calcCost);
-            const mIndex = GraphFromField.getVertexIndex(map, 'M');
-            const dIndex = GraphFromField.getVertexIndex(map, '$');
-            graph = new calculator().calculateGraph(graph, mIndex, dIndex, SILENT, ALL_NODES);
+            let graph = this.graphBuilder.graphFromField(gameField);
+            const mIndex = this.graphBuilder.getVertexIndex(map, 'M');
+            const dIndex = this.graphBuilder.getVertexIndex(map, '$');
+            graph = new calculator().calculateGraph(
+                graph,
+                mIndex,
+                dIndex,
+                SILENT,
+                stepNo,
+                gameField
+            );
             this.w = gameField.getWidth();
             const goldScreenXY = gameField.vertexIndexToCoords(dIndex, this.w);
             const manFieldXY = gameField.vertexIndexToCoords(mIndex, this.w);
@@ -78,10 +92,13 @@ export class GameController {
 
             this.graph = graph;
             this.gameField = gameField;
-            this.gameState.goldScreenXY = goldScreenXY;
             this.manFieldXY = manFieldXY;
-            this.gameState.manScreenXY = manScreenXY;
-            this.gameState = { ...this.gameState };
+            this.gameState = {
+                ...this.gameState,
+                manScreenXY,
+                goldScreenXY,
+                curVertexIndex: graph.curVertexIndex
+            };
 
             this.manVIndex = mIndex;
             this.nextManVIndex = mIndex;
@@ -91,10 +108,8 @@ export class GameController {
         });
     }
 
-    renderUI = (): Promise<boolean> => {
-        return new Promise((resolve) => {
-            render(this.getUI(), document.getElementById(this.target));
-        });
+    renderUI = () => {
+        render(this.getUI(), document.getElementById(this.target));
     };
 
     getUI = () => (
@@ -153,7 +168,7 @@ export class GameController {
     onBtClearClick = () => {
         this.stepNo = 0;
         this.maxMiniCounter = 9;
-        const mIndex = GraphFromField.getVertexIndex(this.map, 'M');
+        const mIndex = this.graphBuilder.getVertexIndex(this.map, 'M');
         this.manVIndex = mIndex;
         this.nextManVIndex = mIndex;
         this.curPathPos = 0;
@@ -181,7 +196,8 @@ export class GameController {
                 this.curPathPos,
                 this.stepNo,
                 this.manVIndex,
-                this.nextManVIndex
+                this.nextManVIndex,
+                this.gameState.manAni
             );
         if ((this.gameState.miniCounter + 1) % 10 === 0) {
             if (this.curPathPos < this.graph.cheapestPath.length) {
@@ -195,12 +211,30 @@ export class GameController {
 
             const miniCounter = this.gameState.miniCounter + 1;
             const manScreenXY = calcManScreenPos(this.manFieldXY, this.nextManFieldXY, miniCounter);
-            this.patchState({ manScreenXY, miniCounter });
+            let manTargetScreenXY: Point2D = { ...defaultPoint2D };
+            if (this.gameState.manAni === ManAni.TELEPORT) {
+                manTargetScreenXY = {
+                    x: this.nextManFieldXY.x * SPRITE_WIDTH,
+                    y: this.nextManFieldXY.y * SPRITE_HEIGHT
+                };
+            }
+            this.patchState({ manScreenXY, miniCounter, manTargetScreenXY });
             this.renderUI();
         } else {
             const miniCounter = this.gameState.miniCounter + 1;
-            const manScreenXY = calcManScreenPos(this.manFieldXY, this.nextManFieldXY, miniCounter);
-            this.patchState({ manScreenXY, miniCounter });
+            let manScreenXY = calcManScreenPos(this.manFieldXY, this.nextManFieldXY, miniCounter);
+            let manTargetScreenXY: Point2D = { ...defaultPoint2D };
+            if (this.gameState.manAni === ManAni.TELEPORT) {
+                manScreenXY = {
+                    x: this.manFieldXY.x * SPRITE_WIDTH,
+                    y: this.manFieldXY.y * SPRITE_HEIGHT
+                };
+                manTargetScreenXY = {
+                    x: this.nextManFieldXY.x * SPRITE_WIDTH,
+                    y: this.nextManFieldXY.y * SPRITE_HEIGHT
+                };
+            }
+            this.patchState({ manScreenXY, miniCounter, manTargetScreenXY });
             this.renderUI();
         }
         if (this.stepNo < this.graph.cheapestPath.length) {
@@ -219,6 +253,8 @@ export class GameController {
         const edge = this.graph.edges[curEdgeIndex];
         const v0xy = this.gameField.vertexIndexToCoords(edge.vertex0, this.gameField.getWidth());
         const v1xy = this.gameField.vertexIndexToCoords(edge.vertex1, this.gameField.getWidth());
+        const v0Cell = this.gameField.coordsToCell(v0xy);
+        const v1Cell = this.gameField.coordsToCell(v1xy);
         const edgeOrientation = v0xy.y === v1xy.y ? 'hor' : 'vert';
         let direction = '';
         if (edgeOrientation === 'hor' && v1xy.x > v0xy.x && this.manVIndex === edge.vertex0) {
@@ -258,6 +294,10 @@ export class GameController {
             }
             this.patchState({ manAni });
         }
+
+        if (v0Cell === Cell.teleport && v1Cell === Cell.teleport) {
+            this.patchState({ manAni: ManAni.TELEPORT });
+        }
         this.verbose &&
             console.log(
                 `doTrajectoryStep() this.manVIndex="${this.manVIndex}"`,
@@ -266,6 +306,64 @@ export class GameController {
                 edgeOrientation,
                 direction
             );
+    };
+
+    onMaxStepChange = (evt) => {
+        console.log(evt.target.value);
+        const maxStep = parseInt(evt.target.value);
+        this.recalcGraph(maxStep);
+        this.renderUI();
+    };
+
+    recalcGraph = (maxStep: number) => {
+        this.patchState({ maxCalcStep: maxStep });
+        let graph = this.graphBuilder.graphFromField(this.gameField);
+        const mIndex = this.graphBuilder.getVertexIndex(this.map, 'M');
+        const dIndex = this.graphBuilder.getVertexIndex(this.map, '$');
+        graph = new this.calculator().calculateGraph(
+            graph,
+            mIndex,
+            dIndex,
+            SILENT,
+            maxStep,
+            this.gameField
+        );
+
+        this.graph = graph;
+        this.gameState = {
+            ...this.gameState,
+            curVertexIndex: graph.curVertexIndex
+        };
+    };
+
+    onBtToStartClick = () => {
+        const maxStep = 1;
+        this.recalcGraph(maxStep);
+        this.renderUI();
+    };
+    onBtPrevClick = () => {
+        const maxStep = this.gameState.maxCalcStep > 1 ? this.gameState.maxCalcStep - 1 : 1;
+        this.recalcGraph(maxStep);
+        this.renderUI();
+    };
+    onBtNextClick = () => {
+        const maxStep =
+            this.gameState.maxCalcStep < ALL_NODES ? this.gameState.maxCalcStep + 1 : ALL_NODES;
+        this.recalcGraph(maxStep);
+        this.renderUI();
+    };
+    onBtNextJumpClick = () => {
+        const maxStep =
+            this.gameState.maxCalcStep + 10 < ALL_NODES
+                ? this.gameState.maxCalcStep + 10
+                : ALL_NODES;
+        this.recalcGraph(maxStep);
+        this.renderUI();
+    };
+    onBtToFinishClick = () => {
+        const maxStep = ALL_NODES;
+        this.recalcGraph(maxStep);
+        this.renderUI();
     };
 }
 

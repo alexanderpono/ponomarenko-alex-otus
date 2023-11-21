@@ -5,9 +5,10 @@ import {
     defaultVertex
 } from '@src/game/Graph.types';
 import { defaultEdgeCost } from '@src/game/GraphCalculator';
-import { Cell, GameField } from './GameField';
+import { Cell, GameField, Point2D } from './GameField';
+import { GraphFromFieldAdvanced } from './GraphFromFieldAdvanced';
 
-export class GraphFromField {
+export class GraphFromFieldTeleport extends GraphFromFieldAdvanced {
     graphFromField = (field: GameField): AbstractGraph => {
         let graph = JSON.parse(JSON.stringify(defaultAbstractGraph));
 
@@ -44,15 +45,38 @@ export class GraphFromField {
                 });
             }
         }
-        return graph;
-    };
 
-    getEdgeCost = (field: GameField, v0Index: number, v1Index: number): EdgeCost => ({
-        ...defaultEdgeCost,
-        cost: 1
-    });
-    getVertexIndex = (fieldString: string, char: string): number => {
-        const s = fieldString.trim().split('\n').join('');
-        return s.indexOf(char);
+        console.log('V3');
+        const teleport: Point2D[] = [];
+        const teleportVI: number[] = [];
+
+        for (let y = 0; y < h - 1; y++) {
+            const vertexStartLine = y * w;
+            for (let x = 0; x < w; x++) {
+                const vertexIndex = vertexStartLine + x;
+
+                const cell = field.coordsToCell(field.vertexIndexToCoords(vertexIndex, w));
+                if (cell === Cell.teleport) {
+                    const point = field.vertexIndexToCoords(vertexIndex, w);
+                    teleport.push(point);
+                    teleportVI.push(vertexIndex);
+                }
+            }
+        }
+
+        if (teleport.length === 2) {
+            const v0 = teleportVI[0];
+            const v1 = teleportVI[1];
+            const cost = {
+                ...defaultEdgeCost,
+                cost: 1
+            };
+            graph.edges.push({
+                vertex0: v0,
+                vertex1: v1,
+                cost
+            });
+        }
+        return graph;
     };
 }
