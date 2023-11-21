@@ -153,27 +153,9 @@ const map2 = `
     `;
 const GROUP_3 = '3. Ошибка реализации: неоптимальный путь';
 renderGameField(GROUP_3, map2, 'slide3a', MAP_START_STOP, ADVANCED, GraphCalculator);
-renderGameField(GROUP_3, map2, 'slide3a_2', MAP_PATH, ADVANCED, GraphCalculator);
-renderGameField(
-    GROUP_3,
-    map2,
-    'slide3a_3',
-    { ...MAP_COST_PATH, highlightCells: [{ x: 14, y: 4 }] },
-    ADVANCED,
-    GraphCalculator
-);
 
 const GROUP_4 = '3. Результат выбора оптимального пути';
 renderGameField(GROUP_4, map2, 'slide3', MAP_START_STOP, ADVANCED, GraphCalculatorV2);
-renderGameField(GROUP_4, map2, 'slide3_2', MAP_PATH, ADVANCED, GraphCalculatorV2);
-renderGameField(
-    GROUP_4,
-    map2,
-    'slide3_3',
-    { ...MAP_COST_PATH, highlightCells: [{ x: 14, y: 4 }] },
-    ADVANCED,
-    GraphCalculatorV2
-);
 
 const map3 = `
 ▓ M              ▓
@@ -223,32 +205,6 @@ renderGameField(
 );
 renderGameField(GROUP_5, map3, 'V5_3', MAP_PATH_START_STOP, ADVANCED_V2, GraphCalculatorV3);
 
-const map4 = `
-▓     $          ▓
-▓▓▓▓ ▓▓▓╡▓▓▓▓▓▓▓▓▓
-▓ M     ╡        ▓
-▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓▓
-▓           ╡    ▓
-▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓▓
-▓  ╡     ╡    ╡  ▓
-▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-    `;
-const GROUP_6 = '3. Не должен подниматься по воздуху вверх';
-renderGameField(GROUP_6, map4, 'V5_4', MAP_START_STOP, ADVANCED_V2, GraphCalculatorV3);
-renderGameField(
-    GROUP_6,
-    map4,
-    'V5_4_1',
-    { ...MAP_LINES, highlightCells: [{ x: 4, y: 2 }] },
-    ADVANCED_V2,
-    GraphCalculatorV3
-);
-renderGameField(GROUP_6, map4, 'V5_5', MAP_COST, ADVANCED_V2, GraphCalculatorV3);
-renderGameField(GROUP_6, map4, 'V5_6', MAP_COST_PATH, ADVANCED_V2, GraphCalculatorV3);
-
-// const GROUP_7 = '3. Результат';
-// renderGameField(GROUP_7, map4, 'game1', MAP, ADVANCED_V2, GraphCalculatorV3);
-
 function renderGameField(
     title: string,
     map: string,
@@ -288,33 +244,6 @@ renderGameField(
     SIMPLE,
     GraphCalculatorV2,
     ALL_NODES
-);
-renderGameField(
-    '4. Алгоритм Дейкстры. <br />В конце шага 1',
-    map5,
-    'V5_7_2',
-    LINES_COST_PATH,
-    SIMPLE,
-    GraphCalculatorV2,
-    1
-);
-renderGameField(
-    '4. Алгоритм Дейкстры. <br />В конце шага 2',
-    map5,
-    'V5_7_3',
-    LINES_COST_PATH,
-    SIMPLE,
-    GraphCalculatorV2,
-    3
-);
-renderGameField(
-    '4. Алгоритм Дейкстры. <br />В конце шага 3',
-    map5,
-    'V5_7_4',
-    LINES_COST_PATH,
-    SIMPLE,
-    GraphCalculatorV2,
-    4
 );
 renderGameField(
     '4. Оптимизация: <br />ранний выход',
@@ -371,16 +300,6 @@ renderGameField(
     ALL_NODES
 );
 
-renderGameField(
-    '4. H3(): учитываем отклонение от прямой',
-    map5,
-    'V5_heurisic_5_2',
-    LINES_COST_PATH_PROGRESS,
-    SIMPLE,
-    GraphCalculatorV5e,
-    ALL_NODES
-);
-
 const map6 = `
 ▓                ▓
 ▓                ▓
@@ -395,26 +314,6 @@ renderGameField(
     '4. Добавляем барьер',
     map6,
     'V5_barrier',
-    LINES_COST_PATH_MAP_PROGRESS,
-    ADVANCED,
-    GraphCalculatorV5e,
-    ALL_NODES
-);
-
-const map7 = `
-▓                ▓
-▓                ▓
-▓   M            ▓
-▓       ▓        ▓
-▓       ▓        ▓
-▓       ▓        ▓
-▓       ▓   $    ▓
-▓       ▓        ▓
-`;
-renderGameField(
-    '4. Сплошной барьер снизу',
-    map7,
-    'V5_barrier2',
     LINES_COST_PATH_MAP_PROGRESS,
     ADVANCED,
     GraphCalculatorV5e,
@@ -475,26 +374,6 @@ renderGameField(
     '4. H4() &mdash; с новыми коэффициентами',
     map10,
     'V5_barrier5',
-    LINES_COST_PATH_MAP_PROGRESS,
-    ADVANCED,
-    GraphCalculatorV5f,
-    ALL_NODES
-);
-
-const map11 = `
-▓                ▓
-▓       ▓▓▓▓     ▓
-▓          ▓     ▓
-▓   M      ▓     ▓
-▓          ▓ $   ▓
-▓          ▓     ▓
-▓       ▓▓▓▓     ▓
-▓                ▓
-`;
-renderGameField(
-    '4. Барьер: меняем форму препятствия',
-    map11,
-    'V5_barrier6',
     LINES_COST_PATH_MAP_PROGRESS,
     ADVANCED,
     GraphCalculatorV5f,
@@ -583,16 +462,6 @@ const map12a = `
 ▓  ╡     ╡   $╡  ▓
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
     `;
-renderGameField(
-    '5. Ограничены ли мы <br />2D-пространством?',
-    map12a,
-    'teleport_intro_1',
-    LINES_COST_PATH,
-    SIMPLE,
-    GraphCalculatorV2,
-    0
-);
-
 renderGameField(
     '5. Ограничены ли мы <br />2D-пространством?',
     map12a,

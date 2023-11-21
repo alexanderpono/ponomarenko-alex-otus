@@ -12,13 +12,6 @@ import {
 import { GameField } from './game/GameField';
 
 renderAbstractGraph('1. Алгоритм Дейкстры. Исходный граф', false, 'slide00', -1);
-renderAbstractGraph('1. Алгоритм Дейкстры. <br />Шаг 0', true, 'gl-s0', 0);
-renderAbstractGraph('1. Алгоритм Дейкстры. <br />Шаг 1', true, 'gl-s1', 1);
-renderAbstractGraph('1. Алгоритм Дейкстры. <br />Шаг 2', true, 'gl-s2', 2);
-renderAbstractGraph('1. Алгоритм Дейкстры. <br />Шаг 3', true, 'gl-s3', 3);
-renderAbstractGraph('1. Алгоритм Дейкстры. <br />Шаг 4', true, 'gl-s4', 4);
-renderAbstractGraph('1. Алгоритм Дейкстры. <br />Шаг 5', true, 'gl-s5', 5);
-renderAbstractGraph('1. Алгоритм Дейкстры. <br />Шаг 6', true, 'gl-s6', 6);
 renderAbstractGraph('1. Алгоритм Дейкстры: кратчайший путь', true, 'graph-ok', ALL_NODES);
 
 function renderAbstractGraph(
