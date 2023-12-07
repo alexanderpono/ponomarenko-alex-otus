@@ -161,6 +161,7 @@ hw01-tree | shows file tree | 1.0.0
 https://github.com/alexanderpono/ponomarenko-alex-otus/tree/node-2023-11-hw01-tree/node-2023-11/hw01-tree
 
 либо 
+
 https://github.com/alexanderpono/ponomarenko-alex-otus/tree/master/node-2023-11/hw01-tree
 
 
@@ -182,9 +183,19 @@ git clone https://github.com/alexanderpono/ponomarenko-alex-otus.git
 ```
 
 2. Зайти в папку д/з №01: 
+Если д/з №01 еще не в master, то:
+```
+cd ./ponomarenko-alex-otus/
+git checkout node-2023-11-hw01-tree
+cd ./node-2023-11/hw01-tree
+```
+
+Если д/з №01 уже в master, то:
+
 ```
 cd ./ponomarenko-alex-otus/node-2023-11/hw01-tree
 ```
+ 
 
 3. установить зависимости:  
 ```
