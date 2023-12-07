@@ -8,7 +8,7 @@ class Logger {
     printUsage() {
         console.log(`
 Usage: tree <dirName> -d <depth>
-Example: tree data -d 2
+Example: tree ./data -d 2
         `);
     }
 
