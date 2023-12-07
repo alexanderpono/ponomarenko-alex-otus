@@ -1,17 +1,27 @@
-const { description, name, version } = require('./package.json');
-const { validateParams } = require('./params');
-const { FsInput } = require('./FsInput');
+const { FsInput } = require('./ports/FsInput');
+const { AppParams } = require('./ports/AppParams');
+const { Logger } = require('./ports/Logger');
+const { AppProcess } = require('./ports/AppProcess');
+const { Graph, dir } = require('./Graph');
 
-const params = process.argv.slice(2);
-printAbout();
+const logger = new Logger();
+const appParams = new AppParams(logger, new AppProcess());
+const rawParams = process.argv.slice(2);
 
-console.log('validateParams=', validateParams);
-validateParams(params);
+logger.printAbout();
+appParams.validateParams(rawParams);
 
-function printAbout() {
-    console.log(`\n\n${[name, description, version].join(' | ')}`);
-}
+const params = appParams.parseParams(rawParams);
+new FsInput().getDirStats(params.dirName, '', [], params.depth).then((foundFiles) => {
+    const sorted = foundFiles.sort((a, b) => {
+        if (a.name === b.name) {
+            return 0;
+        }
+        return a.name < b.name ? -1 : 1;
+    });
 
-new FsInput().getDirStats('./data', '', [], 2).then((foundFiles) => {
-    console.log('foundFiles=', foundFiles);
+    const treeLines = new Graph().draw(sorted);
+
+    console.log(dir(params.dirName));
+    console.log(treeLines.join('\n'));
 });

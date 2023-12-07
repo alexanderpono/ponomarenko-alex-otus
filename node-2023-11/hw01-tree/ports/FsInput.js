@@ -1,5 +1,7 @@
 const fs = require('fs');
 
+const DIRECTORY = -1;
+
 class FsInput {
     openDirectory = async (path) => await fs.promises.opendir(path);
     getFileStats = async (filePath) => await fs.promises.stat(filePath);
@@ -12,6 +14,9 @@ class FsInput {
         const result = [];
         const dirHandle = await this.openDirectory(rootPath);
         const toSkip = new Set(skipFiles);
+        if (depth === 0) {
+            return [];
+        }
         for await (const dirent of dirHandle) {
             if (toSkip.has(dirent.name)) {
                 console.log(`skipping ${dirent.name}`);
@@ -45,5 +50,6 @@ class FsInput {
 }
 
 module.exports = {
-    FsInput    
+    FsInput,
+    DIRECTORY
 }

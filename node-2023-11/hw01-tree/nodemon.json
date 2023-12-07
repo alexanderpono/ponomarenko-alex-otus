@@ -2,5 +2,5 @@
     "watch": ["."],
     "ext": "json,js",
     "ignore": [],
-    "exec": "node tree data -d 2"
+    "exec": "node tree ./data -d 2"
 }
