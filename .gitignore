@@ -2,7 +2,6 @@ node_modules
 bundle.js
 .vscode
 coverage
-*.txt
 output
 dist
 .stryker-tmp
