@@ -2,5 +2,5 @@
     "watch": ["."],
     "ext": "json,js",
     "ignore": [],
-    "exec": "node src/index ./data/1.txt ./data/1-out.txt"
+    "exec": "node src/index ./data/2.txt ./data/2-out.txt"
 }

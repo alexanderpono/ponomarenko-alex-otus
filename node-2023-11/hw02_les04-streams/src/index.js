@@ -73,8 +73,20 @@ const formatStats = new stream.Duplex({
     read() {},
     write(chunk, encoding, next) {
         const input = chunk.toString();
-        const output = Object.values(JSON.parse(input)).join(',');
+        const entries = Object.entries(JSON.parse(input)).sort((a, b) => {
+            if (a[0] > b[0]) {
+                return 1;
+            }
+            if (a[0] < b[0]) {
+                return -1;
+            }
+            return 0;
+        });
         console.log('formatStats in:', input);
+        console.log('formatStats entries:', entries);
+        const values = entries.map((entry) => entry[1]);
+        console.log('formatStats values:', values);
+        const output = values.join(',');
         console.log('formatStats out:', output);
         this.push(output.toString());
         next();
