@@ -22,11 +22,34 @@ const tokenize = new stream.Duplex({
     read() {},
     write(chunk, encoding, next) {
         const input = chunk.toString();
-        const output = input
+        const re = /[\w\s]/i;
+        const filteredChars = input
             .trim()
             .split('')
-            .filter((char) => Boolean(char.trim()));
+            .filter((char) => {
+                return Boolean(char.match(re));
+            });
 
+        const tokens = [];
+        let tokenAr = [];
+        filteredChars.forEach((char) => {
+            if (Boolean(char.trim())) {
+                tokenAr.push(char);
+            } else {
+                const tokenS = tokenAr.join('');
+                if (tokenS) {
+                    tokens.push(tokenS);
+                }
+                tokenAr = [];
+            }
+        });
+        const tokenS = tokenAr.join('');
+        if (tokenS) {
+            tokens.push(tokenS);
+        }
+        tokenAr = [];
+
+        const output = tokens;
         console.log('tokenize in:', input);
         console.log('tokenize out:', output);
 
