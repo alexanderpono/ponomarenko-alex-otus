@@ -12,18 +12,21 @@ class AppParams {
             this.logger.log('\nFATAL: not enough parameters');
             this.logger.printUsage();
             this.appProcess.exit();
+            return;
         }
 
         if (params[1] != '-d') {
             this.logger.log('\nFATAL: parameter [1] must be = -d');
             this.logger.printUsage();
             this.appProcess.exit();
+            return;
         }
 
         if (isNaN(parseInt(params[2]))) {
             this.logger.log('\nFATAL: parameter [2] must be a number');
             this.logger.printUsage();
             this.appProcess.exit();
+            return;
         }
     };
 
