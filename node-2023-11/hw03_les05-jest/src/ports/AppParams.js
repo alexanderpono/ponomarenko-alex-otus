@@ -13,27 +13,26 @@ class AppParams {
             this.logger.printUsage();
             this.appProcess.exit();
         }
-        
+
         if (params[1] != '-d') {
             this.logger.log('\nFATAL: parameter [1] must be = -d');
             this.logger.printUsage();
             this.appProcess.exit();
         }
-        
+
         if (isNaN(parseInt(params[2]))) {
             this.logger.log('\nFATAL: parameter [2] must be a number');
             this.logger.printUsage();
             this.appProcess.exit();
         }
-    }
+    };
 
     parseParams = (params) => ({
         dirName: params[0],
         depth: parseInt(params[2])
     });
-    
 }
 
 module.exports = {
     AppParams
-}
+};

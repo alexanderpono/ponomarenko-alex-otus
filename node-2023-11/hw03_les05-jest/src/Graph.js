@@ -26,14 +26,14 @@ class Graph {
                 previousParent = parent;
                 treeLines.push(drawNode(depth - 1, dir(parentPath.pop())));
             }
-    
+
             const nodeName = node.name.split('/').pop();
             const line = drawNode(depth, nodeName);
             treeLines.push(line);
         });
 
         const prettyLines = this.fixGraph(treeLines);
-    
+
         return prettyLines;
     }
 
@@ -42,7 +42,7 @@ class Graph {
         for (let i = treeLines.length - 2; i >= 0; i--) {
             const curLine = treeLines[i].split('');
             const nextLine = treeLines[i + 1].split('');
-    
+
             for (let x = 0; x < curLine.length; x++) {
                 if (curLine[x] === HOR && nextLine[x] === CORNER) {
                     curLine[x] = HOR_DOWN;
@@ -75,4 +75,4 @@ class Graph {
 module.exports = {
     Graph,
     dir
-}
+};

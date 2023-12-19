@@ -2,16 +2,23 @@
   "name": "hw01-tree",
   "version": "1.0.0",
   "description": "shows file tree",
-  "main": "tree.js",
+  "main": "src/tree.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node tree.js",
+    "start": "node src/tree.js",
     "watch": "nodemon"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^3.0.2"
+    "@babel/eslint-parser": "^7.23.3",
+    "@babel/plugin-transform-class-properties": "^7.23.3",
+    "@babel/core": "^7.22.1",
+    "eslint": "^7.17.0",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-prettier": "^3.3.0",
+    "nodemon": "^3.0.2",
+    "prettier": "^2.2.1"
   }
 }

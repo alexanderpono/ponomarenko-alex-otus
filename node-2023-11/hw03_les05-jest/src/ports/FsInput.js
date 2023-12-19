@@ -5,12 +5,7 @@ const DIRECTORY = -1;
 class FsInput {
     openDirectory = async (path) => await fs.promises.opendir(path);
     getFileStats = async (filePath) => await fs.promises.stat(filePath);
-    getDirStats = async (
-        rootPath,
-        localDirPath,
-        skipFiles,
-        depth
-    ) => {
+    getDirStats = async (rootPath, localDirPath, skipFiles, depth) => {
         const result = [];
         const dirHandle = await this.openDirectory(rootPath);
         const toSkip = new Set(skipFiles);
@@ -43,13 +38,12 @@ class FsInput {
             }
             result.push({ name: localPath, size });
         }
-    
+
         return result;
     };
-    
 }
 
 module.exports = {
     FsInput,
     DIRECTORY
-}
+};

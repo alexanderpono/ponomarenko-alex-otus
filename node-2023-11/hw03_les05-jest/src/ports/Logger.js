@@ -1,4 +1,4 @@
-const { description, name, version } = require('../package.json');
+const { description, name, version } = require('../../package.json');
 
 class Logger {
     log(...params) {
@@ -19,4 +19,4 @@ Example: tree ./data -d 2
 
 module.exports = {
     Logger
-}
+};

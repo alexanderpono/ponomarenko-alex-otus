@@ -6,4 +6,4 @@ class AppProcess {
 
 module.exports = {
     AppProcess
-}
+};
