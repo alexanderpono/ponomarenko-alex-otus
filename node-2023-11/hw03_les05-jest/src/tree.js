@@ -12,16 +12,20 @@ logger.printAbout();
 appParams.validateParams(rawParams);
 
 const params = appParams.parseParams(rawParams);
-new FsInput().getDirStats(params.dirName, '', [], params.depth).then((foundFiles) => {
-    const sorted = foundFiles.sort((a, b) => {
-        if (a.name === b.name) {
-            return 0;
-        }
-        return a.name < b.name ? -1 : 1;
+const fsInput = new FsInput();
+fsInput
+    .setMe(fsInput)
+    .getDirStats(params.dirName, '', params.depth)
+    .then((foundFiles) => {
+        const sorted = foundFiles.sort((a, b) => {
+            if (a.name === b.name) {
+                return 0;
+            }
+            return a.name < b.name ? -1 : 1;
+        });
+
+        const treeLines = new Graph().draw(sorted);
+
+        console.log(dir(params.dirName));
+        console.log(treeLines.join('\n'));
     });
-
-    const treeLines = new Graph().draw(sorted);
-
-    console.log(dir(params.dirName));
-    console.log(treeLines.join('\n'));
-});

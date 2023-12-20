@@ -36,7 +36,7 @@ describe('AppParams', () => {
     });
 
     describe('.validateParams()', () => {
-        const rndStr = faker.datatype.string();
+        const rndStr = 'aaa' + faker.datatype.string();
         test.each`
             testName                       | params                            | expected
             ${'params.length == 1'}        | ${[rndStr]}                       | ${'\nFATAL: not enough parameters'}
