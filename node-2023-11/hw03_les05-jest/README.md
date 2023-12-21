@@ -33,3 +33,80 @@
 +3 балла – дедлайн соблюден
 Статус "Принято" ставится при наборе 5 баллов
 ```
+
+## Выполнение д/з №3
+
+1. Созданы тесты для утилиты командной строки tree.js из д/з №1. В процессе написания тестов провен частичный рефаторинг тестируемой программы.
+
+2. Созданы файлы тестов к классам Graph, App, Logger, FsInput, AppParams
+
+3. Результат запуска тестов:
+```
+$ npm test
+
+> hw01-tree@1.0.0 test
+> jest
+
+ PASS  src/Graph.spec.js
+ PASS  src/App.spec.js
+ PASS  src/ports/FsInput.spec.js
+ PASS  src/ports/AppParams.spec.js
+ PASS  src/ports/Logger.spec.js
+----------------|---------|----------|---------|---------|-------------------
+File            | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+----------------|---------|----------|---------|---------|-------------------
+All files       |    90.9 |       98 |   95.83 |   90.44 |                   
+ src            |   86.74 |    97.05 |     100 |   86.07 |                   
+  App.js        |   94.11 |       75 |     100 |   94.11 | 19                
+  Graph.js      |     100 |      100 |     100 |     100 |                   
+  tree.js       |       0 |      100 |     100 |       0 | 1-12              
+ src/ports      |   96.66 |      100 |    92.3 |   96.49 |                   
+  AppParams.js  |     100 |      100 |     100 |     100 |                   
+  AppProcess.js |       0 |      100 |       0 |       0 | 3-7               
+  FsInput.js    |     100 |      100 |     100 |     100 |                   
+  Logger.js     |     100 |      100 |     100 |     100 |                   
+----------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 5 passed, 5 total
+Tests:       25 passed, 25 total
+Snapshots:   0 total
+Time:        3.399 s
+Ran all test suites.
+
+```
+4. Подробный отчет о покрытии кода тестами доступен по ссылке https://alexanderpono.github.io/ponomarenko-alex-otus/node-2023-11/hw03/test-report/
+
+### Запуск тестов
+Предусловие: необходима установленная версия node.js 16 (возможно, подойдет ранняя версия)
+- https://nodejs.org/download/release/v16.20.2/
+
+1. Клонировать проект: 
+```
+git clone https://github.com/alexanderpono/ponomarenko-alex-otus.git
+```
+
+2. Зайти в папку д/з №03: 
+Если д/з №03 еще не в master, то:
+```
+cd ./ponomarenko-alex-otus/
+git checkout hw03_les05-jest
+cd ./node-2023-11/hhw03_les05-jest
+```
+
+Если д/з №03 уже в master, то:
+
+```
+cd ./ponomarenko-alex-otus/node-2023-11/hw03_les05-jest
+```
+ 
+
+3. установить зависимости:  
+```
+npm ci
+```
+
+4. Запустить тесты
+```
+npm test
+
+```
