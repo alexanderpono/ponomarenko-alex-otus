@@ -3,6 +3,9 @@ const fs = require('fs');
 const DIRECTORY = -1;
 
 class FsInput {
+    constructor() {
+        this.me = this;
+    }
     setMe(me) {
         this.me = me;
         return this;

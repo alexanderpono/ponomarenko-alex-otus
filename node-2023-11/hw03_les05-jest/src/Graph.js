@@ -16,6 +16,14 @@ const dir = (dirName) => `${dirName}`;
 
 class Graph {
     draw(sortedNodes) {
+        const treeLines = this.preDraw(sortedNodes);
+
+        const prettyLines = this.fixGraph(treeLines);
+
+        return prettyLines;
+    }
+
+    preDraw(sortedNodes) {
         let previousParent = '';
         const treeLines = [];
         sortedNodes.forEach((node) => {
@@ -32,9 +40,7 @@ class Graph {
             treeLines.push(line);
         });
 
-        const prettyLines = this.fixGraph(treeLines);
-
-        return prettyLines;
+        return treeLines;
     }
 
     fixGraph = (lines) => {
