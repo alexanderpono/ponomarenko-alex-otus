@@ -18,9 +18,8 @@ const params = appParams.parseParams(rawParams);
 const readFile = fs.createReadStream(params.inFileName);
 const writeFile = fs.createWriteStream(params.outFileName);
 
-const tokenize = new stream.Duplex({
-    read() {},
-    write(chunk, encoding, next) {
+const tokenize = new stream.Transform({
+    transform(chunk, encoding, next) {
         const input = chunk.toString();
         const re = /[\w\s]/i;
         const filteredChars = input
@@ -70,9 +69,8 @@ writeFile.on('open', () => {
 });
 
 const statsData = {};
-const calcStats = new stream.Duplex({
-    read() {},
-    write(chunk, encoding, next) {
+const calcStats = new stream.Transform({
+    transform(chunk, encoding, next) {
         console.log('calcStats in:', chunk.toString());
         if (!statsData[chunk.toString()]) {
             statsData[chunk.toString()] = 1;
@@ -80,21 +78,15 @@ const calcStats = new stream.Duplex({
             statsData[chunk.toString()]++;
         }
         next();
-
-        setTimeout(() => {
-            if (readFile.readableEnded && !this.writableEnded) {
-                const output = JSON.stringify(statsData);
-                console.log('calcStats: out:', output);
-                this.push(output);
-                this.end();
-            }
-        }, 1000);
+    },
+    flush(next) {
+        this.push(JSON.stringify(statsData));
+        next();
     }
 });
 
-const formatStats = new stream.Duplex({
-    read() {},
-    write(chunk, encoding, next) {
+const formatStats = new stream.Transform({
+    transform(chunk, encoding, next) {
         const input = chunk.toString();
         const entries = Object.entries(JSON.parse(input)).sort((a, b) => {
             if (a[0] > b[0]) {
@@ -120,12 +112,12 @@ async function run() {
     const a = await pipeline(readFile, tokenize, calcStats, formatStats, writeFile);
     console.log('finish a=', a);
 
-    pipeline(readFile, tokenize, stats)
+    pipeline(readFile, tokenize, calcStats)
         .then((a) => {
-            console.log('pipe a');
+            console.log('pipeline a');
         })
         .catch(() => {
-            console.log('pipe catch');
+            console.log('pipeline catch');
         });
 }
 
