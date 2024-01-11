@@ -11,7 +11,7 @@ var apiCourseRouter = require('./routes/apiCourse');
 var apiUserRouter = require('./routes/apiUser');
 var apiLessonRouter = require('./routes/apiLesson');
 var loginRouter = require('./routes/login');
-var coursesRouter = require('./routes/courses');
+var courseRouter = require('./routes/course');
 
 var app = express();
 
@@ -32,7 +32,7 @@ app.use('/api/user', apiUserRouter);
 app.use('/api/lesson', apiLessonRouter);
 app.use('/api', apiRouter);
 app.use('/login', loginRouter);
-app.use('/courses', coursesRouter);
+app.use('/course', courseRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
