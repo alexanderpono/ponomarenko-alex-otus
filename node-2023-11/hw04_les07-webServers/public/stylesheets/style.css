@@ -12,3 +12,15 @@ a {
     grid-template-columns: 40% 60%;
     padding: 0 0 10px 0;
 }
+
+.courses table {
+    width: 100%;
+}
+
+.courses th {
+    text-align: left;
+}
+
+.courses tr:nth-child(2n) {
+    background-color: rgb(200, 225, 255);
+}
