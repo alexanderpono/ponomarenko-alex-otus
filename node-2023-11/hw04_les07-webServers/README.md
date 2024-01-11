@@ -87,3 +87,97 @@
 ![Диалоги приложения](/doc/dialogs.drawio.svg)
 
 3. [Описание API приложения](/doc/API.md)
+
+4. Развернут прототип API приложения (см. app.js, routes/api.js)
+5. Развернута инфраструктура API-тестов, написан тест для одной точки входа (см. api-tests/api.spec.js)
+6. Созданы основные страницы приложения без функционала (авторизация, список курсов, страница курса)
+```
+Аутентификация
+http://localhost:3000/login
+
+Курсы
+http://localhost:3000/course
+
+Курс №2
+http://localhost:3000/course/2
+
+```
+7. Добавлена поддержка devcert (см. bin/www), https пока не заработал. 
+```
+При соединении с localhost:3000 произошла ошибка. SSL получило запись, длина которой превышает максимально допустимую.
+
+Код ошибки: SSL_ERROR_RX_RECORD_TOO_LONG
+
+```
+
+
+### Язык программы: Javascript
+### Репозиторий доступен по адресу:
+https://github.com/alexanderpono/ponomarenko-alex-otus/tree/hw04_les07-webServers/node-2023-11/hw04_les07-webServers
+
+либо 
+
+https://github.com/alexanderpono/ponomarenko-alex-otus/tree/master/node-2023-11/hw04_les07-webServers
+
+
+### Пояснительная записка к проекту доступна по адресу:
+https://github.com/alexanderpono/ponomarenko-alex-otus/tree/master/node-2023-11/hw04_les07-webServers
+
+либо 
+
+https://github.com/alexanderpono/ponomarenko-alex-otus/tree/master/node-2023-11/hw04_les07-webServers#readme
+
+
+### Запуск программы
+Предусловие: необходима установленная версия node.js 16 (возможно, подойдет ранняя версия)
+- https://nodejs.org/download/release/v16.20.2/
+
+1. Клонировать проект: 
+```
+git clone https://github.com/alexanderpono/ponomarenko-alex-otus.git
+```
+
+2. Зайти в папку д/з №04: 
+Если д/з №04 еще не в master, то:
+```
+cd ./ponomarenko-alex-otus/
+git checkout hw04_les07-webServers
+cd ./node-2023-11/hw04_les07-webServers
+```
+
+Если д/з №04 уже в master, то:
+
+```
+cd ./ponomarenko-alex-otus/node-2023-11/hw04_les07-webServers
+```
+ 
+
+3. установить зависимости:  
+```
+npm ci
+```
+
+4. Запустить сервер
+```
+npm run watch
+```
+
+5. Открыть url в браузере
+```
+Аутентификация
+http://localhost:3000/login
+
+Курсы
+http://localhost:3000/course
+
+Курс №2
+http://localhost:3000/course/2
+
+```
+
+6. Запустить тесты (должны падать, API не реализована)
+```
+npm run test
+```
+
+

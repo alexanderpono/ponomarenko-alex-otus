@@ -55,3 +55,4 @@
 ## GET, POST /api/tag
 ## GET, PUT, DELETE /api/tag/:id
 
+## POST /api/reset
