@@ -1,8 +1,17 @@
 
 GET http://localhost:3000/api/user
-X-User-Name: Peter
 
 ###
 
-GET https://localhost:3000/api/user
-X-User-Name: Peter
+GET http://localhost:3000/api/user/65a3cc310e5e465a324d5c8a
+
+###
+
+POST http://localhost:3000/api/user
+Content-Type: application/json
+
+{
+    "name": "Masha2",
+    "login": "masha",
+    "pass": "p"
+}

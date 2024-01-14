@@ -1,16 +1,44 @@
 var express = require('express');
 var router = express.Router();
+const Person = require('../service/mongoose').Person;
 
 router.get('/', function (req, res, next) {
-    res.send('get users');
+    Person.find().then((persons) => {
+        res.send(persons);
+    }).catch((err) => {
+        res.status(500).send({error: 'Server error'});
+    });
 });
+
 router.post('/', function (req, res, next) {
-    res.send('post user');
+    const person = new Person(req.body);
+
+    person.save()
+    .then((person) => {
+        res.status(201).send(person);
+    })
+    .catch((err) => {
+        if (err.name === 'ValidationError') {
+            return res.status(400).send({error: 'Validation error', err});
+        } else {
+            return res.status(500).send({error: 'Server error'});
+        }
+    });
 });
 
 router.get('/:id', function (req, res, next) {
-    res.send('get user ' + req.params.id);
+    Person.findById(req.params.id)
+    .then((person) => {
+        if (!person) {
+            return res.status(404).send({error: 'Not found'});
+        }
+        res.send(person);
+    })
+    .catch((err) => {
+        res.status(500).send({error: 'Server error'});
+    });
 });
+
 router.put('/:id', function (req, res, next) {
     res.send('put user' + req.params.id);
 });

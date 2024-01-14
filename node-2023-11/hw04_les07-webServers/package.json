@@ -13,6 +13,7 @@
     "devcert": "^1.2.2",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
+    "mongoose": "^8.0.4",
     "morgan": "~1.9.1",
     "pug": "2.0.0-beta11"
   },
