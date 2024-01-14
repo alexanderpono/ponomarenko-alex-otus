@@ -42,7 +42,26 @@ router.get('/:id', function (req, res, next) {
 });
 
 router.put('/:id', function (req, res, next) {
-    res.send('put user' + req.params.id);
+    User.updateOne(
+        { _id: req.params.id },
+        {
+            $set: {
+                name: req.body.name,
+                login: req.body.login,
+                pass: req.body.pass
+            }
+        }
+    )
+        .then((user) => {
+            if (!user) {
+                return res.status(404).send({ error: 'Not found' });
+            }
+            res.send({});
+        })
+        .catch((err) => {
+            console.log('put err=', err);
+            res.status(500).send({ error: 'Server error' + JSON.stringify(err) });
+        });
 });
 router.delete('/:id', function (req, res, next) {
     res.send('delete user' + req.params.id);

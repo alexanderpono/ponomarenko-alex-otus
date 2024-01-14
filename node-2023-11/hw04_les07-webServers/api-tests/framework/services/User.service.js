@@ -21,6 +21,13 @@ class UserApi {
             .set('Accept', 'application/json');
         return r;
     }
+    async put(params) {
+        const r = await supertest(`${url.localCoursesApi}`)
+            .put(`/api/user/${params.id}`)
+            .set('Accept', 'application/json')
+            .send(params.params);
+        return r;
+    }
 }
 
 module.exports = {

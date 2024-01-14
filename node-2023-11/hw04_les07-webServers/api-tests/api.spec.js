@@ -19,7 +19,7 @@ const getProjection = (items, projection) => {
     return result;
 };
 
-describe('UsersApi-parameterized', () => {
+describe('/api/user', () => {
     let peterId = null;
     beforeAll(async () => {
         const params = new builder().addUsualUser().generate();
@@ -28,13 +28,26 @@ describe('UsersApi-parameterized', () => {
         peterId = startUsers.body[0]._id;
     });
     const builder = ParamsBuilder;
+    const Masha = { name: 'Masha', login: 'masha', pass: 'pwd' };
+    const Peter = { name: 'Peter', login: 'peter', pass: 'p' };
     const newUser = new builder().addName('Masha').addLogin('masha').addPass('pwd');
+    const PeterNewPass = { ...Peter, pass: 'newPass' };
+    const putPeter = {
+        generate: () => ({
+            id: peterId,
+            params: new builder()
+                .addName(PeterNewPass.name)
+                .addLogin(PeterNewPass.login)
+                .addPass(PeterNewPass.pass)
+        })
+    };
 
     test.each`
-        paramsBuilder                  | method       | testName                                    | expectedHttpCode | bodyField | projection           | expectedVal
-        ${new builder()}               | ${'get'}     | ${'GET /api/user returns users'}            | ${200}           | ${null}   | ${'name login pass'} | ${[{ name: 'Peter', login: 'peter', pass: 'p' }]}
-        ${newUser}                     | ${'post'}    | ${'POST /api/user returns new user'}        | ${201}           | ${null}   | ${'name login pass'} | ${{ name: 'Masha', login: 'masha', pass: 'pwd' }}
-        ${{ generate: () => peterId }} | ${'getById'} | ${`GET /api/user/${peterId} returns Peter`} | ${200}           | ${null}   | ${'name login pass'} | ${{ name: 'Peter', login: 'peter', pass: 'p' }}
+        paramsBuilder                  | method       | testName                                             | expectedHttpCode | bodyField | projection           | expectedVal
+        ${new builder()}               | ${'get'}     | ${'GET /api/user returns users'}                     | ${200}           | ${null}   | ${'name login pass'} | ${[Peter]}
+        ${newUser}                     | ${'post'}    | ${'POST /api/user returns new user'}                 | ${201}           | ${null}   | ${'name login pass'} | ${Masha}
+        ${{ generate: () => peterId }} | ${'getById'} | ${`GET /api/user/[peterId] returns Peter`}           | ${200}           | ${null}   | ${'name login pass'} | ${Peter}
+        ${putPeter}                    | ${'put'}     | ${`PUT /api/user/[peterId] returns modifiedCount:1`} | ${200}           | ${null}   | ${null}              | ${null}
     `(
         '$testName',
         async ({ paramsBuilder, method, projection, expectedHttpCode, bodyField, expectedVal }) => {
@@ -44,7 +57,7 @@ describe('UsersApi-parameterized', () => {
             if (bodyField !== null) {
                 expect(r.body[bodyField]).toEqual(expectedVal);
             }
-            if (bodyField === null) {
+            if (bodyField === null && projection !== null) {
                 expect(getProjection(r.body, projection)).toEqual(expectedVal);
             }
         }
