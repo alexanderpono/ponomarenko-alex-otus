@@ -11,6 +11,21 @@ class ParamsBuilder {
         return this;
     }
 
+    addName(name) {
+        this.name = name;
+        return this;
+    }
+
+    addLogin(login) {
+        this.login = login;
+        return this;
+    }
+
+    addPass(pass) {
+        this.pass = pass;
+        return this;
+    }
+
     generate() {
         const fields = Object.getOwnPropertyNames(this);
         const data = {};
@@ -19,6 +34,7 @@ class ParamsBuilder {
                 data[fieldName] = this[fieldName];
             }
         });
+        // console.log('generate() data=', data);
         return data;
     }
 }

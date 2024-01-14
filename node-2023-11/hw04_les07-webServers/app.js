@@ -12,6 +12,7 @@ var apiUserRouter = require('./routes/apiUser');
 var apiLessonRouter = require('./routes/apiLesson');
 var loginRouter = require('./routes/login');
 var courseRouter = require('./routes/course');
+var apiResetRouter = require('./routes/apiReset');
 
 var app = express();
 
@@ -19,30 +20,48 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-const originalSend = app.response.send
+const originalSend = app.response.send;
 
 app.response.send = function sendOverWrite(body) {
-  originalSend.call(this, body)
-  this.__custombody__ = body
-}
+    originalSend.call(this, body);
+    this.__custombody__ = body;
+};
 
-morgan.token('req-body', function (req, res) { return JSON.stringify(req.body) });
-morgan.token('res-body', function (req, res) { return JSON.stringify(res.__custombody__) });
+morgan.token('req-body', function (req, res) {
+    return JSON.stringify(req.body);
+});
+morgan.token('res-body', function (req, res) {
+    return JSON.stringify(res.__custombody__);
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(morgan(':method :url :status :response-time ms - "REQL:req[content-length]" - REQB:req-body - RESL::res[content-length] - RESB::res-body ', {
-    stream: morgan.successLogStream,
-    skip: function (req, res) { return res.statusCode >= 400 }
-}));
+app.use(
+    morgan(
+        ':method :url :status :response-time ms - "REQL:req[content-length]" - REQB:req-body - RESL::res[content-length] - RESB::res-body ',
+        {
+            stream: morgan.successLogStream,
+            skip: function (req, res) {
+                return res.statusCode >= 400;
+            }
+        }
+    )
+);
 
-app.use(morgan(':method :url :status :response-time ms - "REQL:req[content-length]" - REQB:req-body - RESL::res[content-length] - RESB::res-body ', {
-    stream: morgan.errorLogStream,
-    skip: function (req, res) { return res.statusCode < 400 }
-}));
+app.use(
+    morgan(
+        ':method :url :status :response-time ms - "REQL:req[content-length]" - REQB:req-body - RESL::res[content-length] - RESB::res-body ',
+        {
+            stream: morgan.errorLogStream,
+            skip: function (req, res) {
+                return res.statusCode < 400;
+            }
+        }
+    )
+);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -52,6 +71,7 @@ app.use('/api/lesson', apiLessonRouter);
 app.use('/api', apiRouter);
 app.use('/login', loginRouter);
 app.use('/course', courseRouter);
+app.use('/api/reset', apiResetRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

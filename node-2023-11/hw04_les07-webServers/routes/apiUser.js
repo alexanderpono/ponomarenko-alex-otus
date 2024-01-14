@@ -1,42 +1,44 @@
 var express = require('express');
 var router = express.Router();
-const Person = require('../service/mongoose').Person;
+const User = require('../service/mongoose').User;
 
 router.get('/', function (req, res, next) {
-    Person.find().then((persons) => {
-        res.send(persons);
-    }).catch((err) => {
-        res.status(500).send({error: 'Server error'});
-    });
+    User.find({}, 'name login pass')
+        .then((persons) => {
+            res.send(persons);
+        })
+        .catch((err) => {
+            res.status(500).send({ error: 'Server error' });
+        });
 });
 
 router.post('/', function (req, res, next) {
-    const person = new Person(req.body);
+    const user = new User(req.body);
 
-    person.save()
-    .then((person) => {
-        res.status(201).send(person);
-    })
-    .catch((err) => {
-        if (err.name === 'ValidationError') {
-            return res.status(400).send({error: 'Validation error', err});
-        } else {
-            return res.status(500).send({error: 'Server error'});
-        }
-    });
+    user.save()
+        .then((user) => {
+            res.status(201).send(user);
+        })
+        .catch((err) => {
+            if (err.name === 'ValidationError') {
+                return res.status(400).send({ error: 'Validation error', err });
+            } else {
+                return res.status(500).send({ error: 'Server error' });
+            }
+        });
 });
 
 router.get('/:id', function (req, res, next) {
-    Person.findById(req.params.id)
-    .then((person) => {
-        if (!person) {
-            return res.status(404).send({error: 'Not found'});
-        }
-        res.send(person);
-    })
-    .catch((err) => {
-        res.status(500).send({error: 'Server error'});
-    });
+    User.findById(req.params.id)
+        .then((user) => {
+            if (!user) {
+                return res.status(404).send({ error: 'Not found' });
+            }
+            res.send(user);
+        })
+        .catch((err) => {
+            res.status(500).send({ error: 'Server error' });
+        });
 });
 
 router.put('/:id', function (req, res, next) {

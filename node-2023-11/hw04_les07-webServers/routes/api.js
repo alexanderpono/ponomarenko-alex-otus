@@ -29,8 +29,4 @@ router.delete('/tag/:id', function (req, res, next) {
     res.send('delete tag ' + req.params.id);
 });
 
-router.post('/reset', function (req, res, next) {
-    res.send({ result: 'post reset' });
-});
-
 module.exports = router;
