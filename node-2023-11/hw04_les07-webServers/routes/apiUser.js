@@ -64,7 +64,14 @@ router.put('/:id', function (req, res, next) {
         });
 });
 router.delete('/:id', function (req, res, next) {
-    res.send('delete user' + req.params.id);
+    User.deleteOne({ _id: req.params.id })
+        .then(() => {
+            res.send({});
+        })
+        .catch((err) => {
+            console.log('put err=', err);
+            res.status(500).send({ error: 'Server error' + JSON.stringify(err) });
+        });
 });
 
 router.get('/:id/rate', function (req, res, next) {

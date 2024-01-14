@@ -28,6 +28,12 @@ class UserApi {
             .send(params.params);
         return r;
     }
+    async delete(id) {
+        const r = await supertest(`${url.localCoursesApi}`)
+            .delete(`/api/user/${id}`)
+            .set('Accept', 'application/json');
+        return r;
+    }
 }
 
 module.exports = {
