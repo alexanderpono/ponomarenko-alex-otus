@@ -18,6 +18,16 @@ const User = mongoose.model(
     })
 );
 
+const Course = mongoose.model(
+    'course',
+    new Schema({
+        description: { type: String, required: true },
+        author_id: { type: mongoose.Types.ObjectId, required: true },
+        difficulty: { type: Number, required: true }
+    })
+);
+
 module.exports = {
-    User
+    User,
+    Course
 };

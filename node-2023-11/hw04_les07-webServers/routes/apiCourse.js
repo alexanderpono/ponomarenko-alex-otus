@@ -1,8 +1,15 @@
 var express = require('express');
 var router = express.Router();
+const Course = require('../service/mongoose').Course;
 
 router.get('/', function (req, res, next) {
-    res.send('get course');
+    Course.find({}, 'description author_id difficulty')
+        .then((persons) => {
+            res.send(persons);
+        })
+        .catch((err) => {
+            res.status(500).send({ error: 'Server error' });
+        });
 });
 router.post('/', function (req, res, next) {
     res.send('post course');

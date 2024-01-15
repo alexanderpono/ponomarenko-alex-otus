@@ -26,6 +26,19 @@ class ParamsBuilder {
         return this;
     }
 
+    addDescription(description) {
+        this.description = description;
+        return this;
+    }
+    addAuthorId(author_id) {
+        this.author_id = author_id;
+        return this;
+    }
+    addDifficulty(difficulty) {
+        this.difficulty = difficulty;
+        return this;
+    }
+
     generate() {
         const fields = Object.getOwnPropertyNames(this);
         const data = {};
