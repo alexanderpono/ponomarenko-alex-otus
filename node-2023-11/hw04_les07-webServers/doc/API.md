@@ -4,11 +4,11 @@
 ## GET, PUT /api/profile
 
 
-## GET, POST /api/user
-## GET, PUT, DELETE /api/user/:id
+## GET, POST /api/users
+## GET, PUT, DELETE /api/users/:id
 
-## GET, POST /api/user/:id/rate
-## GET, PUT, DELETE /api/user/:id/rate/:rateid
+## GET, POST /api/users/:id/rate
+## GET, PUT, DELETE /api/users/:id/rate/:rateid
 
 
 ## GET, POST /api/course

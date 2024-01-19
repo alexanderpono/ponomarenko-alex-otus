@@ -1,41 +1,41 @@
 const supertest = require('supertest');
 const { url } = require('../config');
 
-class UserApi {
+class UsersApi {
     async get() {
         const r = await supertest(`${url.localCoursesApi}`)
-            .get(`/api/user`)
+            .get(`/api/users`)
             .set('Accept', 'application/json');
         return r;
     }
     async post(params) {
         const r = await supertest(`${url.localCoursesApi}`)
-            .post(`/api/user`)
+            .post(`/api/users`)
             .set('Accept', 'application/json')
             .send(params);
         return r;
     }
     async getById(id) {
         const r = await supertest(`${url.localCoursesApi}`)
-            .get(`/api/user/${id}`)
+            .get(`/api/users/${id}`)
             .set('Accept', 'application/json');
         return r;
     }
     async put(params) {
         const r = await supertest(`${url.localCoursesApi}`)
-            .put(`/api/user/${params.id}`)
+            .put(`/api/users/${params.id}`)
             .set('Accept', 'application/json')
             .send(params.params);
         return r;
     }
     async delete(id) {
         const r = await supertest(`${url.localCoursesApi}`)
-            .delete(`/api/user/${id}`)
+            .delete(`/api/users/${id}`)
             .set('Accept', 'application/json');
         return r;
     }
 }
 
 module.exports = {
-    UserApi
+    UsersApi
 };
