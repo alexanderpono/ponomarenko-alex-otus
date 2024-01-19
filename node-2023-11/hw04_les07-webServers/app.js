@@ -7,7 +7,7 @@ var morgan = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var apiRouter = require('./routes/api');
-var apiCourseRouter = require('./routes/apiCourse');
+var apiCoursesRouter = require('./routes/apiCourses');
 var apiUsersRouter = require('./routes/apiUsers');
 var apiLessonRouter = require('./routes/apiLesson');
 var loginRouter = require('./routes/login');
@@ -65,7 +65,7 @@ app.use(
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/api/course', apiCourseRouter);
+app.use('/api/courses', apiCoursesRouter);
 app.use('/api/users', apiUsersRouter);
 app.use('/api/lesson', apiLessonRouter);
 app.use('/api', apiRouter);
