@@ -21,17 +21,28 @@ const getProjection = (items, projection) => {
 
 describe('api', () => {
     let peterId = null;
+    let toDelId = null;
+    let Physics = null;
+    let Math = null;
+    let mathId = null;
     const builder = ParamsBuilder;
     beforeAll(async () => {
         const params = new builder().addUsualUser().generate();
         await apiProvider().reset().reset(params);
         const startUsers = await apiProvider().users()['get'](new builder());
         peterId = startUsers.body[0]._id;
+        toDelId = startUsers.body[1]._id;
+
+        Physics = { description: 'Physics', author_id: peterId, difficulty: 4 };
+        Math = { description: 'Math', author_id: peterId, difficulty: 3 };
+        const startCourses = await apiProvider().courses()['get'](new builder());
+        mathId = startCourses.body[0]._id;
     });
 
     describe('/api/user', () => {
         const Masha = { name: 'Masha', login: 'masha', pass: 'pwd' };
         const Peter = { name: 'Peter', login: 'peter', pass: 'p' };
+        const Nick = { name: 'nick', login: 'nick', pass: 'p' };
         const newUser = new builder().addName('Masha').addLogin('masha').addPass('pwd');
         const PeterNewPass = { ...Peter, pass: 'newPass' };
         const putPeter = {
@@ -46,11 +57,11 @@ describe('api', () => {
 
         test.each`
             paramsBuilder                  | method       | testName                                         | expectedHttpCode | bodyField | projection           | expectedVal
-            ${new builder()}               | ${'get'}     | ${'GET /api/user returns users'}                 | ${200}           | ${null}   | ${'name login pass'} | ${[Peter]}
+            ${new builder()}               | ${'get'}     | ${'GET /api/user returns users'}                 | ${200}           | ${null}   | ${'name login pass'} | ${[Peter, Nick]}
             ${newUser}                     | ${'post'}    | ${'POST /api/user returns new user'}             | ${201}           | ${null}   | ${'name login pass'} | ${Masha}
             ${{ generate: () => peterId }} | ${'getById'} | ${`GET /api/user/[peterId] returns Peter`}       | ${200}           | ${null}   | ${'name login pass'} | ${Peter}
             ${putPeter}                    | ${'put'}     | ${`PUT /api/user/[peterId] returns HTTP 200`}    | ${200}           | ${null}   | ${null}              | ${null}
-            ${{ generate: () => peterId }} | ${'delete'}  | ${`DELETE /api/user/[peterId] returns HTTP 200`} | ${200}           | ${null}   | ${null}              | ${null}
+            ${{ generate: () => toDelId }} | ${'delete'}  | ${`DELETE /api/user/[toDelId] returns HTTP 200`} | ${204}           | ${null}   | ${null}              | ${null}
         `(
             '$testName',
             async ({
@@ -75,54 +86,62 @@ describe('api', () => {
     });
 
     describe('/api/course', () => {
-        const Physics = { description: 'Physics', author_id: peterId, difficulty: 4 };
-        const getMath = () => ({ description: 'Math', author_id: peterId, difficulty: 3 });
-        const expectedCourses = () => [getMath()];
-        const newCourseParams = new builder()
-            .addDescription(Physics.description)
-            .addAuthorId(Physics.author_id)
-            .addDifficulty(Physics.difficulty);
-        const expectedPhysics = () => Physics;
-        // const PeterNewPass = { ...Peter, pass: 'newPass' };
-        // const putPeter = {
-        //     generate: () => ({
-        //         id: peterId,
-        //         params: new builder()
-        //             .addName(PeterNewPass.name)
-        //             .addLogin(PeterNewPass.login)
-        //             .addPass(PeterNewPass.pass)
-        //     })
-        // };
+        const run = async (method, paramsBuilder) => {
+            const params = paramsBuilder.generate();
+            const r = await apiProvider().courses()[method](params);
+            return r;
+        };
+        const getMyProjection = (r) => getProjection(r.body, 'description author_id difficulty');
 
-        // ${{ generate: () => peterId }} | ${'getById'} | ${`GET /api/user/[peterId] returns Peter`}       | ${200}           | ${null}   | ${'name login pass'} | ${Peter}
-        // ${putPeter}                    | ${'put'}     | ${`PUT /api/user/[peterId] returns HTTP 200`}    | ${200}           | ${null}   | ${null}              | ${null}
-        // ${{ generate: () => peterId }} | ${'delete'}  | ${`DELETE /api/user/[peterId] returns HTTP 200`} | ${200}           | ${null}   | ${null}              | ${null}
+        test('GET /api/course returns courses', async () => {
+            const paramsBuilder = new builder();
+            const r = await run('get', paramsBuilder);
 
-        test.each`
-            paramsBuilder      | method    | testName                                 | expectedHttpCode | bodyField | projection                            | expectedThunk
-            ${new builder()}   | ${'get'}  | ${'GET /api/course returns courses'}     | ${200}           | ${null}   | ${'description author_id difficulty'} | ${expectedCourses}
-            ${newCourseParams} | ${'post'} | ${'POST /api/course returns new course'} | ${201}           | ${null}   | ${'description author_id difficulty'} | ${expectedPhysics}
-        `(
-            '$testName',
-            async ({
-                paramsBuilder,
-                method,
-                projection,
-                expectedHttpCode,
-                bodyField,
-                expectedThunk
-            }) => {
-                // expect(1).toBe(1);
-                const params = paramsBuilder.generate();
-                const r = await apiProvider().course()[method](params);
-                expect(r.status).toEqual(expectedHttpCode);
-                if (bodyField !== null) {
-                    expect(r.body[bodyField]).toEqual(expectedThunk());
-                }
-                if (bodyField === null && projection !== null) {
-                    expect(getProjection(r.body, projection)).toEqual(expectedThunk());
-                }
-            }
-        );
+            expect(r.status).toEqual(200);
+            expect(getMyProjection(r)).toEqual([Math]);
+        });
+
+        test('POST /api/course returns new course', async () => {
+            const paramsBuilder = new builder()
+                .addDescription(Physics.description)
+                .addAuthorId(Physics.author_id)
+                .addDifficulty(Physics.difficulty);
+            const r = await run('post', paramsBuilder);
+
+            expect(r.status).toEqual(201);
+            expect(getMyProjection(r)).toEqual(Physics);
+        });
+
+        test('GET /api/course/[mathId] returns Peter', async () => {
+            const paramsBuilder = { generate: () => mathId };
+            const r = await run('getById', paramsBuilder);
+
+            expect(r.status).toEqual(200);
+            expect(getMyProjection(r)).toEqual(Math);
+        });
+
+        test(`PUT /api/course/[mathId] returns HTTP 200`, async () => {
+            const paramsBuilder = {
+                generate: () => ({
+                    id: mathId,
+                    params: new builder()
+                        .addDescription('newDescription')
+                        .addAuthorId(Math.author_id)
+                        .addDifficulty(Math.difficulty)
+                })
+            };
+            const r = await run('put', paramsBuilder);
+
+            expect(r.status).toEqual(200);
+            expect(getMyProjection(r)).toEqual({});
+        });
+
+        test(`DELETE /api/course/[mathId] returns HTTP 204`, async () => {
+            const paramsBuilder = { generate: () => mathId };
+            const r = await run('delete', paramsBuilder);
+
+            expect(r.status).toEqual(204);
+            expect(getMyProjection(r)).toEqual({});
+        });
     });
 });

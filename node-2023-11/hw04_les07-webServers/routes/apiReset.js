@@ -14,6 +14,13 @@ router.post('/', async function (req, res, next) {
     await user.save();
     console.log('reset() user=', user);
 
+    const nick = new User({
+        name: 'nick',
+        login: 'nick',
+        pass: 'p'
+    });
+    await nick.save();
+
     await Course.deleteMany({});
     const course = new Course({ description: 'Math', author_id: user._id, difficulty: 3 });
     await course.save();

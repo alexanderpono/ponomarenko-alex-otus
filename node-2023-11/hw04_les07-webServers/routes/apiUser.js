@@ -63,10 +63,11 @@ router.put('/:id', function (req, res, next) {
             res.status(500).send({ error: 'Server error' + JSON.stringify(err) });
         });
 });
+
 router.delete('/:id', function (req, res, next) {
     User.deleteOne({ _id: req.params.id })
         .then(() => {
-            res.send({});
+            res.status(204).send({});
         })
         .catch((err) => {
             console.log('put err=', err);

@@ -4,7 +4,7 @@ const { CourseApi } = require('./Course.service');
 
 const apiProvider = () => ({
     users: () => new UserApi(),
-    course: () => new CourseApi(),
+    courses: () => new CourseApi(),
     reset: () => new ResetApi()
 });
 

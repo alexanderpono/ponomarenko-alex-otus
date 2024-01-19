@@ -79,8 +79,9 @@ async function run() {
      * Create HTTP server.
      */
 
-    let ssl = await devcert.certificateFor('localhost');
-    server = http.createServer(ssl, app);
+    // let ssl = await devcert.certificateFor('localhost');
+    // server = http.createServer(ssl, app);
+    server = http.createServer(app);
     /**
      * Listen on provided port, on all network interfaces.
      */

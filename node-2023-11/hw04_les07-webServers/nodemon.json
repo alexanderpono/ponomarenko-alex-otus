@@ -1,6 +1,6 @@
 {
     "watch": ["."],
     "ext": "json,js",
-    "ignore": [],
+    "ignore": ["api-tests"],
     "exec": "node ./bin/www"
 }
