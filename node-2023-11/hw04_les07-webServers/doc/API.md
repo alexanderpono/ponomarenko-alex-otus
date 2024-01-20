@@ -1,5 +1,11 @@
 # API приложения Best Courses Ever
 
+## GET, POST /admin/users
+## GET, PUT, DELETE /admin/users/:id
+## GET /admin/files
+
+
+
 ## POST /api/auth
 ## GET, PUT /api/profile
 
@@ -14,8 +20,8 @@
 ## GET, POST /api/course
 ## GET, PUT, DELETE /api/course/:id
 
-## GET, POST /api/course/:id/file
-## GET, PUT, DELETE /api/course/:id/file/:fileid
+## GET /api/files/:id
+## POST /api/files
 
 ## GET, POST /api/course/:id/video
 ## GET, PUT, DELETE /api/course/:id/video/:videoid

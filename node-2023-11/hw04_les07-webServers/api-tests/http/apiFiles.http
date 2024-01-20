@@ -1,0 +1,30 @@
+GET http://localhost:3000/api/files/000000000000000000000201
+
+###
+
+POST http://localhost:3000/api/files
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="text"
+
+title
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="1.png"
+Content-Type: image/png
+
+< ./1.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+
+###
+
+POST http://localhost:3000/api/files HTTP/1.1
+Content-Type: multipart/form-data; boundary=MfnBoundry
+
+--MfnBoundry
+Content-Disposition: form-data; name="file"; filename="test.txt"
+Content-Type: text/plain
+
+< ./test.txt
+--MfnBoundry--

@@ -2,10 +2,16 @@ var express = require('express');
 var router = express.Router();
 const User = require('../service/mongoose').User;
 const Course = require('../service/mongoose').Course;
+const File = require('../service/mongoose').File;
 const db = require('../service/db');
 const PETER_ID = require('../api-tests/constants').PETER_ID;
 const MATH_ID = require('../api-tests/constants').MATH_ID;
 const HISTORY_ID = require('../api-tests/constants').HISTORY_ID;
+const FILE_ID = require('../api-tests/constants').FILE_ID;
+var FileStorage = require('../service/FileStorage').FileStorage;
+const fileStorageDir = require('../constants').fileStorageDir;
+var path = require('path');
+const fs = require('fs');
 
 router.post('/', async function (req, res, next) {
     await User.deleteMany({});
@@ -43,6 +49,22 @@ router.post('/', async function (req, res, next) {
         lessons: [{ description: '1. История - вводный урок' }]
     });
     await history.save();
+
+    const fStorage = new FileStorage(fileStorageDir);
+    fStorage.clearStorageDir();
+
+    await File.deleteMany({});
+    const song = new File({
+        _id: db.toObjectId(FILE_ID),
+        name: '1.png',
+        size: 369,
+        type: 'picture'
+    });
+    await song.save();
+
+    const sourceFile = path.join(__dirname, '../api-tests/http/1.png');
+    const targetFile = path.join(fileStorageDir, FILE_ID);
+    await fs.promises.copyFile(sourceFile, targetFile);
 
     res.send({ result: 'post reset' });
 });

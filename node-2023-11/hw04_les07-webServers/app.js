@@ -1,5 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
+var fileUpload = require('express-fileupload');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var morgan = require('morgan');
@@ -9,14 +10,22 @@ var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var courseRouter = require('./routes/course');
 
-var apiRouter = require('./routes/api');
-var apiCoursesRouter = require('./routes/apiCourses');
-var apiUsersRouter = require('./routes/apiUsers');
-var adminUsersRouter = require('./routes/adminUsers');
-var apiLessonRouter = require('./routes/apiLesson');
-var apiResetRouter = require('./routes/apiReset');
+const apiRouter = require('./routes/api');
+const apiCoursesRouter = require('./routes/apiCourses');
+const apiUsersRouter = require('./routes/apiUsers');
+const apiLessonRouter = require('./routes/apiLesson');
+const apiResetRouter = require('./routes/apiReset');
+const apiFilesRouter = require('./routes/apiFiles');
+
+const adminUsersRouter = require('./routes/adminUsers');
+const adminFilesRouter = require('./routes/adminFiles');
+
+const db = require('./service/db');
+const fs = require('fs');
 
 var app = express();
+
+app.use(fileUpload());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -43,7 +52,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(
     morgan(
-        ':method :url :status :response-time ms - "REQL:req[content-length]" - REQB:req-body - RESL::res[content-length] - RESB::res-body ',
+        ':method :url :status :response-time ms - "REQL:req[content-length]" - REQB:req-body - RESL::res[content-length] - RESB::res-body \n',
         {
             stream: morgan.successLogStream,
             skip: function (req, res) {
@@ -55,7 +64,7 @@ app.use(
 
 app.use(
     morgan(
-        ':method :url :status :response-time ms - "REQL:req[content-length]" - REQB:req-body - RESL::res[content-length] - RESB::res-body ',
+        ':method :url :status :response-time ms - "REQL:req[content-length]" - REQB:req-body - RESL::res[content-length] - RESB::res-body \n',
         {
             stream: morgan.errorLogStream,
             skip: function (req, res) {
@@ -66,15 +75,19 @@ app.use(
 );
 
 app.use('/', indexRouter);
+app.use('/login', loginRouter);
+app.use('/course', courseRouter);
 app.use('/users', usersRouter);
+
 app.use('/api/courses', apiCoursesRouter);
 app.use('/api/users', apiUsersRouter);
 app.use('/api/lesson', apiLessonRouter);
+app.use('/api/files', apiFilesRouter);
 app.use('/api', apiRouter);
-app.use('/login', loginRouter);
-app.use('/course', courseRouter);
 app.use('/api/reset', apiResetRouter);
+
 app.use('/admin/users', adminUsersRouter);
+app.use('/admin/files', adminFilesRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

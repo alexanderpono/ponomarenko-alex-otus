@@ -26,3 +26,6 @@ Content-Type: application/json
     "login": "masha",
     "pass": "p"
 }
+
+###
+GET http://localhost:3000/admin/files
