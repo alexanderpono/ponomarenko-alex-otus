@@ -34,3 +34,86 @@
 Статус "Принято" ставится при наборе 5 баллов
 ```
 
+## Выполнение д/з №5
+1. Проведено подключение приложения к СУБД MongoDB (см. файл service/mongoose.js)
+2. Для работы с БД использован ORM Mongoose (см. файл service/mongoose.js)
+3. Пример работы с БД см. файл (routes/apiReset.js)
+
+
+### Язык программы: Javascript
+### Репозиторий доступен по адресу:
+https://github.com/alexanderpono/ponomarenko-alex-otus/tree/hw05-mongo/node-2023-11/hw04_les07-webServers
+
+либо 
+
+https://github.com/alexanderpono/ponomarenko-alex-otus/tree/master/node-2023-11/hw04_les07-webServers
+
+
+### Пояснительная записка к д/з №5 проекту доступна по адресу:
+https://github.com/alexanderpono/ponomarenko-alex-otus/blob/hw05-mongo/node-2023-11/hw04_les07-webServers/README-hw05.md
+
+либо 
+
+https://github.com/alexanderpono/ponomarenko-alex-otus/tree/master/node-2023-11/hw04_les07-webServers/README-hw05.md
+
+
+### Запуск программы
+Предусловие
+0.1: Необходима установленная версия node.js 16 (возможно, подойдет ранняя версия)
+- https://nodejs.org/download/release/v16.20.2/
+
+0.2: Необходима локально установленная СУБД MondoDB на порту по умолчанию 27017
+
+
+1. Клонировать проект: 
+```
+git clone https://github.com/alexanderpono/ponomarenko-alex-otus.git
+```
+
+2. Зайти в папку д/з №05: 
+Если д/з №05 еще не в master, то:
+```
+cd ./ponomarenko-alex-otus/
+git checkout hw05-mongo
+cd ./node-2023-11/hw04_les07-webServers
+```
+
+Если д/з №05 уже в master, то:
+
+```
+cd ./ponomarenko-alex-otus/node-2023-11/hw04_les07-webServers
+```
+ 
+
+3. установить зависимости:  
+```
+npm ci
+```
+
+4. Запустить сервер
+```
+npm run watch
+```
+
+5. В IDE зайти в папку api-tests/http, открыть файл reset.http
+Запустить URL
+```
+POST http://localhost:3000/api/reset
+
+```
+
+ожидаемый ответ
+
+```
+{
+  "result": "post reset"
+}
+```
+
+6. Подключиться при помощи MongoDB Compass к БД "courses"
+
+Должны присутствовать коллекции:
+* courses
+* files
+* users
+
