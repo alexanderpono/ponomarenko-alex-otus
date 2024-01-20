@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  h1=title 
+  form.login
+    article.line
+      div.label
+        label Введите имя: 
+      div.input
+        input(class="login" required)
+    article.line
+      div.label
+        label Введите пароль: 
+      div.input
+        input(class="pass" type="password" required)
+    div.go
+      button(type="submit") Отправить
+

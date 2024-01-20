@@ -1,0 +1,6 @@
+{
+    "watch": ["."],
+    "ext": "json,js",
+    "ignore": [],
+    "exec": "node ./bin/www"
+}
