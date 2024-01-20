@@ -4,8 +4,8 @@
 ## GET, PUT /api/profile
 
 
-## GET, POST /api/users
-## GET, PUT, DELETE /api/users/:id
+## GET /api/users
+## GET /api/users/:id
 
 ## GET, POST /api/users/:id/rate
 ## GET, PUT, DELETE /api/users/:id/rate/:rateid

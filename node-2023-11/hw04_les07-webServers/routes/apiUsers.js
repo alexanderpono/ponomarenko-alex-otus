@@ -12,24 +12,8 @@ router.get('/', function (req, res, next) {
         });
 });
 
-router.post('/', function (req, res, next) {
-    const user = new User(req.body);
-
-    user.save()
-        .then((user) => {
-            res.status(201).send(user);
-        })
-        .catch((err) => {
-            if (err.name === 'ValidationError') {
-                return res.status(400).send({ error: 'Validation error', err });
-            } else {
-                return res.status(500).send({ error: 'Server error' });
-            }
-        });
-});
-
 router.get('/:id', function (req, res, next) {
-    User.findById(req.params.id)
+    User.findById(req.params.id, 'name login')
         .then((user) => {
             if (!user) {
                 return res.status(404).send({ error: 'Not found' });
@@ -41,38 +25,12 @@ router.get('/:id', function (req, res, next) {
         });
 });
 
-router.put('/:id', function (req, res, next) {
-    User.updateOne(
-        { _id: req.params.id },
-        {
-            $set: {
-                name: req.body.name,
-                login: req.body.login,
-                pass: req.body.pass
-            }
-        }
-    )
-        .then((user) => {
-            if (!user) {
-                return res.status(404).send({ error: 'Not found' });
-            }
-            res.send({});
-        })
-        .catch((err) => {
-            console.log('put err=', err);
-            res.status(500).send({ error: 'Server error' + JSON.stringify(err) });
-        });
+router.get('/me', function (req, res, next) {
+    res.send(`get me`);
 });
 
-router.delete('/:id', function (req, res, next) {
-    User.deleteOne({ _id: req.params.id })
-        .then(() => {
-            res.status(204).send({});
-        })
-        .catch((err) => {
-            console.log('put err=', err);
-            res.status(500).send({ error: 'Server error' + JSON.stringify(err) });
-        });
+router.put('/me', function (req, res, next) {
+    res.send(`put me`);
 });
 
 router.get('/:id/rate', function (req, res, next) {
