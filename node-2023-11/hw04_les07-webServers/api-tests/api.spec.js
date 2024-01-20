@@ -45,7 +45,7 @@ describe('api', () => {
         const Math = { description: 'Math', author_id: PETER_ID, difficulty: 3 };
         const putMath = {
             id: db.toObjectId(MATH_ID),
-            params: { ...Math, pass: 'super Math!' }
+            params: { ...Math, description: 'super Math!' }
         };
 
         const USER_USER_P = 'name login';
@@ -59,12 +59,12 @@ describe('api', () => {
             ${apiProvider().adminUsers().get}     | ${{}}       | ${'GET /admin/users returns users'}                        | ${200}           | ${USER_P}      | ${[Peter, Nick]}
             ${apiProvider().adminUsers().post}    | ${Masha}    | ${'POST /admin/users returns new user'}                    | ${201}           | ${USER_P}      | ${Masha}
             ${apiProvider().adminUsers().getById} | ${PETER_ID} | ${`GET /admin/users/[PETER_ID] returns Peter`}             | ${200}           | ${USER_P}      | ${Peter}
-            ${apiProvider().adminUsers().put}     | ${putPeter} | ${`PUT /admin/users/[PETER_ID] returns HTTP 200`}          | ${200}           | ${null}        | ${null}
+            ${apiProvider().adminUsers().put}     | ${putPeter} | ${`PUT /admin/users/[PETER_ID] returns updated Peter`}     | ${200}           | ${USER_P}      | ${{ ...Peter, pass: 'newPass' }}
             ${apiProvider().adminUsers().delete}  | ${NICK_ID}  | ${`DELETE /admin/users/[NICK_ID] returns HTTP 200`}        | ${204}           | ${null}        | ${null}
             ${apiProvider().courses().get}        | ${{}}       | ${'GET /api/courses returns courses'}                      | ${200}           | ${COURSE_P}    | ${[Math]}
             ${apiProvider().courses().post}       | ${Physics}  | ${'POST /api/courses returns new course'}                  | ${201}           | ${COURSE_P}    | ${Physics}
             ${apiProvider().courses().getById}    | ${MATH_ID}  | ${`GET /api/courses/[MATH_ID] returns Math`}               | ${200}           | ${COURSE_P}    | ${Math}
-            ${apiProvider().courses().put}        | ${putMath}  | ${`PUT /api/courses/[MATH_ID] returns HTTP 200`}           | ${200}           | ${null}        | ${null}
+            ${apiProvider().courses().put}        | ${putMath}  | ${`PUT /api/courses/[MATH_ID] returns updated Math`}       | ${200}           | ${COURSE_P}    | ${{ ...Math, description: 'super Math!' }}
             ${apiProvider().courses().delete}     | ${MATH_ID}  | ${`DELETE /api/courses/[MATH_ID] returns HTTP 204`}        | ${204}           | ${null}        | ${null}
             ${apiProvider().courses().delete}     | ${MATH_ID}  | ${`second DELETE /api/courses/[MATH_ID] returns HTTP 204`} | ${204}           | ${null}        | ${null}
         `('$testName', async ({ api, params, projection, expectedHttpCode, expectedVal }) => {

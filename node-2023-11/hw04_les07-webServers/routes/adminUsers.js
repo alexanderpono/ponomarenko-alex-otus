@@ -58,7 +58,13 @@ router.put('/:id', function (req, res, next) {
             if (!user) {
                 return res.status(404).send({ error: 'Not found' });
             }
-            res.send({});
+            return User.findById(req.params.id);
+        })
+        .then((user) => {
+            if (!user) {
+                return res.status(404).send({ error: 'Not found' });
+            }
+            res.send(user);
         })
         .catch((err) => {
             console.log('put err=', err);

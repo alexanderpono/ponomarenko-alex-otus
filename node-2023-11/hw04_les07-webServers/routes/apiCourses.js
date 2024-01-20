@@ -61,7 +61,13 @@ router.put('/:id', function (req, res, next) {
             if (!course) {
                 return res.status(404).send({ error: 'Not found' });
             }
-            res.send({});
+            return Course.findById(req.params.id);
+        })
+        .then((course) => {
+            if (!course) {
+                return res.status(404).send({ error: 'Not found' });
+            }
+            res.send(course);
         })
         .catch((err) => {
             console.log('put err=', err);
