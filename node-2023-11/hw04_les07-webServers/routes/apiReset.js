@@ -5,6 +5,7 @@ const Course = require('../service/mongoose').Course;
 const db = require('../service/db');
 const PETER_ID = require('../api-tests/constants').PETER_ID;
 const MATH_ID = require('../api-tests/constants').MATH_ID;
+const HISTORY_ID = require('../api-tests/constants').HISTORY_ID;
 
 router.post('/', async function (req, res, next) {
     await User.deleteMany({});
@@ -25,13 +26,23 @@ router.post('/', async function (req, res, next) {
     await nick.save();
 
     await Course.deleteMany({});
-    const course = new Course({
+    const math = new Course({
         description: 'Math',
         author_id: user._id,
         difficulty: 3,
-        _id: db.toObjectId(MATH_ID)
+        _id: db.toObjectId(MATH_ID),
+        lessons: [{ description: '1. Математика - вводный урок' }]
     });
-    await course.save();
+    await math.save();
+
+    const history = new Course({
+        description: 'History',
+        author_id: user._id,
+        difficulty: 3,
+        _id: db.toObjectId(HISTORY_ID),
+        lessons: [{ description: '1. История - вводный урок' }]
+    });
+    await history.save();
 
     res.send({ result: 'post reset' });
 });

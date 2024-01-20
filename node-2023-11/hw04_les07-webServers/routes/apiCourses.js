@@ -4,7 +4,7 @@ const Course = require('../service/mongoose').Course;
 const db = require('../service/db');
 
 router.get('/', function (req, res, next) {
-    Course.find({}, 'description author_id difficulty')
+    Course.find({})
         .then((persons) => {
             res.send(persons);
         })

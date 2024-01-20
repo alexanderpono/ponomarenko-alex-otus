@@ -12,6 +12,14 @@ const getProjection = (items, projection) => {
             const result = {};
             projectionAr.forEach((field) => {
                 result[field] = item[field];
+                if (Array.isArray(item[field])) {
+                    result[field] = [];
+                    item[field].forEach((item) => {
+                        const itemToPush = { ...item };
+                        delete itemToPush._id;
+                        result[field].push(itemToPush);
+                    });
+                }
             });
             return result;
         });
@@ -19,6 +27,14 @@ const getProjection = (items, projection) => {
     const result = {};
     projectionAr.forEach((field) => {
         result[field] = items[field];
+        if (Array.isArray(items[field])) {
+            result[field] = [];
+            items[field].forEach((item) => {
+                const itemToPush = { ...item };
+                delete itemToPush._id;
+                result[field].push(itemToPush);
+            });
+        }
     });
     return result;
 };
@@ -40,9 +56,20 @@ describe('api', () => {
         };
         const USER_P = 'name login pass';
 
-        const COURSE_P = 'description author_id difficulty';
-        const Physics = { description: 'Physics', author_id: PETER_ID, difficulty: 4 };
-        const Math = { description: 'Math', author_id: PETER_ID, difficulty: 3 };
+        const COURSE_P = 'description author_id difficulty lessons';
+        const Physics = { description: 'Physics', author_id: PETER_ID, difficulty: 4, lessons: [] };
+        const Math = {
+            description: 'Math',
+            author_id: PETER_ID,
+            difficulty: 3,
+            lessons: [{ description: '1. Математика - вводный урок' }]
+        };
+        const History = {
+            description: 'History',
+            author_id: PETER_ID,
+            difficulty: 3,
+            lessons: [{ description: '1. История - вводный урок' }]
+        };
         const putMath = {
             id: db.toObjectId(MATH_ID),
             params: { ...Math, description: 'super Math!' }
@@ -61,7 +88,7 @@ describe('api', () => {
             ${apiProvider().adminUsers().getById} | ${PETER_ID} | ${`GET /admin/users/[PETER_ID] returns Peter`}             | ${200}           | ${USER_P}      | ${Peter}
             ${apiProvider().adminUsers().put}     | ${putPeter} | ${`PUT /admin/users/[PETER_ID] returns updated Peter`}     | ${200}           | ${USER_P}      | ${{ ...Peter, pass: 'newPass' }}
             ${apiProvider().adminUsers().delete}  | ${NICK_ID}  | ${`DELETE /admin/users/[NICK_ID] returns HTTP 200`}        | ${204}           | ${null}        | ${null}
-            ${apiProvider().courses().get}        | ${{}}       | ${'GET /api/courses returns courses'}                      | ${200}           | ${COURSE_P}    | ${[Math]}
+            ${apiProvider().courses().get}        | ${{}}       | ${'GET /api/courses returns courses'}                      | ${200}           | ${COURSE_P}    | ${[Math, History]}
             ${apiProvider().courses().post}       | ${Physics}  | ${'POST /api/courses returns new course'}                  | ${201}           | ${COURSE_P}    | ${Physics}
             ${apiProvider().courses().getById}    | ${MATH_ID}  | ${`GET /api/courses/[MATH_ID] returns Math`}               | ${200}           | ${COURSE_P}    | ${Math}
             ${apiProvider().courses().put}        | ${putMath}  | ${`PUT /api/courses/[MATH_ID] returns updated Math`}       | ${200}           | ${COURSE_P}    | ${{ ...Math, description: 'super Math!' }}
