@@ -6,12 +6,14 @@ var morgan = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var loginRouter = require('./routes/login');
+var courseRouter = require('./routes/course');
+
 var apiRouter = require('./routes/api');
 var apiCoursesRouter = require('./routes/apiCourses');
 var apiUsersRouter = require('./routes/apiUsers');
+var adminUsersRouter = require('./routes/adminUsers');
 var apiLessonRouter = require('./routes/apiLesson');
-var loginRouter = require('./routes/login');
-var courseRouter = require('./routes/course');
 var apiResetRouter = require('./routes/apiReset');
 
 var app = express();
@@ -72,6 +74,7 @@ app.use('/api', apiRouter);
 app.use('/login', loginRouter);
 app.use('/course', courseRouter);
 app.use('/api/reset', apiResetRouter);
+app.use('/admin/users', adminUsersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

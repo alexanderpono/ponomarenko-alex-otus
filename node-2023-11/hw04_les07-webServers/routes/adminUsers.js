@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
 const User = require('../service/mongoose').User;
+const db = require('../service/db');
 
 router.get('/', function (req, res, next) {
-    User.find({}, 'name login')
+    User.find({}, 'name login pass')
         .then((persons) => {
             res.send(persons);
         })
@@ -14,6 +15,7 @@ router.get('/', function (req, res, next) {
 
 router.post('/', function (req, res, next) {
     const user = new User(req.body);
+    user._id = db.getNewObjectId();
 
     user.save()
         .then((user) => {
@@ -70,7 +72,7 @@ router.delete('/:id', function (req, res, next) {
             res.status(204).send({});
         })
         .catch((err) => {
-            console.log('put err=', err);
+            console.log('delete err=', err);
             res.status(500).send({ error: 'Server error' + JSON.stringify(err) });
         });
 });

@@ -12,6 +12,7 @@ const Schema = mongoose.Schema;
 const User = mongoose.model(
     'user',
     new Schema({
+        _id: { type: mongoose.SchemaTypes.ObjectId },
         name: { type: String, required: true },
         login: { type: String, required: true },
         pass: { type: String, required: true }
@@ -21,6 +22,7 @@ const User = mongoose.model(
 const Course = mongoose.model(
     'course',
     new Schema({
+        _id: { type: mongoose.SchemaTypes.ObjectId },
         description: { type: String, required: true },
         author_id: { type: mongoose.Types.ObjectId, required: true },
         difficulty: { type: Number, required: true }

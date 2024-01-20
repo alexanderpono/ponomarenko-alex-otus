@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const Course = require('../service/mongoose').Course;
+const db = require('../service/db');
 
 router.get('/', function (req, res, next) {
     Course.find({}, 'description author_id difficulty')
@@ -14,6 +15,7 @@ router.get('/', function (req, res, next) {
 
 router.post('/', function (req, res, next) {
     const course = new Course(req.body);
+    course._id = db.getNewObjectId();
 
     course
         .save()
@@ -21,6 +23,8 @@ router.post('/', function (req, res, next) {
             res.status(201).send(course);
         })
         .catch((err) => {
+            console.log('post err=', err);
+
             if (err.name === 'ValidationError') {
                 return res.status(400).send({ error: 'Validation error', err });
             } else {

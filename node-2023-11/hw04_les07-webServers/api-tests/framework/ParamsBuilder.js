@@ -1,6 +1,11 @@
 const { user } = require('./config');
 
 class ParamsBuilder {
+    addId(_id) {
+        this._id = _id;
+        return this;
+    }
+
     addUser(user) {
         this.user = user;
         return this;
