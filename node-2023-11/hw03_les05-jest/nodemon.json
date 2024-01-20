@@ -1,0 +1,7 @@
+{
+    "watch": ["."],
+    "ext": "json,js",
+    "ignore": [],
+    "exec": "npm test",
+    "exec2": "node src/tree ./data -d 2"
+}
