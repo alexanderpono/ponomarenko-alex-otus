@@ -46,8 +46,8 @@ API должен позволить создавать, просматриват
 /api/reset - подготавливает БД (заливает фикстуры) для API-тестов
 ```
 3. Разработаны тесты API - см. файл (api-tests/api.spec.js)
-4. При помощи редактора https://editor.swagger.io/ подготовлен [yaml-файл](./doc/api.yaml) с описанием реализованной части API 
-5. При помощи редактора https://editor.swagger.io/ сгенерирована [html-документация](./doc/html2-client-generated/index.html) с описанием API
+4. При помощи редактора https://editor.swagger.io/ подготовлен yaml-файл с описанием реализованной части API (см. doc/api.yaml, https://github.com/alexanderpono/ponomarenko-alex-otus/blob/hw06-api/node-2023-11/hw04_les07-webServers/doc/api.yaml), 
+5. При помощи редактора https://editor.swagger.io/ сгенерирована html-документация с описанием API (см. doc/html2-client-generated/index.html)
 
 ### Язык программы: Javascript
 ### Репозиторий доступен по адресу:
