@@ -46,7 +46,8 @@ API должен позволить создавать, просматриват
 /api/reset - подготавливает БД (заливает фикстуры) для API-тестов
 ```
 3. Разработаны тесты API - см. файл (api-tests/api.spec.js)
-
+4. При помощи редактора https://editor.swagger.io/ подготовлен [yaml-файл](./doc/api.yaml) с описанием реализованной части API 
+5. При помощи редактора https://editor.swagger.io/ сгенерирована [html-документация](./doc/html2-client-generated/index.html) с описанием API
 
 ### Язык программы: Javascript
 ### Репозиторий доступен по адресу:
@@ -57,7 +58,7 @@ https://github.com/alexanderpono/ponomarenko-alex-otus/tree/hw05-mongo/node-2023
 https://github.com/alexanderpono/ponomarenko-alex-otus/tree/master/node-2023-11/hw04_les07-webServers
 
 
-### Пояснительная записка к д/з №5 проекту доступна по адресу:
+### Пояснительная записка к д/з №6 проекту доступна по адресу:
 https://github.com/alexanderpono/ponomarenko-alex-otus/blob/hw05-mongo/node-2023-11/hw04_les07-webServers/README-hw06.md
 
 либо 
