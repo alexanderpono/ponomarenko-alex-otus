@@ -47,7 +47,7 @@ API должен позволить создавать, просматриват
 ```
 3. Разработаны тесты API - см. файл (api-tests/api.spec.js)
 4. При помощи редактора https://editor.swagger.io/ подготовлен yaml-файл с описанием реализованной части API (см. doc/api.yaml, https://github.com/alexanderpono/ponomarenko-alex-otus/blob/hw06-api/node-2023-11/hw04_les07-webServers/doc/api.yaml), 
-5. При помощи редактора https://editor.swagger.io/ сгенерирована html-документация с описанием API (см. doc/html2-client-generated/index.html)
+5. При помощи редактора https://editor.swagger.io/ сгенерирована html-документация с описанием API (см. https://alexanderpono.github.io/ponomarenko-alex-otus/node-2023-11/doc/)
 
 ### Язык программы: Javascript
 ### Репозиторий доступен по адресу:
