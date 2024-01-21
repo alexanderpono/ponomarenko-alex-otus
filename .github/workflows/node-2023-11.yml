@@ -33,11 +33,22 @@ jobs:
         uses: actions/checkout@v3
       - name: Setup Pages
         uses: actions/configure-pages@v3
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+
+      - name: Deploy application to GHP /ponomarenko-alex-otus/bricks-runner/impulse/tutorial р___
+        id: Deploy-app
+        uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
-          # Upload entire repository
-          path: 'node-2023-11/hw04_les07-webServers/doc/html2-client-generated'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: node-2023-11/hw04_les07-webServers/doc/html2-client-generated  # The folder the action should deploy.
+          TARGET_FOLDER: node-2023-11/doc
+          # CLEAN: true # Automatically remove deleted files from the deploy branch
+
+      # - name: Upload artifact
+      #   uses: actions/upload-pages-artifact@v1
+      #   with:
+      #     # Upload entire repository
+      #     path: 'node-2023-11/hw04_les07-webServers/doc/html2-client-generated'
+      # - name: Deploy to GitHub Pages
+      #   id: deployment
+      #   uses: actions/deploy-pages@v2
