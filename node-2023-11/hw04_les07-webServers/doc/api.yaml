@@ -1,0 +1,248 @@
+openapi: 3.0.3
+info:
+  title: Best Courses Ever
+  description: |-
+    Описание API проекта "Best Courses Ever" в формате Swagger
+    
+  version: 0.0.1
+servers:
+  - url: https://localhost:3000/
+tags:
+  - name: admin
+    description: Административные операции 
+  - name: user
+    description: Операции над пользователями
+  - name: store
+    description: Access to Petstore orders
+    externalDocs:
+      description: Find out more about our store
+      url: http://swagger.io
+
+
+
+paths:
+  /admin/users:
+    get:
+      tags:
+        - admin
+      summary: Получить административный список рользователей (с паролями))
+      description: Данная операция доступна только авторизованному администратору
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'    
+    post:
+      tags:
+        - admin
+      summary: Create user
+      description: Данная операция доступна только авторизованному администратору
+      operationId: createUser
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserWithoutId'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UserWithoutId'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserWithoutId'
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+
+  /admin/users/{userId}:
+    get:
+      tags:
+        - admin
+      summary: Получить пользователя по ID
+      description: Возвращает данные пользователя
+      operationId: getAdminUserById
+      parameters:
+        - name: userId
+          in: path
+          description: ID of user to return
+          required: true
+          schema:
+            type: string
+            format: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: User not found
+
+    put:
+      tags:
+        - admin
+      summary: Обновление данных пользователя
+      description: Обновляет данные пользователя
+      operationId: putAdminUser
+      parameters:
+        - name: userId
+          in: path
+          description: ID of user to update
+          required: true
+          schema:
+            type: string
+            format: string
+      requestBody:
+        description: Updated user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserWithoutId'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UserWithoutId'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserWithoutId'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+      security:
+        - api_key: []
+        - petstore_auth:
+            - write:pets
+            - read:pets
+
+    delete:
+      tags:
+        - admin
+      summary: Удалить пользователя
+      description: Удалить пользователя
+      operationId: deleteUser
+      parameters:
+        - name: userId
+          in: path
+          description: User id to delete
+          required: true
+          schema:
+            type: string
+            format: string
+      responses:
+        '204':
+          description: Пользователь удален
+
+
+  /admin/files:
+    get:
+      tags:
+        - admin
+      summary: Получить административный список файлов в хранилище
+      description: Данная операция доступна только авторизованному администратору
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/File'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/File'    
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        _id:
+          type: string
+          format: mongoose.SchemaTypes.ObjectId
+          example: 65ac3ce9dfb85263bcf53829
+        name:
+          type: string
+          example: Peter
+        login:
+          type: string
+          example: peter
+        pass:
+          type: string
+          example: '12345'
+      xml:
+        name: user
+
+    UserWithoutId:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Peter
+        login:
+          type: string
+          example: peter
+        pass:
+          type: string
+          example: '12345'
+      xml:
+        name: user
+
+    File:
+      type: object
+      properties:
+        _id:
+          type: string
+          format: mongoose.SchemaTypes.ObjectId
+          example: 65ac3ce9dfb85263bcf53829
+        name:
+          type: string
+          example: 1.mp3
+        size:
+          type: number
+          example: 333
+        type:
+          type: string
+          example: 'audio/mpeg'
+      xml:
+        name: user
+
+  requestBodies:
+    UserArray:
+      description: List of user object
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/User'
