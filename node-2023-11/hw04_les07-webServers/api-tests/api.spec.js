@@ -93,7 +93,7 @@ describe('api', () => {
             ${apiProvider().adminUsers().post}    | ${Masha}    | ${'POST /admin/users returns new user'}                    | ${201}           | ${USER_P}       | ${Masha}
             ${apiProvider().adminUsers().getById} | ${PETER_ID} | ${`GET /admin/users/[PETER_ID] returns Peter`}             | ${200}           | ${USER_P}       | ${Peter}
             ${apiProvider().adminUsers().put}     | ${putPeter} | ${`PUT /admin/users/[PETER_ID] returns updated Peter`}     | ${200}           | ${USER_P}       | ${{ ...Peter, pass: 'newPass' }}
-            ${apiProvider().adminUsers().delete}  | ${NICK_ID}  | ${`DELETE /admin/users/[NICK_ID] returns HTTP 200`}        | ${204}           | ${null}         | ${null}
+            ${apiProvider().adminUsers().delete}  | ${NICK_ID}  | ${`DELETE /admin/users/[NICK_ID] returns HTTP 204`}        | ${204}           | ${null}         | ${null}
             ${apiProvider().courses().get}        | ${{}}       | ${'GET /api/courses returns courses'}                      | ${200}           | ${COURSE_P}     | ${[Math, History]}
             ${apiProvider().courses().post}       | ${Physics}  | ${'POST /api/courses returns new course'}                  | ${201}           | ${COURSE_P}     | ${Physics}
             ${apiProvider().courses().getById}    | ${MATH_ID}  | ${`GET /api/courses/[MATH_ID] returns Math`}               | ${200}           | ${COURSE_P}     | ${Math}
