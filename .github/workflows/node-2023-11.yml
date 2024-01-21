@@ -7,11 +7,11 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build-work-demo:
+  deploy-doc:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: algo-2022-10/dijkstra-impulse-2023/demo
+        working-directory: node-2023-11/hw04_les07-webServers
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -21,23 +21,8 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
-      # - name: Cache NPM dependencies
-      #   uses: actions/cache@v2.1.7
-      #   with:
-      #     path: ~/.npm
-      #     key: ${{ runner.OS }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
-      #     restore-keys: |
-      #       ${{ runner.OS }}-npm-cache-
-      
-      # - name: Install dependencies
-      #   id: Npm-install
-      #   run: npm install
 
-      # - name: Build project
-      #   id: Project-build
-      #   run: npm run build
-
-      - name: Deploy application to GHP /ponomarenko-alex-otus/algo-2022-10/dijkstra-impulse-2023/present 🚀
+      - name: Deploy application to GHP /ponomarenko-alex-otus/node-2023-11/doc 🚀
         id: Deploy-app
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
