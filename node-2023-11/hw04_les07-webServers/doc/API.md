@@ -1,27 +1,26 @@
 # API приложения Best Courses Ever
 
+# Реализовано:
 ## GET, POST /admin/users
 ## GET, PUT, DELETE /admin/users/:id
 ## GET /admin/files
 
+## GET /api/users
+## GET /api/users/:id
 
+## GET /api/files/:id
+## POST /api/files
+
+## GET, POST /api/courses
+## GET, PUT, DELETE /api/courses/:id
+
+# Запланировано:
 
 ## POST /api/auth
 ## GET, PUT /api/profile
 
-
-## GET /api/users
-## GET /api/users/:id
-
 ## GET, POST /api/users/:id/rate
 ## GET, PUT, DELETE /api/users/:id/rate/:rateid
-
-
-## GET, POST /api/course
-## GET, PUT, DELETE /api/course/:id
-
-## GET /api/files/:id
-## POST /api/files
 
 ## GET, POST /api/course/:id/video
 ## GET, PUT, DELETE /api/course/:id/video/:videoid
