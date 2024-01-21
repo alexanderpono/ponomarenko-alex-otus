@@ -233,14 +233,44 @@ paths:
           required: true
           schema:
             type: string
-            format: string
       responses:
         '200':
           description: successful operation
           content:
-            application/octet-stream
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary         
         '404':
           description: File not found
+
+  /api/files:
+    post:
+      tags:
+        - file
+      summary: Загрузить файл
+      description: Загружается файл в файловое хранилище
+      operationId: postFile
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                # The property name 'file' will be used for all files.
+                file:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        '201':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/File'          
+
 
 components:
   schemas:
