@@ -113,6 +113,7 @@ describe('api', () => {
             ${apiProvider().courses().put}                    | ${putMath}  | ${`PUT /api/courses/[MATH_ID] returns updated Math`}                    | ${200}           | ${COURSE_P}     | ${{ ...Math, description: 'super Math!' }}
             ${apiProvider().courses().delete}                 | ${MATH_ID}  | ${`DELETE /api/courses/[MATH_ID] returns HTTP 204`}                     | ${204}           | ${null}         | ${null}
             ${apiProvider().courses().delete}                 | ${MATH_ID}  | ${`second DELETE /api/courses/[MATH_ID] returns HTTP 204`}              | ${204}           | ${null}         | ${null}
+            ${apiProvider().adminFiles().getNoPrivileges}     | ${{}}       | ${'GET /admin/files (not enough privileges) returns 403'}               | ${403}           | ${null}         | ${null}
             ${apiProvider().adminFiles().get}                 | ${{}}       | ${'GET /admin/files returns files'}                                     | ${200}           | ${ADMIN_FILE_P} | ${[song]}
             ${apiProvider().files().getById}                  | ${FILE_ID}  | ${`GET /api/api/[FILE_ID] returns file`}                                | ${200}           | ${null}         | ${null}
             ${apiProvider().files().post}                     | ${'1.png'}  | ${'POST /api/api returns file metadata'}                                | ${201}           | ${ADMIN_FILE_P} | ${fileMeta}

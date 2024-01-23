@@ -2,10 +2,9 @@ var express = require('express');
 var router = express.Router();
 const User = require('../service/mongoose').User;
 const db = require('../service/db');
-const passport = require('passport');
 const { NO_PRIV, SERVER_ERR } = require('../constants');
 
-router.get('/', passport.authenticate('basic', { session: false }), function (req, res, next) {
+router.get('/', db.checkAuth, function (req, res, next) {
     if (!db.isAdmin(req.user)) {
         res.status(403).send(NO_PRIV);
         return;
@@ -19,7 +18,7 @@ router.get('/', passport.authenticate('basic', { session: false }), function (re
         });
 });
 
-router.post('/', passport.authenticate('basic', { session: false }), function (req, res, next) {
+router.post('/', db.checkAuth, function (req, res, next) {
     if (!db.isAdmin(req.user)) {
         res.status(403).send(NO_PRIV);
         return;
@@ -40,7 +39,7 @@ router.post('/', passport.authenticate('basic', { session: false }), function (r
         });
 });
 
-router.get('/:id', passport.authenticate('basic', { session: false }), function (req, res, next) {
+router.get('/:id', db.checkAuth, function (req, res, next) {
     if (!db.isAdmin(req.user)) {
         res.status(403).send(NO_PRIV);
         return;
@@ -57,7 +56,7 @@ router.get('/:id', passport.authenticate('basic', { session: false }), function 
         });
 });
 
-router.put('/:id', passport.authenticate('basic', { session: false }), function (req, res, next) {
+router.put('/:id', db.checkAuth, function (req, res, next) {
     if (!db.isAdmin(req.user)) {
         res.status(403).send(NO_PRIV);
         return;
@@ -90,40 +89,19 @@ router.put('/:id', passport.authenticate('basic', { session: false }), function 
         });
 });
 
-router.delete(
-    '/:id',
-    passport.authenticate('basic', { session: false }),
-    function (req, res, next) {
-        if (!db.isAdmin(req.user)) {
-            res.status(403).send(NO_PRIV);
-            return;
-        }
-        User.deleteOne({ _id: req.params.id })
-            .then(() => {
-                res.status(204).send({});
-            })
-            .catch((err) => {
-                console.log('delete err=', err);
-                res.status(500).send({ error: 'Server error' + JSON.stringify(err) });
-            });
+router.delete('/:id', db.checkAuth, function (req, res, next) {
+    if (!db.isAdmin(req.user)) {
+        res.status(403).send(NO_PRIV);
+        return;
     }
-);
-
-router.get('/:id/rate', function (req, res, next) {
-    res.send(`get rates for user ${req.params.id}`);
-});
-router.post('/:id/rate', function (req, res, next) {
-    res.send(`post rate for user ${req.params.id}`);
-});
-
-router.get('/:id/rate/:rateid', function (req, res, next) {
-    res.send(`get rate ${req.params.rateid} for user ${req.params.id}`);
-});
-router.put('/:id/rate/:rateid', function (req, res, next) {
-    res.send(`put rate ${req.params.rateid} for user ${req.params.id}`);
-});
-router.delete('/:id/rate/:rateid', function (req, res, next) {
-    res.send(`delete rate ${req.params.rateid} for user ${req.params.id}`);
+    User.deleteOne({ _id: req.params.id })
+        .then(() => {
+            res.status(204).send({});
+        })
+        .catch((err) => {
+            console.log('delete err=', err);
+            res.status(500).send({ error: 'Server error' + JSON.stringify(err) });
+        });
 });
 
 module.exports = router;

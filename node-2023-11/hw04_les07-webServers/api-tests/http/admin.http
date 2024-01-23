@@ -30,6 +30,7 @@ GET http://localhost:3000/admin/users/000000000000000000000001
 ###
 
 PUT http://localhost:3000/admin/users/000000000000000000000001
+Authorization: Basic bmljazpw
 Content-Type: application/json
 
 {
@@ -41,6 +42,7 @@ Content-Type: application/json
 ###
 
 POST http://localhost:3000/admin/users
+Authorization: Basic bmljazpw
 Content-Type: application/json
 
 {
@@ -51,3 +53,4 @@ Content-Type: application/json
 
 ###
 GET http://localhost:3000/admin/files
+Authorization: Basic bmljazpw
