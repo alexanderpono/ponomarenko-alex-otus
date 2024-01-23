@@ -5,7 +5,7 @@ const user = {
         creds: {
             userNotFound: 'Basic bWljbGU6MTIz',
             wrongPassword: 'Basic cGV0ZXI6d3JvbmdQYXNz',
-            userRole: 'Basic cGV0ZXI6bmV3UGFzcw==',
+            userRole: 'Basic dG9tOnA=',
             adminRole: 'Basic bmljazpw'
         }
     }
