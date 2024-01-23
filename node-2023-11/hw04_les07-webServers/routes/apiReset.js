@@ -12,6 +12,7 @@ var FileStorage = require('../service/FileStorage').FileStorage;
 const fileStorageDir = require('../constants').fileStorageDir;
 var path = require('path');
 const fs = require('fs');
+const { DELME_ID, NICK_ID } = require('../api-tests/constants');
 
 router.post('/', async function (req, res, next) {
     await User.deleteMany({});
@@ -24,12 +25,20 @@ router.post('/', async function (req, res, next) {
     await user.save();
 
     const nick = new User({
-        _id: db.toObjectId(db.to24Str('02')),
+        _id: db.toObjectId(db.to24Str(NICK_ID)),
         name: 'nick',
         login: 'nick',
         pass: 'p'
     });
     await nick.save();
+
+    const delme = new User({
+        _id: db.toObjectId(db.to24Str(DELME_ID)),
+        name: 'delme',
+        login: 'delme',
+        pass: 'p'
+    });
+    await delme.save();
 
     await Course.deleteMany({});
     const math = new Course({

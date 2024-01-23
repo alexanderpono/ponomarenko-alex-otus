@@ -2,8 +2,13 @@ var express = require('express');
 var router = express.Router();
 const User = require('../service/mongoose').User;
 const db = require('../service/db');
+const passport = require('passport');
 
-router.get('/', function (req, res, next) {
+router.get('/', passport.authenticate('basic', { session: false }), function (req, res, next) {
+    if (req.user.login !== 'nick') {
+        res.status(403).send({ error: 'not enough privileges' });
+        return;
+    }
     User.find({}, 'name login pass')
         .then((persons) => {
             res.send(persons);

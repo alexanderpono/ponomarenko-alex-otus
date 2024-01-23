@@ -1,10 +1,38 @@
 const supertest = require('supertest');
-const { url } = require('../config');
+const { url, user } = require('../config');
 
 class AdminUsersApi {
     async get() {
         const r = await supertest(`${url.localCoursesApi}`)
             .get(`/admin/users`)
+            .set('Authorization', user.localCoursesApi.creds.adminRole)
+            .set('Accept', 'application/json');
+        return r;
+    }
+    async getNoCreds() {
+        const r = await supertest(`${url.localCoursesApi}`)
+            .get(`/admin/users`)
+            .set('Accept', 'application/json');
+        return r;
+    }
+    async getUserNotFound() {
+        const r = await supertest(`${url.localCoursesApi}`)
+            .get(`/admin/users`)
+            .set('Authorization', user.localCoursesApi.creds.userNotFound)
+            .set('Accept', 'application/json');
+        return r;
+    }
+    async getWrongPassword() {
+        const r = await supertest(`${url.localCoursesApi}`)
+            .get(`/admin/users`)
+            .set('Authorization', user.localCoursesApi.creds.wrongPassword)
+            .set('Accept', 'application/json');
+        return r;
+    }
+    async getNoPrivileges() {
+        const r = await supertest(`${url.localCoursesApi}`)
+            .get(`/admin/users`)
+            .set('Authorization', user.localCoursesApi.creds.userRole)
             .set('Accept', 'application/json');
         return r;
     }

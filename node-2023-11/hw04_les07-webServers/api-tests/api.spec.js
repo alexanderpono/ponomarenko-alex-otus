@@ -1,6 +1,7 @@
 const { apiProvider } = require('./framework/services');
 const { ParamsBuilder } = require('./framework/ParamsBuilder');
 const db = require('../service/db');
+const { DELME_ID } = require('./constants');
 const PETER_ID = require('./constants').PETER_ID;
 const NICK_ID = require('./constants').NICK_ID;
 const MATH_ID = require('./constants').MATH_ID;
@@ -51,6 +52,7 @@ describe('api', () => {
         const Masha = { name: 'Masha', login: 'masha', pass: 'pwd' };
         const Peter = { name: 'Peter', login: 'peter', pass: 'p' };
         const Nick = { name: 'nick', login: 'nick', pass: 'p' };
+        const Delme = { name: 'delme', login: 'delme', pass: 'p' };
         const putPeter = {
             id: db.toObjectId(PETER_ID),
             params: { ...Peter, pass: 'newPass' }
@@ -79,6 +81,7 @@ describe('api', () => {
         const USER_USER_P = 'name login';
         const PeterUser = { name: 'Peter', login: 'peter' };
         const NickUser = { name: 'nick', login: 'nick' };
+        const DelmeUser = { name: 'delme', login: 'delme' };
 
         const ADMIN_FILE_P = 'name size type';
         const song = { name: '1.png', size: 369, type: 'picture' };
@@ -86,23 +89,27 @@ describe('api', () => {
         const fileMeta = { name: '1.png', size: 369, type: 'image/png' };
 
         test.each`
-            api                                   | params      | testName                                                   | expectedHttpCode | projection      | expectedVal
-            ${apiProvider().users().get}          | ${{}}       | ${'GET /api/users returns users(USER)'}                    | ${200}           | ${USER_USER_P}  | ${[PeterUser, NickUser]}
-            ${apiProvider().users().getById}      | ${PETER_ID} | ${`GET /api/users/[PETER_ID] returns Peter(USER)`}         | ${200}           | ${USER_USER_P}  | ${PeterUser}
-            ${apiProvider().adminUsers().get}     | ${{}}       | ${'GET /admin/users returns users'}                        | ${200}           | ${USER_P}       | ${[Peter, Nick]}
-            ${apiProvider().adminUsers().post}    | ${Masha}    | ${'POST /admin/users returns new user'}                    | ${201}           | ${USER_P}       | ${Masha}
-            ${apiProvider().adminUsers().getById} | ${PETER_ID} | ${`GET /admin/users/[PETER_ID] returns Peter`}             | ${200}           | ${USER_P}       | ${Peter}
-            ${apiProvider().adminUsers().put}     | ${putPeter} | ${`PUT /admin/users/[PETER_ID] returns updated Peter`}     | ${200}           | ${USER_P}       | ${{ ...Peter, pass: 'newPass' }}
-            ${apiProvider().adminUsers().delete}  | ${NICK_ID}  | ${`DELETE /admin/users/[NICK_ID] returns HTTP 204`}        | ${204}           | ${null}         | ${null}
-            ${apiProvider().courses().get}        | ${{}}       | ${'GET /api/courses returns courses'}                      | ${200}           | ${COURSE_P}     | ${[Math, History]}
-            ${apiProvider().courses().post}       | ${Physics}  | ${'POST /api/courses returns new course'}                  | ${201}           | ${COURSE_P}     | ${Physics}
-            ${apiProvider().courses().getById}    | ${MATH_ID}  | ${`GET /api/courses/[MATH_ID] returns Math`}               | ${200}           | ${COURSE_P}     | ${Math}
-            ${apiProvider().courses().put}        | ${putMath}  | ${`PUT /api/courses/[MATH_ID] returns updated Math`}       | ${200}           | ${COURSE_P}     | ${{ ...Math, description: 'super Math!' }}
-            ${apiProvider().courses().delete}     | ${MATH_ID}  | ${`DELETE /api/courses/[MATH_ID] returns HTTP 204`}        | ${204}           | ${null}         | ${null}
-            ${apiProvider().courses().delete}     | ${MATH_ID}  | ${`second DELETE /api/courses/[MATH_ID] returns HTTP 204`} | ${204}           | ${null}         | ${null}
-            ${apiProvider().adminFiles().get}     | ${{}}       | ${'GET /admin/files returns files'}                        | ${200}           | ${ADMIN_FILE_P} | ${[song]}
-            ${apiProvider().files().getById}      | ${FILE_ID}  | ${`GET /api/api/[FILE_ID] returns file`}                   | ${200}           | ${null}         | ${null}
-            ${apiProvider().files().post}         | ${'1.png'}  | ${'POST /api/api returns file metadata'}                   | ${201}           | ${ADMIN_FILE_P} | ${fileMeta}
+            api                                            | params      | testName                                                   | expectedHttpCode | projection      | expectedVal
+            ${apiProvider().users().get}                   | ${{}}       | ${'GET /api/users returns users(USER)'}                    | ${200}           | ${USER_USER_P}  | ${[PeterUser, NickUser, DelmeUser]}
+            ${apiProvider().users().getById}               | ${PETER_ID} | ${`GET /api/users/[PETER_ID] returns Peter(USER)`}         | ${200}           | ${USER_USER_P}  | ${PeterUser}
+            ${apiProvider().adminUsers().get}              | ${{}}       | ${'GET /admin/users returns users'}                        | ${200}           | ${USER_P}       | ${[Peter, Nick, Delme]}
+            ${apiProvider().adminUsers().getNoCreds}       | ${{}}       | ${'GET /admin/users (no creds) returns 401'}               | ${401}           | ${null}         | ${null}
+            ${apiProvider().adminUsers().getUserNotFound}  | ${{}}       | ${'GET /admin/users (user not found) returns 401'}         | ${401}           | ${null}         | ${null}
+            ${apiProvider().adminUsers().getWrongPassword} | ${{}}       | ${'GET /admin/users (wrong password) returns 401'}         | ${401}           | ${null}         | ${null}
+            ${apiProvider().adminUsers().post}             | ${Masha}    | ${'POST /admin/users returns new user'}                    | ${201}           | ${USER_P}       | ${Masha}
+            ${apiProvider().adminUsers().getById}          | ${PETER_ID} | ${`GET /admin/users/[PETER_ID] returns Peter`}             | ${200}           | ${USER_P}       | ${Peter}
+            ${apiProvider().adminUsers().put}              | ${putPeter} | ${`PUT /admin/users/[PETER_ID] returns updated Peter`}     | ${200}           | ${USER_P}       | ${{ ...Peter, pass: 'newPass' }}
+            ${apiProvider().adminUsers().delete}           | ${DELME_ID} | ${`DELETE /admin/users/[DELME_ID] returns HTTP 204`}       | ${204}           | ${null}         | ${null}
+            ${apiProvider().adminUsers().getNoPrivileges}  | ${{}}       | ${'GET /admin/users (not enough privileges) returns 403'}  | ${403}           | ${null}         | ${null}
+            ${apiProvider().courses().get}                 | ${{}}       | ${'GET /api/courses returns courses'}                      | ${200}           | ${COURSE_P}     | ${[Math, History]}
+            ${apiProvider().courses().post}                | ${Physics}  | ${'POST /api/courses returns new course'}                  | ${201}           | ${COURSE_P}     | ${Physics}
+            ${apiProvider().courses().getById}             | ${MATH_ID}  | ${`GET /api/courses/[MATH_ID] returns Math`}               | ${200}           | ${COURSE_P}     | ${Math}
+            ${apiProvider().courses().put}                 | ${putMath}  | ${`PUT /api/courses/[MATH_ID] returns updated Math`}       | ${200}           | ${COURSE_P}     | ${{ ...Math, description: 'super Math!' }}
+            ${apiProvider().courses().delete}              | ${MATH_ID}  | ${`DELETE /api/courses/[MATH_ID] returns HTTP 204`}        | ${204}           | ${null}         | ${null}
+            ${apiProvider().courses().delete}              | ${MATH_ID}  | ${`second DELETE /api/courses/[MATH_ID] returns HTTP 204`} | ${204}           | ${null}         | ${null}
+            ${apiProvider().adminFiles().get}              | ${{}}       | ${'GET /admin/files returns files'}                        | ${200}           | ${ADMIN_FILE_P} | ${[song]}
+            ${apiProvider().files().getById}               | ${FILE_ID}  | ${`GET /api/api/[FILE_ID] returns file`}                   | ${200}           | ${null}         | ${null}
+            ${apiProvider().files().post}                  | ${'1.png'}  | ${'POST /api/api returns file metadata'}                   | ${201}           | ${ADMIN_FILE_P} | ${fileMeta}
         `('$testName', async ({ api, params, projection, expectedHttpCode, expectedVal }) => {
             const r = await api(params);
 

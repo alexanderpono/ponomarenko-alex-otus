@@ -1,7 +1,29 @@
-
+//no auth data - 401
 GET http://localhost:3000/admin/users
 
 ###
+
+//micle:123 - user not found - 401
+GET http://localhost:3000/admin/users
+Authorization: Basic bWljbGU6MTIz
+
+###
+
+//peter:wrongPass - wrong password (401)
+GET http://localhost:3000/admin/users
+Authorization: Basic cGV0ZXI6d3JvbmdQYXNz
+
+###
+
+//peter:newPass - user NOT ENOUGH PRIVILEGES (403)
+GET http://localhost:3000/admin/users
+Authorization: Basic cGV0ZXI6bmV3UGFzcw==
+
+###
+
+//nick:p - admin (200)
+GET http://localhost:3000/admin/users
+Authorization: Basic bmljazpw
 
 GET http://localhost:3000/admin/users/000000000000000000000001
 
