@@ -31,3 +31,86 @@
 Статус "Принято" ставится при наборе 5 баллов
 ```
 
+## Выполнение д/з №7
+1. В приложение добавлена поддержка аутентификации и контроля доступа к функциям API с учетом ролей пользователей. 
+В качестве метода аутентификации выбран HTTP Basic
+
+2. Добавлена поддержка аутентификации для API:
+```
+/api/courses
+/api/users
+/api/files
+/admin/users
+/admin/files
+```
+3. Доработаны тесты API с учетом проверки контроля доступа к функциям API - см. файл (api-tests/api.spec.js)
+4. Доработано писание API. См.: 
+* doc/api.yaml
+* https://github.com/alexanderpono/ponomarenko-alex-otus/blob/hw06-api/node-2023-11/hw04_les07-webServers/doc/api.yaml
+
+### Язык программы: Javascript
+### Репозиторий доступен по адресу:
+https://github.com/alexanderpono/ponomarenko-alex-otus/tree/hw05-mongo/node-2023-11/hw04_les07-webServers
+
+либо 
+
+https://github.com/alexanderpono/ponomarenko-alex-otus/tree/master/node-2023-11/hw04_les07-webServers
+
+
+### Пояснительная записка к д/з №7 проекту доступна по адресу:
+https://github.com/alexanderpono/ponomarenko-alex-otus/blob/hw05-mongo/node-2023-11/hw04_les07-webServers/README-hw07.md
+
+либо 
+
+https://github.com/alexanderpono/ponomarenko-alex-otus/tree/master/node-2023-11/hw04_les07-webServers/README-hw07.md
+
+
+### Запуск программы
+Предусловие
+0.1: Необходима установленная версия node.js 16 (возможно, подойдет ранняя версия)
+- https://nodejs.org/download/release/v16.20.2/
+
+0.2: Необходима локально установленная СУБД MondoDB на порту по умолчанию 27017
+
+
+1. Клонировать проект: 
+```
+git clone https://github.com/alexanderpono/ponomarenko-alex-otus.git
+```
+
+2. Зайти в папку д/з №07 (совмещена с д/з №5, №6): 
+Если д/з №07 еще не в master, то:
+```
+cd ./ponomarenko-alex-otus/
+git checkout hw05-mongo
+cd ./node-2023-11/hw04_les07-webServers
+```
+
+Если д/з №07 уже в master, то:
+
+```
+cd ./ponomarenko-alex-otus/node-2023-11/hw04_les07-webServers
+```
+ 
+
+3. установить зависимости:  
+```
+npm ci
+```
+
+4. Запустить сервер
+```
+npm run watch
+```
+
+5. Запустить API-тесты (должны проходить)
+```
+npm run test
+```
+
+6. Можно сделать ручные запросы к API при помощи файлов REST:
+* reset.http
+* api-tests/http/admin.http
+* api-tests/http/apiCourses.http
+* api-tests/http/apiFiles.http
+* api-tests/http/apiUsers.http
