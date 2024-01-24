@@ -118,7 +118,9 @@ describe('api', () => {
             ${apiProvider().adminFiles().getNoPrivileges}     | ${{}}       | ${'GET /admin/files (not enough privileges) returns 403'}               | ${403}           | ${null}         | ${null}
             ${apiProvider().adminFiles().get}                 | ${{}}       | ${'GET /admin/files returns files'}                                     | ${200}           | ${ADMIN_FILE_P} | ${[song]}
             ${apiProvider().files().getById}                  | ${FILE_ID}  | ${`GET /api/api/[FILE_ID] returns file`}                                | ${200}           | ${null}         | ${null}
+            ${apiProvider().files().getByIdNoCreds}           | ${FILE_ID}  | ${`GET /api/api/[FILE_ID] (no creds) returns 401`}                      | ${401}           | ${null}         | ${null}
             ${apiProvider().files().post}                     | ${'1.png'}  | ${'POST /api/api returns file metadata'}                                | ${201}           | ${ADMIN_FILE_P} | ${fileMeta}
+            ${apiProvider().files().postNoCreds}              | ${'1.png'}  | ${'POST /api/api returns (no creds) returns 401'}                       | ${401}           | ${null}         | ${null}
         `('$testName', async ({ api, params, projection, expectedHttpCode, expectedVal }) => {
             const r = await api(params);
 

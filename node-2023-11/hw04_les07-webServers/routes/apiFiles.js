@@ -6,7 +6,7 @@ var path = require('path');
 const db = require('../service/db');
 const fs = require('fs');
 
-router.get('/:id', function (req, res, next) {
+router.get('/:id', db.checkAuth, function (req, res, next) {
     File.findById(req.params.id)
         .then((file) => {
             if (!file) {
@@ -22,7 +22,7 @@ router.get('/:id', function (req, res, next) {
         });
 });
 
-router.post('/', function (req, res, next) {
+router.post('/', db.checkAuth, function (req, res, next) {
     if (!req.files || Object.keys(req.files).length === 0) {
         return res.status(400).send('No files were uploaded.');
     }
