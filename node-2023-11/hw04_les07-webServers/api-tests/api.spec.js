@@ -93,7 +93,9 @@ describe('api', () => {
         test.each`
             api                                               | params      | testName                                                                | expectedHttpCode | projection      | expectedVal
             ${apiProvider().users().get}                      | ${{}}       | ${'GET /api/users returns users(USER)'}                                 | ${200}           | ${USER_USER_P}  | ${[PeterUser, NickUser, DelmeUser, TomUser]}
+            ${apiProvider().users().getNoCreds}               | ${{}}       | ${'GET /api/users (no creds) returns 401'}                              | ${401}           | ${null}         | ${null}
             ${apiProvider().users().getById}                  | ${PETER_ID} | ${`GET /api/users/[PETER_ID] returns Peter(USER)`}                      | ${200}           | ${USER_USER_P}  | ${PeterUser}
+            ${apiProvider().users().getByIdNoCreds}           | ${PETER_ID} | ${'GET /api/users/[PETER_ID] (no creds) returns 401'}                   | ${401}           | ${null}         | ${null}
             ${apiProvider().adminUsers().get}                 | ${{}}       | ${'GET /admin/users returns users'}                                     | ${200}           | ${USER_P}       | ${[Peter, Nick, Delme, Tom]}
             ${apiProvider().adminUsers().getNoCreds}          | ${{}}       | ${'GET /admin/users (no creds) returns 401'}                            | ${401}           | ${null}         | ${null}
             ${apiProvider().adminUsers().getUserNotFound}     | ${{}}       | ${'GET /admin/users (user not found) returns 401'}                      | ${401}           | ${null}         | ${null}
