@@ -27,7 +27,7 @@ paths:
       summary: Получить административный список рользователей (с паролями))
       description: Данная операция доступна только авторизованному администратору
       responses:
-        default:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -35,6 +35,14 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/AdminUser'
+        '401':
+          description: Authorization required
+        '403':
+          description: Not enough privileges
+
+      security:
+        - myBasic: []
+
     post:
       tags:
         - admin
@@ -48,12 +56,18 @@ paths:
             schema:
               $ref: '#/components/schemas/AdminUserWithoutId'
       responses:
-        default:
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/AdminUser'
+        '401':
+          description: Authorization required
+        '403':
+          description: Not enough privileges
+      security:
+        - myBasic: []
 
   /admin/users/{userId}:
     get:
@@ -79,6 +93,12 @@ paths:
                 $ref: '#/components/schemas/AdminUser'          
         '404':
           description: User not found
+        '401':
+          description: Authorization required
+        '403':
+          description: Not enough privileges
+      security:
+        - myBasic: []
 
     put:
       tags:
@@ -110,7 +130,13 @@ paths:
         '400':
           description: Invalid ID supplied
         '404':
-          description: Pet not found
+          description: User not found
+        '401':
+          description: Authorization required
+        '403':
+          description: Not enough privileges
+      security:
+        - myBasic: []
 
     delete:
       tags:
@@ -129,6 +155,12 @@ paths:
       responses:
         '204':
           description: Пользователь удален
+        '401':
+          description: Authorization required
+        '403':
+          description: Not enough privileges
+      security:
+        - myBasic: []
 
 
   /admin/files:
@@ -138,7 +170,7 @@ paths:
       summary: Получить административный список файлов в хранилище
       description: Данная операция доступна только авторизованному администратору
       responses:
-        default:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -146,6 +178,12 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/File'
+        '401':
+          description: Authorization required
+        '403':
+          description: Not enough privileges
+      security:
+        - myBasic: []
 
   /api/users:
     get:
@@ -154,7 +192,7 @@ paths:
       summary: Получить список рользователей (без паролей))
       description: Данная операция доступна только авторизованному администратору
       responses:
-        default:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -162,6 +200,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/User'
+        '401':
+          description: Authorization required
+      security:
+        - myBasic: []
 
   /api/users/{userId}:
     get:
@@ -190,6 +232,10 @@ paths:
                 $ref: '#/components/schemas/User'
         '404':
           description: User not found
+        '401':
+          description: Authorization required
+      security:
+        - myBasic: []
 
   /api/files/{fileId}:
     get:
@@ -215,6 +261,10 @@ paths:
                 format: binary         
         '404':
           description: File not found
+        '401':
+          description: Authorization required
+      security:
+        - myBasic: []
 
   /api/files:
     post:
@@ -242,6 +292,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/File'          
+        '401':
+          description: Authorization required
+      security:
+        - myBasic: []
 
 
   /api/courses:
@@ -259,6 +313,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Course'
+        '401':
+          description: Authorization required
+      security:
+        - myBasic: []
 
     post:
       tags:
@@ -279,6 +337,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Course'
+        '401':
+          description: Authorization required
+      security:
+        - myBasic: []
 
   /api/courses/{courseId}:
     get:
@@ -304,6 +366,10 @@ paths:
                 $ref: '#/components/schemas/Course'          
         '404':
           description: Course not found
+        '401':
+          description: Authorization required
+      security:
+        - myBasic: []
 
     put:
       tags:
@@ -336,6 +402,10 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Course not found
+        '401':
+          description: Authorization required
+      security:
+        - myBasic: []
 
     delete:
       tags:
@@ -354,6 +424,10 @@ paths:
       responses:
         '204':
           description: Курс удален
+        '401':
+          description: Authorization required
+      security:
+        - myBasic: []
 
 
 
@@ -508,3 +582,9 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/User'
+
+  securitySchemes:
+    myBasic:
+      type: http
+      scheme: basic
+      
