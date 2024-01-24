@@ -110,9 +110,14 @@ describe('api', () => {
             ${apiProvider().adminUsers().delete}              | ${DELME_ID} | ${`DELETE /admin/users/[DELME_ID] returns HTTP 204`}                    | ${204}           | ${null}         | ${null}
             ${apiProvider().adminUsers().getNoPrivileges}     | ${{}}       | ${'GET /admin/users (not enough privileges) returns 403'}               | ${403}           | ${null}         | ${null}
             ${apiProvider().courses().get}                    | ${{}}       | ${'GET /api/courses returns courses'}                                   | ${200}           | ${COURSE_P}     | ${[Math, History]}
+            ${apiProvider().courses().getNoCreds}             | ${{}}       | ${'GET /api/courses (no creds) returns 401'}                            | ${401}           | ${null}         | ${null}
             ${apiProvider().courses().post}                   | ${Physics}  | ${'POST /api/courses returns new course'}                               | ${201}           | ${COURSE_P}     | ${Physics}
+            ${apiProvider().courses().postNoCreds}            | ${Physics}  | ${'POST /api/courses (no creds) returns 401'}                           | ${401}           | ${null}         | ${null}
             ${apiProvider().courses().getById}                | ${MATH_ID}  | ${`GET /api/courses/[MATH_ID] returns Math`}                            | ${200}           | ${COURSE_P}     | ${Math}
+            ${apiProvider().courses().getByIdNoCreds}         | ${MATH_ID}  | ${`GET /api/courses/[MATH_ID] (no creds) returns 401`}                  | ${401}           | ${null}         | ${null}
             ${apiProvider().courses().put}                    | ${putMath}  | ${`PUT /api/courses/[MATH_ID] returns updated Math`}                    | ${200}           | ${COURSE_P}     | ${{ ...Math, description: 'super Math!' }}
+            ${apiProvider().courses().putNoCreds}             | ${putMath}  | ${`PUT /api/courses/[MATH_ID] (no creds) returns 401`}                  | ${401}           | ${null}         | ${null}
+            ${apiProvider().courses().deleteNoCreds}          | ${MATH_ID}  | ${`DELETE /api/courses/[MATH_ID] (no creds) returns 401`}               | ${401}           | ${null}         | ${null}
             ${apiProvider().courses().delete}                 | ${MATH_ID}  | ${`DELETE /api/courses/[MATH_ID] returns HTTP 204`}                     | ${204}           | ${null}         | ${null}
             ${apiProvider().courses().delete}                 | ${MATH_ID}  | ${`second DELETE /api/courses/[MATH_ID] returns HTTP 204`}              | ${204}           | ${null}         | ${null}
             ${apiProvider().adminFiles().getNoPrivileges}     | ${{}}       | ${'GET /admin/files (not enough privileges) returns 403'}               | ${403}           | ${null}         | ${null}

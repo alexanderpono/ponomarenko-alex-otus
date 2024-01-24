@@ -1,6 +1,38 @@
 
 GET http://localhost:3000/api/courses
+Authorization: Basic cGV0ZXI6bmV3UGFzcw==
 
 ###
 
+POST http://localhost:3000/api/courses
+Authorization: Basic cGV0ZXI6bmV3UGFzcw==
+Content-Type: application/json
 
+{ 
+    "description": "Physics",
+    "author_id": "000000000000000000000001",
+    "difficulty": 4,
+    "lessons": []
+}
+
+###
+
+GET http://localhost:3000/api/courses/000000000000000000000102
+Authorization: Basic cGV0ZXI6bmV3UGFzcw==
+###
+
+PUT http://localhost:3000/api/courses/000000000000000000000102
+Authorization: Basic cGV0ZXI6bmV3UGFzcw==
+Content-Type: application/json
+
+{ 
+    "description": "Physics",
+    "author_id": "000000000000000000000001",
+    "difficulty": 5,
+    "lessons": []
+}
+
+###
+
+DELETE http://localhost:3000/api/courses/000000000000000000000102
+Authorization: Basic cGV0ZXI6bmV3UGFzcw==
