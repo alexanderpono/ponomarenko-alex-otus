@@ -15,7 +15,8 @@ const User = mongoose.model(
         _id: { type: mongoose.SchemaTypes.ObjectId },
         name: { type: String, required: true },
         login: { type: String, required: true },
-        pass: { type: String, required: true }
+        pass: { type: String, required: true },
+        privileges: { type: [String], required: true }
     })
 );
 const LessonSchema = new Schema({

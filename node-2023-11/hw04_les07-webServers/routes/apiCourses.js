@@ -2,8 +2,9 @@ var express = require('express');
 var router = express.Router();
 const Course = require('../service/mongoose').Course;
 const db = require('../service/db');
+const { Privileges } = require('../constants');
 
-router.get('/', db.checkAuth, function (req, res, next) {
+router.get('/', db.checkAuth, db.hasOneOfPriv([Privileges.courses]), function (req, res, next) {
     Course.find({})
         .then((persons) => {
             res.send(persons);
@@ -13,7 +14,7 @@ router.get('/', db.checkAuth, function (req, res, next) {
         });
 });
 
-router.post('/', db.checkAuth, function (req, res, next) {
+router.post('/', db.checkAuth, db.hasOneOfPriv([Privileges.courses]), function (req, res, next) {
     const course = new Course(req.body);
     course._id = db.getNewObjectId();
 
@@ -33,7 +34,7 @@ router.post('/', db.checkAuth, function (req, res, next) {
         });
 });
 
-router.get('/:id', db.checkAuth, function (req, res, next) {
+router.get('/:id', db.checkAuth, db.hasOneOfPriv([Privileges.courses]), function (req, res, next) {
     Course.findById(req.params.id)
         .then((course) => {
             if (!course) {
@@ -46,7 +47,7 @@ router.get('/:id', db.checkAuth, function (req, res, next) {
         });
 });
 
-router.put('/:id', db.checkAuth, function (req, res, next) {
+router.put('/:id', db.checkAuth, db.hasOneOfPriv([Privileges.courses]), function (req, res, next) {
     Course.updateOne(
         { _id: req.params.id },
         {
@@ -75,15 +76,20 @@ router.put('/:id', db.checkAuth, function (req, res, next) {
         });
 });
 
-router.delete('/:id', db.checkAuth, function (req, res, next) {
-    Course.deleteOne({ _id: req.params.id })
-        .then(() => {
-            res.status(204).send({});
-        })
-        .catch((err) => {
-            console.log('put err=', err);
-            res.status(500).send({ error: 'Server error' + JSON.stringify(err) });
-        });
-});
+router.delete(
+    '/:id',
+    db.checkAuth,
+    db.hasOneOfPriv([Privileges.courses]),
+    function (req, res, next) {
+        Course.deleteOne({ _id: req.params.id })
+            .then(() => {
+                res.status(204).send({});
+            })
+            .catch((err) => {
+                console.log('put err=', err);
+                res.status(500).send({ error: 'Server error' + JSON.stringify(err) });
+            });
+    }
+);
 
 module.exports = router;

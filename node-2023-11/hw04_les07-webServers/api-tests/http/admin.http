@@ -48,7 +48,8 @@ Content-Type: application/json
 {
     "name": "Masha2",
     "login": "masha",
-    "pass": "p"
+    "pass": "p",
+    "privileges": ["users.admin", "files.admin", "courses.admin", "files.user"]
 }
 
 ###

@@ -13,6 +13,7 @@ const fileStorageDir = require('../constants').fileStorageDir;
 var path = require('path');
 const fs = require('fs');
 const { DELME_ID, NICK_ID, TOM_ID } = require('../api-tests/constants');
+const { Privileges } = require('../constants');
 
 router.post('/', async function (req, res, next) {
     await User.deleteMany({});
@@ -20,7 +21,8 @@ router.post('/', async function (req, res, next) {
         _id: db.toObjectId(PETER_ID),
         name: 'Peter',
         login: 'peter',
-        pass: 'p'
+        pass: 'p',
+        privileges: [Privileges.users]
     });
     await user.save();
 
@@ -28,7 +30,8 @@ router.post('/', async function (req, res, next) {
         _id: db.toObjectId(db.to24Str(NICK_ID)),
         name: 'nick',
         login: 'nick',
-        pass: 'p'
+        pass: 'p',
+        privileges: [Privileges.usersAdmin, Privileges.filesAdmin]
     });
     await nick.save();
 
@@ -36,7 +39,8 @@ router.post('/', async function (req, res, next) {
         _id: db.toObjectId(db.to24Str(DELME_ID)),
         name: 'delme',
         login: 'delme',
-        pass: 'p'
+        pass: 'p',
+        privileges: []
     });
     await delme.save();
 
@@ -44,7 +48,8 @@ router.post('/', async function (req, res, next) {
         _id: db.toObjectId(db.to24Str(TOM_ID)),
         name: 'tom',
         login: 'tom',
-        pass: 'p'
+        pass: 'p',
+        privileges: [Privileges.users, Privileges.courses, Privileges.files]
     });
     await tom.save();
 

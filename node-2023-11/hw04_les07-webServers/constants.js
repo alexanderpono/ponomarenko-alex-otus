@@ -5,8 +5,16 @@ const ERR = {
     NO_PRIV: { error: 'not enough privileges' },
     SERVER_ERR: { error: 'Server error' }
 };
+const Privileges = {
+    users: 'users',
+    usersAdmin: 'users.admin',
+    filesAdmin: 'files.admin',
+    courses: 'courses',
+    files: 'files'
+};
 
 module.exports = {
     fileStorageDir,
-    ERR
+    ERR,
+    Privileges
 };

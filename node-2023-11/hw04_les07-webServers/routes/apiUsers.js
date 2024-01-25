@@ -2,8 +2,9 @@ var express = require('express');
 var router = express.Router();
 const User = require('../service/mongoose').User;
 const db = require('../service/db');
+const { Privileges } = require('../constants');
 
-router.get('/', db.checkAuth, function (req, res, next) {
+router.get('/', db.checkAuth, db.hasOneOfPriv([Privileges.users]), function (req, res, next) {
     User.find({}, 'name login')
         .then((persons) => {
             res.send(persons);
@@ -13,7 +14,7 @@ router.get('/', db.checkAuth, function (req, res, next) {
         });
 });
 
-router.get('/:id', db.checkAuth, function (req, res, next) {
+router.get('/:id', db.checkAuth, db.hasOneOfPriv([Privileges.users]), function (req, res, next) {
     User.findById(req.params.id, 'name login')
         .then((user) => {
             if (!user) {

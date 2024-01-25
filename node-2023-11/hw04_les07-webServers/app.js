@@ -13,7 +13,6 @@ var courseRouter = require('./routes/course');
 const apiRouter = require('./routes/api');
 const apiCoursesRouter = require('./routes/apiCourses');
 const apiUsersRouter = require('./routes/apiUsers');
-const apiLessonRouter = require('./routes/apiLesson');
 const apiResetRouter = require('./routes/apiReset');
 const apiFilesRouter = require('./routes/apiFiles');
 
@@ -105,7 +104,6 @@ app.use('/users', usersRouter);
 
 app.use('/api/courses', apiCoursesRouter);
 app.use('/api/users', apiUsersRouter);
-app.use('/api/lesson', apiLessonRouter);
 app.use('/api/files', apiFilesRouter);
 app.use('/api', apiRouter);
 app.use('/api/reset', apiResetRouter);

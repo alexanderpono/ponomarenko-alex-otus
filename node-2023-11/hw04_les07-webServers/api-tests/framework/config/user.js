@@ -1,12 +1,17 @@
+const tom = 'tom:p';
+const wrongPass = 'peter:wrongPass';
+const noSuchUser = 'micle:123';
+const adminUser = 'nick:p';
+
 const user = {
     localCoursesApi: {
         usualUser: 'Peter',
 
         creds: {
-            userNotFound: 'Basic bWljbGU6MTIz',
-            wrongPassword: 'Basic cGV0ZXI6d3JvbmdQYXNz',
-            userRole: 'Basic dG9tOnA=',
-            adminRole: 'Basic bmljazpw'
+            userNotFound: `Basic ${btoa(noSuchUser)}`,
+            wrongPassword: `Basic ${btoa(wrongPass)}`,
+            userRole: `Basic ${btoa(tom)}`,
+            adminRole: `Basic ${btoa(adminUser)}`
         }
     }
 };
