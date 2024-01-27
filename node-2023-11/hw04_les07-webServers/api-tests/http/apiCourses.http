@@ -1,11 +1,23 @@
 
 GET http://localhost:3000/api/courses
-Authorization: Basic cGV0ZXI6bmV3UGFzcw==
+Authorization: Basic dG9tOnA=
+
+###
+//400 - description is a required field
+POST http://localhost:3000/api/courses
+Authorization: Basic dG9tOnA=
+Content-Type: application/json
+
+{ 
+    "author_id": "000000000000000000000001",
+    "difficulty": 4,
+    "lessons": []
+}
 
 ###
 
 POST http://localhost:3000/api/courses
-Authorization: Basic cGV0ZXI6bmV3UGFzcw==
+Authorization: Basic dG9tOnA=
 Content-Type: application/json
 
 { 
@@ -18,11 +30,12 @@ Content-Type: application/json
 ###
 
 GET http://localhost:3000/api/courses/000000000000000000000102
-Authorization: Basic cGV0ZXI6bmV3UGFzcw==
+Authorization: Basic dG9tOnA=
+
 ###
 
 PUT http://localhost:3000/api/courses/000000000000000000000102
-Authorization: Basic cGV0ZXI6bmV3UGFzcw==
+Authorization: Basic dG9tOnA=
 Content-Type: application/json
 
 { 
@@ -35,4 +48,4 @@ Content-Type: application/json
 ###
 
 DELETE http://localhost:3000/api/courses/000000000000000000000102
-Authorization: Basic cGV0ZXI6bmV3UGFzcw==
+Authorization: Basic dG9tOnA=

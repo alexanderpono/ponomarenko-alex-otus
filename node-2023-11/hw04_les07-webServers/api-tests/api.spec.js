@@ -17,8 +17,13 @@ const getProjection = (items, projection) => {
                 if (Array.isArray(item[field])) {
                     result[field] = [];
                     item[field].forEach((item) => {
-                        const itemToPush = { ...item };
-                        delete itemToPush._id;
+                        let itemToPush = null;
+                        if (typeof item === 'string') {
+                            itemToPush = item;
+                        } else {
+                            itemToPush = { ...item };
+                            delete itemToPush._id;
+                        }
                         result[field].push(itemToPush);
                     });
                 }
@@ -32,8 +37,13 @@ const getProjection = (items, projection) => {
         if (Array.isArray(items[field])) {
             result[field] = [];
             items[field].forEach((item) => {
-                const itemToPush = { ...item };
-                delete itemToPush._id;
+                let itemToPush = null;
+                if (typeof item === 'string') {
+                    itemToPush = item;
+                } else {
+                    itemToPush = { ...item };
+                    delete itemToPush._id;
+                }
                 result[field].push(itemToPush);
             });
         }
@@ -49,16 +59,26 @@ describe('api', () => {
     });
 
     describe('API', () => {
-        const Masha = { name: 'Masha', login: 'masha', pass: 'pwd' };
-        const Peter = { name: 'Peter', login: 'peter', pass: 'p' };
-        const Nick = { name: 'nick', login: 'nick', pass: 'p' };
-        const Delme = { name: 'delme', login: 'delme', pass: 'p' };
-        const Tom = { name: 'tom', login: 'tom', pass: 'p' };
+        const Masha = { name: 'Masha', login: 'masha', pass: 'pwd', privileges: [] };
+        const Peter = { name: 'Peter', login: 'peter', pass: 'p', privileges: ['users'] };
+        const Nick = {
+            name: 'nick',
+            login: 'nick',
+            pass: 'p',
+            privileges: ['users.admin', 'files.admin']
+        };
+        const Delme = { name: 'delme', login: 'delme', pass: 'p', privileges: [] };
+        const Tom = {
+            name: 'tom',
+            login: 'tom',
+            pass: 'p',
+            privileges: ['users', 'courses', 'files']
+        };
         const putPeter = {
             id: db.toObjectId(PETER_ID),
             params: { ...Peter, pass: 'newPass' }
         };
-        const USER_P = 'name login pass';
+        const USER_P = 'name login pass privileges';
 
         const COURSE_P = 'description author_id difficulty lessons';
         const Physics = { description: 'Physics', author_id: PETER_ID, difficulty: 4, lessons: [] };
