@@ -1,21 +1,36 @@
 var express = require('express');
 var router = express.Router();
+const User = require('../service/mongoose').User;
 
 router.get('/', function (req, res, next) {
-    res.send('get users');
-});
-router.post('/', function (req, res, next) {
-    res.send('post user');
+    User.find({}, 'name login')
+        .then((persons) => {
+            res.send(persons);
+        })
+        .catch((err) => {
+            res.status(500).send({ error: 'Server error' });
+        });
 });
 
 router.get('/:id', function (req, res, next) {
-    res.send('get user ' + req.params.id);
+    User.findById(req.params.id, 'name login')
+        .then((user) => {
+            if (!user) {
+                return res.status(404).send({ error: 'Not found' });
+            }
+            res.send(user);
+        })
+        .catch((err) => {
+            res.status(500).send({ error: 'Server error' });
+        });
 });
-router.put('/:id', function (req, res, next) {
-    res.send('put user' + req.params.id);
+
+router.get('/me', function (req, res, next) {
+    res.send(`get me`);
 });
-router.delete('/:id', function (req, res, next) {
-    res.send('delete user' + req.params.id);
+
+router.put('/me', function (req, res, next) {
+    res.send(`put me`);
 });
 
 router.get('/:id/rate', function (req, res, next) {

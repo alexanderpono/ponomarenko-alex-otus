@@ -1,21 +1,89 @@
 var express = require('express');
 var router = express.Router();
+const Course = require('../service/mongoose').Course;
+const db = require('../service/db');
 
 router.get('/', function (req, res, next) {
-    res.send('get course');
+    Course.find({})
+        .then((persons) => {
+            res.send(persons);
+        })
+        .catch((err) => {
+            res.status(500).send({ error: 'Server error' });
+        });
 });
+
 router.post('/', function (req, res, next) {
-    res.send('post course');
+    const course = new Course(req.body);
+    course._id = db.getNewObjectId();
+
+    course
+        .save()
+        .then((course) => {
+            res.status(201).send(course);
+        })
+        .catch((err) => {
+            console.log('post err=', err);
+
+            if (err.name === 'ValidationError') {
+                return res.status(400).send({ error: 'Validation error', err });
+            } else {
+                return res.status(500).send({ error: 'Server error' });
+            }
+        });
 });
 
 router.get('/:id', function (req, res, next) {
-    res.send('get course ' + req.params.id);
+    Course.findById(req.params.id)
+        .then((course) => {
+            if (!course) {
+                return res.status(404).send({ error: 'Not found' });
+            }
+            res.send(course);
+        })
+        .catch((err) => {
+            res.status(500).send({ error: 'Server error' });
+        });
 });
+
 router.put('/:id', function (req, res, next) {
-    res.send('put course ' + req.params.id);
+    Course.updateOne(
+        { _id: req.params.id },
+        {
+            $set: {
+                description: req.body.description,
+                author_id: req.body.author_id,
+                difficulty: req.body.difficulty
+            }
+        }
+    )
+        .then((course) => {
+            if (!course) {
+                return res.status(404).send({ error: 'Not found' });
+            }
+            return Course.findById(req.params.id);
+        })
+        .then((course) => {
+            if (!course) {
+                return res.status(404).send({ error: 'Not found' });
+            }
+            res.send(course);
+        })
+        .catch((err) => {
+            console.log('put err=', err);
+            res.status(500).send({ error: 'Server error' + JSON.stringify(err) });
+        });
 });
+
 router.delete('/:id', function (req, res, next) {
-    res.send('delete course ' + req.params.id);
+    Course.deleteOne({ _id: req.params.id })
+        .then(() => {
+            res.status(204).send({});
+        })
+        .catch((err) => {
+            console.log('put err=', err);
+            res.status(500).send({ error: 'Server error' + JSON.stringify(err) });
+        });
 });
 
 router.get('/:id/file', function (req, res, next) {

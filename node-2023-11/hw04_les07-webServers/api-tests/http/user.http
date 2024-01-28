@@ -1,8 +1,0 @@
-
-GET http://localhost:3000/api/user
-X-User-Name: Peter
-
-###
-
-GET https://localhost:3000/api/user
-X-User-Name: Peter

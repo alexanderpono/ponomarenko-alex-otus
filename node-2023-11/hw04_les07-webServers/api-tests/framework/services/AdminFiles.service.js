@@ -1,17 +1,15 @@
 const supertest = require('supertest');
 const { url } = require('../config');
 
-class UserApi {
-    async get(params) {
+class AdminFilesApi {
+    async get() {
         const r = await supertest(`${url.localCoursesApi}`)
-            .get(`/api/user`)
-            .set('Accept', 'application/json')
-            .set('X-User-Name', params.user);
-
+            .get(`/admin/files`)
+            .set('Accept', 'application/json');
         return r;
     }
 }
 
 module.exports = {
-    UserApi
+    AdminFilesApi
 };

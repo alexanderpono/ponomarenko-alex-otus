@@ -1,0 +1,510 @@
+openapi: 3.0.3
+info:
+  title: Best Courses Ever
+  description: |-
+    Описание API проекта "Best Courses Ever"
+    
+  version: 1.0.0
+servers:
+  - url: https://localhost:3000/
+tags:
+  - name: admin
+    description: Административные операции 
+  - name: users
+    description: Операции над пользователями
+  - name: files
+    description: Операции над файлами
+  - name: courses
+    description: CRUD-операции над курсами
+
+
+
+paths:
+  /admin/users:
+    get:
+      tags:
+        - admin
+      summary: Получить административный список рользователей (с паролями))
+      description: Данная операция доступна только авторизованному администратору
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AdminUser'
+    post:
+      tags:
+        - admin
+      summary: Create user
+      description: Данная операция доступна только авторизованному администратору
+      operationId: createUser
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminUserWithoutId'
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminUser'
+
+  /admin/users/{userId}:
+    get:
+      tags:
+        - admin
+      summary: Получить пользователя по ID
+      description: Возвращает данные пользователя
+      operationId: getAdminUserById
+      parameters:
+        - name: userId
+          in: path
+          description: ID of user to return
+          required: true
+          schema:
+            type: string
+            format: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminUser'          
+        '404':
+          description: User not found
+
+    put:
+      tags:
+        - admin
+      summary: Обновление данных пользователя
+      description: Обновляет данные пользователя
+      operationId: putAdminUser
+      parameters:
+        - name: userId
+          in: path
+          description: ID of user to update
+          required: true
+          schema:
+            type: string
+            format: string
+      requestBody:
+        description: Updated user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminUserWithoutId'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminUser'          
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+
+    delete:
+      tags:
+        - admin
+      summary: Удалить пользователя
+      description: Удалить пользователя
+      operationId: deleteUser
+      parameters:
+        - name: userId
+          in: path
+          description: User id to delete
+          required: true
+          schema:
+            type: string
+            format: string
+      responses:
+        '204':
+          description: Пользователь удален
+
+
+  /admin/files:
+    get:
+      tags:
+        - admin
+      summary: Получить административный список файлов в хранилище
+      description: Данная операция доступна только авторизованному администратору
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/File'
+
+  /api/users:
+    get:
+      tags:
+        - users
+      summary: Получить список рользователей (без паролей))
+      description: Данная операция доступна только авторизованному администратору
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+
+  /api/users/{userId}:
+    get:
+      tags:
+        - users
+      summary: Получить пользователя по ID
+      description: Возвращает данные пользователя
+      operationId: getUserById
+      parameters:
+        - name: userId
+          in: path
+          description: ID of user to return
+          required: true
+          schema:
+            type: string
+            format: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+
+  /api/files/{fileId}:
+    get:
+      tags:
+        - files
+      summary: Получить файл по ID
+      description: Возвращает файл
+      operationId: getFileById
+      parameters:
+        - name: fileId
+          in: path
+          description: ID of file to return
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary         
+        '404':
+          description: File not found
+
+  /api/files:
+    post:
+      tags:
+        - files
+      summary: Загрузить файл
+      description: Загружается файл в файловое хранилище
+      operationId: postFile
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                # The property name 'file' will be used for all files.
+                file:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        '201':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/File'          
+
+
+  /api/courses:
+    get:
+      tags:
+        - courses
+      summary: Получить список рользователей (без паролей))
+      description: Данная операция доступна только авторизованному администратору
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Course'
+
+    post:
+      tags:
+        - courses
+      summary: Create course
+      description: Данная операция доступна авторизованному пользователю
+      operationId: createCourse
+      requestBody:
+        description: Created course object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CourseWithoutId'
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+
+  /api/courses/{courseId}:
+    get:
+      tags:
+        - courses
+      summary: Получить курс по ID
+      description: Возвращает данные по указанному курсу
+      operationId: getCourseById
+      parameters:
+        - name: courseId
+          in: path
+          description: ID of course to return
+          required: true
+          schema:
+            type: string
+            format: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'          
+        '404':
+          description: Course not found
+
+    put:
+      tags:
+        - courses
+      summary: Обновление данных о курсе
+      description: Обновляет данные о курсе
+      operationId: putCourse
+      parameters:
+        - name: courseId
+          in: path
+          description: ID of user to update
+          required: true
+          schema:
+            type: string
+            format: string
+      requestBody:
+        description: Updated course object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CourseWithoutId'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'          
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Course not found
+
+    delete:
+      tags:
+        - courses
+      summary: Удалить пользователя
+      description: Удалить пользователя
+      operationId: deleteCourse
+      parameters:
+        - name: courseId
+          in: path
+          description: Course id to delete
+          required: true
+          schema:
+            type: string
+            format: string
+      responses:
+        '204':
+          description: Курс удален
+
+
+
+components:
+  schemas:
+
+    AdminUser:
+      type: object
+      properties:
+        _id:
+          type: string
+          format: mongoose.SchemaTypes.ObjectId
+          example: 65ac3ce9dfb85263bcf53829
+        name:
+          type: string
+          example: Peter
+        login:
+          type: string
+          example: peter
+        pass:
+          type: string
+          example: '12345'
+      xml:
+        name: user
+
+    AdminUserWithoutId:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Peter
+        login:
+          type: string
+          example: peter
+        pass:
+          type: string
+          example: '12345'
+      xml:
+        name: user
+
+
+    User:
+      type: object
+      properties:
+        _id:
+          type: string
+          format: mongoose.SchemaTypes.ObjectId
+          example: 65ac3ce9dfb85263bcf53829
+        name:
+          type: string
+          example: Peter
+        login:
+          type: string
+          example: peter
+      xml:
+        name: user
+
+    UserWithoutId:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Peter
+        login:
+          type: string
+          example: peter
+        pass:
+          type: string
+          example: '12345'
+      xml:
+        name: user
+
+    File:
+      type: object
+      properties:
+        _id:
+          type: string
+          format: mongoose.SchemaTypes.ObjectId
+          example: 65ac3ce9dfb85263bcf53829
+        name:
+          type: string
+          example: 1.mp3
+        size:
+          type: number
+          example: 333
+        type:
+          type: string
+          example: 'audio/mpeg'
+      xml:
+        name: file
+
+    Lesson:
+      type: object
+      properties:
+        _id:
+          type: string
+          format: mongoose.SchemaTypes.ObjectId
+          example: 65ac3ce9dfb85263bcf53829
+        description:
+          type: string
+          example: Урок 1. Введение
+        
+    Course:
+      type: object
+      properties:
+        _id:
+          type: string
+          format: mongoose.SchemaTypes.ObjectId
+          example: 65ac3ce9dfb85263bcf53829
+        description:
+          type: string
+          example: Математика
+        author_id:
+          type: string
+          format: mongoose.SchemaTypes.ObjectId
+          example: 44ac3ce9dfb85263bcf53829
+        difficulty:
+          type: number
+          example: 3
+        lessons:
+          type: array
+          items:
+            type: Lesson
+            $ref: '#/components/schemas/Lesson'
+
+    CourseWithoutId:
+      type: object
+      properties:
+        description:
+          type: string
+          example: Математика
+        author_id:
+          type: string
+          format: mongoose.SchemaTypes.ObjectId
+          example: 65ac3ce9dfb85263bcf53829
+        difficulty:
+          type: number
+          example: 3
+        lessons:
+          type: array
+          items:
+            type: Lesson
+            $ref: '#/components/schemas/Lesson'
+
+
+  requestBodies:
+    UserArray:
+      description: List of user object
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/User'

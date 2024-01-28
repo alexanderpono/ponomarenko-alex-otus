@@ -1,0 +1,31 @@
+
+GET http://localhost:3000/admin/users
+
+###
+
+GET http://localhost:3000/admin/users/000000000000000000000001
+
+###
+
+PUT http://localhost:3000/admin/users/000000000000000000000001
+Content-Type: application/json
+
+{
+  "name": "Peter2",
+  "login": "peter3",
+  "pass": "newPass3"
+}
+
+###
+
+POST http://localhost:3000/admin/users
+Content-Type: application/json
+
+{
+    "name": "Masha2",
+    "login": "masha",
+    "pass": "p"
+}
+
+###
+GET http://localhost:3000/admin/files
