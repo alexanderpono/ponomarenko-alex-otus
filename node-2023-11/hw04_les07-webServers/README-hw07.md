@@ -72,6 +72,7 @@ https://github.com/alexanderpono/ponomarenko-alex-otus/blob/hw05-mongo/node-2023
 
 https://github.com/alexanderpono/ponomarenko-alex-otus/tree/master/node-2023-11/hw04_les07-webServers/README-hw07.md
 
+7. Добавлена валидация входных данных (adminUsers.js, apiCourses.js, apiFiles.js). Валидация реализована  с использованием библиотеки yup.
 
 ### Запуск программы
 Предусловие
