@@ -998,6 +998,7 @@
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Admin-adminFilesGet-0-curl">
                            <pre class="prettyprint"><code class="language-bsh">curl -X GET\
+ -H "Authorization: Basic [[basicHash]]"\
 -H "Accept: application/json"\
 "https://localhost:3000//admin/files"</code></pre>
                           </div>
@@ -1013,7 +1014,12 @@ import java.util.*;
 public class AdminApiExample {
 
     public static void main(String[] args) {
-        
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        // Configure HTTP basic authorization: myBasic
+        HttpBasicAuth myBasic = (HttpBasicAuth) defaultClient.getAuthentication("myBasic");
+        myBasic.setUsername("YOUR USERNAME");
+        myBasic.setPassword("YOUR PASSWORD");
+
         AdminApi apiInstance = new AdminApi();
         try {
             array[File] result = apiInstance.adminFilesGet();
@@ -1048,7 +1054,11 @@ public class AdminApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-Admin-adminFilesGet-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+// Configure HTTP basic authorization (authentication scheme: myBasic)
+[apiConfig setUsername:@"YOUR_USERNAME"];
+[apiConfig setPassword:@"YOUR_PASSWORD"];
+
 AdminApi *apiInstance = [[AdminApi alloc] init];
 
 // Получить административный список файлов в хранилище
@@ -1066,6 +1076,11 @@ AdminApi *apiInstance = [[AdminApi alloc] init];
 
                             <div class="tab-pane" id="examples-Admin-adminFilesGet-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var BestCoursesEver = require('best_courses_ever');
+var defaultClient = BestCoursesEver.ApiClient.instance;
+// Configure HTTP basic authorization: myBasic
+var myBasic = defaultClient.authentications['myBasic'];
+myBasic.username = 'YOUR USERNAME'
+myBasic.password = 'YOUR PASSWORD'
 
 var api = new BestCoursesEver.AdminApi()
 var callback = function(error, data, response) {
@@ -1095,6 +1110,9 @@ namespace Example
     {
         public void main()
         {
+            // Configure HTTP basic authorization: myBasic
+            Configuration.Default.Username = "YOUR_USERNAME";
+            Configuration.Default.Password = "YOUR_PASSWORD";
 
             var apiInstance = new AdminApi();
 
@@ -1117,6 +1135,9 @@ namespace Example
                             <div class="tab-pane" id="examples-Admin-adminFilesGet-0-php">
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
+// Configure HTTP basic authorization: myBasic
+Swagger\Client\Configuration::getDefaultConfiguration()->setUsername('YOUR_USERNAME');
+Swagger\Client\Configuration::getDefaultConfiguration()->setPassword('YOUR_PASSWORD');
 
 $api_instance = new Swagger\Client\ApiAdminApi();
 
@@ -1133,6 +1154,9 @@ try {
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::AdminApi;
+# Configure HTTP basic authorization: myBasic
+$WWW::SwaggerClient::Configuration::username = 'YOUR_USERNAME';
+$WWW::SwaggerClient::Configuration::password = 'YOUR_PASSWORD';
 
 my $api_instance = WWW::SwaggerClient::AdminApi->new();
 
@@ -1151,6 +1175,9 @@ import time
 import swagger_client
 from swagger_client.rest import ApiException
 from pprint import pprint
+# Configure HTTP basic authorization: myBasic
+swagger_client.configuration.username = 'YOUR_USERNAME'
+swagger_client.configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
 api_instance = swagger_client.AdminApi()
@@ -1172,18 +1199,18 @@ except ApiException as e:
 
 
                           <h2>Responses</h2>
-                            <h3> Status: default - successful operation </h3>
+                            <h3> Status: 200 - successful operation </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                                 <li class="active">
-                                  <a data-toggle="tab" href="#responses-adminFilesGet-default-schema">Schema</a>
+                                  <a data-toggle="tab" href="#responses-adminFilesGet-200-schema">Schema</a>
                                 </li>
 
                             </ul>
 
                             <div class="tab-content" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-adminFilesGet-default-schema">
-                                  <div id='responses-adminFilesGet-default-schema-default' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                <div class="tab-pane active" id="responses-adminFilesGet-200-schema">
+                                  <div id='responses-adminFilesGet-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
                                     <script>
                                       $(document).ready(function() {
                                         var schemaWrapper = {
@@ -1213,15 +1240,31 @@ except ApiException as e:
 
                                         //console.log(JSON.stringify(schema));
                                         var view = new JSONSchemaView(schema, 3);
-                                        $('#responses-adminFilesGet-default-schema-data').val(stringify(schema));
-                                        var result = $('#responses-adminFilesGet-default-schema-default');
+                                        $('#responses-adminFilesGet-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-adminFilesGet-200-schema-200');
                                         result.empty();
                                         result.append(view.render());
                                       });
                                     </script>
                                   </div>
-                                  <input id='responses-adminFilesGet-default-schema-data' type='hidden' value=''></input>
+                                  <input id='responses-adminFilesGet-200-schema-data' type='hidden' value=''></input>
                                 </div>
+                            </div>
+
+                            <h3> Status: 401 - Authorization required </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 403 - Not enough privileges </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
                             </div>
 
                         </article>
@@ -1260,6 +1303,7 @@ except ApiException as e:
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Admin-adminUsersGet-0-curl">
                            <pre class="prettyprint"><code class="language-bsh">curl -X GET\
+ -H "Authorization: Basic [[basicHash]]"\
 -H "Accept: application/json"\
 "https://localhost:3000//admin/users"</code></pre>
                           </div>
@@ -1275,7 +1319,12 @@ import java.util.*;
 public class AdminApiExample {
 
     public static void main(String[] args) {
-        
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        // Configure HTTP basic authorization: myBasic
+        HttpBasicAuth myBasic = (HttpBasicAuth) defaultClient.getAuthentication("myBasic");
+        myBasic.setUsername("YOUR USERNAME");
+        myBasic.setPassword("YOUR PASSWORD");
+
         AdminApi apiInstance = new AdminApi();
         try {
             array[AdminUser] result = apiInstance.adminUsersGet();
@@ -1310,7 +1359,11 @@ public class AdminApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-Admin-adminUsersGet-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+// Configure HTTP basic authorization (authentication scheme: myBasic)
+[apiConfig setUsername:@"YOUR_USERNAME"];
+[apiConfig setPassword:@"YOUR_PASSWORD"];
+
 AdminApi *apiInstance = [[AdminApi alloc] init];
 
 // Получить административный список рользователей (с паролями))
@@ -1328,6 +1381,11 @@ AdminApi *apiInstance = [[AdminApi alloc] init];
 
                             <div class="tab-pane" id="examples-Admin-adminUsersGet-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var BestCoursesEver = require('best_courses_ever');
+var defaultClient = BestCoursesEver.ApiClient.instance;
+// Configure HTTP basic authorization: myBasic
+var myBasic = defaultClient.authentications['myBasic'];
+myBasic.username = 'YOUR USERNAME'
+myBasic.password = 'YOUR PASSWORD'
 
 var api = new BestCoursesEver.AdminApi()
 var callback = function(error, data, response) {
@@ -1357,6 +1415,9 @@ namespace Example
     {
         public void main()
         {
+            // Configure HTTP basic authorization: myBasic
+            Configuration.Default.Username = "YOUR_USERNAME";
+            Configuration.Default.Password = "YOUR_PASSWORD";
 
             var apiInstance = new AdminApi();
 
@@ -1379,6 +1440,9 @@ namespace Example
                             <div class="tab-pane" id="examples-Admin-adminUsersGet-0-php">
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
+// Configure HTTP basic authorization: myBasic
+Swagger\Client\Configuration::getDefaultConfiguration()->setUsername('YOUR_USERNAME');
+Swagger\Client\Configuration::getDefaultConfiguration()->setPassword('YOUR_PASSWORD');
 
 $api_instance = new Swagger\Client\ApiAdminApi();
 
@@ -1395,6 +1459,9 @@ try {
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::AdminApi;
+# Configure HTTP basic authorization: myBasic
+$WWW::SwaggerClient::Configuration::username = 'YOUR_USERNAME';
+$WWW::SwaggerClient::Configuration::password = 'YOUR_PASSWORD';
 
 my $api_instance = WWW::SwaggerClient::AdminApi->new();
 
@@ -1413,6 +1480,9 @@ import time
 import swagger_client
 from swagger_client.rest import ApiException
 from pprint import pprint
+# Configure HTTP basic authorization: myBasic
+swagger_client.configuration.username = 'YOUR_USERNAME'
+swagger_client.configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
 api_instance = swagger_client.AdminApi()
@@ -1434,18 +1504,18 @@ except ApiException as e:
 
 
                           <h2>Responses</h2>
-                            <h3> Status: default - successful operation </h3>
+                            <h3> Status: 200 - successful operation </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                                 <li class="active">
-                                  <a data-toggle="tab" href="#responses-adminUsersGet-default-schema">Schema</a>
+                                  <a data-toggle="tab" href="#responses-adminUsersGet-200-schema">Schema</a>
                                 </li>
 
                             </ul>
 
                             <div class="tab-content" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-adminUsersGet-default-schema">
-                                  <div id='responses-adminUsersGet-default-schema-default' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                <div class="tab-pane active" id="responses-adminUsersGet-200-schema">
+                                  <div id='responses-adminUsersGet-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
                                     <script>
                                       $(document).ready(function() {
                                         var schemaWrapper = {
@@ -1475,15 +1545,31 @@ except ApiException as e:
 
                                         //console.log(JSON.stringify(schema));
                                         var view = new JSONSchemaView(schema, 3);
-                                        $('#responses-adminUsersGet-default-schema-data').val(stringify(schema));
-                                        var result = $('#responses-adminUsersGet-default-schema-default');
+                                        $('#responses-adminUsersGet-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-adminUsersGet-200-schema-200');
                                         result.empty();
                                         result.append(view.render());
                                       });
                                     </script>
                                   </div>
-                                  <input id='responses-adminUsersGet-default-schema-data' type='hidden' value=''></input>
+                                  <input id='responses-adminUsersGet-200-schema-data' type='hidden' value=''></input>
                                 </div>
+                            </div>
+
+                            <h3> Status: 401 - Authorization required </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 403 - Not enough privileges </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
                             </div>
 
                         </article>
@@ -1522,6 +1608,7 @@ except ApiException as e:
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Admin-createUser-0-curl">
                            <pre class="prettyprint"><code class="language-bsh">curl -X POST\
+ -H "Authorization: Basic [[basicHash]]"\
 -H "Accept: application/json"\
 -H "Content-Type: application/json"\
 "https://localhost:3000//admin/users"</code></pre>
@@ -1538,7 +1625,12 @@ import java.util.*;
 public class AdminApiExample {
 
     public static void main(String[] args) {
-        
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        // Configure HTTP basic authorization: myBasic
+        HttpBasicAuth myBasic = (HttpBasicAuth) defaultClient.getAuthentication("myBasic");
+        myBasic.setUsername("YOUR USERNAME");
+        myBasic.setPassword("YOUR PASSWORD");
+
         AdminApi apiInstance = new AdminApi();
         AdminUserWithoutId body = ; // AdminUserWithoutId | Created user object
         try {
@@ -1575,7 +1667,11 @@ public class AdminApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-Admin-createUser-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">AdminUserWithoutId *body = ; // Created user object (optional)
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+// Configure HTTP basic authorization (authentication scheme: myBasic)
+[apiConfig setUsername:@"YOUR_USERNAME"];
+[apiConfig setPassword:@"YOUR_PASSWORD"];
+AdminUserWithoutId *body = ; // Created user object (optional)
 
 AdminApi *apiInstance = [[AdminApi alloc] init];
 
@@ -1594,6 +1690,11 @@ AdminApi *apiInstance = [[AdminApi alloc] init];
 
                             <div class="tab-pane" id="examples-Admin-createUser-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var BestCoursesEver = require('best_courses_ever');
+var defaultClient = BestCoursesEver.ApiClient.instance;
+// Configure HTTP basic authorization: myBasic
+var myBasic = defaultClient.authentications['myBasic'];
+myBasic.username = 'YOUR USERNAME'
+myBasic.password = 'YOUR PASSWORD'
 
 var api = new BestCoursesEver.AdminApi()
 var opts = { 
@@ -1626,6 +1727,9 @@ namespace Example
     {
         public void main()
         {
+            // Configure HTTP basic authorization: myBasic
+            Configuration.Default.Username = "YOUR_USERNAME";
+            Configuration.Default.Password = "YOUR_PASSWORD";
 
             var apiInstance = new AdminApi();
             var body = new AdminUserWithoutId(); // AdminUserWithoutId | Created user object (optional) 
@@ -1649,6 +1753,9 @@ namespace Example
                             <div class="tab-pane" id="examples-Admin-createUser-0-php">
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
+// Configure HTTP basic authorization: myBasic
+Swagger\Client\Configuration::getDefaultConfiguration()->setUsername('YOUR_USERNAME');
+Swagger\Client\Configuration::getDefaultConfiguration()->setPassword('YOUR_PASSWORD');
 
 $api_instance = new Swagger\Client\ApiAdminApi();
 $body = ; // AdminUserWithoutId | Created user object
@@ -1666,6 +1773,9 @@ try {
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::AdminApi;
+# Configure HTTP basic authorization: myBasic
+$WWW::SwaggerClient::Configuration::username = 'YOUR_USERNAME';
+$WWW::SwaggerClient::Configuration::password = 'YOUR_PASSWORD';
 
 my $api_instance = WWW::SwaggerClient::AdminApi->new();
 my $body = WWW::SwaggerClient::Object::AdminUserWithoutId->new(); # AdminUserWithoutId | Created user object
@@ -1685,6 +1795,9 @@ import time
 import swagger_client
 from swagger_client.rest import ApiException
 from pprint import pprint
+# Configure HTTP basic authorization: myBasic
+swagger_client.configuration.username = 'YOUR_USERNAME'
+swagger_client.configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
 api_instance = swagger_client.AdminApi()
@@ -1750,18 +1863,18 @@ except ApiException as e:
 
 
                           <h2>Responses</h2>
-                            <h3> Status: default - successful operation </h3>
+                            <h3> Status: 200 - successful operation </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                                 <li class="active">
-                                  <a data-toggle="tab" href="#responses-createUser-default-schema">Schema</a>
+                                  <a data-toggle="tab" href="#responses-createUser-200-schema">Schema</a>
                                 </li>
 
                             </ul>
 
                             <div class="tab-content" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-createUser-default-schema">
-                                  <div id='responses-createUser-default-schema-default' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                <div class="tab-pane active" id="responses-createUser-200-schema">
+                                  <div id='responses-createUser-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
                                     <script>
                                       $(document).ready(function() {
                                         var schemaWrapper = {
@@ -1787,15 +1900,31 @@ except ApiException as e:
 
                                         //console.log(JSON.stringify(schema));
                                         var view = new JSONSchemaView(schema, 3);
-                                        $('#responses-createUser-default-schema-data').val(stringify(schema));
-                                        var result = $('#responses-createUser-default-schema-default');
+                                        $('#responses-createUser-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-createUser-200-schema-200');
                                         result.empty();
                                         result.append(view.render());
                                       });
                                     </script>
                                   </div>
-                                  <input id='responses-createUser-default-schema-data' type='hidden' value=''></input>
+                                  <input id='responses-createUser-200-schema-data' type='hidden' value=''></input>
                                 </div>
+                            </div>
+
+                            <h3> Status: 401 - Authorization required </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 403 - Not enough privileges </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
                             </div>
 
                         </article>
@@ -1834,6 +1963,7 @@ except ApiException as e:
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Admin-deleteUser-0-curl">
                            <pre class="prettyprint"><code class="language-bsh">curl -X DELETE\
+ -H "Authorization: Basic [[basicHash]]"\
 "https://localhost:3000//admin/users/{userId}"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Admin-deleteUser-0-java">
@@ -1848,7 +1978,12 @@ import java.util.*;
 public class AdminApiExample {
 
     public static void main(String[] args) {
-        
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        // Configure HTTP basic authorization: myBasic
+        HttpBasicAuth myBasic = (HttpBasicAuth) defaultClient.getAuthentication("myBasic");
+        myBasic.setUsername("YOUR USERNAME");
+        myBasic.setPassword("YOUR PASSWORD");
+
         AdminApi apiInstance = new AdminApi();
         String userId = userId_example; // String | User id to delete
         try {
@@ -1883,7 +2018,11 @@ public class AdminApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-Admin-deleteUser-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">String *userId = userId_example; // User id to delete
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+// Configure HTTP basic authorization (authentication scheme: myBasic)
+[apiConfig setUsername:@"YOUR_USERNAME"];
+[apiConfig setPassword:@"YOUR_PASSWORD"];
+String *userId = userId_example; // User id to delete
 
 AdminApi *apiInstance = [[AdminApi alloc] init];
 
@@ -1899,6 +2038,11 @@ AdminApi *apiInstance = [[AdminApi alloc] init];
 
                             <div class="tab-pane" id="examples-Admin-deleteUser-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var BestCoursesEver = require('best_courses_ever');
+var defaultClient = BestCoursesEver.ApiClient.instance;
+// Configure HTTP basic authorization: myBasic
+var myBasic = defaultClient.authentications['myBasic'];
+myBasic.username = 'YOUR USERNAME'
+myBasic.password = 'YOUR PASSWORD'
 
 var api = new BestCoursesEver.AdminApi()
 var userId = userId_example; // {{String}} User id to delete
@@ -1930,6 +2074,9 @@ namespace Example
     {
         public void main()
         {
+            // Configure HTTP basic authorization: myBasic
+            Configuration.Default.Username = "YOUR_USERNAME";
+            Configuration.Default.Password = "YOUR_PASSWORD";
 
             var apiInstance = new AdminApi();
             var userId = userId_example;  // String | User id to delete
@@ -1952,6 +2099,9 @@ namespace Example
                             <div class="tab-pane" id="examples-Admin-deleteUser-0-php">
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
+// Configure HTTP basic authorization: myBasic
+Swagger\Client\Configuration::getDefaultConfiguration()->setUsername('YOUR_USERNAME');
+Swagger\Client\Configuration::getDefaultConfiguration()->setPassword('YOUR_PASSWORD');
 
 $api_instance = new Swagger\Client\ApiAdminApi();
 $userId = userId_example; // String | User id to delete
@@ -1968,6 +2118,9 @@ try {
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::AdminApi;
+# Configure HTTP basic authorization: myBasic
+$WWW::SwaggerClient::Configuration::username = 'YOUR_USERNAME';
+$WWW::SwaggerClient::Configuration::password = 'YOUR_PASSWORD';
 
 my $api_instance = WWW::SwaggerClient::AdminApi->new();
 my $userId = userId_example; # String | User id to delete
@@ -1986,6 +2139,9 @@ import time
 import swagger_client
 from swagger_client.rest import ApiException
 from pprint import pprint
+# Configure HTTP basic authorization: myBasic
+swagger_client.configuration.username = 'YOUR_USERNAME'
+swagger_client.configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
 api_instance = swagger_client.AdminApi()
@@ -2047,6 +2203,22 @@ except ApiException as e:
                             <div class="tab-content" style='margin-bottom: 10px;'>
                             </div>
 
+                            <h3> Status: 401 - Authorization required </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 403 - Not enough privileges </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
                         </article>
                       </div>
                       <hr>
@@ -2083,6 +2255,7 @@ except ApiException as e:
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Admin-getAdminUserById-0-curl">
                            <pre class="prettyprint"><code class="language-bsh">curl -X GET\
+ -H "Authorization: Basic [[basicHash]]"\
 -H "Accept: application/json"\
 "https://localhost:3000//admin/users/{userId}"</code></pre>
                           </div>
@@ -2098,7 +2271,12 @@ import java.util.*;
 public class AdminApiExample {
 
     public static void main(String[] args) {
-        
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        // Configure HTTP basic authorization: myBasic
+        HttpBasicAuth myBasic = (HttpBasicAuth) defaultClient.getAuthentication("myBasic");
+        myBasic.setUsername("YOUR USERNAME");
+        myBasic.setPassword("YOUR PASSWORD");
+
         AdminApi apiInstance = new AdminApi();
         String userId = userId_example; // String | ID of user to return
         try {
@@ -2135,7 +2313,11 @@ public class AdminApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-Admin-getAdminUserById-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">String *userId = userId_example; // ID of user to return
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+// Configure HTTP basic authorization (authentication scheme: myBasic)
+[apiConfig setUsername:@"YOUR_USERNAME"];
+[apiConfig setPassword:@"YOUR_PASSWORD"];
+String *userId = userId_example; // ID of user to return
 
 AdminApi *apiInstance = [[AdminApi alloc] init];
 
@@ -2154,6 +2336,11 @@ AdminApi *apiInstance = [[AdminApi alloc] init];
 
                             <div class="tab-pane" id="examples-Admin-getAdminUserById-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var BestCoursesEver = require('best_courses_ever');
+var defaultClient = BestCoursesEver.ApiClient.instance;
+// Configure HTTP basic authorization: myBasic
+var myBasic = defaultClient.authentications['myBasic'];
+myBasic.username = 'YOUR USERNAME'
+myBasic.password = 'YOUR PASSWORD'
 
 var api = new BestCoursesEver.AdminApi()
 var userId = userId_example; // {{String}} ID of user to return
@@ -2185,6 +2372,9 @@ namespace Example
     {
         public void main()
         {
+            // Configure HTTP basic authorization: myBasic
+            Configuration.Default.Username = "YOUR_USERNAME";
+            Configuration.Default.Password = "YOUR_PASSWORD";
 
             var apiInstance = new AdminApi();
             var userId = userId_example;  // String | ID of user to return
@@ -2208,6 +2398,9 @@ namespace Example
                             <div class="tab-pane" id="examples-Admin-getAdminUserById-0-php">
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
+// Configure HTTP basic authorization: myBasic
+Swagger\Client\Configuration::getDefaultConfiguration()->setUsername('YOUR_USERNAME');
+Swagger\Client\Configuration::getDefaultConfiguration()->setPassword('YOUR_PASSWORD');
 
 $api_instance = new Swagger\Client\ApiAdminApi();
 $userId = userId_example; // String | ID of user to return
@@ -2225,6 +2418,9 @@ try {
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::AdminApi;
+# Configure HTTP basic authorization: myBasic
+$WWW::SwaggerClient::Configuration::username = 'YOUR_USERNAME';
+$WWW::SwaggerClient::Configuration::password = 'YOUR_PASSWORD';
 
 my $api_instance = WWW::SwaggerClient::AdminApi->new();
 my $userId = userId_example; # String | ID of user to return
@@ -2244,6 +2440,9 @@ import time
 import swagger_client
 from swagger_client.rest import ApiException
 from pprint import pprint
+# Configure HTTP basic authorization: myBasic
+swagger_client.configuration.username = 'YOUR_USERNAME'
+swagger_client.configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
 api_instance = swagger_client.AdminApi()
@@ -2346,6 +2545,22 @@ except ApiException as e:
                                 </div>
                             </div>
 
+                            <h3> Status: 401 - Authorization required </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 403 - Not enough privileges </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
                             <h3> Status: 404 - User not found </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
@@ -2390,6 +2605,7 @@ except ApiException as e:
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Admin-putAdminUser-0-curl">
                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT\
+ -H "Authorization: Basic [[basicHash]]"\
 -H "Accept: application/json"\
 -H "Content-Type: application/json"\
 "https://localhost:3000//admin/users/{userId}"</code></pre>
@@ -2406,7 +2622,12 @@ import java.util.*;
 public class AdminApiExample {
 
     public static void main(String[] args) {
-        
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        // Configure HTTP basic authorization: myBasic
+        HttpBasicAuth myBasic = (HttpBasicAuth) defaultClient.getAuthentication("myBasic");
+        myBasic.setUsername("YOUR USERNAME");
+        myBasic.setPassword("YOUR PASSWORD");
+
         AdminApi apiInstance = new AdminApi();
         String userId = userId_example; // String | ID of user to update
         AdminUserWithoutId body = ; // AdminUserWithoutId | Updated user object
@@ -2445,7 +2666,11 @@ public class AdminApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-Admin-putAdminUser-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">String *userId = userId_example; // ID of user to update
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+// Configure HTTP basic authorization (authentication scheme: myBasic)
+[apiConfig setUsername:@"YOUR_USERNAME"];
+[apiConfig setPassword:@"YOUR_PASSWORD"];
+String *userId = userId_example; // ID of user to update
 AdminUserWithoutId *body = ; // Updated user object (optional)
 
 AdminApi *apiInstance = [[AdminApi alloc] init];
@@ -2466,6 +2691,11 @@ AdminApi *apiInstance = [[AdminApi alloc] init];
 
                             <div class="tab-pane" id="examples-Admin-putAdminUser-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var BestCoursesEver = require('best_courses_ever');
+var defaultClient = BestCoursesEver.ApiClient.instance;
+// Configure HTTP basic authorization: myBasic
+var myBasic = defaultClient.authentications['myBasic'];
+myBasic.username = 'YOUR USERNAME'
+myBasic.password = 'YOUR PASSWORD'
 
 var api = new BestCoursesEver.AdminApi()
 var userId = userId_example; // {{String}} ID of user to update
@@ -2499,6 +2729,9 @@ namespace Example
     {
         public void main()
         {
+            // Configure HTTP basic authorization: myBasic
+            Configuration.Default.Username = "YOUR_USERNAME";
+            Configuration.Default.Password = "YOUR_PASSWORD";
 
             var apiInstance = new AdminApi();
             var userId = userId_example;  // String | ID of user to update
@@ -2523,6 +2756,9 @@ namespace Example
                             <div class="tab-pane" id="examples-Admin-putAdminUser-0-php">
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
+// Configure HTTP basic authorization: myBasic
+Swagger\Client\Configuration::getDefaultConfiguration()->setUsername('YOUR_USERNAME');
+Swagger\Client\Configuration::getDefaultConfiguration()->setPassword('YOUR_PASSWORD');
 
 $api_instance = new Swagger\Client\ApiAdminApi();
 $userId = userId_example; // String | ID of user to update
@@ -2541,6 +2777,9 @@ try {
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::AdminApi;
+# Configure HTTP basic authorization: myBasic
+$WWW::SwaggerClient::Configuration::username = 'YOUR_USERNAME';
+$WWW::SwaggerClient::Configuration::password = 'YOUR_PASSWORD';
 
 my $api_instance = WWW::SwaggerClient::AdminApi->new();
 my $userId = userId_example; # String | ID of user to update
@@ -2561,6 +2800,9 @@ import time
 import swagger_client
 from swagger_client.rest import ApiException
 from pprint import pprint
+# Configure HTTP basic authorization: myBasic
+swagger_client.configuration.username = 'YOUR_USERNAME'
+swagger_client.configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
 api_instance = swagger_client.AdminApi()
@@ -2715,7 +2957,23 @@ except ApiException as e:
                             <div class="tab-content" style='margin-bottom: 10px;'>
                             </div>
 
-                            <h3> Status: 404 - Pet not found </h3>
+                            <h3> Status: 401 - Authorization required </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 403 - Not enough privileges </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 404 - User not found </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                             </ul>
@@ -2762,6 +3020,7 @@ except ApiException as e:
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Courses-apiCoursesGet-0-curl">
                            <pre class="prettyprint"><code class="language-bsh">curl -X GET\
+ -H "Authorization: Basic [[basicHash]]"\
 -H "Accept: application/json"\
 "https://localhost:3000//api/courses"</code></pre>
                           </div>
@@ -2777,7 +3036,12 @@ import java.util.*;
 public class CoursesApiExample {
 
     public static void main(String[] args) {
-        
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        // Configure HTTP basic authorization: myBasic
+        HttpBasicAuth myBasic = (HttpBasicAuth) defaultClient.getAuthentication("myBasic");
+        myBasic.setUsername("YOUR USERNAME");
+        myBasic.setPassword("YOUR PASSWORD");
+
         CoursesApi apiInstance = new CoursesApi();
         try {
             array[Course] result = apiInstance.apiCoursesGet();
@@ -2812,7 +3076,11 @@ public class CoursesApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-Courses-apiCoursesGet-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+// Configure HTTP basic authorization (authentication scheme: myBasic)
+[apiConfig setUsername:@"YOUR_USERNAME"];
+[apiConfig setPassword:@"YOUR_PASSWORD"];
+
 CoursesApi *apiInstance = [[CoursesApi alloc] init];
 
 // Получить список рользователей (без паролей))
@@ -2830,6 +3098,11 @@ CoursesApi *apiInstance = [[CoursesApi alloc] init];
 
                             <div class="tab-pane" id="examples-Courses-apiCoursesGet-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var BestCoursesEver = require('best_courses_ever');
+var defaultClient = BestCoursesEver.ApiClient.instance;
+// Configure HTTP basic authorization: myBasic
+var myBasic = defaultClient.authentications['myBasic'];
+myBasic.username = 'YOUR USERNAME'
+myBasic.password = 'YOUR PASSWORD'
 
 var api = new BestCoursesEver.CoursesApi()
 var callback = function(error, data, response) {
@@ -2859,6 +3132,9 @@ namespace Example
     {
         public void main()
         {
+            // Configure HTTP basic authorization: myBasic
+            Configuration.Default.Username = "YOUR_USERNAME";
+            Configuration.Default.Password = "YOUR_PASSWORD";
 
             var apiInstance = new CoursesApi();
 
@@ -2881,6 +3157,9 @@ namespace Example
                             <div class="tab-pane" id="examples-Courses-apiCoursesGet-0-php">
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
+// Configure HTTP basic authorization: myBasic
+Swagger\Client\Configuration::getDefaultConfiguration()->setUsername('YOUR_USERNAME');
+Swagger\Client\Configuration::getDefaultConfiguration()->setPassword('YOUR_PASSWORD');
 
 $api_instance = new Swagger\Client\ApiCoursesApi();
 
@@ -2897,6 +3176,9 @@ try {
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::CoursesApi;
+# Configure HTTP basic authorization: myBasic
+$WWW::SwaggerClient::Configuration::username = 'YOUR_USERNAME';
+$WWW::SwaggerClient::Configuration::password = 'YOUR_PASSWORD';
 
 my $api_instance = WWW::SwaggerClient::CoursesApi->new();
 
@@ -2915,6 +3197,9 @@ import time
 import swagger_client
 from swagger_client.rest import ApiException
 from pprint import pprint
+# Configure HTTP basic authorization: myBasic
+swagger_client.configuration.username = 'YOUR_USERNAME'
+swagger_client.configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
 api_instance = swagger_client.CoursesApi()
@@ -2936,6 +3221,14 @@ except ApiException as e:
 
 
                           <h2>Responses</h2>
+                            <h3> Status: 401 - Authorization required </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
                             <h3> Status: default - successful operation </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
@@ -3024,6 +3317,7 @@ except ApiException as e:
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Courses-createCourse-0-curl">
                            <pre class="prettyprint"><code class="language-bsh">curl -X POST\
+ -H "Authorization: Basic [[basicHash]]"\
 -H "Accept: application/json"\
 -H "Content-Type: application/json"\
 "https://localhost:3000//api/courses"</code></pre>
@@ -3040,7 +3334,12 @@ import java.util.*;
 public class CoursesApiExample {
 
     public static void main(String[] args) {
-        
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        // Configure HTTP basic authorization: myBasic
+        HttpBasicAuth myBasic = (HttpBasicAuth) defaultClient.getAuthentication("myBasic");
+        myBasic.setUsername("YOUR USERNAME");
+        myBasic.setPassword("YOUR PASSWORD");
+
         CoursesApi apiInstance = new CoursesApi();
         CourseWithoutId body = ; // CourseWithoutId | Created course object
         try {
@@ -3077,7 +3376,11 @@ public class CoursesApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-Courses-createCourse-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">CourseWithoutId *body = ; // Created course object (optional)
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+// Configure HTTP basic authorization (authentication scheme: myBasic)
+[apiConfig setUsername:@"YOUR_USERNAME"];
+[apiConfig setPassword:@"YOUR_PASSWORD"];
+CourseWithoutId *body = ; // Created course object (optional)
 
 CoursesApi *apiInstance = [[CoursesApi alloc] init];
 
@@ -3096,6 +3399,11 @@ CoursesApi *apiInstance = [[CoursesApi alloc] init];
 
                             <div class="tab-pane" id="examples-Courses-createCourse-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var BestCoursesEver = require('best_courses_ever');
+var defaultClient = BestCoursesEver.ApiClient.instance;
+// Configure HTTP basic authorization: myBasic
+var myBasic = defaultClient.authentications['myBasic'];
+myBasic.username = 'YOUR USERNAME'
+myBasic.password = 'YOUR PASSWORD'
 
 var api = new BestCoursesEver.CoursesApi()
 var opts = { 
@@ -3128,6 +3436,9 @@ namespace Example
     {
         public void main()
         {
+            // Configure HTTP basic authorization: myBasic
+            Configuration.Default.Username = "YOUR_USERNAME";
+            Configuration.Default.Password = "YOUR_PASSWORD";
 
             var apiInstance = new CoursesApi();
             var body = new CourseWithoutId(); // CourseWithoutId | Created course object (optional) 
@@ -3151,6 +3462,9 @@ namespace Example
                             <div class="tab-pane" id="examples-Courses-createCourse-0-php">
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
+// Configure HTTP basic authorization: myBasic
+Swagger\Client\Configuration::getDefaultConfiguration()->setUsername('YOUR_USERNAME');
+Swagger\Client\Configuration::getDefaultConfiguration()->setPassword('YOUR_PASSWORD');
 
 $api_instance = new Swagger\Client\ApiCoursesApi();
 $body = ; // CourseWithoutId | Created course object
@@ -3168,6 +3482,9 @@ try {
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::CoursesApi;
+# Configure HTTP basic authorization: myBasic
+$WWW::SwaggerClient::Configuration::username = 'YOUR_USERNAME';
+$WWW::SwaggerClient::Configuration::password = 'YOUR_PASSWORD';
 
 my $api_instance = WWW::SwaggerClient::CoursesApi->new();
 my $body = WWW::SwaggerClient::Object::CourseWithoutId->new(); # CourseWithoutId | Created course object
@@ -3187,6 +3504,9 @@ import time
 import swagger_client
 from swagger_client.rest import ApiException
 from pprint import pprint
+# Configure HTTP basic authorization: myBasic
+swagger_client.configuration.username = 'YOUR_USERNAME'
+swagger_client.configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
 api_instance = swagger_client.CoursesApi()
@@ -3252,6 +3572,14 @@ except ApiException as e:
 
 
                           <h2>Responses</h2>
+                            <h3> Status: 401 - Authorization required </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
                             <h3> Status: default - successful operation </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
@@ -3336,6 +3664,7 @@ except ApiException as e:
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Courses-deleteCourse-0-curl">
                            <pre class="prettyprint"><code class="language-bsh">curl -X DELETE\
+ -H "Authorization: Basic [[basicHash]]"\
 "https://localhost:3000//api/courses/{courseId}"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Courses-deleteCourse-0-java">
@@ -3350,7 +3679,12 @@ import java.util.*;
 public class CoursesApiExample {
 
     public static void main(String[] args) {
-        
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        // Configure HTTP basic authorization: myBasic
+        HttpBasicAuth myBasic = (HttpBasicAuth) defaultClient.getAuthentication("myBasic");
+        myBasic.setUsername("YOUR USERNAME");
+        myBasic.setPassword("YOUR PASSWORD");
+
         CoursesApi apiInstance = new CoursesApi();
         String courseId = courseId_example; // String | Course id to delete
         try {
@@ -3385,7 +3719,11 @@ public class CoursesApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-Courses-deleteCourse-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">String *courseId = courseId_example; // Course id to delete
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+// Configure HTTP basic authorization (authentication scheme: myBasic)
+[apiConfig setUsername:@"YOUR_USERNAME"];
+[apiConfig setPassword:@"YOUR_PASSWORD"];
+String *courseId = courseId_example; // Course id to delete
 
 CoursesApi *apiInstance = [[CoursesApi alloc] init];
 
@@ -3401,6 +3739,11 @@ CoursesApi *apiInstance = [[CoursesApi alloc] init];
 
                             <div class="tab-pane" id="examples-Courses-deleteCourse-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var BestCoursesEver = require('best_courses_ever');
+var defaultClient = BestCoursesEver.ApiClient.instance;
+// Configure HTTP basic authorization: myBasic
+var myBasic = defaultClient.authentications['myBasic'];
+myBasic.username = 'YOUR USERNAME'
+myBasic.password = 'YOUR PASSWORD'
 
 var api = new BestCoursesEver.CoursesApi()
 var courseId = courseId_example; // {{String}} Course id to delete
@@ -3432,6 +3775,9 @@ namespace Example
     {
         public void main()
         {
+            // Configure HTTP basic authorization: myBasic
+            Configuration.Default.Username = "YOUR_USERNAME";
+            Configuration.Default.Password = "YOUR_PASSWORD";
 
             var apiInstance = new CoursesApi();
             var courseId = courseId_example;  // String | Course id to delete
@@ -3454,6 +3800,9 @@ namespace Example
                             <div class="tab-pane" id="examples-Courses-deleteCourse-0-php">
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
+// Configure HTTP basic authorization: myBasic
+Swagger\Client\Configuration::getDefaultConfiguration()->setUsername('YOUR_USERNAME');
+Swagger\Client\Configuration::getDefaultConfiguration()->setPassword('YOUR_PASSWORD');
 
 $api_instance = new Swagger\Client\ApiCoursesApi();
 $courseId = courseId_example; // String | Course id to delete
@@ -3470,6 +3819,9 @@ try {
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::CoursesApi;
+# Configure HTTP basic authorization: myBasic
+$WWW::SwaggerClient::Configuration::username = 'YOUR_USERNAME';
+$WWW::SwaggerClient::Configuration::password = 'YOUR_PASSWORD';
 
 my $api_instance = WWW::SwaggerClient::CoursesApi->new();
 my $courseId = courseId_example; # String | Course id to delete
@@ -3488,6 +3840,9 @@ import time
 import swagger_client
 from swagger_client.rest import ApiException
 from pprint import pprint
+# Configure HTTP basic authorization: myBasic
+swagger_client.configuration.username = 'YOUR_USERNAME'
+swagger_client.configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
 api_instance = swagger_client.CoursesApi()
@@ -3549,6 +3904,14 @@ except ApiException as e:
                             <div class="tab-content" style='margin-bottom: 10px;'>
                             </div>
 
+                            <h3> Status: 401 - Authorization required </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
                         </article>
                       </div>
                       <hr>
@@ -3585,6 +3948,7 @@ except ApiException as e:
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Courses-getCourseById-0-curl">
                            <pre class="prettyprint"><code class="language-bsh">curl -X GET\
+ -H "Authorization: Basic [[basicHash]]"\
 -H "Accept: application/json"\
 "https://localhost:3000//api/courses/{courseId}"</code></pre>
                           </div>
@@ -3600,7 +3964,12 @@ import java.util.*;
 public class CoursesApiExample {
 
     public static void main(String[] args) {
-        
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        // Configure HTTP basic authorization: myBasic
+        HttpBasicAuth myBasic = (HttpBasicAuth) defaultClient.getAuthentication("myBasic");
+        myBasic.setUsername("YOUR USERNAME");
+        myBasic.setPassword("YOUR PASSWORD");
+
         CoursesApi apiInstance = new CoursesApi();
         String courseId = courseId_example; // String | ID of course to return
         try {
@@ -3637,7 +4006,11 @@ public class CoursesApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-Courses-getCourseById-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">String *courseId = courseId_example; // ID of course to return
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+// Configure HTTP basic authorization (authentication scheme: myBasic)
+[apiConfig setUsername:@"YOUR_USERNAME"];
+[apiConfig setPassword:@"YOUR_PASSWORD"];
+String *courseId = courseId_example; // ID of course to return
 
 CoursesApi *apiInstance = [[CoursesApi alloc] init];
 
@@ -3656,6 +4029,11 @@ CoursesApi *apiInstance = [[CoursesApi alloc] init];
 
                             <div class="tab-pane" id="examples-Courses-getCourseById-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var BestCoursesEver = require('best_courses_ever');
+var defaultClient = BestCoursesEver.ApiClient.instance;
+// Configure HTTP basic authorization: myBasic
+var myBasic = defaultClient.authentications['myBasic'];
+myBasic.username = 'YOUR USERNAME'
+myBasic.password = 'YOUR PASSWORD'
 
 var api = new BestCoursesEver.CoursesApi()
 var courseId = courseId_example; // {{String}} ID of course to return
@@ -3687,6 +4065,9 @@ namespace Example
     {
         public void main()
         {
+            // Configure HTTP basic authorization: myBasic
+            Configuration.Default.Username = "YOUR_USERNAME";
+            Configuration.Default.Password = "YOUR_PASSWORD";
 
             var apiInstance = new CoursesApi();
             var courseId = courseId_example;  // String | ID of course to return
@@ -3710,6 +4091,9 @@ namespace Example
                             <div class="tab-pane" id="examples-Courses-getCourseById-0-php">
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
+// Configure HTTP basic authorization: myBasic
+Swagger\Client\Configuration::getDefaultConfiguration()->setUsername('YOUR_USERNAME');
+Swagger\Client\Configuration::getDefaultConfiguration()->setPassword('YOUR_PASSWORD');
 
 $api_instance = new Swagger\Client\ApiCoursesApi();
 $courseId = courseId_example; // String | ID of course to return
@@ -3727,6 +4111,9 @@ try {
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::CoursesApi;
+# Configure HTTP basic authorization: myBasic
+$WWW::SwaggerClient::Configuration::username = 'YOUR_USERNAME';
+$WWW::SwaggerClient::Configuration::password = 'YOUR_PASSWORD';
 
 my $api_instance = WWW::SwaggerClient::CoursesApi->new();
 my $courseId = courseId_example; # String | ID of course to return
@@ -3746,6 +4133,9 @@ import time
 import swagger_client
 from swagger_client.rest import ApiException
 from pprint import pprint
+# Configure HTTP basic authorization: myBasic
+swagger_client.configuration.username = 'YOUR_USERNAME'
+swagger_client.configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
 api_instance = swagger_client.CoursesApi()
@@ -3848,6 +4238,14 @@ except ApiException as e:
                                 </div>
                             </div>
 
+                            <h3> Status: 401 - Authorization required </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
                             <h3> Status: 404 - Course not found </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
@@ -3892,6 +4290,7 @@ except ApiException as e:
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Courses-putCourse-0-curl">
                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT\
+ -H "Authorization: Basic [[basicHash]]"\
 -H "Accept: application/json"\
 -H "Content-Type: application/json"\
 "https://localhost:3000//api/courses/{courseId}"</code></pre>
@@ -3908,7 +4307,12 @@ import java.util.*;
 public class CoursesApiExample {
 
     public static void main(String[] args) {
-        
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        // Configure HTTP basic authorization: myBasic
+        HttpBasicAuth myBasic = (HttpBasicAuth) defaultClient.getAuthentication("myBasic");
+        myBasic.setUsername("YOUR USERNAME");
+        myBasic.setPassword("YOUR PASSWORD");
+
         CoursesApi apiInstance = new CoursesApi();
         String courseId = courseId_example; // String | ID of user to update
         CourseWithoutId body = ; // CourseWithoutId | Updated course object
@@ -3947,7 +4351,11 @@ public class CoursesApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-Courses-putCourse-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">String *courseId = courseId_example; // ID of user to update
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+// Configure HTTP basic authorization (authentication scheme: myBasic)
+[apiConfig setUsername:@"YOUR_USERNAME"];
+[apiConfig setPassword:@"YOUR_PASSWORD"];
+String *courseId = courseId_example; // ID of user to update
 CourseWithoutId *body = ; // Updated course object (optional)
 
 CoursesApi *apiInstance = [[CoursesApi alloc] init];
@@ -3968,6 +4376,11 @@ CoursesApi *apiInstance = [[CoursesApi alloc] init];
 
                             <div class="tab-pane" id="examples-Courses-putCourse-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var BestCoursesEver = require('best_courses_ever');
+var defaultClient = BestCoursesEver.ApiClient.instance;
+// Configure HTTP basic authorization: myBasic
+var myBasic = defaultClient.authentications['myBasic'];
+myBasic.username = 'YOUR USERNAME'
+myBasic.password = 'YOUR PASSWORD'
 
 var api = new BestCoursesEver.CoursesApi()
 var courseId = courseId_example; // {{String}} ID of user to update
@@ -4001,6 +4414,9 @@ namespace Example
     {
         public void main()
         {
+            // Configure HTTP basic authorization: myBasic
+            Configuration.Default.Username = "YOUR_USERNAME";
+            Configuration.Default.Password = "YOUR_PASSWORD";
 
             var apiInstance = new CoursesApi();
             var courseId = courseId_example;  // String | ID of user to update
@@ -4025,6 +4441,9 @@ namespace Example
                             <div class="tab-pane" id="examples-Courses-putCourse-0-php">
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
+// Configure HTTP basic authorization: myBasic
+Swagger\Client\Configuration::getDefaultConfiguration()->setUsername('YOUR_USERNAME');
+Swagger\Client\Configuration::getDefaultConfiguration()->setPassword('YOUR_PASSWORD');
 
 $api_instance = new Swagger\Client\ApiCoursesApi();
 $courseId = courseId_example; // String | ID of user to update
@@ -4043,6 +4462,9 @@ try {
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::CoursesApi;
+# Configure HTTP basic authorization: myBasic
+$WWW::SwaggerClient::Configuration::username = 'YOUR_USERNAME';
+$WWW::SwaggerClient::Configuration::password = 'YOUR_PASSWORD';
 
 my $api_instance = WWW::SwaggerClient::CoursesApi->new();
 my $courseId = courseId_example; # String | ID of user to update
@@ -4063,6 +4485,9 @@ import time
 import swagger_client
 from swagger_client.rest import ApiException
 from pprint import pprint
+# Configure HTTP basic authorization: myBasic
+swagger_client.configuration.username = 'YOUR_USERNAME'
+swagger_client.configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
 api_instance = swagger_client.CoursesApi()
@@ -4217,6 +4642,14 @@ except ApiException as e:
                             <div class="tab-content" style='margin-bottom: 10px;'>
                             </div>
 
+                            <h3> Status: 401 - Authorization required </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
                             <h3> Status: 404 - Course not found </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
@@ -4264,6 +4697,7 @@ except ApiException as e:
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Files-getFileById-0-curl">
                            <pre class="prettyprint"><code class="language-bsh">curl -X GET\
+ -H "Authorization: Basic [[basicHash]]"\
 -H "Accept: application/octet-stream"\
 "https://localhost:3000//api/files/{fileId}"</code></pre>
                           </div>
@@ -4279,7 +4713,12 @@ import java.util.*;
 public class FilesApiExample {
 
     public static void main(String[] args) {
-        
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        // Configure HTTP basic authorization: myBasic
+        HttpBasicAuth myBasic = (HttpBasicAuth) defaultClient.getAuthentication("myBasic");
+        myBasic.setUsername("YOUR USERNAME");
+        myBasic.setPassword("YOUR PASSWORD");
+
         FilesApi apiInstance = new FilesApi();
         String fileId = fileId_example; // String | ID of file to return
         try {
@@ -4316,7 +4755,11 @@ public class FilesApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-Files-getFileById-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">String *fileId = fileId_example; // ID of file to return
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+// Configure HTTP basic authorization (authentication scheme: myBasic)
+[apiConfig setUsername:@"YOUR_USERNAME"];
+[apiConfig setPassword:@"YOUR_PASSWORD"];
+String *fileId = fileId_example; // ID of file to return
 
 FilesApi *apiInstance = [[FilesApi alloc] init];
 
@@ -4335,6 +4778,11 @@ FilesApi *apiInstance = [[FilesApi alloc] init];
 
                             <div class="tab-pane" id="examples-Files-getFileById-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var BestCoursesEver = require('best_courses_ever');
+var defaultClient = BestCoursesEver.ApiClient.instance;
+// Configure HTTP basic authorization: myBasic
+var myBasic = defaultClient.authentications['myBasic'];
+myBasic.username = 'YOUR USERNAME'
+myBasic.password = 'YOUR PASSWORD'
 
 var api = new BestCoursesEver.FilesApi()
 var fileId = fileId_example; // {{String}} ID of file to return
@@ -4366,6 +4814,9 @@ namespace Example
     {
         public void main()
         {
+            // Configure HTTP basic authorization: myBasic
+            Configuration.Default.Username = "YOUR_USERNAME";
+            Configuration.Default.Password = "YOUR_PASSWORD";
 
             var apiInstance = new FilesApi();
             var fileId = fileId_example;  // String | ID of file to return
@@ -4389,6 +4840,9 @@ namespace Example
                             <div class="tab-pane" id="examples-Files-getFileById-0-php">
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
+// Configure HTTP basic authorization: myBasic
+Swagger\Client\Configuration::getDefaultConfiguration()->setUsername('YOUR_USERNAME');
+Swagger\Client\Configuration::getDefaultConfiguration()->setPassword('YOUR_PASSWORD');
 
 $api_instance = new Swagger\Client\ApiFilesApi();
 $fileId = fileId_example; // String | ID of file to return
@@ -4406,6 +4860,9 @@ try {
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::FilesApi;
+# Configure HTTP basic authorization: myBasic
+$WWW::SwaggerClient::Configuration::username = 'YOUR_USERNAME';
+$WWW::SwaggerClient::Configuration::password = 'YOUR_PASSWORD';
 
 my $api_instance = WWW::SwaggerClient::FilesApi->new();
 my $fileId = fileId_example; # String | ID of file to return
@@ -4425,6 +4882,9 @@ import time
 import swagger_client
 from swagger_client.rest import ApiException
 from pprint import pprint
+# Configure HTTP basic authorization: myBasic
+swagger_client.configuration.username = 'YOUR_USERNAME'
+swagger_client.configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
 api_instance = swagger_client.FilesApi()
@@ -4526,6 +4986,14 @@ except ApiException as e:
                                 </div>
                             </div>
 
+                            <h3> Status: 401 - Authorization required </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
                             <h3> Status: 404 - File not found </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
@@ -4570,6 +5038,7 @@ except ApiException as e:
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Files-postFile-0-curl">
                            <pre class="prettyprint"><code class="language-bsh">curl -X POST\
+ -H "Authorization: Basic [[basicHash]]"\
 -H "Accept: application/json"\
 -H "Content-Type: multipart/form-data"\
 "https://localhost:3000//api/files"</code></pre>
@@ -4586,7 +5055,12 @@ import java.util.*;
 public class FilesApiExample {
 
     public static void main(String[] args) {
-        
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        // Configure HTTP basic authorization: myBasic
+        HttpBasicAuth myBasic = (HttpBasicAuth) defaultClient.getAuthentication("myBasic");
+        myBasic.setUsername("YOUR USERNAME");
+        myBasic.setPassword("YOUR PASSWORD");
+
         FilesApi apiInstance = new FilesApi();
         array[byte[]] file = ; // array[byte[]] | 
         try {
@@ -4623,7 +5097,11 @@ public class FilesApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-Files-postFile-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">array[byte[]] *file = ; //  (optional)
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+// Configure HTTP basic authorization (authentication scheme: myBasic)
+[apiConfig setUsername:@"YOUR_USERNAME"];
+[apiConfig setPassword:@"YOUR_PASSWORD"];
+array[byte[]] *file = ; //  (optional)
 
 FilesApi *apiInstance = [[FilesApi alloc] init];
 
@@ -4642,6 +5120,11 @@ FilesApi *apiInstance = [[FilesApi alloc] init];
 
                             <div class="tab-pane" id="examples-Files-postFile-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var BestCoursesEver = require('best_courses_ever');
+var defaultClient = BestCoursesEver.ApiClient.instance;
+// Configure HTTP basic authorization: myBasic
+var myBasic = defaultClient.authentications['myBasic'];
+myBasic.username = 'YOUR USERNAME'
+myBasic.password = 'YOUR PASSWORD'
 
 var api = new BestCoursesEver.FilesApi()
 var opts = { 
@@ -4674,6 +5157,9 @@ namespace Example
     {
         public void main()
         {
+            // Configure HTTP basic authorization: myBasic
+            Configuration.Default.Username = "YOUR_USERNAME";
+            Configuration.Default.Password = "YOUR_PASSWORD";
 
             var apiInstance = new FilesApi();
             var file = new array[byte[]](); // array[byte[]] |  (optional) 
@@ -4697,6 +5183,9 @@ namespace Example
                             <div class="tab-pane" id="examples-Files-postFile-0-php">
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
+// Configure HTTP basic authorization: myBasic
+Swagger\Client\Configuration::getDefaultConfiguration()->setUsername('YOUR_USERNAME');
+Swagger\Client\Configuration::getDefaultConfiguration()->setPassword('YOUR_PASSWORD');
 
 $api_instance = new Swagger\Client\ApiFilesApi();
 $file = ; // array[byte[]] | 
@@ -4714,6 +5203,9 @@ try {
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::FilesApi;
+# Configure HTTP basic authorization: myBasic
+$WWW::SwaggerClient::Configuration::username = 'YOUR_USERNAME';
+$WWW::SwaggerClient::Configuration::password = 'YOUR_PASSWORD';
 
 my $api_instance = WWW::SwaggerClient::FilesApi->new();
 my $file = []; # array[byte[]] | 
@@ -4733,6 +5225,9 @@ import time
 import swagger_client
 from swagger_client.rest import ApiException
 from pprint import pprint
+# Configure HTTP basic authorization: myBasic
+swagger_client.configuration.username = 'YOUR_USERNAME'
+swagger_client.configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
 api_instance = swagger_client.FilesApi()
@@ -4829,6 +5324,14 @@ except ApiException as e:
                                 </div>
                             </div>
 
+                            <h3> Status: 401 - Authorization required </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
                         </article>
                       </div>
                       <hr>
@@ -4868,6 +5371,7 @@ except ApiException as e:
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Users-apiUsersGet-0-curl">
                            <pre class="prettyprint"><code class="language-bsh">curl -X GET\
+ -H "Authorization: Basic [[basicHash]]"\
 -H "Accept: application/json"\
 "https://localhost:3000//api/users"</code></pre>
                           </div>
@@ -4883,7 +5387,12 @@ import java.util.*;
 public class UsersApiExample {
 
     public static void main(String[] args) {
-        
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        // Configure HTTP basic authorization: myBasic
+        HttpBasicAuth myBasic = (HttpBasicAuth) defaultClient.getAuthentication("myBasic");
+        myBasic.setUsername("YOUR USERNAME");
+        myBasic.setPassword("YOUR PASSWORD");
+
         UsersApi apiInstance = new UsersApi();
         try {
             array[User] result = apiInstance.apiUsersGet();
@@ -4918,7 +5427,11 @@ public class UsersApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-Users-apiUsersGet-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+// Configure HTTP basic authorization (authentication scheme: myBasic)
+[apiConfig setUsername:@"YOUR_USERNAME"];
+[apiConfig setPassword:@"YOUR_PASSWORD"];
+
 UsersApi *apiInstance = [[UsersApi alloc] init];
 
 // Получить список рользователей (без паролей))
@@ -4936,6 +5449,11 @@ UsersApi *apiInstance = [[UsersApi alloc] init];
 
                             <div class="tab-pane" id="examples-Users-apiUsersGet-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var BestCoursesEver = require('best_courses_ever');
+var defaultClient = BestCoursesEver.ApiClient.instance;
+// Configure HTTP basic authorization: myBasic
+var myBasic = defaultClient.authentications['myBasic'];
+myBasic.username = 'YOUR USERNAME'
+myBasic.password = 'YOUR PASSWORD'
 
 var api = new BestCoursesEver.UsersApi()
 var callback = function(error, data, response) {
@@ -4965,6 +5483,9 @@ namespace Example
     {
         public void main()
         {
+            // Configure HTTP basic authorization: myBasic
+            Configuration.Default.Username = "YOUR_USERNAME";
+            Configuration.Default.Password = "YOUR_PASSWORD";
 
             var apiInstance = new UsersApi();
 
@@ -4987,6 +5508,9 @@ namespace Example
                             <div class="tab-pane" id="examples-Users-apiUsersGet-0-php">
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
+// Configure HTTP basic authorization: myBasic
+Swagger\Client\Configuration::getDefaultConfiguration()->setUsername('YOUR_USERNAME');
+Swagger\Client\Configuration::getDefaultConfiguration()->setPassword('YOUR_PASSWORD');
 
 $api_instance = new Swagger\Client\ApiUsersApi();
 
@@ -5003,6 +5527,9 @@ try {
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::UsersApi;
+# Configure HTTP basic authorization: myBasic
+$WWW::SwaggerClient::Configuration::username = 'YOUR_USERNAME';
+$WWW::SwaggerClient::Configuration::password = 'YOUR_PASSWORD';
 
 my $api_instance = WWW::SwaggerClient::UsersApi->new();
 
@@ -5021,6 +5548,9 @@ import time
 import swagger_client
 from swagger_client.rest import ApiException
 from pprint import pprint
+# Configure HTTP basic authorization: myBasic
+swagger_client.configuration.username = 'YOUR_USERNAME'
+swagger_client.configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
 api_instance = swagger_client.UsersApi()
@@ -5042,18 +5572,18 @@ except ApiException as e:
 
 
                           <h2>Responses</h2>
-                            <h3> Status: default - successful operation </h3>
+                            <h3> Status: 200 - successful operation </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                                 <li class="active">
-                                  <a data-toggle="tab" href="#responses-apiUsersGet-default-schema">Schema</a>
+                                  <a data-toggle="tab" href="#responses-apiUsersGet-200-schema">Schema</a>
                                 </li>
 
                             </ul>
 
                             <div class="tab-content" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-apiUsersGet-default-schema">
-                                  <div id='responses-apiUsersGet-default-schema-default' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                <div class="tab-pane active" id="responses-apiUsersGet-200-schema">
+                                  <div id='responses-apiUsersGet-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
                                     <script>
                                       $(document).ready(function() {
                                         var schemaWrapper = {
@@ -5083,15 +5613,23 @@ except ApiException as e:
 
                                         //console.log(JSON.stringify(schema));
                                         var view = new JSONSchemaView(schema, 3);
-                                        $('#responses-apiUsersGet-default-schema-data').val(stringify(schema));
-                                        var result = $('#responses-apiUsersGet-default-schema-default');
+                                        $('#responses-apiUsersGet-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-apiUsersGet-200-schema-200');
                                         result.empty();
                                         result.append(view.render());
                                       });
                                     </script>
                                   </div>
-                                  <input id='responses-apiUsersGet-default-schema-data' type='hidden' value=''></input>
+                                  <input id='responses-apiUsersGet-200-schema-data' type='hidden' value=''></input>
                                 </div>
+                            </div>
+
+                            <h3> Status: 401 - Authorization required </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
                             </div>
 
                         </article>
@@ -5130,6 +5668,7 @@ except ApiException as e:
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Users-getUserById-0-curl">
                            <pre class="prettyprint"><code class="language-bsh">curl -X GET\
+ -H "Authorization: Basic [[basicHash]]"\
 -H "Accept: application/json,application/xml"\
 "https://localhost:3000//api/users/{userId}"</code></pre>
                           </div>
@@ -5145,7 +5684,12 @@ import java.util.*;
 public class UsersApiExample {
 
     public static void main(String[] args) {
-        
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        // Configure HTTP basic authorization: myBasic
+        HttpBasicAuth myBasic = (HttpBasicAuth) defaultClient.getAuthentication("myBasic");
+        myBasic.setUsername("YOUR USERNAME");
+        myBasic.setPassword("YOUR PASSWORD");
+
         UsersApi apiInstance = new UsersApi();
         String userId = userId_example; // String | ID of user to return
         try {
@@ -5182,7 +5726,11 @@ public class UsersApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-Users-getUserById-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">String *userId = userId_example; // ID of user to return
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+// Configure HTTP basic authorization (authentication scheme: myBasic)
+[apiConfig setUsername:@"YOUR_USERNAME"];
+[apiConfig setPassword:@"YOUR_PASSWORD"];
+String *userId = userId_example; // ID of user to return
 
 UsersApi *apiInstance = [[UsersApi alloc] init];
 
@@ -5201,6 +5749,11 @@ UsersApi *apiInstance = [[UsersApi alloc] init];
 
                             <div class="tab-pane" id="examples-Users-getUserById-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var BestCoursesEver = require('best_courses_ever');
+var defaultClient = BestCoursesEver.ApiClient.instance;
+// Configure HTTP basic authorization: myBasic
+var myBasic = defaultClient.authentications['myBasic'];
+myBasic.username = 'YOUR USERNAME'
+myBasic.password = 'YOUR PASSWORD'
 
 var api = new BestCoursesEver.UsersApi()
 var userId = userId_example; // {{String}} ID of user to return
@@ -5232,6 +5785,9 @@ namespace Example
     {
         public void main()
         {
+            // Configure HTTP basic authorization: myBasic
+            Configuration.Default.Username = "YOUR_USERNAME";
+            Configuration.Default.Password = "YOUR_PASSWORD";
 
             var apiInstance = new UsersApi();
             var userId = userId_example;  // String | ID of user to return
@@ -5255,6 +5811,9 @@ namespace Example
                             <div class="tab-pane" id="examples-Users-getUserById-0-php">
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
+// Configure HTTP basic authorization: myBasic
+Swagger\Client\Configuration::getDefaultConfiguration()->setUsername('YOUR_USERNAME');
+Swagger\Client\Configuration::getDefaultConfiguration()->setPassword('YOUR_PASSWORD');
 
 $api_instance = new Swagger\Client\ApiUsersApi();
 $userId = userId_example; // String | ID of user to return
@@ -5272,6 +5831,9 @@ try {
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::UsersApi;
+# Configure HTTP basic authorization: myBasic
+$WWW::SwaggerClient::Configuration::username = 'YOUR_USERNAME';
+$WWW::SwaggerClient::Configuration::password = 'YOUR_PASSWORD';
 
 my $api_instance = WWW::SwaggerClient::UsersApi->new();
 my $userId = userId_example; # String | ID of user to return
@@ -5291,6 +5853,9 @@ import time
 import swagger_client
 from swagger_client.rest import ApiException
 from pprint import pprint
+# Configure HTTP basic authorization: myBasic
+swagger_client.configuration.username = 'YOUR_USERNAME'
+swagger_client.configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
 api_instance = swagger_client.UsersApi()
@@ -5396,6 +5961,14 @@ except ApiException as e:
                                   </div>
                                   <input id='responses-getUserById-200-schema-data' type='hidden' value=''></input>
                                 </div>
+                            </div>
+
+                            <h3> Status: 401 - Authorization required </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
                             </div>
 
                             <h3> Status: 404 - User not found </h3>

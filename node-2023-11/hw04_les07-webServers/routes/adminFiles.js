@@ -1,15 +1,9 @@
 var express = require('express');
 var router = express.Router();
-const File = require('../service/mongoose').File;
+const { Privileges } = require('../constants');
+const db = require('../services/db.service');
+const adminFilesController = require('../controllers/adminFiles.controller');
 
-router.get('/', function (req, res, next) {
-    File.find({})
-        .then((files) => {
-            res.send(files);
-        })
-        .catch((err) => {
-            res.status(500).send({ error: 'Server error' });
-        });
-});
+router.get('/', db.checkAuth, db.hasOneOfPriv([Privileges.filesAdmin]), adminFilesController.get);
 
 module.exports = router;

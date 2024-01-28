@@ -1,6 +1,8 @@
 
 GET http://localhost:3000/api/users
+Authorization: Basic cGV0ZXI6bmV3UGFzcw==
 
 ###
 
-
+GET http://localhost:3000/api/users/000000000000000000000001
+Authorization: Basic cGV0ZXI6bmV3UGFzcw==

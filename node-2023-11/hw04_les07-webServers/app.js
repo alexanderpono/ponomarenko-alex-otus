@@ -13,17 +13,36 @@ var courseRouter = require('./routes/course');
 const apiRouter = require('./routes/api');
 const apiCoursesRouter = require('./routes/apiCourses');
 const apiUsersRouter = require('./routes/apiUsers');
-const apiLessonRouter = require('./routes/apiLesson');
 const apiResetRouter = require('./routes/apiReset');
 const apiFilesRouter = require('./routes/apiFiles');
 
 const adminUsersRouter = require('./routes/adminUsers');
 const adminFilesRouter = require('./routes/adminFiles');
+const passport = require('passport');
+const BasicStrategy = require('passport-http').BasicStrategy;
+const User = require('./models/User').User;
 
-const db = require('./service/db');
+const db = require('./services/db.service');
 const fs = require('fs');
 
 var app = express();
+
+passport.use(
+    new BasicStrategy(function (login, password, done) {
+        User.findOne({ login })
+            .then((user) => {
+                if (user?.pass !== password) {
+                    return done(null, false);
+                }
+                delete user.pass;
+                done(null, user);
+            })
+            .catch((err) => {
+                console.log('err=', err);
+                done(null, false);
+            });
+    })
+);
 
 app.use(fileUpload());
 
@@ -81,7 +100,6 @@ app.use('/users', usersRouter);
 
 app.use('/api/courses', apiCoursesRouter);
 app.use('/api/users', apiUsersRouter);
-app.use('/api/lesson', apiLessonRouter);
 app.use('/api/files', apiFilesRouter);
 app.use('/api', apiRouter);
 app.use('/api/reset', apiResetRouter);

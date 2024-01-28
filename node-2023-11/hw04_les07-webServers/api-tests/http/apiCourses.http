@@ -1,6 +1,51 @@
 
 GET http://localhost:3000/api/courses
+Authorization: Basic dG9tOnA=
+
+###
+//400 - description is a required field
+POST http://localhost:3000/api/courses
+Authorization: Basic dG9tOnA=
+Content-Type: application/json
+
+{ 
+    "author_id": "000000000000000000000001",
+    "difficulty": 4,
+    "lessons": []
+}
 
 ###
 
+POST http://localhost:3000/api/courses
+Authorization: Basic dG9tOnA=
+Content-Type: application/json
 
+{ 
+    "description": "Physics",
+    "author_id": "000000000000000000000001",
+    "difficulty": 4,
+    "lessons": []
+}
+
+###
+
+GET http://localhost:3000/api/courses/000000000000000000000102
+Authorization: Basic dG9tOnA=
+
+###
+
+PUT http://localhost:3000/api/courses/000000000000000000000102
+Authorization: Basic dG9tOnA=
+Content-Type: application/json
+
+{ 
+    "description": "Physics",
+    "author_id": "000000000000000000000001",
+    "difficulty": 5,
+    "lessons": []
+}
+
+###
+
+DELETE http://localhost:3000/api/courses/000000000000000000000102
+Authorization: Basic dG9tOnA=

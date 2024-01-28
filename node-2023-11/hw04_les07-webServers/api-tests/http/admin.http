@@ -1,13 +1,36 @@
-
+//no auth data - 401
 GET http://localhost:3000/admin/users
 
 ###
+
+//micle:123 - user not found - 401
+GET http://localhost:3000/admin/users
+Authorization: Basic bWljbGU6MTIz
+
+###
+
+//peter:wrongPass - wrong password (401)
+GET http://localhost:3000/admin/users
+Authorization: Basic cGV0ZXI6d3JvbmdQYXNz
+
+###
+
+//peter:newPass - user NOT ENOUGH PRIVILEGES (403)
+GET http://localhost:3000/admin/users
+Authorization: Basic cGV0ZXI6bmV3UGFzcw==
+
+###
+
+//nick:p - admin (200)
+GET http://localhost:3000/admin/users
+Authorization: Basic bmljazpw
 
 GET http://localhost:3000/admin/users/000000000000000000000001
 
 ###
 
 PUT http://localhost:3000/admin/users/000000000000000000000001
+Authorization: Basic bmljazpw
 Content-Type: application/json
 
 {
@@ -18,14 +41,29 @@ Content-Type: application/json
 
 ###
 
+//400 - login is a required field
 POST http://localhost:3000/admin/users
+Authorization: Basic bmljazpw
+Content-Type: application/json
+
+{
+    "name": "Masha2",
+    "privileges": ["users.admin", "files.admin", "courses.admin", "files.user"]
+}
+
+###
+//201
+POST http://localhost:3000/admin/users
+Authorization: Basic bmljazpw
 Content-Type: application/json
 
 {
     "name": "Masha2",
     "login": "masha",
-    "pass": "p"
+    "pass": "p",
+    "privileges": ["users.admin", "files.admin", "courses.admin", "files.user"]
 }
 
 ###
 GET http://localhost:3000/admin/files
+Authorization: Basic bmljazpw
