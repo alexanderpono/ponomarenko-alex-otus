@@ -20,21 +20,17 @@ const adminUsersRouter = require('./routes/adminUsers');
 const adminFilesRouter = require('./routes/adminFiles');
 const passport = require('passport');
 const BasicStrategy = require('passport-http').BasicStrategy;
-const User = require('./service/mongoose').User;
+const User = require('./models/User').User;
 
-const db = require('./service/db');
+const db = require('./services/db.service');
 const fs = require('fs');
 
 var app = express();
 
 passport.use(
     new BasicStrategy(function (login, password, done) {
-        // console.log('login=', login);
-        // console.log('password=', password);
         User.findOne({ login })
             .then((user) => {
-                // console.log('user=', user);
-                // console.log('user.pass === password=', user.pass === password);
                 if (user?.pass !== password) {
                     return done(null, false);
                 }

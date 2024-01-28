@@ -1,7 +1,7 @@
 const fs = require('fs');
 var path = require('path');
 
-class FileStorage {
+class FileStorageService {
     dir = null;
     constructor(dir) {
         this.dir = dir;
@@ -27,5 +27,5 @@ class FileStorage {
 }
 
 module.exports = {
-    FileStorage
+    FileStorageService
 };

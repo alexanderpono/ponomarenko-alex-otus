@@ -1,4 +1,4 @@
-const db = require('../service/db');
+const db = require('../services/db.service');
 
 module.exports = {
     PETER_ID: db.to24Str('01'),

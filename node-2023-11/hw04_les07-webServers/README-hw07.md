@@ -1,5 +1,5 @@
-[< А.Пономаренко. Домашние задания к курсам OTUS](../../README.md) / [Д/З к курсу "Node.js Developer 2023-11" OTUS](../README.md) / Домашнее задание 6.  Проект Best Courses Ever - Шаг 4 - Авторизация
-# Домашнее задание 6.  Проект Best Courses Ever - Шаг 4 - Авторизация
+[< А.Пономаренко. Домашние задания к курсам OTUS](../../README.md) / [Д/З к курсу "Node.js Developer 2023-11" OTUS](../README.md) / Домашнее задание 7.  Проект Best Courses Ever - Шаг 4 - Авторизация
+# Домашнее задание 7.  Проект Best Courses Ever - Шаг 4 - Авторизация
 
 Шаг 4 - Авторизация
 ## Цель:
@@ -54,11 +54,16 @@
 
 6. Доработано описание API. См.: 
 * doc/api.yaml
-* https://github.com/alexanderpono/ponomarenko-alex-otus/blob/hw06-api/node-2023-11/hw04_les07-webServers/doc/api.yaml
+* https://github.com/alexanderpono/ponomarenko-alex-otus/blob/hw07-auth/node-2023-11/hw04_les07-webServers/doc/api.yaml
+
+7. Добавлена валидация входных данных (adminUsers.js, apiCourses.js, apiFiles.js). Валидация реализована  с использованием библиотеки yup.
+
+8. Проведен рефакторинг структуры директорий с учетом примера https://github.com/geshan/expressjs-structure: добавлены папки models, controllers, services.
+
 
 ### Язык программы: Javascript
 ### Репозиторий доступен по адресу:
-https://github.com/alexanderpono/ponomarenko-alex-otus/tree/hw05-mongo/node-2023-11/hw04_les07-webServers
+https://github.com/alexanderpono/ponomarenko-alex-otus/tree/hw07-auth/node-2023-11/hw04_les07-webServers
 
 либо 
 
@@ -66,13 +71,12 @@ https://github.com/alexanderpono/ponomarenko-alex-otus/tree/master/node-2023-11/
 
 
 ### Пояснительная записка к д/з №7 проекту доступна по адресу:
-https://github.com/alexanderpono/ponomarenko-alex-otus/blob/hw05-mongo/node-2023-11/hw04_les07-webServers/README-hw07.md
+https://github.com/alexanderpono/ponomarenko-alex-otus/blob/hw07-auth/node-2023-11/hw04_les07-webServers/README-hw07.md
 
 либо 
 
 https://github.com/alexanderpono/ponomarenko-alex-otus/tree/master/node-2023-11/hw04_les07-webServers/README-hw07.md
 
-7. Добавлена валидация входных данных (adminUsers.js, apiCourses.js, apiFiles.js). Валидация реализована  с использованием библиотеки yup.
 
 ### Запуск программы
 Предусловие
@@ -91,7 +95,7 @@ git clone https://github.com/alexanderpono/ponomarenko-alex-otus.git
 Если д/з №07 еще не в master, то:
 ```
 cd ./ponomarenko-alex-otus/
-git checkout hw05-mongo
+git checkout hw07-auth
 cd ./node-2023-11/hw04_les07-webServers
 ```
 
