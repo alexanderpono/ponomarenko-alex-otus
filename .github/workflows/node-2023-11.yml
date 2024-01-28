@@ -1,0 +1,35 @@
+name: node-2023-11
+on:
+  push:
+    branches: [ hw06-api ]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  deploy-doc:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: node-2023-11/hw04_les07-webServers
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # 👈 Required to retrieve git history
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Deploy application to GHP /ponomarenko-alex-otus/node-2023-11/doc 🚀
+        id: Deploy-app
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: node-2023-11/hw04_les07-webServers/doc/html2-client-generated  # The folder the action should deploy.
+          TARGET_FOLDER: node-2023-11/doc
+          CLEAN: true # Automatically remove deleted files from the deploy branch
+
+
