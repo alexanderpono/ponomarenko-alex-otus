@@ -1,6 +1,6 @@
 const { apiProvider } = require('./framework/services');
 const { ParamsBuilder } = require('./framework/ParamsBuilder');
-const db = require('../service/db');
+const db = require('../services/db.service');
 const { DELME_ID } = require('./constants');
 const PETER_ID = require('./constants').PETER_ID;
 const NICK_ID = require('./constants').NICK_ID;

@@ -2,6 +2,13 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const { ERR } = require('../constants');
 
+mongoose.connect('mongodb://localhost/courses');
+
+const db = mongoose.connection;
+
+db.on('error', (err) => console.error('err.message'));
+db.once('open', () => console.info('Connected to MongoDB!'));
+
 const to24Str = (hexNum) => {
     const zeros = new Array(24 - hexNum.length).fill('0').join('');
     return `${zeros}${hexNum}`;
