@@ -13,9 +13,14 @@ const Privileges = {
     courses: 'courses',
     files: 'files'
 };
+const ENV = {
+    REST_PORT: '3000',
+    WS_PORT: '3100'
+};
 
 module.exports = {
     fileStorageDir,
     ERR,
-    Privileges
+    Privileges,
+    ENV
 };
