@@ -16,6 +16,15 @@ class WsService {
         this.wsClient.send(JSON.stringify({ fromServer: 'Привет' }));
         this.wsClient.on('message', this.onMessage);
 
+        let count = 0;
+        const timeout = 10000;
+        const periodicMessage = () => {
+            this.wsClient.send(JSON.stringify({ fromServer: 'Привет ' + count }));
+            count++;
+            setTimeout(periodicMessage, timeout);
+        };
+        setTimeout(periodicMessage, timeout);
+
         this.wsClient.on('close', function () {
             console.log('Ws: Пользователь отключился');
         });

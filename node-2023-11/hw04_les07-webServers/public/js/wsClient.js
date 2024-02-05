@@ -1,5 +1,3 @@
-console.log('wsClient!');
-
 let myWs = null;
 createWs();
 
@@ -10,6 +8,16 @@ function createWs() {
     };
     myWs.onmessage = function (message) {
         console.log('%s', message.data);
+        if (typeof window.notify === 'function') {
+            let msg = message.data;
+            try {
+                msg = JSON.parse(message.data).fromServer;
+            } catch {}
+            console.log('msg=', msg);
+            notify(msg);
+        } else {
+            console.error('onmessage() notify() is not defined');
+        }
     };
 
     myWs.onclose = function () {
