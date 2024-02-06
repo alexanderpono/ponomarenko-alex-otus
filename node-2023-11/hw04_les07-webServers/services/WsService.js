@@ -17,7 +17,7 @@ class WsService {
         this.wsClient.on('message', this.onMessage);
 
         let count = 0;
-        const timeout = 10000;
+        const timeout = 5000;
         const periodicMessage = () => {
             this.wsClient.send(JSON.stringify({ fromServer: 'Привет ' + count }));
             count++;

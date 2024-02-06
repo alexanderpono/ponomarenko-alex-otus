@@ -48,3 +48,95 @@ https://flaviocopes.com/notifications-api/
 Приложения имплементируют MVP задания, в обоих случаях должны и спользоваться Web Sockets и отдельно созданный Front end script
 ```
 
+## Выполнение д/з №8
+1. В серверную часть приложения добавлен WS сервер
+2. В UI-часть приложения добавлен WS-клиент 
+3. В UI-часть приложения добавлена подпрограмма отображения уведомлений, которые приходят с сервера через WebSocket, при помощи Notification API браузера
+4. В UI-часть приложения добавлен worker, который запускается при помощи Worker API браузера. 
+```
+  4.1. В Worker перенесен функционал WS клиента
+  4.2. В Worker перенесен функционал работы с Notification API браузера. 
+  4.3. Организовано взаимодействие между основным приложением UI (ui.js) и потоком Worker (worker.js) при помощи механизма обмена сообщениями postMessage(), addEventListener('message')
+```
+
+### Язык программы: Javascript
+### Репозиторий доступен по адресу:
+https://github.com/alexanderpono/ponomarenko-alex-otus/tree/hw08-websocket/node-2023-11/hw04_les07-webServers
+
+либо 
+
+https://github.com/alexanderpono/ponomarenko-alex-otus/tree/master/node-2023-11/hw04_les07-webServers
+
+
+### Пояснительная записка к д/з №8 доступна по адресу:
+https://github.com/alexanderpono/ponomarenko-alex-otus/blob/hw08-websocket/node-2023-11/hw04_les07-webServers/README-hw08.md
+
+либо 
+
+https://github.com/alexanderpono/ponomarenko-alex-otus/tree/master/node-2023-11/hw04_les07-webServers/README-hw08.md
+
+
+### Запуск программы
+Предусловие
+0.1: Необходима установленная версия node.js 16 (возможно, подойдет ранняя версия)
+- https://nodejs.org/download/release/v16.20.2/
+
+0.2: Необходима локально установленная СУБД MondoDB на порту по умолчанию 27017
+
+
+1. Клонировать проект: 
+```
+git clone https://github.com/alexanderpono/ponomarenko-alex-otus.git
+```
+
+2. Зайти в папку д/з №08 (совмещена с д/з №5, №6): 
+Если д/з №08 еще не в master, то:
+```
+cd ./ponomarenko-alex-otus/
+git checkout hw08-websocket
+cd ./node-2023-11/hw04_les07-webServers
+```
+
+Если д/з №08 уже в master, то:
+
+```
+cd ./ponomarenko-alex-otus/node-2023-11/hw04_les07-webServers
+```
+ 
+
+3. установить зависимости:  
+```
+npm ci
+```
+
+4. Запустить сервер
+```
+npm run watch
+```
+
+5. Запустить API-тесты (должны проходить)
+```
+npm run test
+```
+
+6. Открыть адрес http://localhost:3000/ в браузере, открыть консоль разработчика F12
+
+7. Разрешить отображение web-уведомлений в браузере от страницы http://localhost:3000/
+
+8. Ожидаемое поведение:
+* отобразилась страница с текстом "Express. Welcome to Express"
+* Раз в 5 секунд должны появиться уведомления в браузере о получении сообщений "Сообщение от поддержки. Привет XXX"
+* В консоли разработчика в браузере F12 должен быть текст вида:
+```
+ui load
+worker load
+worker IN message= {type: 'initWS', payload: ''}
+worker WS: подключился
+worker WS: IN msg= Привет
+UI: received WS message= Привет
+worker WS: IN msg= Привет 0
+UI: received WS message= Привет 0
+worker WS: IN msg= Привет 1
+UI: received WS message= Привет 1
+
+```
