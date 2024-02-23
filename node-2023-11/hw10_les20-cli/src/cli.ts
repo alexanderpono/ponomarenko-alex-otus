@@ -83,4 +83,32 @@ switch (options.command) {
             });
         break;
     }
+
+    case 'admin-get-users': {
+        const headers = {
+            Accept: 'application/json'
+        };
+        if (options.login) {
+            headers['Authorization'] = `Basic ${btoa(options.login + ':' + options.password)}`;
+        }
+        axios
+            .get(url.localCoursesApi + `/admin/users`, {
+                headers
+            })
+            .then((res) => {
+                console.log(JSON.stringify(res.data));
+            })
+            .catch((e) => {
+                if (e.response.status === 401) {
+                    console.log(e.response.status, e.response.data);
+                } else {
+                    console.log(e);
+                }
+            });
+        break;
+    }
+
+    default: {
+        console.log('CLI: unknown command', options.command);
+    }
 }

@@ -50,7 +50,8 @@ const getProjection = (items, projection) => {
 
 const run = (params: string) => {
     return new Promise((resolve) => {
-        const app = `ts-node --project ./tsconfig.json -r tsconfig-paths/register ./src/cli.ts ${params}`;
+        // const app = `ts-node --project ./tsconfig.json -r tsconfig-paths/register ./src/cli.ts ${params}`;
+        const app = `node ./temp/build/cli.js ${params}`;
 
         exec(app, function callback(error, stdout, stderr) {
             resolve(stdout);
@@ -86,6 +87,22 @@ Options:
         const TomUser = { name: 'tom', login: 'tom' };
         const PETER_ID = to24Str('01');
 
+        const USER_P = 'name login pass privileges';
+        const Peter = { name: 'Peter', login: 'peter', pass: 'p', privileges: ['users'] };
+        const Nick = {
+            name: 'nick',
+            login: 'nick',
+            pass: 'p',
+            privileges: ['users.admin', 'files.admin']
+        };
+        const Delme = { name: 'delme', login: 'delme', pass: 'p', privileges: [] };
+        const Tom = {
+            name: 'tom',
+            login: 'tom',
+            pass: 'p',
+            privileges: ['users', 'courses', 'files']
+        };
+
         test.each`
             cli    | params                                            | testName                                           | projection     | expected
             ${run} | ${''}                                             | ${'prints help from no params'}                    | ${null}        | ${help}
@@ -93,6 +110,10 @@ Options:
             ${run} | ${'-c get-users -l tom -p p'}                     | ${'GET /api/users returns users(USER)'}            | ${USER_USER_P} | ${[PeterUser, NickUser, DelmeUser, TomUser]}
             ${run} | ${'-c get-users'}                                 | ${'GET /api/users (no creds) returns 401'}         | ${null}        | ${'401 Unauthorized'}
             ${run} | ${`-c get-user-byid -l tom -p p -p1 ${PETER_ID}`} | ${`GET /api/users/[PETER_ID] returns Peter(USER)`} | ${USER_USER_P} | ${PeterUser}
+            ${run} | ${`-c admin-get-users -l nick -p p`}              | ${'GET /admin/users returns users'}                | ${USER_P}      | ${[Peter, Nick, Delme, Tom]}
+            ${run} | ${`-c admin-get-users`}                           | ${'GET /admin/users (no creds) returns 401'}       | ${null}        | ${'401 Unauthorized'}
+            ${run} | ${`-c admin-get-users -l micle -p 123`}           | ${'GET /admin/users (user not found) returns 401'} | ${null}        | ${'401 Unauthorized'}
+            ${run} | ${`-c admin-get-users -l peter -p wrongPass`}     | ${'GET /admin/users (wrong password) returns 401'} | ${null}        | ${'401 Unauthorized'}
         `('$testName', async ({ cli, params, projection, expected }) => {
             const r = await cli(params);
             if (projection !== null) {
@@ -100,8 +121,7 @@ Options:
                     const srcJson = JSON.parse(r);
                     expect(getProjection(srcJson, projection)).toEqual(expected);
                 } catch (e) {
-                    console.log(r);
-                    expect(false).toBe(true);
+                    expect(r).toEqual(expected);
                 }
             } else {
                 expect(r.trim()).toEqual(expected);
