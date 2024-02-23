@@ -11,6 +11,7 @@ program
     .option('-p, --password <password>', 'user password')
     .option('-c, --command <command>', 'command')
     .option('-p1, --param1 <param1>', 'parameter 1')
+    .option('-p2, --param2 <param2>', 'parameter 2')
     .parse(process.argv);
 
 const options: Options = program.opts();
@@ -21,6 +22,98 @@ if (Object.keys(options).length === 0) {
 const url = {
     localCoursesApi: 'http://localhost:3000'
 };
+function get(url: string) {
+    const headers = {
+        Accept: 'application/json'
+    };
+    if (options.login) {
+        headers['Authorization'] = `Basic ${btoa(options.login + ':' + options.password)}`;
+    }
+    axios
+        .get(url, {
+            headers
+        })
+        .then((res) => {
+            console.log(JSON.stringify(res.data));
+        })
+        .catch((e) => {
+            if (e.response.status === 401) {
+                console.log(e.response.status, e.response.data);
+            } else {
+                console.log(e);
+            }
+        });
+}
+
+function post(url: string, data: Record<string, any>) {
+    const headers = {
+        Accept: 'application/json'
+    };
+    if (options.login) {
+        headers['Authorization'] = `Basic ${btoa(options.login + ':' + options.password)}`;
+    }
+    axios
+        .post(url, data, {
+            headers
+        })
+        .then((res) => {
+            console.log(JSON.stringify(res.data));
+        })
+        .catch((e) => {
+            if (e.response.status === 401 || e.response.status === 403) {
+                console.log(e.response.status, e.response.data);
+            } else {
+                console.log(e);
+            }
+        });
+}
+
+function put(url: string, data: Record<string, any>) {
+    const headers = {
+        Accept: 'application/json'
+    };
+    if (options.login) {
+        headers['Authorization'] = `Basic ${btoa(options.login + ':' + options.password)}`;
+    }
+    axios
+        .put(url, data, {
+            headers
+        })
+        .then((res) => {
+            console.log(JSON.stringify(res.data));
+        })
+        .catch((e) => {
+            if (e.response.status === 401 || e.response.status === 403) {
+                console.log(e.response.status, e.response.data);
+            } else {
+                console.log(e);
+            }
+        });
+}
+
+function del(url: string) {
+    const headers = {
+        Accept: 'application/json'
+    };
+    if (options.login) {
+        headers['Authorization'] = `Basic ${btoa(options.login + ':' + options.password)}`;
+    }
+    axios
+        .delete(url, {
+            headers
+        })
+        .then((res) => {
+            console.log(JSON.stringify(res.data));
+        })
+        .catch((e) => {
+            if (e.response.status === 401 || e.response.status === 403) {
+                console.log(e.response.status, e.response.data);
+            } else {
+                console.log(e);
+            }
+        });
+}
+
 switch (options.command) {
     case 'reset': {
         axios
@@ -37,74 +130,45 @@ switch (options.command) {
     }
 
     case 'get-users': {
-        const headers = {
-            Accept: 'application/json'
-        };
-        if (options.login) {
-            headers['Authorization'] = `Basic ${btoa(options.login + ':' + options.password)}`;
-        }
-        axios
-            .get(url.localCoursesApi + '/api/users', {
-                headers
-            })
-            .then((res) => {
-                console.log(JSON.stringify(res.data));
-            })
-            .catch((e) => {
-                if (e.response.status === 401) {
-                    console.log(e.response.status, e.response.data);
-                } else {
-                    console.log(e);
-                }
-            });
+        get(url.localCoursesApi + '/api/users');
         break;
     }
 
     case 'get-user-byid': {
-        const headers = {
-            Accept: 'application/json'
-        };
-        if (options.login) {
-            headers['Authorization'] = `Basic ${btoa(options.login + ':' + options.password)}`;
-        }
-        axios
-            .get(url.localCoursesApi + `/api/users/${options.param1}`, {
-                headers
-            })
-            .then((res) => {
-                console.log(JSON.stringify(res.data));
-            })
-            .catch((e) => {
-                if (e.response.status === 401) {
-                    console.log(e.response.status, e.response.data);
-                } else {
-                    console.log(e);
-                }
-            });
+        get(url.localCoursesApi + `/api/users/${options.param1}`);
         break;
     }
 
     case 'admin-get-users': {
-        const headers = {
-            Accept: 'application/json'
-        };
-        if (options.login) {
-            headers['Authorization'] = `Basic ${btoa(options.login + ':' + options.password)}`;
-        }
-        axios
-            .get(url.localCoursesApi + `/admin/users`, {
-                headers
-            })
-            .then((res) => {
-                console.log(JSON.stringify(res.data));
-            })
-            .catch((e) => {
-                if (e.response.status === 401) {
-                    console.log(e.response.status, e.response.data);
-                } else {
-                    console.log(e);
-                }
-            });
+        get(url.localCoursesApi + `/admin/users`);
+        break;
+    }
+
+    case 'admin-get-user-byid': {
+        get(url.localCoursesApi + `/admin/users/${options.param1}`);
+        break;
+    }
+
+    case 'admin-post-users': {
+        let data = {};
+        try {
+            data = options.param1 ? JSON.parse(options.param1) : {};
+        } catch (e) {}
+        post(url.localCoursesApi + `/admin/users`, data);
+        break;
+    }
+
+    case 'admin-put-users': {
+        let data = {};
+        try {
+            data = options.param2 ? JSON.parse(options.param2) : {};
+        } catch (e) {}
+        put(url.localCoursesApi + `/admin/users/${options.param1}`, data);
+        break;
+    }
+
+    case 'admin-delete-users': {
+        del(url.localCoursesApi + `/admin/users/${options.param1}`);
         break;
     }
 
