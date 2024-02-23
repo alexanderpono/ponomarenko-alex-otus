@@ -134,7 +134,7 @@ switch (options.command) {
         break;
     }
 
-    case 'get-user-byid': {
+    case 'get-users-byid': {
         get(url.localCoursesApi + `/api/users/${options.param1}`);
         break;
     }
@@ -144,7 +144,7 @@ switch (options.command) {
         break;
     }
 
-    case 'admin-get-user-byid': {
+    case 'admin-get-users-byid': {
         get(url.localCoursesApi + `/admin/users/${options.param1}`);
         break;
     }
@@ -169,6 +169,39 @@ switch (options.command) {
 
     case 'admin-delete-users': {
         del(url.localCoursesApi + `/admin/users/${options.param1}`);
+        break;
+    }
+
+    case 'get-courses': {
+        get(url.localCoursesApi + `/api/courses`);
+        break;
+    }
+
+    case 'post-courses': {
+        let data = {};
+        try {
+            data = options.param1 ? JSON.parse(options.param1) : {};
+        } catch (e) {}
+        post(url.localCoursesApi + `/api/courses`, data);
+        break;
+    }
+
+    case 'get-courses-byid': {
+        get(url.localCoursesApi + `/api/courses/${options.param1}`);
+        break;
+    }
+
+    case 'put-courses': {
+        let data = {};
+        try {
+            data = options.param2 ? JSON.parse(options.param2) : {};
+        } catch (e) {}
+        put(url.localCoursesApi + `/api/courses/${options.param1}`, data);
+        break;
+    }
+
+    case 'delete-courses': {
+        del(url.localCoursesApi + `/api/courses/${options.param1}`);
         break;
     }
 

@@ -121,23 +121,52 @@ Options:
         };
         const p2PutPeter = JSON.stringify(JSON.stringify(putPeter));
 
+        const MATH_ID = to24Str('0101');
+        const COURSE_P = 'description author_id difficulty lessons';
+        const Physics = { description: 'Physics', author_id: PETER_ID, difficulty: 4, lessons: [] };
+        const p1Physics = JSON.stringify(JSON.stringify(Physics));
+        const Math = {
+            description: 'Math',
+            author_id: PETER_ID,
+            difficulty: 3,
+            lessons: [{ description: '1. Математика - вводный урок' }]
+        };
+        const History = {
+            description: 'History',
+            author_id: PETER_ID,
+            difficulty: 3,
+            lessons: [{ description: '1. История - вводный урок' }]
+        };
+        const putMath = {
+            ...Math,
+            description: 'super Math!'
+        };
+        const p2PutMath = JSON.stringify(JSON.stringify(putMath));
+
         test.each`
-            cli    | params                                                                 | testName                                                   | projection     | expected
-            ${run} | ${''}                                                                  | ${'prints help from no params'}                            | ${null}        | ${help}
-            ${run} | ${'-c reset'}                                                          | ${'calls reset'}                                           | ${null}        | ${`{ result: 'post reset' }`}
-            ${run} | ${'-c get-users -l tom -p p'}                                          | ${'GET /api/users returns users(USER)'}                    | ${USER_USER_P} | ${[PeterUser, NickUser, DelmeUser, TomUser]}
-            ${run} | ${'-c get-users'}                                                      | ${'GET /api/users (no creds) returns 401'}                 | ${null}        | ${'401 Unauthorized'}
-            ${run} | ${`-c get-user-byid -l tom -p p -p1 ${PETER_ID}`}                      | ${`GET /api/users/[PETER_ID] returns Peter(USER)`}         | ${USER_USER_P} | ${PeterUser}
-            ${run} | ${`-c admin-get-users -l nick -p p`}                                   | ${'GET /admin/users returns users'}                        | ${USER_P}      | ${[Peter, Nick, Delme, Tom]}
-            ${run} | ${`-c admin-get-users`}                                                | ${'GET /admin/users (no creds) returns 401'}               | ${null}        | ${'401 Unauthorized'}
-            ${run} | ${`-c admin-get-users -l micle -p 123`}                                | ${'GET /admin/users (user not found) returns 401'}         | ${null}        | ${'401 Unauthorized'}
-            ${run} | ${`-c admin-get-users -l peter -p wrongPass`}                          | ${'GET /admin/users (wrong password) returns 401'}         | ${null}        | ${'401 Unauthorized'}
-            ${run} | ${`-c admin-get-user-byid -l nick -p p -p1 ${PETER_ID}`}               | ${`GET /admin/users/[PETER_ID] returns Peter`}             | ${USER_P}      | ${Peter}
-            ${run} | ${`-c admin-post-users -l tom -p p -p1 ${p1Masha}`}                    | ${'POST /admin/users (not enough privileges) returns 403'} | ${null}        | ${"403 { error: 'not enough privileges' }"}
-            ${run} | ${`-c admin-post-users -l nick -p p -p1 ${p1Masha}`}                   | ${'POST /admin/users returns new user'}                    | ${USER_P}      | ${Masha}
-            ${run} | ${`-c admin-put-users -l nick -p p -p1 ${PETER_ID} -p2 ${p2PutPeter}`} | ${`PUT /admin/users/[PETER_ID] returns updated Peter`}     | ${USER_P}      | ${{ ...Peter, pass: 'newPass' }}
-            ${run} | ${`-c admin-delete-users -l nick -p p -p1 ${DELME_ID}`}                | ${`DELETE /admin/users/[DELME_ID] returns HTTP 204`}       | ${null}        | ${'""'}
-            ${run} | ${`-c admin-delete-users -l tom -p p -p1 ${DELME_ID}`}                 | ${'GET /admin/users (not enough privileges) returns 403'}  | ${null}        | ${"403 { error: 'not enough privileges' }"}
+            cli    | params                                                                 | testName                                                    | projection     | expected
+            ${run} | ${''}                                                                  | ${'prints help from no params'}                             | ${null}        | ${help}
+            ${run} | ${'-c reset'}                                                          | ${'reset calls reset'}                                      | ${null}        | ${`{ result: 'post reset' }`}
+            ${run} | ${'-c get-users -l tom -p p'}                                          | ${'get-users returns users(USER)'}                          | ${USER_USER_P} | ${[PeterUser, NickUser, DelmeUser, TomUser]}
+            ${run} | ${'-c get-users'}                                                      | ${'get-users (no creds) returns 401'}                       | ${null}        | ${'401 Unauthorized'}
+            ${run} | ${`-c get-users-byid -l tom -p p -p1 ${PETER_ID}`}                     | ${`get-users-byid [PETER_ID] returns Peter(USER)`}          | ${USER_USER_P} | ${PeterUser}
+            ${run} | ${`-c admin-get-users -l nick -p p`}                                   | ${'admin-get-users returns users'}                          | ${USER_P}      | ${[Peter, Nick, Delme, Tom]}
+            ${run} | ${`-c admin-get-users`}                                                | ${'admin-get-users (no creds) returns 401'}                 | ${null}        | ${'401 Unauthorized'}
+            ${run} | ${`-c admin-get-users -l micle -p 123`}                                | ${'admin-get-users (user not found) returns 401'}           | ${null}        | ${'401 Unauthorized'}
+            ${run} | ${`-c admin-get-users -l peter -p wrongPass`}                          | ${'admin-get-users (wrong password) returns 401'}           | ${null}        | ${'401 Unauthorized'}
+            ${run} | ${`-c admin-get-users-byid -l nick -p p -p1 ${PETER_ID}`}              | ${`admin-get-users-byid [PETER_ID] returns Peter`}          | ${USER_P}      | ${Peter}
+            ${run} | ${`-c admin-post-users -l tom -p p -p1 ${p1Masha}`}                    | ${'admin-post-users (not enough privileges) returns 403'}   | ${null}        | ${"403 { error: 'not enough privileges' }"}
+            ${run} | ${`-c admin-post-users -l nick -p p -p1 ${p1Masha}`}                   | ${'admin-post-users returns new user'}                      | ${USER_P}      | ${Masha}
+            ${run} | ${`-c admin-put-users -l nick -p p -p1 ${PETER_ID} -p2 ${p2PutPeter}`} | ${`admin-put-users [PETER_ID] returns updated Peter`}       | ${USER_P}      | ${{ ...Peter, pass: 'newPass' }}
+            ${run} | ${`-c admin-delete-users -l nick -p p -p1 ${DELME_ID}`}                | ${`admin-delete-users [DELME_ID] returns HTTP 204`}         | ${null}        | ${'""'}
+            ${run} | ${`-c admin-delete-users -l tom -p p -p1 ${DELME_ID}`}                 | ${'admin-delete-users (not enough privileges) returns 403'} | ${null}        | ${"403 { error: 'not enough privileges' }"}
+            ${run} | ${'-c get-courses -l tom -p p'}                                        | ${'get-courses returns courses'}                            | ${COURSE_P}    | ${[Math, History]}
+            ${run} | ${'-c get-courses'}                                                    | ${'get-courses (no creds) returns 401'}                     | ${null}        | ${'401 Unauthorized'}
+            ${run} | ${`-c post-courses -l tom -p p -p1 ${p1Physics}`}                      | ${'post-courses returns new course'}                        | ${COURSE_P}    | ${Physics}
+            ${run} | ${`-c get-courses-byid -l tom -p p -p1 ${MATH_ID}`}                    | ${`get-courses-byid [MATH_ID] returns Math`}                | ${COURSE_P}    | ${Math}
+            ${run} | ${`-c put-courses -l tom -p p -p1 ${MATH_ID} -p2 ${p2PutMath}`}        | ${`put-courses [MATH_ID] returns updated Math`}             | ${COURSE_P}    | ${{ ...Math, description: 'super Math!' }}
+            ${run} | ${`-c delete-courses -l tom -p p -p1 ${MATH_ID}`}                      | ${`delete-courses [MATH_ID] returns HTTP 204`}              | ${null}        | ${'""'}
+            ${run} | ${`-c delete-courses -l tom -p p -p1 ${MATH_ID}`}                      | ${`second -c delete-courses [MATH_ID] returns HTTP 204`}    | ${null}        | ${'""'}
         `('$testName', async ({ cli, params, projection, expected }) => {
             const r = await cli(params);
             if (projection !== null) {
