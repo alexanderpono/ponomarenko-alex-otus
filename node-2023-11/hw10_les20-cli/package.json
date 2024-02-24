@@ -7,7 +7,8 @@
     "start": "ts-node --project tsconfig.json -r tsconfig-paths/register src/cli.ts",
     "watch": "npx grunt",
     "test": "jest --testPathPattern=/src/",
-    "build-w": "tsc && copy package.json temp"
+    "build-w": "tsc && copy package.json temp",
+    "build-l": "tsc && cp package.json ./temp"
   },
   "keywords": [],
   "author": "",

@@ -299,7 +299,11 @@ switch (options.command) {
                 headers
             })
             .then((res) => {
-                console.log(JSON.stringify(res.data));
+                if (options.pretty) {
+                    console.table(res.data);
+                } else {
+                    console.log(JSON.stringify(res.data));
+                }
             })
             .catch((e) => {
                 if (e.response.status === 401 || e.response.status === 403) {
