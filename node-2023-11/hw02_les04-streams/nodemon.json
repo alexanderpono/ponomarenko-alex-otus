@@ -1,0 +1,6 @@
+{
+    "watch": ["."],
+    "ext": "json,js",
+    "ignore": [],
+    "exec": "node src/index ./data/5.txt ./data/5-out.txt"
+}
