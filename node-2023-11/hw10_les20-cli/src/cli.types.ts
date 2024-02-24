@@ -4,4 +4,5 @@ export interface Options {
     password: string;
     param1: string;
     param2: string;
+    pretty: boolean;
 }

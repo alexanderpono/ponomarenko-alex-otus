@@ -83,6 +83,7 @@ Options:
   -c, --command <command>    command
   -p1, --param1 <param1>     parameter 1
   -p2, --param2 <param2>     parameter 2
+  -pr, --pretty              pretty output
   -h, --help                 display help for command`;
 
     const to24Str = (hexNum) => {

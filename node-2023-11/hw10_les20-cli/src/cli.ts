@@ -19,6 +19,7 @@ program
     .option('-c, --command <command>', 'command')
     .option('-p1, --param1 <param1>', 'parameter 1')
     .option('-p2, --param2 <param2>', 'parameter 2')
+    .option('-pr, --pretty', 'pretty output')
     .parse(process.argv);
 
 const options: Options = program.opts();
@@ -41,7 +42,11 @@ function get(url: string) {
             headers
         })
         .then((res) => {
-            console.log(JSON.stringify(res.data));
+            if (options.pretty) {
+                console.table(res.data);
+            } else {
+                console.log(JSON.stringify(res.data));
+            }
         })
         .catch((e) => {
             if (e.response.status === 401 || e.response.status === 403) {
@@ -64,7 +69,11 @@ function post(url: string, data: Record<string, any>) {
             headers
         })
         .then((res) => {
-            console.log(JSON.stringify(res.data));
+            if (options.pretty) {
+                console.table(res.data);
+            } else {
+                console.log(JSON.stringify(res.data));
+            }
         })
         .catch((e) => {
             if (e.response.status === 401 || e.response.status === 403) {
@@ -87,7 +96,11 @@ function put(url: string, data: Record<string, any>) {
             headers
         })
         .then((res) => {
-            console.log(JSON.stringify(res.data));
+            if (options.pretty) {
+                console.table(res.data);
+            } else {
+                console.log(JSON.stringify(res.data));
+            }
         })
         .catch((e) => {
             if (e.response.status === 401 || e.response.status === 403) {
@@ -110,7 +123,11 @@ function del(url: string) {
             headers
         })
         .then((res) => {
-            console.log(JSON.stringify(res.data));
+            if (options.pretty) {
+                console.table(res.data);
+            } else {
+                console.log(JSON.stringify(res.data));
+            }
         })
         .catch((e) => {
             if (e.response.status === 401 || e.response.status === 403) {
