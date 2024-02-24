@@ -2,6 +2,13 @@ import { program } from 'commander';
 import { Options } from './cli.types';
 const { description, name, version } = require('../package.json');
 import axios from 'axios';
+import fs from 'fs';
+import stream from 'stream';
+import util from 'util';
+import FormData from 'form-data';
+import path from 'path';
+
+const pipeline = util.promisify(stream.pipeline);
 
 program
     .name(name)
@@ -37,7 +44,7 @@ function get(url: string) {
             console.log(JSON.stringify(res.data));
         })
         .catch((e) => {
-            if (e.response.status === 401) {
+            if (e.response.status === 401 || e.response.status === 403) {
                 console.log(e.response.status, e.response.data);
             } else {
                 console.log(e);
@@ -202,6 +209,89 @@ switch (options.command) {
 
     case 'delete-courses': {
         del(url.localCoursesApi + `/api/courses/${options.param1}`);
+        break;
+    }
+
+    case 'admin-get-files': {
+        get(url.localCoursesApi + `/admin/files`);
+        break;
+    }
+
+    case 'get-files-byid': {
+        if (!options.param1) {
+            console.log('-p1 required');
+            break;
+        }
+        if (!options.param2) {
+            console.log('-p2 required');
+            break;
+        }
+        const headers = {
+            Accept: 'application/json'
+        };
+        if (options.login) {
+            headers['Authorization'] = `Basic ${btoa(options.login + ':' + options.password)}`;
+        }
+        axios
+            .get(url.localCoursesApi + `/api/files/${options.param1}`, {
+                headers,
+                responseType: 'stream'
+            })
+            .then((res) => {
+                const wrStream = fs.createWriteStream(options.param2);
+                pipeline(res.data, wrStream).then(() => {
+                    console.log(options.param2);
+                });
+            })
+            .catch((e) => {
+                if (e.response.status === 401 || e.response.status === 403) {
+                    console.log(e.response.status, e.response?.data?.statusMessage);
+                } else {
+                    console.log(e);
+                }
+            });
+
+        break;
+    }
+
+    case 'post-files': {
+        if (!options.param1) {
+            console.log('-p1 required');
+            break;
+        }
+
+        let fileData;
+        try {
+            fileData = fs.readFileSync(options.param1);
+        } catch (e) {
+            console.log('error reading', options.param1);
+            break;
+        }
+
+        const form = new FormData();
+        form.append('file', fileData, path.basename(options.param1));
+
+        const headers = {
+            Accept: 'application/json'
+        };
+        if (options.login) {
+            headers['Authorization'] = `Basic ${btoa(options.login + ':' + options.password)}`;
+        }
+        axios
+            .post(url.localCoursesApi + '/api/files', form, {
+                headers
+            })
+            .then((res) => {
+                console.log(JSON.stringify(res.data));
+            })
+            .catch((e) => {
+                if (e.response.status === 401 || e.response.status === 403) {
+                    console.log(e.response.status, e.response.data);
+                } else {
+                    console.log(e);
+                }
+            });
+
         break;
     }
 
