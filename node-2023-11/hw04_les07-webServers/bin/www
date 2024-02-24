@@ -8,12 +8,13 @@ var app = require('../app');
 var debug = require('debug')('hw04-les07-webservers:server');
 var http = require('http');
 var devcert = require('devcert');
+const ENV = require('../constants').ENV;
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || ENV.REST_PORT);
 app.set('port', port);
 
 var server;
@@ -71,7 +72,7 @@ function onError(error) {
 function onListening() {
     var addr = server.address();
     var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
-    console.log('Listening on ' + bind);
+    console.log('Listening REST on ' + bind);
 }
 
 async function run() {
