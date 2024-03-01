@@ -3,7 +3,7 @@ var router = express.Router();
 const File = require('../models/File').File;
 const fileStorageDir = require('../constants').fileStorageDir;
 var path = require('path');
-const db = require('../services/db.service');
+import db from '../services/db.service';
 const fs = require('fs');
 const { ERR, Privileges } = require('../constants');
 const { object, string, number, date, array, mixed } = require('yup');

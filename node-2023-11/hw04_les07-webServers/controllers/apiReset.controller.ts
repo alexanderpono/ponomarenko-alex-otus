@@ -3,7 +3,7 @@ var router = express.Router();
 const User = require('../models/User').User;
 const Course = require('../models/Course').Course;
 const File = require('../models/File').File;
-const db = require('../services/db.service');
+import db from '../services/db.service';
 const PETER_ID = require('../api-tests/constants').PETER_ID;
 const MATH_ID = require('../api-tests/constants').MATH_ID;
 const HISTORY_ID = require('../api-tests/constants').HISTORY_ID;

@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const db = require('../services/db.service');
+import db from '../services/db.service';
 const { Privileges } = require('../constants');
 const apiUsersController = require('../controllers/apiUsers.controller');
 

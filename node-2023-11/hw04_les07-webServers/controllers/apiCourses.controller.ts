@@ -1,41 +1,48 @@
-const User = require('../models/User').User;
+var express = require('express');
+const Course = require('../models/Course').Course;
+import db from '../services/db.service';
 const { ERR } = require('../constants');
 const { object, string, number, date, array } = require('yup');
-const db = require('../services/db.service');
 
 function get(req, res, next) {
-    User.find({}, 'name login pass privileges')
+    Course.find({})
         .then((persons) => {
             res.send(persons);
         })
         .catch((err) => {
-            res.status(500).send(ERR.SERVER_ERR);
+            res.status(500).send({ error: 'Server error' });
         });
 }
 
-const postUserSchema = object({
-    login: string().required(),
-    name: string().required(),
-    pass: string().required(),
-    privileges: array().of(string()).required()
+const postLessonSchema = object({
+    description: string().required()
+});
+const postCourseSchema = object({
+    description: string().required(),
+    author_id: string().required(),
+    difficulty: number().required(),
+    lessons: array().of(postLessonSchema).required()
 });
 
 function post(req, res, next) {
-    postUserSchema
+    postCourseSchema
         .validate(req.body)
-        .then((validUser) => {
-            const user = new User(validUser);
-            user._id = db.getNewObjectId();
+        .then((validCourse) => {
+            const course = new Course(validCourse);
+            course._id = db.getNewObjectId();
 
-            user.save()
-                .then((user) => {
-                    res.status(201).send(user);
+            course
+                .save()
+                .then((course) => {
+                    res.status(201).send(course);
                 })
                 .catch((err) => {
+                    console.log('post err=', err);
+
                     if (err.name === 'ValidationError') {
                         return res.status(400).send({ error: 'Validation error', err });
                     } else {
-                        return res.status(500).send(ERR.SERVER_ERR);
+                        return res.status(500).send({ error: 'Server error' });
                     }
                 });
         })
@@ -50,50 +57,50 @@ function post(req, res, next) {
 }
 
 function getById(req, res, next) {
-    User.findById(req.params.id)
-        .then((user) => {
-            if (!user) {
+    Course.findById(req.params.id)
+        .then((course) => {
+            if (!course) {
                 return res.status(404).send({ error: 'Not found' });
             }
-            res.send(user);
+            res.send(course);
         })
         .catch((err) => {
-            res.status(500).send(ERR.SERVER_ERR);
+            res.status(500).send({ error: 'Server error' });
         });
 }
 
-const putUserSchema = object({
-    login: string(),
-    name: string(),
-    pass: string(),
-    privileges: array().of(string())
+const putCourseSchema = object({
+    description: string(),
+    author_id: string(),
+    difficulty: number(),
+    lessons: array().of(postLessonSchema)
 });
 
 function put(req, res, next) {
-    putUserSchema
+    putCourseSchema
         .validate(req.body)
-        .then((validUser) => {
-            User.updateOne(
+        .then((validCourse) => {
+            Course.updateOne(
                 { _id: req.params.id },
                 {
                     $set: {
-                        name: validUser.name,
-                        login: validUser.login,
-                        pass: validUser.pass
+                        description: validCourse.description,
+                        author_id: validCourse.author_id,
+                        difficulty: validCourse.difficulty
                     }
                 }
             )
-                .then((user) => {
-                    if (!user) {
+                .then((course) => {
+                    if (!course) {
                         return res.status(404).send({ error: 'Not found' });
                     }
-                    return User.findById(req.params.id);
+                    return Course.findById(req.params.id);
                 })
-                .then((user) => {
-                    if (!user) {
+                .then((course) => {
+                    if (!course) {
                         return res.status(404).send({ error: 'Not found' });
                     }
-                    res.send(user);
+                    res.send(course);
                 })
                 .catch((err) => {
                     console.log('put err=', err);
@@ -110,13 +117,13 @@ function put(req, res, next) {
         });
 }
 
-function deleteById(req, res, next) {
-    User.deleteOne({ _id: req.params.id })
+function del(req, res, next) {
+    Course.deleteOne({ _id: req.params.id })
         .then(() => {
             res.status(204).send({});
         })
         .catch((err) => {
-            console.log('delete err=', err);
+            console.log('put err=', err);
             res.status(500).send({ error: 'Server error' + JSON.stringify(err) });
         });
 }
@@ -126,5 +133,5 @@ module.exports = {
     post,
     getById,
     put,
-    deleteById
+    del
 };

@@ -20,7 +20,7 @@ const adminUsersRouter = require('../routes/adminUsers');
 const adminFilesRouter = require('../routes/adminFiles');
 const passport = require('passport');
 const BasicStrategy = require('passport-http').BasicStrategy;
-const User = require('../models/User').User;
+import { User } from '../models/User';
 
 const db = require('./db.service');
 
