@@ -22,18 +22,18 @@ const passport = require('passport');
 const BasicStrategy = require('passport-http').BasicStrategy;
 import { User } from '../models/User';
 
-const db = require('./db.service');
-
 class RestService {
     run(app) {
         passport.use(
             new BasicStrategy(function (login, password, done) {
                 User.findOne({ login })
                     .then((user) => {
-                        if (user?.pass !== password) {
-                            return done(null, false);
+                        if (user && user.pass) {
+                            if (user?.pass !== password) {
+                                return done(null, false);
+                            }
+                            delete user.pass;
                         }
-                        delete user.pass;
                         done(null, user);
                     })
                     .catch((err) => {

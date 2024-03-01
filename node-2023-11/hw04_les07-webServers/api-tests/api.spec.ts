@@ -1,5 +1,4 @@
 import { apiProvider } from './framework/services';
-import { ParamsBuilder } from './framework/ParamsBuilder'; 
 import db from '@/services/db.service';
 import { DELME_ID, PETER_ID, NICK_ID, MATH_ID, FILE_ID } from './constants';
 
@@ -53,9 +52,7 @@ const getProjection = (items: Record<string, unknown>, projection: string) => {
 };
 
 describe('api', () => {
-    const builder = ParamsBuilder;
     beforeAll(async () => {
-        // const params = new builder().addUsualUser().generate();
         await apiProvider().reset().reset();
     });
 
