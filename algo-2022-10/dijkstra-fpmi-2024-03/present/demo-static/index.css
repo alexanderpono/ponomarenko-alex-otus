@@ -4,11 +4,21 @@
         
 }
 
+@font-face {
+    font-family: 'Roboto';
+    src: url('Roboto/Roboto-Regular.ttf')  format('truetype'); /* Safari, Android, iOS */
+}
+
+@font-face {
+    font-family: 'RobotoBold';
+    src: url('Roboto/Roboto-Bold.ttf')  format('truetype'); /* Safari, Android, iOS */
+}
+
 .shower {
     --slide-ratio: calc(16 / 9);
     --slide-side: 27px;
     --ribbon-side: 22px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Roboto, Helvetica, sans-serif;
     line-height: 130%;
 }
 .ok {
@@ -151,7 +161,10 @@ h3::before {
 }
 .slide.title::after {
     color: #1964f3;
+    content: '';
+    background: none;
 }
+
 .slide mark {
     background-color: #dfeafb;
     color: #0027ff;
@@ -166,7 +179,7 @@ h3::before {
     position: absolute;
     bottom: calc(var(--slide-side));
     display: block;
-    content: '\A9  2023 ГК \ABИннотех\00BB. Все права защищены. Все товарные знаки являются собственностью их владельцев';
+    content: '\A9  2024 ГК \ABИннотех\00BB. Все права защищены. Все товарные знаки являются собственностью их владельцев';
     font-family: Arial, Helvetica, sans-serif;
     font-size: 0.7rem;
     text-transform: none;
@@ -178,11 +191,12 @@ h3::before {
     display: none;
 }
 .slide::after {
-    background: none;
+    background: url('/demo-static/fpmi-logo-b.png') no-repeat;
+    background-position: right;
     color: black;
     width: var(--ribbon-side);
     height: var(--ribbon-side);
-    padding: 0px;
+    padding: 0px 200px 0px 0px;
     margin: 0px;
     display: block;
     line-height: var(--ribbon-side);
@@ -191,6 +205,7 @@ h3::before {
     top: auto;
     bottom: var(--slide-side);
     font-size: 0.6em;
+    content: counter(slide);
 }
 
 h1, h3, p, label, li {
@@ -236,8 +251,7 @@ h1, h3, p, label, li {
 }
 h1, h3 {
     color: #000;
-    text-transform: uppercase;
-    font-family: 'ArialBlack', Arial, Helvetica, sans-serif;
+    font-family: 'RobotoBold', Arial, Helvetica, sans-serif;
 }
 h3 {
     margin: 0px 0px 50px 1.2em;
