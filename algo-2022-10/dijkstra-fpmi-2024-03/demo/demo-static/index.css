@@ -1,0 +1,468 @@
+@font-face {
+    font-family: 'ArialBlack';
+    src: url('ariblk.ttf')  format('truetype'); /* Safari, Android, iOS */
+        
+}
+
+.shower {
+    --slide-ratio: calc(16 / 9);
+    --slide-side: 27px;
+    --ribbon-side: 22px;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 130%;
+}
+.ok {
+    color: #888;
+    position: relative;
+}
+.r {
+    border: 1px solid red;
+}
+.picText {
+    display: flex;
+}
+.w20 {
+    width: 25%;
+}
+.w10 {
+    width: 10%;
+}
+.w14 {
+    width: 14%;
+}
+.w40 {
+    width: 40%;
+}
+.w60 {
+    width: 60%;
+}
+.w66 {
+    width: 66%;
+}
+.w50 {
+    width: 50%;
+}
+.h60 {
+    height: 60%;
+}
+
+.img1 {
+    position: absolute;
+    bottom: 70px;
+    left: 30px;
+    overflow: hidden;
+    width: 440px;
+    height: 250px;
+}
+.img2 {
+    position: absolute;
+    bottom: 70px;
+    left: 500px;
+    width: 440px;
+    height: 250px;
+}
+
+
+.speaker .img1 {
+    position: static;
+    bottom: 0px;
+    left: 0px;
+    width: 400px;
+    height: 200px;
+    text-align: right;
+    padding-bottom: 20px;
+}
+
+.speaker .img1 img {
+    margin-right: 20px;
+}
+.speaker .img2 {
+    position: static;
+    bottom: 0px;
+    left: 0px;
+    width: 400px;
+    height: 200px;
+    text-align: right;
+}
+.speaker .img2 img {
+    margin-right: 20px;
+}
+
+.pathfind {
+    background: url(pathfinding.jpg);
+    background-position: top -250px left -20px;
+}
+.gamedev {
+    background: url(game05.jpg);
+    background-position: top -10px left 0px;
+}
+
+h4 {
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    color: #0027ff;
+    font-weight: bold;
+    padding: 0px;
+    margin: 0px 0px 17px 0px;
+}
+th {
+    color: #0027ff;
+}
+
+.speaker .photo {
+    margin: 0px 50px 23px 0px;
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+    overflow: hidden;
+}
+.speaker .text {
+    margin-top: 35px;
+}
+
+.vmiddle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.text {
+    padding-left: 30px;
+}
+h3::before {
+    background: url(INNO-logo2.svg) no-repeat;
+    background-size: contain;
+    color: black;
+    padding: 0px;
+    margin: 0px;
+    display: block;
+    line-height: var(--ribbon-side);
+    left: auto;
+    top: calc(var(--slide-side) - 5px);
+    right: var(--slide-side);
+    content: '';
+    width: 200px;
+    height: 50px;
+    position: absolute;
+}
+.slide.title::before, .nologo::before {
+    display: none;
+}
+.slide.title::after {
+    color: #1964f3;
+}
+.slide mark {
+    background-color: #dfeafb;
+    color: #0027ff;
+}
+.slide mark.orange {
+    background-color: #f4e6ff;
+    color: #a321fe;
+}
+
+
+.slide::before {
+    position: absolute;
+    bottom: calc(var(--slide-side));
+    display: block;
+    content: '\A9  2023 ГК \ABИннотех\00BB. Все права защищены. Все товарные знаки являются собственностью их владельцев';
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.7rem;
+    text-transform: none;
+    line-height: 1rem;
+    color: #cdcdcd;
+    z-index: 100;
+}
+.nocopy::before {
+    display: none;
+}
+.slide::after {
+    background: none;
+    color: black;
+    width: var(--ribbon-side);
+    height: var(--ribbon-side);
+    padding: 0px;
+    margin: 0px;
+    display: block;
+    line-height: var(--ribbon-side);
+    left: auto;
+    right: var(--slide-side);
+    top: auto;
+    bottom: var(--slide-side);
+    font-size: 0.6em;
+}
+
+h1, h3, p, label, li {
+    color: #04267E;
+}
+
+.slide.portrait {
+    background: url(speaker.jpg);
+    background-position: left;
+    background-size: cover;
+}
+.portrait h3, .portrait p {
+    color: white;
+}
+.portrait .textBack {
+    background-color: rgba(0, 0, 0, 0.5);;
+    margin-right: 40%;
+    padding-left: 20px;
+}
+.tg {
+    display: flex;
+    align-items: center;
+}
+
+.tg p {
+    margin-right: 20px;
+}
+
+.smaller {
+    font-size: 80%;
+}
+.smaller70 {
+    font-size: 70%;
+}
+.pic {
+    padding: var(--slide-side) var(--slide-side) 0px var(--slide-side);
+}
+.text {
+    padding-left: 30px;
+}
+.slide {
+    padding: var(--slide-side) var(--slide-side) 0px var(--slide-side);
+}
+h1, h3 {
+    color: #000;
+    text-transform: uppercase;
+    font-family: 'ArialBlack', Arial, Helvetica, sans-serif;
+}
+h3 {
+    margin: 0px 0px 50px 1.2em;
+    font-size: 1.7em;
+    line-height: 1.0em;
+    text-indent: -1.2em;
+    width: 80%;
+}
+h3.d10 {
+    margin: 0px 0px 10px 0px;
+}
+h3.d20 {
+    margin: 0px 0px 20px 0px;
+}
+h3.noindent {
+    text-indent: 0;
+    margin-left: 0;
+}
+p, label, li {
+    color: #000;
+}
+
+.slide.title {
+    background: url(bgTitle.png);
+    background-position: left;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+.slide.title h1, .slide.title h3 {
+    color: white;
+}
+
+.slide.title .logo {
+    position: absolute;
+    left: 0px;
+    top: 15px;
+    width: 320px;
+}
+
+.slide.title h1 {
+    font-size: 60px;
+    line-height: 120%;
+    margin-top: 0%;
+    margin-bottom: 0px;
+}
+.slide.title h3 {
+    margin: 20px 0px 30px 0px;
+    font-size: 1.2em;
+    text-transform: none;
+}
+
+.slide p, .slide li {
+    max-width: 70%;
+    margin-bottom: 1rem;
+}
+.slide p.pretty, .slide li.pretty {
+    text-indent: -1em;
+    margin-left: 1em;
+}
+
+.slide .maxw100 {
+    max-width: 100%;
+}
+
+
+.slide li {
+    margin-left: 1.5rem;
+}
+
+.slide.speaker p, .slide.inspiration p {
+    max-width: 100%;
+}
+
+.abstractGraph .canvas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.impulse-logo {
+    position: relative;
+    top: -35px;
+}
+.game .canvas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.game .controls {
+    display: flex;
+    justify-content: center;
+    align-items:flex-start;
+    padding-top: 15px;
+}
+
+.tg {
+    display: flex;
+    align-items: center;
+}
+
+.tg p {
+    margin-right: 20px;
+}
+
+.smaller, #smaller {
+    font-size: 80%;
+    padding-left: 26px;
+}
+.smaller70 {
+    font-size: 70%;
+}
+
+.slide pre {
+    margin-left: calc(var(--slide-side) * 2);
+}
+.slide pre code {
+    line-height: 130%;
+}
+.progress {
+    --color-blue: #0038ff;
+}
+.lh110 p, .lh110 pre code {
+    line-height: 110%;
+}
+
+.lh100 p, .lh100 pre code {
+    line-height: 100%;
+}
+
+.lh90 p, .lh90 pre code {
+    line-height: 90%;
+}
+
+.slide li::before {
+    color: #0038ff;
+}
+
+.link {
+    color: #0038ff;
+}
+
+.qrs {
+    display: grid;
+    grid-template-areas: "ap_qr e e e e" "ap_qr a algos app  inno" "ap_qr a_qr algos_qr app_qr inno_qr";
+    grid-template-columns: 28% 13% 13% 13% 13%;
+    grid-template-rows: 60px auto 140px;
+    grid-column-gap: 5%;
+}
+.a, .algos, .app, .ap, .inno {
+    text-align: left;
+    font-size: 80%;
+    display: flex;
+    align-items: end;
+    line-height: 1.1em;
+}
+
+.inno {
+    font-size: 60%;
+}
+.a {
+    grid-area: a;
+}
+.a_qr {
+    grid-area: a_qr;
+    background: url(A-qr-code.gif) no-repeat;
+    background-size: contain;
+    background-position: bottom;
+}
+
+.algos {
+    grid-area: algos;
+}
+.algos_qr {
+    grid-area: algos_qr;
+    background: url(more-algorithms-qr-code.gif) no-repeat;
+    background-size: contain;
+    background-position: bottom;
+}
+
+.ap {
+    grid-area: ap;
+}
+.ap_qr {
+    grid-area: ap_qr;
+    background: url(TG-qr-code.gif) no-repeat;
+    background-size: contain;
+    background-position: bottom;
+}
+
+.inno {
+    grid-area: inno;
+}
+.inno_qr {
+    grid-area: inno_qr;
+    background: url(INNO-qr-code.gif) no-repeat;
+    background-size: contain;
+    background-position: bottom;
+}
+
+.app {
+    grid-area: app;
+}
+.app_qr {
+    grid-area: app_qr;
+    background: url(gameSrc-qr-code.gif) no-repeat;
+    background-size: contain;
+    background-position: bottom;
+}
+table {
+    margin: 0px 0px 50px 0px;
+    width: 70%;
+}
+strong {
+    font-weight: normal;
+    color: #0038FF;
+}
+.ok strong {
+    color: inherit;
+}
+.schemeContainer {
+    overflow: hidden;
+}
+.scheme {
+    position: relative;
+    top: -100px;
+}
