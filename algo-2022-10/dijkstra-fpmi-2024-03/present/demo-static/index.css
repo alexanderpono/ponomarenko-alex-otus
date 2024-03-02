@@ -191,7 +191,7 @@ h3::before {
     display: none;
 }
 .slide::after {
-    background: url('/demo-static/fpmi-logo-b.png') no-repeat;
+    background: url(fpmi-logo-b.png) no-repeat;
     background-position: right;
     color: black;
     width: var(--ribbon-side);
