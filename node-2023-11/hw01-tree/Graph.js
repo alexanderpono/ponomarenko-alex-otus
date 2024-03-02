@@ -65,6 +65,9 @@ class Graph {
                 if (curLine[x] === CORNER && nextLine[x] === VERT) {
                     curLine[x] = VERT_RIGHT;
                 }
+                if (curLine[x] === SPACE && nextLine[x] === VERT_RIGHT) {
+                    curLine[x] = VERT;
+                }
             }
             treeLines[i] = curLine.join('');
         }
