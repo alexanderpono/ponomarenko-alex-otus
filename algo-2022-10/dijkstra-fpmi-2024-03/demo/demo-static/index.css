@@ -140,6 +140,18 @@ th {
 .text {
     padding-left: 30px;
 }
+
+.dijkstra {
+    padding-right: 0px;
+    position: relative;
+}
+
+.dijkstra .photo {
+    position: absolute;
+    right: 0px;
+    top: -90px;
+    width: 338px;
+}
 h3::before {
     background: url(INNO-logo2.svg) no-repeat;
     background-size: contain;
@@ -206,6 +218,9 @@ h3::before {
     bottom: var(--slide-side);
     font-size: 0.6em;
     content: counter(slide);
+}
+.nofpmi::after {
+    display: none;
 }
 
 h1, h3, p, label, li {
@@ -316,6 +331,10 @@ p, label, li {
 
 .slide .maxw100 {
     max-width: 100%;
+}
+
+.slide .del {
+    color: grey;
 }
 
 
@@ -479,4 +498,7 @@ strong {
 .scheme {
     position: relative;
     top: -100px;
+}
+.q {
+    quotes: "«" "»";
 }

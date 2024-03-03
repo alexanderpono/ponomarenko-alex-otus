@@ -109,7 +109,12 @@ export class GameController {
     }
 
     renderUI = () => {
-        render(this.getUI(), document.getElementById(this.target));
+        const targetEl = document.getElementById(this.target);
+        if (targetEl) {
+            render(this.getUI(), targetEl);
+        } else {
+            console.log('render(): target el is not found:', this.target);
+        }
     };
 
     getUI = () => (

@@ -42,7 +42,7 @@
         </div>
     </section>
 
-    <section class="slide inspiration">
+    <!-- <section class="slide inspiration">
         <h3>Источник вдохновения</h3>
         <div class="picText">
             <div>
@@ -119,10 +119,10 @@
                 <img src="demo-static/inspiration.png" width="500"/>
             </div>
         </div>
-    </section>
+    </section> -->
 
-    <section class="slide">
-        <h3 class="noindent">Если вы &mdash; IT-специалист <br />и ваша задача:</h3>
+    <section class="slide nocopy">
+        <h3 class="noindent">Если вы решаете задачу:</h3>
 
         <div class="picText">
             <div class="w50">
@@ -141,7 +141,7 @@
     </section>
 
     <section class="slide">
-        <h3>Через 40 минут</h3>
+        <h3>Через 25 минут</h3>
         <h4>Вы будете знать:</h4>
         <ul>
             <li>Как реализовать алгоритм Дейкстры </li>
@@ -312,19 +312,124 @@
     <section class="slide">
         <h3>Содержание</h3>
         <p><strong>1.</strong> Алгоритм Дейкстры</p>
-        <p class="pretty"><strong>2.</strong> Адаптация алгоритма Дейкстры к работе на графе &mdash; квадратной сетке</p>
-        <p><strong>3.</strong> Решение задач расчета траектории движения</p>
-        <p><strong>4.</strong> Алгоритм A*</p>
-        <p><strong>5.</strong> Решение задачи телепортации</p>
-        <p><strong>6.</strong> Сравнение алгоритмов Дейкстры и A*</p>
+        <p><strong>2.</strong> Квадратная сетка и обход препятствий</p>
+        <p><strong>3.</strong> Оптимизация. A*</p>
+        <p><strong>4.</strong> Телепортация</p>
+        <p><strong>5.</strong> Алгоритм Дейкстры vs A*</p>
+        <p><strong>6.</strong> Примеры игр</p>
     </section>
 
-    <section class="slide">
-        <h3>1. Алгоритм Дейкстры</h3>
-        <p>Алгоритм Дейкстры — алгоритм на графах, изобретённый нидерландским учёным Эдсгером Дейкстрой в 1959 году. Находит кратчайшие пути <br />от одной из вершин графа до всех остальных</p>
+    <section class="slide nocopy">
+        <h3 class="noindent">1. Что объединяет эти задачи?</h3>
+
+        <div class="picText">
+            <div class="w50">
+                <ul>
+                    <li class="maxw100">Маршрутизировать трафик по сети</li>
+                    <li class="maxw100">Создать программу-навигатор, который будет находить кратчайший путь из точки А <br />в точку Б</li>
+                    <li class="maxw100">Создать программу расчета электрических цепей</li>
+                    <li class="maxw100">Создать компьютерную игру</li>
+                </ul>
+                
+            </div>
+            <div class="text">
+            </div>
+        </div>
     </section>
 
-    <section class="slide">
+    <section class="slide nocopy">
+        <h3 class="noindent">1. Что объединяет эти задачи?</h3>
+
+        <div class="picText">
+            <div class="w50">
+                <ul>
+                    <li class="maxw100">Маршрутизировать трафик по сети</li>
+                    <li class="maxw100">Создать программу-навигатор, который будет находить кратчайший путь из точки А <br />в точку Б</li>
+                    <li class="maxw100">Создать программу расчета электрических цепей</li>
+                    <li class="maxw100">Создать компьютерную игру</li>
+                </ul>
+                
+            </div>
+            <div class="text">
+                <br /><br /><br /><br />
+                <mark>Нужно обходить препятствия и найти кратчайший путь</mark>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide nocopy">
+        <h3 class="noindent">1. Что такое граф?</h3>
+
+        <p><strong>1.</strong> Вид посуды</p>
+        <p><strong>2.</strong> Муж графини</p>
+        <p><strong>3.</strong> Почетный дворянский титул</p>
+        <p><strong>4.</strong> Геометрическая фигура</p>
+    </section>
+
+    <section class="slide nocopy">
+        <h3>1. Взвешенный <br/>неориентированный граф</h3>
+
+        <div class="picText">
+            <div class="w50">
+                <ul>
+                    <li class="maxw100">Алгоритм Дейкстры</li>
+                    <li class="maxw100">А*</li>
+                    <li class="maxw100 del">BFS (Breadth-First Search) &mdash; для невзвешенных графов</li>
+                </ul>
+                
+            </div>
+            <div class="text">
+                <div id="slide01" class="abstractGraph"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide nocopy">
+        <h3>1. Алгоритмы для отрицательных <br />весов ребер</h3>
+
+        <div class="picText">
+            <div class="w50">
+                <ul>
+                    <li class="maxw100 del">Беллмана-Форда (ориентированные и неориентированные)</li>
+                    <li class="maxw100 del">Флойда-Уоршелла (ориентированные и неориентированные)</li>
+                    <li class="maxw100 del">Джонсона (только ориентированные графы)</li>
+                </ul>
+
+            </div>
+            <div class="text">
+                <div id="slide01" class="abstractGraph"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide nocopy nofpmi">
+        <h3>1. Кто этот человек?</h3>
+
+        <div class="picText">
+            <div class="w50">
+
+            </div>
+            <div class="w50 dijkstra">
+                <img class="photo" src="demo-static/Dijkstra.jpg" />
+            </div>
+        </div>
+    </section>
+
+    <section class="slide nocopy nofpmi">
+        <h3>1. Эдсгер Дейкстра</h3>
+
+        <div class="picText">
+            <div class="w60">
+                <p>Алгоритм Дейкстры — алгоритм на графах, изобретённый нидерландским учёным Эдсгером Дейкстрой в 1959 году.</p> 
+                <p>Находит кратчайшие пути <br />от одной из вершин графа <br />до всех остальных</p>
+            </div>
+            <div class="w40 dijkstra">
+                <img class="photo" src="demo-static/Dijkstra.jpg" />
+            </div>
+        </div>
+    </section>
+
+    <!-- <section class="slide">
         <h3 class="noindent">Где может пригодиться алгоритм Дейкстры?</h3>
         <ul>
             <li>Маршрутизация в компьютерных сетях</li>
@@ -334,7 +439,7 @@
             <li>...</li>
         </ul>
     </section>
-
+ -->
     <section class="slide">
         <h3>1. Алгоритм Дейкстры. Основные моменты</h3>
         <ul>
@@ -358,14 +463,14 @@
         <div id="graph-ok" class="abstractGraph"></div>
     </section>
 
-    <section class="slide">
+    <!-- <section class="slide">
         <div class="abstractGraph">
             <h3>1. Алгоритм Дейкстры</h3>
             <div class="schemeContainer"><img class="scheme" src="demo-static/dijkra3-short.svg" width="1000"/></div>
         </div>
-    </section>
+    </section> -->
 
-    <section class="slide nocopy">
+    <!-- <section class="slide nocopy">
         <h3>1. Внешний и внутренний циклы алгоритма</h3>
         <pre>
             <code>calcVerticesCost = (fromVertex: number) => {</code>
@@ -397,18 +502,16 @@
             <code>        edgeIndex); </code>
             <code>}</code>
         </pre>        
-    </section>
-
-
+    </section> -->
 
     <section class="slide">
         <h3>Содержание</h3>
         <p class="ok">1. Алгоритм Дейкстры</p>
-        <p class="pretty"><strong>2.</strong> Адаптация алгоритма Дейкстры к работе на графе &mdash; квадратной сетке</p>
-        <p><strong>3.</strong> Решение задач расчета траектории движения</p>
-        <p><strong>4.</strong> Алгоритм A*</p>
-        <p><strong>5.</strong> Решение задачи телепортации</p>
-        <p><strong>6.</strong> Сравнение алгоритмов Дейкстры и A*</p>
+        <p><strong>2.</strong> Квадратная сетка и обход препятствий</p>
+        <p><strong>3.</strong> Оптимизация. A*</p>
+        <p><strong>4.</strong> Телепортация</p>
+        <p><strong>5.</strong> Алгоритм Дейкстры vs A*</p>
+        <p><strong>6.</strong> Примеры игр</p>
     </section>
 
     <section class="slide">
@@ -423,16 +526,6 @@
         <div id="slide1_3" class="game"></div>
     </section>
     
-    <section class="slide">
-        <h3>Содержание</h3>
-        <p class="ok">1. Алгоритм Дейкстры</p>
-        <p class="ok pretty">2. Адаптация алгоритма Дейкстры к работе на графе &mdash; квадратной сетке</p>
-        <p><strong>3.</strong> Решение задач расчета траектории движения</p>
-        <p><strong>4.</strong> Алгоритм A*</p>
-        <p><strong>5.</strong> Решение задачи телепортации</p>
-        <p><strong>6.</strong> Сравнение алгоритмов Дейкстры и A*</p>
-    </section>
-
     <section class="slide">
         <div id="slide2_2" class="game"></div>
     </section>
@@ -449,6 +542,19 @@
         <div id="slide2_4" class="game"></div>
     </section>
 
+    <section class="slide">
+        <h3>2. Как звучит закон Мерфи?</h3>
+    </section>
+
+    <section class="slide">
+        <h3>2. Закон Мерфи</h3>
+        <p class="q"><q>Если что-нибудь может пойти не так – оно пойдет не так</q></p>
+        <p>Эдвард Мерфи</p>
+    </section>
+
+
+
+
     <section class="slide nocopy">
         <div id="slide3a" class="game"></div>
     </section>
@@ -461,7 +567,7 @@
         <div id="slide3a_3" class="game"></div>
     </section>
 
-    <section class="slide lh110 nocopy">
+    <!-- <section class="slide lh110 nocopy">
         <h3>3. Функция вычисления следующей вершины</h3>
         <pre>
             <code><mark>getNextVertex = (verticesToProcess: number[]): number => {</mark></code>
@@ -479,7 +585,7 @@
             <code>    return result;</code>
             <code>};</code>
         </pre>        
-    </section>
+    </section> -->
 
     <section class="slide nocopy">
         <div id="slide3" class="game"></div>
@@ -540,12 +646,12 @@
     <section class="slide">
         <h3>Содержание</h3>
         <p class="ok">1. Алгоритм Дейкстры</p>
-        <p class="ok pretty">2. Адаптация алгоритма Дейкстры к работе на графе &mdash; квадратной сетке</p>
-        <p class="ok">3. Решение задач расчета траектории движения</p>
-        <p><strong>4.</strong> Алгоритм A*</p>
-        <p><strong>5.</strong> Решение задачи телепортации</p>
-        <p><strong>6.</strong> Сравнение алгоритмов Дейкстры и A*</p>
-   </section>
+        <p class="ok">2. Квадратная сетка и обход препятствий</p>
+        <p><strong>3.</strong> Оптимизация. A*</p>
+        <p><strong>4.</strong> Телепортация</p>
+        <p><strong>5.</strong> Алгоритм Дейкстры vs A*</p>
+        <p><strong>6.</strong> Примеры игр</p>
+    </section>
 
     <section class="slide">
         <div id="V5_7_1" class="game"></div>
@@ -606,7 +712,7 @@
         <p>&nbsp;&nbsp;&nbsp;&nbsp;(x, y) &mdash; вершина, для которой вычисляем значение H()</p>
     </section>
 
-    <section class="slide lh100 nocopy">
+    <!-- <section class="slide lh100 nocopy">
         <h3>4. Функция вычисления следующей вершины</h3>
         <pre>
             <code>getNextVertex = (verticesToProcess: number[]): number => {</code>
@@ -625,7 +731,7 @@
             <code>    return result;</code>
             <code>};</code>
         </pre>        
-    </section>
+    </section> -->
 
     <section class="slide">
         <h3>4. Эвристическая <br />функция H2()</h3>
@@ -682,9 +788,9 @@
         <div id="V5_barrier5" class="game"></div>
     </section>
 
-    <section class="slide nocopy">
+    <!-- <section class="slide nocopy">
         <div id="V5_barrier6" class="game"></div>
-    </section>
+    </section> -->
 
     <section class="slide">
         <h3>4. Эвристическая <br />функция H4()</h3>
@@ -697,12 +803,12 @@
     <section class="slide">
         <h3>Содержание</h3>
         <p class="ok">1. Алгоритм Дейкстры</p>
-        <p class="ok pretty">2. Адаптация алгоритма Дейкстры к работе на графе &mdash; квадратной сетке</p>
-        <p class="ok">3. Решение задач расчета траектории движения</p>
-        <p class="ok">4. Алгоритм A*</p>
-        <p><strong>5.</strong> Решение задачи телепортации</p>
-        <p><strong>6.</strong> Сравнение алгоритмов Дейкстры и A*</p>
-    </section>    
+        <p class="ok">2. Квадратная сетка и обход препятствий</p>
+        <p class="ok">3. Оптимизация. A*</p>
+        <p><strong>4.</strong> Телепортация</p>
+        <p><strong>5.</strong> Алгоритм Дейкстры vs A*</p>
+        <p><strong>6.</strong> Примеры игр</p>
+    </section>
 
     <section class="slide">
         <div id="teleport_intro_1" class="game"></div>
@@ -735,19 +841,19 @@
     <section class="slide">
         <h3>Содержание</h3>
         <p class="ok">1. Алгоритм Дейкстры</p>
-        <p class="ok pretty">2. Адаптация алгоритма Дейкстры к работе на графе &mdash; квадратной сетке</p>
-        <p class="ok">3. Решение задач расчета траектории движения</p>
-        <p class="ok">4. Алгоритм A*</p>
-        <p class="ok">5. Решение задачи телепортации</p>
-        <p><strong>6.</strong> Сравнение алгоритмов Дейкстры и A*</p>
-    </section>    
+        <p class="ok">2. Квадратная сетка и обход препятствий</p>
+        <p class="ok">3. Оптимизация. A*</p>
+        <p class="ok">4. Телепортация</p>
+        <p><strong>5.</strong> Алгоритм Дейкстры vs A*</p>
+        <p><strong>6.</strong> Примеры игр</p>
+    </section>
 
     <section class="slide">
         <div id="O_1" class="game"></div>
     </section>
 
     <section class="slide">
-        <h3>6. T(N) &ndash; время расчета</h3>
+        <h3>5. T(N) &ndash; время расчета</h3>
         <h4>Реализация алгоритма Дейкстры</h4>
         <table>
             <tbody>
@@ -772,7 +878,7 @@
     </section>
 
     <section class="slide nocopy">
-        <h3>6. T(N) &ndash; время расчета</h3>
+        <h3>5. T(N) &ndash; время расчета</h3>
         <h4>Реализация алгоритма Дейкстры</h4>
         <table>
             <tbody>
@@ -791,7 +897,7 @@
             </tbody>
         </table>
 
-        <h4>Реализация алгоритма A*</h4>
+        <h4>5. Реализация алгоритма A*</h4>
         <table>
             <tbody>
                 <tr>
@@ -813,29 +919,18 @@
         </table>
     </section>    
 
-
     <section class="slide">
-        <h3>Содержание</h3>
-        <p class="ok">1. Алгоритм Дейкстры</p>
-        <p class="ok pretty">2. Адаптация алгоритма Дейкстры к работе на графе &mdash; квадратной сетке</p>
-        <p class="ok">3. Решение задач расчета траектории движения</p>
-        <p class="ok">4. Алгоритм A*</p>
-        <p class="ok">5. Решение задачи телепортации</p>
-        <p class="ok">6. Сравнение алгоритмов Дейкстры и A*</p>
-    </section>
-
-    <section class="slide">
-        <h3>Выводы</h3>
+        <h3>5. Выводы</h3>
         <p>1. Алгоритм Дейкстры проще в реализации, чем A*</p>
         <p>2. A* эффективнее, чем алгоритм Дейкстры</p>
         <p class="pretty">3. Можно создавать свои игры на основе примера: <br />
             <span class="link">https://github.com/alexanderpono/bricks-runner</span>
         </p>
-        <p class="pretty">4. Не бойтесь экспериментировать. Преимущество фронтенда &ndash; можно сразу увидеть результат!</p>
+        <p class="pretty">** Также очень хорош BFS (Breadth-First Search) с эвристикой, но нужен невзвешенный граф</p>
     </section>
 
     <section class="slide">
-        <h3>Что еще почитать?</h3>
+        <h3>5. Что еще почитать?</h3>
         <ul>
             <li>A* &mdash; развитие алгоритма Дейкстры <span class="link">https://www.redblobgames.com/pathfinding/a-star/introduction.html</span></li>
             <li>Еще об алгоритмах на графах <span class="link">https://habr.com/ru/companies/timeweb/articles/751762/</span></li>
@@ -844,7 +939,25 @@
     </section>
    
     <section class="slide">
+        <h3>Содержание</h3>
+        <p class="ok">1. Алгоритм Дейкстры</p>
+        <p class="ok">2. Квадратная сетка и обход препятствий</p>
+        <p class="ok">3. Оптимизация. A*</p>
+        <p class="ok">4. Телепортация</p>
+        <p class="ok">5. Алгоритм Дейкстры vs A*</p>
+        <p><strong>6.</strong> Примеры игр</p>
+    </section>
+
+    <section class="slide">
         <div id="game2" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="game3" class="game">6. Bricks Runner</div>
+    </section>
+
+    <section class="slide">
+        <div id="game3" class="game">6. Bricks Runner-2</div>
     </section>
 
     <section class="slide">

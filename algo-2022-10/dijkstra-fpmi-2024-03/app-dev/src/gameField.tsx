@@ -117,7 +117,7 @@ renderGameField(
     GraphCalculator
 );
 
-const GROUP_2 = '3. Траектория движения <br />с обходом препятствий';
+const GROUP_2 = '2. Траектория движения <br />с обходом препятствий';
 renderGameField(GROUP_2, map1, 'slide2', MAP_START_STOP, ADVANCED, GraphCalculator);
 renderGameField(GROUP_2, map1, 'slide2_2', MAP_LINES, ADVANCED, GraphCalculator);
 renderGameField(
@@ -151,8 +151,15 @@ const map2 = `
 ▓  ╡     ╡   $╡  ▓
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
     `;
-const GROUP_3 = '3. Ошибка реализации: неоптимальный путь';
-renderGameField(GROUP_3, map2, 'slide3a', MAP_START_STOP, ADVANCED, GraphCalculator);
+const GROUP_3 = '2. Ошибка реализации';
+renderGameField(
+    '2. Что здесь может пойти не так?',
+    map2,
+    'slide3a',
+    MAP_START_STOP,
+    ADVANCED,
+    GraphCalculator
+);
 renderGameField(GROUP_3, map2, 'slide3a_2', MAP_PATH, ADVANCED, GraphCalculator);
 renderGameField(
     GROUP_3,
@@ -163,7 +170,7 @@ renderGameField(
     GraphCalculator
 );
 
-const GROUP_4 = '3. Результат выбора оптимального пути';
+const GROUP_4 = '2. Нашли оптимальный путь';
 renderGameField(GROUP_4, map2, 'slide3', MAP_START_STOP, ADVANCED, GraphCalculatorV2);
 renderGameField(GROUP_4, map2, 'slide3_2', MAP_PATH, ADVANCED, GraphCalculatorV2);
 renderGameField(
@@ -185,11 +192,18 @@ const map3 = `
 ▓  ╡     ╡   $╡  ▓
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
     `;
-const GROUP_5 = '3. Персонаж должен <br />падать в отверстие';
-renderGameField(GROUP_5, map3, 'slide4', MAP_START_STOP, ADVANCED, GraphCalculatorV2);
-renderGameField(GROUP_5, map3, 'slide4_2', MAP_PATH, ADVANCED, GraphCalculatorV2);
+const GROUP_5 = '2. Падение в отверстие';
 renderGameField(
-    GROUP_5,
+    '2. Что здесь может пойти не так?',
+    map3,
+    'slide4',
+    MAP_START_STOP,
+    ADVANCED,
+    GraphCalculatorV2
+);
+renderGameField('2. Что-то пошло не так', map3, 'slide4_2', MAP_PATH, ADVANCED, GraphCalculatorV2);
+renderGameField(
+    '2. Что-то пошло не так',
     map3,
     'slide4_3',
     { ...MAP_COST_PATH, highlightCells: [{ x: 5, y: 0 }] },
@@ -197,7 +211,7 @@ renderGameField(
     GraphCalculatorV2
 );
 renderGameField(
-    GROUP_5,
+    '2. Неориентированный граф',
     map3,
     'slide4_4',
     { ...MAP_LINES, highlightCells: [{ x: 4, y: 0 }] },
@@ -206,7 +220,7 @@ renderGameField(
 );
 
 renderGameField(
-    GROUP_5,
+    '2. Запрет движения влево и вправо',
     map3,
     'V5',
     { ...MAP_LINES, highlightCells: [{ x: 4, y: 0 }] },
@@ -233,8 +247,15 @@ const map4 = `
 ▓  ╡     ╡    ╡  ▓
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
     `;
-const GROUP_6 = '3. Не должен подниматься по воздуху вверх';
-renderGameField(GROUP_6, map4, 'V5_4', MAP_START_STOP, ADVANCED_V2, GraphCalculatorV3);
+const GROUP_6 = '2. Все работает правильно';
+renderGameField(
+    '2. Что здесь может пойти не так?',
+    map4,
+    'V5_4',
+    MAP_START_STOP,
+    ADVANCED_V2,
+    GraphCalculatorV3
+);
 renderGameField(
     GROUP_6,
     map4,
@@ -502,7 +523,7 @@ renderGameField(
 );
 
 renderGameField(
-    '6. Алгоритм Дейкстры. Результат расчета графа',
+    '5. Алгоритм Дейкстры. Результат расчета графа',
     map5,
     'O_1',
     LINES_COST_PATH,
@@ -512,7 +533,7 @@ renderGameField(
 );
 
 renderGameField(
-    '6. A* с эвристикой H4()',
+    '5. A* с эвристикой H4()',
     map5,
     'O_2',
     LINES_COST_PATH_PROGRESS,
@@ -521,7 +542,15 @@ renderGameField(
     ALL_NODES
 );
 
-renderSupaField('И наконец...', map5, 'game2', START_STOP, SIMPLE, GraphCalculatorV5f, ALL_NODES);
+renderSupaField(
+    '6. Игра с поиском кратчайшего пути',
+    map5,
+    'game2',
+    START_STOP,
+    SIMPLE,
+    GraphCalculatorV5f,
+    ALL_NODES
+);
 
 function renderSupaField(
     title: string,
@@ -584,7 +613,7 @@ const map12a = `
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
     `;
 renderGameField(
-    '5. Ограничены ли мы <br />2D-пространством?',
+    '4. Телепортация',
     map12a,
     'teleport_intro_1',
     LINES_COST_PATH,
@@ -594,7 +623,7 @@ renderGameField(
 );
 
 renderGameField(
-    '5. Ограничены ли мы <br />2D-пространством?',
+    '4. Телепортация',
     map12a,
     'teleport_intro_2',
     LINES_COST_PATH_MAP,
@@ -604,7 +633,7 @@ renderGameField(
 );
 
 renderGameField(
-    '5. Ограничены ли мы <br />2D-пространством?',
+    '4. Телепортация',
     map12,
     'teleport_intro_3',
     LINES_COST_PATH_MAP,
@@ -614,7 +643,7 @@ renderGameField(
 );
 
 renderGameField(
-    '5. Ограничены ли мы <br />2D-пространством?',
+    '4. Телепортация',
     map12,
     'teleport_intro_4',
     LINES_COST_PATH_MAP,
@@ -624,7 +653,7 @@ renderGameField(
 );
 
 renderGameField(
-    '5. Телепортация и A*: <br />не нашли кратчайший путь',
+    '5. A* не нашел кратчайший путь',
     map12,
     'teleport_2',
     LINES_COST_PATH_MAP_PROGRESS,
@@ -634,7 +663,7 @@ renderGameField(
 );
 
 renderGameField(
-    '5. Возвращаемся <br />к алгоритму Дейкстры',
+    '5. Применяем алгоритм Дейкстры',
     map12,
     'teleport_3',
     LINES_COST_PATH_MAP_PROGRESS,
@@ -644,7 +673,7 @@ renderGameField(
 );
 
 renderGameField(
-    '5. Телепортация: <br />как это работает',
+    '5. Телепортация: поехали',
     map12,
     'teleport_4',
     MAP_PATH_START_STOP,

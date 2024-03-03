@@ -47,7 +47,7 @@ export const GameControls = React.forwardRef<HTMLCanvasElement, GameFieldUIProps
                                     Старт
                                 </button>
                                 <button onClick={ctrl.onBtClearClick} className="appButton">
-                                    Стоп
+                                    В начало
                                 </button>
                             </>
                         )}
