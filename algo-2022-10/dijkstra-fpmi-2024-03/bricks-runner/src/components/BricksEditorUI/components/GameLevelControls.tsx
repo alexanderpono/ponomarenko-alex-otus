@@ -11,7 +11,7 @@ interface GameLevelControlsProps {
 export const GameLevelControls: React.FC<GameLevelControlsProps> = ({ ctrl, shellState }) => {
     return (
         <>
-            <div className={styles.tip}>1. ОТРЕДАКТИРУЙТЕ УРОВЕНЬ, ИСПОЛЬЗУЯ ИНВЕНТАРЬ:</div>
+            <div className={cn(styles.tip, 'txt')}>ИНВЕНТАРЬ:</div>
             <div className={styles.inventory}>
                 {shellState.inventory.map((item: InventoryItem) => {
                     return (
@@ -38,13 +38,12 @@ export const GameLevelControls: React.FC<GameLevelControlsProps> = ({ ctrl, shel
                                 })}
                             >
                                 <span className={item.name}></span>
-                                <span className={styles.count}>{item.count}</span>
+                                <span className={cn(styles.count, 'txt')}>{item.count}</span>
                             </label>
                         );
                     })}
                 </section>
             </div>
-            <div className={styles.tip}>2. НАЖМИТЕ НА&nbsp;КНОПКУ:</div>
             <button onClick={ctrl.onBtStartClick} className={cn(styles.appBut, styles.btGo)}>
                 <div>СТАРТ</div>
             </button>

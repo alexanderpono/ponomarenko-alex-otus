@@ -502,3 +502,11 @@ strong {
 .q {
     quotes: "«" "»";
 }
+
+.bricks {
+    background: black;
+}
+
+.bricks .txt {
+    color: #ffff40;
+}

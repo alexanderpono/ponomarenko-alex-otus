@@ -20,12 +20,24 @@ module.exports = function (grunt) {
                 ],
                 tasks: ['exec:build']
             },
+            {
+                options: {
+                    livereload: true
+                },
+                files: [
+                    '../bricks-runner/src/**/*.*'
+                ],
+                tasks: ['exec:buildBricks']
+            },
         ],
         concat: {
         },
         exec: {
             build: {
                 cmd: `bash ./build-app.sh`
+            },
+            buildBricks: {
+                cmd: `bash ./build-bricks.sh`
             },
         },
         run: {

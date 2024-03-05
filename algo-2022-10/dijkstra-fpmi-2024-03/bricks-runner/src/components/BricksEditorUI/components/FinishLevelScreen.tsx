@@ -22,34 +22,21 @@ export const FinishLevelScreen: React.FC<FinishLevelScreenProps> = ({ ctrl, shel
             <div className={styles.bg}></div>
             <div className={styles.content}>
                 <div className={styles.win}>
-                    <h1>
-                        {!shellState.pathIsFound && 'ПРОХОД НЕ НАЙДЕН...'}{' '}
+                    <h1 className="txt">
+                        {!shellState.pathIsFound && 'ПРОХОД НЕ НАЙДЕН...'}
                         {shellState.pathIsFound &&
                             `ПРОЙДЕН УРОВЕНЬ ${shellState.levelIndex + 1} / ${
                                 shellState.levels.length
                             }`}
                     </h1>
-                    <p>
-                        КОЛИЧЕСТВО МОНЕТ: {levelStats.coins} <br />
+                    <p className="txt">
+                        КОЛИЧЕСТВО&nbsp;МОНЕТ:&nbsp;{levelStats.coins} <br />
                         ВРЕМЯ РЕШЕНИЯ ЗАДАЧИ: {formatTime(levelStats.time)}
                     </p>
-                    <p>
-                        ОБЩЕЕ КОЛИЧЕСТВО МОНЕТ: {currentSumma.coins} <br />
-                        ОБЩЕЕ ВРЕМЯ РЕШЕНИЯ ЗАДАЧ: {formatTime(currentSumma.time)}
-                    </p>
                     {!finishGame && (
-                        <button className={styles.appBut} onClick={ctrl.onBtNextLevelClick}>
-                            <div>
-                                К УРОВНЮ {shellState.levelIndex + 2} / {shellState.levels.length}
-                            </div>
+                        <button className={styles.appBut} onClick={ctrl.onBtToLevel1}>
+                            <div>ЕЩЕ РАЗ</div>
                         </button>
-                    )}
-                    {finishGame && (
-                        <div className={styles.bt}>
-                            <button className={styles.appBut} onClick={ctrl.onSendResultsClick}>
-                                <div>ОК</div>
-                            </button>
-                        </div>
                     )}
                 </div>
             </div>

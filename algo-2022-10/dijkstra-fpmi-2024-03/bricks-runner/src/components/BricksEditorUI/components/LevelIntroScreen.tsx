@@ -12,6 +12,9 @@ const replaceAll = (s: string, toReplace: string, toInsert: string): string => {
     return s.split(toReplace).join(toInsert);
 };
 export const LevelIntroScreen: React.FC<LevelIntroScreenProps> = ({ ctrl, shellState }) => {
+    if (shellState.levels.length === 0) {
+        return null;
+    }
     const level = shellState.levels[shellState.levelIndex];
     const introText = replaceAll(level.introText, '[br]', '<br />');
     return (
@@ -19,8 +22,8 @@ export const LevelIntroScreen: React.FC<LevelIntroScreenProps> = ({ ctrl, shellS
             <div className={styles.bg}></div>
             <div className={styles.content}>
                 <div className={styles.win}>
-                    <h1>УРОВЕНЬ {shellState.levelIndex + 1}</h1>
-                    <p>{parse(introText)}</p>
+                    <h1 className="txt">УРОВЕНЬ {shellState.levelIndex + 1}</h1>
+                    <p className="txt">{parse(introText)}</p>
                     <div className={styles.bt}>
                         <button
                             onClick={() => ctrl.gotoLevel(shellState.levelIndex)}

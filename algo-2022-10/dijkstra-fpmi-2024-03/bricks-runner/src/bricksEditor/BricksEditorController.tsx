@@ -62,7 +62,7 @@ export class BricksEditorController extends GameController {
     private levelStats: LevelStats[] = [];
     private coinsTaken = 0;
     private levelTime = 0;
-    private screen: GameScreen = GameScreen.level;
+    private screen: GameScreen = GameScreen.levelIntro;
     private pathIsFound = true;
 
     constructor(target: string, w: number, h: number) {

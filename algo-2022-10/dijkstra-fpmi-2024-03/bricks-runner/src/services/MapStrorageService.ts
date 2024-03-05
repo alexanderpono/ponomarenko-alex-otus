@@ -38,12 +38,12 @@ export class MapStorageService {
     getMapFromHttpFile = (url: string): Promise<string> => {
         return Promise.resolve(
             `▓                ▓
-▓      c         ▓
-▓    ▓▓▓▓▓       ▓
-▓      ▓         ▓
-▓      ▓         ▓
-▓      ▓         ▓
-▓  M   ▓       $ ▓
+▓      c    c    ▓
+▓   ▓▓▓▓▓   ▓    ▓
+▓     ▓    ▓▓    ▓
+▓     ▓     ▓    ▓
+▓     ▓     ▓c   ▓
+▓ M   ▓    ▓▓▓  $▓
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓`
         );
     };
@@ -56,8 +56,18 @@ export class MapStorageService {
                     inventory: [
                         {
                             name: 'stairs',
-                            count: 5,
+                            count: 15,
                             char: '╡'
+                        },
+                        {
+                            name: 'brick',
+                            count: 8,
+                            char: '▓'
+                        },
+                        {
+                            name: 'space',
+                            count: 10,
+                            char: ' '
                         }
                     ],
                     introText:
