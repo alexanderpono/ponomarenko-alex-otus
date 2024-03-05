@@ -38,7 +38,6 @@ interface CssExports {
   'tgLogin': string;
   'timer': string;
   'tip': string;
-  'txt': string;
   'win': string;
   'wrapGame': string;
   'wrapLoad': string;
