@@ -601,6 +601,7 @@ const map12 = `
     `;
 
 renderGameField('', map12, 'brief_7', MAP_PATH, new GraphFromField(), GraphCalculatorV5f, 0);
+renderSupaField('', map5, 'brief_8', defaultRenderOptions, SIMPLE, GraphCalculatorV5f, ALL_NODES);
 
 const map12a = `
 ▓ M              ▓
