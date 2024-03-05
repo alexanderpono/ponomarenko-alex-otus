@@ -65,17 +65,17 @@ export class BricksEditorController extends GameController {
     private screen: GameScreen = GameScreen.level;
     private pathIsFound = true;
 
-    constructor() {
+    constructor(target: string, w: number, h: number) {
         super(
             new GameControllerBuilder()
-                .setTarget('target')
+                .setTarget(target)
                 .setOptions({ ...TELEPORT_CONTROLS })
                 .setGraphBuilder(ADVANCED_V2)
                 .setCalculator(GraphCalculatorV3)
                 .setVerbose(false)
                 .setMaxStepNo(ALL_NODES)
-                .setCanvasW(1440)
-                .setCanvasH(760)
+                .setCanvasW(w)
+                .setCanvasH(h)
         );
         this.mapStorage = new MapStorageService();
         this.resultsStorage = new ResultsStorageService();
@@ -163,8 +163,6 @@ export class BricksEditorController extends GameController {
     };
 
     go = () => {
-        this.installHashListener();
-        this.processHash(this.getHash());
         this.map = this.mapStorage.getDefaultMap();
         this.calcField();
         this.renderUI();
@@ -255,7 +253,7 @@ export class BricksEditorController extends GameController {
                     pathIsFound: this.pathIsFound
                 }}
             />,
-            document.getElementById('bricksEditor')
+            document.getElementById(this.target)
         );
     };
 

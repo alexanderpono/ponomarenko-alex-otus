@@ -22,9 +22,12 @@ export const FinishLevelScreen: React.FC<FinishLevelScreenProps> = ({ ctrl, shel
             <div className={styles.bg}></div>
             <div className={styles.content}>
                 <div className={styles.win}>
-                    {!shellState.pathIsFound && <h1>ПРОХОД НЕ НАЙДЕН...</h1>}
                     <h1>
-                        ПРОЙДЕН УРОВЕНЬ {shellState.levelIndex + 1} / {shellState.levels.length}
+                        {!shellState.pathIsFound && 'ПРОХОД НЕ НАЙДЕН...'}{' '}
+                        {shellState.pathIsFound &&
+                            `ПРОЙДЕН УРОВЕНЬ ${shellState.levelIndex + 1} / ${
+                                shellState.levels.length
+                            }`}
                     </h1>
                     <p>
                         КОЛИЧЕСТВО МОНЕТ: {levelStats.coins} <br />

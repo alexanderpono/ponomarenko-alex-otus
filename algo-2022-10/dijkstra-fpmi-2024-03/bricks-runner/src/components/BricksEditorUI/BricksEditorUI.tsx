@@ -27,9 +27,6 @@ export const BricksEditorUI = React.forwardRef<HTMLCanvasElement, BricksEditorUI
         const ifRender = (checkFlag: Render) => Boolean(shellState.render & checkFlag);
         return (
             <>
-                <section>
-                    <h1>МОДИФИКАЦИЯ BRICKS RUNNER ДЛЯ КОНФЕРЕНЦИИ ИМПУЛЬС</h1>
-                </section>
                 <div className={styles.editorUI}>
                     <div className={styles.screen}>
                         <section className={styles.gameStats}>

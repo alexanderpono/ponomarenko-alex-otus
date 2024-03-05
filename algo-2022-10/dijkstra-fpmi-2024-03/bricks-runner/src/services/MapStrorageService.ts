@@ -3,25 +3,14 @@ import axios from 'axios';
 import { LevelsApiAnswer } from '@src/bricksEditor/BricksEditorController.types';
 
 const map2 = `
-▓ M              ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-▓▓▓▓▓▓▓▓╡▓▓▓▓▓▓▓▓▓▓                ▓
-▓       ╡        ▓▓                ▓
-▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓▓▓                ▓
-▓           ╡    ▓▓                ▓
-▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓▓▓                ▓
-▓  ╡     ╡    ╡  ▓▓                ▓
-▓▓▓▓▓▓▓▓╡▓▓▓▓▓▓▓▓▓▓                ▓
-▓       ╡        ▓▓                ▓
-▓▓▓▓▓▓▓▓ ▓▓▓▓▓▓▓▓▓▓                ▓
-▓                ▓▓                ▓
-▓▓▓▓▓▓▓▓▓▓▓▓╡▓▓▓▓▓▓                ▓
-▓           ╡    ▓▓                ▓
-▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓▓▓                ▓
-▓  ╡     ╡    ╡  ▓▓                ▓
-▓  ╡     ╡    ╡  ▓▓                ▓
-▓  ╡     ╡    ╡  ▓▓                ▓
-▓  ╡     ╡   $╡  ▓▓                ▓
-▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+▓ M              ▓▓▓▓▓▓▓▓▓▓▓▓▓
+▓▓▓▓▓▓▓▓╡▓▓▓▓▓▓▓▓▓▓          ▓
+▓▓▓╡▓▓▓▓▓╡▓▓▓▓╡▓▓▓▓          ▓
+▓  ╡     ╡    ╡  ▓▓          ▓
+▓  ╡     ╡    ╡  ▓▓          ▓
+▓  ╡     ╡    ╡  ▓▓          ▓
+▓  ╡     ╡   $╡  ▓▓          ▓
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
     `;
 
 export class MapStorageService {
@@ -47,32 +36,74 @@ export class MapStorageService {
     getMapFromCache = () => '';
 
     getMapFromHttpFile = (url: string): Promise<string> => {
-        return axios({
-            method: 'get',
-            url: url,
-            responseType: 'stream'
-        })
-            .then((response) => {
-                return response.data;
-            })
-            .catch((err) => {
-                console.log('getMapFromHttpFile() err=', err);
-                return '';
-            });
+        return Promise.resolve(
+            `▓                ▓
+▓      c         ▓
+▓    ▓▓▓▓▓       ▓
+▓      ▓         ▓
+▓      ▓         ▓
+▓      ▓         ▓
+▓  M   ▓       $ ▓
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓`
+        );
     };
 
     loadLevels = (): Promise<LevelsApiAnswer> => {
-        return axios({
-            method: 'get',
-            url: './data/levels.json',
-            responseType: 'stream'
-        })
-            .then(function (response) {
-                const levels = JSON.parse(response.data);
-                return levels;
-            })
-            .catch((err) => {
-                console.log('loadGame() err=', err);
-            });
+        return Promise.resolve({
+            levels: [
+                {
+                    mapFile: '01.txt',
+                    inventory: [
+                        {
+                            name: 'stairs',
+                            count: 5,
+                            char: '╡'
+                        }
+                    ],
+                    introText:
+                        'Добавьте лестницу, чтобы персонаж преодолел препятствие и добрался [br]до сундука'
+                },
+                {
+                    mapFile: '02.txt',
+                    inventory: [
+                        {
+                            name: 'brick',
+                            count: 1,
+                            char: '▓'
+                        }
+                    ],
+                    introText: 'Добавьте один блок кирпичей, чтобы добраться до 3-х монет'
+                },
+                {
+                    mapFile: '03.txt',
+                    inventory: [
+                        {
+                            name: 'space',
+                            count: 1,
+                            char: ' '
+                        }
+                    ],
+                    introText:
+                        'Добавьте пустоту вместо блока кирпичей, чтобы собрать на 3 монеты больше'
+                },
+                {
+                    mapFile: '04.txt',
+                    inventory: [
+                        {
+                            name: 'stairs',
+                            count: 7,
+                            char: '╡'
+                        },
+                        {
+                            name: 'brick',
+                            count: 4,
+                            char: '▓'
+                        }
+                    ],
+                    introText:
+                        'Добавьте лестницы так, чтобы добраться до каждой монеты. [br]Не забудьте заблокировать проходы между кирпичными блоками, [br]чтобы персонаж не пропустил лестницы. [br][br] * Кирпичных блоков в инвентаре достаточно, чтобы собрать все монеты!'
+                }
+            ]
+        });
     };
 }

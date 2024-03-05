@@ -11,11 +11,7 @@ interface GameLevelControlsProps {
 export const GameLevelControls: React.FC<GameLevelControlsProps> = ({ ctrl, shellState }) => {
     return (
         <>
-            <div className={styles.tip}>ПЕРСОНАЖ АВТОМАТИЧЕСКИ ИЩЕТ КРАТЧАЙШИЙ ПУТЬ ДО СУНДУКА</div>
-            <div className={styles.tip}>
-                1. ОТРЕДАКТИРУЙТЕ УРОВЕНЬ ПРИ&nbsp;ПОМОЩИ ИНВЕНТАРЯ ТАК, ЧТОБЫ НА ПУТИ ПЕРСОНАЖА
-                ОКАЗАЛОСЬ КАК МОЖНО БОЛЬШЕ МОНЕТ:
-            </div>
+            <div className={styles.tip}>1. ОТРЕДАКТИРУЙТЕ УРОВЕНЬ, ИСПОЛЬЗУЯ ИНВЕНТАРЬ:</div>
             <div className={styles.inventory}>
                 {shellState.inventory.map((item: InventoryItem) => {
                     return (
