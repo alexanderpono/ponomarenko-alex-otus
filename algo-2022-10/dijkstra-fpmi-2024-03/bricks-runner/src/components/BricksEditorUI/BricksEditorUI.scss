@@ -40,7 +40,7 @@
     position: relative;
     overflow: hidden;
     display: flex;
-    color: --text-color;
+    color: #ffff40;
     &::before  {
         position: absolute;
         display: block;
@@ -378,7 +378,7 @@
                 padding: 0px 10px 0px 10px;
                 margin-left: 10px;
                 width: 200px;
-                color: var(--text-color);
+                color: #ffff40;
                 background: black;
                 border-radius: 0;
                 &:focus {
@@ -546,7 +546,7 @@
                 padding: 0px 10px 0px 10px;
                 margin-left: 10px;
                 width: 200px;
-                color: var(--text-color);
+                color: #ffff40;
                 background: black;
                 border-radius: 0;
                 &:focus {

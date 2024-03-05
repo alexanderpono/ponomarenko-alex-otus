@@ -15,7 +15,7 @@ module.exports = {
             chunkFilename: '[name].[chunkhash].css'
         }),
         new CopyPlugin({
-            patterns: [{ from: 'public/data', to: path.resolve(__dirname, 'temp/ui-dist/data') }]
+            patterns: [{ from: 'public/data', to: path.resolve(__dirname, 'temp/bricks/data') }]
         })
     ],
     resolve: {
@@ -33,7 +33,7 @@ module.exports = {
         chunkFilename: '[name].[chunkhash].js',
         assetModuleFilename: '[path][name]-[hash:8][ext]',
         sourceMapFilename: '[file].map',
-        path: path.resolve(__dirname, 'temp/ui-dist'),
+        path: path.resolve(__dirname, 'temp/bricks'),
         clean: true
     },
     devServer: {
