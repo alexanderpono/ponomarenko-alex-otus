@@ -1,4 +1,4 @@
-name: dijkstra-fpmi 
+name: dijkstra-fpmi
 on:
   push:
     branches: [ dijkstra-fpmi ]
@@ -91,7 +91,7 @@ jobs:
 
   bricks-dijkstra-fpmi:
     runs-on: ubuntu-latest
-    needs: demo-dijkstra-fpmi
+    needs: app-dijkstra-fpmi
     defaults:
       run:
         working-directory: algo-2022-10/dijkstra-fpmi-2024-03/bricks-runner
