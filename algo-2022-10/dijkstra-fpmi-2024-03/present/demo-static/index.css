@@ -152,22 +152,6 @@ th {
     top: -90px;
     width: 338px;
 }
-h3::before {
-    background: url(INNO-logo2.svg) no-repeat;
-    background-size: contain;
-    color: black;
-    padding: 0px;
-    margin: 0px;
-    display: block;
-    line-height: var(--ribbon-side);
-    left: auto;
-    top: calc(var(--slide-side) - 5px);
-    right: var(--slide-side);
-    content: '';
-    width: 200px;
-    height: 50px;
-    position: absolute;
-}
 .slide.title::before, .nologo::before {
     display: none;
 }
@@ -186,18 +170,19 @@ h3::before {
     color: #a321fe;
 }
 
-
 .slide::before {
-    position: absolute;
-    bottom: calc(var(--slide-side));
+    background: url(INNO-logo2.svg) no-repeat;
+    background-size: contain;
+    color: black;
+    padding: 0px;
+    margin: 0px;
     display: block;
-    content: '\A9  2024 ГК \ABИннотех\00BB. Все права защищены. Все товарные знаки являются собственностью их владельцев';
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 0.7rem;
-    text-transform: none;
-    line-height: 1rem;
-    color: #cdcdcd;
-    z-index: 100;
+    line-height: var(--ribbon-side);
+    content: '';
+    width: 200px;
+    height: 50px;
+    position: absolute;
+    bottom: 0px;
 }
 .nocopy::before {
     display: none;
@@ -501,4 +486,17 @@ strong {
 }
 .q {
     quotes: "«" "»";
+}
+
+.bricks {
+    background: black;
+}
+
+.bricks .txt {
+    color: #ffff40;
+}
+
+#brief_8 {
+    width: 690px;
+    overflow: hidden;
 }
