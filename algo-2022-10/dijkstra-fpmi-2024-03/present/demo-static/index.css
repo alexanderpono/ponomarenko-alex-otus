@@ -183,6 +183,7 @@ th {
     height: 50px;
     position: absolute;
     bottom: 0px;
+    left: 15px;
 }
 .nocopy::before {
     display: none;
