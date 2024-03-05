@@ -268,7 +268,7 @@
     margin: 0px 0px 42px 2px;
 }
 
-:global(h1) {
+:global(h1) .txt {
     font-family: Born2bsporty, Arial, Helvetica, sans-serif;
     letter-spacing: 0.15em;
     font-size: 50px;
@@ -563,7 +563,7 @@
     }
 }
 
-:global(.controls) {
+:global(.bricks) :global(.controls) {
     font-family: Born2bsporty, Arial, Helvetica, sans-serif;
     font-size: 30px;
     label {
