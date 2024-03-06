@@ -513,8 +513,6 @@ strong {
     display: flex;
     justify-content: center;
     align-items:flex-start;
-    /* background: green; */
-    /* padding-top: 15px; */
 }
 
 .game label {
@@ -523,59 +521,65 @@ strong {
     height: 30px;
     color: #0038ff;
     position: relative;
-    /* border: 1px solid red; */
 }
-
-/* .game label::before {
-    width: 20px;
-    height: 20px;
-    border: 1px solid blue;
-    margin: 0px;
-    display: block;
-    content: '';
-    position: absolute;
-    left: 0px;
-    top: 0px;
-} */
-
-/* .game input[type='checkbox'] {
-    background: green;
-}
-
-.game input[type='checkbox']::before {
-    width: 20px;
-    height: 20px;
-    border: 1px solid blue;
-    margin: 0px;
-    display: block;
-    content: '';
-    position: absolute;
-    left: 0px;
-    top: 0px;
-}
-
-.game input[type='checkbox']:checked {
-    border: 1px solid red;
-    width: 30px;
-    height: 30px;
-}
-
-.game input[type='checkbox']:checked {
-    border: 1px solid red;
-    width: 30px;
-    height: 30px;
-} */
 
 .game .appButton {
-    /* color: #04267E; */
     font-size: 25px;
+    line-height: 35px;
     border-radius: 0px;
     background: white;
-    border: 1px solid red;
     box-sizing: border-box;
     margin: 15px 30px 0px 0px;
-    /* color: #a9a9a9; */
     color: #0038ff;
     border: 2px solid #0038ff;
     cursor: pointer;
+    min-width: 50px;
+    padding: 0px 10px;
+}
+
+.game input[type='range'] {
+    -webkit-appearance: none !important;
+    background:#0038ff;
+    height:7px;
+    border-radius: 4px;
+    width: 130px;
+}
+.game input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
+    background:#0038ff;;
+    height:20px;
+    width:20px;
+    border-radius: 15px;
+    border: 2px solid white;
+}
+.game input[type='range']::-moz-range-thumb {
+    background:#0038ff;;
+    height:20px;
+    width:20px;
+    border-radius: 15px;
+    border: 2px solid white;
+    box-sizing: border-box;
+}
+
+.game .stepSlider {
+    padding-left: 0px;
+    margin-top: 20px;
+}
+
+.game .stepNo {
+    width: 65px;
+    display: inline-block;
+    text-align: right;
+    margin-right: 5px;
+}
+
+.game .slider {
+    display: inline-block;
+    width: 150px;
+    position: relative;
+    top: -5px;
+}
+
+.slide a {
+    color: #0038ff;
 }
