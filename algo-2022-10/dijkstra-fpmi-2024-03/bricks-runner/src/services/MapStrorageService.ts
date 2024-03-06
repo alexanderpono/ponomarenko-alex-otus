@@ -38,12 +38,12 @@ export class MapStorageService {
     getMapFromHttpFile = (url: string): Promise<string> => {
         return Promise.resolve(
             `▓                ▓
-▓      c    c    ▓
-▓   ▓▓▓▓▓   ▓    ▓
-▓     ▓    ▓▓    ▓
-▓     ▓     ▓    ▓
-▓     ▓     ▓c   ▓
-▓ M   ▓    ▓▓▓  $▓
+▓      c   c     ▓
+▓    ▓▓▓   ▓     ▓
+▓     ▓   ▓▓     ▓
+▓     ▓    ▓     ▓
+▓     ▓    ▓c    ▓
+▓ M   ▓   ▓▓▓  $ ▓
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓`
         );
     };
