@@ -71,7 +71,9 @@
     width: 440px;
     height: 250px;
 }
-
+.rounded {
+    border-radius: 10px;
+}
 
 .speaker .img1 {
     position: static;
@@ -342,18 +344,6 @@ p, label, li {
     position: relative;
     top: -35px;
 }
-.game .canvas {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.game .controls {
-    display: flex;
-    justify-content: center;
-    align-items:flex-start;
-    padding-top: 15px;
-}
-
 .tg {
     display: flex;
     align-items: center;
@@ -500,4 +490,92 @@ strong {
 #brief_8 {
     width: 690px;
     overflow: hidden;
+}
+
+.selectOne p {
+    font-family: 'RobotoBold';
+    width: 40%;
+    color: #0038ff;
+    border: 2px solid #0038ff;
+    float: left;
+    margin-right: 20px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+
+.game .canvas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.game .controls {
+    display: flex;
+    justify-content: center;
+    align-items:flex-start;
+    /* background: green; */
+    /* padding-top: 15px; */
+}
+
+.game label {
+    margin: 15px 30px 0px 0px;
+    padding-left: 50px;
+    height: 30px;
+    color: #0038ff;
+    position: relative;
+    /* border: 1px solid red; */
+}
+
+/* .game label::before {
+    width: 20px;
+    height: 20px;
+    border: 1px solid blue;
+    margin: 0px;
+    display: block;
+    content: '';
+    position: absolute;
+    left: 0px;
+    top: 0px;
+} */
+
+/* .game input[type='checkbox'] {
+    background: green;
+}
+
+.game input[type='checkbox']::before {
+    width: 20px;
+    height: 20px;
+    border: 1px solid blue;
+    margin: 0px;
+    display: block;
+    content: '';
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.game input[type='checkbox']:checked {
+    border: 1px solid red;
+    width: 30px;
+    height: 30px;
+}
+
+.game input[type='checkbox']:checked {
+    border: 1px solid red;
+    width: 30px;
+    height: 30px;
+} */
+
+.game .appButton {
+    /* color: #04267E; */
+    font-size: 25px;
+    border-radius: 0px;
+    background: white;
+    border: 1px solid red;
+    box-sizing: border-box;
+    margin: 15px 30px 0px 0px;
+    /* color: #a9a9a9; */
+    color: #0038ff;
+    border: 2px solid #0038ff;
+    cursor: pointer;
 }
