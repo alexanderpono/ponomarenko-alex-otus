@@ -54,13 +54,13 @@ export const drawEdgeCost = (
 
 const VERTEX_COLOR = 'black';
 const VERTEX_BG = 'white';
-const PROCESSED_VERTEX_BG = 'black';
+const PROCESSED_VERTEX_BG = 'grey';
 const PROCESSED_VERTEX_COLOR = 'white';
 const PROCESSED_CIRCLE_COLOR = 'black';
 const PROCESSED_COST = 'black';
 const CURRENT_VERTEX_COLOR = 'white';
-const CURRENT_VERTEX_BG = 'red';
-const CURRENT_COST = 'red';
+const CURRENT_VERTEX_BG = '#0038ff';
+const CURRENT_COST = '#0038ff';
 
 export const drawVertex = (
     context: CanvasRenderingContext2D,

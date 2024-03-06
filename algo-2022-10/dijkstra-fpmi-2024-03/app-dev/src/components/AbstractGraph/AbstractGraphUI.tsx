@@ -92,14 +92,14 @@ function drawBestEdges(
     graph: AbstractGraph,
     vertices2D: Vertex2D[]
 ) {
-    context.strokeStyle = '#FF0000';
+    context.strokeStyle = '#0038ff';
 
     graph.cheapestPath.forEach((edgeIndex) => {
         drawEdge(
             context,
             vertices2D[graph.edges[edgeIndex].vertex0],
             vertices2D[graph.edges[edgeIndex].vertex1],
-            6
+            8
         );
     });
 }

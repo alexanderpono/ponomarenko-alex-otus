@@ -92,9 +92,12 @@ export const GameControls = React.forwardRef<HTMLCanvasElement, GameFieldUIProps
 
 export function Label(val: boolean, setter: () => void, id: string, caption: string) {
     return (
-        <label htmlFor={id}>
-            <input type="checkbox" checked={val} onChange={setter} id={id} />
-            {caption}
+        <label htmlFor={id} className="checkUI">
+            <span className="checkBox">
+                <input type="checkbox" checked={val} onChange={setter} id={id} />
+                <b></b>
+            </span>
+            <span className="checkText">{caption}</span>
         </label>
     );
 }

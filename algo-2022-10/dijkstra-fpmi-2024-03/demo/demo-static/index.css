@@ -523,6 +523,51 @@ strong {
     position: relative;
 }
 
+.game input[type='checkbox'] {
+    visibility: hidden;
+}
+
+.game input[type="checkbox"]:checked + b, 
+.game input[type="checkbox"]:not(:checked) + b {
+    display: inline-block;
+    content: "";
+    margin: 0px 5px 0px 0px;
+    position: relative;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #0038ff;
+    background: #0038ff;
+
+    border-radius: 2px;
+}
+
+.game input[type="checkbox"]:checked + b:after, 
+.game input[type="checkbox"]:not(:checked) + b:after {
+    display: inline-block;
+    content: "";
+    position: absolute;
+    left: 3px;
+    top: 4px;
+    width: 10px;
+    height: 5px;
+    border-radius: 1px;
+    border-left: 4px solid white;
+    border-bottom: 4px solid white;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+.game input[type="checkbox"]:checked + b:after {
+    opacity: 1;
+}
+
+.game input[type="checkbox"]:not(:checked) + b:after {
+    opacity: 0;
+}
+
 .game .appButton {
     font-size: 25px;
     line-height: 35px;
