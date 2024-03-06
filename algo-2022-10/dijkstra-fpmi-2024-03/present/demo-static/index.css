@@ -536,11 +536,17 @@ strong {
     width: 18px;
     height: 18px;
     border: 1px solid #0038ff;
-    background: #0038ff;
 
     border-radius: 2px;
 }
 
+.game input[type="checkbox"]:checked + b {
+    background: #0038ff;
+}
+
+.game input[type="checkbox"]:not(:checked) + b {
+    background: white;
+}
 .game input[type="checkbox"]:checked + b:after, 
 .game input[type="checkbox"]:not(:checked) + b:after {
     display: inline-block;
