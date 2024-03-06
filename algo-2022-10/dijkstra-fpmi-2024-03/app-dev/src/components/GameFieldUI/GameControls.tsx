@@ -68,16 +68,18 @@ export const GameControls = React.forwardRef<HTMLCanvasElement, GameFieldUIProps
                                 <button onClick={ctrl.onBtToFinishClick} className="appButton">
                                     &gt;|
                                 </button>
-                                <label>
-                                    {gameState.maxCalcStep}
-                                    <input
-                                        type="range"
-                                        name="volume"
-                                        min="0"
-                                        max="200"
-                                        value={gameState.maxCalcStep}
-                                        onChange={ctrl.onMaxStepChange}
-                                    />
+                                <label className="stepSlider">
+                                    <span className="stepNo">{gameState.maxCalcStep}</span>
+                                    <span className="slider">
+                                        <input
+                                            type="range"
+                                            name="volume"
+                                            min="0"
+                                            max="200"
+                                            value={gameState.maxCalcStep}
+                                            onChange={ctrl.onMaxStepChange}
+                                        />
+                                    </span>
                                 </label>
                             </>
                         )}
