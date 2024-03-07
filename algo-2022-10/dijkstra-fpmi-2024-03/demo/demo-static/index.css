@@ -392,48 +392,43 @@ p, label, li {
 
 .qrs {
     display: grid;
-    grid-template-areas: "ap_qr e e e e" "ap_qr a algos app  inno" "ap_qr a_qr algos_qr app_qr inno_qr";
-    grid-template-columns: 28% 13% 13% 13% 13%;
-    grid-template-rows: 60px auto 140px;
+    grid-template-areas: "ap_qr links inno" "ap_qr links_qr inno_qr";
+    grid-template-columns: 30% 30% 30%;
+    grid-template-rows: auto 220px;
     grid-column-gap: 5%;
 }
-.a, .algos, .app, .ap, .inno {
-    text-align: left;
-    font-size: 80%;
-    display: flex;
-    align-items: end;
+.links, .inno {
+    text-align: center;
+    /* font-size: 80%; */
+    /* display: flex;
+    align-items: end; */
     line-height: 1.1em;
+    padding-bottom: 25px;
 }
 
-.inno {
-    font-size: 60%;
-}
-.a {
-    grid-area: a;
-}
-.a_qr {
-    grid-area: a_qr;
-    background: url(A-qr-code.gif) no-repeat;
-    background-size: contain;
-    background-position: bottom;
-}
-
-.algos {
-    grid-area: algos;
-}
-.algos_qr {
-    grid-area: algos_qr;
-    background: url(more-algorithms-qr-code.gif) no-repeat;
-    background-size: contain;
-    background-position: bottom;
-}
-
-.ap {
+/* .ap {
     grid-area: ap;
-}
+    background: red;
+} */
 .ap_qr {
     grid-area: ap_qr;
     background: url(TG-qr-code.gif) no-repeat;
+    background-size: contain;
+    background-position: bottom;
+}
+
+.e {
+    grid-area: e;
+    background: green;
+}
+
+.links {
+    grid-area: links;
+    /* background: red; */
+}
+.links_qr {
+    grid-area: links_qr;
+    background: url(links-qr-code.gif) no-repeat;
     background-size: contain;
     background-position: bottom;
 }
@@ -448,15 +443,8 @@ p, label, li {
     background-position: bottom;
 }
 
-.app {
-    grid-area: app;
-}
-.app_qr {
-    grid-area: app_qr;
-    background: url(gameSrc-qr-code.gif) no-repeat;
-    background-size: contain;
-    background-position: bottom;
-}
+
+
 table {
     margin: 0px 0px 50px 0px;
     width: 70%;
