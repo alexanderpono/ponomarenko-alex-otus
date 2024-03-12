@@ -20,9 +20,7 @@ const adminUsersRouter = require('../routes/adminUsers');
 const adminFilesRouter = require('../routes/adminFiles');
 const passport = require('passport');
 const BasicStrategy = require('passport-http').BasicStrategy;
-const User = require('../models/User').User;
-
-const db = require('./db.service');
+import { User } from '../models/User';
 
 class RestService {
     run(app) {
@@ -30,10 +28,12 @@ class RestService {
             new BasicStrategy(function (login, password, done) {
                 User.findOne({ login })
                     .then((user) => {
-                        if (user?.pass !== password) {
-                            return done(null, false);
+                        if (user && user.pass) {
+                            if (user?.pass !== password) {
+                                return done(null, false);
+                            }
+                            delete user.pass;
                         }
-                        delete user.pass;
                         done(null, user);
                     })
                     .catch((err) => {

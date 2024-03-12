@@ -1,4 +1,4 @@
-const File = require('../models/File').File;
+import { File } from '../models/File';
 
 function get(req, res, next) {
     File.find({})

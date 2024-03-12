@@ -1,6 +1,6 @@
-const { WebSocket } = require('ws');
+import { WebSocket } from 'ws';
 
-class WsService {
+export class WsService {
     wsServer;
     wsClient;
 
@@ -32,14 +32,10 @@ class WsService {
 
     onMessage = (messageB) => {
         const message = messageB.toString('utf-8');
-        this.ctrl.onWsMesage(message);
+        // this.ctrl.onWsMesage(message);
     };
 
     send = (s) => {
         this.wsClient.send(s);
     };
 }
-
-module.exports = {
-    WsService
-};

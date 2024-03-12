@@ -31,7 +31,7 @@ const hasOneOfPriv = (privileges) => {
     };
 };
 
-module.exports = {
+export default {
     toObjectId,
     to24Str,
     getNewObjectId: () => new mongoose.Types.ObjectId(),

@@ -1,6 +1,7 @@
 {
     "watch": ["."],
-    "ext": "json,js",
+    "ext": "json,js,ts",
     "ignore": ["api-tests"],
-    "exec": "node ./bin/www"
+    "exec": "ts-node --project tsconfig.json -r tsconfig-paths/register bin/www.ts"
+
 }

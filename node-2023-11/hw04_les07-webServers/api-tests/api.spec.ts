@@ -1,13 +1,8 @@
-const { apiProvider } = require('./framework/services');
-const { ParamsBuilder } = require('./framework/ParamsBuilder');
-const db = require('../services/db.service');
-const { DELME_ID } = require('./constants');
-const PETER_ID = require('./constants').PETER_ID;
-const NICK_ID = require('./constants').NICK_ID;
-const MATH_ID = require('./constants').MATH_ID;
-const FILE_ID = require('./constants').FILE_ID;
+import { apiProvider } from './framework/services';
+import db from '@/services/db.service';
+import { DELME_ID, PETER_ID, NICK_ID, MATH_ID, FILE_ID } from './constants';
 
-const getProjection = (items, projection) => {
+const getProjection = (items: Record<string, unknown>, projection: string) => {
     const projectionAr = projection.split(' ');
     if (Array.isArray(items)) {
         return items.map((item) => {
@@ -17,12 +12,14 @@ const getProjection = (items, projection) => {
                 if (Array.isArray(item[field])) {
                     result[field] = [];
                     item[field].forEach((item) => {
-                        let itemToPush = null;
+                        let itemToPush: null | string | object = null;
                         if (typeof item === 'string') {
                             itemToPush = item;
                         } else {
                             itemToPush = { ...item };
-                            delete itemToPush._id;
+                            if (itemToPush) {
+                                delete itemToPush['_id'];
+                            }
                         }
                         result[field].push(itemToPush);
                     });
@@ -36,13 +33,16 @@ const getProjection = (items, projection) => {
         result[field] = items[field];
         if (Array.isArray(items[field])) {
             result[field] = [];
-            items[field].forEach((item) => {
-                let itemToPush = null;
+            const fieldAr = items[field] as Array<string | object>;
+            fieldAr.forEach((item) => {
+                let itemToPush: null | string | object = null;
                 if (typeof item === 'string') {
                     itemToPush = item;
                 } else {
                     itemToPush = { ...item };
-                    delete itemToPush._id;
+                    if (itemToPush) {
+                        delete itemToPush['_id'];
+                    }
                 }
                 result[field].push(itemToPush);
             });
@@ -52,10 +52,8 @@ const getProjection = (items, projection) => {
 };
 
 describe('api', () => {
-    const builder = ParamsBuilder;
     beforeAll(async () => {
-        const params = new builder().addUsualUser().generate();
-        await apiProvider().reset().reset(params);
+        await apiProvider().reset().reset();
     });
 
     describe('API', () => {
