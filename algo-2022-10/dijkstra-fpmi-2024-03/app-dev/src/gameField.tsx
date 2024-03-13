@@ -117,7 +117,7 @@ renderGameField(
     GraphCalculator
 );
 
-const GROUP_2 = '2. Траектория движения <br />с обходом препятствий';
+const GROUP_2 = '2.Обход препятствий';
 renderGameField(GROUP_2, map1, 'slide2', MAP_START_STOP, ADVANCED, GraphCalculator);
 renderGameField(GROUP_2, map1, 'slide2_2', MAP_LINES, ADVANCED, GraphCalculator);
 renderGameField(
@@ -523,7 +523,7 @@ renderGameField(
 );
 
 renderGameField(
-    '5. Алгоритм Дейкстры. Результат расчета графа',
+    '5. Алгоритм Дейкстры. Результат',
     map5,
     'O_1',
     LINES_COST_PATH,
