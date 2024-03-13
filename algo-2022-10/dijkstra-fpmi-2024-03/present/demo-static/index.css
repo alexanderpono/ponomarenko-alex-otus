@@ -20,6 +20,7 @@
     --ribbon-side: 22px;
     font-family: Roboto, Helvetica, sans-serif;
     line-height: 130%;
+    --corporate-color: #00aae6;
 }
 .ok {
     color: #888;
@@ -56,48 +57,8 @@
     height: 60%;
 }
 
-.img1 {
-    position: absolute;
-    bottom: 70px;
-    left: 30px;
-    overflow: hidden;
-    width: 440px;
-    height: 250px;
-}
-.img2 {
-    position: absolute;
-    bottom: 70px;
-    left: 500px;
-    width: 440px;
-    height: 250px;
-}
 .rounded {
     border-radius: 10px;
-}
-
-.speaker .img1 {
-    position: static;
-    bottom: 0px;
-    left: 0px;
-    width: 400px;
-    height: 200px;
-    text-align: right;
-    padding-bottom: 20px;
-}
-
-.speaker .img1 img {
-    margin-right: 20px;
-}
-.speaker .img2 {
-    position: static;
-    bottom: 0px;
-    left: 0px;
-    width: 400px;
-    height: 200px;
-    text-align: right;
-}
-.speaker .img2 img {
-    margin-right: 20px;
 }
 
 .pathfind {
@@ -109,29 +70,94 @@
     background-position: top -10px left 0px;
 }
 
+.highlight {
+    color: #00aae6;
+}
+
 h4 {
     margin-block-start: 1em;
     margin-block-end: 1em;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
-    color: #0027ff;
+    color: #00aae6;
     font-weight: bold;
     padding: 0px;
     margin: 0px 0px 17px 0px;
 }
 th {
-    color: #0027ff;
+    color: #00aae6;
+}
+
+.speaker .content {
+    display: grid;
+    grid-template-areas: "photo photo quizes" "experience games river" "e e e";
+    grid-template-columns: 1fr 1fr auto;
+    grid-template-rows: 200px 200px auto;
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
+    padding: 0px 0px 50px 0px;
+}
+.speaker .photo-caption {
+    grid-area: photo;
+    display: flex;
 }
 
 .speaker .photo {
-    margin: 0px 50px 23px 0px;
+    margin: 0px 50px 0px 0px;
     width: 200px;
     height: 200px;
     border-radius: 100px;
     overflow: hidden;
 }
+
+.speaker .experience {
+    grid-area: experience;
+    background: var(--corporate-color);
+    border-radius: 10px;
+}
+
+.speaker .games {
+    grid-area: games;
+    background: var(--corporate-color);
+    border-radius: 10px;
+}
+
+.speaker p {
+    color: white;
+}
+
+.speaker .top {
+    padding: 40px 20px 10px 20px;
+}
+.speaker .bottom {
+    padding: 0px 20px 0px 20px;
+}
+.speaker .number {
+    font-size: 300%;
+}
+.speaker .units {
+    font-size: 150%;
+}
+.speaker .position {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: var(--corporate-color);
+}
+
 .speaker .text {
     margin-top: 35px;
+}
+
+.e {
+    grid-area: e;
+}
+
+.img1 {
+    grid-area: quizes;
+}
+.img2 {
+    grid-area: river;
 }
 
 .vmiddle {
@@ -165,7 +191,7 @@ th {
 
 .slide mark {
     background-color: #dfeafb;
-    color: #0027ff;
+    color: #00aae6;
 }
 .slide mark.orange {
     background-color: #f4e6ff;
@@ -173,7 +199,7 @@ th {
 }
 
 .slide::before {
-    background: url(INNO-logo2.svg) no-repeat;
+    background: url(INNO-logo3.svg) no-repeat;
     background-size: contain;
     color: black;
     padding: 0px;
@@ -181,11 +207,11 @@ th {
     display: block;
     line-height: var(--ribbon-side);
     content: '';
-    width: 200px;
+    width: 320px;
     height: 50px;
     position: absolute;
     bottom: 0px;
-    left: 15px;
+    left: 26px;
 }
 .nocopy::before {
     display: none;
@@ -368,7 +394,7 @@ p, label, li {
     line-height: 130%;
 }
 .progress {
-    --color-blue: #0038ff;
+    --color-blue: #00aae6;
 }
 .lh110 p, .lh110 pre code {
     line-height: 110%;
@@ -383,11 +409,11 @@ p, label, li {
 }
 
 .slide li::before {
-    color: #0038ff;
+    color: #00aae6;
 }
 
 .link {
-    color: #0038ff;
+    color: #00aae6;
 }
 
 .qrs {
@@ -451,7 +477,7 @@ table {
 }
 strong {
     font-weight: normal;
-    color: #0038FF;
+    color: #00aae6;
 }
 .ok strong {
     color: inherit;
@@ -483,8 +509,8 @@ strong {
 .selectOne p {
     font-family: 'RobotoBold';
     width: 40%;
-    color: #0038ff;
-    border: 2px solid #0038ff;
+    color: #00aae6;
+    border: 2px solid #00aae6;
     float: left;
     margin-right: 20px;
     padding: 20px;
@@ -507,7 +533,7 @@ strong {
     margin: 15px 30px 0px 0px;
     padding-left: 50px;
     height: 30px;
-    color: #0038ff;
+    color: #00aae6;
     position: relative;
 }
 
@@ -523,13 +549,13 @@ strong {
     position: relative;
     width: 18px;
     height: 18px;
-    border: 1px solid #0038ff;
+    border: 1px solid #00aae6;
 
     border-radius: 2px;
 }
 
 .game input[type="checkbox"]:checked + b {
-    background: #0038ff;
+    background: #00aae6;
 }
 
 .game input[type="checkbox"]:not(:checked) + b {
@@ -569,8 +595,8 @@ strong {
     background: white;
     box-sizing: border-box;
     margin: 15px 30px 0px 0px;
-    color: #0038ff;
-    border: 2px solid #0038ff;
+    color: #00aae6;
+    border: 2px solid #00aae6;
     cursor: pointer;
     min-width: 50px;
     padding: 0px 10px;
@@ -578,21 +604,21 @@ strong {
 
 .game input[type='range'] {
     -webkit-appearance: none !important;
-    background:#0038ff;
+    background:#00aae6;
     height:7px;
     border-radius: 4px;
     width: 130px;
 }
 .game input[type='range']::-webkit-slider-thumb {
     -webkit-appearance: none !important;
-    background:#0038ff;;
+    background:#00aae6;;
     height:20px;
     width:20px;
     border-radius: 15px;
     border: 2px solid white;
 }
 .game input[type='range']::-moz-range-thumb {
-    background:#0038ff;;
+    background:#00aae6;;
     height:20px;
     width:20px;
     border-radius: 15px;
@@ -620,5 +646,5 @@ strong {
 }
 
 .slide a {
-    color: #0038ff;
+    color: #00aae6;
 }
