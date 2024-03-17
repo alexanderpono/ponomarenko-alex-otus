@@ -1,5 +1,5 @@
 import React from 'react';
-import { drawEdge, drawEdgeCost, drawVertex } from '@src/ports/canvas.lib';
+import { HIGHLIGHT_COLOR, drawEdge, drawEdgeCost, drawVertex } from '@src/ports/canvas.lib';
 import { Edge2D, Vertex2D } from '@src/ports/2D.types';
 import { AbstractGraph } from '@src/game/Graph.types';
 import parse from 'html-react-parser';
@@ -92,7 +92,7 @@ function drawBestEdges(
     graph: AbstractGraph,
     vertices2D: Vertex2D[]
 ) {
-    context.strokeStyle = '#0038ff';
+    context.strokeStyle = HIGHLIGHT_COLOR;
 
     graph.cheapestPath.forEach((edgeIndex) => {
         drawEdge(

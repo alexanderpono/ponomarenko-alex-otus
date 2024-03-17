@@ -52,6 +52,8 @@ export const drawEdgeCost = (
     context.fillText('' + cost, x, y);
 };
 
+export const HIGHLIGHT_COLOR = '#00AAE6';
+
 const VERTEX_COLOR = 'black';
 const VERTEX_BG = 'white';
 const PROCESSED_VERTEX_BG = 'grey';
@@ -59,8 +61,8 @@ const PROCESSED_VERTEX_COLOR = 'white';
 const PROCESSED_CIRCLE_COLOR = 'black';
 const PROCESSED_COST = 'black';
 const CURRENT_VERTEX_COLOR = 'white';
-const CURRENT_VERTEX_BG = '#0038ff';
-const CURRENT_COST = '#0038ff';
+const CURRENT_VERTEX_BG = HIGHLIGHT_COLOR;
+const CURRENT_COST = HIGHLIGHT_COLOR;
 
 export const drawVertex = (
     context: CanvasRenderingContext2D,

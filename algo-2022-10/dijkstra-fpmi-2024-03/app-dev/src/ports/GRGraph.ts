@@ -3,6 +3,7 @@ import { SPRITE_HEIGHT, SPRITE_WIDTH } from './GR.types';
 import { AbstractGraph, Edge, UNDEFINED_COST } from '@src/game/Graph.types';
 import { COST_SPACE } from '@src/game/GraphCalculator';
 import { RenderOptions } from '@src/components/GameFieldUI/Game.types';
+import { HIGHLIGHT_COLOR } from './canvas.lib';
 
 const w2 = SPRITE_WIDTH / 2;
 const h2 = SPRITE_HEIGHT / 2;
@@ -59,7 +60,7 @@ export class GRGraph {
             return;
         }
         this.context.lineWidth = 6;
-        this.context.strokeStyle = 'magenta';
+        this.context.strokeStyle = HIGHLIGHT_COLOR;
         this.graph.cheapestPath.forEach((edgeIndex) => {
             this.drawPath(this.graph.edges[edgeIndex]);
         });
