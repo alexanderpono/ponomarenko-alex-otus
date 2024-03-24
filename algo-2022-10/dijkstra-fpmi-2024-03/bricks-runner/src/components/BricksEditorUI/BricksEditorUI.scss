@@ -1,0 +1,589 @@
+@font-face {
+    font-family: 'PCSenior';
+    src: url('./pc-senior/pcsenior.ttf') format('truetype');
+        
+}
+@font-face {
+    font-family: 'Born2bsporty';
+    src: url('./born2bsporty-fs/Born2bSportyFS.otf') format('opentype');
+        
+}
+
+:root {
+    --text-color: #ffff40;
+    --frame-color: #ffff40;
+    --button-bg: #c0c040;
+    --button-color: black;
+}
+
+.red {
+    border: 1px solid red;
+}
+
+.editorUI {
+    display: flex;
+}
+
+.wrapGame {
+    display: flex;
+    flex-direction: column;
+}
+.editControls {
+    padding-left: 40px;
+}
+.gameStats {
+    font-family: PCSenior, Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    line-height: 48px;
+    height: 50px;
+    background: #000;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    color: #ffff40;
+    &::before  {
+        position: absolute;
+        display: block;
+        content: '';
+        color: white;
+        bottom: 1px;
+        left: 0px;
+        width: 1440px;
+        height: 8px;
+        background: #c0c040;
+        background-repeat: repeat-x;
+    }
+
+    .statsCoins {
+        left: 40px;
+        width: 80px;
+        height: 40px;
+        position: relative;
+        padding-left: 43px;
+
+        &::before {
+            position: absolute;
+            display: block;
+            content: '';
+            top: 2px;
+            left: 0px;
+            width: 40px;
+            height: 40px;
+            background: url(../GameFieldUI/sprite.png);
+            background-position: -600px -49px;
+        }
+    }
+
+    .statsSteps {
+        left: 40px;
+        width: 80px;
+        height: 40px;
+        position: relative;
+        padding-left: 44px;
+
+        &::before {
+            position: absolute;
+            display: block;
+            content: '';
+            top: 0px;
+            left: 0px;
+            width: 40px;
+            height: 40px;
+            background: url(../GameFieldUI/sprite.png);
+            background-position: -80px -0px;
+        }
+    }
+
+    .statsLevel {
+        left: 40px;
+        width: 100px;
+        height: 40px;
+        position: relative;
+        padding-left: 50px;
+
+        &::before {
+            position: absolute;
+            display: block;
+            content: '';
+            top: 0px;
+            left: 0px;
+            width: 40px;
+            height: 40px;
+            background: url(../GameFieldUI/sprite.png);
+            background-position: -80px -160px;
+        }
+
+    }
+
+    .statsTime {
+        left: 40px;
+        width: 80px;
+        height: 40px;
+        position: relative;
+        padding-left: 45px;
+
+        &::before {
+            position: absolute;
+            display: block;
+            content: '';
+            top: 0px;
+            left: 0px;
+            width: 40px;
+            height: 40px;
+            background: url(../GameFieldUI/sprite.png);
+            background-position: -120px -160px;
+        }
+
+    }
+}
+
+
+.brick, :global(.brick) {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    background: url(../GameFieldUI/sprite.png);
+    background-position: -40px -120px;
+}
+
+.stairs, :global(.stairs) {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    background: url(../GameFieldUI/sprite.png);
+    background-position: -120px -120px;
+}
+
+.gold, :global(.gold) {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    background: url(../GameFieldUI/sprite.png);
+    background-position: -200px -120px;
+}
+
+.space, :global(.space) {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    background: url(../GameFieldUI/sprite.png);
+    background-position: 0px -120px;
+}
+
+.coin, :global(.coin) {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    background: black url(../GameFieldUI/sprite.png);
+    background-position: -600px -48px;
+}
+
+.timer {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    background: url(../GameFieldUI/sprite.png);
+    background-position: -120px -160px;
+}
+
+.level {
+    width: 40px;
+    height: 40px;
+    background: url(../GameFieldUI/sprite.png);
+    background-position: -80px -160px;
+}
+
+.tip {
+    margin: 50px 0px 12px 0px;
+    font-family: Born2bsporty, Arial, Helvetica, sans-serif;
+    letter-spacing: 2px;
+    font-size: 30px;
+}
+.inventory {
+    input[type="radio"] {
+        display: none;
+    }
+
+    .categories {
+        margin: 0px 0px 42px 0px;
+        display: flex;
+        flex-direction: column;
+        font-family: PCSenior, Arial, Helvetica, sans-serif;
+
+        label {
+            display: block;
+            border: 2px solid #000;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            font-size: 140%;
+            position: relative;
+            cursor: pointer;
+            margin: 0px;
+            width: 160px;
+
+            &.cur {
+                border: 2px solid #c0c040;
+            }
+        }
+
+        .count {
+            margin-left: 35px;
+        }
+    }
+    .brick, .stairs, .gold, .space {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+    }
+       
+}
+:global(.brick),  :global(.stairs),  :global(.gold),  :global(.space) {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    // border: 1px solid white;
+}
+
+:global(.space) {
+    border: 1px solid #c0c040;
+}
+
+.appBut {
+    font-family: Born2bsporty, Arial, Helvetica, sans-serif;
+    font-size: 40px;
+    padding: 0px 10px 0px 10px;
+    height: 38px;
+    border: 2px solid #c0c040;
+    box-sizing: content-box;
+    letter-spacing: 3px;
+    background: #c0c040;
+    cursor: pointer;
+    div {
+        position: relative;
+        top: -8px;
+    }
+}
+.btGo {
+    margin: 0px 0px 42px 2px;
+}
+
+:global(.bricks) h1 {
+    font-family: Born2bsporty, Arial, Helvetica, sans-serif;
+    letter-spacing: 0.15em;
+    font-size: 50px;
+    padding: 0px;
+    margin: 0px 0px 10px 10px;
+    font-weight: normal;
+}
+
+.develop {
+    .editInventory {
+        margin: 50px 0px 42px 0px;
+    }
+    
+    .wrapLoad {
+        background: black;
+        margin-bottom: 42px;
+        padding: 0px;
+    }
+    .btLoad {
+        cursor: pointer;
+        width: 100%;
+        height: 40px;
+        overflow: hidden;
+        border-radius: 0px;
+        font-family: Born2bsporty, Arial, Helvetica, sans-serif;
+        font-size: 30px;
+        margin: 0px;
+        position: relative;
+
+        &::before {
+            content: 'ЗАГРУЗИТЬ УРОВЕНЬ';
+            display: block;
+            width: 100%;
+            height: 40px;
+            left: 0px;
+            top: 0px;
+            text-align: center;
+            line-height: 40px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            color: var(--button-color);
+            background: var(--button-bg);
+            border: var(--button-bg);
+        }
+    }
+    
+    .save {
+        cursor: pointer;
+        height: 40px;
+        width: 100%;
+        border-radius: 0px;
+        font-family: Born2bsporty, Arial, Helvetica, sans-serif;
+        font-size: 30px;
+        margin-bottom: 42px;
+        color: var(--button-color);
+        background: var(--button-bg);
+        border: var(--button-bg);
+}
+    
+    .cur {
+        border: 1px solid var(--frame-color);
+    }
+}
+
+.gameOverScreen {
+    .bg {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        background: rgba(0,0,0,0.5);
+
+    }
+    .content {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+
+        .win {
+            font-family: Born2bsporty, Arial, Helvetica, sans-serif;
+            font-size: 30px;
+            letter-spacing: 3px;
+            max-width: 80%;
+            background: rgba(0,0,0,0.9);
+            padding: 40px;
+
+            h1 {
+                margin: 0px 0px 50px 0px;
+            }
+
+            .enterLogin {
+                margin: 50px 0px 0px 0px;
+            }
+
+            input[type="text"] {
+                border: 1px solid var(--frame-color);
+                font-family: Born2bsporty, Arial, Helvetica, sans-serif;
+                font-size: 30px;
+                padding: 0px 10px 0px 10px;
+                margin-left: 10px;
+                width: 200px;
+                color: #ffff40;
+                background: black;
+                border-radius: 0;
+                &:focus {
+                    outline: none!important;
+                    border: 1px solid var(--frame-color);
+                    border-radius: 0;
+                }
+            }
+            .tgLogin {
+                margin: 30px 0px;
+            }
+
+            .bt {
+                margin-top: 20px;
+                text-align: right;
+                height: 42px;
+                overflow: hidden;
+            }
+        }
+        
+    }
+}
+
+.screen {
+    position: relative;
+}
+
+.introScreen {
+    .bg {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        background: url(./wall.png);
+
+    }
+    .content {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+
+        .win {
+            font-family: Born2bsporty, Arial, Helvetica, sans-serif;
+            font-size: 30px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            max-width: 80%;
+            background: rgba(0,0,0,0.9);
+            padding: 40px;
+
+            h1 {
+                margin-left: 0px;
+            }
+            ul {
+                margin: 0px;
+                padding: 0px;
+                list-style: none;
+            }
+
+            p.pretty, li.pretty {
+                text-indent: -60px;
+                margin-left: 60px;
+            }            
+            p {
+                margin: 20px 0px;
+            }
+
+            .bt {
+                margin-top: 20px;
+                text-align: right;
+                height: 42px;
+                overflow: hidden;
+            }
+            span {
+                width: 40px;
+                height: 40px;
+                display: inline-block;
+                position: relative;
+                margin-right: 10px;
+
+                &.coin {
+                    top: 30px;
+                    border: 1px solid #ffff40;
+                }
+
+                &.brick {
+                    top: 2px;
+                }
+
+                &.space {
+                    border: 1px solid #ffff40;
+                }
+
+                &.timer {
+                    top: 28px;
+                    border: 1px solid #ffff40;
+                }
+
+                &.level {
+                    top: 1px;
+                    border: 1px solid #ffff40;
+                }
+
+                &.gold {
+                    margin-right: 18px;
+                    border: 1px solid #ffff40;
+                }
+
+            }
+        }
+    
+    }
+}
+
+.finishLevelScreen {
+    border: 1px solid red;
+
+    .bg {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        background: rgba(0,0,0,0.5);
+
+    }
+    .content {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+
+        .win {
+            font-family: Born2bsporty, Arial, Helvetica, sans-serif;
+            font-size: 30px;
+            letter-spacing: 3px;
+            max-width: 90%;
+            background: rgba(0,0,0,0.9);
+            padding: 40px;
+
+            h1 {
+                margin: 0px 0px 50px 0px;
+            }
+
+            .enterLogin {
+                margin: 50px 0px 0px 0px;
+            }
+
+            input[type="text"] {
+                border: 1px solid var(--frame-color);
+                font-family: Born2bsporty, Arial, Helvetica, sans-serif;
+                font-size: 30px;
+                padding: 0px 10px 0px 10px;
+                margin-left: 10px;
+                width: 200px;
+                color: #ffff40;
+                background: black;
+                border-radius: 0;
+                &:focus {
+                    outline: none!important;
+                    border: 1px solid var(--frame-color);
+                    border-radius: 0;
+                }
+            }
+            .tgLogin {
+                margin: 30px 0px;
+            }
+        }
+        
+    }
+}
+
+:global(.bricks) :global(.controls) {
+    font-family: Born2bsporty, Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    label {
+        input {
+            margin-right: 6px;
+        }
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+
+    button {
+        font-family: Born2bsporty, Arial, Helvetica, sans-serif;
+        font-size: 30px;
+        text-transform: uppercase;
+        color: var(--button-color);
+        background: var(--button-bg);
+        border: var(--button-bg);
+    }
+}
+
+.li {
+    margin-left: 60px;
+}
