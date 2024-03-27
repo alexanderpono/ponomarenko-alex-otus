@@ -6,6 +6,7 @@
     "start": "node ./bin/www",
     "watch": "nodemon",
     "ts-check": "tsc",
+    "build": "tsc",
     "test": "jest"
   },
   "devDependencies": {
