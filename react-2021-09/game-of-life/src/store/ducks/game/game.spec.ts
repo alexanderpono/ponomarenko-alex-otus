@@ -1,5 +1,5 @@
-import { FillPercent, Size, sizeToWH } from '@src/consts';
-import { getFromState, getVal, str } from '@src/testFramework/lib/reducer';
+import { FillPercent, Mode, Size, sizeToWH, Speed } from '@src/consts';
+import { bool, getFromState, getVal, str } from '@src/testFramework/lib/reducer';
 import { CellInfo } from '@src/types';
 import {
     AppAction,
@@ -8,15 +8,18 @@ import {
     defaultAppState,
     fieldSize,
     fillPercent,
+    generation,
     invert,
     ioError,
     loadState,
+    mode,
     replaceState,
     saveState,
+    setSpeed,
     user,
 } from './game';
 import gameReducer from './game';
-import { getInverted } from './playFieldUtils';
+import { getGOLCellState, getInverted, getNewField } from './playFieldUtils';
 
 const num = (size: number) => Math.round(size * Math.random());
 
@@ -46,6 +49,19 @@ describe('gameReducer', () => {
         const rndName = str();
         const rndAppState = { ...defaultAppState, userName: str() };
         const rndError = str();
+        const nextData = getNewField(
+            {
+                data: defaultAppState.data,
+                width: defaultAppState.fieldWidth,
+                height: defaultAppState.fieldWidth,
+            },
+            getGOLCellState
+        );
+        const rndMode = bool() ? Mode.PLAY : Mode.PAUSE;
+        const rndSpeed = ((): Speed => {
+            const speedIndex = num(2);
+            return speedIndex === 0 ? Speed.SLOW : speedIndex === 1 ? Speed.MEDIUM : Speed.FAST;
+        })();
 
         test.each`
             actions                                 | testName                                        | event                      | stateSelector    | value
@@ -60,8 +76,11 @@ describe('gameReducer', () => {
             ${[loadState()]}                        | ${'sets .userName from LOAD_STATE action'}      | ${AppActions.LOAD_STATE}   | ${null}          | ${null}
             ${[saveState(rndAppState)]}             | ${'sets .userName from SAVE_STATE action'}      | ${AppActions.SAVE_STATE}   | ${null}          | ${null}
             ${[ioError(rndError)]}                  | ${'sets .userName from IO_ERROR action'}        | ${AppActions.IO_ERROR}     | ${'errorInfo'}   | ${rndError}
+            ${[generation()]}                       | ${'sets .data from GENERATION action'}          | ${AppActions.GENERATION}   | ${'data'}        | ${nextData.data}
+            ${[mode(rndMode)]}                      | ${'sets .mode from MODE action'}                | ${AppActions.MODE}         | ${'mode'}        | ${rndMode}
+            ${[setSpeed(rndSpeed)]}                 | ${'sets .speed from SET_SPEED action'}          | ${AppActions.SET_SPEED}    | ${'speed'}       | ${rndSpeed}
         `('$testName', async ({ actions, event, stateSelector, value }) => {
-            let state: AppState = defaultAppState;
+            let state: AppState = { ...defaultAppState, data: [...defaultAppState.data] };
             actions.forEach((action: AppAction) => {
                 state = gameReducer(state, action);
             });
