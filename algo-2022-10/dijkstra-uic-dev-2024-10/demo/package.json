@@ -1,0 +1,28 @@
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@shower/core": "^3.3.0",
+    "@shower/ribbon": "^3.5.1"
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^6.0.0",
+    "webpack": "^4.41.0",
+    "webpack-cli": "^3.3.9",
+    "@shower/cli": "^0.3.1"
+  },
+  "scripts": {
+    "build": "shower bundle && webpack --mode production",
+    "builddev": "shower bundle && webpack --mode development",
+    "pdf": "shower pdf",
+    "start": "shower serve",
+    "archive": "shower archive",
+    "bundle": "shower bundle",
+    "publish": "shower publish"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

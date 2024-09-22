@@ -1,0 +1,17 @@
+{
+    "levels": [
+        {
+            "mapFile": "01.txt",
+            "inventory": {
+                "bricks": {
+                    "enabled": "true",
+                    "count": 10
+                },
+                "stairs": {
+                    "enabled": "true",
+                    "count": 5
+                }
+            }
+        }
+    ]
+}

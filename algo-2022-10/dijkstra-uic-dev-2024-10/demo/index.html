@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Алгоритм Дейкстры: наделяем интеллектом компьютерных соперников
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="node_modules/@shower/ribbon/styles/styles.css">
+    <link rel="stylesheet" href="demo-static/index.css">
+    <link rel="stylesheet" href="bricks-static/bricksEditor.css">
+    <style>
+
+    </style>
+
+    <script defer src="./app-static/abstractGraph.js"></script>
+    <script defer src="./app-static/gameField.js"></script>
+    <script defer src="./bricks-static/bricksEditor.js"></script>
+</head>
+<body class="shower list">
+
+    <header class="caption">
+        <h1>Алгоритм Дейкстры: наделяем интеллектом компьютерных соперников
+        </h1>
+        <p>Александр Пономаренко</p>
+    </header>
+
+    <section class="slide title">
+        <img class="logo" src="demo-static/INNO-logo.svg" />
+        <h1>Алгоритм Дейкстры: <br />наделяем интеллектом <br />компьютерных соперников</h1>
+        <h3 class="noindent nologo">Александр Пономаренко</h3>
+    </section>
+
+    <section class="slide speaker">
+        <h3 class="d20 noindent">Александр Пономаренко</h3>
+        <div class="content">
+            <div class="photo-caption">
+                <div class="photo"><img src="demo-static/photo256x256.jpg" width="200" /></div>
+                <div class="position">Холдинг Т1, ГК «Иннотех», <br />Frontend-разработчик React</div>
+            </div>
+            <div class="img1"><img src="demo-static/enigmas.jpg" class="rounded" /></div>
+            <div class="experience">
+                <p class="top"><span class="number">20</span> <span class="units">лет</span></p>
+                <p class="bottom">в web-разработке</p>
+            </div>
+            <div class="games">
+                <p class="top"><span class="number">5</span><span class="units"> игр</span></p>
+                <p class="bottom">для школьников <br />в рамках проектов</p>
+            </div>
+            <div class="img2"><img src="demo-static/river4.jpg"  class="rounded" /></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+        </div>
+    </section>
+
+    <section class="slide nocopy">
+        <h3 class="noindent">Если вы решаете задачи:</h3>
+
+        <div class="picText">
+            <div class="w50">
+                <ul>
+                    <li class="maxw100">Маршрутизация трафика в сети</li>
+                    <li class="maxw100">Или создаете программу-навигатор, который будет находить кратчайший путь <br />из точки А в точку Б</li>
+                    <li class="maxw100">Или создаете программу расчета электрических цепей</li>
+                    <li class="maxw100">Или создаете компьютерную&nbsp;игру&nbsp;&mdash; <h4 class="nocopy">то этот доклад для вас</h3></li>
+                </ul>
+                
+            </div>
+            <div class="text">
+                <img src="demo-static/inspiration.png" width="500"/>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h3>Через 25 минут</h3>
+        <h4>Вы будете знать:</h4>
+        <ul>
+            <li>Как реализовать алгоритм Дейкстры </li>
+            <li>Как на его базе создать компьютерную игру, где персонаж обходит препятствия и движется к цели</li>
+        </ul>
+        <h4>У вас будет ссылка:</h4>
+        <ul>
+            <li>На репозиторий с исходниками алгоритма и игры</li>
+            <li>На работающую игру в интернете</li>
+        </ul>
+    </section>
+
+    <section class="slide">
+        <h3>Вы сможете</h3>
+        <ul>
+            <li>Сами создавать собственные игры</li>
+            <li>И решать задачи поиска оптимального пути, опираясь <br />на представленный пример</li>
+        </ul>
+        <div class="gamedev img1 rounded"></div>
+        <div class="pathfind img2 rounded"></div>
+    </section>
+
+    <section class="slide">
+        <h3 class="noindent">Вы сэкономите 1 неделю своего времени </h3>
+
+        <div class="picText">
+            <div class="w20">
+                <h4>Потому что:</h4>
+                <ul>
+                    <li class="maxw100">Предложу вам готовую реализацию алгоритма</li>
+                    <li class="maxw100">Расскажу <br />о подводных камнях</li>
+                </ul>
+            </div>
+            <div class="text">
+                <div id="brief_1" class="game"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h3>Содержание</h3>
+        <p><strong>1.</strong> Алгоритм Дейкстры</p>
+        <p><strong>2.</strong> Квадратная сетка и обход препятствий</p>
+        <p><strong>3.</strong> Оптимизация. A*</p>
+        <p><strong>4.</strong> Телепортация</p>
+        <p><strong>5.</strong> Алгоритм Дейкстры vs A*</p>
+        <p><strong>6.</strong> Примеры игр</p>
+    </section>
+
+    <section class="slide nocopy">
+        <h3 class="noindent">1. Что общего у этих задач?</h3>
+
+        <div class="picText">
+            <div class="w50">
+                <ul>
+                    <li class="maxw100">Маршрутизировать трафик по сети</li>
+                    <li class="maxw100">Создать программу-навигатор, который будет находить кратчайший путь из точки А <br />в точку Б</li>
+                    <li class="maxw100">Создать программу расчета электрических цепей</li>
+                    <li class="maxw100">Создать компьютерную игру</li>
+                </ul>
+                
+            </div>
+            <div class="text">
+            </div>
+        </div>
+    </section>
+
+    <section class="slide nocopy">
+        <h3 class="noindent">1. Что общего у этих задач?</h3>
+
+        <div class="picText">
+            <div class="w50">
+                <ul>
+                    <li class="maxw100">Маршрутизировать трафик по сети</li>
+                    <li class="maxw100">Создать программу-навигатор, который будет находить кратчайший путь из точки А <br />в точку Б</li>
+                    <li class="maxw100">Создать программу расчета электрических цепей</li>
+                    <li class="maxw100">Создать компьютерную игру</li>
+                </ul>
+                
+            </div>
+            <div class="text">
+                <br /><br /><br /><br />
+                <mark>Поиск кратчайшего пути</mark>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide nocopy">
+        <h3 class="noindent">1. Что такое граф?</h3>
+
+        <div class="selectOne">
+            <p>Вид посуды</p>
+            <p>Муж графини</p>
+            <p>Почетный дворянский титул</p>
+            <p>Геометрическая фигура</p>
+        </div>
+    </section>
+
+    <section class="slide nocopy">
+        <h3>1. Взвешенный <br/>неориентированный граф</h3>
+
+        <div class="picText">
+            <div class="w50">
+                <ul>
+                    <li class="maxw100">Алгоритм Дейкстры</li>
+                    <li class="maxw100">А*</li>
+                    <li class="maxw100 del">BFS (Breadth-First Search) &mdash; для невзвешенных графов</li>
+                </ul>
+                
+            </div>
+            <div class="text">
+                <div id="slide01" class="abstractGraph"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide nocopy">
+        <h3>1. Алгоритмы для отрицательных <br />весов ребер</h3>
+
+        <div class="picText">
+            <div class="w50">
+                <ul>
+                    <li class="maxw100 del">Беллмана-Форда (ориентированные и неориентированные)</li>
+                    <li class="maxw100 del">Флойда-Уоршелла (ориентированные и неориентированные)</li>
+                    <li class="maxw100 del">Джонсона (только ориентированные графы)</li>
+                </ul>
+
+            </div>
+            <div class="text">
+                <div id="slide01" class="abstractGraph"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide nocopy noPageNumber">
+        <h3>1. Кто этот человек?</h3>
+
+        <div class="picText">
+            <div class="w50">
+
+            </div>
+            <div class="w50 dijkstra">
+                <img class="photo" src="demo-static/Dijkstra.jpg" />
+            </div>
+        </div>
+    </section>
+
+    <section class="slide nocopy noPageNumber">
+        <h3>1. Эдсгер Дейкстра</h3>
+
+        <div class="picText">
+            <div class="w60">
+                <p>Алгоритм Дейкстры — алгоритм на графах, изобретённый нидерландским учёным Эдсгером Дейкстрой в 1959 году.</p> 
+                <p>Находит кратчайшие пути <br />от одной из вершин графа <br />до всех остальных</p>
+            </div>
+            <div class="w40 dijkstra">
+                <img class="photo" src="demo-static/Dijkstra.jpg" />
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h3>1. Алгоритм Дейкстры. Основные моменты</h3>
+        <ul>
+            <li>Внешний цикл &mdash; обходим все вершины графа</li>
+            <li>Внутренний цикл &mdash; обходим соседние вершины относительно текущей</li>
+            <li>Расчет стоимости перехода в соседнюю вершину <br />из текущей</li>
+            <li>При расчете стоимости запоминаем, по какому ребру перешли в данную вершину</li>
+        </ul>
+    </section>
+
+    <section class="slide"><div id="slide00" class="abstractGraph"></div></section>
+    <section class="slide"><div id="gl-s0" class="abstractGraph"></div></section>
+    <section class="slide"><div id="gl-s1" class="abstractGraph"></div></section>
+    <section class="slide"><div id="gl-s2" class="abstractGraph"></div></section>
+    <section class="slide"><div id="gl-s3" class="abstractGraph"></div></section>
+    <section class="slide"><div id="gl-s4" class="abstractGraph"></div></section>
+    <section class="slide"><div id="gl-s5" class="abstractGraph"></div></section>
+    <section class="slide"><div id="gl-s6" class="abstractGraph"></div></section>
+
+    <section class="slide">
+        <div id="graph-ok" class="abstractGraph"></div>
+    </section>
+
+
+    <section class="slide">
+        <h3>Содержание</h3>
+        <p class="ok">1. Алгоритм Дейкстры</p>
+        <p><strong>2.</strong> Квадратная сетка и обход препятствий</p>
+        <p><strong>3.</strong> Оптимизация. A*</p>
+        <p><strong>4.</strong> Телепортация</p>
+        <p><strong>5.</strong> Алгоритм Дейкстры vs A*</p>
+        <p><strong>6.</strong> Примеры игр</p>
+    </section>
+
+    <section class="slide">
+        <div id="slide1" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="slide1_2" class="game"></div>
+    </section>
+    
+    <section class="slide">
+        <div id="slide1_3" class="game"></div>
+    </section>
+    
+    <section class="slide">
+        <div id="slide2_2" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="slide2" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="slide2_3" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="slide2_4" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <h3>2. Как звучит закон Мерфи?</h3>
+    </section>
+
+    <section class="slide">
+        <h3>2. Закон Мерфи</h3>
+        <p class="q"><q>Если что-нибудь может пойти не так <span class="highlight">&mdash;</span> <br />оно пойдет не так</q></p>
+        <p>Эдвард Мерфи</p>
+    </section>
+
+
+
+
+    <section class="slide">
+        <div id="slide3a" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="slide3a_2" class="game"></div>
+    </section>
+    
+    <section class="slide">
+        <div id="slide3a_3" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="slide3" class="game"></div>
+    </section>
+    
+    <section class="slide">
+        <div id="slide3_2" class="game"></div>
+    </section>
+    
+    <section class="slide">
+        <div id="slide3_3" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="slide4" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="slide4_2" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="slide4_3" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="slide4_4" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="V5" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="V5_2" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="V5_3" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="V5_4" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="V5_4_1" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="V5_5" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="V5_6" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <h3>Содержание</h3>
+        <p class="ok">1. Алгоритм Дейкстры</p>
+        <p class="ok">2. Квадратная сетка и обход препятствий</p>
+        <p><strong>3.</strong> Оптимизация. A*</p>
+        <p><strong>4.</strong> Телепортация</p>
+        <p><strong>5.</strong> Алгоритм Дейкстры vs A*</p>
+        <p><strong>6.</strong> Примеры игр</p>
+    </section>
+
+    <section class="slide">
+        <div id="V5_7_1" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="V5_7_2" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="V5_7_3" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="V5_7_4" class="game"></div>
+    </section>
+
+    <section class="slide nocopy">
+        <div id="V5_7_5" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <h3>4. Оптимизация. Эвристическая функция H()</h3>
+        <p>H(x0, x1, y0, y1) = |x1 &mdash; x0| + |y1 &mdash; y0|</p>
+    </section>
+
+    <section class="slide nocopy">
+        <div id="V5_heurisic_1" class="game"></div>
+    </section>
+
+    <section class="slide nocopy">
+        <div id="V5_heurisic_2" class="game"></div>
+    </section>
+
+    <section class="slide nocopy">
+        <div id="V5_heurisic_3" class="game"></div>
+    </section>
+
+    <section class="slide nocopy">
+        <div id="V5_heurisic_4" class="game"></div>
+    </section>
+
+    <section class="slide nocopy">
+        <div id="V5_heurisic_5" class="game"></div>
+    </section>
+
+    <section class="slide lh90  nocopy">
+        <h3>4. Настраиваем эвристическую функцию</h3>
+        <p>H1(x, y, xT, yT) = |xT &mdash; x| + |yT &mdash; y|</p>
+        <p>H2(x, y, xT, yT) = 2 * H1()</p>
+        <p>H3(x, y, xT, yT, xS, yS) = 2 * H1() + D(), где</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;D(x, y, A, B, C) = |A * x + B * y + C| / sqrt(A * A + B * B)</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;A = yT &mdash; yS</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;B = xS &mdash; xT</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;C = xS * (yS &mdash; yT) + yS * (xT &mdash; xS)</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;(xT, yT) &mdash; целевая вершина</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;(xS, yS) &mdash; исходная вершина</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;(x, y) &mdash; вершина, для которой вычисляем значение H()</p>
+    </section>
+
+
+    <section class="slide nocopy">
+        <div id="V5_heurisic_5_2" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="V5_barrier" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="V5_barrier2" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="V5_barrier3" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="V5_barrier4" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="V5_barrier5" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <h3>4. Эвристическая <br />функция H4()</h3>
+        <p>H1(x, y, xT, yT) = |xT &mdash; x| + |yT &mdash; y|</p>
+        <p>H2(x, y, xT, yT) = 2 * H1()</p>
+        <p>H3(x, y, xT, yT, xS, yS) = 2 * H1() + D()</p>
+        <p>H4(x, y, xT, yT, xS, yS) = 5 * (4 * H1() + D())</p>
+    </section>
+
+    <section class="slide">
+        <h3>Содержание</h3>
+        <p class="ok">1. Алгоритм Дейкстры</p>
+        <p class="ok">2. Квадратная сетка и обход препятствий</p>
+        <p class="ok">3. Оптимизация. A*</p>
+        <p><strong>4.</strong> Телепортация</p>
+        <p><strong>5.</strong> Алгоритм Дейкстры vs A*</p>
+        <p><strong>6.</strong> Примеры игр</p>
+    </section>
+
+    <section class="slide">
+        <div id="teleport_intro_1" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="teleport_intro_2" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="teleport_intro_3" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="teleport_intro_4" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="teleport_2" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="teleport_3" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="teleport_4" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <h3>Содержание</h3>
+        <p class="ok">1. Алгоритм Дейкстры</p>
+        <p class="ok">2. Квадратная сетка и обход препятствий</p>
+        <p class="ok">3. Оптимизация. A*</p>
+        <p class="ok">4. Телепортация</p>
+        <p><strong>5.</strong> Алгоритм Дейкстры vs A*</p>
+        <p><strong>6.</strong> Примеры игр</p>
+    </section>
+
+    <section class="slide">
+        <div id="O_1" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <div id="O_2" class="game"></div>
+    </section>
+
+    <section class="slide nocopy noPageNumber">
+        <h3>5. T(N) &ndash; время расчета</h3>
+        <h4>Реализация алгоритма Дейкстры</h4>
+        <table>
+            <tbody>
+                <tr>
+                    <th>N, сторона квадрата</th><th>N2, узлов в графе&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th>T, миллисекунд</th>
+                </tr>
+                <tr>
+                    <td>10</td><td>100</td><td>3</td>
+                </tr>
+                <tr>
+                    <td>100</td><td>10 000</td><td>557</td>
+                </tr>
+                <tr>
+                    <td>1 000</td><td>1 000 000</td><td>51 555</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>5. Реализация алгоритма A*</h4>
+        <table>
+            <tbody>
+                <tr>
+                    <th>N, сторона квадрата</th><th>N2, узлов в графе&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th>T, миллисекунд</th>
+                </tr>
+                <tr>
+                    <td>10</td><td>100</td><td>2</td>
+                </tr>
+                <tr>
+                    <td>100</td><td>10 000</td><td>14</td>
+                </tr>
+                <tr>
+                    <td>1 000</td><td>1 000 000</td><td>835</td>
+                </tr>
+                <tr>
+                    <td>10 000</td><td>100 000 000</td><td>*out of memory</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>    
+
+    <section class="slide">
+        <h3>5. Выводы</h3>
+        <p>1. Алгоритм Дейкстры проще в реализации, чем A*</p>
+        <p>2. A* эффективнее, чем алгоритм Дейкстры</p>
+        <p class="pretty">3. Можно создавать свои игры на основе примера: <br />
+            <span class="link">https://github.com/alexanderpono/bricks-runner</span>
+        </p>
+        <p class="pretty">** Также очень хорош BFS (Breadth-First Search) с эвристикой, но нужен невзвешенный граф</p>
+    </section>
+
+    <section class="slide">
+        <h3>5. Что еще почитать?</h3>
+        <ul>
+            <li>A* &mdash; развитие алгоритма Дейкстры <span class="link">https://www.redblobgames.com/pathfinding/a-star/introduction.html</span></li>
+            <li>Еще об алгоритмах на графах <span class="link">https://habr.com/ru/companies/timeweb/articles/751762/</span></li>
+        </ul>
+
+    </section>
+   
+    <section class="slide">
+        <h3>Содержание</h3>
+        <p class="ok">1. Алгоритм Дейкстры</p>
+        <p class="ok">2. Квадратная сетка и обход препятствий</p>
+        <p class="ok">3. Оптимизация. A*</p>
+        <p class="ok">4. Телепортация</p>
+        <p class="ok">5. Алгоритм Дейкстры vs A*</p>
+        <p><strong>6.</strong> Примеры игр</p>
+    </section>
+
+    <section class="slide">
+        <div id="game2" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <h3>6. Bricks Runner</h3>
+        <div id="game3" class="game bricks"></div>
+    </section>
+
+    <section class="slide">
+        <h3>6. Bricks Runner</h3>
+        <p>Режим обучения (Chrome) &mdash; <a href="https://alexanderpono.github.io/bricks-runner/impulse/tutorial/">https://alexanderpono.github.io/bricks-runner/impulse/tutorial/</a> </p>
+        <p>Режим игры (Chrome) &mdash; <a href="https://alexanderpono.github.io/bricks-runner/impulse/game/">https://alexanderpono.github.io/bricks-runner/impulse/game/</a> </p>
+        <p>Режим редактора уровня (Chrome) &mdash; <a href="https://alexanderpono.github.io/bricks-runner/impulse/game/#dev">https://alexanderpono.github.io/bricks-runner/impulse/game/#dev</a> </p>
+        
+    </section>
+
+    <section class="slide">
+        <h3 class="noindent">Спасибо за внимание! <br />Вопросы?</h3>
+        <div class="qrs">
+            <div class="ap">Александр Пономаренко</div>
+            <div class="ap_qr"><div class="ap_qr_i"><img src="./demo-static/TG-qr-code.gif"/></div></div>
+
+            <div class="links">Материалы</div>
+            <div class="links_qr"><div class="links_qr_i"><img src="./demo-static/links-qr-code.gif" width="200px" height="200px"/></div></div>
+            
+            <div class="inno">Стажировка <br />Т1.Дебют</div>
+            <div class="inno_qr"><div class="inno_qr_i"><img src="./demo-static/INNO-qr-code.gif" width="200px" height="200px"/></div></div>
+        </div>
+    </section>
+
+    <footer class="badge">
+        <a href="https://github.com/alexanderpono/bricks-runner">Проект на GitHub</a>
+    </footer>
+
+    <div class="progress"></div>
+
+    <script src="node_modules/@shower/core/dist/shower.js"></script>
+
+</body>
+</html>
