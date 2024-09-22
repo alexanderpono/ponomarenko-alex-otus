@@ -29,6 +29,15 @@ module.exports = function (grunt) {
                 ],
                 tasks: ['exec:buildBricks']
             },
+            {
+                options: {
+                    livereload: true
+                },
+                files: [
+                    '../bricks-runner-arcade/src/**/*.*'
+                ],
+                tasks: ['exec:buildBricksArcade']
+            },
         ],
         concat: {
         },
@@ -39,6 +48,10 @@ module.exports = function (grunt) {
             },
             buildBricks: {
                 cmd: `bash ./build-bricks.sh`                
+                // cmd: `build-bricks.bat`
+            },
+            buildBricksArcade: {
+                cmd: `bash ./build-bricks-arcade.sh`                
                 // cmd: `build-bricks.bat`
             },
         },

@@ -29,9 +29,9 @@ interface UIProps {
 
 export const UI: React.FC<UIProps> = ({ kb, uiState, ctrl, guardState, manState, canvasW, canvasH, canvasId }) => {
     return (
-        <div className={styles.ui}>
+        <div className={cn(styles.ui, 'ui')}>
             <canvas id={canvasId} height={canvasH} width={canvasW}></canvas>
-            <div className={styles.playerControls}>
+            <div className={cn(styles.playerControls, 'playerControls')}>
                 <button id="btLeft" className={cn({ pressed: kb.isLeftPressed })}>
                     &lt;
                 </button>
@@ -45,23 +45,23 @@ export const UI: React.FC<UIProps> = ({ kb, uiState, ctrl, guardState, manState,
                     U
                 </button>
             </div>
-            <div className={styles.guardianControls}>
+            <div className={cn(styles.guardianControls, 'guardianControls')}>
                 <button id="btGLeft">&lt;</button>
                 <button id="btGRight">&gt;</button>
                 <button id="btGDown">D</button>
                 <button id="btGUp">U</button>
             </div>
-            <div className={styles.uiOptions}>
+            <div className={cn(styles.uiOptions, 'uiOptions')}>
                 {Label(uiState.showNodes, ctrl.nodesClicked, `nodes`, 'Узлы')}
                 {Label(uiState.showLines, ctrl.linesClicked, `lines`, 'Ребра')}
                 {Label(uiState.showPath, ctrl.pathClicked, `path`, 'Путь')}
                 {Label(uiState.showNodesCost, ctrl.nodesCostClicked, `nodesCost`, 'Стоимость')}
                 {Label(uiState.showMap, ctrl.mapClicked, `map`, 'Карта')}
             </div>
-            <div className={styles.guardCtrl2}>
+            <div className={cn(styles.guardCtrl2, 'guardCtrl2')}>
                 {Label(guardState.run, ctrl.guardRunClicked, `guardRun`, 'Бежать')}
             </div>
-            <div className={styles.manCtrl2}>
+            <div className={cn(styles.manCtrl2, 'manCtrl2')}>
                 {Label(manState.run, ctrl.manRunClicked, `manRun`, 'Бежать')}
             </div>
         </div>

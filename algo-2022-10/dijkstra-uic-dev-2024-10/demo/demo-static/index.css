@@ -641,3 +641,120 @@ strong {
 .slide a {
     color: #00aae6;
 }
+
+.ui {
+    display: grid;
+    grid-template-areas: "game game game" "playerCtrl uiOptions guardCtrl" "manCtrl2 uiOptions2 guardCtrl2";
+    grid-template-columns: 122px auto 122px;
+    grid-template-rows: 320px 30px 30px;
+    height: 320px;
+    width: 720px;
+}
+
+.playerControls {
+    grid-area: playerCtrl;
+    display: flex;
+    button {
+        width: 30px;
+    }
+}
+
+.guardianControls {
+    grid-area: guardCtrl;
+    display: flex;
+    justify-content: flex-end;
+    button {
+        width: 30px;
+    }
+}
+
+.guardCtrl2 {
+    grid-area: guardCtrl2;
+    display: flex;
+}
+
+.manCtrl2 {
+    grid-area: manCtrl2;
+    display: flex;
+}
+
+.guardCtrl2, .uiOptions, .manCtrl2 {
+    font-family: Arial, Helvetica, sans-serif;
+    label {
+        margin: 0px 0px 0px 0px;
+        padding-left: 0px;
+        position: relative;
+    }    
+    input[type='checkbox'] {
+        visibility: hidden;
+    }
+    input[type="checkbox"]:checked + b, 
+    input[type="checkbox"]:not(:checked) + b {
+        display: inline-block;
+        content: "";
+        margin: 0px 0px 0px 0px;
+        position: relative;
+        width: 18px;
+        height: 18px;
+        border: 1px solid black;
+    
+        border-radius: 2px;
+    }
+    input[type="checkbox"]:checked + b {
+        background: black;
+    }
+    
+    input[type="checkbox"]:not(:checked) + b {
+        background: white;
+    }
+
+    input[type="checkbox"]:checked + b:after, 
+    input[type="checkbox"]:not(:checked) + b:after {
+        display: inline-block;
+        content: "";
+        position: absolute;
+        left: 3px;
+        top: 4px;
+        width: 10px;
+        height: 5px;
+        border-radius: 1px;
+        border-left: 4px solid white;
+        border-bottom: 4px solid white;
+        -webkit-transform: rotate(-45deg);
+        -moz-transform: rotate(-45deg);
+        -o-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+    }
+
+    input[type="checkbox"]:checked + b:after {
+        opacity: 1;
+    }
+    
+    input[type="checkbox"]:not(:checked) + b:after {
+        opacity: 0;
+    }
+
+    :global(.checkText) {
+        display: inline-block;
+        line-height: 30px;
+        height: 30px;
+        padding-left: 45px;
+    }
+
+    :global(.checkBox) {
+        position: absolute;
+        left: 0px;
+        top: 3px;
+    }
+}
+
+.uiOptions {
+    grid-area: uiOptions;
+    display: flex;
+    justify-content: center;
+}
+
+.arcade label .checkText {
+    display: none;
+}

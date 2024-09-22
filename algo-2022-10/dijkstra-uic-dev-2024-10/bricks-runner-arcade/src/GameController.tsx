@@ -44,10 +44,8 @@ export class GameController {
     constructor(private builder: GameControllerBuilder) {}
 
     run() {
-        this.levelMap = LevelMap.create().initFromText(level1);
-        this.emptyLevel = this.initEmptyField(level1);
-        this.levelMap = LevelMap.create().initFromText(level2);
-        this.emptyLevel = this.initEmptyField(level2);
+        this.levelMap = LevelMap.create().initFromText(this.builder.level);
+        this.emptyLevel = this.initEmptyField(this.builder.level);
         this.dObjects = this.levelMap.getDynanicObjects();
         this.kb = new Keyboard(this);
         this.kb.listen();

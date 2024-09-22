@@ -6,6 +6,7 @@ export class GameControllerBuilder {
     canvasH: number = 0;
     calculator: PathCalculator;
     canvasId: string;
+    level: string;
 
     setTarget = (target: string) => {
         this.target = target;
@@ -29,6 +30,11 @@ export class GameControllerBuilder {
 
     setCanvasId = (canvasId: string) => {
         this.canvasId = canvasId;
+        return this;
+    };
+
+    setLevel = (level: string) => {
+        this.level = level;
         return this;
     };
 }
