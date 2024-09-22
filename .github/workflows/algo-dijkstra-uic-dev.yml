@@ -132,7 +132,7 @@ jobs:
 
   bricks-arcade-dijkstra-uic-dev:
     runs-on: ubuntu-latest
-    needs: app-dijkstra-uic-dev
+    needs: bricks-dijkstra-uic-dev
     defaults:
       run:
         working-directory: algo-2022-10/dijkstra-uic-dev-2024-10/bricks-runner-arcade
