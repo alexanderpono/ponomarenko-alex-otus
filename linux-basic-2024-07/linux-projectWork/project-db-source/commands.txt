@@ -1,0 +1,7 @@
+$ sudo docker exec -it project-db-source mysql -u meteo_r -e "show tables from meteo_db"
+
+$ sudo docker exec -it project-db-source mysql -u meteo_r -e "select count(*) from meteo_db.tele"
+$ sudo docker exec -it project-db-source mysql -u root -p
+
+$ sudo docker rm project-db-source
+$ sudo rm -r project-db-source/*

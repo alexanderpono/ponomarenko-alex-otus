@@ -1,0 +1,24 @@
+services:
+  project-db-source:
+    image: mysql:8.0
+    container_name: project-db-source
+    restart: always
+      
+    volumes:
+      - ./project-db-source/mysql-secrets:/run/secrets
+      - ./project-db-source/mysql-db:/var/lib/mysql
+      - ./project-db-source/mysql-init-db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./project-db-source/mysql-conf:/etc/mysql/conf.d
+
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql-root
+
+    ports:
+      - '192.168.10.151:3306:3306' 
+
+    networks:
+      - project_network         
+
+networks:
+  project_network:
+    driver: bridge    
