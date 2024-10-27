@@ -21,6 +21,12 @@ grant select on meteo_db.* to meteo_r@'localhost';
 create user 'meteo_api'@'%' identified with 'caching_sha2_password' by 'pass';
 grant select, insert, update, delete on meteo_db.* to meteo_api@'%';
 
+create user repl@'%' identified with 'caching_sha2_password' by 'replPass';
+grant replication slave on *.* to repl@'%';
+
+show master status;
+
 flush privileges;
 show grants for 'meteo_r'@'localhost';
 show grants for 'meteo_api'@'%';
+show grants for 'repl'@'%';
