@@ -15,7 +15,7 @@ services:
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql-root
 
     ports:
-      - '192.168.10.151:3306:3306' 
+      - '{PROJECT_DB_SOURCE_IP}:3306:3306' 
 
     networks:
       - project_network         
@@ -38,7 +38,7 @@ services:
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql-root
 
     ports:
-      - '192.168.10.152:3306:3306' 
+      - '{PROJECT_DB_REPLICA_IP}:3306:3306' 
 
     networks:
       - project_network         

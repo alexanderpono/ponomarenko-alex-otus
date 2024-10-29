@@ -11,17 +11,16 @@ CREATE TABLE IF NOT EXISTS `meteo_db`.`tele` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
-
-# mysql 5.7: create user 'meteo_r'@'localhost' identified by '';
-# mysql 8: create user 'meteo_r'@'localhost' identified with 'caching_sha2_password' by '';
-create user 'meteo_r'@'localhost' identified with 'caching_sha2_password' by '';
+# mysql 5.7: create user 'meteo_r'@'localhost' identified by {DB_USER_READ_PASS};
+# mysql 8: create user 'meteo_r'@'localhost' identified with 'caching_sha2_password' by {DB_USER_READ_PASS};
+create user 'meteo_r'@'localhost' identified with 'caching_sha2_password' by {DB_USER_READ_PASS};
 grant select on meteo_db.* to meteo_r@'localhost';
 
-# mysql 5.7: create user 'meteo_api'@'%' identified by 'pass';
-create user 'meteo_api'@'%' identified with 'caching_sha2_password' by 'pass';
+# mysql 5.7: create user 'meteo_api'@'%' identified by {DB_USER_API_PASS};
+create user 'meteo_api'@'%' identified with 'caching_sha2_password' by {DB_USER_API_PASS};
 grant select, insert, update, delete on meteo_db.* to meteo_api@'%';
 
-create user repl@'%' identified with 'caching_sha2_password' by 'replPass';
+create user repl@'%' identified with 'caching_sha2_password' by {DB_USER_REPL_PASS};
 grant replication slave on *.* to repl@'%';
 
 show master status;
