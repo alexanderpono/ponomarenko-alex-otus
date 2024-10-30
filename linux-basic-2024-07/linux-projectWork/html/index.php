@@ -2,7 +2,7 @@
 include 'lib.php';
 include 'mysql-requisites.php';
 
-UI_ln('php!');
+UI_echo('API NODE', $_ENV['API_NODE']);
 ?>
 <script>
     console.log('PHP JS!');

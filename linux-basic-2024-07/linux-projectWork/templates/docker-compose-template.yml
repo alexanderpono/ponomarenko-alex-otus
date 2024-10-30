@@ -59,7 +59,7 @@ services:
       - project-db-source
       - project-db-replica
     environment:
-      - DOMAIN=www.my.ru
+      - API_NODE=project-api-1
     networks:
       - project_network
 
@@ -79,7 +79,22 @@ services:
       - project-db-source
       - project-db-replica
     environment:
-      - DOMAIN=www.my.ru
+      - API_NODE=project-api-2
+    networks:
+      - project_network
+
+  project-api-balancer:
+    image: nginx:1.26
+    container_name: project-api-balancer
+    ports:
+      - '8080:80'
+    volumes:
+      - ./project-api-balancer/etc:/etc/nginx
+      - ./logs-app:/var/log/nginx
+    depends_on:
+      - project-api-1
+      - project-api-2
+
     networks:
       - project_network
 
