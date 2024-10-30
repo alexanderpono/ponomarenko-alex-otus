@@ -43,6 +43,26 @@ services:
     networks:
       - project_network         
 
+  project-api-1:
+    build:
+      context: ./project-api-1
+      dockerfile: Dockerfile
+    container_name: project-api-1
+    ports:
+      - '8081:80'
+    volumes:
+      - ./html:/var/www/html
+      - ./logs-app:/var/log/api
+      - ./logs-misc/api-1:/var/log/apache2
+      - ./project-api-1/sites-enabled:/etc/apache2/sites-enabled
+    depends_on:
+      - project-db-source
+      - project-db-replica
+    environment:
+      - DOMAIN=www.my.ru
+    networks:
+      - project_network
+
 networks:
   project_network:
     driver: bridge    

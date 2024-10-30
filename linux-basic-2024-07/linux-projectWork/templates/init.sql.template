@@ -11,10 +11,13 @@ CREATE TABLE IF NOT EXISTS `meteo_db`.`tele` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
-# mysql 5.7: create user 'meteo_r'@'localhost' identified by {DB_USER_READ_PASS};
-# mysql 8: create user 'meteo_r'@'localhost' identified with 'caching_sha2_password' by {DB_USER_READ_PASS};
-create user 'meteo_r'@'localhost' identified with 'caching_sha2_password' by {DB_USER_READ_PASS};
-grant select on meteo_db.* to meteo_r@'localhost';
+# mysql 5.7: create user 'meteo_local_r'@'localhost' identified by {DB_USER_LOCAL_READ_PASS};
+# mysql 8: create user 'meteo_local_r'@'localhost' identified with 'caching_sha2_password' by {DB_USER_LOCAL_READ_PASS};
+create user 'meteo_local_r'@'localhost' identified with 'caching_sha2_password' by {DB_USER_LOCAL_READ_PASS};
+grant select on meteo_db.* to meteo_local_r@'localhost';
+
+create user 'meteo_r'@'%' identified with 'caching_sha2_password' by {DB_USER_READ_PASS};
+grant select on meteo_db.* to meteo_r@'%';
 
 # mysql 5.7: create user 'meteo_api'@'%' identified by {DB_USER_API_PASS};
 create user 'meteo_api'@'%' identified with 'caching_sha2_password' by {DB_USER_API_PASS};
@@ -26,6 +29,7 @@ grant replication slave on *.* to repl@'%';
 show master status;
 
 flush privileges;
-show grants for 'meteo_r'@'localhost';
+show grants for 'meteo_local_r'@'localhost';
+show grants for 'meteo_r'@'%';
 show grants for 'meteo_api'@'%';
 show grants for 'repl'@'%';
