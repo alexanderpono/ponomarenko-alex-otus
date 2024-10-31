@@ -14,3 +14,5 @@ users-init.sql
 tmp
 mysql-root
 *.log
+prometheus/data
+grafana
