@@ -16,3 +16,7 @@ mysql-root
 *.log
 prometheus/data
 grafana
+es/data
+logstash/data
+project-api-balancer-filebeat/data
+kibana/data

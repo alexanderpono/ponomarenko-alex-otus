@@ -23,6 +23,9 @@
 
 2.8. Создать файл ./params/mysql-root для задания пароля пользователя "root" MySQL-сервера, значение должно быть указано БЕЗ ОБРАМЛЯЮЩИХ КАВЫЧЕК (см. пример [./params/mysql-root.example](./params/mysql-root.example))
 
+2.9. Назначить сетевому интерфейсу хоста статический адрес PROJECT_DB_SOURCE_IP
+2.10. Назначить сетевому интерфейсу хоста статический адрес PROJECT_DB_REPLICA_IP
+
 ## 3. Сборка файлов конфигурации
 3.1. Запустить скрипт для сборки файлов конфигурации web-приложения из шаблонов и значений, заданных в папке ./params.
 ```
@@ -43,6 +46,21 @@ bash ./buildConfigs.sh
 mkdir ./prometheus/data
 sudo chown 65534:65534 ./prometheus/data 
 ```
+mkdir ./logstash/data
+<!-- sudo chown 65534:65534 ./logstash/data  -->
+sudo chmod 777 ./logstash/data
+
+mkdir ./kibana/data
+sudo chown 65534:65534 ./kibana/data 
+sudo chmod 777 ./kibana/data
+
+mkdir ./project-api-balancer-filebeat/data
+sudo chmod 777 ./project-api-balancer-filebeat/data
+
+mkdir ./es/data
+sudo chmod 777 ./es/data
+
+# 222
 
 ## 5. Запуск web-приложения
 5.1. Запустить web-приложение
