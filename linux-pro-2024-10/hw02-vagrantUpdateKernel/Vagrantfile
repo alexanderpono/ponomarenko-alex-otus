@@ -1,0 +1,30 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/focal64"
+
+  config.vm.hostname = "replaceKernel"
+  config.vm.provider "virtualbox" do |vb|
+    vb.name = "replaceKernel"
+    vb.cpus = "2"
+    vb.memory = "2048"
+  end
+
+
+  config.vm.provision "shell", inline: <<-SHELL
+    echo =====================================================
+    actual=`uname -r`
+    echo "actual kernel = $actual"
+    echo =====================================================
+    echo updating kernel to 5.19.17-generic
+    echo =====================================================
+    sleep 5
+    rm -r newKernel/
+    mkdir newKernel
+    cd newKernel
+    wget https://kernel.ubuntu.com/mainline/v5.19.17/amd64/linux-headers-5.19.17-051917-generic_5.19.17-051917.202210240939_amd64.deb
+    wget https://kernel.ubuntu.com/mainline/v5.19.17/amd64/linux-headers-5.19.17-051917_5.19.17-051917.202210240939_all.deb
+    wget https://kernel.ubuntu.com/mainline/v5.19.17/amd64/linux-image-unsigned-5.19.17-051917-generic_5.19.17-051917.202210240939_amd64.deb
+    wget https://kernel.ubuntu.com/mainline/v5.19.17/amd64/linux-modules-5.19.17-051917-generic_5.19.17-051917.202210240939_amd64.deb
+    sudo dpkg -i *.deb
+    sudo reboot
+  SHELL
+end
