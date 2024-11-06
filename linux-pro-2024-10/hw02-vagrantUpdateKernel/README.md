@@ -32,10 +32,10 @@
 ## Выполнение д/з №2
 
 ### Репозиторий доступен по адресу:
-https://github.com/alexanderpono/ponomarenko-alex-otus/tree/master/algo-2022-10/hw32-BloomFilter
+https://github.com/alexanderpono/ponomarenko-alex-otus/tree/master/linux-pro-2024-10/hw02-vagrantUpdateKernel
 
 ### Пояснительная записка к проекту доступна по адресу:
-https://github.com/alexanderpono/ponomarenko-alex-otus/tree/master/algo-2022-10/hw32-BloomFilter#readme
+https://github.com/alexanderpono/ponomarenko-alex-otus/blob/master/linux-pro-2024-10/hw02-vagrantUpdateKernel/README.md
 
 ### Запуск программы
 
