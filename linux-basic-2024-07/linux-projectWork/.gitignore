@@ -14,7 +14,7 @@ users-init.sql
 tmp
 mysql-root
 *.log
-prometheus/data
+project-prometheus/data
 grafana
 es/data
 logstash/data

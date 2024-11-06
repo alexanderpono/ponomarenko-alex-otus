@@ -40,27 +40,12 @@ bash ./buildConfigs.sh
 * ./html/mysql-requisites.php
 
 
-## 4. Настройка Prometheus
-Создать папку ./prometheus/data, установить к ней доступ на запись для всех:
+## 4. Настройка папок проекта
+Linux - Запустить скрипт настройки папок проекта (понадобятся поолномочия sudo)
+
 ```
-mkdir ./prometheus/data
-sudo chown 65534:65534 ./prometheus/data 
+bash ./fixFolders.sh
 ```
-mkdir ./logstash/data
-<!-- sudo chown 65534:65534 ./logstash/data  -->
-sudo chmod 777 ./logstash/data
-
-mkdir ./kibana/data
-sudo chown 65534:65534 ./kibana/data 
-sudo chmod 777 ./kibana/data
-
-mkdir ./project-api-balancer-filebeat/data
-sudo chmod 777 ./project-api-balancer-filebeat/data
-
-mkdir ./es/data
-sudo chmod 777 ./es/data
-
-# 222
 
 ## 5. Запуск web-приложения
 5.1. Запустить web-приложение
@@ -149,7 +134,67 @@ password = admin
 ![](./readme-data/16.png)
 
 
+### 7. Настройка дашборда Kibana
+### 7.1. Проверка работоспособности Elastic search
+
+В браузере открыть http://localhost:9200/
+
+Должен открыться веб-интерфейс:
+![Подтверждение, что Elastic search работает](./readme-data/32.png)
+Подтверждение, что Elastic search работает
+
+### 7.2. Настройка дашборда Kibana
+В браузере открыть http://localhost:5601/
+
+На главном экране Kibana нажимаем на кнопку меню "Add integrations":
+![](./readme-data/17.png)
+
+На странице Integrations нажимаем на кнопку меню "Бутерброд":
+![](./readme-data/18.png)
+
+В открывшемся меню выбираем пункт "Discover"
+![](./readme-data/19.png)
+
+На окрывшейся странице нажимаем "Create data view"
+![](./readme-data/20.png)
+
+В открывшемся окне вводим Name="Nginx", Index pattern="weblogs", нажимаем кнопку "Save data vew to Kibana"
+![](./readme-data/21.png)
+
+Должна открыться страница вида:
+![](./readme-data/22.png)
+
+На окрывшеся странице выбираем кнопку "Бутерброд" в левом верхнем углу, в открывшемся меню - "Dashboard"
+![](./readme-data/23.png)
+
+
+Нажимаем на кнопку "Create visualization"
+![](./readme-data/24.png)
+
+На готкрывшейся странице нажимаем список с типами диаграмм, прокручиваем список вниз и выбираем "Donut"
+![](./readme-data/25.png)
+
+После чего в строке поиска полей вводим "http", наводим на строку "http.response.status.code" и кликаем на "+" на этой строчке
+![](./readme-data/26.png)
+
+Появляется бублик. Скорректируем бублик - очищаем поле ввода названий полей, наводим на кнопку "Records" и нажимаем на появившуюся кнопку "+"
+![](./readme-data/27.png)
+
+Бублик видоизменяется. Нажимаем на кнопку "Save and return":
+![](./readme-data/28.png)
+
+На открывшейся странице Dashboard выюираем "Create vizualization"
+![](./readme-data/29.png)
+
+Вводим в поиске полей значение "source", наводим курсор мыши на строчку "source.address.keyword" и нажимаем на появившийся "+". Далее нажимаем на "Save and return"
+![](./readme-data/30.png)
+
+Должен отобразиться походий экран:
+![](./readme-data/31.png)
+
 
 # Использованные источники
 * https://otus.ru/lessons/linux-basic/
 * https://dockerhosting.ru/blog/zapusk-prometheus-v-docker/
+* https://elastic.co
+* https://discuss.elastic.co

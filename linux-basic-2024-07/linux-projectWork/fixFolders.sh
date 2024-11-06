@@ -1,7 +1,7 @@
 #!/bin/bash
 
-mkdir ./prometheus/data
-sudo chown 65534:65534 ./prometheus/data
+mkdir ./project-prometheus/data
+sudo chown 65534:65534 ./project-prometheus/data
 
 mkdir ./logstash/data
 sudo chmod 777 ./logstash/data
