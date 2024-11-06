@@ -41,7 +41,7 @@ https://github.com/alexanderpono/ponomarenko-alex-otus/blob/master/linux-pro-202
 
 Предусловия
 * на компьютере установлен Linux
-* на компьютере включена виртаулизация
+* на компьютере включена виртуализация
 * установлен Vagrant
 
 
@@ -60,7 +60,7 @@ cd ./ponomarenko-alex-otus/linux-pro-2024-10/hw02-vagrantUpdateKernel
 vagrant up
 ```
 
-При настройке виртаульной машины: 
+При настройке виртуальной машины: 
 * распечатывается текущая версия ядра
 * скачиваются пакеты ядра 5.19.17-generic Ubuntu с сайта https://kernel.ubuntu.com/mainline/v5.19.17/amd64/
 * устанавливаются пакеты ядра
