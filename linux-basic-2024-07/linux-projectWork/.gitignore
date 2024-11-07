@@ -20,3 +20,4 @@ es/data
 logstash/data
 project-api-balancer-filebeat/data
 kibana/data
+.env
