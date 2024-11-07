@@ -16,15 +16,6 @@ module.exports = function (grunt) {
                     livereload: true
                 },
                 files: [
-                    '../linux-projectWork/templates/docker-compose-template.yml'
-                ],
-                tasks: ['exec:build']
-            },
-            {
-                options: {
-                    livereload: true
-                },
-                files: [
                     '../linux-projectWork/buildConfigs.sh'
                 ],
                 tasks: ['exec:build']

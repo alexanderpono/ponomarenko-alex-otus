@@ -17,14 +17,17 @@
 
 2.5. Создать файл ./params/DB_USER_REPL_PASS для задания пароля пользователя "Репликация" web-приложения, значение должно быть заключено в прямые одинарные кавычки (см. пример [./params/DB_USER_REPL_PASS.example](./params/DB_USER_REPL_PASS.example))
 
-2.6. Создать файл ./params/PROJECT_DB_SOURCE_IP для задания IP-адреса Source-узла БД приложения (см. пример [./params/PROJECT_DB_SOURCE_IP.example](./params/PROJECT_DB_SOURCE_IP.example)). IP-адрес необходим для работы актоматического копирования БД с Source-узла в Replica-узел БД.
+2.6. Создать файл ./params/mysql-root для задания пароля пользователя "root" MySQL-сервера, значение должно быть указано БЕЗ ОБРАМЛЯЮЩИХ КАВЫЧЕК (см. пример [./params/mysql-root.example](./params/mysql-root.example))
 
-2.7. Создать файл ./params/PROJECT_DB_REPLICA_IP для задания IP-адреса Replica-узла БД приложения (см. пример [./params/PROJECT_DB_SOURCE_IP.example](./params/PROJECT_DB_SOURCE_IP.example))
+2.7. Создать файл .env. За основу можно взять .env.example
+В файле .env задать значения:
+ELASTIC_PASSWORD
+KIBANA_PASSWORD
+PROJECT_DB_SOURCE_IP (IP-адрес Source-узла БД приложения)
+PROJECT_DB_REPLICA_IP IP-адрес Replica-узла БД приложения
 
-2.8. Создать файл ./params/mysql-root для задания пароля пользователя "root" MySQL-сервера, значение должно быть указано БЕЗ ОБРАМЛЯЮЩИХ КАВЫЧЕК (см. пример [./params/mysql-root.example](./params/mysql-root.example))
-
-2.9. Назначить сетевому интерфейсу хоста статический адрес PROJECT_DB_SOURCE_IP
-2.10. Назначить сетевому интерфейсу хоста статический адрес PROJECT_DB_REPLICA_IP
+2.8. Назначить сетевому интерфейсу хоста статический адрес PROJECT_DB_SOURCE_IP
+2.9. Назначить сетевому интерфейсу хоста статический адрес PROJECT_DB_REPLICA_IP
 
 ## 3. Сборка файлов конфигурации
 3.1. Запустить скрипт для сборки файлов конфигурации web-приложения из шаблонов и значений, заданных в папке ./params.

@@ -11,10 +11,6 @@ function getParam {
     returnedVal=`cat "$fullDirName/params/$paramName"`
 }
 
-targetCompose=$dirName/docker-compose.yml
-echo "targetCompose=$targetCompose"
-cp "$dirName/templates/docker-compose-template.yml" $targetCompose
-
 usersInitSql=$dirName/project-db-source/mysql-init-db/users-init.sql
 getParam 'DB_USER_REPL_PASS'
 DB_USER_REPL_PASS=$returnedVal
