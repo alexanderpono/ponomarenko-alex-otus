@@ -11,22 +11,9 @@ function getParam {
     returnedVal=`cat "$fullDirName/params/$paramName"`
 }
 
-getParam 'PROJECT_DB_SOURCE_IP'
-PROJECT_DB_SOURCE_IP=$returnedVal
-echo "PROJECT_DB_SOURCE_IP=$PROJECT_DB_SOURCE_IP"
-
-getParam 'PROJECT_DB_REPLICA_IP'
-PROJECT_DB_REPLICA_IP=$returnedVal
-echo "PROJECT_DB_REPLICA_IP=$PROJECT_DB_REPLICA_IP"
-
-
 targetCompose=$dirName/docker-compose.yml
 echo "targetCompose=$targetCompose"
 cp "$dirName/templates/docker-compose-template.yml" $targetCompose
-
-sed -i "s/{PROJECT_DB_SOURCE_IP}/$PROJECT_DB_SOURCE_IP/g" $targetCompose
-sed -i "s/{PROJECT_DB_REPLICA_IP}/$PROJECT_DB_REPLICA_IP/g" $targetCompose
-
 
 usersInitSql=$dirName/project-db-source/mysql-init-db/users-init.sql
 getParam 'DB_USER_REPL_PASS'

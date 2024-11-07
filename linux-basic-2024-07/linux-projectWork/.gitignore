@@ -1,8 +1,6 @@
 mysql-db
 apache_logs
 mysql-requisites.php
-PROJECT_DB_SOURCE_IP
-PROJECT_DB_REPLICA_IP
 DB_USER_REPL_PASS
 DB_USER_API_PASS
 DB_USER_READ_PASS
