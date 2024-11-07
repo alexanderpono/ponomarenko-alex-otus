@@ -1,9 +1,20 @@
 # План аварийного восстановления инфраструктуры web-приложения
 
-## 1. Предусловия
-1.1. Установлен docker
+## 0. Предусловия
+0.1. Установлен docker
 
-1.2. Есть сетевой доступ к Docker hub (для возможности скачивания docker-образов)
+0.2. Есть сетевой доступ к Docker hub (для возможности скачивания docker-образов)
+
+## 1. Развертывание репозитория
+1.1. Клонировать проект: 
+```
+git clone https://github.com/alexanderpono/ponomarenko-alex-otus.git
+```
+
+1.2. Зайти в папку с проектом: 
+```
+cd ./ponomarenko-alex-otus/linux-basic-2024-07/linux-projectWork
+```
 
 ## 2. Настройка параметров конфигурации
 
@@ -20,13 +31,15 @@
 2.6. Создать файл ./params/mysql-root для задания пароля пользователя "root" MySQL-сервера, значение должно быть указано БЕЗ ОБРАМЛЯЮЩИХ КАВЫЧЕК (см. пример [./params/mysql-root.example](./params/mysql-root.example))
 
 2.7. Создать файл .env. За основу можно взять .env.example
+
 В файле .env задать значения:
-ELASTIC_PASSWORD
-KIBANA_PASSWORD
-PROJECT_DB_SOURCE_IP (IP-адрес Source-узла БД приложения)
-PROJECT_DB_REPLICA_IP IP-адрес Replica-узла БД приложения
+* ELASTIC_PASSWORD
+* KIBANA_PASSWORD
+* PROJECT_DB_SOURCE_IP (IP-адрес Source-узла БД приложения)
+* PROJECT_DB_REPLICA_IP IP-адрес Replica-узла БД приложения
 
 2.8. Назначить сетевому интерфейсу хоста статический адрес PROJECT_DB_SOURCE_IP
+
 2.9. Назначить сетевому интерфейсу хоста статический адрес PROJECT_DB_REPLICA_IP
 
 ## 3. Сборка файлов конфигурации
