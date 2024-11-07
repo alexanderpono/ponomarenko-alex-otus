@@ -1,0 +1,242 @@
+services:
+  project-db-source:
+    image: mysql:8.0
+    command: "--log-bin"
+    container_name: project-db-source
+    restart: always
+      
+    volumes:
+      - ./project-db-source/mysql-secrets:/run/secrets
+      - ./project-db-source/mysql-db:/var/lib/mysql
+      - ./project-db-source/mysql-init-db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./project-db-source/mysql-conf:/etc/mysql/conf.d
+
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql-root
+
+    ports:
+      - '${PROJECT_DB_SOURCE_IP}:3306:3306' 
+
+    networks:
+      - project_network         
+
+  project-db-replica:
+    image: mysql:8.0
+    command: "--log-bin"
+    container_name: project-db-replica
+    # restart: always
+    depends_on: 
+      - project-db-source
+      
+    volumes:
+      - ./project-db-replica/mysql-secrets:/run/secrets
+      - ./project-db-replica/mysql-db:/var/lib/mysql
+      - ./project-db-replica/mysql-init-db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./project-db-replica/mysql-conf:/etc/mysql/conf.d
+
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql-root
+
+    ports:
+      - '${PROJECT_DB_REPLICA_IP}:3306:3306' 
+
+    networks:
+      - project_network         
+
+  project-api-1:
+    build:
+      context: ./project-api-1
+      dockerfile: Dockerfile
+    container_name: project-api-1
+    ports:
+      - '8081:80'
+    volumes:
+      - ./html:/var/www/html
+      - ./logs-app:/var/log/api
+      - ./logs-misc/api-1:/var/log/apache2
+      - ./project-api-1/sites-enabled:/etc/apache2/sites-enabled
+    depends_on:
+      - project-db-source
+      - project-db-replica
+    environment:
+      - API_NODE=project-api-1
+    networks:
+      - project_network
+
+  project-api-2:
+    build:
+      context: ./project-api-2
+      dockerfile: Dockerfile
+    container_name: project-api-2
+    ports:
+      - '8082:80'
+    volumes:
+      - ./html:/var/www/html
+      - ./logs-app:/var/log/api
+      - ./logs-misc/api-2:/var/log/apache2
+      - ./project-api-2/sites-enabled:/etc/apache2/sites-enabled
+    depends_on:
+      - project-db-source
+      - project-db-replica
+    environment:
+      - API_NODE=project-api-2
+    networks:
+      - project_network
+
+  project-api-balancer:
+    image: nginx:1.26
+    container_name: project-api-balancer
+    ports:
+      - '8080:80'
+    volumes:
+      - ./project-api-balancer/etc:/etc/nginx
+      - ./logs-misc/balancer:/var/log/nginx
+    depends_on:
+      - project-api-1
+      - project-api-2
+
+    networks:
+      - project_network
+
+  project-prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./project-prometheus/config:/etc/prometheus
+      - ./project-prometheus/data:/prometheus
+    container_name: project-prometheus
+    hostname: project-prometheus
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+    restart: unless-stopped
+    environment:
+      TZ: "Europe/Moscow"
+    networks:
+      - project_network
+
+  node-exporter:
+    image: prom/node-exporter
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    container_name: exporter
+    hostname: exporter
+    command:
+      - --path.procfs=/host/proc
+      - --path.sysfs=/host/sys
+      - --collector.filesystem.ignored-mount-points
+      - ^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)
+    ports:
+      - 9100:9100
+    restart: unless-stopped
+    environment:
+      TZ: "Europe/Moscow"
+    networks:
+      - project_network
+
+  grafana:
+    image: grafana/grafana
+    user: root
+    depends_on:
+      - project-prometheus
+    ports:
+      - 9110:3000
+    volumes:
+      - ./grafana/data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    container_name: grafana
+    hostname: grafana
+    restart: unless-stopped
+    environment:
+      TZ: "Europe/Moscow"
+    networks:
+      - project_network
+
+  es:
+    image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
+    container_name: es
+    hostname: es
+    depends_on:
+      - project-api-balancer
+    labels:
+      co.elastic.logs/module: elasticsearch
+    volumes:
+      - ./es/data:/usr/share/elasticsearch/data
+    ports:
+      - ${ES_PORT}:9200
+    environment:
+      - node.name=es
+      - cluster.name=${CLUSTER_NAME}
+      - discovery.type=single-node
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+      - bootstrap.memory_lock=true
+      - xpack.security.enabled=false
+      - xpack.security.http.ssl.enabled=false
+      - xpack.security.transport.ssl.enabled=false
+    mem_limit: ${ES_MEM_LIMIT}
+    networks:
+      - project_network      
+
+  kibana:
+    depends_on:
+      - es
+    container_name: kibana
+    hostname: kibana
+    image: docker.elastic.co/kibana/kibana:${STACK_VERSION}
+    labels:
+      co.elastic.logs/module: kibana
+    volumes:
+      - ./kibana/data:/usr/share/kibana/data
+      - ./kibana/kibana.yml:/usr/share/kibana/config/kibana.yml      
+    ports:
+      - ${KIBANA_PORT}:5601
+    environment:
+      - SERVERNAME=kibana
+      - ELASTICSEARCH_USERNAME=kibana_system
+      - ELASTICSEARCH_PASSWORD=${KIBANA_PASSWORD}
+    mem_limit: ${KB_MEM_LIMIT}
+    networks:
+      - project_network      
+
+
+  filebeat:
+    depends_on:
+      - es
+    image: docker.elastic.co/beats/filebeat:${STACK_VERSION}
+    container_name: filebeat
+    hostname: filebeat
+    command: filebeat -e -strict.perms=false
+    volumes:
+      - ./project-api-balancer-filebeat/data:/usr/share/filebeat/data
+      - ./logs-misc/balancer:/var/log/nginx
+      - ./project-api-balancer-filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - ./project-api-balancer-filebeat/tmp:/tmp/filebeat
+    networks:
+      - project_network
+
+  logstash:
+    depends_on:
+      - es
+      - kibana
+    image: docker.elastic.co/logstash/logstash:${STACK_VERSION}
+    container_name: logstash
+    hostname: logstash
+    labels:
+      co.elastic.logs/module: logstash
+    volumes:
+      - ./logstash/data:/usr/share/logstash/data
+      - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+    environment:
+      - xpack.monitoring.enabled=false
+      - ELASTIC_USER=elastic
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+      - ELASTIC_HOSTS=http://es:9200
+    mem_limit: ${KB_MEM_LIMIT}
+    networks:
+      - project_network      
+
+networks:
+  project_network:
+    driver: bridge    

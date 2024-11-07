@@ -1,0 +1,17 @@
+https://github.com/dbeaver/dbeaver/issues/19663?ysclid=m2cgbdal4v441130372
+
+Public Key Retrieval is not allowed
+
+This solved the problem, from the above stackoverflow
+
+Right click your connection, choose "Edit Connection"
+
+On the "Connection settings" screen (main screen) click on "Edit Driver Settings"
+
+Click on "Connection properties", (In recent versions it named "Driver properties")
+
+Right click the "user properties" area and choose "Add new property"
+
+Add two properties: "useSSL" and "allowPublicKeyRetrieval"
+
+Set their values to "false" and "true" by double clicking on the "value" column.

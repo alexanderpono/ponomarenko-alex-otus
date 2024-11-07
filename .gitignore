@@ -6,4 +6,4 @@ output
 dist
 .stryker-tmp
 projectWork
-linux-basic-2024-07
+.vagrant

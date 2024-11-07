@@ -1,0 +1,35 @@
+DROP SCHEMA IF EXISTS `meteo_db` ;
+CREATE SCHEMA IF NOT EXISTS `meteo_db` DEFAULT CHARACTER SET utf8mb4 collate utf8mb4_unicode_ci;
+USE `meteo_db` ;
+
+CREATE TABLE IF NOT EXISTS `meteo_db`.`tele` (
+  `id` INT NOT NULL AUTO_INCREMENT, 
+  `sensor_id` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 ,
+  `dt` DATETIME NOT NULL DEFAULT '2000-01-01 00:00:00',
+  `temperature` SMALLINT(1) UNSIGNED  NOT NULL DEFAULT 0 ,
+  `humidity` TINYINT(1) UNSIGNED  NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+# mysql 5.7: create user 'meteo_local_r'@'localhost' identified by {DB_USER_LOCAL_READ_PASS};
+# mysql 8: create user 'meteo_local_r'@'localhost' identified with 'caching_sha2_password' by {DB_USER_LOCAL_READ_PASS};
+create user 'meteo_local_r'@'localhost' identified with 'caching_sha2_password' by {DB_USER_LOCAL_READ_PASS};
+grant select on meteo_db.* to meteo_local_r@'localhost';
+
+create user 'meteo_r'@'%' identified with 'caching_sha2_password' by {DB_USER_READ_PASS};
+grant select on meteo_db.* to meteo_r@'%';
+
+# mysql 5.7: create user 'meteo_api'@'%' identified by {DB_USER_API_PASS};
+create user 'meteo_api'@'%' identified with 'caching_sha2_password' by {DB_USER_API_PASS};
+grant select, insert, update, delete on meteo_db.* to meteo_api@'%';
+
+create user repl@'%' identified with 'caching_sha2_password' by {DB_USER_REPL_PASS};
+grant replication slave on *.* to repl@'%';
+
+show master status;
+
+flush privileges;
+show grants for 'meteo_local_r'@'localhost';
+show grants for 'meteo_r'@'%';
+show grants for 'meteo_api'@'%';
+show grants for 'repl'@'%';
