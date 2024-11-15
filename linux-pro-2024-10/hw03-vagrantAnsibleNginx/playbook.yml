@@ -1,0 +1,58 @@
+---
+- name: Prepare server
+  hosts: all
+  become: true
+  tasks:
+    - name: Update and upgrade packages
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: Add Nginx official GPG key
+      ansible.builtin.get_url:
+        url: https://nginx.org/keys/nginx_signing.key
+        dest: /usr/share/keyrings/nginx-archive-keyring.asc
+
+    - name: Add Nginx repo
+      ansible.builtin.apt_repository:
+        repo: "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.asc] 
+        http://nginx.org/packages/ubuntu {{ ansible_distribution_release }} nginx"
+        state: present
+
+    - name: install nginx
+      ansible.builtin.apt:
+        pkg: nginx
+        state: present
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: restart nginx
+      ansible.builtin.service:
+        state: started
+        unit: nginx
+
+    - block:
+        - command: nginx -v
+          register: dir_out
+
+        - name: Print Nginx version
+          debug: 
+            var: dir_out.stderr
+
+    - block:
+        - command: ss -ntlp
+          register: dir_out
+
+        - name: Print sockets
+          debug: 
+            var: dir_out.stdout_lines
+
+    - block:
+        - command: curl http://localhost
+          register: out
+          args:
+            warn: false
+
+        - name: curl localhost
+          debug: 
+            var: out.stdout_lines
