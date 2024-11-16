@@ -31,6 +31,11 @@
         update_cache: true
         cache_valid_time: 3600
 
+    - name: Stop nginx
+      ansible.builtin.service:
+        state: stopped
+        unit: nginx
+
     - block:
       - name: Remove default nginx config
         file:
@@ -52,61 +57,43 @@
         template:
           src: ./html/index-html.j2
           dest: /usr/share/nginx/html/index.html
+        notify: 
+          - Start nginx
+          - Get sockets
+          - Print sockets
+          - Get nginx version
+          - Print nginx version
+          - Curl default html page
+          - Print default html page
 
-    - block:
-      - name: stop nginx
-        ansible.builtin.service:
-          state: stopped
-          unit: nginx
+  handlers:
+    - name: Start nginx
+      ansible.builtin.service:
+        state: started
+        unit: nginx
 
-      - name: start nginx
-        ansible.builtin.service:
-          state: started
-          unit: nginx
+    - name: Get sockets
+      command: ss -ntlp
+      register: dir_out
 
-    - block:
-        - command: nginx -v
-          register: dir_out
+    - name: Print sockets
+      debug: 
+        var: dir_out.stdout_lines
 
-        - name: Print Nginx version
-          debug: 
-            var: dir_out.stderr
+    - name: Get nginx version
+      command: nginx -v
+      register: dir_out
 
-    - block:
-        - command: ss -ntlp
-          register: dir_out
+    - name: Print nginx version
+      debug: 
+        var: dir_out.stderr
+ 
+    - name: Curl default html page
+      command: curl http://localhost:{{ nginx.http.port }}
+      register: htmlPage
+      args:
+        warn: false
 
-        - name: Print sockets
-          debug: 
-            var: dir_out.stdout_lines
-
-    - block:
-        - command: curl http://localhost:{{ nginx.http.port }}
-          register: out
-          args:
-            warn: false
-
-        - name: curl localhost:{{ nginx.http.port }}
-          debug: 
-            var: out.stdout_lines
-
-    # - block:
-    #     - command: cat default.conf chdir=/etc/nginx/conf.d/
-    #       register: out
-
-    #     - name: cat default.conf
-    #       debug: 
-    #         var: out.stdout_lines
-
-    # - block:
-    #     - command: cat index.html chdir=/usr/share/nginx/html/
-    #       register: out
-
-    #     - name: cat index.html
-    #       debug: 
-    #         var: out.stdout_lines
-
-    # - block:
-    #     - name: print nginx.http.port
-    #       debug: 
-    #         var: nginx.http.port
+    - name: Print default html page
+      debug: 
+        var: htmlPage.stdout_lines
