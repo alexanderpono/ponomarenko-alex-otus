@@ -3,94 +3,9 @@
 
   hosts: all
   become: true
-  tasks:
-    - name: Update and upgrade packages
-      ansible.builtin.apt:
-        update_cache: true
-        cache_valid_time: 3600
+  roles:
+    - common
+    - nginx_install
+    - nginx_configure
 
-    - name: Add Nginx official GPG key
-      ansible.builtin.get_url:
-        url: https://nginx.org/keys/nginx_signing.key
-        dest: /usr/share/keyrings/nginx-archive-keyring.asc
-
-    - name: Add Nginx repo
-      ansible.builtin.apt_repository:
-        repo: "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.asc] 
-        http://nginx.org/packages/ubuntu {{ ansible_distribution_release }} nginx"
-        state: present
-
-    - name: install nginx
-      ansible.builtin.apt:
-        pkg: nginx
-        state: present
-        update_cache: true
-        cache_valid_time: 3600
-
-    - name: Stop nginx
-      ansible.builtin.service:
-        state: stopped
-        unit: nginx
-
-    - block:
-      - name: Remove default nginx config
-        file:
-          path: /etc/nginx/conf.d/default.conf
-          state: absent
-
-      - name: Create new default nginx config
-        template:
-          src: nginx-default-conf.j2
-          dest: /etc/nginx/conf.d/default.conf
-
-    - block:
-      - name: Remove default site html
-        file:
-          path: /usr/share/nginx/html/index.html
-          state: absent
-
-      - name: Create new default site html
-        template:
-          src: ./html/index-html.j2
-          dest: /usr/share/nginx/html/index.html
-        notify: 
-          - Start nginx
-          - Get sockets
-          - Print sockets
-          - Get nginx version
-          - Print nginx version
-          - Curl default html page
-          - Print default html page
-
-  handlers:
-    - name: Start nginx
-      ansible.builtin.service:
-        state: started
-        unit: nginx
-
-    - name: Get sockets
-      command: ss -ntlp
-      register: sockets
-
-    - name: Print sockets
-      debug: 
-        var: sockets.stdout_lines
-
-    - name: Get nginx version
-      command: nginx -v
-      register: nginxVer
-
-    - name: Print nginx version
-      debug: 
-        var: nginxVer.stderr
- 
-    - name: Curl default html page
-      command: curl http://localhost:{{ nginx_http_port }}
-      register: htmlPage
-      args:
-        warn: false
-
-    - name: Print default html page
-      debug: 
-        var: htmlPage.stdout_lines
 

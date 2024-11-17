@@ -1,0 +1,1 @@
+- ansible.builtin.include_tasks: nginx_install.yml
