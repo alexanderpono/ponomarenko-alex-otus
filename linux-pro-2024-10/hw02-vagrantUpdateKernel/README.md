@@ -1,4 +1,4 @@
-А.Пономаренко. Домашние задания к курсам OTUS / Administrator Linux. Professional-2024-10 / Домашнее задание 2. Vagrant. Обновление ядра Linux
+А.Пономаренко. Домашние задания к курсам OTUS / [Administrator Linux. Professional-2024-10](../README.md) / Домашнее задание 2. Vagrant. Обновление ядра Linux
 
 # Домашнее задание 2. Vagrant. Обновление ядра Linux
 

@@ -1,9 +1,5 @@
 ---
 - name: Prepare server
-  vars:
-    nginx:
-      http:
-        port: 8080
 
   hosts: all
   become: true
@@ -74,22 +70,22 @@
 
     - name: Get sockets
       command: ss -ntlp
-      register: dir_out
+      register: sockets
 
     - name: Print sockets
       debug: 
-        var: dir_out.stdout_lines
+        var: sockets.stdout_lines
 
     - name: Get nginx version
       command: nginx -v
-      register: dir_out
+      register: nginxVer
 
     - name: Print nginx version
       debug: 
-        var: dir_out.stderr
+        var: nginxVer.stderr
  
     - name: Curl default html page
-      command: curl http://localhost:{{ nginx.http.port }}
+      command: curl http://localhost:{{ nginx_http_port }}
       register: htmlPage
       args:
         warn: false
@@ -97,3 +93,4 @@
     - name: Print default html page
       debug: 
         var: htmlPage.stdout_lines
+
