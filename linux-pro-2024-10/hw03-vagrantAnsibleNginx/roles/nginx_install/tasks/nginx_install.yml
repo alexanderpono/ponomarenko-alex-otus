@@ -1,0 +1,23 @@
+---
+- name: Add Nginx official GPG key
+  ansible.builtin.get_url:
+    url: https://nginx.org/keys/nginx_signing.key
+    dest: /usr/share/keyrings/nginx-archive-keyring.asc
+
+- name: Add Nginx repo
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.asc] 
+    http://nginx.org/packages/ubuntu {{ ansible_distribution_release }} nginx"
+    state: present
+
+- name: install nginx
+  ansible.builtin.apt:
+    pkg: nginx
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Stop nginx
+  ansible.builtin.service:
+    state: stopped
+    unit: nginx

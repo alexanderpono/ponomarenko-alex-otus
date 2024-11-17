@@ -1,0 +1,31 @@
+---
+- name: Start nginx
+  ansible.builtin.service:
+    state: started
+    unit: nginx
+
+- name: Get sockets
+  command: ss -ntlp
+  register: sockets
+
+- name: Print sockets
+  debug: 
+    var: sockets.stdout_lines
+
+- name: Get nginx version
+  command: nginx -v
+  register: nginxVer
+
+- name: Print nginx version
+  debug: 
+    var: nginxVer.stderr
+
+- name: Curl default html page
+  command: curl http://localhost:{{ nginx.http.port }}
+  register: htmlPage
+  args:
+    warn: false
+
+- name: Print default html page
+  debug: 
+    var: htmlPage.stdout_lines
