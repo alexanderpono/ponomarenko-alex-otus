@@ -1,0 +1,25 @@
+#!/bin/bash
+
+if [ $# -ne "5" ]
+then
+    echo "Ожидается 5 параметров"
+    echo "Пример использования: createRaid10 md10 sdc sdd sde sdf"
+    exit
+fi
+
+
+raidName=$1
+hdd0=$2
+hdd1=$3
+hdd2=$4
+hdd3=$5
+
+count=`lsblk | grep $raidName | wc -l`
+
+if [ $count -ge 1 ] 
+then
+    echo "Device with name '$raidName' already exists"
+    exit
+fi
+
+mdadm --create /dev/$raidName -l 10 -n 4 /dev/$hdd0 /dev/$hdd1 /dev/$hdd2 /dev/$hdd3
