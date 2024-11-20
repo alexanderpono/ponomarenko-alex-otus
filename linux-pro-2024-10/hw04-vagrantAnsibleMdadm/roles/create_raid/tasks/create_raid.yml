@@ -92,7 +92,6 @@
   debug: 
     var: info.stdout_lines
 
-
 - block:
     - command: chdir=/vagrant bash saveRaidConfig {{ raidName }}
       register: info
