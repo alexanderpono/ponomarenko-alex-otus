@@ -2,6 +2,12 @@
 - name: Prepare server
   hosts: all
   become: true
+  vars:
+    raidName: md127
+    disk0: sdc
+    disk1: sdd
+    disk2: sde
+    disk3: sdf
   tasks:
     - block:
         - command: lsblk
@@ -13,12 +19,12 @@
 
     - block:
         - name: Create RAID-10 of 4 disks
-          command: chdir=/vagrant bash createRaid10 md127 sdc sdd sde sdf
-          register: md127
+          command: chdir=/vagrant bash createRaid10 {{ raidName }} {{ disk0 }} {{ disk1 }} {{ disk2 }} {{ disk3 }}
+          register: info
 
         - name: Create result
           debug: 
-            var: md127.stdout_lines
+            var: info.stdout_lines
 
     - block:
         - command: lsblk
@@ -28,175 +34,175 @@
             var: blk.stdout_lines
 
     - block:
-        - command: mdadm -D /dev/md127
-          register: md127
-        - name: Show md127 details
+        - command: mdadm -D /dev/{{ raidName }}
+          register: info
+        - name: Show {{ raidName }} details
           debug: 
-            var: md127.stdout_lines
+            var: info.stdout_lines
 
 
     - block:
         - name: Set disk FAILED at RAID
-          command: chdir=/vagrant bash setHddFailed md127 sdc
-          register: md127
+          command: chdir=/vagrant bash setHddFailed {{ raidName }} {{ disk0 }}
+          register: info
 
         - name: Set disk FAILED at RAID result
           debug: 
-            var: md127.stdout_lines
+            var: info.stdout_lines
 
     - block:
-        - command: mdadm -D /dev/md127
-          register: md127
-        - name: Show md127 details
+        - command: mdadm -D /dev/{{ raidName }}
+          register: info
+        - name: Show {{ raidName }} details
           debug: 
-            var: md127.stdout_lines
+            var: info.stdout_lines
 
     - block:
         - name: Examine disk
-          command: chdir=/vagrant bash examineHdd sdc
-          register: md127
+          command: chdir=/vagrant bash examineHdd {{ disk0 }}
+          register: info
 
         - name: Examine disk result
           debug: 
-            var: md127.stdout_lines
+            var: info.stdout_lines
 
     - block:
         - name: Remove disk from RAID
-          command: chdir=/vagrant bash removeHddFromRaid md127 sdc
-          register: md127
+          command: chdir=/vagrant bash removeHddFromRaid {{ raidName }} {{ disk0 }}
+          register: info
 
         - name: Remove disk from RAID result
           debug: 
-            var: md127.stdout_lines
+            var: info.stdout_lines
 
     - block:
-        - command: mdadm --zero-superblock /dev/sdc
-          register: md127
-        - name: zero-superblock /dev/sdc
+        - command: mdadm --zero-superblock /dev/{{ disk0 }}
+          register: info
+        - name: zero-superblock /dev/{{ disk0 }}
           debug: 
-            var: md127.stderr
+            var: info.stderr
 
     - block:
-        - command: mdadm /dev/md127 --add /dev/sdc
-          register: md127
-        - name: mdadm add /dev/sdc
+        - command: mdadm /dev/{{ raidName }} --add /dev/{{ disk0 }}
+          register: info
+        - name: mdadm add /dev/{{ disk0 }}
           debug: 
-            var: md127.stderr
+            var: info.stderr
 
     - block:
-        - command: mdadm -D /dev/md127
-          register: md127
-        - name: Show md127 details
+        - command: mdadm -D /dev/{{ raidName }}
+          register: info
+        - name: Show {{ raidName }} details
           debug: 
-            var: md127.stdout_lines
+            var: info.stdout_lines
 
-    - command: fdisk -l /dev/md127
-      register: md127
+    - command: fdisk -l /dev/{{ raidName }}
+      register: info
     - name: fdisk -l
       debug: 
-        var: md127.stdout_lines
+        var: info.stdout_lines
 
     - block:
         - name: Create partition 1
-          command: chdir=/vagrant bash createPart md127 1
-          register: md127
+          command: chdir=/vagrant bash createPart {{ raidName }} 1
+          register: info
 
         - name: Create partition 1 result
           debug: 
-            var: md127.stdout_lines
+            var: info.stdout_lines
 
     - block:
         - name: Create partition 2
-          command: chdir=/vagrant bash createPart md127 2
-          register: md127
+          command: chdir=/vagrant bash createPart {{ raidName }} 2
+          register: info
 
         - name: Create partition 2 result
           debug: 
-            var: md127.stdout_lines
+            var: info.stdout_lines
 
     - block:
         - name: Create partition 3
-          command: chdir=/vagrant bash createPart md127 3
-          register: md127
+          command: chdir=/vagrant bash createPart {{ raidName }} 3
+          register: info
 
         - name: Create partition 3 result
           debug: 
-            var: md127.stdout_lines
+            var: info.stdout_lines
 
     - block:
         - name: Create partition 4
-          command: chdir=/vagrant bash createPart md127 4
-          register: md127
+          command: chdir=/vagrant bash createPart {{ raidName }} 4
+          register: info
 
         - name: Create partition 4 result
           debug: 
-            var: md127.stdout_lines
+            var: info.stdout_lines
 
     - block:
         - name: Create partition 5
-          command: chdir=/vagrant bash createPart md127 5
-          register: md127
+          command: chdir=/vagrant bash createPart {{ raidName }} 5
+          register: info
 
         - name: Create partition 5 result
           debug: 
-            var: md127.stdout_lines
+            var: info.stdout_lines
 
-    - command: fdisk -l /dev/md127
-      register: md127
+    - command: fdisk -l /dev/{{ raidName }}
+      register: info
     - name: fdisk -l
       debug: 
-        var: md127.stdout_lines
+        var: info.stdout_lines
 
     - block:
         - name: Format partition 1
-          command: chdir=/vagrant bash formatPartition md127 1
-          register: md127
+          command: chdir=/vagrant bash formatPartition {{ raidName }} 1
+          register: info
 
         - name: Create partition 1 result
           debug: 
-            var: md127.stdout_lines
+            var: info.stdout_lines
 
     - block:
         - name: Format partition 2
-          command: chdir=/vagrant bash formatPartition md127 2
-          register: md127
+          command: chdir=/vagrant bash formatPartition {{ raidName }} 2
+          register: info
 
         - name: Create partition 2 result
           debug: 
-            var: md127.stdout_lines
+            var: info.stdout_lines
 
     - block:
         - name: Format partition 3
-          command: chdir=/vagrant bash formatPartition md127 3
-          register: md127
+          command: chdir=/vagrant bash formatPartition {{ raidName }} 3
+          register: info
 
         - name: Create partition 3 result
           debug: 
-            var: md127.stdout_lines
+            var: info.stdout_lines
 
     - block:
         - name: Format partition 4
-          command: chdir=/vagrant bash formatPartition md127 4
-          register: md127
+          command: chdir=/vagrant bash formatPartition {{ raidName }} 4
+          register: info
 
         - name: Create partition 4 result
           debug: 
-            var: md127.stdout_lines
+            var: info.stdout_lines
 
     - block:
         - name: Format partition 5
-          command: chdir=/vagrant bash formatPartition md127 5
-          register: md127
+          command: chdir=/vagrant bash formatPartition {{ raidName }} 5
+          register: info
 
         - name: Create partition 5 result
           debug: 
-            var: md127.stdout_lines
+            var: info.stdout_lines
 
     - command: lsblk -f
-      register: md127
+      register: info
     - name: fdisk -l
       debug: 
-        var: md127.stdout_lines
+        var: info.stdout_lines
 
     - name: Create mount folder 1
       ansible.builtin.file:
@@ -224,10 +230,10 @@
         state: directory
 
     - command: df -hT
-      register: md127
+      register: info
     - name: df -hT
       debug: 
-        var: md127.stdout_lines
+        var: info.stdout_lines
 
 
     - shell: mdadm --detail --scan --verbose >> /etc/mdadm/mdadm.conf
@@ -235,35 +241,35 @@
     - name: Mount hdd 1
       ansible.posix.mount:
         path: /mnt/data1
-        src: /dev/md127p1
+        src: /dev/{{ raidName }}p1
         fstype: ext4
         state: present
 
     - name: Mount hdd 2
       ansible.posix.mount:
         path: /mnt/data2
-        src: /dev/md127p2
+        src: /dev/{{ raidName }}p2
         fstype: ext4
         state: present
 
     - name: Mount hdd 3
       ansible.posix.mount:
         path: /mnt/data3
-        src: /dev/md127p3
+        src: /dev/{{ raidName }}p3
         fstype: ext4
         state: present
 
     - name: Mount hdd 4
       ansible.posix.mount:
         path: /mnt/data4
-        src: /dev/md127p4
+        src: /dev/{{ raidName }}p4
         fstype: ext4
         state: present
 
     - name: Mount hdd 5
       ansible.posix.mount:
         path: /mnt/data5
-        src: /dev/md127p5
+        src: /dev/{{ raidName }}p5
         fstype: ext4
         state: present
 
@@ -271,8 +277,8 @@
       command: mount -a
 
     - command: cat /etc/mdadm/mdadm.conf
-      register: md127
+      register: info
     - name: cat /etc/mdadm/mdadm.conf
       debug: 
-        var: md127.stdout_lines
+        var: info.stdout_lines
     
