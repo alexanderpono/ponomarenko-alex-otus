@@ -1,0 +1,32 @@
+---
+- name: Create mount folder 1
+  ansible.builtin.file:
+    path: /mnt/data1
+    state: directory
+
+- name: Create mount folder 2
+  ansible.builtin.file:
+    path: /mnt/data2
+    state: directory
+
+- name: Create mount folder 3
+  ansible.builtin.file:
+    path: /mnt/data3
+    state: directory
+
+- name: Create mount folder 4
+  ansible.builtin.file:
+    path: /mnt/data4
+    state: directory
+
+- name: Create mount folder 5
+  ansible.builtin.file:
+    path: /mnt/data5
+    state: directory
+
+- command: df -hT
+  register: info
+- name: df -hT
+  debug: 
+    var: info.stdout_lines
+

@@ -1,0 +1,99 @@
+---
+- block:
+    - command: lsblk
+      register: blk
+    - name: List block devices
+      debug: 
+        var: blk.stdout_lines
+
+
+- block:
+    - name: Create RAID-10 of 4 disks
+      command: chdir=/vagrant bash createRaid10 {{ raidName }} {{ disk0 }} {{ disk1 }} {{ disk2 }} {{ disk3 }}
+      register: info
+
+    - name: Create result
+      debug: 
+        var: info.stdout_lines
+
+- block:
+    - command: lsblk
+      register: blk
+    - name: List block devices
+      debug: 
+        var: blk.stdout_lines
+
+- block:
+    - command: mdadm -D /dev/{{ raidName }}
+      register: info
+    - name: Show {{ raidName }} details
+      debug: 
+        var: info.stdout_lines
+
+
+- block:
+    - name: Set disk FAILED at RAID
+      command: chdir=/vagrant bash setHddFailed {{ raidName }} {{ disk0 }}
+      register: info
+
+    - name: Set disk FAILED at RAID result
+      debug: 
+        var: info.stdout_lines
+
+- block:
+    - command: mdadm -D /dev/{{ raidName }}
+      register: info
+    - name: Show {{ raidName }} details
+      debug: 
+        var: info.stdout_lines
+
+- block:
+    - name: Examine disk
+      command: chdir=/vagrant bash examineHdd {{ disk0 }}
+      register: info
+
+    - name: Examine disk result
+      debug: 
+        var: info.stdout_lines
+
+- block:
+    - name: Remove disk from RAID
+      command: chdir=/vagrant bash removeHddFromRaid {{ raidName }} {{ disk0 }}
+      register: info
+
+    - name: Remove disk from RAID result
+      debug: 
+        var: info.stdout_lines
+
+- block:
+    - command: mdadm --zero-superblock /dev/{{ disk0 }}
+      register: info
+    - name: zero-superblock /dev/{{ disk0 }}
+      debug: 
+        var: info.stderr
+
+- block:
+    - command: mdadm /dev/{{ raidName }} --add /dev/{{ disk0 }}
+      register: info
+    - name: mdadm add /dev/{{ disk0 }}
+      debug: 
+        var: info.stderr
+
+- block:
+    - command: mdadm -D /dev/{{ raidName }}
+      register: info
+    - name: Show {{ raidName }} details
+      debug: 
+        var: info.stdout_lines
+
+- command: fdisk -l /dev/{{ raidName }}
+  register: info
+- name: fdisk -l
+  debug: 
+    var: info.stdout_lines
+
+
+- name: Save RAID configuration
+  shell: mdadm --detail --scan --verbose >> /etc/mdadm/mdadm.conf
+
+

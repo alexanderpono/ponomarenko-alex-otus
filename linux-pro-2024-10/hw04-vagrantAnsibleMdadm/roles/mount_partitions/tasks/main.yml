@@ -1,0 +1,3 @@
+- ansible.builtin.include_tasks: mount_partitions.yml
+
+
