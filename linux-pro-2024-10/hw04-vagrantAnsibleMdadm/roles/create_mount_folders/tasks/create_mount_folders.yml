@@ -1,28 +1,11 @@
 ---
-- name: Create mount folder 1
-  ansible.builtin.file:
-    path: /mnt/data1
+- name: Create mount folders
+  vars: 
+    i: [1,2,3,4,5]
+  file:
+    path: /mnt/data{{ item }}
     state: directory
-
-- name: Create mount folder 2
-  ansible.builtin.file:
-    path: /mnt/data2
-    state: directory
-
-- name: Create mount folder 3
-  ansible.builtin.file:
-    path: /mnt/data3
-    state: directory
-
-- name: Create mount folder 4
-  ansible.builtin.file:
-    path: /mnt/data4
-    state: directory
-
-- name: Create mount folder 5
-  ansible.builtin.file:
-    path: /mnt/data5
-    state: directory
+  loop: "{{ i }}"
 
 - command: df -hT
   register: info

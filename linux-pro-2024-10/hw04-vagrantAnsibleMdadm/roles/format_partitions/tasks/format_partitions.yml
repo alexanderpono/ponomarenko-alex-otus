@@ -1,48 +1,9 @@
 ---
-- block:
-    - name: Format partition 1
-      command: chdir=/vagrant bash formatPartition {{ raidName }} 1
-      register: info
-
-    - name: Create partition 1 result
-      debug: 
-        var: info.stdout_lines
-
-- block:
-    - name: Format partition 2
-      command: chdir=/vagrant bash formatPartition {{ raidName }} 2
-      register: info
-
-    - name: Create partition 2 result
-      debug: 
-        var: info.stdout_lines
-
-- block:
-    - name: Format partition 3
-      command: chdir=/vagrant bash formatPartition {{ raidName }} 3
-      register: info
-
-    - name: Create partition 3 result
-      debug: 
-        var: info.stdout_lines
-
-- block:
-    - name: Format partition 4
-      command: chdir=/vagrant bash formatPartition {{ raidName }} 4
-      register: info
-
-    - name: Create partition 4 result
-      debug: 
-        var: info.stdout_lines
-
-- block:
-    - name: Format partition 5
-      command: chdir=/vagrant bash formatPartition {{ raidName }} 5
-      register: info
-
-    - name: Create partition 5 result
-      debug: 
-        var: info.stdout_lines
+- name: Format partitions
+  vars: 
+    i: [1,2,3,4,5]
+  include_tasks: "format_partition.yml"    
+  loop: "{{ i }}"
 
 - command: lsblk -f
   register: info

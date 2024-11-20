@@ -1,0 +1,8 @@
+---
+- name: Format partition {{ item }}
+  command: chdir=/vagrant bash formatPartition {{ raidName }} {{ item }}
+  register: info
+
+- name: Format partition {{ item }} result
+  debug: 
+    var: info.stdout
