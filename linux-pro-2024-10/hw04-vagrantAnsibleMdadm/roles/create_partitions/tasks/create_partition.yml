@@ -1,0 +1,8 @@
+---
+- name: Create partition {{ item }}
+  command: chdir=/vagrant bash createPart {{ raidName }} {{ item }}
+  register: info
+
+- name: Create partition {{ item }} result
+  debug: 
+    var: info.stdout
