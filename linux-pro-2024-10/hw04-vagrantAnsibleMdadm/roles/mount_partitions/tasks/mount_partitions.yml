@@ -1,0 +1,44 @@
+---
+- name: Mount hdd 1
+  ansible.posix.mount:
+    path: /mnt/data1
+    src: /dev/{{ raidName }}p1
+    fstype: ext4
+    state: present
+
+- name: Mount hdd 2
+  ansible.posix.mount:
+    path: /mnt/data2
+    src: /dev/{{ raidName }}p2
+    fstype: ext4
+    state: present
+
+- name: Mount hdd 3
+  ansible.posix.mount:
+    path: /mnt/data3
+    src: /dev/{{ raidName }}p3
+    fstype: ext4
+    state: present
+
+- name: Mount hdd 4
+  ansible.posix.mount:
+    path: /mnt/data4
+    src: /dev/{{ raidName }}p4
+    fstype: ext4
+    state: present
+
+- name: Mount hdd 5
+  ansible.posix.mount:
+    path: /mnt/data5
+    src: /dev/{{ raidName }}p5
+    fstype: ext4
+    state: present
+
+- name: Mount -a
+  command: mount -a
+
+- command: cat /etc/mdadm/mdadm.conf
+  register: info
+- name: cat /etc/mdadm/mdadm.conf
+  debug: 
+    var: info.stdout_lines

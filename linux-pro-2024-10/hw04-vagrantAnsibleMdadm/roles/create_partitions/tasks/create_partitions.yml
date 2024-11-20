@@ -1,0 +1,54 @@
+---
+- block:
+    - name: Create partition 1
+      command: chdir=/vagrant bash createPart {{ raidName }} 1
+      register: info
+
+    - name: Create partition 1 result
+      debug: 
+        var: info.stdout_lines
+
+- block:
+    - name: Create partition 2
+      command: chdir=/vagrant bash createPart {{ raidName }} 2
+      register: info
+
+    - name: Create partition 2 result
+      debug: 
+        var: info.stdout_lines
+
+- block:
+    - name: Create partition 3
+      command: chdir=/vagrant bash createPart {{ raidName }} 3
+      register: info
+
+    - name: Create partition 3 result
+      debug: 
+        var: info.stdout_lines
+
+- block:
+    - name: Create partition 4
+      command: chdir=/vagrant bash createPart {{ raidName }} 4
+      register: info
+
+    - name: Create partition 4 result
+      debug: 
+        var: info.stdout_lines
+
+- block:
+    - name: Create partition 5
+      command: chdir=/vagrant bash createPart {{ raidName }} 5
+      register: info
+
+    - name: Create partition 5 result
+      debug: 
+        var: info.stdout_lines
+
+- command: fdisk -l /dev/{{ raidName }}
+  register: info
+- name: fdisk -l
+  debug: 
+    var: info.stdout_lines
+
+
+
