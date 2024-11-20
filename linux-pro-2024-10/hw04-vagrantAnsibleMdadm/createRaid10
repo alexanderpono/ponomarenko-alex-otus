@@ -3,7 +3,7 @@
 if [ $# -ne "5" ]
 then
     echo "Ожидается 5 параметров"
-    echo "Пример использования: createRaid10 md10 sdc sdd sde sdf"
+    echo "Пример использования: createRaid10 md127 sdc sdd sde sdf"
     exit
 fi
 

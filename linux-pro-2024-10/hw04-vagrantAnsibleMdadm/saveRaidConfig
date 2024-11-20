@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [ $# -ne "1" ]
+then
+    echo "Ожидается 1 параметра"
+    echo "Пример использования: saveRaidConfig md127"
+    exit
+fi
+
+
+raidName=$1
+
+hitCount=`cat /etc/mdadm/mdadm.conf | grep /dev/$raidName | wc -l`
+if [ $hitCount -ge 1 ] 
+then
+    echo "Raid configuration is already saved"
+    exit
+fi
+
+mdadm --detail --scan --verbose >> /etc/mdadm/mdadm.conf
