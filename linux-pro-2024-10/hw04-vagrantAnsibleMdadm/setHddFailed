@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ $# -ne "2" ]
+then
+    echo "Ожидается 2 параметра"
+    echo "Пример использования: setHDDFailed md10 sdc"
+    exit
+fi
+
+
+raidName=$1
+hdd=$2
+
+linesNo=`mdadm -D /dev/$raidName | grep $hdd | wc -l`
+if [ $linesNo -eq 0 ] 
+then
+    echo "Remove: no device '$hdd' in RAID $raidName"
+    exit
+fi
+
+mdadm /dev/$raidName --fail /dev/$hdd

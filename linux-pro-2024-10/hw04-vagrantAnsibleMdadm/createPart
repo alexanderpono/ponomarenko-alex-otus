@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ $# -ne "2" ]
+then
+    echo "Ожидается 2 параметра"
+    echo "Пример использования: createPart md10 1"
+    exit
+fi
+
+
+raidName=$1
+partitionNo=$2
+partitionName="${raidName}p${partitionNo}"
+linesNo=`fdisk -l | grep $partitionName | wc -l`
+if [ ! $linesNo -eq 0 ] 
+then
+    echo "createPart: partition '$partitionName' already exists"
+    exit
+fi
+
+sgdisk -n $partitionNo:0:+200M /dev/$raidName

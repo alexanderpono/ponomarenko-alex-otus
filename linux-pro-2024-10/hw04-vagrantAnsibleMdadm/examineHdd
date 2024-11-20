@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [ $# -ne "1" ]
+then
+    echo "Ожидается  параметра"
+    echo "Пример использования: examineHdd sdc"
+    exit
+fi
+
+
+hdd=$1
+
+mdadm --examine /dev/$hdd
+if [ $? -eq 0 ]
+then
+    echo "good"
+else
+    echo "No superblock at device /dev/$hdd"
+fi

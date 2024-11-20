@@ -1,0 +1,23 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/focal64"
+  config.vm.box_check_update = false  
+
+  config.vm.define 'mdadm' do |machine|
+    machine.vm.hostname = "vagrantAnsibleMdAdm"
+    machine.vm.provider "virtualbox" do |vb|
+      vb.name = "vagrantAnsibleMdAdm"
+      vb.cpus = "2"
+      vb.memory = "1024"
+    end
+    machine.vm.disk :disk, size: "1GB", name: "disk1"
+    machine.vm.disk :disk, size: "1GB", name: "disk2"
+    machine.vm.disk :disk, size: "1GB", name: "disk3"
+    machine.vm.disk :disk, size: "1GB", name: "disk4"
+      
+    config.vm.provision "ansible", run: "always" do |ansible|
+      ansible.compatibility_mode = "2.0"
+      ansible.playbook = "playbook.yml"
+      ansible.limit = "all"
+    end
+  end
+end
