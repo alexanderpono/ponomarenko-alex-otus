@@ -7,9 +7,3 @@
     state: directory
   loop: "{{ i }}"
 
-- command: df -hT
-  register: info
-- name: df -hT
-  debug: 
-    var: info.stdout_lines
-

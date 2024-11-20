@@ -18,4 +18,4 @@ then
     exit
 fi
 
-sgdisk -n $partitionNo:0:+200M /dev/$raidName
+sgdisk -n $partitionNo:0:+400M /dev/$raidName

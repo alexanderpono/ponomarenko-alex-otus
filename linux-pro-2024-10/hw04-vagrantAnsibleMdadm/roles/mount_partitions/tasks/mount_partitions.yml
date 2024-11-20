@@ -3,7 +3,7 @@
   vars: 
     i: [1,2,3,4,5]
   ansible.posix.mount:
-    path: /mnt/data1
+    path: /mnt/data{{ item }}
     src: /dev/{{ raidName }}p{{ item }}
     fstype: ext4
     state: present
@@ -12,8 +12,21 @@
 - name: Mount -a
   command: mount -a
 
+- command: df -hT
+  register: info
+- name: df -hT
+  debug: 
+    var: info.stdout_lines
+
 - command: cat /etc/mdadm/mdadm.conf
   register: info
 - name: cat /etc/mdadm/mdadm.conf
   debug: 
     var: info.stdout_lines
+
+- block:
+    - command: lsblk
+      register: blk
+    - name: List block devices
+      debug: 
+        var: blk.stdout_lines
