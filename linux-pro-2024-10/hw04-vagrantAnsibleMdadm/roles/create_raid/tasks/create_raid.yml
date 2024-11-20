@@ -93,7 +93,9 @@
     var: info.stdout_lines
 
 
-- name: Save RAID configuration
-  shell: mdadm --detail --scan --verbose >> /etc/mdadm/mdadm.conf
-
-
+- block:
+    - command: chdir=/vagrant bash saveRaidConfig {{ raidName }}
+      register: info
+    - name: Show save RAID configuration result
+      debug: 
+        var: info.stdout_lines

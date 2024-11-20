@@ -3,7 +3,7 @@
 if [ $# -ne "2" ]
 then
     echo "Ожидается 2 параметра"
-    echo "Пример использования: formatPartition md10 1"
+    echo "Пример использования: formatPartition md127 1"
     exit
 fi
 
