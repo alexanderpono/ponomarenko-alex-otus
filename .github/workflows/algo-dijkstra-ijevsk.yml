@@ -1,17 +1,17 @@
-name: dijkstra-uic-dev
+name: dijkstra-ijevsk
 on:
   push:
-    branches: [ dijkstra-uic-dev ]
+    branches: [ master ]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  demo-dijkstra-uic-dev:
+  demo:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: algo-2022-10/dijkstra-uic-dev-2024-10/demo
+        working-directory: algo-2022-10/dijkstra-ijevsk-2025-04/demo
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -37,23 +37,23 @@ jobs:
         id: Project-build
         run: npm run build
 
-      - name: Deploy application to GHP /ponomarenko-alex-otus/algo-2022-10/dijkstra-uic-dev-2024-10/present 🚀
+      - name: Deploy application to GHP /ponomarenko-alex-otus/algo-2022-10/dijkstra-ijevsk-2025-04/present 🚀
         id: Deploy-app
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: algo-2022-10/dijkstra-uic-dev-2024-10/demo/demo-dist  # The folder the action should deploy.
-          TARGET_FOLDER: algo-2022-10/dijkstra-uic-dev-2024-10/present
+          FOLDER: algo-2022-10/dijkstra-ijevsk-2025-04/demo/demo-dist  # The folder the action should deploy.
+          TARGET_FOLDER: algo-2022-10/dijkstra-ijevsk-2025-04/present
           CLEAN: true # Automatically remove deleted files from the deploy branch
 
 
-  app-dijkstra-uic-dev:
+  app:
     runs-on: ubuntu-latest
-    needs: demo-dijkstra-uic-dev
+    needs: demo
     defaults:
       run:
-        working-directory: algo-2022-10/dijkstra-uic-dev-2024-10/app-dev
+        working-directory: algo-2022-10/dijkstra-ijevsk-2025-04/app-dev
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -79,22 +79,22 @@ jobs:
         id: Project-build
         run: npm run build
 
-      - name: Deploy application to GHP /ponomarenko-alex-otus/algo-2022-10/dijkstra-uic-dev-2024-10/present/app-static 🚀
+      - name: Deploy application to GHP /ponomarenko-alex-otus/algo-2022-10/dijkstra-ijevsk-2025-04/present/app-static 🚀
         id: Deploy-app
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: algo-2022-10/dijkstra-uic-dev-2024-10/app-dev/temp/ui-dist  # The folder the action should deploy.
-          TARGET_FOLDER: algo-2022-10/dijkstra-uic-dev-2024-10/present/app-static
+          FOLDER: algo-2022-10/dijkstra-ijevsk-2025-04/app-dev/temp/ui-dist  # The folder the action should deploy.
+          TARGET_FOLDER: algo-2022-10/dijkstra-ijevsk-2025-04/present/app-static
           CLEAN: true # Automatically remove deleted files from the deploy branch
 
-  bricks-dijkstra-uic-dev:
+  bricks:
     runs-on: ubuntu-latest
-    needs: app-dijkstra-uic-dev
+    needs: app
     defaults:
       run:
-        working-directory: algo-2022-10/dijkstra-uic-dev-2024-10/bricks-runner
+        working-directory: algo-2022-10/dijkstra-ijevsk-2025-04/bricks-runner
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -120,22 +120,22 @@ jobs:
         id: Project-build
         run: npm run build
 
-      - name: Deploy application to GHP /ponomarenko-alex-otus/algo-2022-10/dijkstra-uic-dev-2024-10/present/bricks-static 🚀
+      - name: Deploy application to GHP /ponomarenko-alex-otus/algo-2022-10/dijkstra-ijevsk-2025-04/present/bricks-static 🚀
         id: Deploy-app
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: algo-2022-10/dijkstra-uic-dev-2024-10/bricks-runner/temp/bricks  # The folder the action should deploy.
-          TARGET_FOLDER: algo-2022-10/dijkstra-uic-dev-2024-10/present/bricks-static
+          FOLDER: algo-2022-10/dijkstra-ijevsk-2025-04/bricks-runner/temp/bricks  # The folder the action should deploy.
+          TARGET_FOLDER: algo-2022-10/dijkstra-ijevsk-2025-04/present/bricks-static
           CLEAN: true # Automatically remove deleted files from the deploy branch
 
-  bricks-arcade-dijkstra-uic-dev:
+  bricks-arcade:
     runs-on: ubuntu-latest
-    needs: bricks-dijkstra-uic-dev
+    needs: bricks
     defaults:
       run:
-        working-directory: algo-2022-10/dijkstra-uic-dev-2024-10/bricks-runner-arcade
+        working-directory: algo-2022-10/dijkstra-ijevsk-2025-04/bricks-runner-arcade
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -161,13 +161,13 @@ jobs:
         id: Project-build
         run: npm run build
 
-      - name: Deploy application to GHP /ponomarenko-alex-otus/algo-2022-10/dijkstra-uic-dev-2024-10/present/bricks-arcade-static 🚀
+      - name: Deploy application to GHP /ponomarenko-alex-otus/algo-2022-10/dijkstra-ijevsk-2025-04/present/bricks-arcade-static 🚀
         id: Deploy-app
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: algo-2022-10/dijkstra-uic-dev-2024-10/bricks-runner-arcade/temp/ui-dist  # The folder the action should deploy.
-          TARGET_FOLDER: algo-2022-10/dijkstra-uic-dev-2024-10/present/bricks-arcade-static
+          FOLDER: algo-2022-10/dijkstra-ijevsk-2025-04/bricks-runner-arcade/temp/ui-dist  # The folder the action should deploy.
+          TARGET_FOLDER: algo-2022-10/dijkstra-ijevsk-2025-04/present/bricks-arcade-static
           CLEAN: true # Automatically remove deleted files from the deploy branch
 
