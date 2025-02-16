@@ -512,15 +512,15 @@ const map11 = `
 ▓       ▓▓▓▓     ▓
 ▓                ▓
 `;
-renderGameField(
-    '4. Барьер: меняем форму препятствия',
-    map11,
-    'V5_barrier6',
-    LINES_COST_PATH_MAP_PROGRESS,
-    ADVANCED,
-    GraphCalculatorV5f,
-    ALL_NODES
-);
+// renderGameField(
+//     '4. Барьер: меняем форму препятствия',
+//     map11,
+//     'V5_barrier6',
+//     LINES_COST_PATH_MAP_PROGRESS,
+//     ADVANCED,
+//     GraphCalculatorV5f,
+//     ALL_NODES
+// );
 
 renderGameField(
     '5. Алгоритм Дейкстры. Результат',
@@ -574,20 +574,20 @@ function renderSupaField(
 }
 
 renderGameField('', map3, 'brief_1', MAP_PATH, ADVANCED, GraphCalculatorV2);
-renderGameField(
-    '',
-    map1,
-    'brief_3',
-    {
-        ...LINES,
-        nodesShortCost: false
-    },
-    SIMPLE,
-    GraphCalculator
-);
-renderGameField('', map1, 'brief_4', MAP_LINES, ADVANCED, GraphCalculator);
-renderGameField('', map2, 'brief_5', MAP_PATH, ADVANCED, GraphCalculatorV2);
-renderGameField('', map5, 'brief_6', LINES_COST_PATH, SIMPLE, GraphCalculatorV5e, ALL_NODES);
+// renderGameField(
+//     '',
+//     map1,
+//     'brief_3',
+//     {
+//         ...LINES,
+//         nodesShortCost: false
+//     },
+//     SIMPLE,
+//     GraphCalculator
+// );
+// renderGameField('', map1, 'brief_4', MAP_LINES, ADVANCED, GraphCalculator);
+// renderGameField('', map2, 'brief_5', MAP_PATH, ADVANCED, GraphCalculatorV2);
+// renderGameField('', map5, 'brief_6', LINES_COST_PATH, SIMPLE, GraphCalculatorV5e, ALL_NODES);
 
 const map12 = `
 ▓ M         1    ▓
@@ -600,8 +600,8 @@ const map12 = `
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
     `;
 
-renderGameField('', map12, 'brief_7', MAP_PATH, new GraphFromField(), GraphCalculatorV5f, 0);
-renderSupaField('', map5, 'brief_8', defaultRenderOptions, SIMPLE, GraphCalculatorV5f, ALL_NODES);
+// renderGameField('', map12, 'brief_7', MAP_PATH, new GraphFromField(), GraphCalculatorV5f, 0);
+// renderSupaField('', map5, 'brief_8', defaultRenderOptions, SIMPLE, GraphCalculatorV5f, ALL_NODES);
 
 const map12a = `
 ▓ M              ▓

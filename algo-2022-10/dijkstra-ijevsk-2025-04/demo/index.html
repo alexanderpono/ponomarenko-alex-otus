@@ -16,8 +16,10 @@
     <script defer src="./app-static/gameField.js"></script>
     <script defer src="./bricks-static/bricksEditor.js"></script>
     <script defer src="./bricks-arcade-static/bricksArcade.js"></script>
+    <script defer src="./warlords-static/warlords.js"></script>
 </head>
 <body class="shower list">
+    <script>window.demo = true;</script>
 
     <header class="caption">
         <h1>Алгоритм Дейкстры: как обойти препятствия в игре
@@ -634,6 +636,17 @@
         <div id="game5" class="arcade"></div>
     </section>
 
+    <section class="slide">
+        <h3>6. Warlords</h3>
+        <div id="warl" class="arcade"></div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                console.log('warlords-outer');
+                console.log('war=', war);
+                war.runWarl();
+            });
+        </script>
+    </section>
 
     <section class="slide">
         <h3 class="noindent">Спасибо за внимание! <br />Вопросы?</h3>

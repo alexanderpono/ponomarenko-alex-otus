@@ -46,7 +46,6 @@ export class GraphFromFieldTeleport extends GraphFromFieldAdvanced {
             }
         }
 
-        console.log('V3');
         const teleport: Point2D[] = [];
         const teleportVI: number[] = [];
 

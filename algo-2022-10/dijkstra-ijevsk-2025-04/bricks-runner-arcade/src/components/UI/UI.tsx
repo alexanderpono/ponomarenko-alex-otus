@@ -45,7 +45,6 @@ export const UI: React.FC<UIProps> = ({
     canvasH,
     canvasId
 }) => {
-    console.log('UI() ctrl=', ctrl);
     return (
         <div className={cn(styles.ui, 'ui')}>
             <canvas id={canvasId} height={canvasH} width={canvasW}></canvas>

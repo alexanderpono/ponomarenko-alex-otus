@@ -38,6 +38,15 @@ module.exports = function (grunt) {
                 ],
                 tasks: ['exec:buildBricksArcade']
             },
+            {
+                options: {
+                    livereload: true
+                },
+                files: [
+                    '../warlords/src/**/*.*'
+                ],
+                tasks: ['exec:buildWarlords']
+            },
         ],
         concat: {
         },
@@ -52,6 +61,10 @@ module.exports = function (grunt) {
             },
             buildBricksArcade: {
                 cmd: `bash ./build-bricks-arcade.sh`                
+                // cmd: `build-bricks.bat`
+            },
+            buildWarlords: {
+                cmd: `bash ./build-warlords.sh`                
                 // cmd: `build-bricks.bat`
             },
         },
