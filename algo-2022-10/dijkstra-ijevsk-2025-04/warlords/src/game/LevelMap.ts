@@ -1,7 +1,9 @@
 export enum Cell {
     grass = ' ',
     town = 'T',
-    road = 'r'
+    road = 'r',
+    water = 'w',
+    hill = 'h'
 }
 
 export interface Point2D {

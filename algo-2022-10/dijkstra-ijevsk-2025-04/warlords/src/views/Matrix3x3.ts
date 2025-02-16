@@ -65,19 +65,19 @@ export const multArea = (op1: string[][], op2: string[][]): string[][] => {
     return result;
 };
 
-export const leaveR = (op1: string[][]): string[][] => {
+export const filterChar = (op1: string[][], char: string): string[][] => {
     const result = ['***'.split(''), '***'.split(''), '***'.split('')];
-    result[0][0] = op1[0][0] === 'r' ? 'r' : '*';
-    result[0][1] = op1[0][1] === 'r' ? 'r' : '*';
-    result[0][2] = op1[0][2] === 'r' ? 'r' : '*';
+    result[0][0] = op1[0][0] === char ? char : '*';
+    result[0][1] = op1[0][1] === char ? char : '*';
+    result[0][2] = op1[0][2] === char ? char : '*';
 
-    result[1][0] = op1[1][0] === 'r' ? 'r' : '*';
-    result[1][1] = op1[1][1] === 'r' ? 'r' : '*';
-    result[1][2] = op1[1][2] === 'r' ? 'r' : '*';
+    result[1][0] = op1[1][0] === char ? char : '*';
+    result[1][1] = op1[1][1] === char ? char : '*';
+    result[1][2] = op1[1][2] === char ? char : '*';
 
-    result[2][0] = op1[2][0] === 'r' ? 'r' : '*';
-    result[2][1] = op1[2][1] === 'r' ? 'r' : '*';
-    result[2][2] = op1[2][2] === 'r' ? 'r' : '*';
+    result[2][0] = op1[2][0] === char ? char : '*';
+    result[2][1] = op1[2][1] === char ? char : '*';
+    result[2][2] = op1[2][2] === char ? char : '*';
 
     return result;
 };
