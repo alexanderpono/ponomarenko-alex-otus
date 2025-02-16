@@ -9,23 +9,22 @@ console.log('main!');
 
 const c = new GameController(
     new GameControllerBuilder()
-    .setTarget('game4')
-    .setCanvasW(720)
-    .setCanvasH(320)
-    .setCalculator(new PathCalculator())
-    .setCanvasId('canvas4')
-    .setLevel(level1)
+        .setTarget('game4')
+        .setCanvasW(720)
+        .setCanvasH(320)
+        .setCalculator(new PathCalculator())
+        .setCanvasId('canvas4')
+        .setLevel(level1)
 );
 c.run();
 
-
 const d = new GameController(
     new GameControllerBuilder()
-    .setTarget('game5')
-    .setCanvasId('canvas5')
-    .setCanvasW(720)
-    .setCanvasH(320)
-    .setCalculator(new SimplePathCalculator())
-    .setLevel(level2)
+        .setTarget('game5')
+        .setCanvasId('canvas5')
+        .setCanvasW(720)
+        .setCanvasH(320)
+        .setCalculator(new SimplePathCalculator())
+        .setLevel(level2)
 );
 d.run();

@@ -15,6 +15,14 @@ interface Ctrl {
     mapClicked: () => void;
     guardRunClicked: () => void;
     manRunClicked: () => void;
+    onBtLeftClick: () => void;
+    onBtRightClick: () => void;
+    onBtUpClick: () => void;
+    onBtDownClick: () => void;
+    onBtgLeftClick: () => void;
+    onBtgRightClick: () => void;
+    onBtgUpClick: () => void;
+    onBtgDownClick: () => void;
 }
 interface UIProps {
     kb: IKeyboard;
@@ -27,42 +35,82 @@ interface UIProps {
     canvasId: string;
 }
 
-export const UI: React.FC<UIProps> = ({ kb, uiState, ctrl, guardState, manState, canvasW, canvasH, canvasId }) => {
+export const UI: React.FC<UIProps> = ({
+    kb,
+    uiState,
+    ctrl,
+    guardState,
+    manState,
+    canvasW,
+    canvasH,
+    canvasId
+}) => {
+    console.log('UI() ctrl=', ctrl);
     return (
         <div className={cn(styles.ui, 'ui')}>
             <canvas id={canvasId} height={canvasH} width={canvasW}></canvas>
             <div className={cn(styles.playerControls, 'playerControls')}>
-                <button id="btLeft" className={cn({ pressed: kb.isLeftPressed })}>
+                <button
+                    id="btLeft"
+                    className={cn({ pressed: kb.isLeftPressed })}
+                    onClick={ctrl.onBtLeftClick}
+                >
                     &lt;
                 </button>
-                <button id="btRight" className={cn({ pressed: kb.isRightPressed })}>
+                <button
+                    id="btRight"
+                    className={cn({ pressed: kb.isRightPressed })}
+                    onClick={ctrl.onBtRightClick}
+                >
                     &gt;
                 </button>
-                <button id="btDown" className={cn({ pressed: kb.isDownPressed })}>
+                <button
+                    id="btDown"
+                    className={cn({ pressed: kb.isDownPressed })}
+                    onClick={ctrl.onBtDownClick}
+                >
                     D
                 </button>
-                <button id="btUp" className={cn({ pressed: kb.isUpPressed })}>
+                <button
+                    id="btUp"
+                    className={cn({ pressed: kb.isUpPressed })}
+                    onClick={ctrl.onBtUpClick}
+                >
                     U
                 </button>
             </div>
             <div className={cn(styles.guardianControls, 'guardianControls')}>
-                <button id="btGLeft">&lt;</button>
-                <button id="btGRight">&gt;</button>
-                <button id="btGDown">D</button>
-                <button id="btGUp">U</button>
+                <button id="btGLeft" onClick={ctrl.onBtgLeftClick}>
+                    &lt;
+                </button>
+                <button id="btGRight" onClick={ctrl.onBtgRightClick}>
+                    &gt;
+                </button>
+                <button id="btGDown" onClick={ctrl.onBtgDownClick}>
+                    D
+                </button>
+                <button id="btGUp" onClick={ctrl.onBtgUpClick}>
+                    U
+                </button>
             </div>
+
             <div className={cn(styles.uiOptions, 'uiOptions')}>
-                {Label(uiState.showNodes, ctrl.nodesClicked, `nodes`, 'Узлы')}
-                {Label(uiState.showLines, ctrl.linesClicked, `lines`, 'Ребра')}
-                {Label(uiState.showPath, ctrl.pathClicked, `path`, 'Путь')}
-                {Label(uiState.showNodesCost, ctrl.nodesCostClicked, `nodesCost`, 'Стоимость')}
-                {Label(uiState.showMap, ctrl.mapClicked, `map`, 'Карта')}
+                {Label(uiState.showNodes, ctrl.nodesClicked, `nodes${canvasId}`, 'Узлы')}
+                {Label(uiState.showLines, ctrl.linesClicked, `lines${canvasId}`, 'Ребра')}
+                {Label(uiState.showPath, ctrl.pathClicked, `path${canvasId}`, 'Путь')}
+                {Label(
+                    uiState.showNodesCost,
+                    ctrl.nodesCostClicked,
+                    `nodesCost${canvasId}`,
+                    'Стоимость'
+                )}
+                {Label(uiState.showMap, ctrl.mapClicked, `map${canvasId}`, 'Карта')}
             </div>
             <div className={cn(styles.guardCtrl2, 'guardCtrl2')}>
-                {Label(guardState.run, ctrl.guardRunClicked, `guardRun`, 'Бежать')}
+                {Label(guardState.run, ctrl.guardRunClicked, `guardRun${canvasId}`, 'Бежать')}
             </div>
             <div className={cn(styles.manCtrl2, 'manCtrl2')}>
-                {Label(manState.run, ctrl.manRunClicked, `manRun`, 'Бежать')}
+                {Label(manState.run, ctrl.manRunClicked, `manRun${canvasId}`, 'Бежать')}
             </div>
         </div>
     );

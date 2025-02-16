@@ -43,6 +43,16 @@ export class GameController {
 
     constructor(private builder: GameControllerBuilder) {}
 
+    onBtLeftClick = () => this.stepLeft();
+    onBtRightClick = () => this.stepRight();
+    onBtUpClick = () => this.stepUp();
+    onBtDownClick = () => this.stepDown();
+
+    onBtgLeftClick = () => this.gstepLeft();
+    onBtgRightClick = () => this.gstepRight();
+    onBtgUpClick = () => this.gstepUp();
+    onBtgDownClick = () => this.gstepDown();
+
     run() {
         this.levelMap = LevelMap.create().initFromText(this.builder.level);
         this.emptyLevel = this.initEmptyField(this.builder.level);
@@ -80,32 +90,6 @@ export class GameController {
             if (manState === Ani.RUNNING) {
                 this.runTick();
             }
-        });
-
-        document.getElementById('btRight').addEventListener('click', () => {
-            this.stepRight();
-        });
-        document.getElementById('btLeft').addEventListener('click', () => {
-            this.stepLeft();
-        });
-        document.getElementById('btDown').addEventListener('click', () => {
-            this.stepDown();
-        });
-        document.getElementById('btUp').addEventListener('click', () => {
-            this.stepUp();
-        });
-
-        document.getElementById('btGRight').addEventListener('click', () => {
-            this.gstepRight();
-        });
-        document.getElementById('btGLeft').addEventListener('click', () => {
-            this.gstepLeft();
-        });
-        document.getElementById('btGDown').addEventListener('click', () => {
-            this.gstepDown();
-        });
-        document.getElementById('btGUp').addEventListener('click', () => {
-            this.gstepUp();
         });
     }
     loadPic = () => {
