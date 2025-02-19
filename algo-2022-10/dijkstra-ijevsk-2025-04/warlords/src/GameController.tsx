@@ -1,13 +1,20 @@
 import ImgSprite from '@src/assets/sprite.png';
-import { Cell, LevelMap } from './game/LevelMap';
+import { LevelMap } from './game/LevelMap';
 import { GameControllerBuilder } from './GameControllerBuilder';
 import { ImageBuilder } from './ports/ImageBuilder';
-import { getSpriteXY } from './views/getSpriteXY';
+import { GridFromMap } from './path/GridFromMap';
+import { Grid } from './path/path.types';
+import { MapView } from './views/MapView';
+import { VerticesView } from './views/VerticesView';
+import { EdgesView } from './views/EdgesView';
+import { EdgesCostView } from './views/EdgesCostView';
+import { VerticesCostView } from './views/VerticesCostView';
 
 export class GameController {
     picLoaded: boolean;
     levelMap: LevelMap = null;
     pic: InstanceType<typeof Image> = new Image();
+    grid: Grid = null;
 
     constructor(private builder: GameControllerBuilder) {}
 
@@ -18,9 +25,11 @@ export class GameController {
 
         this.loadPic().then(() => {
             this.picLoaded = true;
+            this.calculatePath();
             this.renderScene();
         });
     }
+
     loadPic = () => {
         return new Promise((resolve) => {
             this.pic.src = ImgSprite;
@@ -41,16 +50,32 @@ export class GameController {
             .font('bold 15px sans-serif');
 
         graph.loadPic(ImgSprite, 'sprite').then(() => {
-            this.levelMap.field.forEach((line: Cell[], y: number) => {
-                line.forEach((cell: Cell, x: number) => {
-                    const sprite = getSpriteXY(this.levelMap, x, y, cell);
-                    graph.drawSprite('sprite', sprite.x, sprite.y, x * 40, y * 40, 40, 40);
-                });
-            });
+            graph = new MapView().render(graph, this.levelMap);
+            graph = new EdgesView().render(graph, this.levelMap, this.grid);
+            graph = new VerticesView().render(graph, this.levelMap, this.grid);
+            // graph = new EdgesCostView().render(graph, this.levelMap, this.grid);
+            // graph = new VerticesCostView().render(graph, this.levelMap, this.grid);
 
-            graph.buildImage(); //.printActions()
+            graph.printActions(145).buildImage(); //.printActions()
         });
 
         return this;
     }
+
+    calculatePath = () => {
+        const gridBuilder = new GridFromMap();
+        this.grid = gridBuilder.gridFromMap(this.levelMap);
+        console.log('calculatePath() this.grid=', this.grid);
+        // const mIndex = this.levelMap.coordToVertexIndex(this.manFieldXY);
+        // const dIndex = this.levelMap.coordToVertexIndex(this.man.manFieldXY);
+        // grid = this.pathCalculator.calculateGraph(
+        //     grid,
+        //     mIndex,
+        //     dIndex,
+        //     SILENT,
+        //     ALL_NODES,
+        //     this.levelMap
+        // );
+        // this.grid = grid;
+    };
 }

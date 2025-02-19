@@ -3,7 +3,9 @@ export enum Cell {
     town = 'T',
     road = 'r',
     water = 'w',
-    hill = 'h'
+    hill = 'h',
+    forest = 'f',
+    largeBuilding = 'B'
 }
 
 export interface Point2D {
@@ -59,6 +61,14 @@ export class LevelMap {
         const x = vertexIndex % this.w;
         const y = Math.floor(vertexIndex / this.w);
         return { x, y };
+    };
+
+    coordsToCell = (point: Point2D): Cell => {
+        const h = this.field.length;
+        if (point.y < 0 || point.y >= h) {
+            return Cell.water;
+        }
+        return this.field[point.y][point.x];
     };
 
     getVertexIndex = (char: string): number => {

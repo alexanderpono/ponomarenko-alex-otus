@@ -13,7 +13,7 @@ enum ImageEvent {
     H_LINE = 'H_LINE',
     V_LINE = 'V_LINE',
     BOX = 'BOX',
-    DRAW_CIRCLE = 'DRAW_CIRCLE',
+    CIRCLE = 'CIRCLE',
     FONT = 'FONT',
     TEXT = 'TEXT',
     SPRITE = 'SPRITE',
@@ -88,9 +88,9 @@ interface BoxAction extends ImageAction {
 }
 
 interface DrawCircleAction extends ImageAction {
-    type: ImageEvent.DRAW_CIRCLE;
-    xPos: number;
-    yPos: number;
+    type: ImageEvent.CIRCLE;
+    x: number;
+    y: number;
     radius: number;
 }
 
@@ -176,10 +176,10 @@ export const imageAction = {
         w,
         h
     }),
-    drawCircle: (xPos: number, yPos: number, radius: number): DrawCircleAction => ({
-        type: ImageEvent.DRAW_CIRCLE,
-        xPos,
-        yPos,
+    drawCircle: (x: number, y: number, radius: number): DrawCircleAction => ({
+        type: ImageEvent.CIRCLE,
+        x,
+        y,
         radius
     }),
     font: (font: string): FontAction => ({
@@ -358,8 +358,8 @@ export class ImageBuilder {
         }
     };
 
-    printActions = () => {
-        console.log('renderActions=', JSON.stringify(this.actions));
+    printActions = (start: number = 0) => {
+        console.log(`printActions[${start}]=`, JSON.stringify(this.actions.slice(start)));
         return this;
     };
 
@@ -416,10 +416,10 @@ export class ImageBuilder {
                     (action as BoxAction).h
                 );
 
-            case ImageEvent.DRAW_CIRCLE:
+            case ImageEvent.CIRCLE:
                 return viewPort.drawCircle(
-                    (action as DrawCircleAction).xPos,
-                    (action as DrawCircleAction).yPos,
+                    (action as DrawCircleAction).x,
+                    (action as DrawCircleAction).y,
                     (action as DrawCircleAction).radius
                 );
 

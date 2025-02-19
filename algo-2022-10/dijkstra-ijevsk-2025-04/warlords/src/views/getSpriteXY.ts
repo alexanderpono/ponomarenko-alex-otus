@@ -4,6 +4,7 @@ import { getArea, filterChar, multArea } from './Matrix3x3';
 const sprites = {
     water: { x: 0, y: 0 },
     grass: { x: 40, y: 0 },
+    largeBuilding: { x: 160, y: 0 },
 
     roadL: { x: 160, y: 120 },
     roadR: { x: 160, y: 160 },
@@ -133,7 +134,7 @@ const getHillCell = (levelMap: LevelMap, x: number, y: number) => {
 export const getSpriteXY = (levelMap: LevelMap, x: number, y: number, cell: Cell) => {
     switch (cell) {
         case Cell.grass:
-            return { x: 40, y: 0 };
+            return sprites.grass;
         case Cell.town:
             return getTownCell(levelMap, x, y);
         case Cell.road:
@@ -142,6 +143,8 @@ export const getSpriteXY = (levelMap: LevelMap, x: number, y: number, cell: Cell
             return getWaterCell(levelMap, x, y);
         case Cell.hill:
             return getHillCell(levelMap, x, y);
+        case Cell.largeBuilding:
+            return sprites.largeBuilding;
         default:
             return { x: 0, y: 0 };
     }

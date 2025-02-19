@@ -2,7 +2,7 @@ export const level1 = `
       r  hh
     hhrrhhhh
     hhhr     
-    hh rwwTT
+   Bhh rwwTT
     hh rwwTT
     hhhrrrr       
     hhh `;
