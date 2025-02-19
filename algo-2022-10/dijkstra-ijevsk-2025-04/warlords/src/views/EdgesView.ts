@@ -31,7 +31,6 @@ export class EdgesView {
             srcGraph.lineColor(costToColor[edge.cost.v0v1Cost]);
             const midX = w2 + ((v0x + v1x) / 2) * SPRITE_WIDTH;
             const midY = h2 + ((v0y + v1y) / 2) * SPRITE_HEIGHT;
-            console.log(v0x, v0y, v1x, v1y);
             srcGraph.line(w2 + v0x * SPRITE_WIDTH, h2 + v0y * SPRITE_HEIGHT, midX, midY);
             srcGraph.lineColor(costToColor[edge.cost.v1v0Cost]);
             return srcGraph.line(midX, midY, w2 + v1x * SPRITE_WIDTH, h2 + v1y * SPRITE_HEIGHT);

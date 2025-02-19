@@ -110,7 +110,8 @@ export class PathCalculator {
         const v1: Point2D = this.levelMap.vertexIndexToCoords(targetIndex);
         const h = Math.abs(v0.x - v1.x) + Math.abs(v0.y - v1.y);
         const d = this.getDistance(this.A, this.B, this.C, v0);
-        return 5 * (h * 4 + d);
+        // return 5 * (h * 4 + d);
+        return h + d;
     };
 
     protected getDistance = (A: number, B: number, C: number, v: Point2D) =>

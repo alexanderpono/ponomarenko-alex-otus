@@ -36,7 +36,6 @@ export class LevelMap {
         );
         const cells = new Set(Object.values(Cell));
 
-        console.log('lines=', lines);
         this.field = lines.map((line: string): Cell[] => {
             const fieldLine = Array(fieldWidth).fill(Cell.grass);
             line.split('').forEach((char: string, index) => {
@@ -50,7 +49,6 @@ export class LevelMap {
         });
 
         this.w = this.field[0].length;
-        console.log('initFromText() this.w=', this.w);
         return this;
     };
 

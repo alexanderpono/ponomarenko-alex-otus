@@ -24,9 +24,9 @@ export class VerticesCostView {
         y: number
     ) => {
         const vertex = this.getVertexAt(levelMap, grid, x, y);
-        // if (vertex.accessCost === UNDEFINED_COST) {
-        //     return;
-        // }
+        if (vertex.accessCost === UNDEFINED_COST) {
+            return;
+        }
         return graph.text(x * SPRITE_WIDTH + w4, y * SPRITE_HEIGHT + h2, '' + vertex.accessCost);
     };
 

@@ -9,6 +9,9 @@ import { VerticesView } from './views/VerticesView';
 import { EdgesView } from './views/EdgesView';
 import { EdgesCostView } from './views/EdgesCostView';
 import { VerticesCostView } from './views/VerticesCostView';
+import { ALL_NODES, PathCalculator, SILENT, VERBOSE } from './path/PathCalculator';
+import { CurVertexView } from './views/CurVertexView';
+import { PathView } from './views/PathView';
 
 export class GameController {
     picLoaded: boolean;
@@ -52,11 +55,13 @@ export class GameController {
         graph.loadPic(ImgSprite, 'sprite').then(() => {
             graph = new MapView().render(graph, this.levelMap);
             graph = new EdgesView().render(graph, this.levelMap, this.grid);
-            graph = new VerticesView().render(graph, this.levelMap, this.grid);
+            // graph = new VerticesView().render(graph, this.levelMap, this.grid);
             // graph = new EdgesCostView().render(graph, this.levelMap, this.grid);
-            // graph = new VerticesCostView().render(graph, this.levelMap, this.grid);
+            graph = new VerticesCostView().render(graph, this.levelMap, this.grid);
+            graph = new CurVertexView().render(graph, this.levelMap, this.grid);
+            graph = new PathView().render(graph, this.levelMap, this.grid);
 
-            graph.printActions(145).buildImage(); //.printActions()
+            graph.buildImage(); //.printActions(145)
         });
 
         return this;
@@ -65,17 +70,17 @@ export class GameController {
     calculatePath = () => {
         const gridBuilder = new GridFromMap();
         this.grid = gridBuilder.gridFromMap(this.levelMap);
-        console.log('calculatePath() this.grid=', this.grid);
-        // const mIndex = this.levelMap.coordToVertexIndex(this.manFieldXY);
-        // const dIndex = this.levelMap.coordToVertexIndex(this.man.manFieldXY);
-        // grid = this.pathCalculator.calculateGraph(
-        //     grid,
-        //     mIndex,
-        //     dIndex,
-        //     SILENT,
-        //     ALL_NODES,
-        //     this.levelMap
-        // );
-        // this.grid = grid;
+
+        const srcIndex = this.levelMap.coordToVertexIndex({ x: 10, y: 4 });
+        const destIndex = this.levelMap.coordToVertexIndex({ x: 3, y: 4 });
+        this.grid = new PathCalculator().calculateGraph(
+            this.grid,
+            srcIndex,
+            destIndex,
+            SILENT,
+            // 55,
+            ALL_NODES,
+            this.levelMap
+        );
     };
 }
