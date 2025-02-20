@@ -180,6 +180,21 @@ th {
     top: -90px;
     width: 338px;
 }
+
+.lobachevskiy {
+    padding-right: 0px;
+    position: relative;
+}
+
+.lobachevskiy .photo {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 338px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
 .slide.title::before, .nologo::before {
     display: none;
 }
