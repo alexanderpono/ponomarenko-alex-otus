@@ -654,7 +654,7 @@ renderGameField(
 );
 
 renderGameField(
-    '5. A* не нашел кратчайший путь',
+    '4. A* не нашел кратчайший путь',
     map12,
     'teleport_2',
     LINES_COST_PATH_MAP_PROGRESS,
@@ -664,7 +664,7 @@ renderGameField(
 );
 
 renderGameField(
-    '5. Применяем алгоритм Дейкстры',
+    '4. Применяем алгоритм Дейкстры',
     map12,
     'teleport_3',
     LINES_COST_PATH_MAP_PROGRESS,
@@ -674,7 +674,7 @@ renderGameField(
 );
 
 renderGameField(
-    '5. Телепортация: поехали',
+    '4. Телепортация: поехали',
     map12,
     'teleport_4',
     MAP_PATH_START_STOP,

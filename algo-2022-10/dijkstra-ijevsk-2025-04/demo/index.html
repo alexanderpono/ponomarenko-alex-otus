@@ -75,7 +75,7 @@
     </section>
 
     <section class="slide">
-        <h3>Через 25 минут</h3>
+        <h3>Через 30 минут</h3>
         <h4>Вы будете знать:</h4>
         <ul>
             <li>Как реализовать алгоритм Дейкстры </li>
@@ -92,7 +92,7 @@
         <h3>Вы сможете</h3>
         <ul>
             <li>Сами создавать собственные игры</li>
-            <li>И решать задачи поиска оптимального пути, опираясь <br />на представленный пример</li>
+            <li>Решать задачи поиска оптимального пути, опираясь <br />на представленный пример</li>
         </ul>
         <div class="gamedev img1 rounded"></div>
         <div class="pathfind img2 rounded"></div>
@@ -261,6 +261,18 @@
         <div id="graph-ok" class="abstractGraph"></div>
     </section>
 
+    <section class="slide">
+        <h3>Краткий итог</h3>
+        <div class="w60">
+            <ul>
+                <li class="maxw100">Рассмотрели работу алгоритма Дейкстры <br />на абстрактном графе</li>
+            </ul>
+
+        </div>
+
+    </section>
+
+
 
     <section class="slide">
         <h3>Содержание</h3>
@@ -383,6 +395,16 @@
     </section>
 
     <section class="slide">
+        <h3>Краткие выводы</h3>
+        <div class="w60">
+            <ul>
+                <li class="maxw100">Программа часто работает не так, <br />как ожидалось, а иногда &mdash; правильно </li>
+                <li class="maxw100">В ряде задач вес ребра зависит <br />от направления движения. Пришлось модифицировать алгоритм Дейкстры</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="slide">
         <h3>Содержание</h3>
         <p class="ok">1. Алгоритм Дейкстры</p>
         <p class="ok">2. Квадратная сетка и обход препятствий</p>
@@ -485,6 +507,28 @@
         <p>H4(x, y, xT, yT, xS, yS) = 5 * (4 * H1() + D())</p>
     </section>
 
+
+    <section class="slide">
+        <h3>Как называется этот алгоритм?</h3>
+        <div class="w60">
+            Алгоритм Дейкстры + ранний выход <br />+ эвристическая функция = ?
+        </div>
+    </section>
+
+    <section class="slide">
+        <h3>Как называется этот алгоритм?</h3>
+        <div class="w60">
+            Алгоритм Дейкстры + ранний выход <br />+ эвристическая функция = <strong>A*</strong>        
+        </div>
+    </section>
+
+    <section class="slide">
+        <h3>Краткие выводы</h3>
+
+        <p class="pretty"><strong>1.</strong> Алгоритм Дейкстры + ранний выход <br />+ эвристическая функция = <strong>A*</strong></p>
+        <p class="pretty"><strong>2.</strong> Для работы <strong>A*</strong> потребовалась настройка коэффициентов</p>
+    </section>
+
     <section class="slide">
         <h3>Содержание</h3>
         <p class="ok">1. Алгоритм Дейкстры</p>
@@ -494,6 +538,72 @@
         <p><strong>5.</strong> Алгоритм Дейкстры vs A*</p>
         <p><strong>6.</strong> Алгоритм Дейкстры в Warlords</p>
         <p><strong>7.</strong> Примеры игр</p>
+    </section>
+
+    <section class="slide nocopy">
+        <h3>4. Кто этот человек?</h3>
+
+        <div class="picText">
+            <div class="w50">
+
+            </div>
+            <div class="w50 lobachevskiy">
+                <img class="photo" src="demo-static/Lobachevskiy.jpg" />
+            </div>
+        </div>
+    </section>
+
+    <section class="slide nocopy">
+        <h3>4. Лобачевский Николай Иванович</h3>
+
+        <div class="picText">
+            <div class="w60">
+                <div>01.12.1792 – 24.02.1856</div>
+                <div>Российский ученый, физик-математик</div> 
+                <div><strong>Создатель неевклидовой геометрии</strong></div>
+            </div>
+            <div class="w40 lobachevskiy">
+                <img class="photo" src="demo-static/Lobachevskiy.jpg" />
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h3>4. Плоскость Лобачевского</h3>
+
+        <div class="picText">
+            <div class="w60">
+                <p>Что будет, если свернуть плоскость в трубочку или воронку?</p>
+
+                <ul>
+                    <li class="maxw70">Тогда новые точки плоскости окажутся рядом</li>
+                </ul>
+
+                <p>И переход между ними соответствует...</p> 
+            </div>
+            <div class="w40 lobachevskiy">
+                <img class="photo" src="demo-static/flatOfLobachevskiy.png" />
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h3>4. Плоскость Лобачевского</h3>
+
+        <div class="picText">
+            <div class="w60">
+                <p>Что будет, если свернуть плоскость в трубочку или воронку?</p>
+
+                <ul>
+                    <li class="maxw70">Тогда новые точки плоскости окажутся рядом</li>
+                </ul>
+
+                <p>И переход между ними соответствует <strong>Телепортации</strong> <br />в привычном для нас пространстве</p> 
+            </div>
+            <div class="w40 lobachevskiy">
+                <img class="photo" src="demo-static/flatOfLobachevskiy.png" />
+            </div>
+        </div>
     </section>
 
     <section class="slide">
@@ -522,6 +632,12 @@
 
     <section class="slide">
         <div id="teleport_4" class="game"></div>
+    </section>
+
+    <section class="slide">
+        <h3>Краткие выводы</h3>
+        <p class="pretty"><strong>1.</strong> <strong>A*</strong> подходит не для всех случаев жизни</p>
+        <p class="pretty"><strong>2.</strong> Алгоритм Дейкстры позволяет смоделировать телепортацию в игре</p>
     </section>
 
     <section class="slide">
@@ -586,24 +702,12 @@
     </section>    
 
     <section class="slide">
-        <h3>5. Выводы</h3>
-        <p>1. Алгоритм Дейкстры проще в реализации, чем A*</p>
-        <p>2. A* эффективнее, чем алгоритм Дейкстры</p>
-        <p class="pretty">3. Можно создавать свои игры на основе примера: <br />
-            <span class="link">https://github.com/alexanderpono/bricks-runner</span>
-        </p>
-        <p class="pretty">** Также очень хорош BFS (Breadth-First Search) с эвристикой, но нужен невзвешенный граф</p>
+        <h3>Краткий вывод</h3>
+            <p><strong>A*</strong> эффективнее, чем алгоритм Дейкстры</p>
+            <br />
+            <p>Также очень хорош BFS (Breadth-First Search) с эвристикой, но нужен невзвешенный граф</p>
     </section>
 
-    <section class="slide">
-        <h3>5. Что еще почитать?</h3>
-        <ul>
-            <li>A* &mdash; развитие алгоритма Дейкстры <span class="link">https://www.redblobgames.com/pathfinding/a-star/introduction.html</span></li>
-            <li>Еще об алгоритмах на графах <span class="link">https://habr.com/ru/companies/timeweb/articles/751762/</span></li>
-        </ul>
-
-    </section>
-   
     <section class="slide">
         <h3>Содержание</h3>
         <p class="ok">1. Алгоритм Дейкстры</p>
@@ -627,10 +731,23 @@
         </script>
     </section>
 
+    <section class="slide">
+        <h3>Краткие выводы</h3>
+            <p class="pretty"><strong>1.</strong> Алгоритм Дейкстры (A*) хорошо работает не только <br />для игр «вид сбоку», но и для игр «вид сверху»</p>
+            <p class="pretty"><strong>2.</strong> Потребовалось настраивать коэффициенты <br />в эвристической функции под особенности задачи</p>
+            <p class="pretty"><strong>3.</strong> Алгоритм Дейкстры хорошо работает с графами разной конфигурации ребер</p>
+    </section>
 
-    <!-- <section class="slide">
-        <div id="game2" class="game"></div>
-    </section> -->
+    <section class="slide">
+        <h3>Содержание</h3>
+        <p class="ok">1. Алгоритм Дейкстры</p>
+        <p class="ok">2. Квадратная сетка и обход препятствий</p>
+        <p class="ok">3. Оптимизация. A*</p>
+        <p class="ok">4. Телепортация</p>
+        <p class="ok">5. Алгоритм Дейкстры vs A*</p>
+        <p class="ok">6. Алгоритм Дейкстры в Warlords</p>
+        <p><strong>7.</strong> Примеры игр</p>
+    </section>
 
     <section class="slide">
         <h3>7. Bricks Runner</h3>
@@ -650,11 +767,32 @@
         <div id="game4" class="arcade"></div>
     </section>
 
+
+
+
     <section class="slide">
-        <h3>7. Bricks Runner - Arcade</h3>
-        <div id="game5" class="arcade"></div>
+        <h3>Выводы</h3>
+        <p class="pretty"><strong>1.</strong> Алгоритм Дейкстры позволяет реализовать разные игры, в т.ч. с телепортацией</p>
+        <p class="pretty"><strong>2.</strong> Для работы <strong>A*</strong> необходимо настроить коэффициенты в эвристической функции</p>
+        <p class="pretty"><strong>3.</strong> <strong>A*</strong> работает быстрее, чем классический алгоритм Дейкстры, но менее универсальный</p>
+        <br />
+        <p class="pretty"><strong>**</strong> Можно создавать свои игры на основе примера: <br />
+            <span class="link">https://github.com/alexanderpono/bricks-runner</span>
+        </p>
+
+
+
     </section>
 
+    <section class="slide">
+        <h3>Что еще почитать?</h3>
+        <ul>
+            <li><strong>A*</strong> &mdash; развитие алгоритма Дейкстры <span class="link">https://www.redblobgames.com/pathfinding/a-star/introduction.html</span></li>
+            <li>Еще об алгоритмах на графах <span class="link">https://habr.com/ru/companies/timeweb/articles/751762/</span></li>
+        </ul>
+
+    </section>
+   
     <section class="slide">
         <h3 class="noindent">Спасибо за внимание! <br />Вопросы?</h3>
         <div class="qrs">
