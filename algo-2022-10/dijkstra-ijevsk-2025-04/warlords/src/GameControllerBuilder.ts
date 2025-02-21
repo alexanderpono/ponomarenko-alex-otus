@@ -1,9 +1,20 @@
+import { Point2D } from './game/LevelMap';
+
 export class GameControllerBuilder {
     target: string = '';
     canvasW: number = 0;
     canvasH: number = 0;
     canvasId: string;
     level: string;
+    calculatePath: boolean = false;
+    pathSrc: Point2D = { x: 0, y: 0 };
+    pathDest: Point2D = { x: 0, y: 0 };
+    showVertices: boolean = false;
+    showEdges: boolean = false;
+    showVerticesCost: boolean = false;
+    showEdgesCost: boolean = false;
+    showCurVertex: boolean = false;
+    showPath: boolean = false;
 
     setTarget = (target: string) => {
         this.target = target;
@@ -27,6 +38,51 @@ export class GameControllerBuilder {
 
     setLevel = (level: string) => {
         this.level = level;
+        return this;
+    };
+
+    setCalculatePath = (calculatePath: boolean) => {
+        this.calculatePath = calculatePath;
+        return this;
+    };
+
+    setPathSrc = (pathSrc: Point2D) => {
+        this.pathSrc = pathSrc;
+        return this;
+    };
+
+    setPathDest = (pathDest: Point2D) => {
+        this.pathDest = pathDest;
+        return this;
+    };
+
+    setShowVertices = (showVertices: boolean) => {
+        this.showVertices = showVertices;
+        return this;
+    };
+
+    setShowEdges = (showEdges: boolean) => {
+        this.showEdges = showEdges;
+        return this;
+    };
+
+    setShowVerticesCost = (showVerticesCost: boolean) => {
+        this.showVerticesCost = showVerticesCost;
+        return this;
+    };
+
+    setShowEdgesCost = (showEdgesCost: boolean) => {
+        this.showEdgesCost = showEdgesCost;
+        return this;
+    };
+
+    setShowCurVertex = (showCurVertex: boolean) => {
+        this.showCurVertex = showCurVertex;
+        return this;
+    };
+
+    setShowPath = (showPath: boolean) => {
+        this.showPath = showPath;
         return this;
     };
 }

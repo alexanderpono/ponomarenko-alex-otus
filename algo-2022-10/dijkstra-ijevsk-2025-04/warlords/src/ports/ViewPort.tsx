@@ -6,21 +6,23 @@ export class ViewPort {
     private canvas: HTMLCanvasElement = null;
     private width: number = 0;
     private height: number = 0;
+    private canvasId: string = '';
 
     constructor(private domTarget: string) {}
 
     setSize = (w: number, h: number) => {
         this.width = w;
         this.height = h;
+        this.canvasId = `${this.domTarget}-canvas`;
         render(
-            <canvas id="canvas" height={h} width={w}></canvas>,
+            <canvas id={this.canvasId} height={h} width={w}></canvas>,
             document.getElementById(this.domTarget)
         );
         return this;
     };
 
     createContext = () => {
-        this.canvas = document.getElementById('canvas') as HTMLCanvasElement;
+        this.canvas = document.getElementById(this.canvasId) as HTMLCanvasElement;
         if (this.canvas === null) {
             console.log('canvas === null');
             return null;

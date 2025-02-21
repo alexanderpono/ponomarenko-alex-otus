@@ -5,7 +5,12 @@ import { h2, SPRITE_HEIGHT, SPRITE_WIDTH, w2, w4 } from './views.types';
 
 export class EdgesCostView {
     render = (srcGraph: ImageBuilder, levelMap: LevelMap, grid: Grid): ImageBuilder => {
-        let graph = srcGraph.lineWidth(1).lineColor('white');
+        let graph = srcGraph
+            .lineColor('green')
+            .fillColor('white')
+            .lineWidth(3)
+            .font('bold 15px sans-serif');
+
         grid.edges.forEach((edge: Edge) => {
             graph = this.drawEdgeCost(graph, edge, levelMap, grid);
         });

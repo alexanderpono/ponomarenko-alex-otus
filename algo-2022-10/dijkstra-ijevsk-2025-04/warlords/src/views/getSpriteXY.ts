@@ -63,6 +63,8 @@ const getRoadCell = (levelMap: LevelMap, x: number, y: number) => {
             return sprites.roadRU;
         case '****r**r*':
             return sprites.roadD;
+        case '*r**r****':
+            return sprites.roadU;
         default:
             console.log('road key=', key);
             return sprites.water;
