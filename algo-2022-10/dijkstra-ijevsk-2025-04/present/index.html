@@ -719,14 +719,218 @@
         <p><strong>7.</strong> Примеры игр</p>
     </section>
 
+    <script>
+        var defaultAppConfig = {
+            name: '',
+            target: '',
+            level: '',
+            calculatePath: false,
+            pathSrc: { x: 0, y: 0 },
+            pathDest: { x: 0, y: 0 },
+            showVertices: false,
+            showEdges: false,
+            showVerticesCost: false,
+            showEdgesCost: false,
+            showCurVertex: false,
+            showPath: false
+        };       
+        const level1 = `
+      r  hh
+    hhrrhhhh
+    hhhr     
+   Bhh rwwTT
+    hh rwwTT
+    hhhrrrr       
+    hhh `;
+    </script>
+
     <section class="slide">
         <h3>6. Warlords</h3>
-        <div id="w-ui" class="arcade"></div>
+        <div id="w-grass" class="arcade"></div>
         <script>
             document.addEventListener("DOMContentLoaded", function() {
-                console.log('warlords-outer');
-                console.log('war=', war);
-                war.runWarl();
+                let level1Grass = `
+      
+   
+       
+   
+    
+                  
+      `;
+ 
+                war.runWarl({
+                    ...defaultAppConfig,
+                    name: 'grass',
+                    target: 'w-grass',
+                    level: level1Grass
+                });
+            });
+        </script>
+    </section>
+
+    <section class="slide">
+        <h3>6. Warlords</h3>
+        <div id="w-hills" class="arcade"></div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const level1Hills = `
+         hh
+    hh  hhhh
+    hhh      
+    hh      
+    hh      
+    hhh           
+    hhh `;
+ 
+                war.runWarl({
+                    ...defaultAppConfig,
+                    name: 'hills',
+                    target: 'w-hills',
+                    level: level1Hills
+                });
+            });
+        </script>
+    </section>
+
+    <section class="slide">
+        <h3>6. Warlords</h3>
+        <div id="w-water" class="arcade"></div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const level1Water = `
+         hh
+    hh  hhhh
+    hhh      
+    hh  ww  
+    hh  ww  
+    hhh           
+    hhh `;
+ 
+                war.runWarl({
+                    ...defaultAppConfig,
+                    name: 'water',
+                    target: 'w-water',
+                    level: level1Water
+                });
+            });
+        </script>
+    </section>
+
+    <section class="slide">
+        <h3>6. Warlords</h3>
+        <div id="w-town" class="arcade"></div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const level1Town = `
+         hh
+    hh  hhhh
+    hhh      
+    hh  wwTT
+    hh  wwTT
+    hhh           
+    hhh `;
+ 
+                war.runWarl({
+                    ...defaultAppConfig,
+                    name: 'town',
+                    target: 'w-town',
+                    level: level1Town
+                });
+            });
+        </script>
+    </section>
+
+    <section class="slide">
+        <h3>6. Warlords</h3>
+        <div id="w-road" class="arcade"></div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const level1Road = `
+      r  hh
+    hhrrhhhh
+    hhhr     
+    hh rwwTT
+    hh rwwTT
+    hhhrrrr       
+    hhh `;
+ 
+                war.runWarl({
+                    ...defaultAppConfig,
+                    name: 'road',
+                    target: 'w-road',
+                    level: level1Road
+                });
+            });
+        </script>
+    </section>
+
+    <section class="slide">
+        <h3>6. Warlords</h3>
+        <div id="w-building" class="arcade"></div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                war.runWarl({
+                    ...defaultAppConfig,
+                    name: 'building',
+                    target: 'w-building',
+                    level: level1
+                });
+            });
+        </script>
+    </section>
+
+    <section class="slide">
+        <h3>6. Warlords</h3>
+        <div id="w-grid" class="arcade"></div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                war.runWarl({
+                    ...defaultAppConfig,
+                    name: 'grid',
+                    target: 'w-grid',
+                    level: level1,
+                    showEdges: true
+                });
+            });
+        </script>
+    </section>
+
+    <section class="slide">
+        <h3>6. Warlords</h3>
+        <div id="w-edgesCosts" class="arcade"></div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                war.runWarl({
+                    ...defaultAppConfig,
+                    name: 'edgesCosts',
+                    target: 'w-edgesCosts',
+                    level: level1,
+                    showEdges: false,
+                    showEdgesCost: true
+                });
+            });
+        </script>
+    </section>
+
+    <section class="slide">
+        <h3>6. Warlords</h3>
+        <div id="w-path" class="arcade"></div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                war.runWarl({
+                    ...defaultAppConfig,
+                    name: 'path',
+                    target: 'w-path',
+                    level: level1,
+                    showEdges: false,
+                    showEdgesCost: false,
+                    showCurVertex: false,
+                    calculatePath: true,
+                    pathSrc: { x: 10, y: 4 },
+                    pathDest: { x: 3, y: 4 },
+                    showPath: true,
+                    showVerticesCost: true
+                });
             });
         </script>
     </section>
