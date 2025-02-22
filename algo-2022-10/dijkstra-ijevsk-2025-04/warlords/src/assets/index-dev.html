@@ -8,6 +8,127 @@
     <title>Warlords</title>
 
     <style>
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items:flex-start;
+        }
+
+        .game label {
+            margin: 15px 30px 0px 0px;
+            padding-left: 50px;
+            height: 30px;
+            color: #00aae6;
+            position: relative;
+        }
+
+        .game input[type='checkbox'] {
+            visibility: hidden;
+        }
+
+        .game input[type="checkbox"]:checked + b, 
+        .game input[type="checkbox"]:not(:checked) + b {
+            display: inline-block;
+            content: "";
+            margin: 0px 5px 0px 0px;
+            position: relative;
+            width: 18px;
+            height: 18px;
+            border: 1px solid #00aae6;
+
+            border-radius: 2px;
+        }
+
+        .game input[type="checkbox"]:checked + b {
+            background: #00aae6;
+        }
+
+        .game input[type="checkbox"]:not(:checked) + b {
+            background: white;
+        }
+        .game input[type="checkbox"]:checked + b:after, 
+        .game input[type="checkbox"]:not(:checked) + b:after {
+            display: inline-block;
+            content: "";
+            position: absolute;
+            left: 3px;
+            top: 4px;
+            width: 10px;
+            height: 5px;
+            border-radius: 1px;
+            border-left: 4px solid white;
+            border-bottom: 4px solid white;
+            -webkit-transform: rotate(-45deg);
+            -moz-transform: rotate(-45deg);
+            -o-transform: rotate(-45deg);
+            -ms-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+        }
+
+        .game input[type="checkbox"]:checked + b:after {
+            opacity: 1;
+        }
+
+        .game input[type="checkbox"]:not(:checked) + b:after {
+            opacity: 0;
+        }
+
+        .game .appButton {
+            font-size: 25px;
+            line-height: 35px;
+            border-radius: 0px;
+            background: white;
+            box-sizing: border-box;
+            margin: 15px 30px 0px 0px;
+            color: #00aae6;
+            border: 2px solid #00aae6;
+            cursor: pointer;
+            min-width: 50px;
+            padding: 0px 10px;
+        }
+
+        .game input[type='range'] {
+            -webkit-appearance: none !important;
+            background:#00aae6;
+            height:7px;
+            border-radius: 4px;
+            width: 130px;
+        }
+        .game input[type='range']::-webkit-slider-thumb {
+            -webkit-appearance: none !important;
+            background:#00aae6;;
+            height:20px;
+            width:20px;
+            border-radius: 15px;
+            border: 2px solid white;
+        }
+        .game input[type='range']::-moz-range-thumb {
+            background:#00aae6;;
+            height:20px;
+            width:20px;
+            border-radius: 15px;
+            border: 2px solid white;
+            box-sizing: border-box;
+        }
+
+        .game .stepSlider {
+            padding-left: 0px;
+            margin-top: 20px;
+        }
+
+        .game .stepNo {
+            width: 65px;
+            display: inline-block;
+            text-align: right;
+            margin-right: 5px;
+        }
+
+        .game .slider {
+            display: inline-block;
+            width: 150px;
+            position: relative;
+            top: -5px;
+        }       
     </style>
 </head>
 
@@ -29,6 +150,10 @@
     <div id="w-edgesCosts">edgesCosts</div>
     <br />
     <div id="w-path">path</div>
+
+    <br />
+    <div id="w-path-progress">path</div>
+    <div id="w-path-progress-controls" class="game controls">path-progress-controls</div>
 </body>
 
 </html>

@@ -15,6 +15,9 @@ export class GameControllerBuilder {
     showEdgesCost: boolean = false;
     showCurVertex: boolean = false;
     showPath: boolean = false;
+    showPathControls: boolean = false;
+    pathControlsTarget: string = '';
+    maxCalcStep: number = 0;
 
     setTarget = (target: string) => {
         this.target = target;
@@ -83,6 +86,21 @@ export class GameControllerBuilder {
 
     setShowPath = (showPath: boolean) => {
         this.showPath = showPath;
+        return this;
+    };
+
+    setShowPathControls = (showPathControls: boolean) => {
+        this.showPathControls = showPathControls;
+        return this;
+    };
+
+    setPathControlsTarget = (pathControlsTarget: string) => {
+        this.pathControlsTarget = pathControlsTarget;
+        return this;
+    };
+
+    setMaxCalcStep = (maxCalcStep: number) => {
+        this.maxCalcStep = maxCalcStep;
         return this;
     };
 }

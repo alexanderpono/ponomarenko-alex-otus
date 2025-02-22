@@ -221,6 +221,7 @@ export class ImageBuilder {
     private actions: ImageAction[] = [];
     private domTarget: string = '';
     private pictures: Record<string, InstanceType<typeof Image>> = {};
+    private viewPort: ViewPort = null;
 
     loadPic = (src, id: string) => {
         return new Promise((resolve) => {
@@ -328,8 +329,15 @@ export class ImageBuilder {
         return this;
     };
 
+    getViewPort = () => {
+        if (!this.viewPort) {
+            this.viewPort = ViewPort.create(this.domTarget);
+        }
+        return this.viewPort;
+    };
+
     buildImage = (): Promise<ViewPort> => {
-        let viewPort = ViewPort.create(this.domTarget);
+        let viewPort = this.getViewPort();
         const loadImages = this.actions.filter((action) => action.type === ImageEvent.LOAD_IMG);
         const imagesToLoad = loadImages.filter((action: LoadImgAction) => {
             return typeof this.pictures[action.picId] === 'undefined';
@@ -455,6 +463,10 @@ export class ImageBuilder {
             default:
                 console.error('ImageBuilder.doAction(): unknown action', action.type);
         }
+    };
+
+    clearActions = () => {
+        this.actions = [];
     };
 
     static create = (): ImageBuilder => {

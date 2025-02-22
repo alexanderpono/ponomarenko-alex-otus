@@ -21,6 +21,9 @@ interface AppConfig {
     showEdgesCost: boolean;
     showCurVertex: boolean;
     showPath: boolean;
+    showPathControls: boolean;
+    pathControlsTarget: string;
+    maxCalcStep: number;
 }
 const defaultAppConfig: AppConfig = {
     name: '',
@@ -34,7 +37,10 @@ const defaultAppConfig: AppConfig = {
     showVerticesCost: false,
     showEdgesCost: false,
     showCurVertex: false,
-    showPath: false
+    showPath: false,
+    showPathControls: false,
+    pathControlsTarget: '',
+    maxCalcStep: 1000
 };
 
 console.log('warlords inner main!');
@@ -58,6 +64,9 @@ class WarlordsRunner {
                 .setShowEdgesCost(config.showEdgesCost)
                 .setShowCurVertex(config.showCurVertex)
                 .setShowPath(config.showPath)
+                .setShowPathControls(config.showPathControls)
+                .setPathControlsTarget(config.pathControlsTarget)
+                .setMaxCalcStep(config.maxCalcStep)
         );
         this.slides[config.name].run();
     };
@@ -131,17 +140,23 @@ if (window['demo'] === true) {
         calculatePath: true,
         pathSrc: { x: 10, y: 4 },
         pathDest: { x: 3, y: 4 },
+        showPath: true
+    });
+    war.runWarl({
+        ...defaultAppConfig,
+        name: 'path-progress',
+        target: 'w-path-progress',
+        level: level1,
+        showEdges: false,
+        showEdgesCost: false,
+        showCurVertex: true,
+        calculatePath: true,
+        pathSrc: { x: 10, y: 4 },
+        pathDest: { x: 3, y: 4 },
         showPath: true,
-        showVerticesCost: true
+        showVerticesCost: true,
+        showPathControls: true,
+        pathControlsTarget: 'w-path-progress-controls',
+        maxCalcStep: 0
     });
 }
-
-// calculatePath: false,
-// pathSrc: { x: 10, y: 4 },
-// pathDest: { x: 3, y: 4 },
-// showVertices: false,
-// showEdges: false,
-// showVerticesCost: false,
-// showEdgesCost: false,
-// showCurVertex: false,
-// showPath: false

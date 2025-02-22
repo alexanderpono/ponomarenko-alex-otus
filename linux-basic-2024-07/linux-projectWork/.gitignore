@@ -5,6 +5,9 @@ DB_USER_REPL_PASS
 DB_USER_API_PASS
 DB_USER_READ_PASS
 DB_USER_LOCAL_READ_PASS
+PROJECT_DB_REPLICA_IP
+PROJECT_DB_SOURCE_IP
+prometheus/data
 db_backup.sql
 init.sql
 users-init.sql
