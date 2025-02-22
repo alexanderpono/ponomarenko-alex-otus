@@ -1,4 +1,6 @@
+import { CellToCost, defaultCellToCost } from './game/game.types';
 import { Point2D } from './game/LevelMap';
+import { defaultUnit, Unit } from './GameController.types';
 
 export class GameControllerBuilder {
     target: string = '';
@@ -18,6 +20,9 @@ export class GameControllerBuilder {
     showPathControls: boolean = false;
     pathControlsTarget: string = '';
     maxCalcStep: number = 0;
+    unit: Unit = defaultUnit;
+    showUnit: boolean = false;
+    cellToCost: CellToCost = defaultCellToCost;
 
     setTarget = (target: string) => {
         this.target = target;
@@ -101,6 +106,21 @@ export class GameControllerBuilder {
 
     setMaxCalcStep = (maxCalcStep: number) => {
         this.maxCalcStep = maxCalcStep;
+        return this;
+    };
+
+    setUnit = (unit: Unit) => {
+        this.unit = unit;
+        return this;
+    };
+
+    setShowUnit = (showUnit: boolean) => {
+        this.showUnit = showUnit;
+        return this;
+    };
+
+    setCellToCost = (cellToCost: CellToCost) => {
+        this.cellToCost = cellToCost;
         return this;
     };
 }

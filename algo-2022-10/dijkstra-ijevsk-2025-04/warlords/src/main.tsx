@@ -1,4 +1,5 @@
 import { GameController } from './GameController';
+import { defaultUnit, Unit } from './GameController.types';
 import { GameControllerBuilder } from './GameControllerBuilder';
 import { level1 } from './assets/level1';
 import { level1Grass } from './assets/level1Grass';
@@ -6,7 +7,8 @@ import { level1Hills } from './assets/level1Hills';
 import { level1Road } from './assets/level1Road';
 import { level1Town } from './assets/level1Town';
 import { level1Water } from './assets/level1Water';
-import { Point2D } from './game/LevelMap';
+import { Cell, Point2D } from './game/LevelMap';
+import { CellToCost, defaultCellToCost } from './game/game.types';
 
 interface AppConfig {
     name: string;
@@ -24,7 +26,11 @@ interface AppConfig {
     showPathControls: boolean;
     pathControlsTarget: string;
     maxCalcStep: number;
+    unit: Unit;
+    showUnit: boolean;
+    cellToCost: CellToCost;
 }
+
 const defaultAppConfig: AppConfig = {
     name: '',
     target: '',
@@ -40,7 +46,10 @@ const defaultAppConfig: AppConfig = {
     showPath: false,
     showPathControls: false,
     pathControlsTarget: '',
-    maxCalcStep: 1000
+    maxCalcStep: 1000,
+    unit: defaultUnit,
+    showUnit: false,
+    cellToCost: defaultCellToCost
 };
 
 console.log('warlords inner main!');
@@ -67,6 +76,9 @@ class WarlordsRunner {
                 .setShowPathControls(config.showPathControls)
                 .setPathControlsTarget(config.pathControlsTarget)
                 .setMaxCalcStep(config.maxCalcStep)
+                .setUnit(config.unit)
+                .setShowUnit(config.showUnit)
+                .setCellToCost(config.cellToCost)
         );
         this.slides[config.name].run();
     };
@@ -112,14 +124,26 @@ if (window['demo'] === true) {
         ...defaultAppConfig,
         name: 'building',
         target: 'w-building',
-        level: level1
+        level: level1,
+        unit: {
+            id: Cell.hero,
+            x: 10,
+            y: 4
+        },
+        showUnit: true
     });
     war.runWarl({
         ...defaultAppConfig,
         name: 'grid',
         target: 'w-grid',
         level: level1,
-        showEdges: true
+        showEdges: true,
+        unit: {
+            id: Cell.hero,
+            x: 10,
+            y: 4
+        },
+        showUnit: true
     });
     war.runWarl({
         ...defaultAppConfig,
@@ -127,7 +151,13 @@ if (window['demo'] === true) {
         target: 'w-edgesCosts',
         level: level1,
         showEdges: false,
-        showEdgesCost: true
+        showEdgesCost: true,
+        unit: {
+            id: Cell.hero,
+            x: 10,
+            y: 4
+        },
+        showUnit: true
     });
     war.runWarl({
         ...defaultAppConfig,
@@ -140,7 +170,13 @@ if (window['demo'] === true) {
         calculatePath: true,
         pathSrc: { x: 10, y: 4 },
         pathDest: { x: 3, y: 4 },
-        showPath: true
+        showPath: true,
+        unit: {
+            id: Cell.hero,
+            x: 10,
+            y: 4
+        },
+        showUnit: true
     });
     war.runWarl({
         ...defaultAppConfig,
@@ -157,6 +193,12 @@ if (window['demo'] === true) {
         showVerticesCost: true,
         showPathControls: true,
         pathControlsTarget: 'w-path-progress-controls',
-        maxCalcStep: 0
+        maxCalcStep: 0,
+        unit: {
+            id: Cell.hero,
+            x: 10,
+            y: 4
+        },
+        showUnit: true
     });
 }

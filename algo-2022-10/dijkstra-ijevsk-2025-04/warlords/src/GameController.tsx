@@ -15,6 +15,7 @@ import { ALL_NODES, PathCalculator, SILENT, VERBOSE } from './path/PathCalculato
 import { CurVertexView } from './views/CurVertexView';
 import { PathView } from './views/PathView';
 import { PathControls } from './components/PathControls';
+import { UnitView } from './views/UnitView';
 
 export class GameController {
     picLoaded: boolean;
@@ -83,6 +84,9 @@ export class GameController {
         if (this.builder.showPath) {
             this.graph = new PathView().render(this.graph, this.levelMap, this.grid);
         }
+        if (this.builder.showUnit) {
+            this.graph = new UnitView().render(this.graph, this.builder.unit);
+        }
 
         this.graph.buildImage(); //.printActions(145)
     };
@@ -93,7 +97,7 @@ export class GameController {
     };
 
     calculatePath = () => {
-        const gridBuilder = new GridFromMap();
+        const gridBuilder = new GridFromMap(this.builder.cellToCost);
         this.grid = gridBuilder.gridFromMap(this.levelMap);
 
         const srcIndex = this.levelMap.coordToVertexIndex(this.builder.pathSrc);

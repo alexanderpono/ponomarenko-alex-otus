@@ -1,11 +1,13 @@
 export enum Cell {
+    default = '',
     grass = ' ',
     town = 'T',
     road = 'r',
     water = 'w',
     hill = 'h',
     forest = 'f',
-    largeBuilding = 'B'
+    largeBuilding = 'B',
+    hero = 'hero'
 }
 
 export interface Point2D {

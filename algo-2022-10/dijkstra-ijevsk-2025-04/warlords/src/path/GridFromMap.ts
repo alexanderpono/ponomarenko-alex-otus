@@ -1,9 +1,11 @@
 import { LevelMap } from '@src/game/LevelMap';
 import { EdgeCost, Grid, defaultGrid, defaultVertex } from './path.types';
 import { COST_SPACE } from './PathCalculator';
-import { cellToCost } from '@src/game/game.types';
+import { CellToCost } from '@src/game/game.types';
 
 export class GridFromMap {
+    constructor(private cellToCost: CellToCost) {}
+
     gridFromMap = (field: LevelMap): Grid => {
         let graph = JSON.parse(JSON.stringify(defaultGrid));
 
@@ -55,8 +57,8 @@ export class GridFromMap {
         };
 
         result.cost = -1;
-        result.v0v1Cost = cellToCost[cell1];
-        result.v1v0Cost = cellToCost[cell0];
+        result.v0v1Cost = this.cellToCost[cell1];
+        result.v1v0Cost = this.cellToCost[cell0];
         if (typeof result.v0v1Cost === 'undefined') {
             console.error('cost not found for ', cell1);
         }

@@ -720,6 +720,20 @@
     </section>
 
     <script>
+        const defaultUnit = {
+            x: 0,
+            y: 0,
+            id: ''
+        };
+        const defaultCellToCost = {
+            r: 1,
+            T: 1,
+            [' ']: 2,
+            f: 4,
+            h: 6,
+            B: 2,
+            w: 500
+        }
         var defaultAppConfig = {
             name: '',
             target: '',
@@ -735,7 +749,10 @@
             showPath: false,
             showPathControls: false,
             pathControlsTarget: '',
-            maxCalcStep: 1000
+            maxCalcStep: 1000,
+            unit: defaultUnit,
+            showUnit: false,
+            cellToCost: defaultCellToCost
         };       
         const level1 = `
       r  hh
@@ -876,7 +893,13 @@
                     ...defaultAppConfig,
                     name: 'building',
                     target: 'w-building',
-                    level: level1
+                    level: level1,
+                    unit: {
+                        id: 'hero',
+                        x: 10,
+                        y: 4
+                    },
+                    showUnit: true
                 });
             });
         </script>
@@ -892,7 +915,13 @@
                     name: 'grid',
                     target: 'w-grid',
                     level: level1,
-                    showEdges: true
+                    showEdges: true,
+                    unit: {
+                        id: 'hero',
+                        x: 10,
+                        y: 4
+                    },
+                    showUnit: true
                 });
             });
         </script>
@@ -909,7 +938,13 @@
                     target: 'w-edgesCosts',
                     level: level1,
                     showEdges: false,
-                    showEdgesCost: true
+                    showEdgesCost: true,
+                    unit: {
+                        id: 'hero',
+                        x: 10,
+                        y: 4
+                    },
+                    showUnit: true
                 });
             });
         </script>
@@ -936,7 +971,13 @@
                     showVerticesCost: true,
                     showPathControls: true,
                     pathControlsTarget: 'w-path-progress-controls',
-                    maxCalcStep: 0
+                    maxCalcStep: 0,
+                    unit: {
+                        id: 'hero',
+                        x: 10,
+                        y: 4
+                    },
+                    showUnit: true
                 });
             });
         </script>
@@ -959,7 +1000,13 @@
                     pathSrc: { x: 10, y: 4 },
                     pathDest: { x: 3, y: 4 },
                     showPath: true,
-                    showVerticesCost: true
+                    showVerticesCost: true,
+                    unit: {
+                        id: 'hero',
+                        x: 10,
+                        y: 4
+                    },
+                    showUnit: true
                 });
             });
         </script>

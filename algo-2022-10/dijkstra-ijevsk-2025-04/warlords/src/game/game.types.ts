@@ -8,7 +8,9 @@ export enum MoveCost {
     stop = 500
 }
 
-export const cellToCost = {
+export type CellToCost = Partial<Record<Cell, MoveCost>>;
+
+export const defaultCellToCost: CellToCost = {
     [Cell.road]: MoveCost.road,
     [Cell.town]: MoveCost.road,
     [Cell.grass]: MoveCost.grass,

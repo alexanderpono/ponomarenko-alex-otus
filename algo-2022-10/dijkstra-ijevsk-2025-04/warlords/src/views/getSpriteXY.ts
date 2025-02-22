@@ -35,7 +35,9 @@ const sprites = {
     hillLU: { x: 0, y: 280 },
     hillRU: { x: 40, y: 280 },
     hillRD: { x: 40, y: 320 },
-    hill: { x: 80, y: 280 }
+    hill: { x: 80, y: 280 },
+
+    hero: { x: 280, y: 280 }
 };
 
 const getKey = (levelMap: LevelMap, x: number, y: number, char: string): string => {
@@ -147,6 +149,15 @@ export const getSpriteXY = (levelMap: LevelMap, x: number, y: number, cell: Cell
             return getHillCell(levelMap, x, y);
         case Cell.largeBuilding:
             return sprites.largeBuilding;
+        default:
+            return { x: 0, y: 0 };
+    }
+};
+
+export const getUnitSpriteXY = (cell: Cell) => {
+    switch (cell) {
+        case Cell.hero:
+            return sprites.hero;
         default:
             return { x: 0, y: 0 };
     }
