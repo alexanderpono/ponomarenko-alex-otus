@@ -720,6 +720,31 @@
     </section>
 
     <script>
+        const defaultUnit = {
+            x: 0,
+            y: 0,
+            id: ''
+        };
+        const defaultCellToCost = {
+            r: 1,
+            T: 1,
+            [' ']: 2,
+            f: 4,
+            h: 6,
+            B: 2,
+            w: 500
+        };
+
+        const giantCellToCost = {
+            r: 1,
+            T: 1,
+            [' ']: 2,
+            f: 4,
+            h: 4,
+            B: 2,
+            w: 500
+        };
+
         var defaultAppConfig = {
             name: '',
             target: '',
@@ -735,7 +760,10 @@
             showPath: false,
             showPathControls: false,
             pathControlsTarget: '',
-            maxCalcStep: 1000
+            maxCalcStep: 1000,
+            unit: defaultUnit,
+            showUnit: false,
+            cellToCost: defaultCellToCost
         };       
         const level1 = `
       r  hh
@@ -876,7 +904,34 @@
                     ...defaultAppConfig,
                     name: 'building',
                     target: 'w-building',
-                    level: level1
+                    level: level1,
+                    unit: {
+                        id: 'hero',
+                        x: 10,
+                        y: 4
+                    },
+                    showUnit: false
+                });
+            });
+        </script>
+    </section>
+
+    <section class="slide">
+        <h3>6. Warlords</h3>
+        <div id="w-hero" class="arcade"></div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                war.runWarl({
+                    ...defaultAppConfig,
+                    name: 'hero',
+                    target: 'w-hero',
+                    level: level1,
+                    unit: {
+                        id: 'hero',
+                        x: 10,
+                        y: 4
+                    },
+                    showUnit: true
                 });
             });
         </script>
@@ -892,7 +947,13 @@
                     name: 'grid',
                     target: 'w-grid',
                     level: level1,
-                    showEdges: true
+                    showEdges: true,
+                    unit: {
+                        id: 'hero',
+                        x: 10,
+                        y: 4
+                    },
+                    showUnit: true
                 });
             });
         </script>
@@ -909,7 +970,13 @@
                     target: 'w-edgesCosts',
                     level: level1,
                     showEdges: false,
-                    showEdgesCost: true
+                    showEdgesCost: true,
+                    unit: {
+                        id: 'hero',
+                        x: 10,
+                        y: 4
+                    },
+                    showUnit: true
                 });
             });
         </script>
@@ -936,7 +1003,13 @@
                     showVerticesCost: true,
                     showPathControls: true,
                     pathControlsTarget: 'w-path-progress-controls',
-                    maxCalcStep: 0
+                    maxCalcStep: 0,
+                    unit: {
+                        id: 'hero',
+                        x: 10,
+                        y: 4
+                    },
+                    showUnit: true
                 });
             });
         </script>
@@ -959,7 +1032,115 @@
                     pathSrc: { x: 10, y: 4 },
                     pathDest: { x: 3, y: 4 },
                     showPath: true,
-                    showVerticesCost: true
+                    showVerticesCost: true,
+                    unit: {
+                        id: 'hero',
+                        x: 10,
+                        y: 4
+                    },
+                    showUnit: true
+                });
+            });
+        </script>
+    </section>
+
+    <section class="slide">
+        <h3>6. Warlords</h3>
+        <div id="w-giant" class="arcade"></div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                war.runWarl({
+                    ...defaultAppConfig,
+                    name: 'giant',
+                    target: 'w-giant',
+                    level: level1,
+                    unit: {
+                        id: 'giant',
+                        x: 10,
+                        y: 4
+                    },
+                    showUnit: true
+                });
+            });
+        </script>
+    </section>
+
+    <section class="slide">
+        <h3>6. Warlords</h3>
+        <div id="w-giantGrid" class="arcade"></div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                war.runWarl({
+                    ...defaultAppConfig,
+                    name: 'giantGrid',
+                    target: 'w-giantGrid',
+                    level: level1,
+                    showEdges: true,
+                    unit: {
+                        id: 'giant',
+                        x: 10,
+                        y: 4
+                    },
+                    showUnit: true,
+                    cellToCost: giantCellToCost
+                });
+            });
+        </script>
+    </section>
+
+    <section class="slide">
+        <h3>6. Warlords</h3>
+        <div id="w-giantEdgesCosts" class="arcade"></div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                war.runWarl({
+                    ...defaultAppConfig,
+                    name: 'giantEdgesCosts',
+                    target: 'w-giantEdgesCosts',
+                    level: level1,
+                    showEdges: false,
+                    showEdgesCost: true,
+                    unit: {
+                        id: 'giant',
+                        x: 10,
+                        y: 4
+                    },
+                    showUnit: true,
+                    cellToCost: giantCellToCost
+                });
+            });
+        </script>
+    </section>
+
+    <section class="slide">
+        <h3>6. Warlords</h3>
+        <div id="w-giant-path-progress" class="arcade"></div>
+        <div id="w-giant-path-progress-controls" class="game controls">path-progress-controls</div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                war.runWarl({
+                    ...defaultAppConfig,
+                    name: 'giant-path-progress',
+                    target: 'w-giant-path-progress',
+                    level: level1,
+                    showEdges: false,
+                    showEdgesCost: false,
+                    showCurVertex: true,
+                    calculatePath: true,
+                    pathSrc: { x: 10, y: 4 },
+                    pathDest: { x: 3, y: 4 },
+                    showPath: true,
+                    showVerticesCost: true,
+                    showPathControls: true,
+                    pathControlsTarget: 'w-giant-path-progress-controls',
+                    maxCalcStep: 0,
+                    unit: {
+                        id: 'giant',
+                        x: 10,
+                        y: 4
+                    },
+                    showUnit: true,
+                    cellToCost: giantCellToCost
                 });
             });
         </script>
