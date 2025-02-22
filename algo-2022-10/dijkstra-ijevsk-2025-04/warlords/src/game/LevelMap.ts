@@ -7,7 +7,8 @@ export enum Cell {
     hill = 'h',
     forest = 'f',
     largeBuilding = 'B',
-    hero = 'hero'
+    hero = 'hero',
+    giant = 'giant'
 }
 
 export interface Point2D {

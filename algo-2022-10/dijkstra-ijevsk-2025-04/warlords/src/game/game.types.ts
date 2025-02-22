@@ -1,6 +1,6 @@
 import { Cell } from './LevelMap';
 
-export enum MoveCost {
+export enum HeroMoveCost {
     road = 1,
     grass = 2,
     forest = 4,
@@ -8,14 +8,32 @@ export enum MoveCost {
     stop = 500
 }
 
-export type CellToCost = Partial<Record<Cell, MoveCost>>;
+export type CellToCost = Partial<Record<Cell, number>>;
 
 export const defaultCellToCost: CellToCost = {
-    [Cell.road]: MoveCost.road,
-    [Cell.town]: MoveCost.road,
-    [Cell.grass]: MoveCost.grass,
-    [Cell.forest]: MoveCost.forest,
-    [Cell.hill]: MoveCost.hill,
-    [Cell.largeBuilding]: MoveCost.grass,
-    [Cell.water]: MoveCost.stop
+    [Cell.road]: HeroMoveCost.road,
+    [Cell.town]: HeroMoveCost.road,
+    [Cell.grass]: HeroMoveCost.grass,
+    [Cell.forest]: HeroMoveCost.forest,
+    [Cell.hill]: HeroMoveCost.hill,
+    [Cell.largeBuilding]: HeroMoveCost.grass,
+    [Cell.water]: HeroMoveCost.stop
+};
+
+export enum GiantMoveCost {
+    road = 1,
+    grass = 2,
+    forest = 4,
+    hill = 4,
+    stop = 500
+}
+
+export const giantCellToCost: CellToCost = {
+    [Cell.road]: GiantMoveCost.road,
+    [Cell.town]: GiantMoveCost.road,
+    [Cell.grass]: GiantMoveCost.grass,
+    [Cell.forest]: GiantMoveCost.forest,
+    [Cell.hill]: GiantMoveCost.hill,
+    [Cell.largeBuilding]: GiantMoveCost.grass,
+    [Cell.water]: GiantMoveCost.stop
 };

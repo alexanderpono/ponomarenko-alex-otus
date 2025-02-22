@@ -733,7 +733,18 @@
             h: 6,
             B: 2,
             w: 500
-        }
+        };
+
+        const giantCellToCost = {
+            r: 1,
+            T: 1,
+            [' ']: 2,
+            f: 4,
+            h: 4,
+            B: 2,
+            w: 500
+        };
+
         var defaultAppConfig = {
             name: '',
             target: '',
@@ -899,6 +910,27 @@
                         x: 10,
                         y: 4
                     },
+                    showUnit: false
+                });
+            });
+        </script>
+    </section>
+
+    <section class="slide">
+        <h3>6. Warlords</h3>
+        <div id="w-hero" class="arcade"></div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                war.runWarl({
+                    ...defaultAppConfig,
+                    name: 'hero',
+                    target: 'w-hero',
+                    level: level1,
+                    unit: {
+                        id: 'hero',
+                        x: 10,
+                        y: 4
+                    },
                     showUnit: true
                 });
             });
@@ -1007,6 +1039,108 @@
                         y: 4
                     },
                     showUnit: true
+                });
+            });
+        </script>
+    </section>
+
+    <section class="slide">
+        <h3>6. Warlords</h3>
+        <div id="w-giant" class="arcade"></div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                war.runWarl({
+                    ...defaultAppConfig,
+                    name: 'giant',
+                    target: 'w-giant',
+                    level: level1,
+                    unit: {
+                        id: 'giant',
+                        x: 10,
+                        y: 4
+                    },
+                    showUnit: true
+                });
+            });
+        </script>
+    </section>
+
+    <section class="slide">
+        <h3>6. Warlords</h3>
+        <div id="w-giantGrid" class="arcade"></div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                war.runWarl({
+                    ...defaultAppConfig,
+                    name: 'giantGrid',
+                    target: 'w-giantGrid',
+                    level: level1,
+                    showEdges: true,
+                    unit: {
+                        id: 'giant',
+                        x: 10,
+                        y: 4
+                    },
+                    showUnit: true,
+                    cellToCost: giantCellToCost
+                });
+            });
+        </script>
+    </section>
+
+    <section class="slide">
+        <h3>6. Warlords</h3>
+        <div id="w-giantEdgesCosts" class="arcade"></div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                war.runWarl({
+                    ...defaultAppConfig,
+                    name: 'giantEdgesCosts',
+                    target: 'w-giantEdgesCosts',
+                    level: level1,
+                    showEdges: false,
+                    showEdgesCost: true,
+                    unit: {
+                        id: 'giant',
+                        x: 10,
+                        y: 4
+                    },
+                    showUnit: true,
+                    cellToCost: giantCellToCost
+                });
+            });
+        </script>
+    </section>
+
+    <section class="slide">
+        <h3>6. Warlords</h3>
+        <div id="w-giant-path-progress" class="arcade"></div>
+        <div id="w-giant-path-progress-controls" class="game controls">path-progress-controls</div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                war.runWarl({
+                    ...defaultAppConfig,
+                    name: 'giant-path-progress',
+                    target: 'w-giant-path-progress',
+                    level: level1,
+                    showEdges: false,
+                    showEdgesCost: false,
+                    showCurVertex: true,
+                    calculatePath: true,
+                    pathSrc: { x: 10, y: 4 },
+                    pathDest: { x: 3, y: 4 },
+                    showPath: true,
+                    showVerticesCost: true,
+                    showPathControls: true,
+                    pathControlsTarget: 'w-giant-path-progress-controls',
+                    maxCalcStep: 0,
+                    unit: {
+                        id: 'giant',
+                        x: 10,
+                        y: 4
+                    },
+                    showUnit: true,
+                    cellToCost: giantCellToCost
                 });
             });
         </script>

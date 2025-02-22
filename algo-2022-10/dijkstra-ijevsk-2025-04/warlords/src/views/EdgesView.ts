@@ -2,7 +2,6 @@ import { LevelMap } from '@src/game/LevelMap';
 import { ImageBuilder } from '@src/ports/ImageBuilder';
 import { Edge, Grid, UNDEFINED_COST } from '@src/path/path.types';
 import { h2, SPRITE_HEIGHT, SPRITE_WIDTH, w2 } from './views.types';
-import { MoveCost } from '@src/game/game.types';
 
 export class EdgesView {
     render = (srcGraph: ImageBuilder, levelMap: LevelMap, grid: Grid): ImageBuilder => {
@@ -22,11 +21,11 @@ export class EdgesView {
         const v1y = Math.floor(edge.vertex1 / w);
         if (edge.cost.v0v1Cost !== UNDEFINED_COST) {
             const costToColor = {
-                [MoveCost.road]: 'white',
-                [MoveCost.grass]: 'blue',
-                [MoveCost.forest]: 'yellow',
-                [MoveCost.hill]: 'red',
-                [MoveCost.stop]: 'black'
+                1: 'white',
+                2: 'blue',
+                4: 'yellow',
+                6: 'red',
+                500: 'black'
             };
             srcGraph.lineColor(costToColor[edge.cost.v0v1Cost]);
             const midX = w2 + ((v0x + v1x) / 2) * SPRITE_WIDTH;

@@ -37,7 +37,8 @@ const sprites = {
     hillRD: { x: 40, y: 320 },
     hill: { x: 80, y: 280 },
 
-    hero: { x: 280, y: 280 }
+    hero: { x: 280, y: 280 },
+    giant: { x: 280, y: 280 }
 };
 
 const getKey = (levelMap: LevelMap, x: number, y: number, char: string): string => {
@@ -158,6 +159,8 @@ export const getUnitSpriteXY = (cell: Cell) => {
     switch (cell) {
         case Cell.hero:
             return sprites.hero;
+        case Cell.giant:
+            return sprites.giant;
         default:
             return { x: 0, y: 0 };
     }

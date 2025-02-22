@@ -8,7 +8,7 @@ import { level1Road } from './assets/level1Road';
 import { level1Town } from './assets/level1Town';
 import { level1Water } from './assets/level1Water';
 import { Cell, Point2D } from './game/LevelMap';
-import { CellToCost, defaultCellToCost } from './game/game.types';
+import { CellToCost, defaultCellToCost, giantCellToCost } from './game/game.types';
 
 interface AppConfig {
     name: string;
@@ -200,5 +200,70 @@ if (window['demo'] === true) {
             y: 4
         },
         showUnit: true
+    });
+    war.runWarl({
+        ...defaultAppConfig,
+        name: 'giant',
+        target: 'w-giant',
+        level: level1,
+        unit: {
+            id: Cell.giant,
+            x: 10,
+            y: 4
+        },
+        showUnit: true
+    });
+    war.runWarl({
+        ...defaultAppConfig,
+        name: 'giantEdgesCosts',
+        target: 'w-giantEdgesCosts',
+        level: level1,
+        showEdges: false,
+        showEdgesCost: true,
+        unit: {
+            id: Cell.giant,
+            x: 10,
+            y: 4
+        },
+        showUnit: true,
+        cellToCost: giantCellToCost
+    });
+    war.runWarl({
+        ...defaultAppConfig,
+        name: 'giantGrid',
+        target: 'w-giantGrid',
+        level: level1,
+        showEdges: true,
+        unit: {
+            id: Cell.giant,
+            x: 10,
+            y: 4
+        },
+        showUnit: true,
+        cellToCost: giantCellToCost
+    });
+    war.runWarl({
+        ...defaultAppConfig,
+        name: 'giant-path-progress',
+        target: 'w-giant-path-progress',
+        level: level1,
+        showEdges: false,
+        showEdgesCost: false,
+        showCurVertex: true,
+        calculatePath: true,
+        pathSrc: { x: 10, y: 4 },
+        pathDest: { x: 3, y: 4 },
+        showPath: true,
+        showVerticesCost: true,
+        showPathControls: true,
+        pathControlsTarget: 'w-giant-path-progress-controls',
+        maxCalcStep: 0,
+        unit: {
+            id: Cell.giant,
+            x: 10,
+            y: 4
+        },
+        showUnit: true,
+        cellToCost: giantCellToCost
     });
 }
