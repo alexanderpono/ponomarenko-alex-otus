@@ -732,7 +732,10 @@
             showVerticesCost: false,
             showEdgesCost: false,
             showCurVertex: false,
-            showPath: false
+            showPath: false,
+            showPathControls: false,
+            pathControlsTarget: '',
+            maxCalcStep: 1000
         };       
         const level1 = `
       r  hh
@@ -907,6 +910,33 @@
                     level: level1,
                     showEdges: false,
                     showEdgesCost: true
+                });
+            });
+        </script>
+    </section>
+
+    <section class="slide">
+        <h3>6. Warlords</h3>
+        <div id="w-path-progress" class="arcade"></div>
+        <div id="w-path-progress-controls" class="game controls">path-progress-controls</div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                war.runWarl({
+                    ...defaultAppConfig,
+                    name: 'path-progress',
+                    target: 'w-path-progress',
+                    level: level1,
+                    showEdges: false,
+                    showEdgesCost: false,
+                    showCurVertex: true,
+                    calculatePath: true,
+                    pathSrc: { x: 10, y: 4 },
+                    pathDest: { x: 3, y: 4 },
+                    showPath: true,
+                    showVerticesCost: true,
+                    showPathControls: true,
+                    pathControlsTarget: 'w-path-progress-controls',
+                    maxCalcStep: 0
                 });
             });
         </script>
