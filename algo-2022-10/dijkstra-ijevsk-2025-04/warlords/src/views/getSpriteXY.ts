@@ -38,7 +38,7 @@ const sprites = {
     hill: { x: 80, y: 280 },
 
     hero: { x: 280, y: 280 },
-    giant: { x: 280, y: 280 }
+    giant: { x: 320, y: 280 }
 };
 
 const getKey = (levelMap: LevelMap, x: number, y: number, char: string): string => {
