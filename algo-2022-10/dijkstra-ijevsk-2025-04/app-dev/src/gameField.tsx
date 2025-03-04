@@ -302,7 +302,7 @@ const map5 = `
                  ▓
 `;
 renderGameField(
-    '4. Алгоритм Дейкстры. Результат расчета графа',
+    '3. Алгоритм Дейкстры. Результат расчета графа',
     map5,
     'V5_7_1',
     LINES_COST_PATH,
@@ -311,7 +311,7 @@ renderGameField(
     ALL_NODES
 );
 renderGameField(
-    '4. Алгоритм Дейкстры. <br />В конце шага 1',
+    '3. Алгоритм Дейкстры. <br />В конце шага 1',
     map5,
     'V5_7_2',
     LINES_COST_PATH,
@@ -320,7 +320,7 @@ renderGameField(
     1
 );
 renderGameField(
-    '4. Алгоритм Дейкстры. <br />В конце шага 2',
+    '3. Алгоритм Дейкстры. <br />В конце шага 2',
     map5,
     'V5_7_3',
     LINES_COST_PATH,
@@ -329,7 +329,7 @@ renderGameField(
     3
 );
 renderGameField(
-    '4. Алгоритм Дейкстры. <br />В конце шага 3',
+    '3. Алгоритм Дейкстры. <br />В конце шага 3',
     map5,
     'V5_7_4',
     LINES_COST_PATH,
@@ -338,7 +338,7 @@ renderGameField(
     4
 );
 renderGameField(
-    '4. Оптимизация: <br />ранний выход',
+    '3. Оптимизация: <br />ранний выход',
     map5,
     'V5_7_5',
     LINES_COST_PATH_PROGRESS,
@@ -347,7 +347,7 @@ renderGameField(
     ALL_NODES
 );
 renderGameField(
-    '4. Стоимость перехода <br />с учетом эвристики',
+    '3. Стоимость перехода <br />с учетом эвристики',
     map5,
     'V5_heurisic_1',
     LINES_COST_PATH_PROGRESS,
@@ -356,7 +356,7 @@ renderGameField(
     ALL_NODES
 );
 renderGameField(
-    '4. Стоимость перехода. Увеличиваем вес H()*100',
+    '3. Стоимость перехода. Увеличиваем вес H()*100',
     map5,
     'V5_heurisic_2',
     LINES_COST_PATH_PROGRESS,
@@ -365,7 +365,7 @@ renderGameField(
     ALL_NODES
 );
 renderGameField(
-    '4. Эвристика H1(). Выбор следующей вершины',
+    '3. Эвристика H1(). Выбор следующей вершины',
     map5,
     'V5_heurisic_3',
     LINES_COST_PATH_PROGRESS,
@@ -374,7 +374,7 @@ renderGameField(
     ALL_NODES
 );
 renderGameField(
-    '4. Выбор следующей вершины. H2() = H1()*2',
+    '3. Выбор следующей вершины. H2() = H1()*2',
     map5,
     'V5_heurisic_4',
     LINES_COST_PATH_PROGRESS,
@@ -383,7 +383,7 @@ renderGameField(
     ALL_NODES
 );
 renderGameField(
-    '4. H3(): учитываем отклонение от прямой',
+    '3. H3(): учитываем отклонение от прямой',
     map5,
     'V5_heurisic_5',
     LINES_COST_PATH_PROGRESS,
@@ -393,7 +393,7 @@ renderGameField(
 );
 
 renderGameField(
-    '4. H3(): учитываем отклонение от прямой',
+    '3. H3(): учитываем отклонение от прямой',
     map5,
     'V5_heurisic_5_2',
     LINES_COST_PATH_PROGRESS,
@@ -413,7 +413,7 @@ const map6 = `
 ▓                ▓
 `;
 renderGameField(
-    '4. Добавляем барьер',
+    '3. Добавляем барьер',
     map6,
     'V5_barrier',
     LINES_COST_PATH_MAP_PROGRESS,
@@ -433,7 +433,7 @@ const map7 = `
 ▓       ▓        ▓
 `;
 renderGameField(
-    '4. Сплошной барьер снизу',
+    '3. Сплошной барьер снизу',
     map7,
     'V5_barrier2',
     LINES_COST_PATH_MAP_PROGRESS,
@@ -453,7 +453,7 @@ const map8 = `
 ▓       ▓        ▓
 `;
 renderGameField(
-    '4. Проходим сквозь стену',
+    '3. Проходим сквозь стену',
     map8,
     'V5_barrier3',
     LINES_COST_PATH_MAP_PROGRESS,
@@ -473,7 +473,7 @@ const map9 = `
 ▓                ▓
 `;
 renderGameField(
-    '4. Другой барьер',
+    '3. Другой барьер',
     map9,
     'V5_barrier4',
     LINES_COST_PATH_MAP_PROGRESS,
@@ -493,7 +493,7 @@ const map10 = `
 ▓                ▓
 `;
 renderGameField(
-    '4. H4() &mdash; с новыми коэффициентами',
+    '3. H4() &mdash; с новыми коэффициентами',
     map10,
     'V5_barrier5',
     LINES_COST_PATH_MAP_PROGRESS,

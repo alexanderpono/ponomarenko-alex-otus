@@ -20,7 +20,9 @@
     --ribbon-side: 22px;
     font-family: Roboto, Helvetica, sans-serif;
     line-height: 130%;
-    --corporate-color: #00aae6;
+    --corporate-color: #00adeb;
+    --darkblue: #0082b0;
+    --grey: #ecf2f9;
 }
 .ok {
     color: #888;
@@ -149,6 +151,185 @@ th {
     margin-top: 35px;
 }
 
+.company .content {
+    display: grid;
+    grid-template-areas: "employees employees cities earn earn" "employeeDelta employeeDelta cities earn earn" "centers engagement satisfaction satisfaction age";
+    grid-template-columns: 2fr 2fr 2fr 1fr 2fr;
+    grid-template-rows: 130px 130px 130px;
+
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    padding: 0px 0px 50px 0px;
+}
+
+.company .content div {
+    padding: 10px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.company .darkblue {
+    color: white;
+    background: var(--darkblue);
+}
+
+.company .darkblue h4 {
+    color: white;
+}
+
+.company .grey {
+    background: var(--grey);
+}
+
+.company .grey p {
+    color: black !important;
+}
+
+.company .grey h4 {
+    color: var(--corporate-color) !important;
+}
+
+.company .corporate {
+    background: var(--corporate-color);
+}
+
+.company .corporate h4 {
+    color: white !important;
+}
+
+.company .employees {
+    grid-area: employees;
+}
+.company .employees::before {
+    background: url(employees.png) no-repeat;
+    background-size: contain;
+    padding: 0px;
+    margin: 0px;
+    display: block;
+    content: '';
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+}
+
+.company h4 {
+    margin: 0px 0px 10px 0px;
+    font-size: 1.8em;
+    line-height: 1.0em;
+}
+
+.company h4 span {
+    font-size: 0.6em;
+    right: 0px;
+}
+
+.company p {
+    font-size: 0.8em; 
+    line-height: 1.0em;
+    margin: 0px 0px 3px 0px !important;
+    padding: 0px;
+    color: white;
+    max-width: 100% !important;
+}
+
+.company .cities {
+    grid-area: cities;
+}
+
+.company .cities h4 {
+    margin-top: 130px;
+}
+.company .cities::before {
+    background: url(cities.png) no-repeat;
+    background-size: contain;
+    padding: 0px;
+    margin: 0px;
+    display: block;
+    content: '';
+    width: 120px;
+    height: 120px;
+    position: absolute;
+    top: 10px;
+    left: -10px;
+}
+
+.company .earn {
+    grid-area: earn;
+}
+.company .earn::before {
+    background: url(earn.png) no-repeat;
+    background-size: contain;
+    padding: 0px;
+    margin: 0px;
+    display: block;
+    content: '';
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    bottom: -18px;
+    right: 0px;
+}
+.company .employeeDelta {
+    grid-area: employeeDelta;
+}
+
+.company .employeeDelta::before {
+    background: url(employeeDelta.png) no-repeat;
+    background-size: contain;
+    padding: 0px;
+    margin: 0px;
+    display: block;
+    content: '';
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+}
+
+.company .centers {
+    grid-area: centers;
+}
+
+.company .engagement {
+    grid-area: engagement;
+}
+
+.company .satisfaction {
+    grid-area: satisfaction;
+}
+.company .satisfaction::before {
+    background: url(satisfaction.png) no-repeat;
+    background-size: contain;
+    padding: 0px;
+    margin: 0px;
+    display: block;
+    content: '';
+    width: 120px;
+    height: 120px;
+    position: absolute;
+    bottom: -38px;
+    right: 0px;
+}
+
+.company .age {
+    grid-area: age;
+}
+.company .age::before {
+    background: url(age.png) no-repeat;
+    background-size: contain;
+    padding: 0px;
+    margin: 0px;
+    display: block;
+    content: '';
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
 .e {
     grid-area: e;
 }
@@ -214,7 +395,7 @@ th {
 }
 
 .slide::before {
-    background: url(INNO-logo3.svg) no-repeat;
+    background: url(T1-logo-short.svg) no-repeat;
     background-size: contain;
     color: black;
     padding: 0px;
@@ -222,11 +403,12 @@ th {
     display: block;
     line-height: var(--ribbon-side);
     content: '';
-    width: 320px;
-    height: 50px;
+    width: 350px;
+    height: 100px;
     position: absolute;
-    bottom: 0px;
-    left: 26px;
+    top: 0px;
+    right: -141px;
+    left: auto;
 }
 .nocopy::before {
     display: none;
@@ -234,18 +416,18 @@ th {
 .slide::after {
     background: white;
     background-position: right;
-    color: black;
+    color: #a6a6a6;
     width: var(--ribbon-side);
     height: var(--ribbon-side);
     padding: 0px 0px 0px 0px;
     margin: 0px;
     display: block;
     line-height: var(--ribbon-side);
-    left: auto;
-    right: var(--slide-side);
+    right: auto;
+    left: 10px;
     top: auto;
-    bottom: var(--slide-side);
-    font-size: 0.6em;
+    bottom: 10px;
+    font-size: 0.4em;
     content: counter(slide);
 }
 .noPageNumber::after {
@@ -319,7 +501,7 @@ p, label, li {
 }
 
 .slide.title {
-    background: url(bgTitle.png);
+    background: url(bgTitle.jpg);
     background-position: left;
     background-size: cover;
     display: flex;
@@ -332,7 +514,7 @@ p, label, li {
 
 .slide.title .logo {
     position: absolute;
-    left: 0px;
+    left: -85px;
     top: 15px;
     width: 320px;
 }
@@ -345,7 +527,8 @@ p, label, li {
 }
 .slide.title h3 {
     margin: 20px 0px 30px 0px;
-    font-size: 1.2em;
+    font-size: 1em;
+    font-weight: 100;
     text-transform: none;
 }
 
