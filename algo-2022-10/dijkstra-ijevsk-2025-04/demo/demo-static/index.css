@@ -956,3 +956,26 @@ strong {
 .arcade label .checkText {
     display: none;
 }
+
+
+.slide.contents {
+    background: var(--corporate-color);
+}
+
+.slide.contents::before {
+    background: url(T1-logo-white-short.svg) no-repeat;
+}
+
+.slide.contents p, 
+.slide.contents h3,
+.slide.contents strong {
+    color: white;
+}
+
+.slide.contents p.ok {
+    color: #888;
+}
+.slide.contents::after {
+    background: var(--corporate-color);
+    color: white;
+}
