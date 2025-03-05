@@ -27,7 +27,7 @@
         <p>Александр Пономаренко</p></header>
 
     <section class="slide title">
-        <img class="logo" src="demo-static/INNO-logo.svg" />
+        <img class="logo" src="demo-static/T1-logo-white.svg" />
         <h1>Алгоритм Дейкстры: <br />как обойти препятствия в игре </h1>
         <h3 class="noindent nologo">Александр Пономаренко</h3>
     </section>
@@ -55,7 +55,21 @@
         </div>
     </section>
 
-    <section class="slide nocopy">
+    <section class="slide company">
+        <h3 class="d20 noindent">T1 &mdash; один из самых привлекательных работодателей российского ИТ-рынка</h3>
+        <div class="content">
+            <div class="employees darkblue"><h4>26 000+</h4><p>численность сотрудников</p><p>ИТ-холдинга Т1</p></div>
+            <div class="cities darkblue"><h4>400+</h4><p>городов присутствия</p><p>в России и СНГ</p></div>
+            <div class="earn darkblue"><h4>222,9 <span>млрд</span></h4><p>суммарная выручка холдинга</p><p>с НДС за 2023 год</p></div>
+            <div class="employeeDelta grey"><h4>5 600+</h4><p>прирост численности</p><p>ИТ-холдинга T1 в 2024 г.</p></div>
+            <div class="centers grey"><h4>40+</h4><p>Центров компетенций</p></div>
+            <div class="engagement grey"><h4>85%</h4><p>общий процент</p><p>вовлеченности</p><p>сотрудников</p></div>
+            <div class="satisfaction corporate"><h4>89,9%</h4><p>удовлетворённости</p><p>условиями труда</p></div>
+            <div class="age corporate"><h4>36 <span>лет</span></h4>  <p>средний возраст</p><p>сотрудников</p></div>
+        </div>
+    </section>
+
+    <section class="slide">
         <h3 class="noindent">Если вы решаете задачи:</h3>
 
         <div class="picText">
@@ -115,7 +129,7 @@
         </div>
     </section>
 
-    <section class="slide">
+    <section class="slide contents">
         <h3>Содержание</h3>
         <p><strong>1.</strong> Алгоритм Дейкстры</p>
         <p><strong>2.</strong> Квадратная сетка и обход препятствий</p>
@@ -126,7 +140,7 @@
         <p><strong>7.</strong> Примеры игр</p>
     </section>
 
-    <section class="slide nocopy">
+    <section class="slide">
         <h3 class="noindent">1. Что общего у этих задач?</h3>
 
         <div class="picText">
@@ -144,7 +158,7 @@
         </div>
     </section>
 
-    <section class="slide nocopy">
+    <section class="slide">
         <h3 class="noindent">1. Что общего у этих задач?</h3>
 
         <div class="picText">
@@ -164,7 +178,7 @@
         </div>
     </section>
 
-    <section class="slide nocopy">
+    <section class="slide">
         <h3 class="noindent">1. Что такое граф?</h3>
 
         <div class="selectOne">
@@ -175,7 +189,7 @@
         </div>
     </section>
 
-    <section class="slide nocopy">
+    <section class="slide">
         <h3>1. Взвешенный <br/>неориентированный граф</h3>
 
         <div class="picText">
@@ -193,7 +207,7 @@
         </div>
     </section>
 
-    <section class="slide nocopy">
+    <section class="slide">
         <h3>1. Алгоритмы для отрицательных <br />весов ребер</h3>
 
         <div class="picText">
@@ -274,7 +288,7 @@
 
 
 
-    <section class="slide">
+    <section class="slide contents">
         <h3>Содержание</h3>
         <p class="ok">1. Алгоритм Дейкстры</p>
         <p><strong>2.</strong> Квадратная сетка и обход препятствий</p>
@@ -404,7 +418,7 @@
         </div>
     </section>
 
-    <section class="slide">
+    <section class="slide contents">
         <h3>Содержание</h3>
         <p class="ok">1. Алгоритм Дейкстры</p>
         <p class="ok">2. Квадратная сетка и обход препятствий</p>
@@ -436,7 +450,7 @@
     </section>
 
     <section class="slide">
-        <h3>4. Оптимизация. Эвристическая функция H()</h3>
+        <h3>3. Оптимизация. Эвристическая функция H()</h3>
         <p>H(x0, x1, y0, y1) = |x1 &mdash; x0| + |y1 &mdash; y0|</p>
     </section>
 
@@ -461,7 +475,7 @@
     </section>
 
     <section class="slide lh90  nocopy">
-        <h3>4. Настраиваем эвристическую функцию</h3>
+        <h3>3. Настраиваем эвристическую функцию</h3>
         <p>H1(x, y, xT, yT) = |xT &mdash; x| + |yT &mdash; y|</p>
         <p>H2(x, y, xT, yT) = 2 * H1()</p>
         <p>H3(x, y, xT, yT, xS, yS) = 2 * H1() + D(), где</p>
@@ -500,7 +514,7 @@
     </section>
 
     <section class="slide">
-        <h3>4. Эвристическая <br />функция H4()</h3>
+        <h3>3. Эвристическая <br />функция H4()</h3>
         <p>H1(x, y, xT, yT) = |xT &mdash; x| + |yT &mdash; y|</p>
         <p>H2(x, y, xT, yT) = 2 * H1()</p>
         <p>H3(x, y, xT, yT, xS, yS) = 2 * H1() + D()</p>
@@ -509,27 +523,27 @@
 
 
     <section class="slide">
-        <h3>Как называется этот алгоритм?</h3>
+        <h3>3. Как называется этот алгоритм?</h3>
         <div class="w60">
             Алгоритм Дейкстры + ранний выход <br />+ эвристическая функция = ?
         </div>
     </section>
 
     <section class="slide">
-        <h3>Как называется этот алгоритм?</h3>
+        <h3>3. Как называется этот алгоритм?</h3>
         <div class="w60">
             Алгоритм Дейкстры + ранний выход <br />+ эвристическая функция = <strong>A*</strong>        
         </div>
     </section>
 
     <section class="slide">
-        <h3>Краткие выводы</h3>
+        <h3>3. Краткие выводы</h3>
 
         <p class="pretty"><strong>1.</strong> Алгоритм Дейкстры + ранний выход <br />+ эвристическая функция = <strong>A*</strong></p>
         <p class="pretty"><strong>2.</strong> Для работы <strong>A*</strong> потребовалась настройка коэффициентов</p>
     </section>
 
-    <section class="slide">
+    <section class="slide contents">
         <h3>Содержание</h3>
         <p class="ok">1. Алгоритм Дейкстры</p>
         <p class="ok">2. Квадратная сетка и обход препятствий</p>
@@ -635,12 +649,12 @@
     </section>
 
     <section class="slide">
-        <h3>Краткие выводы</h3>
+        <h3>4. Краткие выводы</h3>
         <p class="pretty"><strong>1.</strong> <strong>A*</strong> подходит не для всех случаев жизни</p>
         <p class="pretty"><strong>2.</strong> Алгоритм Дейкстры позволяет смоделировать телепортацию в игре</p>
     </section>
 
-    <section class="slide">
+    <section class="slide contents">
         <h3>Содержание</h3>
         <p class="ok">1. Алгоритм Дейкстры</p>
         <p class="ok">2. Квадратная сетка и обход препятствий</p>
@@ -702,13 +716,13 @@
     </section>    
 
     <section class="slide">
-        <h3>Краткий вывод</h3>
+        <h3>5. Краткий вывод</h3>
             <p><strong>A*</strong> эффективнее, чем алгоритм Дейкстры</p>
             <br />
             <p>Также очень хорош BFS (Breadth-First Search) с эвристикой, но нужен невзвешенный граф</p>
     </section>
 
-    <section class="slide">
+    <section class="slide contents">
         <h3>Содержание</h3>
         <p class="ok">1. Алгоритм Дейкстры</p>
         <p class="ok">2. Квадратная сетка и обход препятствий</p>
@@ -1147,13 +1161,13 @@
     </section>
 
     <section class="slide">
-        <h3>Краткие выводы</h3>
+        <h3>6. Краткие выводы</h3>
             <p class="pretty"><strong>1.</strong> Алгоритм Дейкстры (A*) хорошо работает не только <br />для игр «вид сбоку», но и для игр «вид сверху»</p>
             <p class="pretty"><strong>2.</strong> Потребовалось настраивать коэффициенты <br />в эвристической функции под особенности задачи</p>
             <p class="pretty"><strong>3.</strong> Алгоритм Дейкстры хорошо работает с графами разной конфигурации ребер</p>
     </section>
 
-    <section class="slide">
+    <section class="slide contents">
         <h3>Содержание</h3>
         <p class="ok">1. Алгоритм Дейкстры</p>
         <p class="ok">2. Квадратная сетка и обход препятствий</p>
