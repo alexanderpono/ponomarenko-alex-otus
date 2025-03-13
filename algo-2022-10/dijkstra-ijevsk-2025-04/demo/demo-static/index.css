@@ -614,53 +614,83 @@ p, label, li {
     color: #00aae6;
 }
 
+
+.contacts {
+    background: url(contacts-bg.png);
+    background-size: contain;
+    position: relative;
+}
+
+.contacts h3 {
+    color: white;
+}
+
+.contacts::before {
+    background: url(contacts-team.png) no-repeat;
+    background-size: contain;
+    background-position: bottom right;
+
+    padding: 0px;
+    margin: 0px;
+    display: block;
+    content: '';
+    width: 700px;
+    height: 100%;
+    position: absolute;
+    bottom: 0px;
+    right: -30px;
+}
+
 .qrs {
-    display: grid;
-    grid-template-areas: "ap links inno" "ap_qr links_qr inno_qr";
-    grid-template-columns: 30% 30% 30%;
-    grid-template-rows: auto 220px;
-    grid-column-gap: 5%;
-}
-.links, .inno, .ap {
-    line-height: 1.1em;
-    padding-bottom: 25px;
-    font-weight: bold;
-    color: var(--corporate-color);
+    width: 50%;
 }
 
-.ap {
-    grid-area: ap;
-}
-.ap_qr {
-    grid-area: ap_qr;
-}
-.ap_qr_i, .links_qr_i, .inno_qr_i {
-    width: 200px;
-    height: 200px;
-    padding: 20px;
-    border: 2px solid var(--corporate-color);
+.qr {
+    width: 150px;
+    height: 180px;
+    float: left;
+    margin: 0px 20px 20px 0px;
+    background: #FFF;
     border-radius: 10px;
+    position: relative;
+    font-size: 12px;
+    line-height: 1em;
+}
+.qr p {
+    color: var(--corporate-color);
+    padding: 145px 0px 0px 10px;
+    max-width: 100%;
 }
 
-.e {
-    grid-area: e;
-    background: green;
+.qr::before {
+    position: absolute;
+    width: 130px;
+    height: 130px;
+    display: block;
+    content: '';
+    left: 10px;
+    top: 10px;
 }
 
-.links {
-    grid-area: links;
-}
-.links_qr {
-    grid-area: links_qr;
+.career::before {
+    background: url(qr-career.png) no-repeat;
+    background-size: contain;
 }
 
-.inno {
-    grid-area: inno;
-}
-.inno_qr {
-    grid-area: inno_qr;
+.career-tg::before {
+    background: url(qr-career-tg.png) no-repeat;
+    background-size: contain;
 }
 
+.ap-tg::before {
+    background: url(qr-ap-tg.png) no-repeat;
+    background-size: contain;
+}
+
+.links::before {
+    background: url(qr-links.png) no-repeat;
+    background-size: contain;
+}
 
 table {
     margin: 0px 0px 50px 0px;
