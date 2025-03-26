@@ -4,21 +4,11 @@
         
 }
 
-@font-face {
-    font-family: 'Roboto';
-    src: url('Roboto/Roboto-Regular.ttf')  format('truetype'); /* Safari, Android, iOS */
-}
-
-@font-face {
-    font-family: 'RobotoBold';
-    src: url('Roboto/Roboto-Bold.ttf')  format('truetype'); /* Safari, Android, iOS */
-}
-
 .shower {
     --slide-ratio: calc(16 / 9);
     --slide-side: 27px;
     --ribbon-side: 22px;
-    font-family: Roboto, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     line-height: 130%;
     --corporate-color: #00adeb;
     --darkblue: #0082b0;
@@ -136,9 +126,11 @@ th {
 }
 .speaker .number {
     font-size: 300%;
+    font-weight: bold;
 }
 .speaker .units {
     font-size: 150%;
+    font-weight: bold;
 }
 .speaker .position {
     display: flex;
@@ -154,7 +146,7 @@ th {
 .company .content {
     display: grid;
     grid-template-areas: "employees employees cities earn earn" "employeeDelta employeeDelta cities earn earn" "centers engagement satisfaction satisfaction age";
-    grid-template-columns: 2fr 2fr 2fr 1fr 2fr;
+    grid-template-columns: 2fr 2fr 2fr 1fr 2.5fr;
     grid-template-rows: 130px 130px 130px;
 
     grid-column-gap: 10px;
@@ -216,7 +208,7 @@ th {
 
 .company h4 {
     margin: 0px 0px 10px 0px;
-    font-size: 1.8em;
+    font-size: 2.2em;
     line-height: 1.0em;
 }
 
@@ -239,7 +231,7 @@ th {
 }
 
 .company .cities h4 {
-    margin-top: 130px;
+    margin-top: 120px;
 }
 .company .cities::before {
     background: url(cities.png) no-repeat;
@@ -324,8 +316,8 @@ th {
     margin: 0px;
     display: block;
     content: '';
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     position: absolute;
     bottom: 5px;
     right: 5px;
@@ -355,11 +347,11 @@ th {
     position: relative;
 }
 
-.dijkstra .photo {
+.photo {
     position: absolute;
     right: 0px;
-    top: -90px;
     width: 338px;
+    border-radius: 20px;
 }
 
 .lobachevskiy {
@@ -367,13 +359,14 @@ th {
     position: relative;
 }
 
-.lobachevskiy .photo {
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    width: 338px;
-    border-radius: 20px;
-    overflow: hidden;
+.top-m-90 {
+    top: -90px !important;
+}
+.top-m-133 {
+    top: -133px !important;
+}
+.top-0 {
+    top: 0px !important;
 }
 
 .slide.title::before, .nologo::before {
@@ -477,24 +470,36 @@ h1, h3, p, label, li {
 }
 h1, h3 {
     color: #000;
-    font-family: 'RobotoBold', Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
 }
 h3 {
     margin: 0px 0px 50px 1.2em;
     font-size: 1.7em;
     line-height: 1.0em;
-    text-indent: -1.2em;
+    text-indent: -1.1em;
     width: 80%;
 }
-h3.d10 {
+.d10 {
     margin: 0px 0px 10px 0px;
 }
-h3.d20 {
-    margin: 0px 0px 20px 0px;
+.d20 {
+    margin-bottom: 20px !important;
+}
+.d40 {
+    margin-bottom: 40px !important;
+}
+.black {
+    color: black;
+}
+.fs1_2{
+    font-size: 1.2em;
 }
 h3.noindent {
     text-indent: 0;
     margin-left: 0;
+}
+h3.w100 {
+    width: 100%;
 }
 p, label, li {
     color: #000;
@@ -645,6 +650,9 @@ p, label, li {
     width: 50%;
 }
 
+.bricks-qrs {
+    width: 50%;
+}
 .qr {
     width: 150px;
     height: 180px;
@@ -692,10 +700,69 @@ p, label, li {
     background-size: contain;
 }
 
-table {
-    margin: 0px 0px 50px 0px;
-    width: 70%;
+.bricks-learn, .bricks-game, .bricks-editor, .bricks-source, .a-star, .graph-algorithms {
+    margin-bottom: 0px;
+    height: 150px;
+    float: none;
 }
+
+.bricks-learn::before {
+    background: url(qr-bricks-learn.png) no-repeat;
+    background-size: contain;
+}
+
+.bricks-game::before {
+    background: url(qr-bricks-game.png) no-repeat;
+    background-size: contain;
+}
+
+.bricks-editor::before {
+    background: url(qr-bricks-editor.png) no-repeat;
+    background-size: contain;
+}
+
+.bricks-source::before {
+    background: url(qr-bricks-src.png) no-repeat;
+    background-size: contain;
+}
+
+.a-star::before {
+    background: url(qr-a-star.png) no-repeat;
+    background-size: contain;
+}
+
+.graph-algorithms::before {
+    background: url(qr-graph-algorithms.png) no-repeat;
+    background-size: contain;
+}
+
+
+
+.qr-p {
+    display: flex;
+    flex-direction: row;
+}
+.clear {
+    clear: both;
+}
+
+.slide table {
+    margin: 0px 0px 50px 0px;
+    width: 100%;
+}
+.slide tr:not(:last-of-type) > * {
+    background-image: none;
+    background-repeat: repeat-x;
+    border-bottom: 1px solid #d1d1d1;
+}
+.slide tr:first-of-type > * {
+    border-bottom: 1px solid var(--corporate-color);
+}
+.slide th:first-child,
+.slide td:first-child {
+    padding-left: 0px;
+}
+
 strong {
     font-weight: normal;
     color: #00aae6;
@@ -728,10 +795,10 @@ strong {
 }
 
 .selectOne p {
-    font-family: 'RobotoBold';
+    font-weight: bold;
     width: 40%;
-    color: #00aae6;
-    border: 2px solid #00aae6;
+    color: white;
+    background: var(--corporate-color);
     float: left;
     margin-right: 20px;
     padding: 20px;
@@ -1003,7 +1070,7 @@ strong {
 }
 
 .slide.contents p.ok {
-    color: #888;
+    color: #62ccf3;
 }
 .slide.contents::after {
     background: var(--corporate-color);
