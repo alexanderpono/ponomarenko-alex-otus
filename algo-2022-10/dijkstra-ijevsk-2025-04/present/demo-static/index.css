@@ -95,6 +95,7 @@ th {
 }
 
 .speaker .photo {
+    position: initial;
     margin: 0px 50px 0px 0px;
     width: 200px;
     height: 200px;
