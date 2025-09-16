@@ -9,5 +9,8 @@
   },
   "author": "Alexander Ponomarenko",
   "license": "MIT",
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "jest": "^30.1.3"
+  }
 }
