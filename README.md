@@ -7,3 +7,4 @@
 5. [Homework for Node.js OTUS course](node-2023-11/README.md) (https://otus.ru/lessons/node/)
 6. [Project work for Linux Basic 2024-07 OTUS course](linux-basic-2024-07/linux-projectWork/README.md) (https://otus.ru/lessons/linux-basic/)
 7. [Homework for Linux Professional 2024-10 OTUS course](linux-pro-2024-10/README.md) (https://otus.ru/lessons/linux-professional/) 
+8. [Homework for React.js 2025-08 OTUS course](react-2025-08/README.md) (https://otus.ru/lessons/react/) 
