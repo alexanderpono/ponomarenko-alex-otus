@@ -4,8 +4,10 @@
   "description": "react-2025-08-hw01-git",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Alexander Ponomarenko",
-  "license": "MIT"
+  "license": "MIT",
+  "type": "module"
 }
