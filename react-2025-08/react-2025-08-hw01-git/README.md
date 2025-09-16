@@ -72,4 +72,5 @@ Date:   Tue Sep 16 20:15:05 2025 +0300
 
 ```
 
-6. 
+6. PR доступен по адресу: https://github.com/alexanderpono/ponomarenko-alex-otus/pull/188
+
