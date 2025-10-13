@@ -85,7 +85,7 @@ interface Profit extends CommonOperation {
 
 type Operation = Cost | Profit;
 
-const rndCategory = () => ({
+const rndCategory = (): Category => ({
   id: str(),
   name: str(),
   photo: '',
