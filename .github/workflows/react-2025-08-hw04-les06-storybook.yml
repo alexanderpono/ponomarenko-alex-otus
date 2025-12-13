@@ -1,0 +1,68 @@
+name: Test, Lint, Build and Deploy on Github Pages
+
+on:
+  push:
+    branches: ["react-2025-08-hw04-les06-storybook"]
+    # branches: ["master", "main"]
+
+  # Позволяет запустить этот рабочий процесс вручную на вкладке Actions
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: react-2025-08/react-2025-08-hw04-les06-storybook
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # Устанавливаем зависимости
+      - name: Install dependencies
+        run: npm install
+
+      # Запускаем тесты и линтер
+      - name: Run tests and linter
+        run: npm run lint && npm test
+
+      # # Собираем приложение
+      # - name: Build Application
+      #   run: npm run build
+
+      # # Публикуем приложение на Github Pages
+      # - name: Deploy to Github Pages
+      #   uses: JamesIves/github-pages-deploy-action@4.2.1
+      #   with:
+      #     branch: gh-pages
+      #     folder: dist
+
+      # Собираем Storybook
+      - name: Build Storybook
+        run: npm run build-storybook
+
+      # Публикуем Storybook на Github Pages
+      - name: Deploy Storybook to Github Pages
+        uses: JamesIves/github-pages-deploy-action@4.2.1
+        with:
+          branch: gh-pages
+          folder: storybook-static
+          commit-message: "Automatically publish Storybook"
+          target-folder: react-2025-08/react-2025-08-hw04-les06-storybook
+
+      # Останавливаем выполнение строго при неудачных тестах
+      - name: Fail on failed tests
+        run: |
+          if [ ${{ job.status }} == 'failure' ]; then exit 1; fi;
