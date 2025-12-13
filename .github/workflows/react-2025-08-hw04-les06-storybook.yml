@@ -69,11 +69,10 @@ jobs:
         id: Deploy-app
         uses: JamesIves/github-pages-deploy-action@4.2.1
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: react-2025-08/react-2025-08-hw04-les06-storybook/storybook-static  # The folder the action should deploy.
-          TARGET_FOLDER: react-2025-08/react-2025-08-hw04-les06-storybook
-          CLEAN: true # Automatically remove deleted files from the deploy branch
+          branch: gh-pages # The branch the action should deploy to.
+          folder: react-2025-08/react-2025-08-hw04-les06-storybook/storybook-static  # The folder the action should deploy.
+          target-folder: react-2025-08/react-2025-08-hw04-les06-storybook
+          clean: true # Automatically remove deleted files from the deploy branch
 
 
       # Останавливаем выполнение строго при неудачных тестах
