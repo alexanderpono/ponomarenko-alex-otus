@@ -32,29 +32,10 @@ jobs:
       - name: Run tests and linter
         run: npm run lint && npm test
 
-      # # Собираем приложение
-      # - name: Build Application
-      #   run: npm run build
-
-      # # Публикуем приложение на Github Pages
-      # - name: Deploy to Github Pages
-      #   uses: JamesIves/github-pages-deploy-action@4.2.1
-      #   with:
-      #     branch: gh-pages
-      #     folder: dist
-
       # Собираем Storybook
       - name: Build Storybook
         run: npm run build-storybook
 
-      # Публикуем Storybook на Github Pages
-      # - name: Deploy Storybook to Github Pages
-      #   uses: JamesIves/github-pages-deploy-action@4.2.1
-      #   with:
-      #     branch: gh-pages
-      #     folder: storybook-static
-      #     commit-message: "Automatically publish Storybook"
-      #     target-folder: react-2025-08/react-2025-08-hw04-les06-storybook
       - name: Deploy Storybook to GHP /ponomarenko-alex-otus/react-2025-08/react-2025-08-hw04-les06-storybook 🚀
         id: Deploy-Storybook
         uses: JamesIves/github-pages-deploy-action@4.2.1
