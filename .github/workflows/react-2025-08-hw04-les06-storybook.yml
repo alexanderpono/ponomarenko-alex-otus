@@ -67,7 +67,7 @@ jobs:
       #     target-folder: react-2025-08/react-2025-08-hw04-les06-storybook
       - name: Deploy application to GHP /ponomarenko-alex-otus/react-2025-08/react-2025-08-hw04-les06-storybook 🚀
         id: Deploy-app
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+        uses: JamesIves/github-pages-deploy-action@4.2.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages # The branch the action should deploy to.
