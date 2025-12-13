@@ -18,10 +18,6 @@ jobs:
       run:
         working-directory: react-2025-08/react-2025-08-hw04-les06-storybook
 
-    strategy:
-      matrix:
-        node-version: [18.x]
-
     steps:
       - uses: actions/checkout@v2
         with:
