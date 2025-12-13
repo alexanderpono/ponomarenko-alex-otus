@@ -14,9 +14,9 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: react-2025-08/react-2025-08-hw04-les06-storybook
+    # defaults:
+    #   run:
+    #     working-directory: react-2025-08/react-2025-08-hw04-les06-storybook
 
     strategy:
       matrix:
