@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Modal from 'src/shared/Modal/Modal';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         <p>
           Текст писать тут
         </p>
+        <Modal visible={true} />
       </header>
     </div>
   );
