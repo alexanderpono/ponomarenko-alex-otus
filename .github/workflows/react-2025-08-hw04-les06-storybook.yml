@@ -58,7 +58,7 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@4.2.1
         with:
           branch: gh-pages
-          folder: storybook-static
+          folder: react-2025-08/react-2025-08-hw04-les06-storybook/storybook-static
           commit-message: "Automatically publish Storybook"
           target-folder: react-2025-08/react-2025-08-hw04-les06-storybook
 
