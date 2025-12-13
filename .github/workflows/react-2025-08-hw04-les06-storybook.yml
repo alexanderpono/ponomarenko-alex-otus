@@ -2,7 +2,7 @@ name: Test, Lint, Build and Deploy on Github Pages
 
 on:
   push:
-    branches: ["react-2025-08-hw04-les06-storybook", "master", "main"]
+    branches: ["react-2025-08-hw04-les06-storybook", "react-2025-08-hw04"]
     # branches: ["master", "main"]
 
   # Позволяет запустить этот рабочий процесс вручную на вкладке Actions
