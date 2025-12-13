@@ -24,21 +24,13 @@ jobs:
         with:
           node-version: '18'
 
-      # - name: Cache NPM dependencies
-      #   uses: actions/cache@v4
-      #   with:
-      #     path: ~/.npm
-      #     key: ${{ runner.OS }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
-      #     restore-keys: |
-      #       ${{ runner.OS }}-npm-cache-
-
       # Устанавливаем зависимости
       - name: Install dependencies
         run: npm install
 
       # Запускаем тесты и линтер
-      # - name: Run tests and linter
-      #   run: npm run lint && npm test
+      - name: Run tests and linter
+        run: npm run lint && npm test
 
       # # Собираем приложение
       # - name: Build Application
@@ -63,8 +55,8 @@ jobs:
       #     folder: storybook-static
       #     commit-message: "Automatically publish Storybook"
       #     target-folder: react-2025-08/react-2025-08-hw04-les06-storybook
-      - name: Deploy application to GHP /ponomarenko-alex-otus/react-2025-08/react-2025-08-hw04-les06-storybook 🚀
-        id: Deploy-app
+      - name: Deploy Storybook to GHP /ponomarenko-alex-otus/react-2025-08/react-2025-08-hw04-les06-storybook 🚀
+        id: Deploy-Storybook
         uses: JamesIves/github-pages-deploy-action@4.2.1
         with:
           branch: gh-pages # The branch the action should deploy to.
@@ -74,6 +66,6 @@ jobs:
 
 
       # Останавливаем выполнение строго при неудачных тестах
-      # - name: Fail on failed tests
-      #   run: |
-      #     if [ ${{ job.status }} == 'failure' ]; then exit 1; fi;
+      - name: Fail on failed tests
+        run: |
+          if [ ${{ job.status }} == 'failure' ]; then exit 1; fi;
