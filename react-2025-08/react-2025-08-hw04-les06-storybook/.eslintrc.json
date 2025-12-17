@@ -6,14 +6,11 @@
         "es2021": true
     },
     "extends": [
-        "plugin:react/jsx-runtime", // позволяет не импортировать реакт
-        "plugin:react-hooks/recommended", //поддержка хуков
         "plugin:import/recommended", // подсказки при импорте
-        // "airbnb",
         "prettier", // отключает конфликты с prettier
+        "plugin:prettier/recommended",
         "plugin:jest/recommended",
         "eslint:recommended",
-        "plugin:react/recommended",
         "plugin:@typescript-eslint/recommended"
     ],
     "overrides": [],
@@ -22,19 +19,13 @@
         "ecmaVersion": "latest"
     },
     "plugins": [
-        "react",
         "@typescript-eslint"
     ],
     "rules": {
         "@typescript-eslint/no-var-requires": 0,
-        "@typescript-eslint/triple-slash-reference": "error",
-        "react/jsx-uses-vars": "error",
-        "react/jsx-uses-react": "error"
+        "@typescript-eslint/triple-slash-reference": "error"
     },
     "settings": {
-        "react": {
-            "version": "detect"
-        },
         "import/resolver": {
             "node": {
                 "paths": ["."],

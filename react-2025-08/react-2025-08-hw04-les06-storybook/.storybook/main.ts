@@ -1,6 +1,12 @@
+import path from 'path';
+import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
+
 interface Cfg {
     module: {
         rules: Rule[];
+    },
+    resolve: {
+        plugins?: []
     }
 }
 interface Rule {
@@ -74,6 +80,13 @@ const config = {
             module: {
                 ...config?.module,
                 rules: [...rules],
+            },
+            resolve: {
+                ...config?.resolve,
+                plugins: [
+                    ...(config.resolve.plugins || []),
+                    new TsconfigPathsPlugin({ configFile: path.resolve(__dirname, '../tsconfig.json') }),
+                ]
             }
         };
 
