@@ -1,20 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Modal from 'src/shared/Modal/Modal';
+import Layout from 'src/shared/Layout/Layout';
+import { bigText } from 'src/constants/bigText';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Текст писать тут
-        </p>
-        <Modal visible={true} />
-      </header>
-    </div>
-  );
+    return (
+        <>
+            <Layout>
+                {bigText}
+                {bigText}
+                {bigText}
+                <Modal visible={true}>
+                    <h2>Заголовок</h2>
+                    <p>Текст писать ту-тут</p>
+                </Modal>
+            </Layout>
+        </>
+    );
 }
 
 export default App;
