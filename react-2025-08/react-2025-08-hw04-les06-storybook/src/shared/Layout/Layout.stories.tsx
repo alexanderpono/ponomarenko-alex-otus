@@ -5,12 +5,10 @@ import { bigText } from 'src/constants/bigText';
 import Modal from '../Modal/Modal';
 
 const meta: Meta<typeof Layout> = {
-    title: 'Layout',
+    title: 'shared/Layout',
     component: Layout,
-    // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
     tags: ['autodocs'],
     parameters: {
-        // More on how to position stories at: https://storybook.js.org/docs/react/configure/story-layout
         layout: 'fullscreen'
     }
 };
