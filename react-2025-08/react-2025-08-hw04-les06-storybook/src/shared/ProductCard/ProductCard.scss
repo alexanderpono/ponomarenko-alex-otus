@@ -1,0 +1,51 @@
+.ProductCard {
+    width: 300px;
+    border: 1px solid #ddd;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+    .image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        display: block;
+    }    
+
+    .defaultImage {
+        height: 200px;
+        display: block;
+        background: url(./equipment-gift.svg) no-repeat center;
+        background-size: contain;
+        border: 1px solid black;
+    }
+
+    .details {
+        padding: 16px;
+    }
+
+    .title {
+        font-size: 1.2em;
+        margin: 0 0 8px;
+        font-weight: bold;
+    }
+
+    .description {
+        font-size: 0.9em;
+        color: #555;
+        margin-bottom: 12px;
+        line-height: 1.5;
+    }
+
+    .price {
+        font-size: 1.2em;
+        margin-bottom: 16px;
+        font-weight: bold;
+        color: #e91e63;
+    }
+
+    .buyButton:hover {
+        background-color: #999;
+    }
+
+}

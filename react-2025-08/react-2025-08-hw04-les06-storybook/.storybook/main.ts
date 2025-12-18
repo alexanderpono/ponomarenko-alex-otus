@@ -16,6 +16,7 @@ interface Rule {
 }
 const config = {
     stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
+    staticDirs: [path.resolve(__dirname, 'static')],
     addons: [
         "@storybook/addon-links",
         "@storybook/addon-essentials",
