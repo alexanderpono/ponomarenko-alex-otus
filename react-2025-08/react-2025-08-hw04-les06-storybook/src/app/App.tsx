@@ -8,6 +8,7 @@ import { shortText } from 'src/constants/shortText';
 import BtToBacket from 'src/shared/BtToBacket/BtToBasket';
 import ProductCard from 'src/shared/ProductCard/ProductCard';
 import DetailedProductCard from 'src/shared/DetailedProductCard/DetailedProductCard';
+import CartItem from 'src/shared/CartItem/CartItem';
 
 function App() {
     return (
@@ -24,6 +25,8 @@ function App() {
                 <DetailedProductCard image="cat.jpg" count={0} price={1999} name={shortText} category="Cats">
                     {bigText}
                 </DetailedProductCard>
+                <CartItem image="" count={1} price={1999} name={shortText} />
+                <CartItem image="cat.jpg" count={2} price={1999} name={shortText} />
             </Layout>
         </>
     );

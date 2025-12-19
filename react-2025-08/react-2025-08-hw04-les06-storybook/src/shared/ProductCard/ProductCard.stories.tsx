@@ -44,7 +44,7 @@ export const Cat1: Story = {
         image: 'cat.jpg',
         count: 1,
         price: 1999,
-        name: 'Catty',
-        description: 'Pussy cat with flowers'
+        name: 'Kitty',
+        description: 'Kitty with flowers'
     }
 };

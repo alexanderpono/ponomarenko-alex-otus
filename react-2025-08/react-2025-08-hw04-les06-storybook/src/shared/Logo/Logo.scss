@@ -1,9 +1,11 @@
 .Logo {
-    border: 1px solid red;
-    width: 100px;
+    width: 120px;
     height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-right: 20px;
+    background: #FFF url(./cart.svg) no-repeat;
+    background-size: contain;
+
 }

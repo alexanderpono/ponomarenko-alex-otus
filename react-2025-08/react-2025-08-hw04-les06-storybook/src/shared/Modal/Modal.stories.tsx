@@ -19,8 +19,8 @@ export const Visible: Story = {
         visible: true,
         children: (
             <>
-                <h2>Это модальное окно</h2>
-                <p>Здесь находится содержимое вашего окна.</p>
+                <h2>Modal window caption</h2>
+                <p>Modal window text</p>
             </>
         )
     }

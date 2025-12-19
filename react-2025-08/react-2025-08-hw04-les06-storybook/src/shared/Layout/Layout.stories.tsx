@@ -36,8 +36,8 @@ export const LayoutWithScrollAndModal: Story = {
                 {bigText}
                 {bigText}
                 <Modal visible={true}>
-                    <h2>Это модальное окно</h2>
-                    <p>Здесь находится содержимое вашего окна.</p>
+                    <h2>Modal window caption</h2>
+                    <p>Modal window text</p>
                 </Modal>
             </>
         )
