@@ -2,3 +2,7 @@
 # Д/З к курсу React.js-2025-08 OTUS https://otus.ru/lessons/react/
 
 1. [Домашнее задание 1. Основы разработки с использованием пакетных менеджеров и Git](react-2025-08-hw01-git/README.md)
+
+2. [Домашнее задание 2.  Typescript (1) ](react-2025-08-hw03-ts-1/README.md)
+
+3. [Домашнее задание 3.  Typescript (1) ](react-2025-08-hw04-les06-storybook/README.md)
