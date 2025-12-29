@@ -2,10 +2,12 @@
 // Please do not change this file!
 interface CssExports {
   'ProductCard': string;
+  'blue': string;
   'buyButton': string;
   'defaultImage': string;
   'description': string;
   'details': string;
+  'grey': string;
   'image': string;
   'price': string;
   'title': string;

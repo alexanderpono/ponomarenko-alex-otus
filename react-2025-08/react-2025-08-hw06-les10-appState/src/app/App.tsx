@@ -9,10 +9,11 @@ import BtToBacket from 'src/shared/BtToBacket/BtToBasket';
 import ProductCard from 'src/shared/ProductCard/ProductCard';
 import DetailedProductCard from 'src/shared/DetailedProductCard/DetailedProductCard';
 import CartItem from 'src/shared/CartItem/CartItem';
+import { ThemeProvider } from 'src/shared/ThemeContext/ThemeContext';
 
 function App() {
     return (
-        <>
+        <ThemeProvider>
             <Layout>
                 <BtToBacket count={0} />
                 <BtToBacket count={1} />
@@ -28,7 +29,7 @@ function App() {
                 <CartItem image="" count={1} price={1999} name={shortText} />
                 <CartItem image="cat.jpg" count={2} price={1999} name={shortText} />
             </Layout>
-        </>
+        </ThemeProvider>
     );
 }
 
