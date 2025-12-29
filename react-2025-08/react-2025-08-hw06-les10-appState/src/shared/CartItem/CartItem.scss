@@ -1,0 +1,80 @@
+.CartItem {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    gap: 15px;
+    font-family: Arial, sans-serif;
+    max-width: 500px;
+
+    .image img {
+        width: 120px;
+        height: auto;
+        border-radius: 4px;
+    }
+
+    .defaultImage {
+        width: 120px;
+        height: 60px;
+        display: block;
+        background: url(./equipment-gift.svg) no-repeat center;
+        background-size: contain;
+        border: 1px solid black;
+    }
+
+
+    .info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .title {
+        font-weight: 600;
+        font-size: 1.1em;
+    }
+
+    .price {
+        color: #555;
+    }
+
+    .quantity {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .quantity input {
+        width: 60px;
+        padding: 4px 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .total {
+        font-weight: 600;
+        font-size: 1.2em;
+        margin-top: 8px;
+        color: #e91e63;
+    }
+
+    .remove {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .btRemove {
+        background: transparent;
+        border: none;
+        font-size: 1.2em;
+        cursor: pointer;
+        color: #888;
+        transition: color 0.2s;
+    }
+
+    .btRemove:hover {
+        color: #e74c3c;
+    }
+
+}

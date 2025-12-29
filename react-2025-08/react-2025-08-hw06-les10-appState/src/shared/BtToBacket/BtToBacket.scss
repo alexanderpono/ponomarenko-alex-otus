@@ -1,0 +1,44 @@
+.BtToBasket {
+    border: 1px solid black;
+    display: flex;
+    width: 140px;
+    align-items: center;
+    justify-content: center;
+    
+    .basket, .plus, .minus, .input {
+        padding: 0px;
+        margin: 0px;
+        display: block;
+        height: 40px;
+    }
+
+    .basket, .plus, .minus {
+        cursor: pointer;
+    }
+
+    .basket {
+        background: url(./cart.svg) no-repeat center;
+        background-size: contain;
+        width: 140px;
+    }
+    .plus {
+        background: url(./plus.svg) no-repeat;
+        background-size: contain;
+        width: 40px;
+    }
+    .input {
+        width: 60px;
+        font-size: 20px;
+        text-align: center;
+        outline: none;
+
+        &:focus {
+            border-color: black;
+        }
+    }
+    .minus {
+        background: url(./minus.svg) no-repeat;
+        background-size: contain;
+        width: 40px;
+    }
+}
