@@ -3,11 +3,20 @@
     top: 0;
     left: 0px;
     right: 0px;
-    background-color: grey;
     z-index: 1000;
     display: flex;
     align-items: center;
     color: white;
-    border-bottom: 1px solid black;
 
+
+}
+
+.grey {
+    background-color: grey;
+    border-bottom: 1px solid black;
+}
+
+.blue {
+    background-color: #5660f0;
+    border-bottom: 1px solid blue;
 }

@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styles from './ProductCard.scss';
-import BtToBasket from '../BtToBacket/BtToBasket';
+import BtToBasket from 'src/shared/BtToBacket/BtToBasket';
+import { ThemeContext } from 'src/shared/ThemeContext/ThemeContext';
+import cn from 'classnames';
+import { Theme } from 'src/constants/Theme';
 
 interface ProductCardProps {
     image: string;
@@ -10,8 +13,14 @@ interface ProductCardProps {
     description: string;
 }
 export const ProductCard: React.FC<ProductCardProps> = ({ image, count, price, name, description }) => {
+    const { theme } = useContext(ThemeContext);
     return (
-        <div className={styles.ProductCard}>
+        <div
+            className={cn(styles.ProductCard, {
+                [styles.grey]: theme === Theme.GREY,
+                [styles.blue]: theme === Theme.BLUE
+            })}
+        >
             {image && <img src={image} alt={name} className={styles.image} />}
             {!image && <div className={styles.defaultImage}></div>}
 

@@ -2,7 +2,6 @@
     display: flex;
     align-items: center;
     padding: 10px;
-    border-bottom: 1px solid #ddd;
     gap: 15px;
     font-family: Arial, sans-serif;
     max-width: 500px;
@@ -19,7 +18,6 @@
         display: block;
         background: url(./equipment-gift.svg) no-repeat center;
         background-size: contain;
-        border: 1px solid black;
     }
 
 
@@ -77,4 +75,24 @@
         color: #e74c3c;
     }
 
+}
+
+.grey {
+    border-bottom: 1px solid #ddd;
+
+    .defaultImage {
+        border: 1px solid black;
+    }
+}
+
+.blue {
+    border-bottom: 1px solid #a9affa;
+
+    .defaultImage {
+        border: 1px solid #5660f0;
+    }
+
+    .title {
+        color: #5660f0;
+    }
 }

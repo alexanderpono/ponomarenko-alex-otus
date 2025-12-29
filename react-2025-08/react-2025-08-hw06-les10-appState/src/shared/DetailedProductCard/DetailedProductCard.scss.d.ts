@@ -3,9 +3,11 @@
 interface CssExports {
   'DetailedProductCard': string;
   'addToCart': string;
+  'blue': string;
   'category': string;
   'defaultImage': string;
   'description': string;
+  'grey': string;
   'header': string;
   'image': string;
   'info': string;

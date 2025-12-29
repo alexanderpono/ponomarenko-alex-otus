@@ -3,6 +3,8 @@
 interface CssExports {
   'BtToBasket': string;
   'basket': string;
+  'blue': string;
+  'grey': string;
   'input': string;
   'minus': string;
   'plus': string;

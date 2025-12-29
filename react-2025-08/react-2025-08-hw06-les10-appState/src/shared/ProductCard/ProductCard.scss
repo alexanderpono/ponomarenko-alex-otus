@@ -3,7 +3,6 @@
     border: 1px solid #ddd;
     overflow: hidden;
     font-family: Arial, sans-serif;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 
     .image {
         width: 100%;
@@ -17,7 +16,6 @@
         display: block;
         background: url(./equipment-gift.svg) no-repeat center;
         background-size: contain;
-        border: 1px solid black;
     }
 
     .details {
@@ -48,4 +46,24 @@
         background-color: #999;
     }
 
+}
+
+.grey {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+    .defaultImage {
+        border: 1px solid black;
+    }
+}
+
+.blue {
+    box-shadow: 0 2px 8px rgba(86, 96, 240, 0.5);
+
+    .defaultImage {
+        border: 1px solid #5660f0;
+    }
+
+    .title {
+        color: #5660f0;
+    }
 }

@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styles from './CartItem.scss';
 import BtToBasket from 'src/shared/BtToBacket/BtToBasket';
+import { ThemeContext } from 'src/shared/ThemeContext/ThemeContext';
+import cn from 'classnames';
+import { Theme } from 'src/constants/Theme';
 
 interface CartItemProps {
     image: string;
@@ -9,8 +12,14 @@ interface CartItemProps {
     name: string;
 }
 export const CartItem: React.FC<CartItemProps> = ({ image, count, price, name }) => {
+    const { theme } = useContext(ThemeContext);
     return (
-        <div className={styles.CartItem}>
+        <div
+            className={cn(styles.CartItem, {
+                [styles.grey]: theme === Theme.GREY,
+                [styles.blue]: theme === Theme.BLUE
+            })}
+        >
             {image && (
                 <div className={styles.image}>
                     <img src={image} alt={name} />

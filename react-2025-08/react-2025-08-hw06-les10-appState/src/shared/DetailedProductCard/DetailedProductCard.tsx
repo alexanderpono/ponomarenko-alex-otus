@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styles from './DetailedProductCard.scss';
 import BtToBasket from 'src/shared/BtToBacket/BtToBasket';
+import { ThemeContext } from 'src/shared/ThemeContext/ThemeContext';
+import cn from 'classnames';
+import { Theme } from 'src/constants/Theme';
 
 export interface DetailedProductCardProps {
     image: string;
@@ -18,9 +21,15 @@ export const DetailedProductCard: React.FC<DetailedProductCardProps> = ({
     children,
     category
 }) => {
+    const { theme } = useContext(ThemeContext);
     return (
         <>
-            <div className={styles.DetailedProductCard}>
+            <div
+                className={cn(styles.DetailedProductCard, {
+                    [styles.grey]: theme === Theme.GREY,
+                    [styles.blue]: theme === Theme.BLUE
+                })}
+            >
                 <div className={styles.header}>
                     <h1 className={styles.title}>{name}</h1>
                     <span className={styles.category}>{category}</span>

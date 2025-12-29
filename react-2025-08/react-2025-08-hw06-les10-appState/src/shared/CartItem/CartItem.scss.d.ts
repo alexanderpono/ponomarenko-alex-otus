@@ -2,8 +2,10 @@
 // Please do not change this file!
 interface CssExports {
   'CartItem': string;
+  'blue': string;
   'btRemove': string;
   'defaultImage': string;
+  'grey': string;
   'image': string;
   'info': string;
   'price': string;
