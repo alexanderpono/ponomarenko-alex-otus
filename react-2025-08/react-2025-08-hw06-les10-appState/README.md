@@ -77,15 +77,26 @@
 
 
 ## Решение
-Создан сторибук с компонентами к программе "Интернет-магазин".
+1. В сторибук добавлен компонент ModalStarter для управления состоянием модального окна
+- исходные тексты - см. коммит:
+    https://github.com/alexanderpono/ponomarenko-alex-otus/pull/191/commits/298868cc51d5a2ecc000c17ff37c0e7bbad6cc52
 
-Сторибук доступен для просмотра по ссылке 
-https://alexanderpono.github.io/ponomarenko-alex-otus/react-2025-08/react-2025-08-hw04-les06-storybook/
+- storybook:
+    https://alexanderpono.github.io/ponomarenko-alex-otus/react-2025-08/react-2025-08-hw06-les10-appState/?path=/story/shared-modalstarter--dynamic
 
-Исходные тексты см.
-https://github.com/alexanderpono/ponomarenko-alex-otus/tree/react-2025-08-hw04-les06-storybook
-https://github.com/alexanderpono/ponomarenko-alex-otus/pull/190/commits
 
-или 
+2. Добавлен контекст ThemeContext и соответствующий компонент ThemeSelector для управления цветовой схемой сайта
+- исходные тексты - см. коммит:
+    https://github.com/alexanderpono/ponomarenko-alex-otus/pull/191/commits/7a4a61146882fa69e9715a1ad189710ee2198b35
 
-https://github.com/alexanderpono/ponomarenko-alex-otus/tree/master/react-2025-08/react-2025-08-hw04-les06-storybook
+- storybook - см. story для компонента Layout, там внутри компонента Header появился компонент ThemeSelector для управления цветовой темой "Color scheme / Цветовая схема":
+    https://alexanderpono.github.io/ponomarenko-alex-otus/react-2025-08/react-2025-08-hw06-les10-appState/?path=/story/shared-layout--layout-with-scroll
+
+
+3. Добавлен контекст I18nContext и соответствующий компонент LanguageSelector для управления языком сайта
+- исходные тексты - см. коммит:
+    https://github.com/alexanderpono/ponomarenko-alex-otus/pull/191/commits/f679ab13afcaa649a78cd7441451828f901662b5
+
+- storybook - см. story для компонента Layout, там внутри компонента Header появился компонент LanguageSelector для управления языком "Language/Язык" :
+    https://alexanderpono.github.io/ponomarenko-alex-otus/react-2025-08/react-2025-08-hw06-les10-appState/?path=/story/shared-layout--layout-with-scroll
+
