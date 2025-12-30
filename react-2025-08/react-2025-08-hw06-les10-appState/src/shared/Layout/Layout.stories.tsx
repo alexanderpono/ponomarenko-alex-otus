@@ -10,6 +10,7 @@ import ProductCard from 'src/shared/ProductCard/ProductCard';
 import { shortText } from 'src/constants/shortText';
 import DetailedProductCard from 'src/shared/DetailedProductCard/DetailedProductCard';
 import CartItem from 'src/shared/CartItem/CartItem';
+import { I18nProvider } from 'src/shared/I18nContext/I18nContext';
 
 const meta: Meta<typeof Layout> = {
     title: 'shared/Layout',
@@ -27,10 +28,10 @@ export const LayoutWithScroll: Story = {
     args: {
         children: (
             <>
+                <ProductCard image="" count={0} price={1999} name={shortText} description={middleText} />
                 <BtToBacket count={0} />
                 <BtToBacket count={1} />
                 <p>{middleText}</p>
-                <ProductCard image="" count={0} price={1999} name={shortText} description={middleText} />
                 <ProductCard image="cat.jpg" count={0} price={1999} name={shortText} description={middleText} />
                 <DetailedProductCard image="cat.jpg" count={0} price={1999} name={shortText} category="Cats">
                     {bigText}
@@ -45,9 +46,11 @@ export const LayoutWithScroll: Story = {
     },
     render: (args: LayoutProps) => {
         return (
-            <ThemeProvider>
-                <Layout>{args.children}</Layout>
-            </ThemeProvider>
+            <I18nProvider>
+                <ThemeProvider>
+                    <Layout>{args.children}</Layout>
+                </ThemeProvider>
+            </I18nProvider>
         );
     }
 };
@@ -68,9 +71,11 @@ export const LayoutWithScrollAndModal: Story = {
     },
     render: (args: LayoutProps) => {
         return (
-            <ThemeProvider>
-                <Layout>{args.children}</Layout>
-            </ThemeProvider>
+            <I18nProvider>
+                <ThemeProvider>
+                    <Layout>{args.children}</Layout>
+                </ThemeProvider>
+            </I18nProvider>
         );
     }
 };
