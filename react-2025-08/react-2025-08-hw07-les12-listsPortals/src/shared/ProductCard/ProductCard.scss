@@ -3,6 +3,7 @@
     border: 1px solid #ddd;
     overflow: hidden;
     font-family: Arial, sans-serif;
+    float: left;
 
     .image {
         width: 100%;
@@ -20,6 +21,7 @@
 
     .details {
         padding: 16px;
+        min-height: 160px;
     }
 
     .title {
