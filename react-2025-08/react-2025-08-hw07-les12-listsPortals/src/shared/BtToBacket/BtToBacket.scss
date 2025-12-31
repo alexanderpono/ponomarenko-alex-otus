@@ -1,0 +1,58 @@
+.BtToBasket {
+    display: flex;
+    width: 140px;
+    align-items: center;
+    justify-content: center;
+    
+    .basket, .plus, .minus, .input {
+        padding: 0px;
+        margin: 0px;
+        display: block;
+        height: 40px;
+    }
+
+    .basket, .plus, .minus {
+        cursor: pointer;
+    }
+
+    .basket {
+        background: url(./cart.svg) no-repeat center;
+        background-size: contain;
+        width: 140px;
+    }
+    .plus {
+        background: url(./plus.svg) no-repeat;
+        background-size: contain;
+        width: 40px;
+    }
+    .input {
+        width: 60px;
+        font-size: 20px;
+        text-align: center;
+        outline: none;
+    }
+    .minus {
+        background: url(./minus.svg) no-repeat;
+        background-size: contain;
+        width: 40px;
+    }
+}
+
+.grey {
+    border: 1px solid black;
+
+    .input {
+        &:focus {
+            border-color: black;
+        }
+    }    
+}
+
+.blue {
+    border: 1px solid #5660f0;
+    .input {
+        &:focus {
+            border-color: #5660f0;
+        }
+    }    
+}
