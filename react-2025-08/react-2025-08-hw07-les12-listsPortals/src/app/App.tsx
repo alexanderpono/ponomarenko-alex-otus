@@ -22,7 +22,7 @@ function App() {
                 <Layout>
                     <BtToBacket count={0} />
                     <BtToBacket count={1} />
-                    <Modal visible={false}>
+                    <Modal visible={false} handleBtCloseClick={() => null}>
                         <h2>{translations.modalHeader}</h2>
                         <p>{translations.modalText}</p>
                     </Modal>

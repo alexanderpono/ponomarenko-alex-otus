@@ -4,8 +4,8 @@ import { createPortal } from 'react-dom';
 
 interface ModalProps {
     visible: boolean;
-    children?: React.ReactNode;
-    handleBtCloseClick?: () => void;
+    children: React.ReactNode;
+    handleBtCloseClick: () => void;
 }
 export const Modal: React.FC<ModalProps> = ({ visible, children, handleBtCloseClick }) => {
     const ModalComponent = (
