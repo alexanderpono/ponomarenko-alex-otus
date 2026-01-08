@@ -10,10 +10,10 @@ interface ProductListProps {
 export const ProductList: React.FC<ProductListProps> = ({ products }) => {
     return (
         <div className={cn(styles.ProductList)}>
-            {products.map((product: Product, index: number) => {
+            {products.map((product: Product) => {
                 return (
                     <ProductCard
-                        key={index}
+                        key={`${product.name}-${product.description}`}
                         image={product.image}
                         count={product.count}
                         price={product.price}

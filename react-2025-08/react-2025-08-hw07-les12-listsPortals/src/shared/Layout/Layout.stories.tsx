@@ -62,7 +62,7 @@ export const LayoutWithScrollAndModal: Story = {
                 {bigText}
                 {bigText}
                 {bigText}
-                <Modal visible={true}>
+                <Modal visible={true} handleBtCloseClick={() => null}>
                     <h2>Modal window caption</h2>
                     <p>Modal window text</p>
                 </Modal>
