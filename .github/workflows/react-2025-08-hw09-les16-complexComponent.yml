@@ -1,0 +1,52 @@
+name: Test, Lint, Build and Deploy on Github Pages
+
+on:
+  push:
+    branches: ["react-2025-08-hw09-les16-complexComponent"]
+    # branches: ["master", "main"]
+
+  # Позволяет запустить этот рабочий процесс вручную на вкладке Actions
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  react-2025-08-hw09-les16-complexComponent:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: react-2025-08/react-2025-08-hw09-les16-complexComponent
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # Устанавливаем зависимости
+      - name: Install dependencies
+        run: npm install
+
+      # Запускаем тесты и линтер
+      # - name: Run tests and linter
+      #   run: npm run lint && npm test
+
+      # Собираем Storybook
+      - name: Build Storybook
+        run: npm run build-storybook
+
+      - name: Deploy Storybook to GHP /ponomarenko-alex-otus/react-2025-08/react-2025-08-hw09-les16-complexComponent 🚀
+        id: Deploy-Storybook
+        uses: JamesIves/github-pages-deploy-action@4.2.1
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: react-2025-08/react-2025-08-hw09-les16-complexComponent/storybook-static  # The folder the action should deploy.
+          target-folder: react-2025-08/react-2025-08-hw09-les16-complexComponent
+          clean: true # Automatically remove deleted files from the deploy branch
+
+
+      # Останавливаем выполнение строго при неудачных тестах
+      - name: Fail on failed tests
+        run: |
+          if [ ${{ job.status }} == 'failure' ]; then exit 1; fi;

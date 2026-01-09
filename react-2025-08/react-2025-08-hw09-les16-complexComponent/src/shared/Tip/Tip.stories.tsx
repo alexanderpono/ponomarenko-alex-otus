@@ -39,7 +39,7 @@ const Wrapper = () => (
 );
 
 const meta: Meta<typeof Tip> = {
-    title: 'Tip',
+    title: 'shared/Tip',
     component: Wrapper
 };
 

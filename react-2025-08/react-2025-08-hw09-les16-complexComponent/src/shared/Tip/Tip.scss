@@ -14,10 +14,10 @@ $indent: 8px;
   }
 
   &.top {
-    transform: translate(-50%, calc(-100% - $indent))
+    transform: translate(0%, calc(-100% - $indent))
   }
 
   &.bottom {
-    transform: translate(-50%, $indent)
+    transform: translate(0%, $indent)
   }
 }

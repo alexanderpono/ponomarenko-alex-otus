@@ -99,7 +99,7 @@ export const Tip: FC<TipProps> = ({ className, children, title, container = docu
         const rectContainer = container.getBoundingClientRect();
 
         setPosition({
-            left: 0,
+            left: rect.x,
             top: rect.y - rectContainer.y
         });
     };
