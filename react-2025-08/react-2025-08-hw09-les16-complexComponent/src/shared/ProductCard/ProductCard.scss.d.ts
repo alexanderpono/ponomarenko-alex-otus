@@ -10,6 +10,7 @@ interface CssExports {
   'grey': string;
   'image': string;
   'price': string;
+  'tip': string;
   'title': string;
 }
 export const cssExports: CssExports;

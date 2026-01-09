@@ -69,3 +69,20 @@
         color: #5660f0;
     }
 }
+
+$indent: 8px;
+.tip {
+    border-radius: 0px !important;
+
+    transform: translate(0%, calc(-100% - $indent)) !important;
+    background-color: rgba(100, 100, 100) !important;
+    color: white !important;
+    font-family: Arial, sans-serif;
+    font-size: 0.9em;
+    margin-left: 16px;
+
+    p {
+        margin: 0px;
+        padding: 0px;
+    }
+}
