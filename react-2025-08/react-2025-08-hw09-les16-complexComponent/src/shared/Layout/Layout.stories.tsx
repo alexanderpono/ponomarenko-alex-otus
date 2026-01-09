@@ -28,14 +28,24 @@ export const LayoutWithScroll: Story = {
     args: {
         children: (
             <>
-                <ProductCard image="" count={0} price={1999} name={shortText} description={middleText} />
+                <ProductCard
+                    image=""
+                    count={0}
+                    price={1999}
+                    name={shortText}
+                    description={middleText}
+                    detailedDescription={bigText}
+                />
+                <div style={{ clear: 'both' }} />
                 <BtToBacket count={0} />
                 <BtToBacket count={1} />
                 <p>{middleText}</p>
                 <ProductCard image="cat.jpg" count={0} price={1999} name={shortText} description={middleText} />
+                <div style={{ clear: 'both' }} />
                 <DetailedProductCard image="cat.jpg" count={0} price={1999} name={shortText} category="Cats">
                     {bigText}
                 </DetailedProductCard>
+                <div style={{ clear: 'both' }} />
                 <CartItem image="" count={1} price={1999} name={shortText} />
                 <CartItem image="cat.jpg" count={2} price={1999} name={shortText} />
 
