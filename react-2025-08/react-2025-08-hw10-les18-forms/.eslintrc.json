@@ -1,0 +1,41 @@
+{
+    "env": {
+        "browser": true,
+        "node": true,
+        "commonjs": true,
+        "es2021": true
+    },
+    "extends": [
+        "plugin:import/recommended", // подсказки при импорте
+        "prettier", // отключает конфликты с prettier
+        "plugin:prettier/recommended",
+        "plugin:jest/recommended",
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "overrides": [],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": "latest"
+    },
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "@typescript-eslint/no-var-requires": 0,
+        "@typescript-eslint/triple-slash-reference": "error"
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "paths": ["."],
+                "extensions": [
+                    ".js",
+                    ".jsx",
+                    ".ts",
+                    ".tsx"
+                ]
+            }
+        }
+    }
+}
