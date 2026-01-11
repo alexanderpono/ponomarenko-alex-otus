@@ -1,0 +1,23 @@
+$indent: 8px;
+
+.root {
+  position: absolute;
+  z-index: 3;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: opacity .2s ease-in;
+  opacity: 1;
+
+  &.visible {
+    opacity: 1
+  }
+
+  &.top {
+    transform: translate(0%, calc(-100% - $indent))
+  }
+
+  &.bottom {
+    transform: translate(0%, $indent)
+  }
+}
