@@ -32,10 +32,10 @@ export function* saveStateSaga(action: SaveStateAction) {
     }
 }
 
-export function* watchLoadState() {
+export function* watchLoadStateSaga() {
     yield takeEvery(AppActions.LOAD_STATE, loadStateSaga);
 }
 
-export function* watchSaveState() {
+export function* watchSaveStateSaga() {
     yield takeLatest(AppActions.SAVE_STATE, saveStateSaga);
 }
