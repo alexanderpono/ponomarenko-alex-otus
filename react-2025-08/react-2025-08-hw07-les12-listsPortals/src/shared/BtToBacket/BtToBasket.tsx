@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { ChangeEvent, useCallback, useContext } from 'react';
 import styles from './BtToBacket.scss';
 import { ThemeContext } from 'src/shared/ThemeContext/ThemeContext';
 import cn from 'classnames';
@@ -9,6 +9,12 @@ interface BtToBasketProps {
 }
 export const BtToBasket: React.FC<BtToBasketProps> = ({ count }) => {
     const { theme } = useContext(ThemeContext);
+    const onChange = useCallback(
+        (event: ChangeEvent<HTMLInputElement>) => {
+            console.log('count, event.target.value=', count, event.target.value);
+        },
+        [count]
+    );
     return (
         <div
             className={cn(styles.BtToBasket, {
@@ -20,7 +26,7 @@ export const BtToBasket: React.FC<BtToBasketProps> = ({ count }) => {
             {count > 0 && (
                 <>
                     <div className={styles.plus}></div>
-                    <input className={styles.input} value={count}></input>
+                    <input className={styles.input} value={count} onChange={onChange}></input>
                     <div className={styles.minus}></div>
                 </>
             )}
