@@ -1,19 +1,19 @@
-import React from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import styles from './ProductDynamicList.scss';
 import cn from 'classnames';
-import ProductList from 'src/shared/ProductList/ProductList';
+import { MemoisedProductList } from 'src/shared/ProductList/ProductList';
 import { Product } from 'src/shared/ProductCard/ProductCard.types';
 
 interface ProductDynamicListProps {
     products: Product[];
 }
 export const ProductDynamicList: React.FC<ProductDynamicListProps> = ({ products }) => {
-    const listRef = React.useRef<HTMLDivElement>();
-    const loaderRef = React.useRef<HTMLDivElement>();
-    const [isLoadingProducts, setIsLoadingProducts] = React.useState(false);
-    const [myProducts, setMyProducts] = React.useState(products);
+    const listRef = useRef<HTMLDivElement>();
+    const loaderRef = useRef<HTMLDivElement>();
+    const [isLoadingProducts, setIsLoadingProducts] = useState(false);
+    const [myProducts, setMyProducts] = useState(products);
 
-    const loadMore = () => {
+    const loadMore = useCallback(() => {
         const newProduct: Product = {
             image: '',
             count: myProducts.length,
@@ -23,18 +23,21 @@ export const ProductDynamicList: React.FC<ProductDynamicListProps> = ({ products
         };
         setMyProducts([...myProducts, newProduct]);
         return Promise.resolve(newProduct);
-    };
+    }, [setMyProducts, myProducts]);
 
-    const processScrollEvent = (observers: IntersectionObserverEntry[]) => {
-        const loader = observers[0];
-        const canLoadMore = true;
-        if (loader.isIntersecting && canLoadMore) {
-            if (!isLoadingProducts) {
-                setIsLoadingProducts(true);
-                loadMore().finally(() => setIsLoadingProducts(false));
+    const processScrollEvent = useCallback(
+        (observers: IntersectionObserverEntry[]) => {
+            const loader = observers[0];
+            const canLoadMore = true;
+            if (loader.isIntersecting && canLoadMore) {
+                if (!isLoadingProducts) {
+                    setIsLoadingProducts(true);
+                    loadMore().finally(() => setIsLoadingProducts(false));
+                }
             }
-        }
-    };
+        },
+        [setIsLoadingProducts, loadMore]
+    );
 
     React.useEffect(() => {
         const root = listRef.current;
@@ -46,11 +49,10 @@ export const ProductDynamicList: React.FC<ProductDynamicListProps> = ({ products
     }, [myProducts]);
     return (
         <div className={cn(styles.ProductDynamicList)} ref={listRef}>
-            <ProductList products={myProducts} />
+            <MemoisedProductList products={myProducts} />
             <div className={styles.loader} ref={loaderRef}>
                 &nbsp;
             </div>
         </div>
     );
 };
-export default ProductList;

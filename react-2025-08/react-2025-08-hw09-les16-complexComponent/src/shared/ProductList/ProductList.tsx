@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styles from './ProductList.scss';
 import cn from 'classnames';
 import { Product } from 'src/shared/ProductCard/ProductCard.types';
@@ -8,9 +8,10 @@ interface ProductListProps {
     products: Product[];
 }
 export const ProductList: React.FC<ProductListProps> = ({ products }) => {
+    const filteredProducts = useMemo(() => products.filter((product: Product) => product.count > 0), [products]);
     return (
         <div className={cn(styles.ProductList)}>
-            {products.map((product: Product) => {
+            {filteredProducts.map((product: Product) => {
                 return (
                     <ProductCard
                         key={`${product.name}-${product.description}`}
@@ -26,3 +27,5 @@ export const ProductList: React.FC<ProductListProps> = ({ products }) => {
     );
 };
 export default ProductList;
+
+export const MemoisedProductList = React.memo(ProductList);
