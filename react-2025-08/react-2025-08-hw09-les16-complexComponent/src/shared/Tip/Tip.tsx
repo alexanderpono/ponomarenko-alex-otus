@@ -76,24 +76,21 @@ export const Tip: FC<TipProps> = ({ className, children, title, container = docu
     const [state, dispatch] = useReducer(reducer, { mount: false, visible: false });
     const [position, setPosition] = useState<TipPosition>({ left: 0, top: 0 });
     const [place, setPlace] = useState<TipPlace>(TipPlace.top);
-    const tip = useRef<HTMLDivElement>();
-    const holder = useRef<HTMLDivElement>();
+    const tip = useRef<HTMLDivElement>(null);
+    const holder = useRef<HTMLDivElement>(null);
 
     const child = React.Children.only(children);
     const { style, className: classN } = child.props;
 
-    const clonedChild = React.cloneElement(React.Children.only(children), {
-        ...child.props,
-        style: null,
-        className: null
-    });
+    const clonedChild = React.cloneElement(React.Children.only(children));
 
-    const timeoutId = useRef<number>();
-
+    const timerRef = useRef<NodeJS.Timeout>();
     const onMouseEnter = () => {
-        clearTimeout(timeoutId.current);
+        if (timerRef.current) {
+            clearTimeout(timerRef.current);
+        }
         dispatch({ type: TipType.mount });
-        setTimeout(() => dispatch({ type: TipType.visible }), 0);
+        timerRef.current = setTimeout(() => dispatch({ type: TipType.visible }), 0);
 
         const rect = holder.current?.getBoundingClientRect();
         const rectContainer = container.getBoundingClientRect();
@@ -105,11 +102,23 @@ export const Tip: FC<TipProps> = ({ className, children, title, container = docu
     };
 
     const onMouseLeave = () => {
-        timeoutId.current = window?.setTimeout(() => {
+        if (timerRef.current) {
+            clearTimeout(timerRef.current);
+        }
+        timerRef.current = setTimeout(() => {
             dispatch({ type: TipType.invisible });
             setTimeout(() => dispatch({ type: TipType.unmount }), 0);
         }, 1000);
     };
+
+    useEffect(() => {
+        return () => {
+            if (timerRef.current) {
+                clearTimeout(timerRef.current);
+                timerRef.current = null;
+            }
+        };
+    }, []);
 
     const parent = React.createElement(
         child.type,
@@ -128,7 +137,7 @@ export const Tip: FC<TipProps> = ({ className, children, title, container = docu
                 setPlace(TipPlace.top);
             }
         }
-    }, [state.mount]);
+    }, [state.mount, tip.current, holder.current, setPlace, setPosition]);
 
     useEffect(() => {
         if (!state.mount) setPlace(TipPlace.top);
@@ -141,7 +150,7 @@ export const Tip: FC<TipProps> = ({ className, children, title, container = docu
                     <div
                         ref={tip}
                         style={position}
-                        onMouseEnter={() => clearTimeout(timeoutId.current)}
+                        onMouseEnter={() => clearTimeout(timerRef.current)}
                         onMouseLeave={onMouseLeave}
                         className={cn(s.root, s[place], state.visible && s.visible, className)}
                     >
