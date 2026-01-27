@@ -6,7 +6,7 @@
         "es2021": true
     },
     "extends": [
-        "plugin:import/recommended", // подсказки при импорте
+        // "plugin:import/recommended", // подсказки при импорте
         "prettier", // отключает конфликты с prettier
         "plugin:prettier/recommended",
         "plugin:jest/recommended",
@@ -19,7 +19,7 @@
         "ecmaVersion": "latest"
     },
     "plugins": [
-        "@typescript-eslint"
+        "@typescript-eslint", "prettier", "react-hooks"
     ],
     "rules": {
         "@typescript-eslint/no-var-requires": 0,

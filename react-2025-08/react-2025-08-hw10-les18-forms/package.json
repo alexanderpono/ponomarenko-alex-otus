@@ -10,7 +10,8 @@
     "test": "jest src",
     "lint": "eslint src --fix",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "ts-check": "npx tsc --skipLibCheck"
   },
   "license": "MIT",
   "devDependencies": {
@@ -67,11 +68,16 @@
     "webpack-dev-server": "^4.15.0"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.0.1",
+    "antd": "^5.5.1",
     "classnames": "^2.5.1",
     "clsx": "^1.2.1",
+    "formik": "^2.2.9",
     "i18next": "^25.7.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-i18next": "^16.5.0"
+    "react-i18next": "^16.5.0",
+    "unchanged": "^2.2.1",
+    "yup": "^1.7.1"
   }
 }
