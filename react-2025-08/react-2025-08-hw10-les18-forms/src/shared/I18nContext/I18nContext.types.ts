@@ -23,6 +23,12 @@ export interface I18nContextType {
                 grey: string;
                 blue: string;
             };
+            profileForm: {
+                name: string;
+                about: string;
+                submit: string;
+                cancel: string;
+            };
         };
     };
 }
@@ -44,6 +50,12 @@ export const i18n: I18nContextType['i18n'] = {
             modalHeader: 'Modal Header',
             modalText: 'Modal text',
             category: 'Cats'
+        },
+        profileForm: {
+            name: 'Name',
+            about: 'About',
+            submit: 'Save',
+            cancel: 'Cancel'
         }
     },
     ru: {
@@ -61,6 +73,12 @@ export const i18n: I18nContextType['i18n'] = {
             modalHeader: 'Заголовок',
             modalText: 'Текст писать ту-тут',
             category: 'Котики'
+        },
+        profileForm: {
+            name: 'Имя',
+            about: 'О себе',
+            submit: 'Сохранить',
+            cancel: 'Отменить'
         }
     }
 };
