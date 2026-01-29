@@ -29,6 +29,17 @@ export interface I18nContextType {
                 submit: string;
                 cancel: string;
             };
+            loginForm: {
+                login: string;
+                password: string;
+                submit: string;
+            };
+            registerForm: {
+                login: string;
+                password: string;
+                repeatPassword: string;
+                submit: string;
+            };
         };
     };
 }
@@ -56,6 +67,17 @@ export const i18n: I18nContextType['i18n'] = {
             about: 'About',
             submit: 'Save',
             cancel: 'Cancel'
+        },
+        loginForm: {
+            login: 'Login',
+            password: 'Password',
+            submit: 'Sign in'
+        },
+        registerForm: {
+            login: 'Login',
+            password: 'Password',
+            repeatPassword: 'Repeat password',
+            submit: 'Sign up'
         }
     },
     ru: {
@@ -79,6 +101,17 @@ export const i18n: I18nContextType['i18n'] = {
             about: 'О себе',
             submit: 'Сохранить',
             cancel: 'Отменить'
+        },
+        loginForm: {
+            login: 'Логин',
+            password: 'Пароль',
+            submit: 'Войти'
+        },
+        registerForm: {
+            login: 'Логин',
+            password: 'Пароль',
+            repeatPassword: 'Повторите пароль',
+            submit: 'Зарегистрироваться'
         }
     }
 };

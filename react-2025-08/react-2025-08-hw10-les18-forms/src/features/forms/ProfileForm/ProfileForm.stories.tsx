@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { ProfileForm } from './ProfileForm/ProfileForm';
+import { ProfileForm } from './ProfileForm';
 
 const meta: Meta<typeof ProfileForm> = {
     title: 'features/ProfileForm',
