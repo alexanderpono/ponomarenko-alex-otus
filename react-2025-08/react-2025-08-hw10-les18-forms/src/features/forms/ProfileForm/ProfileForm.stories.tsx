@@ -20,6 +20,21 @@ export const defaultStory: Story = {
         return (
             <ProfileForm
                 initialValues={{ name: 'name', about: 'about' }}
+                initialErrors={{ name: '', about: '' }}
+                onSubmit={(values) => {
+                    console.log('onSubmit() values=', values);
+                }}
+            />
+        );
+    }
+};
+
+export const errors: Story = {
+    render: () => {
+        return (
+            <ProfileForm
+                initialValues={{ name: 'name', about: 'about' }}
+                initialErrors={{ name: 'name error', about: 'about error' }}
                 onSubmit={(values) => {
                     console.log('onSubmit() values=', values);
                 }}

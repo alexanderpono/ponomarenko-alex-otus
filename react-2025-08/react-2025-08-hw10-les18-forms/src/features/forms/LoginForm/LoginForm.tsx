@@ -4,24 +4,37 @@ import styles from './LoginForm.scss';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { I18nContext } from 'src/shared/I18nContext/I18nContext';
+import { ErrorFields } from 'src/features/forms/forms.types';
 
 interface LoginFormProps {
     initialValues: LoginFormValues;
     onSubmit: (values: LoginFormValues) => void;
+    initialErrors: ErrorFields<LoginFormValues>;
+    isRegistering: boolean;
 }
-export const LoginForm: React.FC<LoginFormProps> = ({ initialValues, onSubmit }) => {
+export const LoginForm: React.FC<LoginFormProps> = ({ initialValues, onSubmit, initialErrors, isRegistering }) => {
     const { language, i18n } = useContext(I18nContext);
+    const errTranslations = i18n[language].errors;
 
     const validationSchema = Yup.object().shape({
-        login: Yup.string().required('Login is required').max(20, 'Should be max 20 characters'),
-        password: Yup.string().required('Password is required').max(32, 'Should be max 32 characters')
+        login: Yup.string().required(errTranslations.required).max(32, errTranslations.max32Length),
+        password: Yup.string().required(errTranslations.required).max(32, errTranslations.max32Length),
+        repeatPassword: isRegistering
+            ? Yup.string()
+                  .required(errTranslations.required)
+                  .max(32, errTranslations.max32Length)
+                  .oneOf([Yup.ref('password')], errTranslations.passwordsMustBeEqual)
+            : undefined
     });
+
     const formik = useFormik({
         initialValues,
-        onSubmit: (values) => {
+        onSubmit: (values, { resetForm }) => {
             onSubmit(values);
+            resetForm();
         },
-        validationSchema
+        validationSchema,
+        initialErrors
     });
 
     const translations = i18n[language].loginForm;
@@ -30,14 +43,27 @@ export const LoginForm: React.FC<LoginFormProps> = ({ initialValues, onSubmit })
             <label>
                 <span>{translations.login}</span>
                 <input type="text" name="login" onChange={formik.handleChange} value={formik.values.login} />
+                {formik.errors.login && <div className={styles.error}>{formik.errors.login}</div>}
             </label>
-            {formik.errors.login && <div>{formik.errors.login}</div>}
 
             <label>
                 <span>{translations.password}</span>
                 <input type="password" name="password" onChange={formik.handleChange} value={formik.values.password} />
+                {formik.errors.password && <div className={styles.error}>{formik.errors.password}</div>}
             </label>
-            {formik.errors.password && <div>{formik.errors.password}</div>}
+
+            {isRegistering && (
+                <label>
+                    <span>{translations.repeatPassword}</span>
+                    <input
+                        type="password"
+                        name="repeatPassword"
+                        onChange={formik.handleChange}
+                        value={formik.values.repeatPassword}
+                    />
+                    {formik.errors.repeatPassword && <div className={styles.error}>{formik.errors.repeatPassword}</div>}
+                </label>
+            )}
 
             <div>
                 <span>&nbsp;</span>

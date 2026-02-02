@@ -15,14 +15,69 @@ const meta: Meta<typeof LoginForm> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const defaultStory: Story = {
+export const login: Story = {
     render: () => {
         return (
             <LoginForm
-                initialValues={{ login: '', password: '' }}
+                initialValues={{ login: '', password: '', repeatPassword: '' }}
+                initialErrors={{ login: '', password: '', repeatPassword: '' }}
                 onSubmit={(values) => {
                     console.log('onSubmit() values=', values);
                 }}
+                isRegistering={false}
+            />
+        );
+    }
+};
+
+export const loginErrors: Story = {
+    render: () => {
+        return (
+            <LoginForm
+                initialValues={{ login: '', password: '', repeatPassword: '' }}
+                initialErrors={{
+                    login: 'login error',
+                    password: 'password error',
+                    repeatPassword: 'repeatPassword error'
+                }}
+                onSubmit={(values) => {
+                    console.log('onSubmit() values=', values);
+                }}
+                isRegistering={false}
+            />
+        );
+    }
+};
+
+export const register: Story = {
+    render: () => {
+        return (
+            <LoginForm
+                initialValues={{ login: '', password: '', repeatPassword: '' }}
+                initialErrors={{ login: '', password: '', repeatPassword: '' }}
+                onSubmit={(values) => {
+                    console.log('onSubmit() values=', values);
+                }}
+                isRegistering={true}
+            />
+        );
+    }
+};
+
+export const registerErrors: Story = {
+    render: () => {
+        return (
+            <LoginForm
+                initialValues={{ login: '', password: '', repeatPassword: '' }}
+                initialErrors={{
+                    login: 'login error',
+                    password: 'password error',
+                    repeatPassword: 'repeatPassword error'
+                }}
+                onSubmit={(values) => {
+                    console.log('onSubmit() values=', values);
+                }}
+                isRegistering={true}
             />
         );
     }
