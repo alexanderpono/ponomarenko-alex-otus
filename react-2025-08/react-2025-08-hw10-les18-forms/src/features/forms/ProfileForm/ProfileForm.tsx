@@ -4,24 +4,28 @@ import styles from './ProfileForm.scss';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { I18nContext } from 'src/shared/I18nContext/I18nContext';
+import { ErrorFields } from 'src/features/forms/forms.types';
 
 interface ProfileFormProps {
     initialValues: ProfileFormValues;
     onSubmit: (values: ProfileFormValues) => void;
+    initialErrors: ErrorFields<ProfileFormValues>;
 }
-export const ProfileForm: React.FC<ProfileFormProps> = ({ initialValues, onSubmit }) => {
+export const ProfileForm: React.FC<ProfileFormProps> = ({ initialValues, onSubmit, initialErrors }) => {
     const { language, i18n } = useContext(I18nContext);
+    const errTranslations = i18n[language].errors;
 
     const validationSchema = Yup.object().shape({
-        name: Yup.string().required('This field is required').max(20, 'Name should be max 20 characters'),
-        about: Yup.string().required('This field is required').max(32, 'About should be max 32 characters')
+        name: Yup.string().required(errTranslations.required).max(32, errTranslations.max32Length),
+        about: Yup.string().required(errTranslations.required).max(32, errTranslations.max32Length)
     });
     const formik = useFormik({
         initialValues,
         onSubmit: (values) => {
             onSubmit(values);
         },
-        validationSchema
+        validationSchema,
+        initialErrors
     });
 
     const translations = i18n[language].profileForm;
@@ -30,14 +34,14 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ initialValues, onSubmi
             <label>
                 <span>{translations.name}</span>
                 <input type="text" name="name" onChange={formik.handleChange} value={formik.values.name} />
+                {formik.errors.name && <div className={styles.error}>{formik.errors.name}</div>}
             </label>
-            {formik.errors.name && <div>{formik.errors.name}</div>}
 
             <label>
                 <span>{translations.about}</span>
                 <input type="text" name="about" onChange={formik.handleChange} value={formik.values.about} />
+                {formik.errors.about && <div className={styles.error}>{formik.errors.about}</div>}
             </label>
-            {formik.errors.about && <div>{formik.errors.about}</div>}
 
             <div>
                 <span>&nbsp;</span>

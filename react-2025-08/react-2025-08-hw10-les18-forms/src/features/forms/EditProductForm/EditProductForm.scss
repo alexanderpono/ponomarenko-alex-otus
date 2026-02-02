@@ -1,4 +1,4 @@
-.LoginForm {
+.EditProductForm {
     display: block;
 
     display: flex;
@@ -10,7 +10,7 @@
     label {
         margin-bottom: 20px;
     }
-    input[type="text"], input[type="password"], button {
+    input[type="text"], input[type="password"], input[type="file"], button {
         margin-left: 20px;
     }
     span {
@@ -20,4 +20,9 @@
         line-height: 20px;
     }
 
+}
+
+.error {
+    color: red;
+    padding-left: 70px;
 }

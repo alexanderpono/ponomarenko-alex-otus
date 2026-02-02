@@ -32,6 +32,7 @@ export interface I18nContextType {
             loginForm: {
                 login: string;
                 password: string;
+                repeatPassword: string;
                 submit: string;
             };
             registerForm: {
@@ -39,6 +40,22 @@ export interface I18nContextType {
                 password: string;
                 repeatPassword: string;
                 submit: string;
+            };
+            editProductForm: {
+                image: string;
+                price: string;
+                name: string;
+                category: string;
+                description: string;
+                submit: string;
+                cancel: string;
+            };
+            errors: {
+                mustBePositive: string;
+                required: string;
+                max32Length: string;
+                max2048Length: string;
+                passwordsMustBeEqual: string;
             };
         };
     };
@@ -71,6 +88,7 @@ export const i18n: I18nContextType['i18n'] = {
         loginForm: {
             login: 'Login',
             password: 'Password',
+            repeatPassword: 'Repeat password',
             submit: 'Sign in'
         },
         registerForm: {
@@ -78,6 +96,22 @@ export const i18n: I18nContextType['i18n'] = {
             password: 'Password',
             repeatPassword: 'Repeat password',
             submit: 'Sign up'
+        },
+        editProductForm: {
+            image: 'Image',
+            price: 'Price',
+            name: 'Name',
+            category: 'Category',
+            description: 'Description',
+            submit: 'Save',
+            cancel: 'Cancel'
+        },
+        errors: {
+            mustBePositive: 'Must be positive',
+            required: 'This field is required',
+            max32Length: 'Should be max 32 characters length',
+            max2048Length: 'Should be max 2048 characters length',
+            passwordsMustBeEqual: 'Passwords must be equal'
         }
     },
     ru: {
@@ -105,6 +139,7 @@ export const i18n: I18nContextType['i18n'] = {
         loginForm: {
             login: 'Логин',
             password: 'Пароль',
+            repeatPassword: 'Повторите пароль',
             submit: 'Войти'
         },
         registerForm: {
@@ -112,6 +147,22 @@ export const i18n: I18nContextType['i18n'] = {
             password: 'Пароль',
             repeatPassword: 'Повторите пароль',
             submit: 'Зарегистрироваться'
+        },
+        editProductForm: {
+            image: 'Изображение',
+            price: 'Цена',
+            name: 'Название',
+            category: 'Категория',
+            description: 'Описание',
+            submit: 'Сохранить',
+            cancel: 'Отмена'
+        },
+        errors: {
+            mustBePositive: 'Должно быть больше 0',
+            required: 'Обязательное поле',
+            max32Length: 'Должно быть не длиннее 32 символов',
+            max2048Length: 'Должно быть не длиннее 2048 символов',
+            passwordsMustBeEqual: 'Пароли должны совпадать'
         }
     }
 };
