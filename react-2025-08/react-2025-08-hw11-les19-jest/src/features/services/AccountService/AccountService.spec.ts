@@ -23,9 +23,15 @@ describe('AccountService', () => {
             [ProductType.TOY]: 0,
             [ProductType.FOOD]: 0
         };
+        const foodWeek = {
+            [ProductType.CAR]: 0,
+            [ProductType.TOY]: 0,
+            [ProductType.FOOD]: 10
+        };
         test.each`
             about                                | user          | product  | discounts      | expected
             ${'std(0) & food(10) & noDiscounts'} | ${stdUserPD0} | ${apple} | ${noDiscounts} | ${10}
+            ${'std(0) & food(10) & foodWeek'}    | ${stdUserPD0} | ${apple} | ${foodWeek}    | ${9}
         `('returns $expected from $about', ({ user, product, discounts, expected }) => {
             const productDiscounts: ProductDiscountService = castPartialTo<ProductDiscountService>({
                 getProductDiscountPercent(type: ProductType) {
