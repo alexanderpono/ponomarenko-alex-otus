@@ -9,7 +9,9 @@ export class AccountService implements IAccountService {
     getDiscount = (user: User, product: Product) => {
         return (
             product.price *
-            (1 - user.personalDiscountPercents - this.productDiscounts.getProductDiscountPercent(product.type) / 100)
+            (1 -
+                user.personalDiscountPercents / 100 -
+                this.productDiscounts.getProductDiscountPercent(product.type) / 100)
         );
     };
 }
