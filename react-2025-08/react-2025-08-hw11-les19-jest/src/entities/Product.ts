@@ -6,6 +6,7 @@ export enum ProductType {
 
 export interface Product {
     type: ProductType;
+    price: number;
 }
 
 export type UserTypeProductTypeDiscount = Record<string, number>;
