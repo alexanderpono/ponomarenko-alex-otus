@@ -7,7 +7,7 @@ export enum UserType {
 
 export interface User {
     type: UserType;
-    personalDiscount: number;
+    personalDiscountPercents: number;
 }
 
 export type UserTypeDiscount = Record<UserType, number>;
