@@ -24,6 +24,12 @@ export enum Speed {
     FAST = 'FAST',
 }
 
+export const speedToDelay = {
+    [Speed.SLOW]: 2000,
+    [Speed.MEDIUM]: 1000,
+    [Speed.FAST]: 500,
+};
+
 export enum Mode {
     PLAY = 'PLAY',
     PAUSE = 'PAUSE',

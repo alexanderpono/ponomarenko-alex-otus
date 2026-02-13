@@ -9,20 +9,20 @@ describe('FieldSize', () => {
         const mockCallBack = jest.fn();
         render(<FieldSize setSize={mockCallBack} size={Size.MIDDLE} />);
         userEvent.click(screen.getByText(SMALL_SIZE_CAPTION));
-        expect(mockCallBack.mock.calls.length).toEqual(1);
+        expect(mockCallBack).toBeCalledTimes(1);
     });
 
     it('calls setSize() callback when #btMedium is clicked', () => {
         const mockCallBack = jest.fn();
         render(<FieldSize setSize={mockCallBack} size={Size.MIDDLE} />);
         userEvent.click(screen.getByText(MIDDLE_SIZE_CAPTION));
-        expect(mockCallBack.mock.calls.length).toEqual(1);
+        expect(mockCallBack).toBeCalledTimes(1);
     });
 
     it('calls setSize() callback when #btLarge is clicked', () => {
         const mockCallBack = jest.fn();
         render(<FieldSize setSize={mockCallBack} size={Size.MIDDLE} />);
         userEvent.click(screen.getByText(LARGE_SIZE_CAPTION));
-        expect(mockCallBack.mock.calls.length).toEqual(1);
+        expect(mockCallBack).toBeCalledTimes(1);
     });
 });
