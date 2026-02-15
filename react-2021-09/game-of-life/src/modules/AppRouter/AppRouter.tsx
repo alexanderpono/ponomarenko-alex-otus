@@ -5,7 +5,7 @@ import { AuthorizedHead } from '@src/components/AuthorizedHead';
 import { LoginForm } from '@src/components/LoginForm';
 import { GameSettings } from '@src/components/GameSettings';
 import { useAppState } from '@src/store/hooks';
-import { FillPercent, Size } from '@src/consts';
+import { FillPercent, Mode, Size, Speed } from '@src/consts';
 
 interface AppRouterProps {
     invert: (num: number) => void;
@@ -13,6 +13,8 @@ interface AppRouterProps {
     fill: (percent: FillPercent) => void;
     onChangeName: (name: string) => void;
     onLogout: () => void;
+    setMode: (mode: Mode) => void;
+    setSpeed: (speed: Speed) => void;
 }
 
 export const AppRouter: React.FC<AppRouterProps> = ({
@@ -21,6 +23,8 @@ export const AppRouter: React.FC<AppRouterProps> = ({
     onLogout,
     fill,
     setSize,
+    setMode,
+    setSpeed,
 }) => {
     const { userName } = useAppState();
     return (
@@ -32,7 +36,12 @@ export const AppRouter: React.FC<AppRouterProps> = ({
                 <Route path="/">
                     <AuthorizedHead userName={userName} onLogout={onLogout} />
                     <GameUI invert={invert} />
-                    <GameSettings fill={fill} setSize={setSize} />
+                    <GameSettings
+                        fill={fill}
+                        setSize={setSize}
+                        setMode={setMode}
+                        setSpeed={setSpeed}
+                    />
                 </Route>
                 <Route path="*">
                     <Redirect to="/login" />
