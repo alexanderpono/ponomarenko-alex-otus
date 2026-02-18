@@ -1,6 +1,6 @@
 import { User, UserType } from 'src/entities/User';
 import { AccountService } from './AccountService';
-import { Product, ProductType } from 'src/entities/Product';
+import { defaultProduct, Product, ProductType } from 'src/entities/Product';
 import { ProductDiscountService } from 'src/features/services/ProductDiscountService/ProductDiscountService';
 import { castPartialTo } from 'src/testFramework/castPartialTo';
 import { IUserDiscountService } from 'src/features/services/UserDiscountService/UserDiscountService.types';
@@ -24,10 +24,12 @@ describe('AccountService', () => {
             personalDiscountPercents: 10
         };
         const apple: Product = {
+            ...defaultProduct,
             type: ProductType.FOOD,
             price: 10
         };
         const ford: Product = {
+            ...defaultProduct,
             type: ProductType.CAR,
             price: 10000
         };

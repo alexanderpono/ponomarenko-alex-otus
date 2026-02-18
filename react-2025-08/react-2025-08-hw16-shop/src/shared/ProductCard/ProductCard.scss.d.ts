@@ -10,6 +10,7 @@ interface CssExports {
   'grey': string;
   'image': string;
   'price': string;
+  'text': string;
   'tip': string;
   'title': string;
 }

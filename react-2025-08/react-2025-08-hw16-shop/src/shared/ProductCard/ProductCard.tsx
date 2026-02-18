@@ -34,15 +34,17 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             {!image && <div className={styles.defaultImage}></div>}
 
             <div className={styles.details}>
-                <h2 className={styles.title}>{name}</h2>
-                <p className={styles.description}>
-                    {detailedDescription && (
-                        <Tip title={detailedDescription} className={styles.tip}>
-                            <div style={{ backgroundColor: '#efc' }}>{description}</div>
-                        </Tip>
-                    )}
-                    {!detailedDescription && description}
-                </p>
+                <div className={styles.text}>
+                    <h2 className={styles.title}>{name}</h2>
+                    <p className={styles.description}>
+                        {detailedDescription && (
+                            <Tip title={detailedDescription} className={styles.tip}>
+                                <div style={{ backgroundColor: '#efc' }}>{description}</div>
+                            </Tip>
+                        )}
+                        {!detailedDescription && description}
+                    </p>
+                </div>
                 <div className={styles.price}>₽ {price}</div>
                 <BtToBasket count={count} />
             </div>
