@@ -2,10 +2,17 @@ import { AppStateManager } from 'src/store/AppStateManager';
 import { IAppController } from './AppController.types';
 import { defaultProduct, ProductType } from 'src/entities/Product';
 import { middleText } from 'src/constants/middleText';
+import { Theme } from 'src/constants/Theme';
 
 export class AppController implements IAppController {
+    private appSTM: AppStateManager = null;
+
+    constructor() {
+        this.appSTM = AppStateManager.create();
+    }
+
     onAppMount = () => {
-        AppStateManager.create().products([
+        this.appSTM.products([
             {
                 ...defaultProduct,
                 type: ProductType.TOY,
@@ -29,5 +36,14 @@ export class AppController implements IAppController {
                 desc: 'Дешево и сердито'
             }
         ]);
+
+        const themeStr = localStorage.getItem('colorTheme');
+        this.appSTM.colorTheme(themeStr === Theme.BLUE ? Theme.BLUE : Theme.GREY);
+    };
+
+    onThemeChange = (evt: React.ChangeEvent<HTMLSelectElement>) => {
+        const newColorTheme = evt.target.value === Theme.BLUE ? Theme.BLUE : Theme.GREY;
+        this.appSTM.colorTheme(newColorTheme);
+        localStorage.setItem('colorTheme', newColorTheme);
     };
 }

@@ -5,6 +5,8 @@ import * as store from './store';
 import { defaultProduct, Product } from 'src/entities/Product';
 import { castPartialTo } from 'src/testFramework/castPartialTo';
 import { Store } from 'redux';
+import { Language } from 'src/shared/I18nContext/I18nContext.types';
+import { Theme } from 'src/constants/Theme';
 jest.mock('./store');
 
 describe('AppStateManager', () => {
@@ -12,10 +14,14 @@ describe('AppStateManager', () => {
         const products: Product[] = rndAr<Product>(rndSize(3, 5), (): Product => {
             return { ...defaultProduct, date: str() } as Product;
         });
+        const rndLanguage = str() as Language;
+        const rndTheme = str() as Theme;
 
         test.each`
-            method        | param1      | param2  | expected
-            ${'products'} | ${products} | ${null} | ${app.products(products)}
+            method          | param1         | param2  | expected
+            ${'products'}   | ${products}    | ${null} | ${app.products(products)}
+            ${'language'}   | ${rndLanguage} | ${null} | ${app.language(rndLanguage)}
+            ${'colorTheme'} | ${rndTheme}    | ${null} | ${app.colorTheme(rndTheme)}
         `('$method() calls store.dispatch', ({ method, param1, param2, expected }) => {
             const dispatchMock = jest.fn();
             jest.spyOn(store, 'getStore').mockReturnValue(

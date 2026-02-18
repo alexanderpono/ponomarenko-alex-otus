@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styles from './ProductCard.scss';
 import BtToBasket from 'src/shared/BtToBacket/BtToBasket';
-import { ThemeContext } from 'src/shared/ThemeContext/ThemeContext';
 import cn from 'classnames';
 import { Theme } from 'src/constants/Theme';
 import { Tip } from 'src/shared/Tip/Tip';
+import { useSelector } from 'react-redux';
+import { appSelector } from 'src/store/selectors';
 
 interface ProductCardProps {
     image: string;
@@ -22,12 +23,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     description,
     detailedDescription
 }) => {
-    const { theme } = useContext(ThemeContext);
+    const colorTheme = useSelector(appSelector.colorTheme);
     return (
         <div
             className={cn(styles.ProductCard, {
-                [styles.grey]: theme === Theme.GREY,
-                [styles.blue]: theme === Theme.BLUE
+                [styles.grey]: colorTheme === Theme.GREY,
+                [styles.blue]: colorTheme === Theme.BLUE
             })}
         >
             {image && <img src={image} alt={name} className={styles.image} />}

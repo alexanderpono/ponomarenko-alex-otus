@@ -1,20 +1,28 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styles from './Header.scss';
 import Logo from 'src/shared/Logo/Logo';
 import ThemeSelector from 'src/shared/ThemeSelector/ThemeSelector';
 import cn from 'classnames';
-import { ThemeContext } from 'src/shared/ThemeContext/ThemeContext';
 import { Theme } from 'src/constants/Theme';
 import LanguageSelector from 'src/shared/LanguageSelector/LanguageSelector';
+import { useSelector } from 'react-redux';
+import { appSelector } from 'src/store/selectors';
+import { IAppController } from 'src/app/AppController.types';
 
-export const Header: React.FC = () => {
-    const { theme } = useContext(ThemeContext);
+interface HeaderProps {
+    ctrl: IAppController;
+}
+export const Header: React.FC<HeaderProps> = ({ ctrl }) => {
+    const colorTheme = useSelector(appSelector.colorTheme);
     return (
         <div
-            className={cn(styles.Header, { [styles.grey]: theme === Theme.GREY, [styles.blue]: theme === Theme.BLUE })}
+            className={cn(styles.Header, {
+                [styles.grey]: colorTheme === Theme.GREY,
+                [styles.blue]: colorTheme === Theme.BLUE
+            })}
         >
             <Logo />
-            <ThemeSelector />
+            <ThemeSelector ctrl={ctrl} />
             <LanguageSelector />
         </div>
     );

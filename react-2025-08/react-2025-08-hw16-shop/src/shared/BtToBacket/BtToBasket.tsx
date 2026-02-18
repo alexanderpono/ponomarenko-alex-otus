@@ -1,14 +1,16 @@
-import React, { ChangeEvent, useCallback, useContext } from 'react';
+import React, { ChangeEvent, useCallback } from 'react';
 import styles from './BtToBacket.scss';
-import { ThemeContext } from 'src/shared/ThemeContext/ThemeContext';
 import cn from 'classnames';
 import { Theme } from 'src/constants/Theme';
+import { useSelector } from 'react-redux';
+import { appSelector } from 'src/store/selectors';
 
 interface BtToBasketProps {
     count: number;
 }
 export const BtToBasket: React.FC<BtToBasketProps> = ({ count }) => {
-    const { theme } = useContext(ThemeContext);
+    const colorTheme = useSelector(appSelector.colorTheme);
+
     const onChange = useCallback(
         (event: ChangeEvent<HTMLInputElement>) => {
             console.log('count, event.target.value=', count, event.target.value);
@@ -18,8 +20,8 @@ export const BtToBasket: React.FC<BtToBasketProps> = ({ count }) => {
     return (
         <div
             className={cn(styles.BtToBasket, {
-                [styles.grey]: theme === Theme.GREY,
-                [styles.blue]: theme === Theme.BLUE
+                [styles.grey]: colorTheme === Theme.GREY,
+                [styles.blue]: colorTheme === Theme.BLUE
             })}
         >
             {count === 0 && <div className={styles.basket}></div>}
