@@ -3,7 +3,6 @@ import { Layout, LayoutProps } from './Layout';
 import React from 'react';
 import { bigText } from 'src/constants/bigText';
 import Modal from 'src/shared/Modal/Modal';
-import { ThemeProvider } from 'src/shared/ThemeContext/ThemeContext';
 import BtToBacket from 'src/shared/BtToBacket/BtToBasket';
 import { middleText } from 'src/constants/middleText';
 import ProductCard from 'src/shared/ProductCard/ProductCard';
@@ -11,6 +10,8 @@ import { shortText } from 'src/constants/shortText';
 import DetailedProductCard from 'src/shared/DetailedProductCard/DetailedProductCard';
 import CartItem from 'src/shared/CartItem/CartItem';
 import { I18nProvider } from 'src/shared/I18nContext/I18nContext';
+import { castPartialTo } from 'src/testFramework/castPartialTo';
+import { IAppController } from 'src/app/AppController.types';
 
 const meta: Meta<typeof Layout> = {
     title: 'shared/Layout',
@@ -55,11 +56,10 @@ export const LayoutWithScroll: Story = {
         )
     },
     render: (args: LayoutProps) => {
+        const ctrl = castPartialTo<IAppController>({});
         return (
             <I18nProvider>
-                <ThemeProvider>
-                    <Layout>{args.children}</Layout>
-                </ThemeProvider>
+                <Layout ctrl={ctrl}>{args.children}</Layout>
             </I18nProvider>
         );
     }
@@ -80,11 +80,10 @@ export const LayoutWithScrollAndModal: Story = {
         )
     },
     render: (args: LayoutProps) => {
+        const ctrl = castPartialTo<IAppController>({});
         return (
             <I18nProvider>
-                <ThemeProvider>
-                    <Layout>{args.children}</Layout>
-                </ThemeProvider>
+                <Layout ctrl={ctrl}>{args.children}</Layout>
             </I18nProvider>
         );
     }
