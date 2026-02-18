@@ -2,7 +2,7 @@ import { getFromState, getVal, rndAr, rndSize, str } from 'src/testFramework';
 import { defaultAppState, app, AppEvent, appReducer, AppState } from './appReducer';
 import { defaultProduct, Product } from 'src/entities/Product';
 import { Action } from 'redux-actions';
-import { Language } from 'src/shared/I18nContext/I18nContext.types';
+import { Language } from 'src/constants/i18n';
 import { Theme } from 'src/constants/Theme';
 
 describe('appReducer', () => {

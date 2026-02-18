@@ -1,10 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { LoginFormValues } from './LoginForm.types';
 import styles from './LoginForm.scss';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { I18nContext } from 'src/shared/I18nContext/I18nContext';
 import { ErrorFields } from 'src/features/forms/forms.types';
+import { useSelector } from 'react-redux';
+import { appSelector } from 'src/store/selectors';
+import { i18n } from 'src/constants/i18n';
 
 interface LoginFormProps {
     initialValues: LoginFormValues;
@@ -13,7 +15,7 @@ interface LoginFormProps {
     isRegistering: boolean;
 }
 export const LoginForm: React.FC<LoginFormProps> = ({ initialValues, onSubmit, initialErrors, isRegistering }) => {
-    const { language, i18n } = useContext(I18nContext);
+    const language = useSelector(appSelector.language);
     const errTranslations = i18n[language].errors;
 
     const validationSchema = Yup.object().shape({

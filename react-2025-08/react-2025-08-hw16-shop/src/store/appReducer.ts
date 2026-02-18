@@ -1,7 +1,7 @@
 import { handleActions } from 'redux-actions';
 import { Theme } from 'src/constants/Theme';
 import { Product } from 'src/entities/Product';
-import { Language } from 'src/shared/I18nContext/I18nContext.types';
+import { Language } from 'src/constants/i18n';
 
 export enum AppEvent {
     DEFAULT = '',

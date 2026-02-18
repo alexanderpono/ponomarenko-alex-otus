@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styles from './ThemeSelector.scss';
 import { Theme } from 'src/constants/Theme';
-import { I18nContext } from 'src/shared/I18nContext/I18nContext';
 import { useSelector } from 'react-redux';
 import { appSelector } from 'src/store/selectors';
 import { IAppController } from 'src/app/AppController.types';
+import { i18n } from 'src/constants/i18n';
 
 interface ThemeSelectorProps {
     ctrl: IAppController;
@@ -12,7 +12,7 @@ interface ThemeSelectorProps {
 export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ ctrl }) => {
     const colorTheme = useSelector(appSelector.colorTheme);
 
-    const { language, i18n } = useContext(I18nContext);
+    const language = useSelector(appSelector.language);
     const translations = i18n[language].themeSelector;
 
     return (

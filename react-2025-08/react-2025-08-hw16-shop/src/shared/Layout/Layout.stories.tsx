@@ -9,9 +9,10 @@ import ProductCard from 'src/shared/ProductCard/ProductCard';
 import { shortText } from 'src/constants/shortText';
 import DetailedProductCard from 'src/shared/DetailedProductCard/DetailedProductCard';
 import CartItem from 'src/shared/CartItem/CartItem';
-import { I18nProvider } from 'src/shared/I18nContext/I18nContext';
 import { castPartialTo } from 'src/testFramework/castPartialTo';
 import { IAppController } from 'src/app/AppController.types';
+import { Provider } from 'react-redux';
+import { getStore } from 'src/store/store';
 
 const meta: Meta<typeof Layout> = {
     title: 'shared/Layout',
@@ -58,9 +59,9 @@ export const LayoutWithScroll: Story = {
     render: (args: LayoutProps) => {
         const ctrl = castPartialTo<IAppController>({});
         return (
-            <I18nProvider>
+            <Provider store={getStore()}>
                 <Layout ctrl={ctrl}>{args.children}</Layout>
-            </I18nProvider>
+            </Provider>
         );
     }
 };
@@ -82,9 +83,9 @@ export const LayoutWithScrollAndModal: Story = {
     render: (args: LayoutProps) => {
         const ctrl = castPartialTo<IAppController>({});
         return (
-            <I18nProvider>
+            <Provider store={getStore()}>
                 <Layout ctrl={ctrl}>{args.children}</Layout>
-            </I18nProvider>
+            </Provider>
         );
     }
 };
