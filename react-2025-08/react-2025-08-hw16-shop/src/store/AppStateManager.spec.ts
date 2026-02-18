@@ -5,7 +5,7 @@ import * as store from './store';
 import { defaultProduct, Product } from 'src/entities/Product';
 import { castPartialTo } from 'src/testFramework/castPartialTo';
 import { Store } from 'redux';
-import { Language } from 'src/shared/I18nContext/I18nContext.types';
+import { Language } from 'src/constants/i18n';
 import { Theme } from 'src/constants/Theme';
 jest.mock('./store');
 

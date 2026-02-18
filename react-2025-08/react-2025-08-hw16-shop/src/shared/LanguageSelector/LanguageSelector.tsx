@@ -1,22 +1,22 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styles from './LanguageSelector.scss';
-import { I18nContext } from 'src/shared/I18nContext/I18nContext';
-import { Language } from 'src/shared/I18nContext/I18nContext.types';
+import { i18n } from 'src/constants/i18n';
+import { useSelector } from 'react-redux';
+import { appSelector } from 'src/store/selectors';
+import { IAppController } from 'src/app/AppController.types';
 
-export const LanguageSelector: React.FC = () => {
-    const { language, i18n, setLanguage } = useContext(I18nContext);
-
-    const onLanguageChange = (evt: React.ChangeEvent<HTMLSelectElement>) => {
-        setLanguage(evt.target.value as Language);
-    };
-
+interface LanguageSelectorProps {
+    ctrl: IAppController;
+}
+export const LanguageSelector: React.FC<LanguageSelectorProps> = ({ ctrl }) => {
+    const language = useSelector(appSelector.language);
     const translations = i18n[language].languageSelector;
 
     return (
         <>
             <div className={styles.LanguageSelector}>
                 <span>{translations.caption}</span>
-                <select className={styles.select} value={language} onChange={onLanguageChange}>
+                <select className={styles.select} value={language} onChange={ctrl.onLanguageChange}>
                     <option value={'en'}>{translations.en}</option>
                     <option value={'ru'}>{translations.ru}</option>
                 </select>

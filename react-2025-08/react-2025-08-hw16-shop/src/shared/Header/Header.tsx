@@ -23,7 +23,7 @@ export const Header: React.FC<HeaderProps> = ({ ctrl }) => {
         >
             <Logo />
             <ThemeSelector ctrl={ctrl} />
-            <LanguageSelector />
+            <LanguageSelector ctrl={ctrl} />
         </div>
     );
 };

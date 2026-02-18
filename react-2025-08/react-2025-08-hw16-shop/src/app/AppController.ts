@@ -3,6 +3,10 @@ import { IAppController } from './AppController.types';
 import { defaultProduct, ProductType } from 'src/entities/Product';
 import { middleText } from 'src/constants/middleText';
 import { Theme } from 'src/constants/Theme';
+import { Language } from 'src/constants/i18n';
+
+const COLOR_THEME = 'colorTheme';
+const LANGUAGE = 'language';
 
 export class AppController implements IAppController {
     private appSTM: AppStateManager = null;
@@ -37,13 +41,22 @@ export class AppController implements IAppController {
             }
         ]);
 
-        const themeStr = localStorage.getItem('colorTheme');
+        const themeStr = localStorage.getItem(COLOR_THEME);
         this.appSTM.colorTheme(themeStr === Theme.BLUE ? Theme.BLUE : Theme.GREY);
+
+        const languageStr = localStorage.getItem(LANGUAGE);
+        this.appSTM.language(languageStr === Language.RU ? Language.RU : Language.EN);
     };
 
     onThemeChange = (evt: React.ChangeEvent<HTMLSelectElement>) => {
         const newColorTheme = evt.target.value === Theme.BLUE ? Theme.BLUE : Theme.GREY;
         this.appSTM.colorTheme(newColorTheme);
-        localStorage.setItem('colorTheme', newColorTheme);
+        localStorage.setItem(COLOR_THEME, newColorTheme);
+    };
+
+    onLanguageChange = (evt: React.ChangeEvent<HTMLSelectElement>) => {
+        const newLanguage = evt.target.value === Language.RU ? Language.RU : Language.EN;
+        this.appSTM.language(newLanguage);
+        localStorage.setItem(LANGUAGE, newLanguage);
     };
 }

@@ -1,10 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { ProfileFormValues } from './ProfileForm.types';
 import styles from './ProfileForm.scss';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { I18nContext } from 'src/shared/I18nContext/I18nContext';
 import { ErrorFields } from 'src/features/forms/forms.types';
+import { useSelector } from 'react-redux';
+import { appSelector } from 'src/store/selectors';
+import { i18n } from 'src/constants/i18n';
 
 interface ProfileFormProps {
     initialValues: ProfileFormValues;
@@ -12,7 +14,7 @@ interface ProfileFormProps {
     initialErrors: ErrorFields<ProfileFormValues>;
 }
 export const ProfileForm: React.FC<ProfileFormProps> = ({ initialValues, onSubmit, initialErrors }) => {
-    const { language, i18n } = useContext(I18nContext);
+    const language = useSelector(appSelector.language);
     const errTranslations = i18n[language].errors;
 
     const validationSchema = Yup.object().shape({

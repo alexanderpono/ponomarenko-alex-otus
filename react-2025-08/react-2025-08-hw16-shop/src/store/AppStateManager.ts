@@ -1,7 +1,7 @@
 import { getStore } from './store';
 import { app, AppAction, AppState } from './appReducer';
 import { Product } from 'src/entities/Product';
-import { Language } from 'src/shared/I18nContext/I18nContext.types';
+import { Language } from 'src/constants/i18n';
 import { Theme } from 'src/constants/Theme';
 
 const dispatch = (action: AppAction) => getStore().dispatch(action);

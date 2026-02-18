@@ -1,10 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { EditProductFormValues } from './EditProductForm.types';
 import styles from './EditProductForm.scss';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { I18nContext } from 'src/shared/I18nContext/I18nContext';
 import { ErrorFields } from 'src/features/forms/forms.types';
+import { useSelector } from 'react-redux';
+import { appSelector } from 'src/store/selectors';
+import { i18n } from 'src/constants/i18n';
 
 interface EditProductFormProps {
     initialValues: EditProductFormValues;
@@ -12,7 +14,7 @@ interface EditProductFormProps {
     onSubmit: (values: EditProductFormValues) => void;
 }
 export const EditProductForm: React.FC<EditProductFormProps> = ({ initialValues, initialErrors, onSubmit }) => {
-    const { language, i18n } = useContext(I18nContext);
+    const language = useSelector(appSelector.language);
 
     const translations = i18n[language].editProductForm;
     const errTranslations = i18n[language].errors;
