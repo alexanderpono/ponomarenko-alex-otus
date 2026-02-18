@@ -1,0 +1,23 @@
+{
+	"compilerOptions": {
+		"outDir": "./dist",
+	  "baseUrl": ".",
+	  "paths": {
+			"src/*": ["src/*"]
+	  },
+	  "lib": ["dom", "dom.iterable", "esnext"],
+	  "allowJs": true,
+	  "allowSyntheticDefaultImports": true,
+	  "skipLibCheck": true,
+	  "esModuleInterop": true,
+	  "target": "ES2015",
+	  "module": "esnext",
+	  "sourceMap": true,
+	  "noImplicitAny": true,
+	  "downlevelIteration": true,
+	  "moduleResolution": "node",
+	  "resolveJsonModule": true,
+	  "jsx": "react"
+	}
+}
+  
