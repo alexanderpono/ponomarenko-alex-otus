@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { EditProductForm } from './EditProductForm';
+import { Provider } from 'react-redux';
+import { getStore } from 'src/store/store';
 
 const meta: Meta<typeof EditProductForm> = {
     title: 'features/EditProductForm',
@@ -18,13 +20,15 @@ type Story = StoryObj<typeof meta>;
 export const defaultStory: Story = {
     render: () => {
         return (
-            <EditProductForm
-                initialValues={{ image: '', price: 0, name: '', category: '', description: '' }}
-                initialErrors={{ image: '', price: '', name: '', category: '', description: '' }}
-                onSubmit={(values) => {
-                    console.log('onSubmit() values=', values);
-                }}
-            />
+            <Provider store={getStore()}>
+                <EditProductForm
+                    initialValues={{ image: '', price: 0, name: '', category: '', description: '' }}
+                    initialErrors={{ image: '', price: '', name: '', category: '', description: '' }}
+                    onSubmit={(values) => {
+                        console.log('onSubmit() values=', values);
+                    }}
+                />
+            </Provider>
         );
     }
 };
@@ -32,19 +36,21 @@ export const defaultStory: Story = {
 export const errors: Story = {
     render: () => {
         return (
-            <EditProductForm
-                initialValues={{ image: '', price: 0, name: '', category: '', description: '' }}
-                initialErrors={{
-                    image: 'image err',
-                    price: 'price err',
-                    name: 'name err',
-                    category: 'category err',
-                    description: 'description err'
-                }}
-                onSubmit={(values) => {
-                    console.log('onSubmit() values=', values);
-                }}
-            />
+            <Provider store={getStore()}>
+                <EditProductForm
+                    initialValues={{ image: '', price: 0, name: '', category: '', description: '' }}
+                    initialErrors={{
+                        image: 'image err',
+                        price: 'price err',
+                        name: 'name err',
+                        category: 'category err',
+                        description: 'description err'
+                    }}
+                    onSubmit={(values) => {
+                        console.log('onSubmit() values=', values);
+                    }}
+                />
+            </Provider>
         );
     }
 };

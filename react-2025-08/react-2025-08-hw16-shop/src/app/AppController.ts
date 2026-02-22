@@ -59,4 +59,12 @@ export class AppController implements IAppController {
         this.appSTM.language(newLanguage);
         localStorage.setItem(LANGUAGE, newLanguage);
     };
+
+    onLoginClick = () => {
+        console.log('onLoginClick()');
+    };
+
+    onLogoutClick = () => {
+        console.log('onLogoutClick()');
+    };
 }

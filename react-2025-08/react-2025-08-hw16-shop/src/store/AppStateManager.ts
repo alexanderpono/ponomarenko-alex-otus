@@ -11,6 +11,7 @@ export class AppStateManager {
     products = (products: Product[]) => dispatch(app.products(products));
     language = (language: Language) => dispatch(app.language(language));
     colorTheme = (colorTheme: Theme) => dispatch(app.colorTheme(colorTheme));
+    isUserAuthorized = (isUserAuthorized: boolean) => dispatch(app.isUserAuthorized(isUserAuthorized));
 
     static create(): AppStateManager {
         return new AppStateManager();

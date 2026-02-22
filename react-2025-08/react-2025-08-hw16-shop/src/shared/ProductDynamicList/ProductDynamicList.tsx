@@ -4,7 +4,7 @@ import cn from 'classnames';
 import { MemoisedProductList } from 'src/shared/ProductList/ProductList';
 import { Product } from 'src/shared/ProductCard/ProductCard.types';
 
-interface ProductDynamicListProps {
+export interface ProductDynamicListProps {
     products: Product[];
 }
 export const ProductDynamicList: React.FC<ProductDynamicListProps> = ({ products }) => {

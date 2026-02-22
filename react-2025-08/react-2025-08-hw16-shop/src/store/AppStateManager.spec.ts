@@ -1,4 +1,4 @@
-import { rndAr, rndSize, str } from 'src/testFramework';
+import { bool, rndAr, rndSize, str } from 'src/testFramework';
 import { AppStateManager } from './AppStateManager';
 import { app } from './appReducer';
 import * as store from './store';
@@ -16,12 +16,14 @@ describe('AppStateManager', () => {
         });
         const rndLanguage = str() as Language;
         const rndTheme = str() as Theme;
+        const rndBool = bool();
 
         test.each`
-            method          | param1         | param2  | expected
-            ${'products'}   | ${products}    | ${null} | ${app.products(products)}
-            ${'language'}   | ${rndLanguage} | ${null} | ${app.language(rndLanguage)}
-            ${'colorTheme'} | ${rndTheme}    | ${null} | ${app.colorTheme(rndTheme)}
+            method                | param1         | param2  | expected
+            ${'products'}         | ${products}    | ${null} | ${app.products(products)}
+            ${'language'}         | ${rndLanguage} | ${null} | ${app.language(rndLanguage)}
+            ${'colorTheme'}       | ${rndTheme}    | ${null} | ${app.colorTheme(rndTheme)}
+            ${'isUserAuthorized'} | ${rndBool}     | ${null} | ${app.isUserAuthorized(rndBool)}
         `('$method() calls store.dispatch', ({ method, param1, param2, expected }) => {
             const dispatchMock = jest.fn();
             jest.spyOn(store, 'getStore').mockReturnValue(

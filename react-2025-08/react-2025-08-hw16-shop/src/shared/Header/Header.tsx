@@ -8,6 +8,7 @@ import LanguageSelector from 'src/shared/LanguageSelector/LanguageSelector';
 import { useSelector } from 'react-redux';
 import { appSelector } from 'src/store/selectors';
 import { IAppController } from 'src/app/AppController.types';
+import ProfileButton from 'src/shared/ProfileButton/ProfileButton';
 
 interface HeaderProps {
     ctrl: IAppController;
@@ -24,6 +25,7 @@ export const Header: React.FC<HeaderProps> = ({ ctrl }) => {
             <Logo />
             <ThemeSelector ctrl={ctrl} />
             <LanguageSelector ctrl={ctrl} />
+            <ProfileButton ctrl={ctrl} />
         </div>
     );
 };

@@ -1,5 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { BtToBasket } from './BtToBasket';
+import React from 'react';
+import { Provider } from 'react-redux';
+import { getStore } from 'src/store/store';
 
 const meta: Meta<typeof BtToBasket> = {
     title: 'shared/BtToBasket',
@@ -14,13 +17,21 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Empty: Story = {
-    args: {
-        count: 0
+    render: () => {
+        return (
+            <Provider store={getStore()}>
+                <BtToBasket count={0} />
+            </Provider>
+        );
     }
 };
 
 export const HasItems: Story = {
-    args: {
-        count: 1
+    render: () => {
+        return (
+            <Provider store={getStore()}>
+                <BtToBasket count={1} />
+            </Provider>
+        );
     }
 };

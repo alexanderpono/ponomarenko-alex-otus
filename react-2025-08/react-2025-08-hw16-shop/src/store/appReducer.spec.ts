@@ -1,4 +1,4 @@
-import { getFromState, getVal, rndAr, rndSize, str } from 'src/testFramework';
+import { bool, getFromState, getVal, rndAr, rndSize, str } from 'src/testFramework';
 import { defaultAppState, app, AppEvent, appReducer, AppState } from './appReducer';
 import { defaultProduct, Product } from 'src/entities/Product';
 import { Action } from 'redux-actions';
@@ -11,12 +11,14 @@ describe('appReducer', () => {
     });
     const rndLanguage = str() as Language;
     const rndTheme = str() as Theme;
+    const rndBool = bool();
 
     test.each`
-        actions                        | testName                                               | event                   | stateSelector   | value
-        ${[app.products(products)]}    | ${'sets .products for AppEvent.PRODUCTS action'}       | ${AppEvent.PRODUCTS}    | ${'products'}   | ${products}
-        ${[app.language(rndLanguage)]} | ${'sets .language for AppEvent.LANGUAGE action'}       | ${AppEvent.LANGUAGE}    | ${'language'}   | ${rndLanguage}
-        ${[app.colorTheme(rndTheme)]}  | ${'sets .colorScheme for AppEvent.COLOR_THEME action'} | ${AppEvent.COLOR_THEME} | ${'colorTheme'} | ${rndTheme}
+        actions                            | testName                                                          | event                         | stateSelector         | value
+        ${[app.products(products)]}        | ${'sets .products for AppEvent.PRODUCTS action'}                  | ${AppEvent.PRODUCTS}          | ${'products'}         | ${products}
+        ${[app.language(rndLanguage)]}     | ${'sets .language for AppEvent.LANGUAGE action'}                  | ${AppEvent.LANGUAGE}          | ${'language'}         | ${rndLanguage}
+        ${[app.colorTheme(rndTheme)]}      | ${'sets .colorScheme for AppEvent.COLOR_THEME action'}            | ${AppEvent.COLOR_THEME}       | ${'colorTheme'}       | ${rndTheme}
+        ${[app.isUserAuthorized(rndBool)]} | ${'sets .isUserAuthorized for AppEvent.IS_USER_AUTORIZED action'} | ${AppEvent.IS_USER_AUTORIZED} | ${'isUserAuthorized'} | ${rndBool}
     `('$testName', async ({ actions, event, stateSelector, value }) => {
         let state: AppState = { ...defaultAppState };
         (actions as Action<AppState>[]).forEach((action) => {

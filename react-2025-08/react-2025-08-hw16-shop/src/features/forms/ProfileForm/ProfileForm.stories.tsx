@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { ProfileForm } from './ProfileForm';
+import { Provider } from 'react-redux';
+import { getStore } from 'src/store/store';
 
 const meta: Meta<typeof ProfileForm> = {
     title: 'features/ProfileForm',
@@ -18,13 +20,15 @@ type Story = StoryObj<typeof meta>;
 export const defaultStory: Story = {
     render: () => {
         return (
-            <ProfileForm
-                initialValues={{ name: 'name', about: 'about' }}
-                initialErrors={{ name: '', about: '' }}
-                onSubmit={(values) => {
-                    console.log('onSubmit() values=', values);
-                }}
-            />
+            <Provider store={getStore()}>
+                <ProfileForm
+                    initialValues={{ name: 'name', about: 'about' }}
+                    initialErrors={{ name: '', about: '' }}
+                    onSubmit={(values) => {
+                        console.log('onSubmit() values=', values);
+                    }}
+                />
+            </Provider>
         );
     }
 };
@@ -32,13 +36,15 @@ export const defaultStory: Story = {
 export const errors: Story = {
     render: () => {
         return (
-            <ProfileForm
-                initialValues={{ name: 'name', about: 'about' }}
-                initialErrors={{ name: 'name error', about: 'about error' }}
-                onSubmit={(values) => {
-                    console.log('onSubmit() values=', values);
-                }}
-            />
+            <Provider store={getStore()}>
+                <ProfileForm
+                    initialValues={{ name: 'name', about: 'about' }}
+                    initialErrors={{ name: 'name error', about: 'about error' }}
+                    onSubmit={(values) => {
+                        console.log('onSubmit() values=', values);
+                    }}
+                />
+            </Provider>
         );
     }
 };

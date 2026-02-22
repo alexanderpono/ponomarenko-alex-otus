@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { LoginForm } from './LoginForm';
+import { Provider } from 'react-redux';
+import { getStore } from 'src/store/store';
 
 const meta: Meta<typeof LoginForm> = {
     title: 'features/LoginForm',
@@ -18,14 +20,16 @@ type Story = StoryObj<typeof meta>;
 export const login: Story = {
     render: () => {
         return (
-            <LoginForm
-                initialValues={{ login: '', password: '', repeatPassword: '' }}
-                initialErrors={{ login: '', password: '', repeatPassword: '' }}
-                onSubmit={(values) => {
-                    console.log('onSubmit() values=', values);
-                }}
-                isRegistering={false}
-            />
+            <Provider store={getStore()}>
+                <LoginForm
+                    initialValues={{ login: '', password: '', repeatPassword: '' }}
+                    initialErrors={{ login: '', password: '', repeatPassword: '' }}
+                    onSubmit={(values) => {
+                        console.log('onSubmit() values=', values);
+                    }}
+                    isRegistering={false}
+                />
+            </Provider>
         );
     }
 };
@@ -33,18 +37,20 @@ export const login: Story = {
 export const loginErrors: Story = {
     render: () => {
         return (
-            <LoginForm
-                initialValues={{ login: '', password: '', repeatPassword: '' }}
-                initialErrors={{
-                    login: 'login error',
-                    password: 'password error',
-                    repeatPassword: 'repeatPassword error'
-                }}
-                onSubmit={(values) => {
-                    console.log('onSubmit() values=', values);
-                }}
-                isRegistering={false}
-            />
+            <Provider store={getStore()}>
+                <LoginForm
+                    initialValues={{ login: '', password: '', repeatPassword: '' }}
+                    initialErrors={{
+                        login: 'login error',
+                        password: 'password error',
+                        repeatPassword: 'repeatPassword error'
+                    }}
+                    onSubmit={(values) => {
+                        console.log('onSubmit() values=', values);
+                    }}
+                    isRegistering={false}
+                />
+            </Provider>
         );
     }
 };
@@ -52,14 +58,16 @@ export const loginErrors: Story = {
 export const register: Story = {
     render: () => {
         return (
-            <LoginForm
-                initialValues={{ login: '', password: '', repeatPassword: '' }}
-                initialErrors={{ login: '', password: '', repeatPassword: '' }}
-                onSubmit={(values) => {
-                    console.log('onSubmit() values=', values);
-                }}
-                isRegistering={true}
-            />
+            <Provider store={getStore()}>
+                <LoginForm
+                    initialValues={{ login: '', password: '', repeatPassword: '' }}
+                    initialErrors={{ login: '', password: '', repeatPassword: '' }}
+                    onSubmit={(values) => {
+                        console.log('onSubmit() values=', values);
+                    }}
+                    isRegistering={true}
+                />
+            </Provider>
         );
     }
 };
@@ -67,18 +75,20 @@ export const register: Story = {
 export const registerErrors: Story = {
     render: () => {
         return (
-            <LoginForm
-                initialValues={{ login: '', password: '', repeatPassword: '' }}
-                initialErrors={{
-                    login: 'login error',
-                    password: 'password error',
-                    repeatPassword: 'repeatPassword error'
-                }}
-                onSubmit={(values) => {
-                    console.log('onSubmit() values=', values);
-                }}
-                isRegistering={true}
-            />
+            <Provider store={getStore()}>
+                <LoginForm
+                    initialValues={{ login: '', password: '', repeatPassword: '' }}
+                    initialErrors={{
+                        login: 'login error',
+                        password: 'password error',
+                        repeatPassword: 'repeatPassword error'
+                    }}
+                    onSubmit={(values) => {
+                        console.log('onSubmit() values=', values);
+                    }}
+                    isRegistering={true}
+                />
+            </Provider>
         );
     }
 };

@@ -3,6 +3,8 @@ import { DetailedProductCard, DetailedProductCardProps } from './DetailedProduct
 import React from 'react';
 import { bigText } from 'src/constants/bigText';
 import { shortText } from 'src/constants/shortText';
+import { Provider } from 'react-redux';
+import { getStore } from 'src/store/store';
 
 const meta: Meta<typeof DetailedProductCard> = {
     title: 'shared/DetailedProductCard',
@@ -24,15 +26,17 @@ type Story = StoryObj<typeof meta>;
 const defaultStory: Story = {
     render: (args: DetailedProductCardProps) => {
         return (
-            <DetailedProductCard
-                image={args.image}
-                count={args.count}
-                price={args.price}
-                name={args.name}
-                category={args.category}
-            >
-                {args.children}
-            </DetailedProductCard>
+            <Provider store={getStore()}>
+                <DetailedProductCard
+                    image={args.image}
+                    count={args.count}
+                    price={args.price}
+                    name={args.name}
+                    category={args.category}
+                >
+                    {args.children}
+                </DetailedProductCard>
+            </Provider>
         );
     }
 };

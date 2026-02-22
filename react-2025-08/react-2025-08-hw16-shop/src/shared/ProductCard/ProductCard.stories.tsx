@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ProductCard } from './ProductCard';
+import { ProductCard, ProductCardProps } from './ProductCard';
 import React from 'react';
+import { Provider } from 'react-redux';
+import { getStore } from 'src/store/store';
 
 const meta: Meta<typeof ProductCard> = {
     title: 'shared/ProductCard',
@@ -20,7 +22,25 @@ const meta: Meta<typeof ProductCard> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const defaultStory: Story = {
+    render: (args: ProductCardProps) => {
+        return (
+            <Provider store={getStore()}>
+                <ProductCard
+                    image={args.image}
+                    count={args.count}
+                    price={args.price}
+                    name={args.name}
+                    description={args.description}
+                    detailedDescription={args.detailedDescription}
+                />
+            </Provider>
+        );
+    }
+};
+
 export const NoImage: Story = {
+    ...defaultStory,
     args: {
         image: '',
         count: 0,
@@ -31,6 +51,7 @@ export const NoImage: Story = {
 };
 
 export const NoImage1: Story = {
+    ...defaultStory,
     args: {
         image: '',
         count: 1,
@@ -41,6 +62,7 @@ export const NoImage1: Story = {
 };
 
 export const Cat1: Story = {
+    ...defaultStory,
     args: {
         image: 'cat.jpg',
         count: 1,
@@ -51,6 +73,7 @@ export const Cat1: Story = {
 };
 
 export const CatWithTip: Story = {
+    ...defaultStory,
     args: {
         image: 'cat.jpg',
         count: 1,
