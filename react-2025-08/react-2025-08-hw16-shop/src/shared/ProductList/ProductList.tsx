@@ -4,7 +4,7 @@ import cn from 'classnames';
 import { Product } from 'src/shared/ProductCard/ProductCard.types';
 import ProductCard from 'src/shared/ProductCard/ProductCard';
 
-interface ProductListProps {
+export interface ProductListProps {
     products: Product[];
 }
 export const ProductList: React.FC<ProductListProps> = ({ products }) => {

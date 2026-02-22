@@ -1,5 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ProductDynamicList } from './ProductDynamicList';
+import { ProductDynamicList, ProductDynamicListProps } from './ProductDynamicList';
+import React from 'react';
+import { Provider } from 'react-redux';
+import { getStore } from 'src/store/store';
 
 const meta: Meta<typeof ProductDynamicList> = {
     title: 'shared/ProductDynamicList',
@@ -46,5 +49,12 @@ export const dynamic: Story = {
                 description: 'Short description 4'
             }
         ]
+    },
+    render: (args: ProductDynamicListProps) => {
+        return (
+            <Provider store={getStore()}>
+                <ProductDynamicList products={args.products} />
+            </Provider>
+        );
     }
 };

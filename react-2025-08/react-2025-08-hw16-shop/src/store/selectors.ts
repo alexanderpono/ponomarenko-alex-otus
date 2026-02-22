@@ -3,5 +3,6 @@ import { RootState } from './store';
 export const appSelector = {
     products: (state: RootState) => state.app.products,
     colorTheme: (state: RootState) => state.app.colorTheme,
-    language: (state: RootState) => state.app.language
+    language: (state: RootState) => state.app.language,
+    isUserAuthorized: (state: RootState) => state.app.isUserAuthorized
 };

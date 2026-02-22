@@ -1,5 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ProductList } from './ProductList';
+import { ProductList, ProductListProps } from './ProductList';
+import React from 'react';
+import { Provider } from 'react-redux';
+import { getStore } from 'src/store/store';
 
 const meta: Meta<typeof ProductList> = {
     title: 'shared/ProductList',
@@ -46,5 +49,12 @@ export const NoImage: Story = {
                 description: 'Short description 4'
             }
         ]
+    },
+    render: (args: ProductListProps) => {
+        return (
+            <Provider store={getStore()}>
+                <ProductList products={args.products} />
+            </Provider>
+        );
     }
 };

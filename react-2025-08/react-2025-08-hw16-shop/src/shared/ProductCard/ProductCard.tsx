@@ -7,7 +7,7 @@ import { Tip } from 'src/shared/Tip/Tip';
 import { useSelector } from 'react-redux';
 import { appSelector } from 'src/store/selectors';
 
-interface ProductCardProps {
+export interface ProductCardProps {
     image: string;
     count: number;
     price: number;

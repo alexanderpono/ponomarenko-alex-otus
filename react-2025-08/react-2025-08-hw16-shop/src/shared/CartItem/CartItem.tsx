@@ -6,7 +6,7 @@ import { Theme } from 'src/constants/Theme';
 import { useSelector } from 'react-redux';
 import { appSelector } from 'src/store/selectors';
 
-interface CartItemProps {
+export interface CartItemProps {
     image: string;
     count: number;
     price: number;
