@@ -3,6 +3,9 @@ import React from 'react';
 import { LoginForm } from './LoginForm';
 import { Provider } from 'react-redux';
 import { getStore } from 'src/store/store';
+import { castPartialTo } from 'src/testFramework/castPartialTo';
+import { IAppController } from 'src/app/AppController.types';
+import { LoginFormValues } from './LoginForm.types';
 
 const meta: Meta<typeof LoginForm> = {
     title: 'features/LoginForm',
@@ -19,14 +22,17 @@ type Story = StoryObj<typeof meta>;
 
 export const login: Story = {
     render: () => {
+        const ctrl = castPartialTo<IAppController>({
+            onLoginSubmit: (values: LoginFormValues) => {
+                console.log('onLoginSubmit() values=', values);
+            }
+        });
         return (
             <Provider store={getStore()}>
                 <LoginForm
                     initialValues={{ login: '', password: '', repeatPassword: '' }}
                     initialErrors={{ login: '', password: '', repeatPassword: '' }}
-                    onSubmit={(values) => {
-                        console.log('onSubmit() values=', values);
-                    }}
+                    ctrl={ctrl}
                     isRegistering={false}
                 />
             </Provider>
@@ -36,6 +42,11 @@ export const login: Story = {
 
 export const loginErrors: Story = {
     render: () => {
+        const ctrl = castPartialTo<IAppController>({
+            onLoginSubmit: (values: LoginFormValues) => {
+                console.log('onLoginSubmit() values=', values);
+            }
+        });
         return (
             <Provider store={getStore()}>
                 <LoginForm
@@ -45,9 +56,7 @@ export const loginErrors: Story = {
                         password: 'password error',
                         repeatPassword: 'repeatPassword error'
                     }}
-                    onSubmit={(values) => {
-                        console.log('onSubmit() values=', values);
-                    }}
+                    ctrl={ctrl}
                     isRegistering={false}
                 />
             </Provider>
@@ -57,14 +66,17 @@ export const loginErrors: Story = {
 
 export const register: Story = {
     render: () => {
+        const ctrl = castPartialTo<IAppController>({
+            onLoginSubmit: (values: LoginFormValues) => {
+                console.log('onLoginSubmit() values=', values);
+            }
+        });
         return (
             <Provider store={getStore()}>
                 <LoginForm
                     initialValues={{ login: '', password: '', repeatPassword: '' }}
                     initialErrors={{ login: '', password: '', repeatPassword: '' }}
-                    onSubmit={(values) => {
-                        console.log('onSubmit() values=', values);
-                    }}
+                    ctrl={ctrl}
                     isRegistering={true}
                 />
             </Provider>
@@ -74,6 +86,11 @@ export const register: Story = {
 
 export const registerErrors: Story = {
     render: () => {
+        const ctrl = castPartialTo<IAppController>({
+            onLoginSubmit: (values: LoginFormValues) => {
+                console.log('onLoginSubmit() values=', values);
+            }
+        });
         return (
             <Provider store={getStore()}>
                 <LoginForm
@@ -83,9 +100,7 @@ export const registerErrors: Story = {
                         password: 'password error',
                         repeatPassword: 'repeatPassword error'
                     }}
-                    onSubmit={(values) => {
-                        console.log('onSubmit() values=', values);
-                    }}
+                    ctrl={ctrl}
                     isRegistering={true}
                 />
             </Provider>

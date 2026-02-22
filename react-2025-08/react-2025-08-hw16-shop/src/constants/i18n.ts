@@ -32,12 +32,7 @@ export interface I18n {
                 password: string;
                 repeatPassword: string;
                 submit: string;
-            };
-            registerForm: {
-                login: string;
-                password: string;
-                repeatPassword: string;
-                submit: string;
+                register: string;
             };
             editProductForm: {
                 image: string;
@@ -87,13 +82,8 @@ export const i18n: I18n['i18n'] = {
             login: 'Login',
             password: 'Password',
             repeatPassword: 'Repeat password',
-            submit: 'Sign in'
-        },
-        registerForm: {
-            login: 'Login',
-            password: 'Password',
-            repeatPassword: 'Repeat password',
-            submit: 'Sign up'
+            submit: 'Sign in',
+            register: 'Register'
         },
         editProductForm: {
             image: 'Image',
@@ -138,13 +128,8 @@ export const i18n: I18n['i18n'] = {
             login: 'Логин',
             password: 'Пароль',
             repeatPassword: 'Повторите пароль',
-            submit: 'Войти'
-        },
-        registerForm: {
-            login: 'Логин',
-            password: 'Пароль',
-            repeatPassword: 'Повторите пароль',
-            submit: 'Зарегистрироваться'
+            submit: 'Войти',
+            register: 'Зарегистрироваться'
         },
         editProductForm: {
             image: 'Изображение',

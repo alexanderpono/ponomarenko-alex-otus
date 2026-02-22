@@ -4,6 +4,7 @@ import { defaultProduct, ProductType } from 'src/entities/Product';
 import { middleText } from 'src/constants/middleText';
 import { Theme } from 'src/constants/Theme';
 import { Language } from 'src/constants/i18n';
+import { LoginFormValues } from 'src/features/forms/LoginForm/LoginForm.types';
 
 const COLOR_THEME = 'colorTheme';
 const LANGUAGE = 'language';
@@ -46,6 +47,8 @@ export class AppController implements IAppController {
 
         const languageStr = localStorage.getItem(LANGUAGE);
         this.appSTM.language(languageStr === Language.RU ? Language.RU : Language.EN);
+
+        this.onLoginClick();
     };
 
     onThemeChange = (evt: React.ChangeEvent<HTMLSelectElement>) => {
@@ -62,9 +65,27 @@ export class AppController implements IAppController {
 
     onLoginClick = () => {
         console.log('onLoginClick()');
+        this.appSTM.isLoginFormVisible(true);
+        this.appSTM.isRegistering(false);
     };
 
     onLogoutClick = () => {
         console.log('onLogoutClick()');
+    };
+
+    onLoginSubmit = (values: LoginFormValues) => {
+        console.log('onSubmit() values=', values);
+        this.appSTM.isLoginFormVisible(false);
+    };
+
+    onSelectLogin = () => {
+        this.appSTM.isRegistering(false);
+    };
+    onSelectRegister = () => {
+        this.appSTM.isRegistering(true);
+    };
+
+    onLoginCloseClick = () => {
+        this.appSTM.isLoginFormVisible(false);
     };
 }
