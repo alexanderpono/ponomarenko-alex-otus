@@ -12,6 +12,8 @@ export class AppStateManager {
     language = (language: Language) => dispatch(app.language(language));
     colorTheme = (colorTheme: Theme) => dispatch(app.colorTheme(colorTheme));
     isUserAuthorized = (isUserAuthorized: boolean) => dispatch(app.isUserAuthorized(isUserAuthorized));
+    isLoginFormVisible = (isLoginFormVisible: boolean) => dispatch(app.isLoginFormVisible(isLoginFormVisible));
+    isRegistering = (isRegistering: boolean) => dispatch(app.isRegistering(isRegistering));
 
     static create(): AppStateManager {
         return new AppStateManager();

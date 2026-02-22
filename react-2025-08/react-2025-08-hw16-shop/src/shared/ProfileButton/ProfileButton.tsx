@@ -4,10 +4,10 @@ import { useSelector } from 'react-redux';
 import { appSelector } from 'src/store/selectors';
 import { IAppController } from 'src/app/AppController.types';
 
-interface ProfileButton {
+export interface ProfileButtonProps {
     ctrl: IAppController;
 }
-export const ProfileButton: React.FC<ProfileButton> = ({ ctrl }) => {
+export const ProfileButton: React.FC<ProfileButtonProps> = ({ ctrl }) => {
     const isUserAuthorized = useSelector(appSelector.isUserAuthorized);
     return (
         <div className={styles.ProfileButton}>

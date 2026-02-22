@@ -7,14 +7,15 @@ import { ErrorFields } from 'src/features/forms/forms.types';
 import { useSelector } from 'react-redux';
 import { appSelector } from 'src/store/selectors';
 import { i18n } from 'src/constants/i18n';
+import { IAppController } from 'src/app/AppController.types';
 
 interface LoginFormProps {
     initialValues: LoginFormValues;
-    onSubmit: (values: LoginFormValues) => void;
+    ctrl: IAppController;
     initialErrors: ErrorFields<LoginFormValues>;
     isRegistering: boolean;
 }
-export const LoginForm: React.FC<LoginFormProps> = ({ initialValues, onSubmit, initialErrors, isRegistering }) => {
+export const LoginForm: React.FC<LoginFormProps> = ({ initialValues, initialErrors, isRegistering, ctrl }) => {
     const language = useSelector(appSelector.language);
     const errTranslations = i18n[language].errors;
 
@@ -32,7 +33,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ initialValues, onSubmit, i
     const formik = useFormik({
         initialValues,
         onSubmit: (values, { resetForm }) => {
-            onSubmit(values);
+            ctrl.onLoginSubmit(values);
             resetForm();
         },
         validationSchema,
@@ -42,6 +43,28 @@ export const LoginForm: React.FC<LoginFormProps> = ({ initialValues, onSubmit, i
     const translations = i18n[language].loginForm;
     return (
         <form className={styles.LoginForm} onSubmit={formik.handleSubmit}>
+            <div className={styles.loginRegister}>
+                <input
+                    type="radio"
+                    id="option1"
+                    name="choices"
+                    value="1"
+                    checked={!isRegistering}
+                    onChange={ctrl.onSelectLogin}
+                />
+                <label htmlFor="option1">Вход</label>
+
+                <input
+                    type="radio"
+                    id="option2"
+                    name="choices"
+                    value="2"
+                    checked={isRegistering}
+                    onChange={ctrl.onSelectRegister}
+                />
+                <label htmlFor="option2">Регистрация</label>
+            </div>
+
             <label>
                 <span>{translations.login}</span>
                 <input type="text" name="login" onChange={formik.handleChange} value={formik.values.login} />
@@ -69,7 +92,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ initialValues, onSubmit, i
 
             <div>
                 <span>&nbsp;</span>
-                <button type="submit">{translations.submit}</button>
+                <button type="submit">{isRegistering ? translations.register : translations.submit}</button>
             </div>
         </form>
     );

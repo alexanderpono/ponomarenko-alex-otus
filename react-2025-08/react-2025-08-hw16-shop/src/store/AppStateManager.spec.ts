@@ -19,11 +19,13 @@ describe('AppStateManager', () => {
         const rndBool = bool();
 
         test.each`
-            method                | param1         | param2  | expected
-            ${'products'}         | ${products}    | ${null} | ${app.products(products)}
-            ${'language'}         | ${rndLanguage} | ${null} | ${app.language(rndLanguage)}
-            ${'colorTheme'}       | ${rndTheme}    | ${null} | ${app.colorTheme(rndTheme)}
-            ${'isUserAuthorized'} | ${rndBool}     | ${null} | ${app.isUserAuthorized(rndBool)}
+            method                  | param1         | param2  | expected
+            ${'products'}           | ${products}    | ${null} | ${app.products(products)}
+            ${'language'}           | ${rndLanguage} | ${null} | ${app.language(rndLanguage)}
+            ${'colorTheme'}         | ${rndTheme}    | ${null} | ${app.colorTheme(rndTheme)}
+            ${'isUserAuthorized'}   | ${rndBool}     | ${null} | ${app.isUserAuthorized(rndBool)}
+            ${'isLoginFormVisible'} | ${rndBool}     | ${null} | ${app.isLoginFormVisible(rndBool)}
+            ${'isRegistering'}      | ${rndBool}     | ${null} | ${app.isRegistering(rndBool)}
         `('$method() calls store.dispatch', ({ method, param1, param2, expected }) => {
             const dispatchMock = jest.fn();
             jest.spyOn(store, 'getStore').mockReturnValue(

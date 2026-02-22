@@ -15,6 +15,7 @@ import { AppState } from 'src/store/appReducer';
 import { RootState } from 'src/store/store';
 import { appSelector } from 'src/store/selectors';
 import { i18n } from 'src/constants/i18n';
+import { LoginForm } from 'src/features/forms/LoginForm/LoginForm';
 
 interface AppProps {
     ctrl: IAppController;
@@ -23,6 +24,8 @@ export const App: React.FC<AppProps> = ({ ctrl }) => {
     const language = useSelector(appSelector.language);
     const translations = i18n[language].example;
     const products = useSelector(appSelector.products);
+    const isLoginFormVisible = useSelector(appSelector.isLoginFormVisible);
+    const isRegistering = useSelector(appSelector.isRegistering);
 
     React.useEffect(() => {
         ctrl.onAppMount();
@@ -62,6 +65,18 @@ export const App: React.FC<AppProps> = ({ ctrl }) => {
                     </DetailedProductCard> */}
             {/* <CartItem image="" count={1} price={1999} name={shortText} />
                     <CartItem image="cat.jpg" count={2} price={1999} name={shortText} /> */}
+            <Modal visible={isLoginFormVisible} handleBtCloseClick={ctrl.onLoginCloseClick}>
+                <LoginForm
+                    initialValues={{ login: 'a', password: 'b', repeatPassword: '' }}
+                    initialErrors={{
+                        login: '',
+                        password: '',
+                        repeatPassword: ''
+                    }}
+                    ctrl={ctrl}
+                    isRegistering={isRegistering}
+                />
+            </Modal>
         </Layout>
     );
 };
