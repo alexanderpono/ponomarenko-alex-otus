@@ -14,6 +14,8 @@ export class AppStateManager {
     isUserAuthorized = (isUserAuthorized: boolean) => dispatch(app.isUserAuthorized(isUserAuthorized));
     isLoginFormVisible = (isLoginFormVisible: boolean) => dispatch(app.isLoginFormVisible(isLoginFormVisible));
     isRegistering = (isRegistering: boolean) => dispatch(app.isRegistering(isRegistering));
+    isEditProductVisible = (isEditProductVisible: boolean) => dispatch(app.isEditProductVisible(isEditProductVisible));
+    editedProduct = (editedProduct: Product) => dispatch(app.editedProduct(editedProduct));
 
     static create(): AppStateManager {
         return new AppStateManager();

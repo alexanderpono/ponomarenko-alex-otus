@@ -1,6 +1,6 @@
 import { handleActions } from 'redux-actions';
 import { Theme } from 'src/constants/Theme';
-import { Product } from 'src/entities/Product';
+import { defaultProduct, Product } from 'src/entities/Product';
 import { Language } from 'src/constants/i18n';
 
 export enum AppEvent {
@@ -10,7 +10,9 @@ export enum AppEvent {
     COLOR_THEME = 'APP/COLOR_THEME',
     IS_USER_AUTORIZED = 'APP/IS_USER_AUTORIZED',
     IS_LOGIN_FORM_VISIBLE = 'APP/IS_LOGIN_FORM_VISIBLE',
-    IS_REGISTERING = 'APP/IS_REGISTERING'
+    IS_REGISTERING = 'APP/IS_REGISTERING',
+    IS_EDIT_PRODUCT_VISIBLE = 'APP/IS_EDIT_PRODUCT_VISIBLE',
+    EDITED_PRODUCT = 'APP/EDITED_PRODUCT'
 }
 
 export interface AppState {
@@ -21,6 +23,8 @@ export interface AppState {
     isUserAuthorized: boolean;
     isLoginFormVisible: boolean;
     isRegistering: boolean;
+    isEditProductVisible: boolean;
+    editedProduct: Product;
 }
 
 export const defaultAppState: AppState = {
@@ -30,7 +34,9 @@ export const defaultAppState: AppState = {
     colorTheme: Theme.GREY,
     isUserAuthorized: false,
     isLoginFormVisible: false,
-    isRegistering: false
+    isRegistering: false,
+    isEditProductVisible: false,
+    editedProduct: { ...defaultProduct }
 };
 
 export interface ProductsAction {
@@ -75,13 +81,29 @@ export interface IsRegisteringAction {
     };
 }
 
+export interface IsEditProductVisibleAction {
+    type: AppEvent.IS_EDIT_PRODUCT_VISIBLE;
+    payload: {
+        isEditProductVisible: boolean;
+    };
+}
+
+export interface EditedProductAction {
+    type: AppEvent.EDITED_PRODUCT;
+    payload: {
+        editedProduct: Product;
+    };
+}
+
 export type AppAction =
     | ProductsAction
     | LanguageAction
     | ColorSchemeAction
     | IsUserAuthorizedAction
     | IsLoginFormVisibleAction
-    | IsRegisteringAction;
+    | IsRegisteringAction
+    | IsEditProductVisibleAction
+    | EditedProductAction;
 
 export const app = {
     products: (products: Product[]): ProductsAction => ({
@@ -107,6 +129,14 @@ export const app = {
     isRegistering: (isRegistering: boolean): IsRegisteringAction => ({
         type: AppEvent.IS_REGISTERING,
         payload: { isRegistering }
+    }),
+    isEditProductVisible: (isEditProductVisible: boolean): IsEditProductVisibleAction => ({
+        type: AppEvent.IS_EDIT_PRODUCT_VISIBLE,
+        payload: { isEditProductVisible }
+    }),
+    editedProduct: (editedProduct: Product): EditedProductAction => ({
+        type: AppEvent.EDITED_PRODUCT,
+        payload: { editedProduct }
     })
 };
 
@@ -141,6 +171,16 @@ export const appReducer = handleActions(
             ...state,
             event: AppEvent.IS_REGISTERING,
             isRegistering: (action as unknown as IsRegisteringAction).payload.isRegistering
+        }),
+        [AppEvent.IS_EDIT_PRODUCT_VISIBLE]: (state: AppState, action) => ({
+            ...state,
+            event: AppEvent.IS_EDIT_PRODUCT_VISIBLE,
+            isEditProductVisible: (action as unknown as IsEditProductVisibleAction).payload.isEditProductVisible
+        }),
+        [AppEvent.EDITED_PRODUCT]: (state: AppState, action) => ({
+            ...state,
+            event: AppEvent.EDITED_PRODUCT,
+            editedProduct: (action as unknown as EditedProductAction).payload.editedProduct
         })
     },
     defaultAppState

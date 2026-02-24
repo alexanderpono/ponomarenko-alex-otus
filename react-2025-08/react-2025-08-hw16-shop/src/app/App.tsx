@@ -2,10 +2,6 @@ import React from 'react';
 import './App.css';
 import Modal from 'src/shared/Modal/Modal';
 import Layout from 'src/shared/Layout/Layout';
-import { bigText } from 'src/constants/bigText';
-import { middleText } from 'src/constants/middleText';
-import { shortText } from 'src/constants/shortText';
-import BtToBacket from 'src/shared/BtToBacket/BtToBasket';
 import ProductCard from 'src/shared/ProductCard/ProductCard';
 import DetailedProductCard from 'src/shared/DetailedProductCard/DetailedProductCard';
 import CartItem from 'src/shared/CartItem/CartItem';
@@ -16,6 +12,7 @@ import { RootState } from 'src/store/store';
 import { appSelector } from 'src/store/selectors';
 import { i18n } from 'src/constants/i18n';
 import { LoginForm } from 'src/features/forms/LoginForm/LoginForm';
+import { EditProductForm } from 'src/features/forms/EditProductForm/EditProductForm';
 
 interface AppProps {
     ctrl: IAppController;
@@ -26,6 +23,8 @@ export const App: React.FC<AppProps> = ({ ctrl }) => {
     const products = useSelector(appSelector.products);
     const isLoginFormVisible = useSelector(appSelector.isLoginFormVisible);
     const isRegistering = useSelector(appSelector.isRegistering);
+    const isEditProductVisible = useSelector(appSelector.isEditProductVisible);
+    const editedProduct = useSelector(appSelector.editedProduct);
 
     React.useEffect(() => {
         ctrl.onAppMount();
@@ -33,8 +32,6 @@ export const App: React.FC<AppProps> = ({ ctrl }) => {
 
     return (
         <Layout ctrl={ctrl}>
-            {/* <BtToBacket count={0} />
-                    <BtToBacket count={1} /> */}
             <Modal visible={false} handleBtCloseClick={() => null}>
                 <h2>{translations.modalHeader}</h2>
                 <p>{translations.modalText}</p>
@@ -43,16 +40,7 @@ export const App: React.FC<AppProps> = ({ ctrl }) => {
                     <ProductCard image="cat.jpg" count={0} price={1999} name={shortText} description={middleText} /> */}
 
             {products.map((product) => {
-                return (
-                    <ProductCard
-                        key={product.name}
-                        image={product.photo}
-                        count={0}
-                        price={product.price}
-                        name={product.name}
-                        description={product.desc}
-                    />
-                );
+                return <ProductCard key={product.id} ctrl={ctrl} product={product} />;
             })}
             {/* <DetailedProductCard
                         image="cat.jpg"
@@ -75,6 +63,21 @@ export const App: React.FC<AppProps> = ({ ctrl }) => {
                     }}
                     ctrl={ctrl}
                     isRegistering={isRegistering}
+                />
+            </Modal>
+
+            <Modal visible={isEditProductVisible} handleBtCloseClick={ctrl.onEditProductCloseClick}>
+                <EditProductForm
+                    initialValues={editedProduct}
+                    initialErrors={{
+                        id: '',
+                        photo: '',
+                        price: '',
+                        name: '',
+                        type: '',
+                        desc: ''
+                    }}
+                    ctrl={ctrl}
                 />
             </Modal>
         </Layout>

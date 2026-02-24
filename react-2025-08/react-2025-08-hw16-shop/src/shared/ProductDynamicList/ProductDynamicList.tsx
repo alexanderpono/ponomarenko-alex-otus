@@ -2,12 +2,14 @@ import React, { useCallback, useRef, useState } from 'react';
 import styles from './ProductDynamicList.scss';
 import cn from 'classnames';
 import { MemoisedProductList } from 'src/shared/ProductList/ProductList';
-import { Product } from 'src/shared/ProductCard/ProductCard.types';
+import { IAppController } from 'src/app/AppController.types';
+import { Product, ProductType } from 'src/entities/Product';
 
 export interface ProductDynamicListProps {
     products: Product[];
+    ctrl: IAppController;
 }
-export const ProductDynamicList: React.FC<ProductDynamicListProps> = ({ products }) => {
+export const ProductDynamicList: React.FC<ProductDynamicListProps> = ({ products, ctrl }) => {
     const listRef = useRef<HTMLDivElement>();
     const loaderRef = useRef<HTMLDivElement>();
     const [isLoadingProducts, setIsLoadingProducts] = useState(false);
@@ -15,11 +17,13 @@ export const ProductDynamicList: React.FC<ProductDynamicListProps> = ({ products
 
     const loadMore = useCallback(() => {
         const newProduct: Product = {
-            image: '',
+            id: 1,
+            type: ProductType.FOOD,
+            photo: '',
             count: myProducts.length,
             price: myProducts.length,
             name: 'name' + myProducts.length,
-            description: 'descr' + myProducts.length
+            desc: 'descr' + myProducts.length
         };
         setMyProducts([...myProducts, newProduct]);
         return Promise.resolve(newProduct);
@@ -49,7 +53,7 @@ export const ProductDynamicList: React.FC<ProductDynamicListProps> = ({ products
     }, [myProducts]);
     return (
         <div className={cn(styles.ProductDynamicList)} ref={listRef}>
-            <MemoisedProductList products={myProducts} />
+            <MemoisedProductList products={myProducts} ctrl={ctrl} />
             <div className={styles.loader} ref={loaderRef}>
                 &nbsp;
             </div>

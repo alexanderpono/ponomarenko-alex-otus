@@ -1,3 +1,4 @@
+import { Product } from 'src/entities/Product';
 import { LoginFormValues } from 'src/features/forms/LoginForm/LoginForm.types';
 
 export interface IAppController {
@@ -10,4 +11,8 @@ export interface IAppController {
     onSelectLogin: () => void;
     onSelectRegister: () => void;
     onLoginCloseClick: () => void;
+    onProductEditClick: (evt: React.MouseEvent<HTMLDivElement>) => void;
+    onEditProductCloseClick: () => void;
+    onEditProductCancelClick: () => void;
+    onEditProductSubmit: (values: Product) => void;
 }

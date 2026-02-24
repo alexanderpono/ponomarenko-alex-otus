@@ -52,12 +52,28 @@
         background-color: #999;
     }
 
+    .buttons {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .btEdit {
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        text-align: center;
+        line-height: 40px;
+    }
 }
 
 .grey {
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 
     .defaultImage, .image {
+        border: 1px solid black;
+    }
+
+    .btEdit {
         border: 1px solid black;
     }
 }
@@ -71,6 +87,10 @@
 
     .title {
         color: #5660f0;
+    }
+
+    .btEdit {
+        border: 1px solid #5660f0;
     }
 }
 

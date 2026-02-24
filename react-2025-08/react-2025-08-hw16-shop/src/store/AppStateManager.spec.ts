@@ -17,15 +17,18 @@ describe('AppStateManager', () => {
         const rndLanguage = str() as Language;
         const rndTheme = str() as Theme;
         const rndBool = bool();
+        const rndProduct: Product = { ...defaultProduct, name: str() };
 
         test.each`
-            method                  | param1         | param2  | expected
-            ${'products'}           | ${products}    | ${null} | ${app.products(products)}
-            ${'language'}           | ${rndLanguage} | ${null} | ${app.language(rndLanguage)}
-            ${'colorTheme'}         | ${rndTheme}    | ${null} | ${app.colorTheme(rndTheme)}
-            ${'isUserAuthorized'}   | ${rndBool}     | ${null} | ${app.isUserAuthorized(rndBool)}
-            ${'isLoginFormVisible'} | ${rndBool}     | ${null} | ${app.isLoginFormVisible(rndBool)}
-            ${'isRegistering'}      | ${rndBool}     | ${null} | ${app.isRegistering(rndBool)}
+            method                    | param1         | param2  | expected
+            ${'products'}             | ${products}    | ${null} | ${app.products(products)}
+            ${'language'}             | ${rndLanguage} | ${null} | ${app.language(rndLanguage)}
+            ${'colorTheme'}           | ${rndTheme}    | ${null} | ${app.colorTheme(rndTheme)}
+            ${'isUserAuthorized'}     | ${rndBool}     | ${null} | ${app.isUserAuthorized(rndBool)}
+            ${'isLoginFormVisible'}   | ${rndBool}     | ${null} | ${app.isLoginFormVisible(rndBool)}
+            ${'isRegistering'}        | ${rndBool}     | ${null} | ${app.isRegistering(rndBool)}
+            ${'isEditProductVisible'} | ${rndBool}     | ${null} | ${app.isEditProductVisible(rndBool)}
+            ${'editedProduct'}        | ${rndProduct}  | ${null} | ${app.editedProduct(rndProduct)}
         `('$method() calls store.dispatch', ({ method, param1, param2, expected }) => {
             const dispatchMock = jest.fn();
             jest.spyOn(store, 'getStore').mockReturnValue(

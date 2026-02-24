@@ -6,23 +6,15 @@ import { Theme } from 'src/constants/Theme';
 import { Tip } from 'src/shared/Tip/Tip';
 import { useSelector } from 'react-redux';
 import { appSelector } from 'src/store/selectors';
+import { IAppController } from 'src/app/AppController.types';
+import { Product } from 'src/entities/Product';
 
 export interface ProductCardProps {
-    image: string;
-    count: number;
-    price: number;
-    name: string;
-    description: string;
     detailedDescription?: React.ReactElement;
+    ctrl: IAppController;
+    product: Product;
 }
-export const ProductCard: React.FC<ProductCardProps> = ({
-    image,
-    count,
-    price,
-    name,
-    description,
-    detailedDescription
-}) => {
+export const ProductCard: React.FC<ProductCardProps> = ({ detailedDescription, ctrl, product }) => {
     const colorTheme = useSelector(appSelector.colorTheme);
     return (
         <div
@@ -30,24 +22,30 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                 [styles.grey]: colorTheme === Theme.GREY,
                 [styles.blue]: colorTheme === Theme.BLUE
             })}
+            data-id={product.id}
         >
-            {image && <img src={image} alt={name} className={styles.image} />}
-            {!image && <div className={styles.defaultImage}></div>}
+            {product.photo && <img src={product.photo} alt={product.name} className={styles.image} />}
+            {!product.photo && <div className={styles.defaultImage}></div>}
 
             <div className={styles.details}>
                 <div className={styles.text}>
-                    <h2 className={styles.title}>{name}</h2>
+                    <h2 className={styles.title}>{product.name}</h2>
                     <p className={styles.description}>
                         {detailedDescription && (
                             <Tip title={detailedDescription} className={styles.tip}>
-                                <div style={{ backgroundColor: '#efc' }}>{description}</div>
+                                <div style={{ backgroundColor: '#efc' }}>{product.desc}</div>
                             </Tip>
                         )}
-                        {!detailedDescription && description}
+                        {!detailedDescription && product.desc}
                     </p>
                 </div>
-                <div className={styles.price}>₽ {price}</div>
-                <BtToBasket count={count} />
+                <div className={styles.price}>₽ {product.price}</div>
+                <div className={styles.buttons}>
+                    <BtToBasket count={product.count} />
+                    <div className={styles.btEdit} onClick={ctrl.onProductEditClick}>
+                        edit
+                    </div>
+                </div>
             </div>
         </div>
     );
