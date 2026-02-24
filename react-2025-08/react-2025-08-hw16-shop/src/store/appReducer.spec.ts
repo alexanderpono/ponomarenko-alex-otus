@@ -12,15 +12,18 @@ describe('appReducer', () => {
     const rndLanguage = str() as Language;
     const rndTheme = str() as Theme;
     const rndBool = bool();
+    const rndProduct: Product = { ...defaultProduct, name: str() };
 
     test.each`
-        actions                              | testName                                                                | event                             | stateSelector           | value
-        ${[app.products(products)]}          | ${'sets .products for AppEvent.PRODUCTS action'}                        | ${AppEvent.PRODUCTS}              | ${'products'}           | ${products}
-        ${[app.language(rndLanguage)]}       | ${'sets .language for AppEvent.LANGUAGE action'}                        | ${AppEvent.LANGUAGE}              | ${'language'}           | ${rndLanguage}
-        ${[app.colorTheme(rndTheme)]}        | ${'sets .colorScheme for AppEvent.COLOR_THEME action'}                  | ${AppEvent.COLOR_THEME}           | ${'colorTheme'}         | ${rndTheme}
-        ${[app.isUserAuthorized(rndBool)]}   | ${'sets .isUserAuthorized for AppEvent.IS_USER_AUTORIZED action'}       | ${AppEvent.IS_USER_AUTORIZED}     | ${'isUserAuthorized'}   | ${rndBool}
-        ${[app.isLoginFormVisible(rndBool)]} | ${'sets .isLoginFormVisible for AppEvent.IS_LOGIN_FORM_VISIBLE action'} | ${AppEvent.IS_LOGIN_FORM_VISIBLE} | ${'isLoginFormVisible'} | ${rndBool}
-        ${[app.isRegistering(rndBool)]}      | ${'sets .isRegistering for AppEvent.IS_REGISTERING action'}             | ${AppEvent.IS_REGISTERING}        | ${'isRegistering'}      | ${rndBool}
+        actions                                | testName                                                                    | event                               | stateSelector             | value
+        ${[app.products(products)]}            | ${'sets .products for AppEvent.PRODUCTS action'}                            | ${AppEvent.PRODUCTS}                | ${'products'}             | ${products}
+        ${[app.language(rndLanguage)]}         | ${'sets .language for AppEvent.LANGUAGE action'}                            | ${AppEvent.LANGUAGE}                | ${'language'}             | ${rndLanguage}
+        ${[app.colorTheme(rndTheme)]}          | ${'sets .colorScheme for AppEvent.COLOR_THEME action'}                      | ${AppEvent.COLOR_THEME}             | ${'colorTheme'}           | ${rndTheme}
+        ${[app.isUserAuthorized(rndBool)]}     | ${'sets .isUserAuthorized for AppEvent.IS_USER_AUTORIZED action'}           | ${AppEvent.IS_USER_AUTORIZED}       | ${'isUserAuthorized'}     | ${rndBool}
+        ${[app.isLoginFormVisible(rndBool)]}   | ${'sets .isLoginFormVisible for AppEvent.IS_LOGIN_FORM_VISIBLE action'}     | ${AppEvent.IS_LOGIN_FORM_VISIBLE}   | ${'isLoginFormVisible'}   | ${rndBool}
+        ${[app.isRegistering(rndBool)]}        | ${'sets .isRegistering for AppEvent.IS_REGISTERING action'}                 | ${AppEvent.IS_REGISTERING}          | ${'isRegistering'}        | ${rndBool}
+        ${[app.isEditProductVisible(rndBool)]} | ${'sets .isEditProductVisible for AppEvent.IS_EDIT_PRODUCT_VISIBLE action'} | ${AppEvent.IS_EDIT_PRODUCT_VISIBLE} | ${'isEditProductVisible'} | ${rndBool}
+        ${[app.editedProduct(rndProduct)]}     | ${'sets .editedProduct for AppEvent.EDITED_PRODUCT action'}                 | ${AppEvent.EDITED_PRODUCT}          | ${'editedProduct'}        | ${rndProduct}
     `('$testName', async ({ actions, event, stateSelector, value }) => {
         let state: AppState = { ...defaultAppState };
         (actions as Action<AppState>[]).forEach((action) => {

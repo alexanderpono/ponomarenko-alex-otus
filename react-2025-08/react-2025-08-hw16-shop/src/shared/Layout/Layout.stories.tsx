@@ -13,6 +13,7 @@ import { castPartialTo } from 'src/testFramework/castPartialTo';
 import { IAppController } from 'src/app/AppController.types';
 import { Provider } from 'react-redux';
 import { getStore } from 'src/store/store';
+import { defaultProduct } from 'src/entities/Product';
 
 const meta: Meta<typeof Layout> = {
     title: 'shared/Layout',
@@ -26,23 +27,35 @@ const meta: Meta<typeof Layout> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const ctrl = castPartialTo<IAppController>({
+    onProductEditClick: () => {
+        console.log('onProductEditClick()');
+    }
+});
 export const LayoutWithScroll: Story = {
     args: {
         children: (
             <>
                 <ProductCard
-                    image=""
-                    count={0}
-                    price={1999}
-                    name={shortText}
-                    description={middleText}
+                    product={{ ...defaultProduct, id: 1, price: 1999, name: shortText, desc: middleText }}
                     detailedDescription={bigText}
+                    ctrl={ctrl}
                 />
                 <div style={{ clear: 'both' }} />
                 <BtToBacket count={0} />
                 <BtToBacket count={1} />
                 <p>{middleText}</p>
-                <ProductCard image="cat.jpg" count={0} price={1999} name={shortText} description={middleText} />
+                <ProductCard
+                    product={{
+                        ...defaultProduct,
+                        id: 2,
+                        price: 1999,
+                        name: shortText,
+                        desc: middleText,
+                        photo: 'cat.jpg'
+                    }}
+                    ctrl={ctrl}
+                />
                 <div style={{ clear: 'both' }} />
                 <DetailedProductCard image="cat.jpg" count={0} price={1999} name={shortText} category="Cats">
                     {bigText}

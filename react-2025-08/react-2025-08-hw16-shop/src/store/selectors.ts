@@ -6,5 +6,7 @@ export const appSelector = {
     language: (state: RootState) => state.app.language,
     isUserAuthorized: (state: RootState) => state.app.isUserAuthorized,
     isLoginFormVisible: (state: RootState) => state.app.isLoginFormVisible,
-    isRegistering: (state: RootState) => state.app.isRegistering
+    isRegistering: (state: RootState) => state.app.isRegistering,
+    isEditProductVisible: (state: RootState) => state.app.isEditProductVisible,
+    editedProduct: (state: RootState) => state.app.editedProduct
 };

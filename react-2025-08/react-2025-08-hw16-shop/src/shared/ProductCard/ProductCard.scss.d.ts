@@ -3,6 +3,8 @@
 interface CssExports {
   'ProductCard': string;
   'blue': string;
+  'btEdit': string;
+  'buttons': string;
   'buyButton': string;
   'defaultImage': string;
   'description': string;
