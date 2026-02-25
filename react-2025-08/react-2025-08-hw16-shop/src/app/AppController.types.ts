@@ -15,4 +15,12 @@ export interface IAppController {
     onEditProductCloseClick: () => void;
     onEditProductCancelClick: () => void;
     onEditProductSubmit: (values: Product) => void;
+    onProductsClick: () => void;
+    onCategoriesClick: () => void;
+}
+
+export enum Partition {
+    DEFAULT = '',
+    PRODUCTS = 'PRODUCTS',
+    CATEGORIES = 'CATEGORIES'
 }

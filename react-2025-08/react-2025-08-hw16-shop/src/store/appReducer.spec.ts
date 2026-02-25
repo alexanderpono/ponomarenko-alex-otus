@@ -4,6 +4,7 @@ import { defaultProduct, Product } from 'src/entities/Product';
 import { Action } from 'redux-actions';
 import { Language } from 'src/constants/i18n';
 import { Theme } from 'src/constants/Theme';
+import { Partition } from 'src/app/AppController.types';
 
 describe('appReducer', () => {
     const products: Product[] = rndAr<Product>(rndSize(3, 5), (): Product => {
@@ -13,6 +14,7 @@ describe('appReducer', () => {
     const rndTheme = str() as Theme;
     const rndBool = bool();
     const rndProduct: Product = { ...defaultProduct, name: str() };
+    const rndPartition = str() as unknown as Partition;
 
     test.each`
         actions                                | testName                                                                    | event                               | stateSelector             | value
@@ -24,6 +26,7 @@ describe('appReducer', () => {
         ${[app.isRegistering(rndBool)]}        | ${'sets .isRegistering for AppEvent.IS_REGISTERING action'}                 | ${AppEvent.IS_REGISTERING}          | ${'isRegistering'}        | ${rndBool}
         ${[app.isEditProductVisible(rndBool)]} | ${'sets .isEditProductVisible for AppEvent.IS_EDIT_PRODUCT_VISIBLE action'} | ${AppEvent.IS_EDIT_PRODUCT_VISIBLE} | ${'isEditProductVisible'} | ${rndBool}
         ${[app.editedProduct(rndProduct)]}     | ${'sets .editedProduct for AppEvent.EDITED_PRODUCT action'}                 | ${AppEvent.EDITED_PRODUCT}          | ${'editedProduct'}        | ${rndProduct}
+        ${[app.curPartition(rndPartition)]}    | ${'sets .curPartition for AppEvent.CUR_PARTITION action'}                   | ${AppEvent.CUR_PARTITION}           | ${'curPartition'}         | ${rndPartition}
     `('$testName', async ({ actions, event, stateSelector, value }) => {
         let state: AppState = { ...defaultAppState };
         (actions as Action<AppState>[]).forEach((action) => {

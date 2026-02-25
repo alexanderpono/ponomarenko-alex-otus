@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { appSelector } from 'src/store/selectors';
 import { IAppController } from 'src/app/AppController.types';
 import ProfileButton from 'src/shared/ProfileButton/ProfileButton';
+import Menu from 'src/shared/Menu/Menu';
 
 interface HeaderProps {
     ctrl: IAppController;
@@ -22,10 +23,21 @@ export const Header: React.FC<HeaderProps> = ({ ctrl }) => {
                 [styles.blue]: colorTheme === Theme.BLUE
             })}
         >
-            <Logo />
-            <ThemeSelector ctrl={ctrl} />
-            <LanguageSelector ctrl={ctrl} />
-            <ProfileButton ctrl={ctrl} />
+            <div className={styles.logo}>
+                <Logo />
+            </div>
+            <div className={styles.color}>
+                <ThemeSelector ctrl={ctrl} />
+            </div>
+            <div className={styles.language}>
+                <LanguageSelector ctrl={ctrl} />
+            </div>
+            <div className={styles.profile}>
+                <ProfileButton ctrl={ctrl} />
+            </div>
+            <div className={styles.menu}>
+                <Menu ctrl={ctrl} />
+            </div>
         </div>
     );
 };

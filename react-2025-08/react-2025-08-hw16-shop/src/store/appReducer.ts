@@ -2,6 +2,7 @@ import { handleActions } from 'redux-actions';
 import { Theme } from 'src/constants/Theme';
 import { defaultProduct, Product } from 'src/entities/Product';
 import { Language } from 'src/constants/i18n';
+import { Partition } from 'src/app/AppController.types';
 
 export enum AppEvent {
     DEFAULT = '',
@@ -12,7 +13,8 @@ export enum AppEvent {
     IS_LOGIN_FORM_VISIBLE = 'APP/IS_LOGIN_FORM_VISIBLE',
     IS_REGISTERING = 'APP/IS_REGISTERING',
     IS_EDIT_PRODUCT_VISIBLE = 'APP/IS_EDIT_PRODUCT_VISIBLE',
-    EDITED_PRODUCT = 'APP/EDITED_PRODUCT'
+    EDITED_PRODUCT = 'APP/EDITED_PRODUCT',
+    CUR_PARTITION = 'APP/CUR_PARTITION'
 }
 
 export interface AppState {
@@ -25,6 +27,7 @@ export interface AppState {
     isRegistering: boolean;
     isEditProductVisible: boolean;
     editedProduct: Product;
+    curPartition: Partition;
 }
 
 export const defaultAppState: AppState = {
@@ -36,7 +39,8 @@ export const defaultAppState: AppState = {
     isLoginFormVisible: false,
     isRegistering: false,
     isEditProductVisible: false,
-    editedProduct: { ...defaultProduct }
+    editedProduct: { ...defaultProduct },
+    curPartition: Partition.DEFAULT
 };
 
 export interface ProductsAction {
@@ -95,6 +99,13 @@ export interface EditedProductAction {
     };
 }
 
+export interface CurPartitionAction {
+    type: AppEvent.CUR_PARTITION;
+    payload: {
+        curPartition: Partition;
+    };
+}
+
 export type AppAction =
     | ProductsAction
     | LanguageAction
@@ -103,7 +114,8 @@ export type AppAction =
     | IsLoginFormVisibleAction
     | IsRegisteringAction
     | IsEditProductVisibleAction
-    | EditedProductAction;
+    | EditedProductAction
+    | CurPartitionAction;
 
 export const app = {
     products: (products: Product[]): ProductsAction => ({
@@ -137,6 +149,10 @@ export const app = {
     editedProduct: (editedProduct: Product): EditedProductAction => ({
         type: AppEvent.EDITED_PRODUCT,
         payload: { editedProduct }
+    }),
+    curPartition: (curPartition: Partition): CurPartitionAction => ({
+        type: AppEvent.CUR_PARTITION,
+        payload: { curPartition }
     })
 };
 
@@ -181,6 +197,11 @@ export const appReducer = handleActions(
             ...state,
             event: AppEvent.EDITED_PRODUCT,
             editedProduct: (action as unknown as EditedProductAction).payload.editedProduct
+        }),
+        [AppEvent.CUR_PARTITION]: (state: AppState, action) => ({
+            ...state,
+            event: AppEvent.CUR_PARTITION,
+            curPartition: (action as unknown as CurPartitionAction).payload.curPartition
         })
     },
     defaultAppState

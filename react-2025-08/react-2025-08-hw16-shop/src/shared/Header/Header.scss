@@ -4,11 +4,42 @@
     left: 0px;
     right: 0px;
     z-index: 1000;
-    display: flex;
-    align-items: center;
     color: white;
+    display: grid;
+    grid-template-columns: 120px auto auto auto;
+    grid-template-rows: 70px auto;
+    grid-template-areas: "logo color language profile" "logo menu menu menu";
 
+    .logo {
+        grid-area: logo;
+    }
 
+    .color {
+        grid-area: color;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .language {
+        grid-area: language;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .profile {
+        grid-area: profile;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .menu {
+        grid-area: menu;
+    }
 }
 
 .grey {

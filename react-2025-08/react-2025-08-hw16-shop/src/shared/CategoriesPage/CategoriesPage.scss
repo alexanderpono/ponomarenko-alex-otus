@@ -1,0 +1,17 @@
+.CategoriesPage {
+    border: 1px solid red;
+
+    display: flex;
+    flex-direction: row;
+    height: calc(100% - 102px);
+
+    .categoryList {
+        border: 1px solid red;
+        width: 120px;
+        overflow: auto;
+    }
+
+    .curCategory {
+        border: 1px solid red;
+    }
+}
