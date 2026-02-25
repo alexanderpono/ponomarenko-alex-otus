@@ -7,6 +7,7 @@ import { castPartialTo } from 'src/testFramework/castPartialTo';
 import { Store } from 'redux';
 import { Language } from 'src/constants/i18n';
 import { Theme } from 'src/constants/Theme';
+import { Partition } from 'src/app/AppController.types';
 jest.mock('./store');
 
 describe('AppStateManager', () => {
@@ -18,17 +19,19 @@ describe('AppStateManager', () => {
         const rndTheme = str() as Theme;
         const rndBool = bool();
         const rndProduct: Product = { ...defaultProduct, name: str() };
+        const rndPartition = str() as unknown as Partition;
 
         test.each`
-            method                    | param1         | param2  | expected
-            ${'products'}             | ${products}    | ${null} | ${app.products(products)}
-            ${'language'}             | ${rndLanguage} | ${null} | ${app.language(rndLanguage)}
-            ${'colorTheme'}           | ${rndTheme}    | ${null} | ${app.colorTheme(rndTheme)}
-            ${'isUserAuthorized'}     | ${rndBool}     | ${null} | ${app.isUserAuthorized(rndBool)}
-            ${'isLoginFormVisible'}   | ${rndBool}     | ${null} | ${app.isLoginFormVisible(rndBool)}
-            ${'isRegistering'}        | ${rndBool}     | ${null} | ${app.isRegistering(rndBool)}
-            ${'isEditProductVisible'} | ${rndBool}     | ${null} | ${app.isEditProductVisible(rndBool)}
-            ${'editedProduct'}        | ${rndProduct}  | ${null} | ${app.editedProduct(rndProduct)}
+            method                    | param1          | param2  | expected
+            ${'products'}             | ${products}     | ${null} | ${app.products(products)}
+            ${'language'}             | ${rndLanguage}  | ${null} | ${app.language(rndLanguage)}
+            ${'colorTheme'}           | ${rndTheme}     | ${null} | ${app.colorTheme(rndTheme)}
+            ${'isUserAuthorized'}     | ${rndBool}      | ${null} | ${app.isUserAuthorized(rndBool)}
+            ${'isLoginFormVisible'}   | ${rndBool}      | ${null} | ${app.isLoginFormVisible(rndBool)}
+            ${'isRegistering'}        | ${rndBool}      | ${null} | ${app.isRegistering(rndBool)}
+            ${'isEditProductVisible'} | ${rndBool}      | ${null} | ${app.isEditProductVisible(rndBool)}
+            ${'editedProduct'}        | ${rndProduct}   | ${null} | ${app.editedProduct(rndProduct)}
+            ${'curPartition'}         | ${rndPartition} | ${null} | ${app.curPartition(rndPartition)}
         `('$method() calls store.dispatch', ({ method, param1, param2, expected }) => {
             const dispatchMock = jest.fn();
             jest.spyOn(store, 'getStore').mockReturnValue(

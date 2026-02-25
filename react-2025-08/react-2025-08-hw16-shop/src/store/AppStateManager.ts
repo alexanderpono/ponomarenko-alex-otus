@@ -3,6 +3,7 @@ import { app, AppAction, AppState } from './appReducer';
 import { Product } from 'src/entities/Product';
 import { Language } from 'src/constants/i18n';
 import { Theme } from 'src/constants/Theme';
+import { Partition } from 'src/app/AppController.types';
 
 const dispatch = (action: AppAction) => getStore().dispatch(action);
 
@@ -16,6 +17,7 @@ export class AppStateManager {
     isRegistering = (isRegistering: boolean) => dispatch(app.isRegistering(isRegistering));
     isEditProductVisible = (isEditProductVisible: boolean) => dispatch(app.isEditProductVisible(isEditProductVisible));
     editedProduct = (editedProduct: Product) => dispatch(app.editedProduct(editedProduct));
+    curPartition = (curPartition: Partition) => dispatch(app.curPartition(curPartition));
 
     static create(): AppStateManager {
         return new AppStateManager();

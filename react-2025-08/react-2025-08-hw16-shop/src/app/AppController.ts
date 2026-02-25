@@ -1,5 +1,5 @@
 import { AppStateManager } from 'src/store/AppStateManager';
-import { IAppController } from './AppController.types';
+import { IAppController, Partition } from './AppController.types';
 import { defaultProduct, Product, ProductType } from 'src/entities/Product';
 import { middleText } from 'src/constants/middleText';
 import { Theme } from 'src/constants/Theme';
@@ -51,6 +51,8 @@ export class AppController implements IAppController {
 
         const languageStr = localStorage.getItem(LANGUAGE);
         this.appSTM.language(languageStr === Language.RU ? Language.RU : Language.EN);
+        // this.appSTM.curPartition(Partition.PRODUCTS);
+        this.appSTM.curPartition(Partition.CATEGORIES);
 
         // this.onLoginClick();
     };
@@ -124,5 +126,13 @@ export class AppController implements IAppController {
         );
         this.appSTM.products(newProducts);
         this.appSTM.isEditProductVisible(false);
+    };
+
+    onProductsClick = () => {
+        this.appSTM.curPartition(Partition.PRODUCTS);
+    };
+
+    onCategoriesClick = () => {
+        this.appSTM.curPartition(Partition.CATEGORIES);
     };
 }

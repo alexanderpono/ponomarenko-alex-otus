@@ -8,5 +8,6 @@ export const appSelector = {
     isLoginFormVisible: (state: RootState) => state.app.isLoginFormVisible,
     isRegistering: (state: RootState) => state.app.isRegistering,
     isEditProductVisible: (state: RootState) => state.app.isEditProductVisible,
-    editedProduct: (state: RootState) => state.app.editedProduct
+    editedProduct: (state: RootState) => state.app.editedProduct,
+    curPartition: (state: RootState) => state.app.curPartition
 };
