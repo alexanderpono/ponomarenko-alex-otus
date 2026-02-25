@@ -1,17 +1,34 @@
 .CategoriesPage {
-    border: 1px solid red;
-
     display: flex;
     flex-direction: row;
     height: calc(100% - 102px);
 
     .categoryList {
-        border: 1px solid red;
         width: 120px;
         overflow: auto;
+        border-right: 1px solid black;
     }
 
     .curCategory {
-        border: 1px solid red;
+        width: calc(100% - 120px);
+
+        .nothingSelected {
+            margin: 10px 10px;
+        }
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    li {
+        margin-left: 20px;
+        cursor: pointer;
+
+        &.cur {
+            text-decoration: underline;
+        }
     }
 }

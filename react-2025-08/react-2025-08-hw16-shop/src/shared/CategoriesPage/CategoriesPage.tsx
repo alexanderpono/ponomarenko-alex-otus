@@ -1,25 +1,47 @@
 import React from 'react';
 import styles from './CategoriesPage.scss';
-import Logo from 'src/shared/Logo/Logo';
-import ThemeSelector from 'src/shared/ThemeSelector/ThemeSelector';
 import cn from 'classnames';
-import { Theme } from 'src/constants/Theme';
-import LanguageSelector from 'src/shared/LanguageSelector/LanguageSelector';
 import { useSelector } from 'react-redux';
 import { appSelector } from 'src/store/selectors';
 import { IAppController } from 'src/app/AppController.types';
-import ProfileButton from 'src/shared/ProfileButton/ProfileButton';
-import Menu from 'src/shared/Menu/Menu';
+import { Category } from 'src/entities/Category';
+import { EditCategoryForm } from 'src/features/forms/EditCategoryForm/EditCategoryForm';
 
 interface CategoriesPageProps {
     ctrl: IAppController;
 }
 export const CategoriesPage: React.FC<CategoriesPageProps> = ({ ctrl }) => {
-    // const colorTheme = useSelector(appSelector.colorTheme);
+    const categories = useSelector(appSelector.categories);
+    const curCategoryId = useSelector(appSelector.curCategoryId);
+    const editedCategory = useSelector(appSelector.editedCategory);
     return (
         <div className={cn(styles.CategoriesPage)}>
-            <div className={styles.categoryList}>list</div>
-            <div className={styles.curCategory}>info</div>
+            <div className={styles.categoryList}>
+                {categories.length === 0 && (
+                    <ul>
+                        <li onClick={ctrl.onAddCategoryClick}>+ Add</li>
+                    </ul>
+                )}
+                {categories.length > 0 && (
+                    <ul>
+                        <li onClick={ctrl.onAddCategoryClick}>+ Add</li>
+                        {categories.map((category: Category) => (
+                            <li
+                                key={category.id}
+                                onClick={ctrl.onCategoryClick}
+                                data-id={category.id}
+                                className={cn({ [styles.cur]: category.id === curCategoryId })}
+                            >{`${category.name} (${category.id})`}</li>
+                        ))}
+                    </ul>
+                )}
+            </div>
+            <div className={styles.curCategory}>
+                {!curCategoryId && <div className={styles.nothingSelected}>No category selected</div>}
+                {!!curCategoryId && (
+                    <EditCategoryForm initialValues={editedCategory} initialErrors={{ id: '', name: '' }} ctrl={ctrl} />
+                )}
+            </div>
         </div>
     );
 };
