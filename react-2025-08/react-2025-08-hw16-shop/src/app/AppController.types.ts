@@ -1,3 +1,4 @@
+import { Category } from 'src/entities/Category';
 import { Product } from 'src/entities/Product';
 import { LoginFormValues } from 'src/features/forms/LoginForm/LoginForm.types';
 
@@ -17,6 +18,9 @@ export interface IAppController {
     onEditProductSubmit: (values: Product) => void;
     onProductsClick: () => void;
     onCategoriesClick: () => void;
+    onCategoryClick: (evt: React.MouseEvent<HTMLLIElement>) => void;
+    onEditCategorySubmit: (values: Category) => void;
+    onAddCategoryClick: () => void;
 }
 
 export enum Partition {
@@ -24,3 +28,5 @@ export enum Partition {
     PRODUCTS = 'PRODUCTS',
     CATEGORIES = 'CATEGORIES'
 }
+
+export const NEW_CATEGORY_ID = -1;

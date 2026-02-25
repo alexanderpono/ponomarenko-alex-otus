@@ -1,11 +1,12 @@
 import { AppStateManager } from 'src/store/AppStateManager';
-import { IAppController, Partition } from './AppController.types';
+import { IAppController, NEW_CATEGORY_ID, Partition } from './AppController.types';
 import { defaultProduct, Product, ProductType } from 'src/entities/Product';
 import { middleText } from 'src/constants/middleText';
 import { Theme } from 'src/constants/Theme';
 import { Language } from 'src/constants/i18n';
 import { LoginFormValues } from 'src/features/forms/LoginForm/LoginForm.types';
 import { findNodeWithDataAttr } from 'src/utils/findNodeWithDataAttr';
+import { Category, defaultCategory } from 'src/entities/Category';
 
 const COLOR_THEME = 'colorTheme';
 const LANGUAGE = 'language';
@@ -54,6 +55,23 @@ export class AppController implements IAppController {
         // this.appSTM.curPartition(Partition.PRODUCTS);
         this.appSTM.curPartition(Partition.CATEGORIES);
 
+        this.appSTM.categories([
+            {
+                ...defaultCategory,
+                id: 1,
+                name: 'CAR'
+            },
+            {
+                ...defaultCategory,
+                id: 2,
+                name: 'TOY'
+            },
+            {
+                ...defaultCategory,
+                id: 3,
+                name: 'FOOD'
+            }
+        ]);
         // this.onLoginClick();
     };
 
@@ -134,5 +152,35 @@ export class AppController implements IAppController {
 
     onCategoriesClick = () => {
         this.appSTM.curPartition(Partition.CATEGORIES);
+    };
+
+    onCategoryClick = (evt: React.MouseEvent<HTMLLIElement>) => {
+        const el = findNodeWithDataAttr(evt.target as HTMLElement, 'id', 8);
+        if (!el) {
+            return;
+        }
+        const idS = el.dataset['id'];
+        const id = parseInt(idS);
+        this.appSTM.curCategoryId(id);
+
+        const categories = this.appSTM.getApp().categories;
+        const curCategory = categories.find((category) => category.id === id);
+        this.appSTM.editedCategory(curCategory);
+    };
+
+    onEditCategorySubmit = (categoryToSave: Category) => {
+        const categories = this.appSTM.getApp().categories;
+
+        const newCategories =
+            categoryToSave.id !== NEW_CATEGORY_ID
+                ? categories.map((category) => (category.id === categoryToSave.id ? { ...categoryToSave } : category))
+                : [...categories, { ...categoryToSave, id: categories.length + 1 }];
+
+        this.appSTM.categories(newCategories);
+    };
+
+    onAddCategoryClick = () => {
+        this.appSTM.curCategoryId(NEW_CATEGORY_ID);
+        this.appSTM.editedCategory({ ...defaultCategory, id: NEW_CATEGORY_ID });
     };
 }

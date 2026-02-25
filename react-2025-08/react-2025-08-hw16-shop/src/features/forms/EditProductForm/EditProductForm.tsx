@@ -36,7 +36,7 @@ export const EditProductForm: React.FC<EditProductFormProps> = ({ initialValues,
         <form className={styles.EditProductForm} onSubmit={formik.handleSubmit}>
             <label>
                 <span>{translations.image}</span>
-                <input type="file" name="photo" onChange={formik.handleChange} value={formik.values.photo} />
+                <input type="file" name="photo" onChange={formik.handleChange} value={''} />
                 {formik.errors.photo && <div className={styles.error}>{formik.errors.photo}</div>}
             </label>
 

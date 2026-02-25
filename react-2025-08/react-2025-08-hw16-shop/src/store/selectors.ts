@@ -9,5 +9,6 @@ export const appSelector = {
     isRegistering: (state: RootState) => state.app.isRegistering,
     isEditProductVisible: (state: RootState) => state.app.isEditProductVisible,
     editedProduct: (state: RootState) => state.app.editedProduct,
-    curPartition: (state: RootState) => state.app.curPartition
+    curPartition: (state: RootState) => state.app.curPartition,
+    categories: (state: RootState) => state.app.categories
 };

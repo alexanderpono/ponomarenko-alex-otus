@@ -3,6 +3,7 @@ import { Theme } from 'src/constants/Theme';
 import { defaultProduct, Product } from 'src/entities/Product';
 import { Language } from 'src/constants/i18n';
 import { Partition } from 'src/app/AppController.types';
+import { Category, defaultCategory } from 'src/entities/Category';
 
 export enum AppEvent {
     DEFAULT = '',
@@ -14,7 +15,10 @@ export enum AppEvent {
     IS_REGISTERING = 'APP/IS_REGISTERING',
     IS_EDIT_PRODUCT_VISIBLE = 'APP/IS_EDIT_PRODUCT_VISIBLE',
     EDITED_PRODUCT = 'APP/EDITED_PRODUCT',
-    CUR_PARTITION = 'APP/CUR_PARTITION'
+    CUR_PARTITION = 'APP/CUR_PARTITION',
+    CATEGORIES = 'APP/CATEGORIES',
+    CUR_CATEGORY_ID = 'APP/CUR_CATEGORY_ID',
+    EDITED_CATEGORY = 'APP/EDITED_CATEGORY'
 }
 
 export interface AppState {
@@ -28,6 +32,9 @@ export interface AppState {
     isEditProductVisible: boolean;
     editedProduct: Product;
     curPartition: Partition;
+    categories: Category[];
+    curCategoryId: number;
+    editedCategory: Category;
 }
 
 export const defaultAppState: AppState = {
@@ -40,7 +47,10 @@ export const defaultAppState: AppState = {
     isRegistering: false,
     isEditProductVisible: false,
     editedProduct: { ...defaultProduct },
-    curPartition: Partition.DEFAULT
+    curPartition: Partition.DEFAULT,
+    categories: [],
+    curCategoryId: 0,
+    editedCategory: { ...defaultCategory }
 };
 
 export interface ProductsAction {
@@ -106,6 +116,27 @@ export interface CurPartitionAction {
     };
 }
 
+export interface CategoriesAction {
+    type: AppEvent.CATEGORIES;
+    payload: {
+        categories: Category[];
+    };
+}
+
+export interface CurCategoryIdAction {
+    type: AppEvent.CUR_CATEGORY_ID;
+    payload: {
+        curCategoryId: number;
+    };
+}
+
+export interface EditedCategoryAction {
+    type: AppEvent.EDITED_CATEGORY;
+    payload: {
+        editedCategory: Category;
+    };
+}
+
 export type AppAction =
     | ProductsAction
     | LanguageAction
@@ -115,7 +146,10 @@ export type AppAction =
     | IsRegisteringAction
     | IsEditProductVisibleAction
     | EditedProductAction
-    | CurPartitionAction;
+    | CurPartitionAction
+    | CategoriesAction
+    | CurCategoryIdAction
+    | EditedCategoryAction;
 
 export const app = {
     products: (products: Product[]): ProductsAction => ({
@@ -153,6 +187,18 @@ export const app = {
     curPartition: (curPartition: Partition): CurPartitionAction => ({
         type: AppEvent.CUR_PARTITION,
         payload: { curPartition }
+    }),
+    categories: (categories: Category[]): CategoriesAction => ({
+        type: AppEvent.CATEGORIES,
+        payload: { categories }
+    }),
+    curCategoryId: (curCategoryId: number): CurCategoryIdAction => ({
+        type: AppEvent.CUR_CATEGORY_ID,
+        payload: { curCategoryId }
+    }),
+    editedCategory: (editedCategory: Category): EditedCategoryAction => ({
+        type: AppEvent.EDITED_CATEGORY,
+        payload: { editedCategory }
     })
 };
 
@@ -202,6 +248,21 @@ export const appReducer = handleActions(
             ...state,
             event: AppEvent.CUR_PARTITION,
             curPartition: (action as unknown as CurPartitionAction).payload.curPartition
+        }),
+        [AppEvent.CATEGORIES]: (state: AppState, action) => ({
+            ...state,
+            event: AppEvent.CATEGORIES,
+            categories: (action as unknown as CategoriesAction).payload.categories
+        }),
+        [AppEvent.CUR_CATEGORY_ID]: (state: AppState, action) => ({
+            ...state,
+            event: AppEvent.CUR_CATEGORY_ID,
+            curCategoryId: (action as unknown as CurCategoryIdAction).payload.curCategoryId
+        }),
+        [AppEvent.EDITED_CATEGORY]: (state: AppState, action) => ({
+            ...state,
+            event: AppEvent.EDITED_CATEGORY,
+            editedCategory: (action as unknown as EditedCategoryAction).payload.editedCategory
         })
     },
     defaultAppState

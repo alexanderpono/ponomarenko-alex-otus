@@ -7,13 +7,13 @@
                 <mxCell id="4" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="2" target="3">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="2" value="1. Добавить меню разделов (Продукты, Категории, Корзина, Профиль)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="2" value="1. Добавить меню разделов (Продукты, Категории, Корзина, Профиль)" style="rounded=1;whiteSpace=wrap;html=1;fontColor=light-dark(#CCCCCC,#EDEDED);" vertex="1" parent="1">
                     <mxGeometry x="120" y="160" width="120" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="10" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="3" target="9">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="3" value="2. Добавить раздел Categories" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="3" value="2. Добавить раздел Categories" style="rounded=1;whiteSpace=wrap;html=1;fontColor=#CCCCCC;" vertex="1" parent="1">
                     <mxGeometry x="320" y="160" width="120" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="5" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
@@ -37,10 +37,10 @@
                 <mxCell id="12" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="9" target="11">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="9" value="3. Реализовать отображение списка категорий" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+                <mxCell id="9" value="3. Реализовать отображение списка категорий" style="whiteSpace=wrap;html=1;rounded=1;fontColor=#CCCCCC;" vertex="1" parent="1">
                     <mxGeometry x="520" y="160" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="11" value="4. Реализовать CRUD-операции Categories (Backend - на заглушке)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="11" value="4. Реализовать CRUD-операции Categories (Backend - на заглушке)" style="rounded=1;whiteSpace=wrap;html=1;fontColor=#CCCCCC;" vertex="1" parent="1">
                     <mxGeometry x="720" y="160" width="120" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="15" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="13" target="14">
@@ -89,6 +89,15 @@
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="250" y="200" as="sourcePoint"/>
                         <mxPoint x="330" y="200" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="25" value="Сделать связь категорий с продуктами" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="440" y="270" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="7" target="25">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="310" y="300" as="sourcePoint"/>
+                        <mxPoint x="320" y="299.5" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
             </root>
