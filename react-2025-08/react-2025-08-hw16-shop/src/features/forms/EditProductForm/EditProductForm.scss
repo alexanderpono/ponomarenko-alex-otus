@@ -8,21 +8,32 @@
     font-size: 14px;
 
     label {
-        margin-bottom: 20px;
+        margin-top: 20px;
+        display: flex;
     }
-    input[type="text"], input[type="password"], input[type="file"], button {
-        margin-left: 20px;
+    input[type="text"], input[type="password"], input[type="file"], select {
+        margin-left: 0px;
+    }
+    button {
+        margin-right: 20px;
     }
     span {
         display: block;
-        width: 50px;
+        width: 100px;
         float: left;
         line-height: 20px;
+        text-align: left;
+    }
+
+    .buttons {
+        display: flex;
+        margin-top: 20px;
     }
 
 }
 
 .error {
     color: red;
-    padding-left: 70px;
+    text-align: left;
+    padding-left: 100px;
 }

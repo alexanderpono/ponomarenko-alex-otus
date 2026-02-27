@@ -6,7 +6,7 @@ import { ErrorFields } from 'src/features/forms/forms.types';
 import { useSelector } from 'react-redux';
 import { appSelector } from 'src/store/selectors';
 import { i18n } from 'src/constants/i18n';
-import { IAppController, NEW_CATEGORY_ID } from 'src/app/AppController.types';
+import { IAppController, NEW_ENTITY_ID } from 'src/app/AppController.types';
 import { Category } from 'src/entities/Category';
 
 interface EditCategoryFormProps {
@@ -35,7 +35,7 @@ export const EditCategoryForm: React.FC<EditCategoryFormProps> = ({ initialValue
             <label>
                 <span>ID</span>
                 <div className={styles.input}>
-                    {formik.values.id === NEW_CATEGORY_ID ? 'New category' : formik.values.id}
+                    {formik.values.id === NEW_ENTITY_ID ? 'New category' : formik.values.id}
                 </div>
                 {formik.errors.id && <div className={styles.error}>{formik.errors.id}</div>}
             </label>

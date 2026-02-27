@@ -1,5 +1,5 @@
 import { AppStateManager } from 'src/store/AppStateManager';
-import { IAppController, NEW_CATEGORY_ID, Partition } from './AppController.types';
+import { IAppController, NEW_ENTITY_ID, Partition } from './AppController.types';
 import { defaultProduct, Product, ProductType } from 'src/entities/Product';
 import { middleText } from 'src/constants/middleText';
 import { Theme } from 'src/constants/Theme';
@@ -44,6 +44,14 @@ export class AppController implements IAppController {
                 price: 999,
                 name: 'Машинка',
                 desc: 'Дешево и сердито'
+            },
+            {
+                ...defaultProduct,
+                id: 4,
+                type: ProductType.CAR,
+                price: 1999,
+                name: 'Машинка2',
+                desc: 'Дешево2 и сердито'
             }
         ]);
 
@@ -73,6 +81,7 @@ export class AppController implements IAppController {
             }
         ]);
         // this.onLoginClick();
+        // this.onAddProductClick();
     };
 
     onThemeChange = (evt: React.ChangeEvent<HTMLSelectElement>) => {
@@ -138,10 +147,13 @@ export class AppController implements IAppController {
     };
 
     onEditProductSubmit = (productToSave: Product) => {
-        const products = this.appSTM.getApp().products;
-        const newProducts = products.map((product) =>
-            product.id === productToSave.id ? { ...productToSave } : product
-        );
+        const appState = this.appSTM.getApp();
+        const products = appState.products;
+        const newProducts =
+            productToSave.id !== NEW_ENTITY_ID
+                ? products.map((product) => (product.id === productToSave.id ? { ...productToSave } : product))
+                : [...products, { ...productToSave, id: products.length + 1 }];
+
         this.appSTM.products(newProducts);
         this.appSTM.isEditProductVisible(false);
     };
@@ -172,7 +184,7 @@ export class AppController implements IAppController {
         const categories = this.appSTM.getApp().categories;
 
         const newCategories =
-            categoryToSave.id !== NEW_CATEGORY_ID
+            categoryToSave.id !== NEW_ENTITY_ID
                 ? categories.map((category) => (category.id === categoryToSave.id ? { ...categoryToSave } : category))
                 : [...categories, { ...categoryToSave, id: categories.length + 1 }];
 
@@ -180,7 +192,12 @@ export class AppController implements IAppController {
     };
 
     onAddCategoryClick = () => {
-        this.appSTM.curCategoryId(NEW_CATEGORY_ID);
-        this.appSTM.editedCategory({ ...defaultCategory, id: NEW_CATEGORY_ID });
+        this.appSTM.curCategoryId(NEW_ENTITY_ID);
+        this.appSTM.editedCategory({ ...defaultCategory, id: NEW_ENTITY_ID });
+    };
+
+    onAddProductClick = () => {
+        this.appSTM.editedProduct({ ...defaultProduct, id: NEW_ENTITY_ID });
+        this.appSTM.isEditProductVisible(true);
     };
 }
