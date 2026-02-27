@@ -21,6 +21,7 @@ export interface IAppController {
     onCategoryClick: (evt: React.MouseEvent<HTMLLIElement>) => void;
     onEditCategorySubmit: (values: Category) => void;
     onAddCategoryClick: () => void;
+    onAddProductClick: () => void;
 }
 
 export enum Partition {
@@ -29,4 +30,4 @@ export enum Partition {
     CATEGORIES = 'CATEGORIES'
 }
 
-export const NEW_CATEGORY_ID = -1;
+export const NEW_ENTITY_ID = -1;

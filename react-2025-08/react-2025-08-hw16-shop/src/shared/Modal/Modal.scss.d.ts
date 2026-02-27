@@ -2,8 +2,11 @@
 // Please do not change this file!
 interface CssExports {
   'Modal': string;
+  'blue': string;
   'closeButton': string;
   'content': string;
+  'grey': string;
+  'title': string;
   'window': string;
 }
 export const cssExports: CssExports;

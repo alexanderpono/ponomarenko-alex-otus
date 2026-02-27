@@ -10,5 +10,7 @@ export const appSelector = {
     isEditProductVisible: (state: RootState) => state.app.isEditProductVisible,
     editedProduct: (state: RootState) => state.app.editedProduct,
     curPartition: (state: RootState) => state.app.curPartition,
-    categories: (state: RootState) => state.app.categories
+    categories: (state: RootState) => state.app.categories,
+    curCategoryId: (state: RootState) => state.app.curCategoryId,
+    editedCategory: (state: RootState) => state.app.editedCategory
 };

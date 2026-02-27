@@ -1,0 +1,15 @@
+.ProductsPage {
+    height: calc(100% - 102px);
+    overflow: auto;
+
+    .menu {
+        // border: 1px solid red;
+        height: 30px;
+        line-height: 30px;
+        padding-left: 20px;
+    }
+
+    .menuItem {
+        cursor: pointer;
+    }
+}
