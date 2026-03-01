@@ -27,7 +27,6 @@ export const dynamic: Story = {
                 id: 1,
                 type: ProductType.CAR,
                 photo: '',
-                count: 0,
                 price: 1999,
                 name: 'Product name',
                 desc: 'Short description of the product'
@@ -36,7 +35,6 @@ export const dynamic: Story = {
                 id: 2,
                 type: ProductType.CAR,
                 photo: '',
-                count: 1,
                 price: 2000,
                 name: 'Product name2',
                 desc: 'Short description 2'
@@ -45,7 +43,6 @@ export const dynamic: Story = {
                 id: 3,
                 type: ProductType.CAR,
                 photo: '',
-                count: 2,
                 price: 100,
                 name: 'Product name3',
                 desc: 'Short description 3'
@@ -54,7 +51,6 @@ export const dynamic: Story = {
                 id: 4,
                 type: ProductType.CAR,
                 photo: '',
-                count: 3,
                 price: 101,
                 name: 'Product name4',
                 desc: 'Short description 4'

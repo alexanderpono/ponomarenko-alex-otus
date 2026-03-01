@@ -45,7 +45,7 @@ export const DetailedProductCard: React.FC<DetailedProductCardProps> = ({
 
                         <div className={styles.description}>{children}</div>
 
-                        <BtToBasket count={count} />
+                        <BtToBasket count={count} onPlusClick={() => null} onMinusClick={() => null} />
                     </div>
                 </div>
             </div>

@@ -5,6 +5,7 @@ import { Language } from 'src/constants/i18n';
 import { Theme } from 'src/constants/Theme';
 import { Partition } from 'src/app/AppController.types';
 import { Category } from 'src/entities/Category';
+import { Cart } from 'src/entities/Cart';
 
 const dispatch = (action: AppAction) => getStore().dispatch(action);
 
@@ -22,6 +23,7 @@ export class AppStateManager {
     categories = (categories: Category[]) => dispatch(app.categories(categories));
     curCategoryId = (curCategoryId: number) => dispatch(app.curCategoryId(curCategoryId));
     editedCategory = (editedCategory: Category) => dispatch(app.editedCategory(editedCategory));
+    cart = (cart: Cart) => dispatch(app.cart(cart));
 
     static create(): AppStateManager {
         return new AppStateManager();

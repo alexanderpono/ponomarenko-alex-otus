@@ -9,6 +9,7 @@ import { i18n } from 'src/constants/i18n';
 import { LoginForm } from 'src/features/forms/LoginForm/LoginForm';
 import CategoriesPage from 'src/pages/CategoriesPage/CategoriesPage';
 import ProductsPage from 'src/pages/ProductsPage/ProductsPage';
+import CartPage from 'src/pages/CartPage/CartPage';
 
 interface AppProps {
     ctrl: IAppController;
@@ -32,8 +33,8 @@ export const App: React.FC<AppProps> = ({ ctrl }) => {
             </Modal>
 
             {curPartition === Partition.PRODUCTS && <ProductsPage ctrl={ctrl} />}
-
             {curPartition === Partition.CATEGORIES && <CategoriesPage ctrl={ctrl} />}
+            {curPartition === Partition.CART && <CartPage ctrl={ctrl} />}
 
             {/* <DetailedProductCard
                         image="cat.jpg"

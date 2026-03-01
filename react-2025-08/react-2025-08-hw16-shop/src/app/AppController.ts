@@ -1,5 +1,5 @@
 import { AppStateManager } from 'src/store/AppStateManager';
-import { IAppController, NEW_ENTITY_ID, Partition } from './AppController.types';
+import { CartOperation, IAppController, NEW_ENTITY_ID, Partition } from './AppController.types';
 import { defaultProduct, Product, ProductType } from 'src/entities/Product';
 import { middleText } from 'src/constants/middleText';
 import { Theme } from 'src/constants/Theme';
@@ -7,6 +7,7 @@ import { Language } from 'src/constants/i18n';
 import { LoginFormValues } from 'src/features/forms/LoginForm/LoginForm.types';
 import { findNodeWithDataAttr } from 'src/utils/findNodeWithDataAttr';
 import { Category, defaultCategory } from 'src/entities/Category';
+import { CartItem, defaultCart } from 'src/entities/Cart';
 
 const COLOR_THEME = 'colorTheme';
 const LANGUAGE = 'language';
@@ -60,8 +61,9 @@ export class AppController implements IAppController {
 
         const languageStr = localStorage.getItem(LANGUAGE);
         this.appSTM.language(languageStr === Language.RU ? Language.RU : Language.EN);
-        // this.appSTM.curPartition(Partition.PRODUCTS);
-        this.appSTM.curPartition(Partition.CATEGORIES);
+        this.appSTM.curPartition(Partition.PRODUCTS);
+        // this.appSTM.curPartition(Partition.CATEGORIES);
+        // this.appSTM.curPartition(Partition.CART);
 
         this.appSTM.categories([
             {
@@ -82,6 +84,15 @@ export class AppController implements IAppController {
         ]);
         // this.onLoginClick();
         // this.onAddProductClick();
+
+        this.appSTM.cart({
+            ...defaultCart,
+            items: [
+                { productId: 1, count: 2 },
+                { productId: 2, count: 1 }
+            ],
+            totalPrice: 100
+        });
     };
 
     onThemeChange = (evt: React.ChangeEvent<HTMLSelectElement>) => {
@@ -199,5 +210,90 @@ export class AppController implements IAppController {
     onAddProductClick = () => {
         this.appSTM.editedProduct({ ...defaultProduct, id: NEW_ENTITY_ID });
         this.appSTM.isEditProductVisible(true);
+    };
+
+    onCartClick = () => {
+        this.appSTM.curPartition(Partition.CART);
+    };
+
+    getUpdatedCartItems = (items: CartItem[], operation: CartOperation, productId: number): CartItem[] => {
+        const curCartItem = items.find((cartItem) => cartItem.productId === productId);
+        let newCartItems = items;
+        if (typeof curCartItem === 'undefined') {
+            const newCartItem: CartItem = { productId, count: 1 };
+            newCartItems = [...newCartItems, newCartItem];
+        } else {
+            newCartItems = newCartItems.map((cartItem) => {
+                let newCount = 0;
+                if (operation === CartOperation.MINUS) {
+                    newCount = cartItem.count - 1;
+                } else if (operation === CartOperation.PLUS) {
+                    newCount = cartItem.count + 1;
+                }
+
+                return cartItem.productId === productId ? { ...cartItem, count: newCount } : cartItem;
+            });
+        }
+        newCartItems = newCartItems.filter((cartItem) => cartItem.count > 0);
+        return newCartItems;
+    };
+
+    getTotalPrice = (items: CartItem[]): number => {
+        const products = this.appSTM.getApp().products;
+        const totalPrice = items.reduce((acc: number, cartItem: CartItem) => {
+            const curProduct = products.find((product) => product.id === cartItem.productId);
+            if (typeof curProduct !== 'undefined') {
+                return acc + curProduct.price * cartItem.count;
+            } else {
+                return acc;
+            }
+        }, 0);
+        return totalPrice;
+    };
+
+    getTotalCount = (items: CartItem[]): number => {
+        const totalCount = items.reduce((acc: number, cartItem: CartItem) => {
+            return acc + cartItem.count;
+        }, 0);
+        return totalCount;
+    };
+
+    processPlusMinus = (evt: React.MouseEvent<HTMLDivElement>, operation: CartOperation) => {
+        const el = findNodeWithDataAttr(evt.target as HTMLElement, 'productid', 8);
+        if (!el) {
+            return;
+        }
+        const id = el.dataset['productid'];
+        const cart = this.appSTM.getApp().cart;
+        const newCartItems = this.getUpdatedCartItems(cart.items, operation, parseInt(id));
+        const totalPrice = this.getTotalPrice(newCartItems);
+        const totalCount = this.getTotalCount(newCartItems);
+
+        const newCart = { ...cart, items: newCartItems, totalPrice, totalCount };
+        this.appSTM.cart(newCart);
+    };
+
+    onPlusClick = (evt: React.MouseEvent<HTMLDivElement>) => {
+        this.processPlusMinus(evt, CartOperation.PLUS);
+    };
+
+    onMinusClick = (evt: React.MouseEvent<HTMLDivElement>) => {
+        this.processPlusMinus(evt, CartOperation.MINUS);
+    };
+
+    onCartItemDelClick = (evt: React.MouseEvent<HTMLButtonElement>) => {
+        const el = findNodeWithDataAttr(evt.target as HTMLElement, 'productid', 8);
+        if (!el) {
+            return;
+        }
+        const id = el.dataset['productid'];
+
+        const cart = this.appSTM.getApp().cart;
+        const newCartItems = this.getUpdatedCartItems(cart.items, CartOperation.DEL, parseInt(id));
+        const totalPrice = this.getTotalPrice(newCartItems);
+        const totalCount = this.getTotalCount(newCartItems);
+
+        const newCart = { ...cart, items: newCartItems, totalPrice, totalCount };
+        this.appSTM.cart(newCart);
     };
 }

@@ -10,7 +10,7 @@ export interface ProductListProps {
     ctrl: IAppController;
 }
 export const ProductList: React.FC<ProductListProps> = ({ products, ctrl }) => {
-    const filteredProducts = useMemo(() => products.filter((product: Product) => product.count > 0), [products]);
+    const filteredProducts = useMemo(() => products.filter(() => true), [products]);
     return (
         <div className={cn(styles.ProductList)}>
             {filteredProducts.map((product: Product) => {

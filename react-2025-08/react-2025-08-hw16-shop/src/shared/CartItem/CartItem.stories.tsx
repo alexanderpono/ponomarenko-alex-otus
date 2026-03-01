@@ -4,6 +4,8 @@ import { shortText } from 'src/constants/shortText';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { getStore } from 'src/store/store';
+import { castPartialTo } from 'src/testFramework/castPartialTo';
+import { IAppController } from 'src/app/AppController.types';
 
 const meta: Meta<typeof CartItem> = {
     title: 'shared/CartItem',
@@ -25,9 +27,27 @@ type Story = StoryObj<typeof meta>;
 
 const defaultStory: Story = {
     render: (args: CartItemProps) => {
+        const ctrl = castPartialTo<IAppController>({
+            onProductEditClick: () => {
+                console.log('onProductEditClick()');
+            },
+            onPlusClick: () => {
+                console.log('onPlusClick()');
+            },
+            onMinusClick: () => {
+                console.log('onMinusClick()');
+            }
+        });
         return (
             <Provider store={getStore()}>
-                <CartItem image={args.image} count={args.count} price={args.price} name={args.name} />
+                <CartItem
+                    image={args.image}
+                    count={args.count}
+                    price={args.price}
+                    name={args.name}
+                    ctrl={ctrl}
+                    productId={1}
+                />
             </Provider>
         );
     }

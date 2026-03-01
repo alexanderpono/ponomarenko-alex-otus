@@ -4,6 +4,7 @@ import { defaultProduct, Product } from 'src/entities/Product';
 import { Language } from 'src/constants/i18n';
 import { Partition } from 'src/app/AppController.types';
 import { Category, defaultCategory } from 'src/entities/Category';
+import { Cart, defaultCart } from 'src/entities/Cart';
 
 export enum AppEvent {
     DEFAULT = '',
@@ -18,7 +19,8 @@ export enum AppEvent {
     CUR_PARTITION = 'APP/CUR_PARTITION',
     CATEGORIES = 'APP/CATEGORIES',
     CUR_CATEGORY_ID = 'APP/CUR_CATEGORY_ID',
-    EDITED_CATEGORY = 'APP/EDITED_CATEGORY'
+    EDITED_CATEGORY = 'APP/EDITED_CATEGORY',
+    CART = 'APP/CART'
 }
 
 export interface AppState {
@@ -35,6 +37,7 @@ export interface AppState {
     categories: Category[];
     curCategoryId: number;
     editedCategory: Category;
+    cart: Cart;
 }
 
 export const defaultAppState: AppState = {
@@ -50,7 +53,8 @@ export const defaultAppState: AppState = {
     curPartition: Partition.DEFAULT,
     categories: [],
     curCategoryId: 0,
-    editedCategory: { ...defaultCategory }
+    editedCategory: { ...defaultCategory },
+    cart: { ...defaultCart }
 };
 
 export interface ProductsAction {
@@ -137,6 +141,13 @@ export interface EditedCategoryAction {
     };
 }
 
+export interface CartAction {
+    type: AppEvent.CART;
+    payload: {
+        cart: Cart;
+    };
+}
+
 export type AppAction =
     | ProductsAction
     | LanguageAction
@@ -149,7 +160,8 @@ export type AppAction =
     | CurPartitionAction
     | CategoriesAction
     | CurCategoryIdAction
-    | EditedCategoryAction;
+    | EditedCategoryAction
+    | CartAction;
 
 export const app = {
     products: (products: Product[]): ProductsAction => ({
@@ -199,6 +211,10 @@ export const app = {
     editedCategory: (editedCategory: Category): EditedCategoryAction => ({
         type: AppEvent.EDITED_CATEGORY,
         payload: { editedCategory }
+    }),
+    cart: (cart: Cart): CartAction => ({
+        type: AppEvent.CART,
+        payload: { cart }
     })
 };
 
@@ -263,6 +279,11 @@ export const appReducer = handleActions(
             ...state,
             event: AppEvent.EDITED_CATEGORY,
             editedCategory: (action as unknown as EditedCategoryAction).payload.editedCategory
+        }),
+        [AppEvent.CART]: (state: AppState, action) => ({
+            ...state,
+            event: AppEvent.CART,
+            cart: (action as unknown as CartAction).payload.cart
         })
     },
     defaultAppState

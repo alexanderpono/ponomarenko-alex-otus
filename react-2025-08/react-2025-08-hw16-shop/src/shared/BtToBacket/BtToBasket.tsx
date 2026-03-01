@@ -4,11 +4,14 @@ import cn from 'classnames';
 import { Theme } from 'src/constants/Theme';
 import { useSelector } from 'react-redux';
 import { appSelector } from 'src/store/selectors';
+import { IAppController } from 'src/app/AppController.types';
 
 interface BtToBasketProps {
     count: number;
+    onPlusClick: (evt: React.MouseEvent<HTMLDivElement>) => void;
+    onMinusClick: (evt: React.MouseEvent<HTMLDivElement>) => void;
 }
-export const BtToBasket: React.FC<BtToBasketProps> = ({ count }) => {
+export const BtToBasket: React.FC<BtToBasketProps> = ({ count, onPlusClick, onMinusClick }) => {
     const colorTheme = useSelector(appSelector.colorTheme);
 
     const onChange = useCallback(
@@ -24,12 +27,12 @@ export const BtToBasket: React.FC<BtToBasketProps> = ({ count }) => {
                 [styles.blue]: colorTheme === Theme.BLUE
             })}
         >
-            {count === 0 && <div className={styles.basket}></div>}
+            {count === 0 && <div className={styles.basket} onClick={onPlusClick}></div>}
             {count > 0 && (
                 <>
-                    <div className={styles.plus}></div>
+                    <div className={styles.plus} onClick={onPlusClick}></div>
                     <input className={styles.input} value={count} onChange={onChange}></input>
-                    <div className={styles.minus}></div>
+                    <div className={styles.minus} onClick={onMinusClick}></div>
                 </>
             )}
         </div>
