@@ -22,12 +22,24 @@ export interface IAppController {
     onEditCategorySubmit: (values: Category) => void;
     onAddCategoryClick: () => void;
     onAddProductClick: () => void;
+    onCartClick: () => void;
+    onPlusClick: (evt: React.MouseEvent<HTMLDivElement>) => void;
+    onMinusClick: (evt: React.MouseEvent<HTMLDivElement>) => void;
+    onCartItemDelClick: (evt: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export enum Partition {
     DEFAULT = '',
     PRODUCTS = 'PRODUCTS',
-    CATEGORIES = 'CATEGORIES'
+    CATEGORIES = 'CATEGORIES',
+    CART = 'CART'
 }
 
 export const NEW_ENTITY_ID = -1;
+
+export enum CartOperation {
+    DEFAULT = '',
+    PLUS = 'PLUS',
+    MINUS = 'MINUS',
+    DEL = 'DEL'
+}

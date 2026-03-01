@@ -9,6 +9,7 @@ import { Language } from 'src/constants/i18n';
 import { Theme } from 'src/constants/Theme';
 import { Partition } from 'src/app/AppController.types';
 import { Category, defaultCategory } from 'src/entities/Category';
+import { Cart, defaultCart } from 'src/entities/Cart';
 jest.mock('./store');
 
 describe('AppStateManager', () => {
@@ -26,6 +27,8 @@ describe('AppStateManager', () => {
         const rndCategories: Category[] = rndAr<Category>(rndSize(3, 5), (): Category => {
             return { ...defaultCategory, name: str() } as Category;
         });
+        const rndCart: Cart = { ...defaultCart, totalPrice: num() };
+
         test.each`
             method                    | param1           | param2  | expected
             ${'products'}             | ${products}      | ${null} | ${app.products(products)}
@@ -40,6 +43,7 @@ describe('AppStateManager', () => {
             ${'categories'}           | ${rndCategories} | ${null} | ${app.categories(rndCategories)}
             ${'curCategoryId'}        | ${rndNum}        | ${null} | ${app.curCategoryId(rndNum)}
             ${'editedCategory'}       | ${rndCategory}   | ${null} | ${app.editedCategory(rndCategory)}
+            ${'cart'}                 | ${rndCart}       | ${null} | ${app.cart(rndCart)}
         `('$method() calls store.dispatch', ({ method, param1, param2, expected }) => {
             const dispatchMock = jest.fn();
             jest.spyOn(store, 'getStore').mockReturnValue(

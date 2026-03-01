@@ -5,7 +5,7 @@ import cn from 'classnames';
 import { Theme } from 'src/constants/Theme';
 import { Tip } from 'src/shared/Tip/Tip';
 import { useSelector } from 'react-redux';
-import { appSelector } from 'src/store/selectors';
+import { appSelector, getCartProductCount } from 'src/store/selectors';
 import { IAppController } from 'src/app/AppController.types';
 import { Product } from 'src/entities/Product';
 
@@ -16,6 +16,8 @@ export interface ProductCardProps {
 }
 export const ProductCard: React.FC<ProductCardProps> = ({ detailedDescription, ctrl, product }) => {
     const colorTheme = useSelector(appSelector.colorTheme);
+    const cart = useSelector(appSelector.cart);
+    const count = getCartProductCount(cart, product.id);
     return (
         <div
             className={cn(styles.ProductCard, {
@@ -23,6 +25,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ detailedDescription, c
                 [styles.blue]: colorTheme === Theme.BLUE
             })}
             data-id={product.id}
+            data-productid={product.id}
         >
             {product.photo && <img src={product.photo} alt={product.name} className={styles.image} />}
             {!product.photo && <div className={styles.defaultImage}></div>}
@@ -41,7 +44,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ detailedDescription, c
                 </div>
                 <div className={styles.price}>₽ {product.price}</div>
                 <div className={styles.buttons}>
-                    <BtToBasket count={product.count} />
+                    <BtToBasket count={count} onPlusClick={ctrl.onPlusClick} onMinusClick={ctrl.onMinusClick} />
                     <div className={styles.btEdit} onClick={ctrl.onProductEditClick}>
                         edit
                     </div>

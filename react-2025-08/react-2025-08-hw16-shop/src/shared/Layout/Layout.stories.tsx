@@ -30,6 +30,12 @@ type Story = StoryObj<typeof meta>;
 const ctrl = castPartialTo<IAppController>({
     onProductEditClick: () => {
         console.log('onProductEditClick()');
+    },
+    onPlusClick: () => {
+        console.log('onPlusClick()');
+    },
+    onMinusClick: () => {
+        console.log('onMinusClick()');
     }
 });
 export const LayoutWithScroll: Story = {
@@ -42,8 +48,8 @@ export const LayoutWithScroll: Story = {
                     ctrl={ctrl}
                 />
                 <div style={{ clear: 'both' }} />
-                <BtToBacket count={0} />
-                <BtToBacket count={1} />
+                <BtToBacket count={0} onPlusClick={ctrl.onPlusClick} onMinusClick={ctrl.onMinusClick} />
+                <BtToBacket count={1} onPlusClick={ctrl.onPlusClick} onMinusClick={ctrl.onMinusClick} />
                 <p>{middleText}</p>
                 <ProductCard
                     product={{
@@ -61,8 +67,8 @@ export const LayoutWithScroll: Story = {
                     {bigText}
                 </DetailedProductCard>
                 <div style={{ clear: 'both' }} />
-                <CartItem image="" count={1} price={1999} name={shortText} />
-                <CartItem image="cat.jpg" count={2} price={1999} name={shortText} />
+                <CartItem image="" count={1} price={1999} name={shortText} ctrl={ctrl} productId={1} />
+                <CartItem image="cat.jpg" count={2} price={1999} name={shortText} ctrl={ctrl} productId={2} />
 
                 {bigText}
                 {bigText}

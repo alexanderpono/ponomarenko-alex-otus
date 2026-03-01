@@ -47,7 +47,6 @@ export const NoImage1: Story = {
     args: {
         product: {
             ...defaultProduct,
-            count: 1,
             price: 1999,
             name: 'Product name',
             desc: 'Short description of the product'
@@ -61,7 +60,6 @@ export const Cat1: Story = {
         product: {
             ...defaultProduct,
             photo: 'cat.jpg',
-            count: 1,
             price: 1999,
             name: 'Kitty',
             desc: 'Kitty with flowers'
@@ -75,7 +73,6 @@ export const CatWithTip: Story = {
         product: {
             ...defaultProduct,
             photo: 'cat.jpg',
-            count: 1,
             price: 1999,
             name: 'Kitty',
             desc: 'Kitty with flowers'

@@ -20,7 +20,7 @@ export const Empty: Story = {
     render: () => {
         return (
             <Provider store={getStore()}>
-                <BtToBasket count={0} />
+                <BtToBasket count={0} onPlusClick={() => null} onMinusClick={() => null} />
             </Provider>
         );
     }
@@ -30,7 +30,7 @@ export const HasItems: Story = {
     render: () => {
         return (
             <Provider store={getStore()}>
-                <BtToBasket count={1} />
+                <BtToBasket count={1} onPlusClick={() => null} onMinusClick={() => null} />
             </Provider>
         );
     }

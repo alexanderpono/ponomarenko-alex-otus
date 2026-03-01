@@ -6,6 +6,7 @@ import { Language } from 'src/constants/i18n';
 import { Theme } from 'src/constants/Theme';
 import { Partition } from 'src/app/AppController.types';
 import { Category, defaultCategory } from 'src/entities/Category';
+import { Cart, defaultCart } from 'src/entities/Cart';
 
 describe('appReducer', () => {
     const products: Product[] = rndAr<Product>(rndSize(3, 5), (): Product => {
@@ -21,6 +22,7 @@ describe('appReducer', () => {
     const rndCategories: Category[] = rndAr<Category>(rndSize(3, 5), (): Category => {
         return { ...defaultCategory, name: str() } as Category;
     });
+    const rndCart: Cart = { ...defaultCart, totalPrice: num() };
 
     test.each`
         actions                                | testName                                                                    | event                               | stateSelector             | value
@@ -36,6 +38,7 @@ describe('appReducer', () => {
         ${[app.categories(rndCategories)]}     | ${'sets .categories for AppEvent.CATEGORIES action'}                        | ${AppEvent.CATEGORIES}              | ${'categories'}           | ${rndCategories}
         ${[app.curCategoryId(rndNum)]}         | ${'sets .curCategoryId for AppEvent.CUR_CATEGORY_ID action'}                | ${AppEvent.CUR_CATEGORY_ID}         | ${'curCategoryId'}        | ${rndNum}
         ${[app.editedCategory(rndCategory)]}   | ${'sets .editedCategory for AppEvent.EDITED_CATEGORY action'}               | ${AppEvent.EDITED_CATEGORY}         | ${'editedCategory'}       | ${rndCategory}
+        ${[app.cart(rndCart)]}                 | ${'sets .cart for AppEvent.CART action'}                                    | ${AppEvent.CART}                    | ${'cart'}                 | ${rndCart}
     `('$testName', async ({ actions, event, stateSelector, value }) => {
         let state: AppState = { ...defaultAppState };
         (actions as Action<AppState>[]).forEach((action) => {

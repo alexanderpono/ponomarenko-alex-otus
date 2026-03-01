@@ -1,3 +1,4 @@
+import { Cart } from 'src/entities/Cart';
 import { RootState } from './store';
 
 export const appSelector = {
@@ -12,5 +13,11 @@ export const appSelector = {
     curPartition: (state: RootState) => state.app.curPartition,
     categories: (state: RootState) => state.app.categories,
     curCategoryId: (state: RootState) => state.app.curCategoryId,
-    editedCategory: (state: RootState) => state.app.editedCategory
+    editedCategory: (state: RootState) => state.app.editedCategory,
+    cart: (state: RootState) => state.app.cart
+};
+
+export const getCartProductCount = (cart: Cart, productId: number): number => {
+    const curCartItem = cart.items.find((cartItem) => cartItem.productId === productId);
+    return curCartItem?.count ? curCartItem?.count : 0;
 };

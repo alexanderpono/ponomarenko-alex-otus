@@ -20,7 +20,6 @@ export const ProductDynamicList: React.FC<ProductDynamicListProps> = ({ products
             id: 1,
             type: ProductType.FOOD,
             photo: '',
-            count: myProducts.length,
             price: myProducts.length,
             name: 'name' + myProducts.length,
             desc: 'descr' + myProducts.length

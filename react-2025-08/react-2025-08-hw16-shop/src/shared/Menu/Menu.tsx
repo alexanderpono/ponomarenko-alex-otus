@@ -12,6 +12,7 @@ interface MenuProps {
 export const Menu: React.FC<MenuProps> = ({ ctrl }) => {
     const colorTheme = useSelector(appSelector.colorTheme);
     const curPartition = useSelector(appSelector.curPartition);
+    const cart = useSelector(appSelector.cart);
     return (
         <ul
             className={cn(styles.Menu, {
@@ -27,6 +28,9 @@ export const Menu: React.FC<MenuProps> = ({ ctrl }) => {
                 className={cn({ [styles.cur]: curPartition === Partition.CATEGORIES })}
             >
                 Categories
+            </li>
+            <li onClick={ctrl.onCartClick} className={cn({ [styles.cur]: curPartition === Partition.CART })}>
+                Cart{cart.totalCount > 0 ? ` (${cart.totalCount})` : ''}
             </li>
         </ul>
     );
