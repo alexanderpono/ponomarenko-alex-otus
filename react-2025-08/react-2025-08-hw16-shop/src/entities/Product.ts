@@ -12,7 +12,6 @@ export interface Product {
     name: string;
     photo?: string;
     desc?: string;
-    count?: number;
 }
 export const defaultProduct: Product = {
     id: 0,
@@ -20,8 +19,7 @@ export const defaultProduct: Product = {
     price: 0,
     name: '',
     photo: '',
-    desc: '',
-    count: 0
+    desc: ''
 };
 
 export type UserTypeProductTypeDiscount = Record<string, number>;

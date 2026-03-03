@@ -20,7 +20,8 @@ export enum AppEvent {
     CATEGORIES = 'APP/CATEGORIES',
     CUR_CATEGORY_ID = 'APP/CUR_CATEGORY_ID',
     EDITED_CATEGORY = 'APP/EDITED_CATEGORY',
-    CART = 'APP/CART'
+    CART = 'APP/CART',
+    API_ERROR_MESSAGE = 'APP/API_ERROR_MESSAGE'
 }
 
 export interface AppState {
@@ -38,6 +39,7 @@ export interface AppState {
     curCategoryId: number;
     editedCategory: Category;
     cart: Cart;
+    apiErrorMessage: string;
 }
 
 export const defaultAppState: AppState = {
@@ -54,7 +56,8 @@ export const defaultAppState: AppState = {
     categories: [],
     curCategoryId: 0,
     editedCategory: { ...defaultCategory },
-    cart: { ...defaultCart }
+    cart: { ...defaultCart },
+    apiErrorMessage: ''
 };
 
 export interface ProductsAction {
@@ -148,6 +151,13 @@ export interface CartAction {
     };
 }
 
+export interface ApiErrorMessageAction {
+    type: AppEvent.API_ERROR_MESSAGE;
+    payload: {
+        apiErrorMessage: string;
+    };
+}
+
 export type AppAction =
     | ProductsAction
     | LanguageAction
@@ -161,7 +171,8 @@ export type AppAction =
     | CategoriesAction
     | CurCategoryIdAction
     | EditedCategoryAction
-    | CartAction;
+    | CartAction
+    | ApiErrorMessageAction;
 
 export const app = {
     products: (products: Product[]): ProductsAction => ({
@@ -215,6 +226,10 @@ export const app = {
     cart: (cart: Cart): CartAction => ({
         type: AppEvent.CART,
         payload: { cart }
+    }),
+    apiErrorMessage: (apiErrorMessage: string): ApiErrorMessageAction => ({
+        type: AppEvent.API_ERROR_MESSAGE,
+        payload: { apiErrorMessage }
     })
 };
 
@@ -284,6 +299,11 @@ export const appReducer = handleActions(
             ...state,
             event: AppEvent.CART,
             cart: (action as unknown as CartAction).payload.cart
+        }),
+        [AppEvent.API_ERROR_MESSAGE]: (state: AppState, action) => ({
+            ...state,
+            event: AppEvent.API_ERROR_MESSAGE,
+            apiErrorMessage: (action as unknown as ApiErrorMessageAction).payload.apiErrorMessage
         })
     },
     defaultAppState

@@ -47,7 +47,7 @@ export const App: React.FC<AppProps> = ({ ctrl }) => {
                     </DetailedProductCard> */}
             {/* <CartItem image="" count={1} price={1999} name={shortText} />
                     <CartItem image="cat.jpg" count={2} price={1999} name={shortText} /> */}
-            <Modal visible={isLoginFormVisible} handleBtCloseClick={ctrl.onLoginCloseClick}>
+            <Modal visible={isLoginFormVisible} handleBtCloseClick={ctrl.onLoginCloseClick} title={'Login'}>
                 <LoginForm
                     initialValues={{ login: 'a', password: 'b', repeatPassword: '' }}
                     initialErrors={{
