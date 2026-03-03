@@ -28,6 +28,7 @@ describe('AppStateManager', () => {
             return { ...defaultCategory, name: str() } as Category;
         });
         const rndCart: Cart = { ...defaultCart, totalPrice: num() };
+        const rndStr = str();
 
         test.each`
             method                    | param1           | param2  | expected
@@ -44,6 +45,7 @@ describe('AppStateManager', () => {
             ${'curCategoryId'}        | ${rndNum}        | ${null} | ${app.curCategoryId(rndNum)}
             ${'editedCategory'}       | ${rndCategory}   | ${null} | ${app.editedCategory(rndCategory)}
             ${'cart'}                 | ${rndCart}       | ${null} | ${app.cart(rndCart)}
+            ${'apiErrorMessage'}      | ${rndStr}        | ${null} | ${app.apiErrorMessage(rndStr)}
         `('$method() calls store.dispatch', ({ method, param1, param2, expected }) => {
             const dispatchMock = jest.fn();
             jest.spyOn(store, 'getStore').mockReturnValue(

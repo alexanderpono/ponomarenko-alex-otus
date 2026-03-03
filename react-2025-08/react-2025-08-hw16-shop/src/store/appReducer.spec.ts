@@ -23,6 +23,7 @@ describe('appReducer', () => {
         return { ...defaultCategory, name: str() } as Category;
     });
     const rndCart: Cart = { ...defaultCart, totalPrice: num() };
+    const rndStr = str();
 
     test.each`
         actions                                | testName                                                                    | event                               | stateSelector             | value
@@ -39,6 +40,7 @@ describe('appReducer', () => {
         ${[app.curCategoryId(rndNum)]}         | ${'sets .curCategoryId for AppEvent.CUR_CATEGORY_ID action'}                | ${AppEvent.CUR_CATEGORY_ID}         | ${'curCategoryId'}        | ${rndNum}
         ${[app.editedCategory(rndCategory)]}   | ${'sets .editedCategory for AppEvent.EDITED_CATEGORY action'}               | ${AppEvent.EDITED_CATEGORY}         | ${'editedCategory'}       | ${rndCategory}
         ${[app.cart(rndCart)]}                 | ${'sets .cart for AppEvent.CART action'}                                    | ${AppEvent.CART}                    | ${'cart'}                 | ${rndCart}
+        ${[app.apiErrorMessage(rndStr)]}       | ${'sets .apiErrorMessage for AppEvent.API_ERROR_MESSAGE action'}            | ${AppEvent.API_ERROR_MESSAGE}       | ${'apiErrorMessage'}      | ${rndStr}
     `('$testName', async ({ actions, event, stateSelector, value }) => {
         let state: AppState = { ...defaultAppState };
         (actions as Action<AppState>[]).forEach((action) => {

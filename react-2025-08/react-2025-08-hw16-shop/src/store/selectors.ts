@@ -14,7 +14,8 @@ export const appSelector = {
     categories: (state: RootState) => state.app.categories,
     curCategoryId: (state: RootState) => state.app.curCategoryId,
     editedCategory: (state: RootState) => state.app.editedCategory,
-    cart: (state: RootState) => state.app.cart
+    cart: (state: RootState) => state.app.cart,
+    apiErrorMessage: (state: RootState) => state.app.apiErrorMessage
 };
 
 export const getCartProductCount = (cart: Cart, productId: number): number => {

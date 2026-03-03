@@ -17,6 +17,7 @@ interface LoginFormProps {
 }
 export const LoginForm: React.FC<LoginFormProps> = ({ initialValues, initialErrors, isRegistering, ctrl }) => {
     const language = useSelector(appSelector.language);
+    const apiErrorMessage = useSelector(appSelector.apiErrorMessage);
     const errTranslations = i18n[language].errors;
 
     const validationSchema = Yup.object().shape({
@@ -88,6 +89,14 @@ export const LoginForm: React.FC<LoginFormProps> = ({ initialValues, initialErro
                     />
                     {formik.errors.repeatPassword && <div className={styles.error}>{formik.errors.repeatPassword}</div>}
                 </label>
+            )}
+
+            {apiErrorMessage && (
+                <div className={styles.error}>
+                    {apiErrorMessage}
+                    <br />
+                    <br />
+                </div>
             )}
 
             <div>

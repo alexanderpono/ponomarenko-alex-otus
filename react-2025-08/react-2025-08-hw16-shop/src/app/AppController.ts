@@ -9,8 +9,7 @@ import { findNodeWithDataAttr } from 'src/utils/findNodeWithDataAttr';
 import { Category, defaultCategory } from 'src/entities/Category';
 import { CartItem, defaultCart } from 'src/entities/Cart';
 import { AuthAPI } from 'src/features/services/AuthAPI/AuthAPI';
-import { COMMAND_ID } from 'src/constants/config';
-import { AuthResult } from 'src/features/services/AuthAPI/AuthAPI.types';
+import { AuthErrorAnswer, AuthResult } from 'src/features/services/AuthAPI/AuthAPI.types';
 import { StorageService } from 'src/features/services/StorageService/StorageService';
 
 const COLOR_THEME = 'colorTheme';
@@ -122,6 +121,7 @@ export class AppController implements IAppController {
         console.log('onLoginClick()');
         this.appSTM.isLoginFormVisible(true);
         this.appSTM.isRegistering(false);
+        this.appSTM.apiErrorMessage('');
     };
 
     onLogoutClick = () => {
@@ -131,26 +131,31 @@ export class AppController implements IAppController {
     };
 
     onLoginSubmit = (values: LoginFormValues) => {
-        this.appSTM.isLoginFormVisible(false);
-        if (values.repeatPassword !== '') {
-            this.authAPI
-                .register({
-                    email: values.login,
-                    password: values.password,
-                    commandId: COMMAND_ID
-                })
-                .then((result: AuthResult) => {
-                    this.storage.setToken(result.token);
-                    this.appSTM.isUserAuthorized(true);
-                });
-        }
+        const api = values.repeatPassword !== '' ? this.authAPI.register : this.authAPI.login;
+        api({
+            email: values.login,
+            password: values.password
+        })
+            .then((result: AuthResult) => {
+                this.storage.setToken(result.token);
+                this.appSTM.isUserAuthorized(true);
+                this.appSTM.isLoginFormVisible(false);
+            })
+            .catch((answer: AuthErrorAnswer) => {
+                if (Array.isArray(answer?.errors) && answer?.errors?.length > 0) {
+                    const errorInfo = answer?.errors[0];
+                    this.appSTM.apiErrorMessage(errorInfo.message);
+                }
+            });
     };
 
     onSelectLogin = () => {
         this.appSTM.isRegistering(false);
+        this.appSTM.apiErrorMessage('');
     };
     onSelectRegister = () => {
         this.appSTM.isRegistering(true);
+        this.appSTM.apiErrorMessage('');
     };
 
     onLoginCloseClick = () => {

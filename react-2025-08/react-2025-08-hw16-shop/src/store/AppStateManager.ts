@@ -24,6 +24,7 @@ export class AppStateManager {
     curCategoryId = (curCategoryId: number) => dispatch(app.curCategoryId(curCategoryId));
     editedCategory = (editedCategory: Category) => dispatch(app.editedCategory(editedCategory));
     cart = (cart: Cart) => dispatch(app.cart(cart));
+    apiErrorMessage = (apiErrorMessage: string) => dispatch(app.apiErrorMessage(apiErrorMessage));
 
     static create(): AppStateManager {
         return new AppStateManager();
