@@ -8,15 +8,23 @@ import { LoginFormValues } from 'src/features/forms/LoginForm/LoginForm.types';
 import { findNodeWithDataAttr } from 'src/utils/findNodeWithDataAttr';
 import { Category, defaultCategory } from 'src/entities/Category';
 import { CartItem, defaultCart } from 'src/entities/Cart';
+import { AuthAPI } from 'src/features/services/AuthAPI/AuthAPI';
+import { COMMAND_ID } from 'src/constants/config';
+import { AuthResult } from 'src/features/services/AuthAPI/AuthAPI.types';
+import { StorageService } from 'src/features/services/StorageService/StorageService';
 
 const COLOR_THEME = 'colorTheme';
 const LANGUAGE = 'language';
 
 export class AppController implements IAppController {
     private appSTM: AppStateManager = null;
+    private storage: StorageService = null;
+    private authAPI: AuthAPI = null;
 
     constructor() {
         this.appSTM = AppStateManager.create();
+        this.storage = new StorageService();
+        this.authAPI = new AuthAPI();
     }
 
     onAppMount = () => {
@@ -93,6 +101,9 @@ export class AppController implements IAppController {
             ],
             totalPrice: 100
         });
+
+        const token = this.storage.getToken();
+        this.appSTM.isUserAuthorized(typeof token === 'string' && token !== '');
     };
 
     onThemeChange = (evt: React.ChangeEvent<HTMLSelectElement>) => {
@@ -115,11 +126,24 @@ export class AppController implements IAppController {
 
     onLogoutClick = () => {
         console.log('onLogoutClick()');
+        this.storage.setToken('');
+        this.appSTM.isUserAuthorized(false);
     };
 
     onLoginSubmit = (values: LoginFormValues) => {
-        console.log('onSubmit() values=', values);
         this.appSTM.isLoginFormVisible(false);
+        if (values.repeatPassword !== '') {
+            this.authAPI
+                .register({
+                    email: values.login,
+                    password: values.password,
+                    commandId: COMMAND_ID
+                })
+                .then((result: AuthResult) => {
+                    this.storage.setToken(result.token);
+                    this.appSTM.isUserAuthorized(true);
+                });
+        }
     };
 
     onSelectLogin = () => {
