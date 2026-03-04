@@ -43,7 +43,7 @@ export const LayoutWithScroll: Story = {
         children: (
             <>
                 <ProductCard
-                    product={{ ...defaultProduct, id: 1, price: 1999, name: shortText, desc: middleText }}
+                    product={{ ...defaultProduct, id: '1', price: 1999, name: shortText, desc: middleText }}
                     detailedDescription={bigText}
                     ctrl={ctrl}
                 />
@@ -54,7 +54,7 @@ export const LayoutWithScroll: Story = {
                 <ProductCard
                     product={{
                         ...defaultProduct,
-                        id: 2,
+                        id: '2',
                         price: 1999,
                         name: shortText,
                         desc: middleText,
@@ -67,8 +67,8 @@ export const LayoutWithScroll: Story = {
                     {bigText}
                 </DetailedProductCard>
                 <div style={{ clear: 'both' }} />
-                <CartItem image="" count={1} price={1999} name={shortText} ctrl={ctrl} productId={1} />
-                <CartItem image="cat.jpg" count={2} price={1999} name={shortText} ctrl={ctrl} productId={2} />
+                <CartItem image="" count={1} price={1999} name={shortText} ctrl={ctrl} productId={'1'} />
+                <CartItem image="cat.jpg" count={2} price={1999} name={shortText} ctrl={ctrl} productId={'2'} />
 
                 {bigText}
                 {bigText}

@@ -17,7 +17,7 @@ export const ProductDynamicList: React.FC<ProductDynamicListProps> = ({ products
 
     const loadMore = useCallback(() => {
         const newProduct: Product = {
-            id: 1,
+            id: '1',
             type: ProductType.FOOD,
             photo: '',
             price: myProducts.length,

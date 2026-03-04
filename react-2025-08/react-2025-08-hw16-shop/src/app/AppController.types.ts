@@ -35,7 +35,7 @@ export enum Partition {
     CART = 'CART'
 }
 
-export const NEW_ENTITY_ID = -1;
+export const NEW_ENTITY_ID = '-1';
 
 export enum CartOperation {
     DEFAULT = '',

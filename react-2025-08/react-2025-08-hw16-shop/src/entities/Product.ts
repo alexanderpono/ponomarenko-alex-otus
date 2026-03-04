@@ -5,7 +5,7 @@ export enum ProductType {
 }
 
 export interface Product {
-    id: number;
+    id: string;
     type: ProductType;
 
     price: number;
@@ -14,7 +14,7 @@ export interface Product {
     desc?: string;
 }
 export const defaultProduct: Product = {
-    id: 0,
+    id: '',
     type: ProductType.CAR,
     price: 0,
     name: '',

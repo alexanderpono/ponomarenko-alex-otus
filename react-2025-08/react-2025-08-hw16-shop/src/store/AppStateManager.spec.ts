@@ -23,7 +23,6 @@ describe('AppStateManager', () => {
         const rndProduct: Product = { ...defaultProduct, name: str() };
         const rndPartition = str() as unknown as Partition;
         const rndCategory: Category = { ...defaultCategory, name: str() };
-        const rndNum = num();
         const rndCategories: Category[] = rndAr<Category>(rndSize(3, 5), (): Category => {
             return { ...defaultCategory, name: str() } as Category;
         });
@@ -42,7 +41,7 @@ describe('AppStateManager', () => {
             ${'editedProduct'}        | ${rndProduct}    | ${null} | ${app.editedProduct(rndProduct)}
             ${'curPartition'}         | ${rndPartition}  | ${null} | ${app.curPartition(rndPartition)}
             ${'categories'}           | ${rndCategories} | ${null} | ${app.categories(rndCategories)}
-            ${'curCategoryId'}        | ${rndNum}        | ${null} | ${app.curCategoryId(rndNum)}
+            ${'curCategoryId'}        | ${rndStr}        | ${null} | ${app.curCategoryId(rndStr)}
             ${'editedCategory'}       | ${rndCategory}   | ${null} | ${app.editedCategory(rndCategory)}
             ${'cart'}                 | ${rndCart}       | ${null} | ${app.cart(rndCart)}
             ${'apiErrorMessage'}      | ${rndStr}        | ${null} | ${app.apiErrorMessage(rndStr)}
