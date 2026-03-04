@@ -18,7 +18,7 @@ export const appSelector = {
     apiErrorMessage: (state: RootState) => state.app.apiErrorMessage
 };
 
-export const getCartProductCount = (cart: Cart, productId: number): number => {
+export const getCartProductCount = (cart: Cart, productId: string): number => {
     const curCartItem = cart.items.find((cartItem) => cartItem.productId === productId);
     return curCartItem?.count ? curCartItem?.count : 0;
 };

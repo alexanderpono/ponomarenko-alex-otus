@@ -46,7 +46,7 @@ const defaultStory: Story = {
                     price={args.price}
                     name={args.name}
                     ctrl={ctrl}
-                    productId={1}
+                    productId={'1'}
                 />
             </Provider>
         );

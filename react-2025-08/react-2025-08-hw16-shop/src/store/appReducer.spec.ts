@@ -18,7 +18,6 @@ describe('appReducer', () => {
     const rndProduct: Product = { ...defaultProduct, name: str() };
     const rndPartition = str() as unknown as Partition;
     const rndCategory: Category = { ...defaultCategory, name: str() };
-    const rndNum = num();
     const rndCategories: Category[] = rndAr<Category>(rndSize(3, 5), (): Category => {
         return { ...defaultCategory, name: str() } as Category;
     });
@@ -37,7 +36,7 @@ describe('appReducer', () => {
         ${[app.editedProduct(rndProduct)]}     | ${'sets .editedProduct for AppEvent.EDITED_PRODUCT action'}                 | ${AppEvent.EDITED_PRODUCT}          | ${'editedProduct'}        | ${rndProduct}
         ${[app.curPartition(rndPartition)]}    | ${'sets .curPartition for AppEvent.CUR_PARTITION action'}                   | ${AppEvent.CUR_PARTITION}           | ${'curPartition'}         | ${rndPartition}
         ${[app.categories(rndCategories)]}     | ${'sets .categories for AppEvent.CATEGORIES action'}                        | ${AppEvent.CATEGORIES}              | ${'categories'}           | ${rndCategories}
-        ${[app.curCategoryId(rndNum)]}         | ${'sets .curCategoryId for AppEvent.CUR_CATEGORY_ID action'}                | ${AppEvent.CUR_CATEGORY_ID}         | ${'curCategoryId'}        | ${rndNum}
+        ${[app.curCategoryId(rndStr)]}         | ${'sets .curCategoryId for AppEvent.CUR_CATEGORY_ID action'}                | ${AppEvent.CUR_CATEGORY_ID}         | ${'curCategoryId'}        | ${rndStr}
         ${[app.editedCategory(rndCategory)]}   | ${'sets .editedCategory for AppEvent.EDITED_CATEGORY action'}               | ${AppEvent.EDITED_CATEGORY}         | ${'editedCategory'}       | ${rndCategory}
         ${[app.cart(rndCart)]}                 | ${'sets .cart for AppEvent.CART action'}                                    | ${AppEvent.CART}                    | ${'cart'}                 | ${rndCart}
         ${[app.apiErrorMessage(rndStr)]}       | ${'sets .apiErrorMessage for AppEvent.API_ERROR_MESSAGE action'}            | ${AppEvent.API_ERROR_MESSAGE}       | ${'apiErrorMessage'}      | ${rndStr}

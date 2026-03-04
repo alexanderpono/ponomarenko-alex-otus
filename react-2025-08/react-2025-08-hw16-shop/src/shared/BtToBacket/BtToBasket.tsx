@@ -4,7 +4,6 @@ import cn from 'classnames';
 import { Theme } from 'src/constants/Theme';
 import { useSelector } from 'react-redux';
 import { appSelector } from 'src/store/selectors';
-import { IAppController } from 'src/app/AppController.types';
 
 interface BtToBasketProps {
     count: number;

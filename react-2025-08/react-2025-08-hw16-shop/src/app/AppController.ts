@@ -11,6 +11,8 @@ import { CartItem, defaultCart } from 'src/entities/Cart';
 import { AuthAPI } from 'src/features/services/AuthAPI/AuthAPI';
 import { AuthErrorAnswer, AuthResult } from 'src/features/services/AuthAPI/AuthAPI.types';
 import { StorageService } from 'src/features/services/StorageService/StorageService';
+import { CategoryAPI } from 'src/features/services/CategoryAPI/CategoryAPI';
+import { GetGategoriesAnswer } from 'src/features/services/CategoryAPI/CategoryAPI.types';
 
 const COLOR_THEME = 'colorTheme';
 const LANGUAGE = 'language';
@@ -19,6 +21,7 @@ export class AppController implements IAppController {
     private appSTM: AppStateManager = null;
     private storage: StorageService = null;
     private authAPI: AuthAPI = null;
+    private categoryAPI: CategoryAPI = null;
 
     constructor() {
         this.appSTM = AppStateManager.create();
@@ -30,7 +33,7 @@ export class AppController implements IAppController {
         this.appSTM.products([
             {
                 ...defaultProduct,
-                id: 1,
+                id: '1',
                 type: ProductType.TOY,
                 price: 2999,
                 name: 'Котик',
@@ -39,7 +42,7 @@ export class AppController implements IAppController {
             },
             {
                 ...defaultProduct,
-                id: 2,
+                id: '2',
                 type: ProductType.TOY,
                 price: 1999,
                 name: 'Sed ut perspiciatis, unde omnis',
@@ -47,7 +50,7 @@ export class AppController implements IAppController {
             },
             {
                 ...defaultProduct,
-                id: 3,
+                id: '3',
                 type: ProductType.CAR,
                 price: 999,
                 name: 'Машинка',
@@ -55,7 +58,7 @@ export class AppController implements IAppController {
             },
             {
                 ...defaultProduct,
-                id: 4,
+                id: '4',
                 type: ProductType.CAR,
                 price: 1999,
                 name: 'Машинка2',
@@ -68,41 +71,51 @@ export class AppController implements IAppController {
 
         const languageStr = localStorage.getItem(LANGUAGE);
         this.appSTM.language(languageStr === Language.RU ? Language.RU : Language.EN);
-        this.appSTM.curPartition(Partition.PRODUCTS);
-        // this.appSTM.curPartition(Partition.CATEGORIES);
+        // this.appSTM.curPartition(Partition.PRODUCTS);
+        this.appSTM.curPartition(Partition.CATEGORIES);
         // this.appSTM.curPartition(Partition.CART);
 
-        this.appSTM.categories([
-            {
-                ...defaultCategory,
-                id: 1,
-                name: 'CAR'
-            },
-            {
-                ...defaultCategory,
-                id: 2,
-                name: 'TOY'
-            },
-            {
-                ...defaultCategory,
-                id: 3,
-                name: 'FOOD'
-            }
-        ]);
+        // this.appSTM.categories([
+        //     {
+        //         ...defaultCategory,
+        //         id: 1,
+        //         name: 'CAR'
+        //     },
+        //     {
+        //         ...defaultCategory,
+        //         id: 2,
+        //         name: 'TOY'
+        //     },
+        //     {
+        //         ...defaultCategory,
+        //         id: 3,
+        //         name: 'FOOD'
+        //     }
+        // ]);
         // this.onLoginClick();
         // this.onAddProductClick();
 
         this.appSTM.cart({
             ...defaultCart,
             items: [
-                { productId: 1, count: 2 },
-                { productId: 2, count: 1 }
+                { productId: '1', count: 2 },
+                { productId: '2', count: 1 }
             ],
             totalPrice: 100
         });
 
         const token = this.storage.getToken();
         this.appSTM.isUserAuthorized(typeof token === 'string' && token !== '');
+
+        this.categoryAPI = new CategoryAPI(token);
+
+        this.reloadCategories();
+    };
+
+    reloadCategories = () => {
+        this.categoryAPI.getCategories().then((answer: GetGategoriesAnswer) => {
+            this.appSTM.categories(answer.data);
+        });
     };
 
     onThemeChange = (evt: React.ChangeEvent<HTMLSelectElement>) => {
@@ -192,7 +205,7 @@ export class AppController implements IAppController {
         const newProducts =
             productToSave.id !== NEW_ENTITY_ID
                 ? products.map((product) => (product.id === productToSave.id ? { ...productToSave } : product))
-                : [...products, { ...productToSave, id: products.length + 1 }];
+                : [...products, { ...productToSave, id: '' + products.length + 1 }];
 
         this.appSTM.products(newProducts);
         this.appSTM.isEditProductVisible(false);
@@ -211,8 +224,7 @@ export class AppController implements IAppController {
         if (!el) {
             return;
         }
-        const idS = el.dataset['id'];
-        const id = parseInt(idS);
+        const id = el.dataset['id'];
         this.appSTM.curCategoryId(id);
 
         const categories = this.appSTM.getApp().categories;
@@ -221,14 +233,15 @@ export class AppController implements IAppController {
     };
 
     onEditCategorySubmit = (categoryToSave: Category) => {
-        const categories = this.appSTM.getApp().categories;
-
-        const newCategories =
-            categoryToSave.id !== NEW_ENTITY_ID
-                ? categories.map((category) => (category.id === categoryToSave.id ? { ...categoryToSave } : category))
-                : [...categories, { ...categoryToSave, id: categories.length + 1 }];
-
-        this.appSTM.categories(newCategories);
+        if (categoryToSave.id && categoryToSave.id !== NEW_ENTITY_ID) {
+            this.categoryAPI.updateCategory(categoryToSave).then(() => {
+                this.reloadCategories();
+            });
+        } else {
+            this.categoryAPI.addCategory(categoryToSave).then(() => {
+                this.reloadCategories();
+            });
+        }
     };
 
     onAddCategoryClick = () => {
@@ -245,7 +258,7 @@ export class AppController implements IAppController {
         this.appSTM.curPartition(Partition.CART);
     };
 
-    getUpdatedCartItems = (items: CartItem[], operation: CartOperation, productId: number): CartItem[] => {
+    getUpdatedCartItems = (items: CartItem[], operation: CartOperation, productId: string): CartItem[] => {
         const curCartItem = items.find((cartItem) => cartItem.productId === productId);
         let newCartItems = items;
         if (typeof curCartItem === 'undefined') {
@@ -294,7 +307,7 @@ export class AppController implements IAppController {
         }
         const id = el.dataset['productid'];
         const cart = this.appSTM.getApp().cart;
-        const newCartItems = this.getUpdatedCartItems(cart.items, operation, parseInt(id));
+        const newCartItems = this.getUpdatedCartItems(cart.items, operation, id);
         const totalPrice = this.getTotalPrice(newCartItems);
         const totalCount = this.getTotalCount(newCartItems);
 
@@ -318,7 +331,7 @@ export class AppController implements IAppController {
         const id = el.dataset['productid'];
 
         const cart = this.appSTM.getApp().cart;
-        const newCartItems = this.getUpdatedCartItems(cart.items, CartOperation.DEL, parseInt(id));
+        const newCartItems = this.getUpdatedCartItems(cart.items, CartOperation.DEL, id);
         const totalPrice = this.getTotalPrice(newCartItems);
         const totalCount = this.getTotalCount(newCartItems);
 

@@ -1,9 +1,9 @@
 export interface Category {
-    id: number;
+    id: string;
     name: string;
 }
 
 export const defaultCategory: Category = {
-    id: 0,
+    id: '',
     name: ''
 };

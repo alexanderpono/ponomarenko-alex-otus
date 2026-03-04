@@ -31,7 +31,7 @@ export const CategoriesPage: React.FC<CategoriesPageProps> = ({ ctrl }) => {
                                 onClick={ctrl.onCategoryClick}
                                 data-id={category.id}
                                 className={cn({ [styles.cur]: category.id === curCategoryId })}
-                            >{`${category.name} (${category.id})`}</li>
+                            >{`${category.name}`}</li>
                         ))}
                     </ul>
                 )}

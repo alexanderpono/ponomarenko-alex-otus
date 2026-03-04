@@ -24,7 +24,7 @@ export const NoImage: Story = {
     args: {
         products: [
             {
-                id: 1,
+                id: '1',
                 type: ProductType.CAR,
                 photo: '',
                 price: 1999,
@@ -32,7 +32,7 @@ export const NoImage: Story = {
                 desc: 'Short description of the product'
             },
             {
-                id: 2,
+                id: '2',
                 type: ProductType.CAR,
                 photo: '',
                 price: 2000,
@@ -40,7 +40,7 @@ export const NoImage: Story = {
                 desc: 'Short description 2'
             },
             {
-                id: 3,
+                id: '3',
                 type: ProductType.CAR,
                 photo: '',
                 price: 100,
@@ -48,7 +48,7 @@ export const NoImage: Story = {
                 desc: 'Short description 3'
             },
             {
-                id: 4,
+                id: '4',
                 type: ProductType.CAR,
                 photo: '',
                 price: 101,

@@ -21,7 +21,7 @@ export class AppStateManager {
     editedProduct = (editedProduct: Product) => dispatch(app.editedProduct(editedProduct));
     curPartition = (curPartition: Partition) => dispatch(app.curPartition(curPartition));
     categories = (categories: Category[]) => dispatch(app.categories(categories));
-    curCategoryId = (curCategoryId: number) => dispatch(app.curCategoryId(curCategoryId));
+    curCategoryId = (curCategoryId: string) => dispatch(app.curCategoryId(curCategoryId));
     editedCategory = (editedCategory: Category) => dispatch(app.editedCategory(editedCategory));
     cart = (cart: Cart) => dispatch(app.cart(cart));
     apiErrorMessage = (apiErrorMessage: string) => dispatch(app.apiErrorMessage(apiErrorMessage));

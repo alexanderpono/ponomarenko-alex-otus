@@ -13,7 +13,7 @@ export interface CartItemProps {
     price: number;
     name: string;
     ctrl: IAppController;
-    productId: number;
+    productId: string;
 }
 export const CartItem: React.FC<CartItemProps> = ({ image, count, price, name, ctrl, productId }) => {
     const colorTheme = useSelector(appSelector.colorTheme);

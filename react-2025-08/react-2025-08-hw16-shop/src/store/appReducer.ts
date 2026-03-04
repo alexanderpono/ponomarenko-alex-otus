@@ -36,7 +36,7 @@ export interface AppState {
     editedProduct: Product;
     curPartition: Partition;
     categories: Category[];
-    curCategoryId: number;
+    curCategoryId: string;
     editedCategory: Category;
     cart: Cart;
     apiErrorMessage: string;
@@ -54,7 +54,7 @@ export const defaultAppState: AppState = {
     editedProduct: { ...defaultProduct },
     curPartition: Partition.DEFAULT,
     categories: [],
-    curCategoryId: 0,
+    curCategoryId: '',
     editedCategory: { ...defaultCategory },
     cart: { ...defaultCart },
     apiErrorMessage: ''
@@ -133,7 +133,7 @@ export interface CategoriesAction {
 export interface CurCategoryIdAction {
     type: AppEvent.CUR_CATEGORY_ID;
     payload: {
-        curCategoryId: number;
+        curCategoryId: string;
     };
 }
 
@@ -215,7 +215,7 @@ export const app = {
         type: AppEvent.CATEGORIES,
         payload: { categories }
     }),
-    curCategoryId: (curCategoryId: number): CurCategoryIdAction => ({
+    curCategoryId: (curCategoryId: string): CurCategoryIdAction => ({
         type: AppEvent.CUR_CATEGORY_ID,
         payload: { curCategoryId }
     }),
