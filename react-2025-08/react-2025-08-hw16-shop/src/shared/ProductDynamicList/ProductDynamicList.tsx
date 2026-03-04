@@ -3,7 +3,7 @@ import styles from './ProductDynamicList.scss';
 import cn from 'classnames';
 import { MemoisedProductList } from 'src/shared/ProductList/ProductList';
 import { IAppController } from 'src/app/AppController.types';
-import { Product, ProductType } from 'src/entities/Product';
+import { Product } from 'src/entities/Product';
 
 export interface ProductDynamicListProps {
     products: Product[];
@@ -18,7 +18,7 @@ export const ProductDynamicList: React.FC<ProductDynamicListProps> = ({ products
     const loadMore = useCallback(() => {
         const newProduct: Product = {
             id: '1',
-            type: ProductType.FOOD,
+            categoryId: '1',
             photo: '',
             price: myProducts.length,
             name: 'name' + myProducts.length,

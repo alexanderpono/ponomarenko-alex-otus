@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="RfVt-Xx32NezOgciMm3v" name="Page-1">
-        <mxGraphModel dx="949" dy="514" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1088" dy="514" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -82,7 +82,7 @@
                 <mxCell id="22" value="Размещение UI на GitHub Pages" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
                     <mxGeometry x="320" y="850" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="23" value="Подключение UI к бэкенду" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="23" value="Подключение UI к бэкенду" style="rounded=1;whiteSpace=wrap;html=1;fontColor=#CCCCCC;" vertex="1" parent="1">
                     <mxGeometry x="320" y="670" width="120" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="24" value="" style="html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=1;exitY=0.75;exitDx=0;exitDy=0;" edge="1" parent="1" source="2" target="13">

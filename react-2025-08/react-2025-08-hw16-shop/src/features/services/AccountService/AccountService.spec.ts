@@ -1,6 +1,6 @@
 import { User, UserType } from 'src/entities/User';
 import { AccountService } from './AccountService';
-import { defaultProduct, Product, ProductType } from 'src/entities/Product';
+import { defaultProduct, Product } from 'src/entities/Product';
 import { ProductDiscountService } from 'src/features/services/ProductDiscountService/ProductDiscountService';
 import { castPartialTo } from 'src/testFramework/castPartialTo';
 import { IUserDiscountService } from 'src/features/services/UserDiscountService/UserDiscountService.types';
@@ -25,28 +25,28 @@ describe('AccountService', () => {
         };
         const apple: Product = {
             ...defaultProduct,
-            type: ProductType.FOOD,
+            categoryId: '3',
             price: 10
         };
         const ford: Product = {
             ...defaultProduct,
-            type: ProductType.CAR,
+            categoryId: '1',
             price: 10000
         };
         const noDiscounts = {
-            [ProductType.CAR]: 0,
-            [ProductType.TOY]: 0,
-            [ProductType.FOOD]: 0
+            1: 0,
+            2: 0,
+            3: 0
         };
         const foodWeek = {
-            [ProductType.CAR]: 0,
-            [ProductType.TOY]: 0,
-            [ProductType.FOOD]: 10
+            1: 0,
+            2: 0,
+            3: 10
         };
         const carWeek = {
-            [ProductType.CAR]: 3,
-            [ProductType.TOY]: 0,
-            [ProductType.FOOD]: 0
+            1: 3,
+            2: 0,
+            3: 0
         };
         test.each`
             about                                | user               | product  | discounts      | expected
@@ -58,7 +58,7 @@ describe('AccountService', () => {
             ${'prem(10) & ford & foodWeek'}      | ${premiumUserPD10} | ${ford}  | ${foodWeek}    | ${7000}
         `('returns $expected from $about', ({ user, product, discounts, expected }) => {
             const productDiscounts: ProductDiscountService = castPartialTo<ProductDiscountService>({
-                getProductDiscountPercent(type: ProductType) {
+                getProductDiscountPercent(type: string) {
                     return discounts[type];
                 }
             });

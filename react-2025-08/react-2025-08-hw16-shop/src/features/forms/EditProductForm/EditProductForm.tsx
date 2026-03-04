@@ -23,7 +23,7 @@ export const EditProductForm: React.FC<EditProductFormProps> = ({ initialValues,
     const validationSchema = Yup.object().shape({
         price: Yup.number().moreThan(0, errTranslations.mustBePositive),
         name: Yup.string().required(errTranslations.required).max(32, errTranslations.max32Length),
-        type: Yup.string().required(errTranslations.required).max(32, errTranslations.max32Length),
+        categoryId: Yup.string().required(errTranslations.required).max(32, errTranslations.max32Length),
         desc: Yup.string().max(2048, 'Should be max 2048 characters')
     });
     const formik = useFormik({
@@ -55,15 +55,16 @@ export const EditProductForm: React.FC<EditProductFormProps> = ({ initialValues,
 
             <label>
                 <span>{translations.category}</span>
-                <select name="type" onChange={formik.handleChange}>
+                <select name="categoryId" onChange={formik.handleChange}>
+                    <option value="">Не выбрано</option>
                     {categories.map((category) => (
-                        <option value={category.name} selected={category.name === formik.values.type}>
+                        <option value={category.id} selected={category.id === formik.values.categoryId}>
                             {category.name}
                         </option>
                     ))}
                 </select>
             </label>
-            {formik.errors.type && <div className={styles.error}>{formik.errors.type}</div>}
+            {formik.errors.categoryId && <div className={styles.error}>{formik.errors.categoryId}</div>}
 
             <label>
                 <span>{translations.description}</span>

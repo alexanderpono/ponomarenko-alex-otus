@@ -1,12 +1,6 @@
-export enum ProductType {
-    CAR = 'CAR',
-    TOY = 'TOY',
-    FOOD = 'FOOD'
-}
-
 export interface Product {
     id: string;
-    type: ProductType;
+    categoryId: string;
 
     price: number;
     name: string;
@@ -15,7 +9,7 @@ export interface Product {
 }
 export const defaultProduct: Product = {
     id: '',
-    type: ProductType.CAR,
+    categoryId: '',
     price: 0,
     name: '',
     photo: '',

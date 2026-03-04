@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { getStore } from 'src/store/store';
 import { castPartialTo } from 'src/testFramework/castPartialTo';
 import { IAppController } from 'src/app/AppController.types';
-import { defaultProduct, Product, ProductType } from 'src/entities/Product';
+import { defaultProduct, Product } from 'src/entities/Product';
 
 const meta: Meta<typeof EditProductForm> = {
     title: 'features/EditProductForm',
@@ -35,7 +35,7 @@ export const defaultStory: Story = {
                         photo: '',
                         price: 0,
                         name: '',
-                        type: ProductType.CAR,
+                        categoryId: '',
                         desc: ''
                     }}
                     initialErrors={{
@@ -43,7 +43,7 @@ export const defaultStory: Story = {
                         photo: '',
                         price: '',
                         name: '',
-                        type: ProductType.CAR,
+                        categoryId: '',
                         desc: ''
                     }}
                     ctrl={ctrl}
@@ -68,7 +68,7 @@ export const errors: Story = {
                         photo: '',
                         price: 0,
                         name: '',
-                        type: ProductType.CAR,
+                        categoryId: '',
                         desc: ''
                     }}
                     initialErrors={{
@@ -76,7 +76,7 @@ export const errors: Story = {
                         photo: 'image err',
                         price: 'price err',
                         name: 'name err',
-                        type: 'category err',
+                        categoryId: 'categoryId err',
                         desc: 'description err'
                     }}
                     ctrl={ctrl}

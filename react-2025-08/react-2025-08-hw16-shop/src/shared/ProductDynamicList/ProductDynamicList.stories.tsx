@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import { getStore } from 'src/store/store';
 import { castPartialTo } from 'src/testFramework/castPartialTo';
 import { IAppController } from 'src/app/AppController.types';
-import { ProductType } from 'src/entities/Product';
 
 const meta: Meta<typeof ProductDynamicList> = {
     title: 'shared/ProductDynamicList',
@@ -25,7 +24,7 @@ export const dynamic: Story = {
         products: [
             {
                 id: '1',
-                type: ProductType.CAR,
+                categoryId: '1',
                 photo: '',
                 price: 1999,
                 name: 'Product name',
@@ -33,7 +32,7 @@ export const dynamic: Story = {
             },
             {
                 id: '2',
-                type: ProductType.CAR,
+                categoryId: '1',
                 photo: '',
                 price: 2000,
                 name: 'Product name2',
@@ -41,7 +40,7 @@ export const dynamic: Story = {
             },
             {
                 id: '3',
-                type: ProductType.CAR,
+                categoryId: '1',
                 photo: '',
                 price: 100,
                 name: 'Product name3',
@@ -49,7 +48,7 @@ export const dynamic: Story = {
             },
             {
                 id: '4',
-                type: ProductType.CAR,
+                categoryId: '1',
                 photo: '',
                 price: 101,
                 name: 'Product name4',
