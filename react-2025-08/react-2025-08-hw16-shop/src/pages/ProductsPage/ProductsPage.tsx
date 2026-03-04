@@ -39,7 +39,7 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({ ctrl }) => {
                             photo: '',
                             price: '',
                             name: '',
-                            type: '',
+                            categoryId: '',
                             desc: ''
                         }}
                         ctrl={ctrl}

@@ -13,7 +13,7 @@ export class AccountService implements IAccountService {
             (1 -
                 user.personalDiscountPercents / 100 -
                 this.usersDiscounts.getUserTypeDiscountPercent(user.type) / 100 -
-                this.productDiscounts.getProductDiscountPercent(product.type) / 100);
+                this.productDiscounts.getProductDiscountPercent(product.categoryId) / 100);
         return price > 0 ? price : 0;
     };
 }

@@ -1,7 +1,6 @@
 import { AppStateManager } from 'src/store/AppStateManager';
 import { CartOperation, IAppController, NEW_ENTITY_ID, Partition } from './AppController.types';
-import { defaultProduct, Product, ProductType } from 'src/entities/Product';
-import { middleText } from 'src/constants/middleText';
+import { defaultProduct, Product } from 'src/entities/Product';
 import { Theme } from 'src/constants/Theme';
 import { Language } from 'src/constants/i18n';
 import { LoginFormValues } from 'src/features/forms/LoginForm/LoginForm.types';
@@ -13,6 +12,8 @@ import { AuthErrorAnswer, AuthResult } from 'src/features/services/AuthAPI/AuthA
 import { StorageService } from 'src/features/services/StorageService/StorageService';
 import { CategoryAPI } from 'src/features/services/CategoryAPI/CategoryAPI';
 import { GetGategoriesAnswer } from 'src/features/services/CategoryAPI/CategoryAPI.types';
+import { ProductAPI } from 'src/features/services/ProductAPI/ProductAPI';
+import { GetProductsAnswer, ProductFromAPI } from 'src/features/services/ProductAPI/ProductAPI.types';
 
 const COLOR_THEME = 'colorTheme';
 const LANGUAGE = 'language';
@@ -22,6 +23,7 @@ export class AppController implements IAppController {
     private storage: StorageService = null;
     private authAPI: AuthAPI = null;
     private categoryAPI: CategoryAPI = null;
+    private productAPI: ProductAPI = null;
 
     constructor() {
         this.appSTM = AppStateManager.create();
@@ -30,86 +32,27 @@ export class AppController implements IAppController {
     }
 
     onAppMount = () => {
-        this.appSTM.products([
-            {
-                ...defaultProduct,
-                id: '1',
-                type: ProductType.TOY,
-                price: 2999,
-                name: 'Котик',
-                desc: middleText,
-                photo: 'cat.jpg'
-            },
-            {
-                ...defaultProduct,
-                id: '2',
-                type: ProductType.TOY,
-                price: 1999,
-                name: 'Sed ut perspiciatis, unde omnis',
-                desc: middleText
-            },
-            {
-                ...defaultProduct,
-                id: '3',
-                type: ProductType.CAR,
-                price: 999,
-                name: 'Машинка',
-                desc: 'Дешево и сердито'
-            },
-            {
-                ...defaultProduct,
-                id: '4',
-                type: ProductType.CAR,
-                price: 1999,
-                name: 'Машинка2',
-                desc: 'Дешево2 и сердито'
-            }
-        ]);
-
         const themeStr = localStorage.getItem(COLOR_THEME);
         this.appSTM.colorTheme(themeStr === Theme.BLUE ? Theme.BLUE : Theme.GREY);
 
         const languageStr = localStorage.getItem(LANGUAGE);
         this.appSTM.language(languageStr === Language.RU ? Language.RU : Language.EN);
-        // this.appSTM.curPartition(Partition.PRODUCTS);
-        this.appSTM.curPartition(Partition.CATEGORIES);
+        this.appSTM.curPartition(Partition.PRODUCTS);
+        // this.appSTM.curPartition(Partition.CATEGORIES);
         // this.appSTM.curPartition(Partition.CART);
 
-        // this.appSTM.categories([
-        //     {
-        //         ...defaultCategory,
-        //         id: 1,
-        //         name: 'CAR'
-        //     },
-        //     {
-        //         ...defaultCategory,
-        //         id: 2,
-        //         name: 'TOY'
-        //     },
-        //     {
-        //         ...defaultCategory,
-        //         id: 3,
-        //         name: 'FOOD'
-        //     }
-        // ]);
         // this.onLoginClick();
         // this.onAddProductClick();
-
-        this.appSTM.cart({
-            ...defaultCart,
-            items: [
-                { productId: '1', count: 2 },
-                { productId: '2', count: 1 }
-            ],
-            totalPrice: 100
-        });
 
         const token = this.storage.getToken();
         this.appSTM.isUserAuthorized(typeof token === 'string' && token !== '');
 
         this.categoryAPI = new CategoryAPI(token);
+        this.productAPI = new ProductAPI(token);
 
         this.reloadCategories();
+
+        this.reloadProducts();
     };
 
     reloadCategories = () => {
@@ -118,6 +61,20 @@ export class AppController implements IAppController {
         });
     };
 
+    reloadProducts = () => {
+        this.productAPI.getProducts().then((answer: GetProductsAnswer) => {
+            this.appSTM.products(
+                answer.data.map((api: ProductFromAPI) => ({
+                    id: api.id,
+                    categoryId: api.category.id,
+                    price: api.price,
+                    name: api.name,
+                    photo: api.photo,
+                    desc: api.desc
+                }))
+            );
+        });
+    };
     onThemeChange = (evt: React.ChangeEvent<HTMLSelectElement>) => {
         const newColorTheme = evt.target.value === Theme.BLUE ? Theme.BLUE : Theme.GREY;
         this.appSTM.colorTheme(newColorTheme);
@@ -131,14 +88,12 @@ export class AppController implements IAppController {
     };
 
     onLoginClick = () => {
-        console.log('onLoginClick()');
         this.appSTM.isLoginFormVisible(true);
         this.appSTM.isRegistering(false);
         this.appSTM.apiErrorMessage('');
     };
 
     onLogoutClick = () => {
-        console.log('onLogoutClick()');
         this.storage.setToken('');
         this.appSTM.isUserAuthorized(false);
     };
@@ -181,10 +136,10 @@ export class AppController implements IAppController {
             return;
         }
         const id = el.dataset['id'];
-        this.openEditProduct(parseInt(id));
+        this.openEditProduct(id);
     };
 
-    openEditProduct = (id: number) => {
+    openEditProduct = (id: string) => {
         const products = this.appSTM.getApp().products;
         const productToEdit = products.find((product) => '' + product.id === '' + id);
         this.appSTM.editedProduct(productToEdit);
@@ -200,15 +155,14 @@ export class AppController implements IAppController {
     };
 
     onEditProductSubmit = (productToSave: Product) => {
-        const appState = this.appSTM.getApp();
-        const products = appState.products;
-        const newProducts =
-            productToSave.id !== NEW_ENTITY_ID
-                ? products.map((product) => (product.id === productToSave.id ? { ...productToSave } : product))
-                : [...products, { ...productToSave, id: '' + products.length + 1 }];
-
-        this.appSTM.products(newProducts);
-        this.appSTM.isEditProductVisible(false);
+        const api =
+            productToSave.id && productToSave.id !== NEW_ENTITY_ID
+                ? this.productAPI.updateProduct
+                : this.productAPI.addProduct;
+        api(productToSave).then(() => {
+            this.reloadProducts();
+            this.appSTM.isEditProductVisible(false);
+        });
     };
 
     onProductsClick = () => {

@@ -1,9 +1,9 @@
 import { API_URL } from 'src/constants/config';
-import { GetGategoriesAnswer } from './CategoryAPI.types';
 import { CONTENT_JSON } from 'src/constants/API';
-import { Category } from 'src/entities/Category';
+import { GetProductsAnswer } from './ProductAPI.types';
+import { Product } from 'src/entities/Product';
 
-export class CategoryAPI {
+export class ProductAPI {
     constructor(private token: string) {}
 
     getHeaders = () => {
@@ -16,8 +16,8 @@ export class CategoryAPI {
         return headers;
     };
 
-    getCategories = (): Promise<GetGategoriesAnswer> => {
-        return fetch(API_URL + '/categories', { headers: this.getHeaders() }).then((response: Response) => {
+    getProducts = (): Promise<GetProductsAnswer> => {
+        return fetch(API_URL + '/products', { headers: this.getHeaders() }).then((response: Response) => {
             return response.json().then((result) => {
                 if (response.status !== 200) {
                     return Promise.reject(result);
@@ -28,11 +28,11 @@ export class CategoryAPI {
         });
     };
 
-    addCategory = (categoryToSave: Category): Promise<unknown> => {
-        const { ...restToSave } = categoryToSave;
+    addProduct = (productToSave: Product): Promise<unknown> => {
+        const { ...restToSave } = productToSave;
         delete restToSave['id'];
 
-        return fetch(API_URL + '/categories', {
+        return fetch(API_URL + '/products', {
             method: 'POST',
             headers: this.getHeaders(),
             body: JSON.stringify(restToSave)
@@ -47,11 +47,11 @@ export class CategoryAPI {
         });
     };
 
-    updateCategory = (categoryToSave: Category): Promise<unknown> => {
-        return fetch(API_URL + '/categories/' + categoryToSave.id, {
+    updateProduct = (productToSave: Product): Promise<unknown> => {
+        return fetch(API_URL + '/products/' + productToSave.id, {
             method: 'PUT',
             headers: this.getHeaders(),
-            body: JSON.stringify(categoryToSave)
+            body: JSON.stringify(productToSave)
         }).then((response: Response) => {
             return response.json().then((result) => {
                 if (response.status !== 200) {
