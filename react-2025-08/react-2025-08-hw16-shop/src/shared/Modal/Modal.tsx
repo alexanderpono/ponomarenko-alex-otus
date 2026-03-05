@@ -6,7 +6,7 @@ import { appSelector } from 'src/store/selectors';
 import cn from 'classnames';
 import { Theme } from 'src/constants/Theme';
 
-interface ModalProps {
+export interface ModalProps {
     visible: boolean;
     children: React.ReactNode;
     handleBtCloseClick: () => void;
