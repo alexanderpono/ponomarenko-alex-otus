@@ -1,10 +1,9 @@
-import { API_URL } from 'src/constants/config';
 import { GetGategoriesAnswer } from './CategoryAPI.types';
 import { CONTENT_JSON } from 'src/constants/API';
 import { Category } from 'src/entities/Category';
 
 export class CategoryAPI {
-    constructor(private token: string) {}
+    constructor(private apiUrl: string, private token: string) {}
 
     getHeaders = () => {
         const headers: HeadersInit = {
@@ -17,7 +16,7 @@ export class CategoryAPI {
     };
 
     getCategories = (): Promise<GetGategoriesAnswer> => {
-        return fetch(API_URL + '/categories', { headers: this.getHeaders() }).then((response: Response) => {
+        return fetch(this.apiUrl + '/categories', { headers: this.getHeaders() }).then((response: Response) => {
             return response.json().then((result) => {
                 if (response.status !== 200) {
                     return Promise.reject(result);
@@ -32,7 +31,7 @@ export class CategoryAPI {
         const { ...restToSave } = categoryToSave;
         delete restToSave['id'];
 
-        return fetch(API_URL + '/categories', {
+        return fetch(this.apiUrl + '/categories', {
             method: 'POST',
             headers: this.getHeaders(),
             body: JSON.stringify(restToSave)
@@ -48,7 +47,7 @@ export class CategoryAPI {
     };
 
     updateCategory = (categoryToSave: Category): Promise<unknown> => {
-        return fetch(API_URL + '/categories/' + categoryToSave.id, {
+        return fetch(this.apiUrl + '/categories/' + categoryToSave.id, {
             method: 'PUT',
             headers: this.getHeaders(),
             body: JSON.stringify(categoryToSave)

@@ -6,7 +6,7 @@ import { Language } from 'src/constants/i18n';
 import { LoginFormValues } from 'src/features/forms/LoginForm/LoginForm.types';
 import { findNodeWithDataAttr } from 'src/utils/findNodeWithDataAttr';
 import { Category, defaultCategory } from 'src/entities/Category';
-import { CartItem, defaultCart } from 'src/entities/Cart';
+import { CartItem } from 'src/entities/Cart';
 import { AuthAPI } from 'src/features/services/AuthAPI/AuthAPI';
 import { AuthErrorAnswer, AuthResult } from 'src/features/services/AuthAPI/AuthAPI.types';
 import { StorageService } from 'src/features/services/StorageService/StorageService';
@@ -14,6 +14,7 @@ import { CategoryAPI } from 'src/features/services/CategoryAPI/CategoryAPI';
 import { GetGategoriesAnswer } from 'src/features/services/CategoryAPI/CategoryAPI.types';
 import { ProductAPI } from 'src/features/services/ProductAPI/ProductAPI';
 import { GetProductsAnswer, ProductFromAPI } from 'src/features/services/ProductAPI/ProductAPI.types';
+import { getApiUrl } from 'src/constants/config';
 
 const COLOR_THEME = 'colorTheme';
 const LANGUAGE = 'language';
@@ -28,7 +29,6 @@ export class AppController implements IAppController {
     constructor() {
         this.appSTM = AppStateManager.create();
         this.storage = new StorageService();
-        this.authAPI = new AuthAPI();
     }
 
     onAppMount = () => {
@@ -44,11 +44,13 @@ export class AppController implements IAppController {
         // this.onLoginClick();
         // this.onAddProductClick();
 
+        const apiUrl = getApiUrl();
+        this.authAPI = new AuthAPI(apiUrl);
         const token = this.storage.getToken();
         this.appSTM.isUserAuthorized(typeof token === 'string' && token !== '');
 
-        this.categoryAPI = new CategoryAPI(token);
-        this.productAPI = new ProductAPI(token);
+        this.categoryAPI = new CategoryAPI(apiUrl, token);
+        this.productAPI = new ProductAPI(apiUrl, token);
 
         this.reloadCategories();
 
@@ -56,12 +58,22 @@ export class AppController implements IAppController {
     };
 
     reloadCategories = () => {
+        const isUserAuthorized = this.appSTM.getApp().isUserAuthorized;
+        if (!isUserAuthorized) {
+            console.warn('reloadCategories() !isUserAuthorized');
+            return;
+        }
         this.categoryAPI.getCategories().then((answer: GetGategoriesAnswer) => {
             this.appSTM.categories(answer.data);
         });
     };
 
     reloadProducts = () => {
+        const isUserAuthorized = this.appSTM.getApp().isUserAuthorized;
+        if (!isUserAuthorized) {
+            console.warn('reloadProducts() !isUserAuthorized');
+            return;
+        }
         this.productAPI.getProducts().then((answer: GetProductsAnswer) => {
             this.appSTM.products(
                 answer.data.map((api: ProductFromAPI) => ({
