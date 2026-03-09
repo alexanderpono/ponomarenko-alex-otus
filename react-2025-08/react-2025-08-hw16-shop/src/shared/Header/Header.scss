@@ -8,7 +8,7 @@
     display: grid;
     grid-template-columns: 120px auto auto auto;
     grid-template-rows: 70px auto;
-    grid-template-areas: "logo color language profile" "logo menu menu menu";
+    grid-template-areas: "logo color language profile" "logo menu menu login";
 
     .logo {
         grid-area: logo;
@@ -39,6 +39,11 @@
 
     .menu {
         grid-area: menu;
+    }
+
+    .login {
+        grid-area: login;
+        text-align: right;
     }
 }
 

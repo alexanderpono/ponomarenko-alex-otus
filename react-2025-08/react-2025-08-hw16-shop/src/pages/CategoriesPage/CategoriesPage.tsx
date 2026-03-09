@@ -14,6 +14,10 @@ export const CategoriesPage: React.FC<CategoriesPageProps> = ({ ctrl }) => {
     const categories = useSelector(appSelector.categories);
     const curCategoryId = useSelector(appSelector.curCategoryId);
     const editedCategory = useSelector(appSelector.editedCategory);
+    const isUserAuthorized = useSelector(appSelector.isUserAuthorized);
+    if (!isUserAuthorized) {
+        return <></>;
+    }
     return (
         <div className={cn(styles.CategoriesPage)}>
             <div className={styles.categoryList}>

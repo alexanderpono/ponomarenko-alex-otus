@@ -25,6 +25,7 @@ export class AppStateManager {
     editedCategory = (editedCategory: Category) => dispatch(app.editedCategory(editedCategory));
     cart = (cart: Cart) => dispatch(app.cart(cart));
     apiErrorMessage = (apiErrorMessage: string) => dispatch(app.apiErrorMessage(apiErrorMessage));
+    login = (login: string) => dispatch(app.login(login));
 
     static create(): AppStateManager {
         return new AppStateManager();

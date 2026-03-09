@@ -33,12 +33,13 @@ export const LoginForm: React.FC<LoginFormProps> = ({ initialValues, initialErro
 
     const formik = useFormik({
         initialValues,
-        onSubmit: (values, { resetForm }) => {
+        onSubmit: (values) => {
             ctrl.onLoginSubmit(values);
-            resetForm();
         },
         validationSchema,
-        initialErrors
+        initialErrors,
+        validateOnChange: false,
+        validateOnBlur: false
     });
 
     const translations = i18n[language].loginForm;

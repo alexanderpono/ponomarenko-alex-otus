@@ -15,13 +15,16 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({ ctrl }) => {
     const products = useSelector(appSelector.products);
     const isEditProductVisible = useSelector(appSelector.isEditProductVisible);
     const editedProduct = useSelector(appSelector.editedProduct);
+    const isUserAuthorized = useSelector(appSelector.isUserAuthorized);
     return (
         <div className={cn(styles.ProductsPage)}>
-            <div className={styles.menu}>
-                <span className={styles.menuItem} onClick={ctrl.onAddProductClick}>
-                    + Add product
-                </span>
-            </div>
+            {isUserAuthorized && (
+                <div className={styles.menu}>
+                    <span className={styles.menuItem} onClick={ctrl.onAddProductClick}>
+                        + Add product
+                    </span>
+                </div>
+            )}
             {products.map((product) => {
                 return <ProductCard key={product.id} ctrl={ctrl} product={product} />;
             })}

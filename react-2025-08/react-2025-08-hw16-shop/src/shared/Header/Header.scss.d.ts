@@ -6,6 +6,7 @@ interface CssExports {
   'color': string;
   'grey': string;
   'language': string;
+  'login': string;
   'logo': string;
   'menu': string;
   'profile': string;

@@ -40,6 +40,7 @@ describe('appReducer', () => {
         ${[app.editedCategory(rndCategory)]}   | ${'sets .editedCategory for AppEvent.EDITED_CATEGORY action'}               | ${AppEvent.EDITED_CATEGORY}         | ${'editedCategory'}       | ${rndCategory}
         ${[app.cart(rndCart)]}                 | ${'sets .cart for AppEvent.CART action'}                                    | ${AppEvent.CART}                    | ${'cart'}                 | ${rndCart}
         ${[app.apiErrorMessage(rndStr)]}       | ${'sets .apiErrorMessage for AppEvent.API_ERROR_MESSAGE action'}            | ${AppEvent.API_ERROR_MESSAGE}       | ${'apiErrorMessage'}      | ${rndStr}
+        ${[app.login(rndStr)]}                 | ${'sets .login for AppEvent.LOGIN action'}                                  | ${AppEvent.LOGIN}                   | ${'login'}                | ${rndStr}
     `('$testName', async ({ actions, event, stateSelector, value }) => {
         let state: AppState = { ...defaultAppState };
         (actions as Action<AppState>[]).forEach((action) => {

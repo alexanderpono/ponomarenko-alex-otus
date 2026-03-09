@@ -21,7 +21,8 @@ export enum AppEvent {
     CUR_CATEGORY_ID = 'APP/CUR_CATEGORY_ID',
     EDITED_CATEGORY = 'APP/EDITED_CATEGORY',
     CART = 'APP/CART',
-    API_ERROR_MESSAGE = 'APP/API_ERROR_MESSAGE'
+    API_ERROR_MESSAGE = 'APP/API_ERROR_MESSAGE',
+    LOGIN = 'APP/LOGIN'
 }
 
 export interface AppState {
@@ -40,6 +41,7 @@ export interface AppState {
     editedCategory: Category;
     cart: Cart;
     apiErrorMessage: string;
+    login: string;
 }
 
 export const defaultAppState: AppState = {
@@ -57,7 +59,8 @@ export const defaultAppState: AppState = {
     curCategoryId: '',
     editedCategory: { ...defaultCategory },
     cart: { ...defaultCart },
-    apiErrorMessage: ''
+    apiErrorMessage: '',
+    login: ''
 };
 
 export interface ProductsAction {
@@ -158,6 +161,13 @@ export interface ApiErrorMessageAction {
     };
 }
 
+export interface LoginAction {
+    type: AppEvent.LOGIN;
+    payload: {
+        login: string;
+    };
+}
+
 export type AppAction =
     | ProductsAction
     | LanguageAction
@@ -172,7 +182,8 @@ export type AppAction =
     | CurCategoryIdAction
     | EditedCategoryAction
     | CartAction
-    | ApiErrorMessageAction;
+    | ApiErrorMessageAction
+    | LoginAction;
 
 export const app = {
     products: (products: Product[]): ProductsAction => ({
@@ -230,6 +241,10 @@ export const app = {
     apiErrorMessage: (apiErrorMessage: string): ApiErrorMessageAction => ({
         type: AppEvent.API_ERROR_MESSAGE,
         payload: { apiErrorMessage }
+    }),
+    login: (login: string): LoginAction => ({
+        type: AppEvent.LOGIN,
+        payload: { login }
     })
 };
 
@@ -304,6 +319,11 @@ export const appReducer = handleActions(
             ...state,
             event: AppEvent.API_ERROR_MESSAGE,
             apiErrorMessage: (action as unknown as ApiErrorMessageAction).payload.apiErrorMessage
+        }),
+        [AppEvent.LOGIN]: (state: AppState, action) => ({
+            ...state,
+            event: AppEvent.LOGIN,
+            login: (action as unknown as LoginAction).payload.login
         })
     },
     defaultAppState

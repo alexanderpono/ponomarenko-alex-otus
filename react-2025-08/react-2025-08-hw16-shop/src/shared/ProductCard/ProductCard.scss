@@ -6,8 +6,7 @@
     float: left;
 
     .text {
-        height: 200px;
-        overflow: auto;
+        display: block;
     }
     .image {
         width: 100%;
@@ -32,6 +31,9 @@
         font-size: 1.2em;
         margin: 0 0 8px;
         font-weight: bold;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .description {
@@ -39,6 +41,8 @@
         color: #555;
         margin-bottom: 12px;
         line-height: 1.5;
+        height: 110px;
+        overflow: auto;
     }
 
     .price {
