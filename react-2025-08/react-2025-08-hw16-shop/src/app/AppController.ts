@@ -47,7 +47,10 @@ export class AppController implements IAppController {
         const apiUrl = getApiUrl();
         this.authAPI = new AuthAPI(apiUrl);
         const token = this.storage.getToken();
-        this.appSTM.isUserAuthorized(typeof token === 'string' && token !== '');
+        this.appSTM.isUserAuthorized(typeof token === 'string' && token !== '' && token !== 'undefined');
+
+        const login = this.storage.getLogin();
+        this.appSTM.login(login);
 
         this.categoryAPI = new CategoryAPI(apiUrl, token);
         this.productAPI = new ProductAPI(apiUrl, token);
@@ -120,6 +123,8 @@ export class AppController implements IAppController {
                 this.storage.setToken(result.token);
                 this.appSTM.isUserAuthorized(true);
                 this.appSTM.isLoginFormVisible(false);
+                this.storage.setLogin(values.login);
+                this.appSTM.login(values.login);
             })
             .catch((answer: AuthErrorAnswer) => {
                 if (Array.isArray(answer?.errors) && answer?.errors?.length > 0) {

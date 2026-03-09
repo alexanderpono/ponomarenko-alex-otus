@@ -45,6 +45,7 @@ describe('AppStateManager', () => {
             ${'editedCategory'}       | ${rndCategory}   | ${null} | ${app.editedCategory(rndCategory)}
             ${'cart'}                 | ${rndCart}       | ${null} | ${app.cart(rndCart)}
             ${'apiErrorMessage'}      | ${rndStr}        | ${null} | ${app.apiErrorMessage(rndStr)}
+            ${'login'}                | ${rndStr}        | ${null} | ${app.login(rndStr)}
         `('$method() calls store.dispatch', ({ method, param1, param2, expected }) => {
             const dispatchMock = jest.fn();
             jest.spyOn(store, 'getStore').mockReturnValue(

@@ -16,6 +16,8 @@ interface HeaderProps {
 }
 export const Header: React.FC<HeaderProps> = ({ ctrl }) => {
     const colorTheme = useSelector(appSelector.colorTheme);
+    const isUserAuthorized = useSelector(appSelector.isUserAuthorized);
+    const login = useSelector(appSelector.login);
     return (
         <div
             className={cn(styles.Header, {
@@ -26,18 +28,23 @@ export const Header: React.FC<HeaderProps> = ({ ctrl }) => {
             <div className={styles.logo}>
                 <Logo />
             </div>
-            <div className={styles.color}>
-                <ThemeSelector ctrl={ctrl} />
-            </div>
-            <div className={styles.language}>
-                <LanguageSelector ctrl={ctrl} />
-            </div>
             <div className={styles.profile}>
                 <ProfileButton ctrl={ctrl} />
             </div>
-            <div className={styles.menu}>
-                <Menu ctrl={ctrl} />
-            </div>
+            {isUserAuthorized && (
+                <>
+                    <div className={styles.color}>
+                        <ThemeSelector ctrl={ctrl} />
+                    </div>
+                    <div className={styles.language}>
+                        <LanguageSelector ctrl={ctrl} />
+                    </div>
+                    <div className={styles.menu}>
+                        <Menu ctrl={ctrl} />
+                    </div>
+                    <div className={styles.login}>{login}</div>
+                </>
+            )}
         </div>
     );
 };
