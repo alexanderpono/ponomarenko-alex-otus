@@ -26,6 +26,8 @@ export class AppStateManager {
     cart = (cart: Cart) => dispatch(app.cart(cart));
     apiErrorMessage = (apiErrorMessage: string) => dispatch(app.apiErrorMessage(apiErrorMessage));
     login = (login: string) => dispatch(app.login(login));
+    isUpdatePasswordVisible = (isUpdatePasswordVisible: boolean) =>
+        dispatch(app.isUpdatePasswordVisible(isUpdatePasswordVisible));
 
     static create(): AppStateManager {
         return new AppStateManager();

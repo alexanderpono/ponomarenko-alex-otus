@@ -6,10 +6,10 @@ import { appSelector } from 'src/store/selectors';
 import { IAppController } from 'src/app/AppController.types';
 import CartItem from 'src/shared/CartItem/CartItem';
 
-interface CartPagePageProps {
+interface CartPageProps {
     ctrl: IAppController;
 }
-export const CartPagePage: React.FC<CartPagePageProps> = ({ ctrl }) => {
+export const CartPage: React.FC<CartPageProps> = ({ ctrl }) => {
     const products = useSelector(appSelector.products);
     const cart = useSelector(appSelector.cart);
     const isUserAuthorized = useSelector(appSelector.isUserAuthorized);
@@ -37,4 +37,4 @@ export const CartPagePage: React.FC<CartPagePageProps> = ({ ctrl }) => {
         </div>
     );
 };
-export default CartPagePage;
+export default CartPage;

@@ -21,9 +21,9 @@ export interface I18n {
                 grey: string;
                 blue: string;
             };
-            profileForm: {
-                name: string;
-                about: string;
+            updatePasswordForm: {
+                password: string;
+                newPassword: string;
                 submit: string;
                 cancel: string;
             };
@@ -72,9 +72,9 @@ export const i18n: I18n['i18n'] = {
             modalText: 'Modal text',
             category: 'Cats'
         },
-        profileForm: {
-            name: 'Name',
-            about: 'About',
+        updatePasswordForm: {
+            password: 'Current password',
+            newPassword: 'New password',
             submit: 'Save',
             cancel: 'Cancel'
         },
@@ -118,9 +118,9 @@ export const i18n: I18n['i18n'] = {
             modalText: 'Текст писать ту-тут',
             category: 'Котики'
         },
-        profileForm: {
-            name: 'Имя',
-            about: 'О себе',
+        updatePasswordForm: {
+            password: 'Старый пароль',
+            newPassword: 'Новый пароль',
             submit: 'Сохранить',
             cancel: 'Отменить'
         },

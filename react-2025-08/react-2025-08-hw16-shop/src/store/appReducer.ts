@@ -22,7 +22,8 @@ export enum AppEvent {
     EDITED_CATEGORY = 'APP/EDITED_CATEGORY',
     CART = 'APP/CART',
     API_ERROR_MESSAGE = 'APP/API_ERROR_MESSAGE',
-    LOGIN = 'APP/LOGIN'
+    LOGIN = 'APP/LOGIN',
+    IS_UPDATE_PASSWORD_VISIBLE = 'APP/IS_UPDATE_PASSWORD_VISIBLE'
 }
 
 export interface AppState {
@@ -42,6 +43,7 @@ export interface AppState {
     cart: Cart;
     apiErrorMessage: string;
     login: string;
+    isUpdatePasswordVisible: boolean;
 }
 
 export const defaultAppState: AppState = {
@@ -60,7 +62,8 @@ export const defaultAppState: AppState = {
     editedCategory: { ...defaultCategory },
     cart: { ...defaultCart },
     apiErrorMessage: '',
-    login: ''
+    login: '',
+    isUpdatePasswordVisible: false
 };
 
 export interface ProductsAction {
@@ -168,6 +171,13 @@ export interface LoginAction {
     };
 }
 
+export interface IsUpdatePasswordVisibleAction {
+    type: AppEvent.IS_UPDATE_PASSWORD_VISIBLE;
+    payload: {
+        isUpdatePasswordVisible: boolean;
+    };
+}
+
 export type AppAction =
     | ProductsAction
     | LanguageAction
@@ -183,7 +193,8 @@ export type AppAction =
     | EditedCategoryAction
     | CartAction
     | ApiErrorMessageAction
-    | LoginAction;
+    | LoginAction
+    | IsUpdatePasswordVisibleAction;
 
 export const app = {
     products: (products: Product[]): ProductsAction => ({
@@ -245,6 +256,10 @@ export const app = {
     login: (login: string): LoginAction => ({
         type: AppEvent.LOGIN,
         payload: { login }
+    }),
+    isUpdatePasswordVisible: (isUpdatePasswordVisible: boolean): IsUpdatePasswordVisibleAction => ({
+        type: AppEvent.IS_UPDATE_PASSWORD_VISIBLE,
+        payload: { isUpdatePasswordVisible }
     })
 };
 
@@ -324,6 +339,12 @@ export const appReducer = handleActions(
             ...state,
             event: AppEvent.LOGIN,
             login: (action as unknown as LoginAction).payload.login
+        }),
+        [AppEvent.IS_UPDATE_PASSWORD_VISIBLE]: (state: AppState, action) => ({
+            ...state,
+            event: AppEvent.IS_UPDATE_PASSWORD_VISIBLE,
+            isUpdatePasswordVisible: (action as unknown as IsUpdatePasswordVisibleAction).payload
+                .isUpdatePasswordVisible
         })
     },
     defaultAppState

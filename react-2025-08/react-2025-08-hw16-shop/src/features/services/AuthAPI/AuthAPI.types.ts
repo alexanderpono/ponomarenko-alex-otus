@@ -16,6 +16,6 @@ interface ErrorInfo {
     message: string;
 }
 
-export interface AuthErrorAnswer {
+export interface ApiErrorAnswer {
     errors: ErrorInfo[];
 }

@@ -32,6 +32,9 @@ export const Menu: React.FC<MenuProps> = ({ ctrl }) => {
             <li onClick={ctrl.onCartClick} className={cn({ [styles.cur]: curPartition === Partition.CART })}>
                 Cart{cart.totalCount > 0 ? ` (${cart.totalCount})` : ''}
             </li>
+            <li onClick={ctrl.onProfileClick} className={cn({ [styles.cur]: curPartition === Partition.PROFILE })}>
+                Profile
+            </li>
         </ul>
     );
 };

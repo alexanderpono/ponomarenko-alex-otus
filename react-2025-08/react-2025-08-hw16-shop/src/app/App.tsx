@@ -10,6 +10,8 @@ import { LoginForm } from 'src/features/forms/LoginForm/LoginForm';
 import CategoriesPage from 'src/pages/CategoriesPage/CategoriesPage';
 import ProductsPage from 'src/pages/ProductsPage/ProductsPage';
 import CartPage from 'src/pages/CartPage/CartPage';
+import ProfilePage from 'src/pages/ProfilePage/ProfilePage';
+import { UpdatePasswordForm } from 'src/features/forms/UpdatePasswordForm/UpdatePasswordForm';
 
 interface AppProps {
     ctrl: IAppController;
@@ -20,6 +22,7 @@ export const App: React.FC<AppProps> = ({ ctrl }) => {
     const isLoginFormVisible = useSelector(appSelector.isLoginFormVisible);
     const isRegistering = useSelector(appSelector.isRegistering);
     const curPartition = useSelector(appSelector.curPartition);
+    const isUpdatePasswordVisible = useSelector(appSelector.isUpdatePasswordVisible);
 
     React.useEffect(() => {
         ctrl.onAppMount();
@@ -35,21 +38,11 @@ export const App: React.FC<AppProps> = ({ ctrl }) => {
             {curPartition === Partition.PRODUCTS && <ProductsPage ctrl={ctrl} />}
             {curPartition === Partition.CATEGORIES && <CategoriesPage ctrl={ctrl} />}
             {curPartition === Partition.CART && <CartPage ctrl={ctrl} />}
+            {curPartition === Partition.PROFILE && <ProfilePage ctrl={ctrl} />}
 
-            {/* <DetailedProductCard
-                        image="cat.jpg"
-                        count={0}
-                        price={1999}
-                        name={shortText}
-                        category={translations.category}
-                    >
-                        {bigText}
-                    </DetailedProductCard> */}
-            {/* <CartItem image="" count={1} price={1999} name={shortText} />
-                    <CartItem image="cat.jpg" count={2} price={1999} name={shortText} /> */}
             <Modal visible={isLoginFormVisible} handleBtCloseClick={ctrl.onLoginCloseClick} title={'Login'}>
                 <LoginForm
-                    initialValues={{ login: 'a', password: 'b', repeatPassword: '' }}
+                    initialValues={{ login: '', password: '', repeatPassword: '' }}
                     initialErrors={{
                         login: '',
                         password: '',
@@ -57,6 +50,21 @@ export const App: React.FC<AppProps> = ({ ctrl }) => {
                     }}
                     ctrl={ctrl}
                     isRegistering={isRegistering}
+                />
+            </Modal>
+
+            <Modal
+                visible={isUpdatePasswordVisible}
+                handleBtCloseClick={ctrl.onUpdatePasswordCloseClick}
+                title={'Update password'}
+            >
+                <UpdatePasswordForm
+                    initialValues={{ password: '', newPassword: '' }}
+                    initialErrors={{
+                        password: '',
+                        newPassword: ''
+                    }}
+                    ctrl={ctrl}
                 />
             </Modal>
         </Layout>
