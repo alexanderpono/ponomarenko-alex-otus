@@ -1,6 +1,7 @@
 import { Category } from 'src/entities/Category';
 import { Product } from 'src/entities/Product';
 import { LoginFormValues } from 'src/features/forms/LoginForm/LoginForm.types';
+import { UpdatePasswordFormValues } from 'src/features/forms/UpdatePasswordForm/UpdatePasswordForm.types';
 
 export interface IAppController {
     onAppMount: () => void;
@@ -26,13 +27,18 @@ export interface IAppController {
     onPlusClick: (evt: React.MouseEvent<HTMLDivElement>) => void;
     onMinusClick: (evt: React.MouseEvent<HTMLDivElement>) => void;
     onCartItemDelClick: (evt: React.MouseEvent<HTMLButtonElement>) => void;
+    onProfileClick: () => void;
+    onChangePasswordClick: () => void;
+    onUpdatePasswordCloseClick: () => void;
+    onUpdatePasswordSubmit: (values: UpdatePasswordFormValues) => void;
 }
 
 export enum Partition {
     DEFAULT = '',
     PRODUCTS = 'PRODUCTS',
     CATEGORIES = 'CATEGORIES',
-    CART = 'CART'
+    CART = 'CART',
+    PROFILE = 'PROFILE'
 }
 
 export const NEW_ENTITY_ID = '-1';

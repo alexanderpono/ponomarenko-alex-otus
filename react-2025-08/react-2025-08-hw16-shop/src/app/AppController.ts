@@ -8,13 +8,15 @@ import { findNodeWithDataAttr } from 'src/utils/findNodeWithDataAttr';
 import { Category, defaultCategory } from 'src/entities/Category';
 import { CartItem } from 'src/entities/Cart';
 import { AuthAPI } from 'src/features/services/AuthAPI/AuthAPI';
-import { AuthErrorAnswer, AuthResult } from 'src/features/services/AuthAPI/AuthAPI.types';
+import { ApiErrorAnswer, AuthResult } from 'src/features/services/AuthAPI/AuthAPI.types';
 import { StorageService } from 'src/features/services/StorageService/StorageService';
 import { CategoryAPI } from 'src/features/services/CategoryAPI/CategoryAPI';
 import { GetGategoriesAnswer } from 'src/features/services/CategoryAPI/CategoryAPI.types';
 import { ProductAPI } from 'src/features/services/ProductAPI/ProductAPI';
 import { GetProductsAnswer, ProductFromAPI } from 'src/features/services/ProductAPI/ProductAPI.types';
 import { getApiUrl } from 'src/constants/config';
+import { ProfileAPI } from 'src/features/services/ProfileAPI/ProfileAPI';
+import { UpdatePasswordFormValues } from 'src/features/forms/UpdatePasswordForm/UpdatePasswordForm.types';
 
 const COLOR_THEME = 'colorTheme';
 const LANGUAGE = 'language';
@@ -25,6 +27,7 @@ export class AppController implements IAppController {
     private authAPI: AuthAPI = null;
     private categoryAPI: CategoryAPI = null;
     private productAPI: ProductAPI = null;
+    private profileAPI: ProfileAPI = null;
 
     constructor() {
         this.appSTM = AppStateManager.create();
@@ -40,6 +43,7 @@ export class AppController implements IAppController {
         this.appSTM.curPartition(Partition.PRODUCTS);
         // this.appSTM.curPartition(Partition.CATEGORIES);
         // this.appSTM.curPartition(Partition.CART);
+        // this.appSTM.curPartition(Partition.PROFILE);
 
         // this.onLoginClick();
         // this.onAddProductClick();
@@ -54,10 +58,13 @@ export class AppController implements IAppController {
 
         this.categoryAPI = new CategoryAPI(apiUrl, token);
         this.productAPI = new ProductAPI(apiUrl, token);
+        this.profileAPI = new ProfileAPI(apiUrl, token);
 
         this.reloadCategories();
 
         this.reloadProducts();
+        // this.onProfileClick();
+        // this.onChangePasswordClick();
     };
 
     reloadCategories = () => {
@@ -126,7 +133,7 @@ export class AppController implements IAppController {
                 this.storage.setLogin(values.login);
                 this.appSTM.login(values.login);
             })
-            .catch((answer: AuthErrorAnswer) => {
+            .catch((answer: ApiErrorAnswer) => {
                 if (Array.isArray(answer?.errors) && answer?.errors?.length > 0) {
                     const errorInfo = answer?.errors[0];
                     this.appSTM.apiErrorMessage(errorInfo.message);
@@ -308,5 +315,37 @@ export class AppController implements IAppController {
 
         const newCart = { ...cart, items: newCartItems, totalPrice, totalCount };
         this.appSTM.cart(newCart);
+    };
+
+    onProfileClick = () => {
+        this.appSTM.curPartition(Partition.PROFILE);
+        this.profileAPI.getProfile().then((answer) => {
+            console.warn('onProfileClick() answer=', answer);
+        });
+    };
+
+    onChangePasswordClick = () => {
+        this.appSTM.isUpdatePasswordVisible(true);
+        this.appSTM.apiErrorMessage('');
+    };
+
+    onUpdatePasswordCloseClick = () => {
+        this.appSTM.isUpdatePasswordVisible(false);
+        this.appSTM.apiErrorMessage('');
+    };
+
+    onUpdatePasswordSubmit = (values: UpdatePasswordFormValues) => {
+        this.profileAPI
+            .updatePassword(values)
+            .then(() => {
+                console.warn('update pass OK');
+                this.appSTM.isUpdatePasswordVisible(false);
+            })
+            .catch((answer: ApiErrorAnswer) => {
+                if (Array.isArray(answer?.errors) && answer?.errors?.length > 0) {
+                    const errorInfo = answer?.errors[0];
+                    this.appSTM.apiErrorMessage(errorInfo.message);
+                }
+            });
     };
 }
