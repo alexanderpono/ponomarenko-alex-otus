@@ -37,7 +37,7 @@ export const EditProductForm: React.FC<EditProductFormProps> = ({ initialValues,
         <form className={styles.EditProductForm} onSubmit={formik.handleSubmit}>
             <label>
                 <span>{translations.image}</span>
-                <input type="file" name="photo" onChange={formik.handleChange} value={''} />
+                <input type="input" name="photo" onChange={formik.handleChange} value={formik.values.photo} />
             </label>
             {formik.errors.photo && <div className={styles.error}>{formik.errors.photo}</div>}
 
@@ -55,10 +55,10 @@ export const EditProductForm: React.FC<EditProductFormProps> = ({ initialValues,
 
             <label>
                 <span>{translations.category}</span>
-                <select name="categoryId" onChange={formik.handleChange}>
+                <select name="categoryId" onChange={formik.handleChange} value={formik.values.categoryId}>
                     <option value="">Не выбрано</option>
                     {categories.map((category) => (
-                        <option value={category.id} selected={category.id === formik.values.categoryId}>
+                        <option key={category.id} value={category.id}>
                             {category.name}
                         </option>
                     ))}
@@ -68,7 +68,14 @@ export const EditProductForm: React.FC<EditProductFormProps> = ({ initialValues,
 
             <label>
                 <span>{translations.description}</span>
-                <input type="text" name="desc" onChange={formik.handleChange} value={formik.values.desc} />
+                <textarea
+                    name="desc"
+                    rows={5}
+                    cols={40}
+                    placeholder=""
+                    onChange={formik.handleChange}
+                    value={formik.values.desc}
+                ></textarea>
             </label>
             {formik.errors.desc && <div className={styles.error}>{formik.errors.desc}</div>}
 
