@@ -12,10 +12,6 @@ interface CartPageProps {
 export const CartPage: React.FC<CartPageProps> = ({ ctrl }) => {
     const products = useSelector(appSelector.products);
     const cart = useSelector(appSelector.cart);
-    const isUserAuthorized = useSelector(appSelector.isUserAuthorized);
-    if (!isUserAuthorized) {
-        return <></>;
-    }
     return (
         <div className={cn(styles.CartPage)}>
             {cart.items.map((cartItem) => {

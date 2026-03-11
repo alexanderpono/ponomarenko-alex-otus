@@ -31,20 +31,20 @@ export const Header: React.FC<HeaderProps> = ({ ctrl }) => {
             <div className={styles.profile}>
                 <ProfileButton ctrl={ctrl} />
             </div>
+            <div className={styles.color}>
+                <ThemeSelector ctrl={ctrl} />
+            </div>
+            <div className={styles.language}>
+                <LanguageSelector ctrl={ctrl} />
+            </div>
             {isUserAuthorized && (
                 <>
-                    <div className={styles.color}>
-                        <ThemeSelector ctrl={ctrl} />
-                    </div>
-                    <div className={styles.language}>
-                        <LanguageSelector ctrl={ctrl} />
-                    </div>
-                    <div className={styles.menu}>
-                        <Menu ctrl={ctrl} />
-                    </div>
                     <div className={styles.login}>{login}</div>
                 </>
             )}
+            <div className={styles.menu}>
+                <Menu ctrl={ctrl} />
+            </div>
         </div>
     );
 };

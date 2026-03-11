@@ -16,6 +16,7 @@ export const Menu: React.FC<MenuProps> = ({ ctrl }) => {
     const cart = useSelector(appSelector.cart);
     const language = useSelector(appSelector.language);
     const translations = i18n[language].menu;
+    const isUserAuthorized = useSelector(appSelector.isUserAuthorized);
     return (
         <ul
             className={cn(styles.Menu, {
@@ -26,18 +27,22 @@ export const Menu: React.FC<MenuProps> = ({ ctrl }) => {
             <li onClick={ctrl.onProductsClick} className={cn({ [styles.cur]: curPartition === Partition.PRODUCTS })}>
                 {translations.products}
             </li>
-            <li
-                onClick={ctrl.onCategoriesClick}
-                className={cn({ [styles.cur]: curPartition === Partition.CATEGORIES })}
-            >
-                {translations.categories}
-            </li>
+            {isUserAuthorized && (
+                <li
+                    onClick={ctrl.onCategoriesClick}
+                    className={cn({ [styles.cur]: curPartition === Partition.CATEGORIES })}
+                >
+                    {translations.categories}
+                </li>
+            )}
             <li onClick={ctrl.onCartClick} className={cn({ [styles.cur]: curPartition === Partition.CART })}>
                 {translations.cart} {cart.totalCount > 0 ? ` (${cart.totalCount})` : ''}
             </li>
-            <li onClick={ctrl.onProfileClick} className={cn({ [styles.cur]: curPartition === Partition.PROFILE })}>
-                {translations.profile}
-            </li>
+            {isUserAuthorized && (
+                <li onClick={ctrl.onProfileClick} className={cn({ [styles.cur]: curPartition === Partition.PROFILE })}>
+                    {translations.profile}
+                </li>
+            )}
         </ul>
     );
 };

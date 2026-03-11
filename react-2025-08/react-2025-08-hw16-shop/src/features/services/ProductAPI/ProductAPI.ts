@@ -3,7 +3,13 @@ import { GetProductsAnswer } from './ProductAPI.types';
 import { Product } from 'src/entities/Product';
 
 export class ProductAPI {
-    constructor(private apiUrl: string, private token: string) {}
+    private token: string;
+
+    constructor(private apiUrl: string) {}
+
+    setToken = (token: string) => {
+        this.token = token;
+    };
 
     getHeaders = () => {
         const headers: HeadersInit = {
