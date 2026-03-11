@@ -59,9 +59,13 @@ export interface I18n {
                 cart: string;
                 profile: string;
             };
-            profileButton: {
+            profile: {
                 login: string;
                 logout: string;
+                updatePassword: string;
+            };
+            cart: {
+                cartIsEmpty: string;
             };
         };
     };
@@ -123,9 +127,13 @@ export const i18n: I18n['i18n'] = {
             cart: 'Cart',
             profile: 'Profile'
         },
-        profileButton: {
+        profile: {
             login: 'login',
-            logout: 'logout'
+            logout: 'logout',
+            updatePassword: 'Change password'
+        },
+        cart: {
+            cartIsEmpty: 'Cart is empty'
         }
     },
     ru: {
@@ -182,9 +190,13 @@ export const i18n: I18n['i18n'] = {
             cart: 'Корзина',
             profile: 'Профиль'
         },
-        profileButton: {
+        profile: {
             login: 'Войти',
-            logout: 'Выйти'
+            logout: 'Выйти',
+            updatePassword: 'Смена пароля'
+        },
+        cart: {
+            cartIsEmpty: 'Нет товаров в корзине'
         }
     }
 };

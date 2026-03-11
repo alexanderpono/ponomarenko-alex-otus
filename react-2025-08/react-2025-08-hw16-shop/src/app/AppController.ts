@@ -6,7 +6,7 @@ import { Language } from 'src/constants/i18n';
 import { LoginFormValues } from 'src/features/forms/LoginForm/LoginForm.types';
 import { findNodeWithDataAttr } from 'src/utils/findNodeWithDataAttr';
 import { Category, defaultCategory } from 'src/entities/Category';
-import { CartItem } from 'src/entities/Cart';
+import { Cart, CartItem } from 'src/entities/Cart';
 import { AuthAPI } from 'src/features/services/AuthAPI/AuthAPI';
 import { ApiErrorAnswer, AuthResult } from 'src/features/services/AuthAPI/AuthAPI.types';
 import { StorageService } from 'src/features/services/StorageService/StorageService';
@@ -68,6 +68,8 @@ export class AppController implements IAppController {
         this.reloadCategories();
 
         this.reloadProducts();
+        const storedCart: Cart = this.storage.getCart();
+        this.appSTM.cart(storedCart);
         // this.onProfileClick();
         // this.onChangePasswordClick();
     };
@@ -119,6 +121,7 @@ export class AppController implements IAppController {
 
         this.appSTM.curPartition(Partition.PRODUCTS);
         this.reloadProducts();
+        this.reloadCategories();
     };
 
     onLoginSubmit = (values: LoginFormValues) => {
@@ -139,6 +142,7 @@ export class AppController implements IAppController {
                 this.profileAPI.setToken(result.token);
 
                 this.reloadProducts();
+                this.reloadCategories();
             })
             .catch((answer: ApiErrorAnswer) => {
                 if (Array.isArray(answer?.errors) && answer?.errors?.length > 0) {
@@ -298,6 +302,7 @@ export class AppController implements IAppController {
 
         const newCart = { ...cart, items: newCartItems, totalPrice, totalCount };
         this.appSTM.cart(newCart);
+        this.storage.setCart(newCart);
     };
 
     onPlusClick = (evt: React.MouseEvent<HTMLDivElement>) => {
@@ -322,6 +327,7 @@ export class AppController implements IAppController {
 
         const newCart = { ...cart, items: newCartItems, totalPrice, totalCount };
         this.appSTM.cart(newCart);
+        this.storage.setCart(newCart);
     };
 
     onProfileClick = () => {

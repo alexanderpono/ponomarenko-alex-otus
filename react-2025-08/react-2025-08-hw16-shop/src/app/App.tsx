@@ -11,7 +11,6 @@ import CategoriesPage from 'src/pages/CategoriesPage/CategoriesPage';
 import ProductsPage from 'src/pages/ProductsPage/ProductsPage';
 import CartPage from 'src/pages/CartPage/CartPage';
 import ProfilePage from 'src/pages/ProfilePage/ProfilePage';
-import { UpdatePasswordForm } from 'src/features/forms/UpdatePasswordForm/UpdatePasswordForm';
 
 interface AppProps {
     ctrl: IAppController;
@@ -22,7 +21,6 @@ export const App: React.FC<AppProps> = ({ ctrl }) => {
     const isLoginFormVisible = useSelector(appSelector.isLoginFormVisible);
     const isRegistering = useSelector(appSelector.isRegistering);
     const curPartition = useSelector(appSelector.curPartition);
-    const isUpdatePasswordVisible = useSelector(appSelector.isUpdatePasswordVisible);
 
     React.useEffect(() => {
         ctrl.onAppMount();
@@ -50,21 +48,6 @@ export const App: React.FC<AppProps> = ({ ctrl }) => {
                     }}
                     ctrl={ctrl}
                     isRegistering={isRegistering}
-                />
-            </Modal>
-
-            <Modal
-                visible={isUpdatePasswordVisible}
-                handleBtCloseClick={ctrl.onUpdatePasswordCloseClick}
-                title={'Update password'}
-            >
-                <UpdatePasswordForm
-                    initialValues={{ password: '', newPassword: '' }}
-                    initialErrors={{
-                        password: '',
-                        newPassword: ''
-                    }}
-                    ctrl={ctrl}
                 />
             </Modal>
         </Layout>
