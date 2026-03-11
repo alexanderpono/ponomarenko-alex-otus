@@ -91,7 +91,7 @@ export class AppController implements IAppController {
                     categoryId: api.category.id,
                     price: api.price,
                     name: api.name,
-                    photo: api.photo,
+                    photo: api.photo ? api.photo : '',
                     desc: api.desc
                 }))
             );
