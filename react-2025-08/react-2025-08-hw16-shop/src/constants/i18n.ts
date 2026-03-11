@@ -42,6 +42,9 @@ export interface I18n {
                 description: string;
                 submit: string;
                 cancel: string;
+                addProduct: string;
+                newProduct: string;
+                product: string;
             };
             errors: {
                 mustBePositive: string;
@@ -49,6 +52,16 @@ export interface I18n {
                 max32Length: string;
                 max2048Length: string;
                 passwordsMustBeEqual: string;
+            };
+            menu: {
+                products: string;
+                categories: string;
+                cart: string;
+                profile: string;
+            };
+            profileButton: {
+                login: string;
+                logout: string;
             };
         };
     };
@@ -92,7 +105,10 @@ export const i18n: I18n['i18n'] = {
             category: 'Category',
             description: 'Description',
             submit: 'Save',
-            cancel: 'Cancel'
+            cancel: 'Cancel',
+            addProduct: 'Add product',
+            newProduct: 'New product',
+            product: 'Product'
         },
         errors: {
             mustBePositive: 'Must be positive',
@@ -100,6 +116,16 @@ export const i18n: I18n['i18n'] = {
             max32Length: 'Should be max 32 characters length',
             max2048Length: 'Should be max 2048 characters length',
             passwordsMustBeEqual: 'Passwords must be equal'
+        },
+        menu: {
+            products: 'Products',
+            categories: 'Categories',
+            cart: 'Cart',
+            profile: 'Profile'
+        },
+        profileButton: {
+            login: 'login',
+            logout: 'logout'
         }
     },
     ru: {
@@ -138,7 +164,10 @@ export const i18n: I18n['i18n'] = {
             category: 'Категория',
             description: 'Описание',
             submit: 'Сохранить',
-            cancel: 'Отмена'
+            cancel: 'Отмена',
+            addProduct: 'Новый продукт',
+            newProduct: 'Новый продукт',
+            product: 'Продукт'
         },
         errors: {
             mustBePositive: 'Должно быть больше 0',
@@ -146,6 +175,16 @@ export const i18n: I18n['i18n'] = {
             max32Length: 'Должно быть не длиннее 32 символов',
             max2048Length: 'Должно быть не длиннее 2048 символов',
             passwordsMustBeEqual: 'Пароли должны совпадать'
+        },
+        menu: {
+            products: 'Продукты',
+            categories: 'Категории',
+            cart: 'Корзина',
+            profile: 'Профиль'
+        },
+        profileButton: {
+            login: 'Войти',
+            logout: 'Выйти'
         }
     }
 };
