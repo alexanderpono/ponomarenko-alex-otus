@@ -11,7 +11,7 @@ export interface ProfileButtonProps {
 export const ProfileButton: React.FC<ProfileButtonProps> = ({ ctrl }) => {
     const isUserAuthorized = useSelector(appSelector.isUserAuthorized);
     const language = useSelector(appSelector.language);
-    const translations = i18n[language].profileButton;
+    const translations = i18n[language].profile;
     return (
         <div className={styles.ProfileButton}>
             {isUserAuthorized && (
