@@ -31,6 +31,7 @@ export interface IAppController {
     onChangePasswordClick: () => void;
     onUpdatePasswordCloseClick: () => void;
     onUpdatePasswordSubmit: (values: UpdatePasswordFormValues) => void;
+    processScrollProductsEvent: (observers: IntersectionObserverEntry[]) => void;
 }
 
 export enum Partition {

@@ -2,6 +2,7 @@
 // Please do not change this file!
 interface CssExports {
   'ProductsPage': string;
+  'loader': string;
   'menu': string;
   'menuItem': string;
 }

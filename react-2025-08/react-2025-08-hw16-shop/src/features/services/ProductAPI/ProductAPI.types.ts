@@ -12,3 +12,5 @@ export interface ProductFromAPI {
 export interface GetProductsAnswer {
     data: ProductFromAPI[];
 }
+
+export const PRODUCT_PAGE_SIZE = 2;

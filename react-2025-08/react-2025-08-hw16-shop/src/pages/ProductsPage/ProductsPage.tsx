@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styles from './ProductsPage.scss';
 import cn from 'classnames';
 import { useSelector } from 'react-redux';
@@ -19,8 +19,24 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({ ctrl }) => {
     const isUserAuthorized = useSelector(appSelector.isUserAuthorized);
     const language = useSelector(appSelector.language);
     const translations = i18n[language].editProductForm;
+    const listRef = useRef<HTMLDivElement>();
+    const loaderRef = useRef<HTMLDivElement>();
+
+    React.useEffect(() => {
+        const root = listRef.current;
+        if (loaderRef.current) {
+            const observer = new IntersectionObserver(ctrl.processScrollProductsEvent, {
+                root,
+                threshold: 1.0,
+                rootMargin: '0px'
+            });
+            observer.observe(loaderRef.current);
+            return () => observer.disconnect();
+        }
+    }, [products]);
+
     return (
-        <div className={cn(styles.ProductsPage)}>
+        <div className={cn(styles.ProductsPage)} ref={listRef}>
             {isUserAuthorized && (
                 <div className={styles.menu}>
                     <span className={styles.menuItem} onClick={ctrl.onAddProductClick}>
@@ -31,7 +47,9 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({ ctrl }) => {
             {products.map((product) => {
                 return <ProductCard key={product.id} ctrl={ctrl} product={product} />;
             })}
-
+            <div className={styles.loader} ref={loaderRef}>
+                &nbsp;
+            </div>
             <Modal
                 visible={isEditProductVisible}
                 handleBtCloseClick={ctrl.onEditProductCloseClick}

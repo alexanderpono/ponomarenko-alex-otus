@@ -3,7 +3,6 @@
     overflow: auto;
 
     .menu {
-        // border: 1px solid red;
         height: 30px;
         line-height: 30px;
         padding-left: 20px;
@@ -12,4 +11,9 @@
     .menuItem {
         cursor: pointer;
     }
+}
+
+.loader {
+    float: left;
+    width: 300px;
 }
