@@ -1,5 +1,5 @@
 import { CONTENT_JSON } from 'src/constants/API';
-import { GetProductsAnswer } from './ProductAPI.types';
+import { GetProductsAnswer, PRODUCT_PAGE_SIZE } from './ProductAPI.types';
 import { Product } from 'src/entities/Product';
 
 export class ProductAPI {
@@ -21,8 +21,14 @@ export class ProductAPI {
         return headers;
     };
 
-    getProducts = (): Promise<GetProductsAnswer> => {
-        return fetch(this.apiUrl + '/products', { headers: this.getHeaders() }).then((response: Response) => {
+    getProducts = (pageNo = 0): Promise<GetProductsAnswer> => {
+        const s = new URLSearchParams({
+            pagination: JSON.stringify({
+                pageSize: PRODUCT_PAGE_SIZE,
+                pageNumber: pageNo
+            })
+        }).toString();
+        return fetch(this.apiUrl + '/products?' + s, { headers: this.getHeaders() }).then((response: Response) => {
             return response.json().then((result) => {
                 if (response.status !== 200) {
                     return Promise.reject(result);

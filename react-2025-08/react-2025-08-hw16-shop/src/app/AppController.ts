@@ -13,7 +13,11 @@ import { StorageService } from 'src/features/services/StorageService/StorageServ
 import { CategoryAPI } from 'src/features/services/CategoryAPI/CategoryAPI';
 import { GetGategoriesAnswer } from 'src/features/services/CategoryAPI/CategoryAPI.types';
 import { ProductAPI } from 'src/features/services/ProductAPI/ProductAPI';
-import { GetProductsAnswer, ProductFromAPI } from 'src/features/services/ProductAPI/ProductAPI.types';
+import {
+    GetProductsAnswer,
+    PRODUCT_PAGE_SIZE,
+    ProductFromAPI
+} from 'src/features/services/ProductAPI/ProductAPI.types';
 import { getApiUrl } from 'src/constants/config';
 import { ProfileAPI } from 'src/features/services/ProfileAPI/ProfileAPI';
 import { UpdatePasswordFormValues } from 'src/features/forms/UpdatePasswordForm/UpdatePasswordForm.types';
@@ -81,18 +85,8 @@ export class AppController implements IAppController {
     };
 
     reloadProducts = () => {
-        this.productAPI.getProducts().then((answer: GetProductsAnswer) => {
-            this.appSTM.products(
-                answer.data.map((api: ProductFromAPI) => ({
-                    id: api.id,
-                    categoryId: api.category?.id,
-                    price: api.price,
-                    name: api.name,
-                    photo: api.photo ? api.photo : '',
-                    desc: api.desc
-                }))
-            );
-        });
+        this.appSTM.products([]);
+        this.resetLoadProducts();
     };
     onThemeChange = (evt: React.ChangeEvent<HTMLSelectElement>) => {
         const newColorTheme = evt.target.value === Theme.BLUE ? Theme.BLUE : Theme.GREY;
@@ -360,5 +354,46 @@ export class AppController implements IAppController {
                     this.appSTM.apiErrorMessage(errorInfo.message);
                 }
             });
+    };
+
+    resetLoadProducts = () => {
+        this.isLoadingProducts = false;
+        this.productPageNo = 1;
+        this.lastLoadedProductPage = null;
+    };
+
+    private isLoadingProducts = false;
+    private productPageNo = 1;
+    private lastLoadedProductPage: Product[] = null;
+    loadMoreProducts = () => {
+        return this.productAPI.getProducts(this.productPageNo).then((answer: GetProductsAnswer) => {
+            const curProducts = this.appSTM.getApp().products;
+            const newProductPage = answer.data.map((api: ProductFromAPI) => ({
+                id: api.id,
+                categoryId: api.category?.id,
+                price: api.price,
+                name: api.name,
+                photo: api.photo ? api.photo : '',
+                desc: api.desc
+            }));
+            const newProducts = [...curProducts, ...newProductPage];
+            this.lastLoadedProductPage = newProductPage;
+            this.appSTM.products(newProducts);
+            this.productPageNo++;
+        });
+    };
+
+    canLoadMore = () => {
+        return this.lastLoadedProductPage === null || this.lastLoadedProductPage.length >= PRODUCT_PAGE_SIZE;
+    };
+
+    processScrollProductsEvent = (observers: IntersectionObserverEntry[]) => {
+        const loader = observers[0];
+        if (loader.isIntersecting && this.canLoadMore()) {
+            if (!this.isLoadingProducts) {
+                this.isLoadingProducts = true;
+                this.loadMoreProducts().finally(() => (this.isLoadingProducts = false));
+            }
+        }
     };
 }
