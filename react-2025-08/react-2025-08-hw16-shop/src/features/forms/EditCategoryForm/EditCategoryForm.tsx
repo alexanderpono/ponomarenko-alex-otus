@@ -17,7 +17,8 @@ interface EditCategoryFormProps {
 export const EditCategoryForm: React.FC<EditCategoryFormProps> = ({ initialValues, initialErrors, ctrl }) => {
     const language = useSelector(appSelector.language);
 
-    const translations = i18n[language].editProductForm;
+    const translations = i18n[language].category;
+    const productTranslations = i18n[language].editProductForm;
     const errTranslations = i18n[language].errors;
     const validationSchema = Yup.object().shape({
         name: Yup.string().required(errTranslations.required).max(32, errTranslations.max32Length)
@@ -35,7 +36,7 @@ export const EditCategoryForm: React.FC<EditCategoryFormProps> = ({ initialValue
             <label>
                 <span>ID</span>
                 <div className={styles.input}>
-                    {formik.values.id === NEW_ENTITY_ID ? 'New category' : formik.values.id}
+                    {formik.values.id === NEW_ENTITY_ID ? translations.newCategory : formik.values.id}
                 </div>
                 {formik.errors.id && <div className={styles.error}>{formik.errors.id}</div>}
             </label>
@@ -48,7 +49,7 @@ export const EditCategoryForm: React.FC<EditCategoryFormProps> = ({ initialValue
 
             <div>
                 <span>&nbsp;</span>
-                <button type="submit">{translations.submit}</button>
+                <button type="submit">{productTranslations.submit}</button>
             </div>
         </form>
     );

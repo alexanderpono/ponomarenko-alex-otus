@@ -6,6 +6,7 @@ import { appSelector } from 'src/store/selectors';
 import { IAppController } from 'src/app/AppController.types';
 import { Category } from 'src/entities/Category';
 import { EditCategoryForm } from 'src/features/forms/EditCategoryForm/EditCategoryForm';
+import { i18n } from 'src/constants/i18n';
 
 interface CategoriesPageProps {
     ctrl: IAppController;
@@ -15,6 +16,8 @@ export const CategoriesPage: React.FC<CategoriesPageProps> = ({ ctrl }) => {
     const curCategoryId = useSelector(appSelector.curCategoryId);
     const editedCategory = useSelector(appSelector.editedCategory);
     const isUserAuthorized = useSelector(appSelector.isUserAuthorized);
+    const language = useSelector(appSelector.language);
+    const translations = i18n[language].category;
     if (!isUserAuthorized) {
         return <></>;
     }
@@ -23,12 +26,12 @@ export const CategoriesPage: React.FC<CategoriesPageProps> = ({ ctrl }) => {
             <div className={styles.categoryList}>
                 {categories.length === 0 && (
                     <ul>
-                        <li onClick={ctrl.onAddCategoryClick}>+ Add</li>
+                        <li onClick={ctrl.onAddCategoryClick}>+ {translations.addCategory}</li>
                     </ul>
                 )}
                 {categories.length > 0 && (
                     <ul>
-                        <li onClick={ctrl.onAddCategoryClick}>+ Add</li>
+                        <li onClick={ctrl.onAddCategoryClick}>+ {translations.addCategory}</li>
                         {categories.map((category: Category) => (
                             <li
                                 key={category.id}
@@ -41,7 +44,7 @@ export const CategoriesPage: React.FC<CategoriesPageProps> = ({ ctrl }) => {
                 )}
             </div>
             <div className={styles.curCategory}>
-                {!curCategoryId && <div className={styles.nothingSelected}>No category selected</div>}
+                {!curCategoryId && <div className={styles.nothingSelected}>{translations.noSelected}</div>}
                 {!!curCategoryId && (
                     <EditCategoryForm initialValues={editedCategory} initialErrors={{ id: '', name: '' }} ctrl={ctrl} />
                 )}

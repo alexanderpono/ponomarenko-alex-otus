@@ -6,10 +6,11 @@ export enum Language {
 export interface I18n {
     i18n: {
         [key in Language]: {
-            example: {
+            app: {
                 modalHeader: string;
                 modalText: string;
                 category: string;
+                loginModal: string;
             };
             languageSelector: {
                 caption: string;
@@ -67,6 +68,11 @@ export interface I18n {
             cart: {
                 cartIsEmpty: string;
             };
+            category: {
+                addCategory: string;
+                newCategory: string;
+                noSelected: string;
+            };
         };
     };
 }
@@ -84,10 +90,11 @@ export const i18n: I18n['i18n'] = {
             grey: 'grey',
             blue: 'blue'
         },
-        example: {
+        app: {
             modalHeader: 'Modal Header',
             modalText: 'Modal text',
-            category: 'Cats'
+            category: 'Cats',
+            loginModal: 'Login'
         },
         updatePasswordForm: {
             password: 'Current password',
@@ -134,6 +141,11 @@ export const i18n: I18n['i18n'] = {
         },
         cart: {
             cartIsEmpty: 'Cart is empty'
+        },
+        category: {
+            addCategory: 'Add',
+            newCategory: 'New category',
+            noSelected: 'No category selected'
         }
     },
     ru: {
@@ -147,10 +159,11 @@ export const i18n: I18n['i18n'] = {
             grey: 'серая',
             blue: 'синяя'
         },
-        example: {
+        app: {
             modalHeader: 'Заголовок',
             modalText: 'Текст писать ту-тут',
-            category: 'Котики'
+            category: 'Котики',
+            loginModal: 'Войти'
         },
         updatePasswordForm: {
             password: 'Старый пароль',
@@ -197,6 +210,11 @@ export const i18n: I18n['i18n'] = {
         },
         cart: {
             cartIsEmpty: 'Нет товаров в корзине'
+        },
+        category: {
+            addCategory: 'Добавить',
+            newCategory: 'Новая категория',
+            noSelected: 'Категория не выбрана'
         }
     }
 };
