@@ -56,9 +56,14 @@ export class AppController implements IAppController {
         const login = this.storage.getLogin();
         this.appSTM.login(login);
 
-        this.categoryAPI = new CategoryAPI(apiUrl, token);
-        this.productAPI = new ProductAPI(apiUrl, token);
-        this.profileAPI = new ProfileAPI(apiUrl, token);
+        this.categoryAPI = new CategoryAPI(apiUrl);
+        this.categoryAPI.setToken(token);
+
+        this.productAPI = new ProductAPI(apiUrl);
+        this.productAPI.setToken(token);
+
+        this.profileAPI = new ProfileAPI(apiUrl);
+        this.profileAPI.setToken(token);
 
         this.reloadCategories();
 
@@ -68,27 +73,17 @@ export class AppController implements IAppController {
     };
 
     reloadCategories = () => {
-        const isUserAuthorized = this.appSTM.getApp().isUserAuthorized;
-        if (!isUserAuthorized) {
-            console.warn('reloadCategories() !isUserAuthorized');
-            return;
-        }
         this.categoryAPI.getCategories().then((answer: GetGategoriesAnswer) => {
             this.appSTM.categories(answer.data);
         });
     };
 
     reloadProducts = () => {
-        const isUserAuthorized = this.appSTM.getApp().isUserAuthorized;
-        if (!isUserAuthorized) {
-            console.warn('reloadProducts() !isUserAuthorized');
-            return;
-        }
         this.productAPI.getProducts().then((answer: GetProductsAnswer) => {
             this.appSTM.products(
                 answer.data.map((api: ProductFromAPI) => ({
                     id: api.id,
-                    categoryId: api.category.id,
+                    categoryId: api.category?.id,
                     price: api.price,
                     name: api.name,
                     photo: api.photo ? api.photo : '',
@@ -118,6 +113,12 @@ export class AppController implements IAppController {
     onLogoutClick = () => {
         this.storage.setToken('');
         this.appSTM.isUserAuthorized(false);
+        this.categoryAPI.setToken('');
+        this.productAPI.setToken('');
+        this.profileAPI.setToken('');
+
+        this.appSTM.curPartition(Partition.PRODUCTS);
+        this.reloadProducts();
     };
 
     onLoginSubmit = (values: LoginFormValues) => {
@@ -132,6 +133,12 @@ export class AppController implements IAppController {
                 this.appSTM.isLoginFormVisible(false);
                 this.storage.setLogin(values.login);
                 this.appSTM.login(values.login);
+
+                this.categoryAPI.setToken(result.token);
+                this.productAPI.setToken(result.token);
+                this.profileAPI.setToken(result.token);
+
+                this.reloadProducts();
             })
             .catch((answer: ApiErrorAnswer) => {
                 if (Array.isArray(answer?.errors) && answer?.errors?.length > 0) {

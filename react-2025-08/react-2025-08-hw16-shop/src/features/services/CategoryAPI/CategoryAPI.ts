@@ -3,7 +3,13 @@ import { CONTENT_JSON } from 'src/constants/API';
 import { Category } from 'src/entities/Category';
 
 export class CategoryAPI {
-    constructor(private apiUrl: string, private token: string) {}
+    private token: string;
+
+    constructor(private apiUrl: string) {}
+
+    setToken = (token: string) => {
+        this.token = token;
+    };
 
     getHeaders = () => {
         const headers: HeadersInit = {

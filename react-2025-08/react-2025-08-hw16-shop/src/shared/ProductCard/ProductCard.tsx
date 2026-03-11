@@ -18,6 +18,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ detailedDescription, c
     const colorTheme = useSelector(appSelector.colorTheme);
     const cart = useSelector(appSelector.cart);
     const count = getCartProductCount(cart, product.id);
+    const isUserAuthorized = useSelector(appSelector.isUserAuthorized);
     return (
         <div
             className={cn(styles.ProductCard, {
@@ -45,9 +46,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ detailedDescription, c
                 <div className={styles.price}>₽ {product.price}</div>
                 <div className={styles.buttons}>
                     <BtToBasket count={count} onPlusClick={ctrl.onPlusClick} onMinusClick={ctrl.onMinusClick} />
-                    <div className={styles.btEdit} onClick={ctrl.onProductEditClick}>
-                        edit
-                    </div>
+                    {isUserAuthorized && (
+                        <div className={styles.btEdit} onClick={ctrl.onProductEditClick}>
+                            edit
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

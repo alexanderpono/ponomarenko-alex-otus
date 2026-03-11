@@ -3,7 +3,13 @@ import { GetProfileAnswer } from './ProfileAPI.types';
 import { UpdatePasswordFormValues } from 'src/features/forms/UpdatePasswordForm/UpdatePasswordForm.types';
 
 export class ProfileAPI {
-    constructor(private apiUrl: string, private token: string) {}
+    private token: string;
+
+    constructor(private apiUrl: string) {}
+
+    setToken = (token: string) => {
+        this.token = token;
+    };
 
     getHeaders = () => {
         const headers: HeadersInit = {
