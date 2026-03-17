@@ -69,3 +69,66 @@
 
 
 ## Решение
+1. Создан класс AccountService, который реализует логику расчета скидок.
+https://github.com/alexanderpono/ponomarenko-alex-otus/pull/197/changes#diff-1d610f366a8ade5c11ff4fd706c841ea3ff3ddac28ee6f2d045cb1b917a5d5e0
+
+Класс AccountService в качестве зависимостей принимает сервисы: 
+- IUserDiscountService - скидки для категорий пользователей
+- IProductDiscountService - скидки для продуктов
+
+
+2. Созданы unit-тесты (AccountService.spec.ts), которые проверяют поведение AccountService при расчете скидок для различных комбинаций
+{тип пользователя, скидка конкретный продукт, список активных скидок на категории продуктов}
+https://github.com/alexanderpono/ponomarenko-alex-otus/pull/197/changes#diff-2920d0414a40658fbc458479e43c6b43ce3da5eaa526fa5a9bd1556e61bbb7a2
+
+Тесты реализованы с использованием параметризованных тестов, где параметры тестов заданы в виде таблицы, оформленной в составе тэгового шаблона ES6.
+
+3. Установлены библиотеки и настроен JEST для генерации html-отчетов о тестировании и покрытии кода
+
+4. Доработан CI/CD для автоматического запуска тестов и деплоя результатов тестирования на GITHUB
+
+отчет о тестировании
+https://alexanderpono.github.io/ponomarenko-alex-otus/react-2025-08/react-2025-08-hw11-les19-jest/test-report/testResult.html
+
+отчет о покрытии кода тестами
+https://alexanderpono.github.io/ponomarenko-alex-otus/react-2025-08/react-2025-08-hw11-les19-jest/test-coverage-report/lcov-report/
+
+сторибук
+https://alexanderpono.github.io/ponomarenko-alex-otus/react-2025-08/react-2025-08-hw11-les19-jest/storybook/?path=/docs/features-editproductform--docs
+
+приложение (техническая версия)
+https://alexanderpono.github.io/ponomarenko-alex-otus/react-2025-08/react-2025-08-hw11-les19-jest/app/
+
+5. Для локального запуска тестов:
+5.1. Клонировать репозиторий
+
+```
+git clone git@github.com:alexanderpono/ponomarenko-alex-otus.git
+```
+
+5.2. Перейти в папку с репозиторием
+```
+cd ponomarenko-alex-otus
+```
+
+5.3. Если ветка react-2025-08-hw11-les19-jest не вмержена в master - переключиться на ветку 
+```
+git checkout rreact-2025-08-hw11-les19-jest
+```
+
+5.4. Перейти в папку проекта
+```
+cd react-2025-08/react-2025-08-hw11-les19-jest
+```
+
+5.5. Установить зависимости (Ожидается версия node.js не ниже 18)
+```
+npm ci
+```
+
+5.6. Запустить тесты (покрытие неполное)
+```
+npm run test
+```
+
+
