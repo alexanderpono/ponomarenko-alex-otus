@@ -27,6 +27,10 @@ describe('AccountService', () => {
             type: ProductType.FOOD,
             price: 10
         };
+        const badApple: Product = {
+            type: ProductType.FOOD,
+            price: 0
+        };
         const ford: Product = {
             type: ProductType.CAR,
             price: 10000
@@ -47,13 +51,14 @@ describe('AccountService', () => {
             [ProductType.FOOD]: 0
         };
         test.each`
-            about                                | user               | product  | discounts      | expected
-            ${'std(0) & food(10) & noDiscounts'} | ${stdUserPD0}      | ${apple} | ${noDiscounts} | ${10}
-            ${'std(0) & food(10) & foodWeek'}    | ${stdUserPD0}      | ${apple} | ${foodWeek}    | ${9}
-            ${'std(0) & ford & carWeek'}         | ${stdUserPD0}      | ${ford}  | ${carWeek}     | ${9700}
-            ${'std(2) & ford & carWeek'}         | ${stdUserPD2}      | ${ford}  | ${carWeek}     | ${9500}
-            ${'prem(0) & ford & foodWeek'}       | ${premiumUserPD0}  | ${ford}  | ${foodWeek}    | ${8000}
-            ${'prem(10) & ford & foodWeek'}      | ${premiumUserPD10} | ${ford}  | ${foodWeek}    | ${7000}
+            about                                | user               | product     | discounts      | expected
+            ${'std(0) & food(10) & noDiscounts'} | ${stdUserPD0}      | ${apple}    | ${noDiscounts} | ${10}
+            ${'std(0) & food(10) & foodWeek'}    | ${stdUserPD0}      | ${apple}    | ${foodWeek}    | ${9}
+            ${'std(0) & ford & carWeek'}         | ${stdUserPD0}      | ${ford}     | ${carWeek}     | ${9700}
+            ${'std(2) & ford & carWeek'}         | ${stdUserPD2}      | ${ford}     | ${carWeek}     | ${9500}
+            ${'prem(0) & ford & foodWeek'}       | ${premiumUserPD0}  | ${ford}     | ${foodWeek}    | ${8000}
+            ${'prem(10) & ford & foodWeek'}      | ${premiumUserPD10} | ${ford}     | ${foodWeek}    | ${7000}
+            ${'std(0) & badApple & noDiscounts'} | ${stdUserPD0}      | ${badApple} | ${noDiscounts} | ${0}
         `('returns $expected from $about', ({ user, product, discounts, expected }) => {
             const productDiscounts: ProductDiscountService = castPartialTo<ProductDiscountService>({
                 getProductDiscountPercent(type: ProductType) {

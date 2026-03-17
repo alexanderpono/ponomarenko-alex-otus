@@ -23,4 +23,26 @@ module.exports = {
   testRegex: '(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js|jsx)$',
   testPathIgnorePatterns: ['\\.snap$', '\\.sass$', '<rootDir>/node_modules/'],
   cacheDirectory: '.jest/cache',
+  coverageDirectory: 'coverage',
+  collectCoverage: true,
+  collectCoverageFrom: [
+      'src/**/*.(ts|tsx)',
+      '!src/**/*.types.ts',
+      '!src/types.ts',
+      '!src/**/*.stories.tsx',
+      '!src/app.tsx',
+      '!src/**/index.tsx',
+      '!src/**/index.ts',
+      '!src/store/store.ts',
+  ],
+  reporters: [
+      'default',
+      [
+          './node_modules/jest-html-reporter',
+          {
+              pageTitle: 'Test Report',
+              outputPath: './temp/testResult.html',
+          },
+      ],
+  ],
 };
