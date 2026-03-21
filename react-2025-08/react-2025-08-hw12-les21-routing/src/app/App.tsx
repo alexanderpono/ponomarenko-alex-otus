@@ -12,6 +12,7 @@ import CategoriesPage from 'src/pages/CategoriesPage/CategoriesPage';
 import ProductsPage from 'src/pages/ProductsPage/ProductsPage';
 import CartPage from 'src/pages/CartPage/CartPage';
 import ProfilePage from 'src/pages/ProfilePage/ProfilePage';
+import LogoutPage from 'src/pages/LogoutPage/LogoutPage';
 
 interface AppProps {
     ctrl: IAppController;
@@ -40,6 +41,7 @@ export const App: React.FC<AppProps> = ({ ctrl }) => {
                     <Route path="/categories" element={<CategoriesPage ctrl={ctrl} />} />
                     <Route path="/cart" element={<CartPage ctrl={ctrl} />} />
                     <Route path="/profile" element={<ProfilePage ctrl={ctrl} />} />
+                    <Route path="/logout" element={<LogoutPage ctrl={ctrl} />} />
                     <Route path="*" element={<Navigate to="/products" />} />
                 </Routes>
 

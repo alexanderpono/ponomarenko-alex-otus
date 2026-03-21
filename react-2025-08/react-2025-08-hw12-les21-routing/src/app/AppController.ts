@@ -70,7 +70,7 @@ export class AppController implements IAppController {
     };
 
     reloadCategories = () => {
-        this.categoryAPI.getCategories().then((answer: GetGategoriesAnswer) => {
+        this.categoryAPI?.getCategories().then((answer: GetGategoriesAnswer) => {
             this.appSTM.categories(answer.data);
         });
     };
@@ -100,9 +100,9 @@ export class AppController implements IAppController {
     onLogoutClick = () => {
         this.storage.setToken('');
         this.appSTM.isUserAuthorized(false);
-        this.categoryAPI.setToken('');
-        this.productAPI.setToken('');
-        this.profileAPI.setToken('');
+        this.categoryAPI?.setToken('');
+        this.productAPI?.setToken('');
+        this.profileAPI?.setToken('');
 
         this.reloadProducts();
         this.reloadCategories();
