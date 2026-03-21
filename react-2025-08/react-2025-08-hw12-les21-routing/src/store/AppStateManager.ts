@@ -3,7 +3,6 @@ import { app, AppAction, AppState } from './appReducer';
 import { Product } from 'src/entities/Product';
 import { Language } from 'src/constants/i18n';
 import { Theme } from 'src/constants/Theme';
-import { Partition } from 'src/app/AppController.types';
 import { Category } from 'src/entities/Category';
 import { Cart } from 'src/entities/Cart';
 
