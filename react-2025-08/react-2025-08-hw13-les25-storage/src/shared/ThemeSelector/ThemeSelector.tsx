@@ -1,0 +1,30 @@
+import React from 'react';
+import styles from './ThemeSelector.scss';
+import { Theme } from 'src/constants/Theme';
+import { useSelector } from 'react-redux';
+import { appSelector } from 'src/store/selectors';
+import { IAppController } from 'src/app/AppController.types';
+import { i18n } from 'src/constants/i18n';
+
+interface ThemeSelectorProps {
+    ctrl: IAppController;
+}
+export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ ctrl }) => {
+    const colorTheme = useSelector(appSelector.colorTheme);
+
+    const language = useSelector(appSelector.language);
+    const translations = i18n[language].themeSelector;
+
+    return (
+        <>
+            <div className={styles.ThemeSelector}>
+                <span>{translations.caption}</span>
+                <select className={styles.select} value={colorTheme} onChange={ctrl.onThemeChange}>
+                    <option value={Theme.GREY}>{translations.grey}</option>
+                    <option value={Theme.BLUE}>{translations.blue}</option>
+                </select>
+            </div>
+        </>
+    );
+};
+export default ThemeSelector;
