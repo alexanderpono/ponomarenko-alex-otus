@@ -1,0 +1,19 @@
+.ProductsPage {
+    height: calc(100% - 102px);
+    overflow: auto;
+
+    .menu {
+        height: 30px;
+        line-height: 30px;
+        padding-left: 20px;
+    }
+
+    .menuItem {
+        cursor: pointer;
+    }
+}
+
+.loader {
+    float: left;
+    width: 300px;
+}
