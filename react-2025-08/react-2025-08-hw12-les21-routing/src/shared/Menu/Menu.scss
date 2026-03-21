@@ -1,0 +1,24 @@
+.Menu {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    margin: 0;
+
+    li {
+        margin-left: 20px;
+        cursor: pointer;
+    }
+
+    .cur {
+        text-decoration: underline;
+    }
+}
+
+.grey {
+    background-color: grey;
+}
+
+.blue {
+    background-color: #5660f0;
+}
