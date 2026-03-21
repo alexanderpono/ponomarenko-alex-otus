@@ -99,7 +99,9 @@ export class AppController implements IAppController {
 
     onLogoutClick = () => {
         this.storage.setToken('');
+        this.storage.setLogin('');
         this.appSTM.isUserAuthorized(false);
+        this.appSTM.login('');
         this.categoryAPI?.setToken('');
         this.productAPI?.setToken('');
         this.profileAPI?.setToken('');
