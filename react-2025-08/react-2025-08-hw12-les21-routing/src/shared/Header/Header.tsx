@@ -43,7 +43,7 @@ export const Header: React.FC<HeaderProps> = ({ ctrl }) => {
                 </>
             )}
             <div className={styles.menu}>
-                <Menu ctrl={ctrl} />
+                <Menu />
             </div>
         </div>
     );

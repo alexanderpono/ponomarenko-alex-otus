@@ -2,7 +2,6 @@ import { handleActions } from 'redux-actions';
 import { Theme } from 'src/constants/Theme';
 import { defaultProduct, Product } from 'src/entities/Product';
 import { Language } from 'src/constants/i18n';
-import { Partition } from 'src/app/AppController.types';
 import { Category, defaultCategory } from 'src/entities/Category';
 import { Cart, defaultCart } from 'src/entities/Cart';
 
@@ -16,7 +15,6 @@ export enum AppEvent {
     IS_REGISTERING = 'APP/IS_REGISTERING',
     IS_EDIT_PRODUCT_VISIBLE = 'APP/IS_EDIT_PRODUCT_VISIBLE',
     EDITED_PRODUCT = 'APP/EDITED_PRODUCT',
-    CUR_PARTITION = 'APP/CUR_PARTITION',
     CATEGORIES = 'APP/CATEGORIES',
     CUR_CATEGORY_ID = 'APP/CUR_CATEGORY_ID',
     EDITED_CATEGORY = 'APP/EDITED_CATEGORY',
@@ -36,7 +34,6 @@ export interface AppState {
     isRegistering: boolean;
     isEditProductVisible: boolean;
     editedProduct: Product;
-    curPartition: Partition;
     categories: Category[];
     curCategoryId: string;
     editedCategory: Category;
@@ -56,7 +53,6 @@ export const defaultAppState: AppState = {
     isRegistering: false,
     isEditProductVisible: false,
     editedProduct: { ...defaultProduct },
-    curPartition: Partition.DEFAULT,
     categories: [],
     curCategoryId: '',
     editedCategory: { ...defaultCategory },
@@ -122,13 +118,6 @@ export interface EditedProductAction {
     };
 }
 
-export interface CurPartitionAction {
-    type: AppEvent.CUR_PARTITION;
-    payload: {
-        curPartition: Partition;
-    };
-}
-
 export interface CategoriesAction {
     type: AppEvent.CATEGORIES;
     payload: {
@@ -187,7 +176,6 @@ export type AppAction =
     | IsRegisteringAction
     | IsEditProductVisibleAction
     | EditedProductAction
-    | CurPartitionAction
     | CategoriesAction
     | CurCategoryIdAction
     | EditedCategoryAction
@@ -228,10 +216,6 @@ export const app = {
     editedProduct: (editedProduct: Product): EditedProductAction => ({
         type: AppEvent.EDITED_PRODUCT,
         payload: { editedProduct }
-    }),
-    curPartition: (curPartition: Partition): CurPartitionAction => ({
-        type: AppEvent.CUR_PARTITION,
-        payload: { curPartition }
     }),
     categories: (categories: Category[]): CategoriesAction => ({
         type: AppEvent.CATEGORIES,
@@ -304,11 +288,6 @@ export const appReducer = handleActions(
             ...state,
             event: AppEvent.EDITED_PRODUCT,
             editedProduct: (action as unknown as EditedProductAction).payload.editedProduct
-        }),
-        [AppEvent.CUR_PARTITION]: (state: AppState, action) => ({
-            ...state,
-            event: AppEvent.CUR_PARTITION,
-            curPartition: (action as unknown as CurPartitionAction).payload.curPartition
         }),
         [AppEvent.CATEGORIES]: (state: AppState, action) => ({
             ...state,

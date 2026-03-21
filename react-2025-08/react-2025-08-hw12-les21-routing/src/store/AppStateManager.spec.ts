@@ -7,7 +7,6 @@ import { castPartialTo } from 'src/testFramework/castPartialTo';
 import { Store } from 'redux';
 import { Language } from 'src/constants/i18n';
 import { Theme } from 'src/constants/Theme';
-import { Partition } from 'src/app/AppController.types';
 import { Category, defaultCategory } from 'src/entities/Category';
 import { Cart, defaultCart } from 'src/entities/Cart';
 jest.mock('./store');
@@ -21,7 +20,6 @@ describe('AppStateManager', () => {
         const rndTheme = str() as Theme;
         const rndBool = bool();
         const rndProduct: Product = { ...defaultProduct, name: str() };
-        const rndPartition = str() as unknown as Partition;
         const rndCategory: Category = { ...defaultCategory, name: str() };
         const rndCategories: Category[] = rndAr<Category>(rndSize(3, 5), (): Category => {
             return { ...defaultCategory, name: str() } as Category;
@@ -39,7 +37,6 @@ describe('AppStateManager', () => {
             ${'isRegistering'}           | ${rndBool}       | ${null} | ${app.isRegistering(rndBool)}
             ${'isEditProductVisible'}    | ${rndBool}       | ${null} | ${app.isEditProductVisible(rndBool)}
             ${'editedProduct'}           | ${rndProduct}    | ${null} | ${app.editedProduct(rndProduct)}
-            ${'curPartition'}            | ${rndPartition}  | ${null} | ${app.curPartition(rndPartition)}
             ${'categories'}              | ${rndCategories} | ${null} | ${app.categories(rndCategories)}
             ${'curCategoryId'}           | ${rndStr}        | ${null} | ${app.curCategoryId(rndStr)}
             ${'editedCategory'}          | ${rndCategory}   | ${null} | ${app.editedCategory(rndCategory)}

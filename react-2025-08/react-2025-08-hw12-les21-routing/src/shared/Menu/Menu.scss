@@ -10,8 +10,14 @@
         cursor: pointer;
     }
 
+    a {
+        text-decoration: none;
+        color: white;
+    }
     .cur {
-        text-decoration: underline;
+        a {
+            text-decoration: underline;
+        }
     }
 }
 

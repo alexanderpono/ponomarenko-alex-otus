@@ -19,7 +19,6 @@ export class AppStateManager {
     isRegistering = (isRegistering: boolean) => dispatch(app.isRegistering(isRegistering));
     isEditProductVisible = (isEditProductVisible: boolean) => dispatch(app.isEditProductVisible(isEditProductVisible));
     editedProduct = (editedProduct: Product) => dispatch(app.editedProduct(editedProduct));
-    curPartition = (curPartition: Partition) => dispatch(app.curPartition(curPartition));
     categories = (categories: Category[]) => dispatch(app.categories(categories));
     curCategoryId = (curCategoryId: string) => dispatch(app.curCategoryId(curCategoryId));
     editedCategory = (editedCategory: Category) => dispatch(app.editedCategory(editedCategory));

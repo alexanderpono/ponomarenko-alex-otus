@@ -1,5 +1,5 @@
 import { AppStateManager } from 'src/store/AppStateManager';
-import { CartOperation, IAppController, NEW_ENTITY_ID, Partition } from './AppController.types';
+import { CartOperation, IAppController, NEW_ENTITY_ID } from './AppController.types';
 import { defaultProduct, Product } from 'src/entities/Product';
 import { Theme } from 'src/constants/Theme';
 import { Language } from 'src/constants/i18n';
@@ -44,13 +44,6 @@ export class AppController implements IAppController {
 
         const languageStr = localStorage.getItem(LANGUAGE);
         this.appSTM.language(languageStr === Language.RU ? Language.RU : Language.EN);
-        this.appSTM.curPartition(Partition.PRODUCTS);
-        // this.appSTM.curPartition(Partition.CATEGORIES);
-        // this.appSTM.curPartition(Partition.CART);
-        // this.appSTM.curPartition(Partition.PROFILE);
-
-        // this.onLoginClick();
-        // this.onAddProductClick();
 
         const apiUrl = getApiUrl();
         this.authAPI = new AuthAPI(apiUrl);
@@ -74,8 +67,6 @@ export class AppController implements IAppController {
         this.reloadProducts();
         const storedCart: Cart = this.storage.getCart();
         this.appSTM.cart(storedCart);
-        // this.onProfileClick();
-        // this.onChangePasswordClick();
     };
 
     reloadCategories = () => {
@@ -113,7 +104,6 @@ export class AppController implements IAppController {
         this.productAPI.setToken('');
         this.profileAPI.setToken('');
 
-        this.appSTM.curPartition(Partition.PRODUCTS);
         this.reloadProducts();
         this.reloadCategories();
     };
@@ -194,14 +184,6 @@ export class AppController implements IAppController {
         });
     };
 
-    onProductsClick = () => {
-        this.appSTM.curPartition(Partition.PRODUCTS);
-    };
-
-    onCategoriesClick = () => {
-        this.appSTM.curPartition(Partition.CATEGORIES);
-    };
-
     onCategoryClick = (evt: React.MouseEvent<HTMLLIElement>) => {
         const el = findNodeWithDataAttr(evt.target as HTMLElement, 'id', 8);
         if (!el) {
@@ -235,10 +217,6 @@ export class AppController implements IAppController {
     onAddProductClick = () => {
         this.appSTM.editedProduct({ ...defaultProduct, id: NEW_ENTITY_ID });
         this.appSTM.isEditProductVisible(true);
-    };
-
-    onCartClick = () => {
-        this.appSTM.curPartition(Partition.CART);
     };
 
     getUpdatedCartItems = (items: CartItem[], operation: CartOperation, productId: string): CartItem[] => {
@@ -322,13 +300,6 @@ export class AppController implements IAppController {
         const newCart = { ...cart, items: newCartItems, totalPrice, totalCount };
         this.appSTM.cart(newCart);
         this.storage.setCart(newCart);
-    };
-
-    onProfileClick = () => {
-        this.appSTM.curPartition(Partition.PROFILE);
-        this.profileAPI.getProfile().then((answer) => {
-            console.warn('onProfileClick() answer=', answer);
-        });
     };
 
     onChangePasswordClick = () => {
