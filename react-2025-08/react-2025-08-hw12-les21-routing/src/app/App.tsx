@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Modal from 'src/shared/Modal/Modal';
 import Layout from 'src/shared/Layout/Layout';
 import { IAppController } from './AppController.types';
