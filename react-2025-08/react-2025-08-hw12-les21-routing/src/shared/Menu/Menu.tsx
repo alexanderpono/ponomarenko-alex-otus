@@ -1,49 +1,66 @@
 import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import styles from './Menu.scss';
 import cn from 'classnames';
 import { Theme } from 'src/constants/Theme';
 import { useSelector } from 'react-redux';
 import { appSelector } from 'src/store/selectors';
-import { IAppController, Partition } from 'src/app/AppController.types';
 import { i18n } from 'src/constants/i18n';
+import { Partition } from 'src/app/AppController.types';
 
-interface MenuProps {
-    ctrl: IAppController;
-}
-export const Menu: React.FC<MenuProps> = ({ ctrl }) => {
+export const Menu: React.FC = () => {
     const colorTheme = useSelector(appSelector.colorTheme);
-    const curPartition = useSelector(appSelector.curPartition);
-    const cart = useSelector(appSelector.cart);
     const language = useSelector(appSelector.language);
-    const translations = i18n[language].menu;
+    const cart = useSelector(appSelector.cart);
     const isUserAuthorized = useSelector(appSelector.isUserAuthorized);
+    const location = useLocation();
+    const translations = i18n[language].menu;
+
+    const getActivePartition = (): Partition | null => {
+        const path = location.pathname;
+        if (path.includes('/products')) return Partition.PRODUCTS;
+        if (path.includes('/categories')) return Partition.CATEGORIES;
+        if (path.includes('/cart')) return Partition.CART;
+        if (path.includes('/profile')) return Partition.PROFILE;
+        return null;
+    };
+
+    const isActive = (partition: Partition) => getActivePartition() === partition;
     return (
         <ul
             className={cn(styles.Menu, {
                 [styles.grey]: colorTheme === Theme.GREY,
                 [styles.blue]: colorTheme === Theme.BLUE
             })}
+            role="navigation"
+            aria-label="Основное меню"
         >
-            <li onClick={ctrl.onProductsClick} className={cn({ [styles.cur]: curPartition === Partition.PRODUCTS })}>
-                {translations.products}
+            <li onClick={(e) => e.preventDefault()} className={cn({ [styles.cur]: isActive(Partition.PRODUCTS) })}>
+                <Link to={`/products`}>{translations.products}</Link>
             </li>
+
             {isUserAuthorized && (
                 <li
-                    onClick={ctrl.onCategoriesClick}
-                    className={cn({ [styles.cur]: curPartition === Partition.CATEGORIES })}
+                    onClick={(e) => e.preventDefault()}
+                    className={cn({ [styles.cur]: isActive(Partition.CATEGORIES) })}
                 >
-                    {translations.categories}
+                    <Link to={`/categories`}>{translations.categories}</Link>
                 </li>
             )}
-            <li onClick={ctrl.onCartClick} className={cn({ [styles.cur]: curPartition === Partition.CART })}>
-                {translations.cart} {cart.totalCount > 0 ? ` (${cart.totalCount})` : ''}
+
+            <li onClick={(e) => e.preventDefault()} className={cn({ [styles.cur]: isActive(Partition.CART) })}>
+                <Link to={`/cart`}>
+                    {translations.cart} {cart.totalCount > 0 ? ` (${cart.totalCount})` : ''}
+                </Link>
             </li>
+
             {isUserAuthorized && (
-                <li onClick={ctrl.onProfileClick} className={cn({ [styles.cur]: curPartition === Partition.PROFILE })}>
-                    {translations.profile}
+                <li onClick={(e) => e.preventDefault()} className={cn({ [styles.cur]: isActive(Partition.PROFILE) })}>
+                    <Link to={`/profile`}>{translations.profile}</Link>
                 </li>
             )}
         </ul>
     );
 };
+
 export default Menu;

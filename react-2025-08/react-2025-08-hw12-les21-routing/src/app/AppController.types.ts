@@ -17,17 +17,13 @@ export interface IAppController {
     onEditProductCloseClick: () => void;
     onEditProductCancelClick: () => void;
     onEditProductSubmit: (values: Product) => void;
-    onProductsClick: () => void;
-    onCategoriesClick: () => void;
     onCategoryClick: (evt: React.MouseEvent<HTMLLIElement>) => void;
     onEditCategorySubmit: (values: Category) => void;
     onAddCategoryClick: () => void;
     onAddProductClick: () => void;
-    onCartClick: () => void;
     onPlusClick: (evt: React.MouseEvent<HTMLDivElement>) => void;
     onMinusClick: (evt: React.MouseEvent<HTMLDivElement>) => void;
     onCartItemDelClick: (evt: React.MouseEvent<HTMLButtonElement>) => void;
-    onProfileClick: () => void;
     onChangePasswordClick: () => void;
     onUpdatePasswordCloseClick: () => void;
     onUpdatePasswordSubmit: (values: UpdatePasswordFormValues) => void;

@@ -81,6 +81,7 @@
     "react-dom": "^18.2.0",
     "react-i18next": "^16.5.0",
     "react-redux": "^8.1.1",
+    "react-router-dom": "^7.13.1",
     "redux-actions": "2.6.5",
     "redux-devtools-extension": "2.13.9",
     "unchanged": "^2.2.1",
