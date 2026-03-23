@@ -1,0 +1,220 @@
+export enum Language {
+    EN = 'en',
+    RU = 'ru'
+}
+
+export interface I18n {
+    i18n: {
+        [key in Language]: {
+            app: {
+                modalHeader: string;
+                modalText: string;
+                category: string;
+                loginModal: string;
+            };
+            languageSelector: {
+                caption: string;
+                ru: string;
+                en: string;
+            };
+            themeSelector: {
+                caption: string;
+                grey: string;
+                blue: string;
+            };
+            updatePasswordForm: {
+                password: string;
+                newPassword: string;
+                submit: string;
+                cancel: string;
+            };
+            loginForm: {
+                login: string;
+                password: string;
+                repeatPassword: string;
+                submit: string;
+                register: string;
+            };
+            editProductForm: {
+                image: string;
+                price: string;
+                name: string;
+                category: string;
+                description: string;
+                submit: string;
+                cancel: string;
+                addProduct: string;
+                newProduct: string;
+                product: string;
+            };
+            errors: {
+                mustBePositive: string;
+                required: string;
+                max32Length: string;
+                max2048Length: string;
+                passwordsMustBeEqual: string;
+            };
+            menu: {
+                products: string;
+                categories: string;
+                cart: string;
+                profile: string;
+            };
+            profile: {
+                login: string;
+                logout: string;
+                updatePassword: string;
+            };
+            cart: {
+                cartIsEmpty: string;
+            };
+            category: {
+                addCategory: string;
+                newCategory: string;
+                noSelected: string;
+            };
+        };
+    };
+}
+
+// Define language-specific text
+export const i18n: I18n['i18n'] = {
+    en: {
+        languageSelector: {
+            caption: 'Language:',
+            ru: 'Russian',
+            en: 'English'
+        },
+        themeSelector: {
+            caption: 'Color scheme:',
+            grey: 'grey',
+            blue: 'blue'
+        },
+        app: {
+            modalHeader: 'Modal Header',
+            modalText: 'Modal text',
+            category: 'Cats',
+            loginModal: 'Login'
+        },
+        updatePasswordForm: {
+            password: 'Current password',
+            newPassword: 'New password',
+            submit: 'Save',
+            cancel: 'Cancel'
+        },
+        loginForm: {
+            login: 'Login',
+            password: 'Password',
+            repeatPassword: 'Repeat password',
+            submit: 'Sign in',
+            register: 'Register'
+        },
+        editProductForm: {
+            image: 'Image',
+            price: 'Price',
+            name: 'Name',
+            category: 'Category',
+            description: 'Description',
+            submit: 'Save',
+            cancel: 'Cancel',
+            addProduct: 'Add product',
+            newProduct: 'New product',
+            product: 'Product'
+        },
+        errors: {
+            mustBePositive: 'Must be positive',
+            required: 'This field is required',
+            max32Length: 'Should be max 32 characters length',
+            max2048Length: 'Should be max 2048 characters length',
+            passwordsMustBeEqual: 'Passwords must be equal'
+        },
+        menu: {
+            products: 'Products',
+            categories: 'Categories',
+            cart: 'Cart',
+            profile: 'Profile'
+        },
+        profile: {
+            login: 'login',
+            logout: 'logout',
+            updatePassword: 'Change password'
+        },
+        cart: {
+            cartIsEmpty: 'Cart is empty'
+        },
+        category: {
+            addCategory: 'Add',
+            newCategory: 'New category',
+            noSelected: 'No category selected'
+        }
+    },
+    ru: {
+        languageSelector: {
+            caption: 'Язык:',
+            ru: 'русский',
+            en: 'английский'
+        },
+        themeSelector: {
+            caption: 'Цветовая схема:',
+            grey: 'серая',
+            blue: 'синяя'
+        },
+        app: {
+            modalHeader: 'Заголовок',
+            modalText: 'Текст писать ту-тут',
+            category: 'Котики',
+            loginModal: 'Войти'
+        },
+        updatePasswordForm: {
+            password: 'Старый пароль',
+            newPassword: 'Новый пароль',
+            submit: 'Сохранить',
+            cancel: 'Отменить'
+        },
+        loginForm: {
+            login: 'Логин',
+            password: 'Пароль',
+            repeatPassword: 'Повторите пароль',
+            submit: 'Войти',
+            register: 'Зарегистрироваться'
+        },
+        editProductForm: {
+            image: 'Изображение',
+            price: 'Цена',
+            name: 'Название',
+            category: 'Категория',
+            description: 'Описание',
+            submit: 'Сохранить',
+            cancel: 'Отмена',
+            addProduct: 'Новый продукт',
+            newProduct: 'Новый продукт',
+            product: 'Продукт'
+        },
+        errors: {
+            mustBePositive: 'Должно быть больше 0',
+            required: 'Обязательное поле',
+            max32Length: 'Должно быть не длиннее 32 символов',
+            max2048Length: 'Должно быть не длиннее 2048 символов',
+            passwordsMustBeEqual: 'Пароли должны совпадать'
+        },
+        menu: {
+            products: 'Продукты',
+            categories: 'Категории',
+            cart: 'Корзина',
+            profile: 'Профиль'
+        },
+        profile: {
+            login: 'Войти',
+            logout: 'Выйти',
+            updatePassword: 'Смена пароля'
+        },
+        cart: {
+            cartIsEmpty: 'Нет товаров в корзине'
+        },
+        category: {
+            addCategory: 'Добавить',
+            newCategory: 'Новая категория',
+            noSelected: 'Категория не выбрана'
+        }
+    }
+};
