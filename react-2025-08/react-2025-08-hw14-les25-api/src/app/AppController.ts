@@ -38,6 +38,14 @@ export class AppController implements IAppController {
         this.storage = new StorageService();
     }
 
+    getAuthAPI(): AuthAPI {
+        return this.authAPI;
+    }
+
+    getAppStateManager(): AppStateManager {
+        return this.appSTM;
+    }
+
     onAppMount = () => {
         const themeStr = localStorage.getItem(COLOR_THEME);
         this.appSTM.colorTheme(themeStr === Theme.BLUE ? Theme.BLUE : Theme.GREY);
@@ -67,6 +75,8 @@ export class AppController implements IAppController {
         this.reloadProducts();
         const storedCart: Cart = this.storage.getCart();
         this.appSTM.cart(storedCart);
+
+        this.onLoginClick();
     };
 
     reloadCategories = () => {
@@ -110,6 +120,27 @@ export class AppController implements IAppController {
         this.reloadCategories();
     };
 
+    onLoginSubmitThen = (result: AuthResult, login: string) => {
+        this.storage.setToken(result.token);
+        this.appSTM.isUserAuthorized(true);
+        this.appSTM.isLoginFormVisible(false);
+        this.storage.setLogin(login);
+        this.appSTM.login(login);
+
+        this.categoryAPI.setToken(result.token);
+        this.productAPI.setToken(result.token);
+        this.profileAPI.setToken(result.token);
+
+        this.reloadProducts();
+        this.reloadCategories();
+    };
+
+    onLoginSubmitCatch = (answer: ApiErrorAnswer) => {
+        if (Array.isArray(answer?.errors) && answer?.errors?.length > 0) {
+            const errorInfo = answer.errors[0];
+            this.appSTM.apiErrorMessage(errorInfo.message);
+        }
+    };
     onLoginSubmit = (values: LoginFormValues) => {
         const api = values.repeatPassword !== '' ? this.authAPI.register : this.authAPI.login;
         api({
@@ -117,25 +148,9 @@ export class AppController implements IAppController {
             password: values.password
         })
             .then((result: AuthResult) => {
-                this.storage.setToken(result.token);
-                this.appSTM.isUserAuthorized(true);
-                this.appSTM.isLoginFormVisible(false);
-                this.storage.setLogin(values.login);
-                this.appSTM.login(values.login);
-
-                this.categoryAPI.setToken(result.token);
-                this.productAPI.setToken(result.token);
-                this.profileAPI.setToken(result.token);
-
-                this.reloadProducts();
-                this.reloadCategories();
+                this.onLoginSubmitThen(result, values.login);
             })
-            .catch((answer: ApiErrorAnswer) => {
-                if (Array.isArray(answer?.errors) && answer?.errors?.length > 0) {
-                    const errorInfo = answer?.errors[0];
-                    this.appSTM.apiErrorMessage(errorInfo.message);
-                }
-            });
+            .catch(this.onLoginSubmitCatch);
     };
 
     onSelectLogin = () => {

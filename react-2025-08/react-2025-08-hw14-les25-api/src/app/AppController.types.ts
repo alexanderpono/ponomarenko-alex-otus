@@ -2,6 +2,9 @@ import { Category } from 'src/entities/Category';
 import { Product } from 'src/entities/Product';
 import { LoginFormValues } from 'src/features/forms/LoginForm/LoginForm.types';
 import { UpdatePasswordFormValues } from 'src/features/forms/UpdatePasswordForm/UpdatePasswordForm.types';
+import { AuthAPI } from 'src/features/services/AuthAPI/AuthAPI';
+import { ApiErrorAnswer, AuthResult } from 'src/features/services/AuthAPI/AuthAPI.types';
+import { AppStateManager } from 'src/store/AppStateManager';
 
 export interface IAppController {
     onAppMount: () => void;
@@ -28,6 +31,10 @@ export interface IAppController {
     onUpdatePasswordCloseClick: () => void;
     onUpdatePasswordSubmit: (values: UpdatePasswordFormValues) => void;
     processScrollProductsEvent: (observers: IntersectionObserverEntry[]) => void;
+    getAuthAPI: () => AuthAPI;
+    getAppStateManager: () => AppStateManager;
+    onLoginSubmitThen: (result: AuthResult, login: string) => void;
+    onLoginSubmitCatch: (answer: ApiErrorAnswer) => void;
 }
 
 export enum Partition {

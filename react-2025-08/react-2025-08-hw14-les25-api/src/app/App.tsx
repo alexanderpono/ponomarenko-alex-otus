@@ -13,6 +13,7 @@ import ProductsPage from 'src/pages/ProductsPage/ProductsPage';
 import CartPage from 'src/pages/CartPage/CartPage';
 import ProfilePage from 'src/pages/ProfilePage/ProfilePage';
 import LogoutPage from 'src/pages/LogoutPage/LogoutPage';
+import { LoginFormFetch } from 'src/features/forms/LoginFormFetch/LoginFormFetch';
 
 interface AppProps {
     ctrl: IAppController;
@@ -45,12 +46,8 @@ export const App: React.FC<AppProps> = ({ ctrl }) => {
                     <Route path="*" element={<Navigate to="/products" />} />
                 </Routes>
 
-                <Modal
-                    visible={isLoginFormVisible}
-                    handleBtCloseClick={ctrl.onLoginCloseClick}
-                    title={translations.loginModal}
-                >
-                    <LoginForm
+                <Modal visible={isLoginFormVisible} handleBtCloseClick={ctrl.onLoginCloseClick} title={'Register'}>
+                    <LoginFormFetch
                         initialValues={{ login: '', password: '', repeatPassword: '' }}
                         initialErrors={{
                             login: '',

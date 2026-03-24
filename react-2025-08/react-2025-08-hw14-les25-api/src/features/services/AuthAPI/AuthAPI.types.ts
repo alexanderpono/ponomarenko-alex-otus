@@ -5,6 +5,9 @@ export interface RegisterParams {
 
 export interface AuthResult {
     token: string;
+    profile?: {
+        email: string;
+    };
 }
 
 export interface LoginParams {
