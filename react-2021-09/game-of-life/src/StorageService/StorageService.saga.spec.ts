@@ -3,7 +3,7 @@ import { str } from '@src/testFramework/lib/reducer';
 import { expectSaga } from 'redux-saga-test-plan';
 import { throwError } from 'redux-saga-test-plan/providers';
 import { call } from 'redux-saga/effects';
-import { StorageService } from '.';
+import { StorageService } from './StorageService';
 import { getStorageService, loadStateSaga, saveStateSaga } from './StorageService.saga';
 
 describe('loadStateSaga', () => {
