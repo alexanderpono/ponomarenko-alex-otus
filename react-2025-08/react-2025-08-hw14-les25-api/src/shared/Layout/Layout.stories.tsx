@@ -1,0 +1,110 @@
+import type { Meta, StoryObj } from '@storybook/react';
+import { Layout, LayoutProps } from './Layout';
+import React from 'react';
+import { bigText } from 'src/constants/bigText';
+import Modal from 'src/shared/Modal/Modal';
+import BtToBacket from 'src/shared/BtToBacket/BtToBasket';
+import { middleText } from 'src/constants/middleText';
+import ProductCard from 'src/shared/ProductCard/ProductCard';
+import { shortText } from 'src/constants/shortText';
+import DetailedProductCard from 'src/shared/DetailedProductCard/DetailedProductCard';
+import CartItem from 'src/shared/CartItem/CartItem';
+import { castPartialTo } from 'src/testFramework/castPartialTo';
+import { IAppController } from 'src/app/AppController.types';
+import { Provider } from 'react-redux';
+import { getStore } from 'src/store/store';
+import { defaultProduct } from 'src/entities/Product';
+
+const meta: Meta<typeof Layout> = {
+    title: 'shared/Layout',
+    component: Layout,
+    tags: ['autodocs'],
+    parameters: {
+        layout: 'fullscreen'
+    }
+};
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+const ctrl = castPartialTo<IAppController>({
+    onProductEditClick: () => {
+        console.log('onProductEditClick()');
+    },
+    onPlusClick: () => {
+        console.log('onPlusClick()');
+    },
+    onMinusClick: () => {
+        console.log('onMinusClick()');
+    }
+});
+export const LayoutWithScroll: Story = {
+    args: {
+        children: (
+            <>
+                <ProductCard
+                    product={{ ...defaultProduct, id: '1', price: 1999, name: shortText, desc: middleText }}
+                    detailedDescription={bigText}
+                    ctrl={ctrl}
+                />
+                <div style={{ clear: 'both' }} />
+                <BtToBacket count={0} onPlusClick={ctrl.onPlusClick} onMinusClick={ctrl.onMinusClick} />
+                <BtToBacket count={1} onPlusClick={ctrl.onPlusClick} onMinusClick={ctrl.onMinusClick} />
+                <p>{middleText}</p>
+                <ProductCard
+                    product={{
+                        ...defaultProduct,
+                        id: '2',
+                        price: 1999,
+                        name: shortText,
+                        desc: middleText,
+                        photo: 'cat.jpg'
+                    }}
+                    ctrl={ctrl}
+                />
+                <div style={{ clear: 'both' }} />
+                <DetailedProductCard image="cat.jpg" count={0} price={1999} name={shortText} category="Cats">
+                    {bigText}
+                </DetailedProductCard>
+                <div style={{ clear: 'both' }} />
+                <CartItem image="" count={1} price={1999} name={shortText} ctrl={ctrl} productId={'1'} />
+                <CartItem image="cat.jpg" count={2} price={1999} name={shortText} ctrl={ctrl} productId={'2'} />
+
+                {bigText}
+                {bigText}
+            </>
+        )
+    },
+    render: (args: LayoutProps) => {
+        const ctrl = castPartialTo<IAppController>({});
+        return (
+            <Provider store={getStore()}>
+                <Layout ctrl={ctrl}>{args.children}</Layout>
+            </Provider>
+        );
+    }
+};
+
+export const LayoutWithScrollAndModal: Story = {
+    args: {
+        children: (
+            <>
+                {bigText}
+                {bigText}
+                {bigText}
+                <Modal visible={true} handleBtCloseClick={() => null}>
+                    <h2>Modal window caption</h2>
+                    <p>Modal window text</p>
+                </Modal>
+            </>
+        )
+    },
+    render: (args: LayoutProps) => {
+        const ctrl = castPartialTo<IAppController>({});
+        return (
+            <Provider store={getStore()}>
+                <Layout ctrl={ctrl}>{args.children}</Layout>
+            </Provider>
+        );
+    }
+};

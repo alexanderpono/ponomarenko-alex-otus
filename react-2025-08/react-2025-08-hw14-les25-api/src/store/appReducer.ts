@@ -1,0 +1,368 @@
+import { handleActions } from 'redux-actions';
+import { Theme } from 'src/constants/Theme';
+import { defaultProduct, Product } from 'src/entities/Product';
+import { Language } from 'src/constants/i18n';
+import { Category, defaultCategory } from 'src/entities/Category';
+import { Cart, defaultCart } from 'src/entities/Cart';
+
+export enum AppEvent {
+    DEFAULT = '',
+    PRODUCTS = 'APP/PRODUCTS',
+    LANGUAGE = 'APP/LANGUAGE',
+    COLOR_THEME = 'APP/COLOR_THEME',
+    IS_USER_AUTORIZED = 'APP/IS_USER_AUTORIZED',
+    IS_LOGIN_FORM_VISIBLE = 'APP/IS_LOGIN_FORM_VISIBLE',
+    IS_REGISTERING = 'APP/IS_REGISTERING',
+    IS_EDIT_PRODUCT_VISIBLE = 'APP/IS_EDIT_PRODUCT_VISIBLE',
+    EDITED_PRODUCT = 'APP/EDITED_PRODUCT',
+    CATEGORIES = 'APP/CATEGORIES',
+    CUR_CATEGORY_ID = 'APP/CUR_CATEGORY_ID',
+    EDITED_CATEGORY = 'APP/EDITED_CATEGORY',
+    CART = 'APP/CART',
+    API_ERROR_MESSAGE = 'APP/API_ERROR_MESSAGE',
+    LOGIN = 'APP/LOGIN',
+    IS_UPDATE_PASSWORD_VISIBLE = 'APP/IS_UPDATE_PASSWORD_VISIBLE',
+    IS_REGISTER_USING_SAGA_VISIBLE = 'APP/IS_REGISTER_USING_SAGA_VISIBLE',
+    REGISTER = 'APP/REGISTER'
+}
+
+export interface AppState {
+    event: AppEvent;
+    products: Product[];
+    language: Language;
+    colorTheme: Theme;
+    isUserAuthorized: boolean;
+    isLoginFormVisible: boolean;
+    isRegistering: boolean;
+    isEditProductVisible: boolean;
+    editedProduct: Product;
+    categories: Category[];
+    curCategoryId: string;
+    editedCategory: Category;
+    cart: Cart;
+    apiErrorMessage: string;
+    login: string;
+    isUpdatePasswordVisible: boolean;
+    isRegisterSagaVisible: boolean;
+}
+
+export const defaultAppState: AppState = {
+    event: AppEvent.DEFAULT,
+    products: [],
+    language: Language.EN,
+    colorTheme: Theme.GREY,
+    isUserAuthorized: false,
+    isLoginFormVisible: false,
+    isRegistering: false,
+    isEditProductVisible: false,
+    editedProduct: { ...defaultProduct },
+    categories: [],
+    curCategoryId: '',
+    editedCategory: { ...defaultCategory },
+    cart: { ...defaultCart },
+    apiErrorMessage: '',
+    login: '',
+    isUpdatePasswordVisible: false,
+    isRegisterSagaVisible: false
+};
+
+export interface ProductsAction {
+    type: AppEvent.PRODUCTS;
+    payload: {
+        products: Product[];
+    };
+}
+
+export interface LanguageAction {
+    type: AppEvent.LANGUAGE;
+    payload: {
+        language: Language;
+    };
+}
+
+export interface ColorSchemeAction {
+    type: AppEvent.COLOR_THEME;
+    payload: {
+        colorTheme: Theme;
+    };
+}
+
+export interface IsUserAuthorizedAction {
+    type: AppEvent.IS_USER_AUTORIZED;
+    payload: {
+        isUserAuthorized: boolean;
+    };
+}
+
+export interface IsLoginFormVisibleAction {
+    type: AppEvent.IS_LOGIN_FORM_VISIBLE;
+    payload: {
+        isLoginFormVisible: boolean;
+    };
+}
+
+export interface IsRegisteringAction {
+    type: AppEvent.IS_REGISTERING;
+    payload: {
+        isRegistering: boolean;
+    };
+}
+
+export interface IsEditProductVisibleAction {
+    type: AppEvent.IS_EDIT_PRODUCT_VISIBLE;
+    payload: {
+        isEditProductVisible: boolean;
+    };
+}
+
+export interface EditedProductAction {
+    type: AppEvent.EDITED_PRODUCT;
+    payload: {
+        editedProduct: Product;
+    };
+}
+
+export interface CategoriesAction {
+    type: AppEvent.CATEGORIES;
+    payload: {
+        categories: Category[];
+    };
+}
+
+export interface CurCategoryIdAction {
+    type: AppEvent.CUR_CATEGORY_ID;
+    payload: {
+        curCategoryId: string;
+    };
+}
+
+export interface EditedCategoryAction {
+    type: AppEvent.EDITED_CATEGORY;
+    payload: {
+        editedCategory: Category;
+    };
+}
+
+export interface CartAction {
+    type: AppEvent.CART;
+    payload: {
+        cart: Cart;
+    };
+}
+
+export interface ApiErrorMessageAction {
+    type: AppEvent.API_ERROR_MESSAGE;
+    payload: {
+        apiErrorMessage: string;
+    };
+}
+
+export interface LoginAction {
+    type: AppEvent.LOGIN;
+    payload: {
+        login: string;
+    };
+}
+
+export interface IsUpdatePasswordVisibleAction {
+    type: AppEvent.IS_UPDATE_PASSWORD_VISIBLE;
+    payload: {
+        isUpdatePasswordVisible: boolean;
+    };
+}
+
+export interface IsRegisterSagaVisibleAction {
+    type: AppEvent.IS_REGISTER_USING_SAGA_VISIBLE;
+    payload: {
+        isRegisterSagaVisible: boolean;
+    };
+}
+
+interface RegisterParams {
+    login: string;
+    password: string;
+}
+
+export interface RegisterAction {
+    type: AppEvent.REGISTER;
+    payload: {
+        registerParams: RegisterParams;
+    };
+}
+
+export type AppAction =
+    | ProductsAction
+    | LanguageAction
+    | ColorSchemeAction
+    | IsUserAuthorizedAction
+    | IsLoginFormVisibleAction
+    | IsRegisteringAction
+    | IsEditProductVisibleAction
+    | EditedProductAction
+    | CategoriesAction
+    | CurCategoryIdAction
+    | EditedCategoryAction
+    | CartAction
+    | ApiErrorMessageAction
+    | LoginAction
+    | IsUpdatePasswordVisibleAction
+    | IsRegisterSagaVisibleAction
+    | RegisterAction;
+
+export const app = {
+    products: (products: Product[]): ProductsAction => ({
+        type: AppEvent.PRODUCTS,
+        payload: { products }
+    }),
+    language: (language: Language): LanguageAction => ({
+        type: AppEvent.LANGUAGE,
+        payload: { language }
+    }),
+    colorTheme: (colorTheme: Theme): ColorSchemeAction => ({
+        type: AppEvent.COLOR_THEME,
+        payload: { colorTheme }
+    }),
+    isUserAuthorized: (isUserAuthorized: boolean): IsUserAuthorizedAction => ({
+        type: AppEvent.IS_USER_AUTORIZED,
+        payload: { isUserAuthorized }
+    }),
+    isLoginFormVisible: (isLoginFormVisible: boolean): IsLoginFormVisibleAction => ({
+        type: AppEvent.IS_LOGIN_FORM_VISIBLE,
+        payload: { isLoginFormVisible }
+    }),
+    isRegistering: (isRegistering: boolean): IsRegisteringAction => ({
+        type: AppEvent.IS_REGISTERING,
+        payload: { isRegistering }
+    }),
+    isEditProductVisible: (isEditProductVisible: boolean): IsEditProductVisibleAction => ({
+        type: AppEvent.IS_EDIT_PRODUCT_VISIBLE,
+        payload: { isEditProductVisible }
+    }),
+    editedProduct: (editedProduct: Product): EditedProductAction => ({
+        type: AppEvent.EDITED_PRODUCT,
+        payload: { editedProduct }
+    }),
+    categories: (categories: Category[]): CategoriesAction => ({
+        type: AppEvent.CATEGORIES,
+        payload: { categories }
+    }),
+    curCategoryId: (curCategoryId: string): CurCategoryIdAction => ({
+        type: AppEvent.CUR_CATEGORY_ID,
+        payload: { curCategoryId }
+    }),
+    editedCategory: (editedCategory: Category): EditedCategoryAction => ({
+        type: AppEvent.EDITED_CATEGORY,
+        payload: { editedCategory }
+    }),
+    cart: (cart: Cart): CartAction => ({
+        type: AppEvent.CART,
+        payload: { cart }
+    }),
+    apiErrorMessage: (apiErrorMessage: string): ApiErrorMessageAction => ({
+        type: AppEvent.API_ERROR_MESSAGE,
+        payload: { apiErrorMessage }
+    }),
+    login: (login: string): LoginAction => ({
+        type: AppEvent.LOGIN,
+        payload: { login }
+    }),
+    isUpdatePasswordVisible: (isUpdatePasswordVisible: boolean): IsUpdatePasswordVisibleAction => ({
+        type: AppEvent.IS_UPDATE_PASSWORD_VISIBLE,
+        payload: { isUpdatePasswordVisible }
+    }),
+    isRegisterSagaVisible: (isRegisterSagaVisible: boolean): IsRegisterSagaVisibleAction => ({
+        type: AppEvent.IS_REGISTER_USING_SAGA_VISIBLE,
+        payload: { isRegisterSagaVisible }
+    }),
+    register: (registerParams: RegisterParams): RegisterAction => ({
+        type: AppEvent.REGISTER,
+        payload: { registerParams }
+    })
+};
+
+export const appReducer = handleActions(
+    {
+        [AppEvent.PRODUCTS]: (state: AppState, action) => ({
+            ...state,
+            event: AppEvent.PRODUCTS,
+            products: (action as unknown as ProductsAction).payload.products
+        }),
+        [AppEvent.LANGUAGE]: (state: AppState, action) => ({
+            ...state,
+            event: AppEvent.LANGUAGE,
+            language: (action as unknown as LanguageAction).payload.language
+        }),
+        [AppEvent.COLOR_THEME]: (state: AppState, action) => ({
+            ...state,
+            event: AppEvent.COLOR_THEME,
+            colorTheme: (action as unknown as ColorSchemeAction).payload.colorTheme
+        }),
+        [AppEvent.IS_USER_AUTORIZED]: (state: AppState, action) => ({
+            ...state,
+            event: AppEvent.IS_USER_AUTORIZED,
+            isUserAuthorized: (action as unknown as IsUserAuthorizedAction).payload.isUserAuthorized
+        }),
+        [AppEvent.IS_LOGIN_FORM_VISIBLE]: (state: AppState, action) => ({
+            ...state,
+            event: AppEvent.IS_LOGIN_FORM_VISIBLE,
+            isLoginFormVisible: (action as unknown as IsLoginFormVisibleAction).payload.isLoginFormVisible
+        }),
+        [AppEvent.IS_REGISTERING]: (state: AppState, action) => ({
+            ...state,
+            event: AppEvent.IS_REGISTERING,
+            isRegistering: (action as unknown as IsRegisteringAction).payload.isRegistering
+        }),
+        [AppEvent.IS_EDIT_PRODUCT_VISIBLE]: (state: AppState, action) => ({
+            ...state,
+            event: AppEvent.IS_EDIT_PRODUCT_VISIBLE,
+            isEditProductVisible: (action as unknown as IsEditProductVisibleAction).payload.isEditProductVisible
+        }),
+        [AppEvent.EDITED_PRODUCT]: (state: AppState, action) => ({
+            ...state,
+            event: AppEvent.EDITED_PRODUCT,
+            editedProduct: (action as unknown as EditedProductAction).payload.editedProduct
+        }),
+        [AppEvent.CATEGORIES]: (state: AppState, action) => ({
+            ...state,
+            event: AppEvent.CATEGORIES,
+            categories: (action as unknown as CategoriesAction).payload.categories
+        }),
+        [AppEvent.CUR_CATEGORY_ID]: (state: AppState, action) => ({
+            ...state,
+            event: AppEvent.CUR_CATEGORY_ID,
+            curCategoryId: (action as unknown as CurCategoryIdAction).payload.curCategoryId
+        }),
+        [AppEvent.EDITED_CATEGORY]: (state: AppState, action) => ({
+            ...state,
+            event: AppEvent.EDITED_CATEGORY,
+            editedCategory: (action as unknown as EditedCategoryAction).payload.editedCategory
+        }),
+        [AppEvent.CART]: (state: AppState, action) => ({
+            ...state,
+            event: AppEvent.CART,
+            cart: (action as unknown as CartAction).payload.cart
+        }),
+        [AppEvent.API_ERROR_MESSAGE]: (state: AppState, action) => ({
+            ...state,
+            event: AppEvent.API_ERROR_MESSAGE,
+            apiErrorMessage: (action as unknown as ApiErrorMessageAction).payload.apiErrorMessage
+        }),
+        [AppEvent.LOGIN]: (state: AppState, action) => ({
+            ...state,
+            event: AppEvent.LOGIN,
+            login: (action as unknown as LoginAction).payload.login
+        }),
+        [AppEvent.IS_UPDATE_PASSWORD_VISIBLE]: (state: AppState, action) => ({
+            ...state,
+            event: AppEvent.IS_UPDATE_PASSWORD_VISIBLE,
+            isUpdatePasswordVisible: (action as unknown as IsUpdatePasswordVisibleAction).payload
+                .isUpdatePasswordVisible
+        }),
+        [AppEvent.IS_REGISTER_USING_SAGA_VISIBLE]: (state: AppState, action) => ({
+            ...state,
+            event: AppEvent.IS_REGISTER_USING_SAGA_VISIBLE,
+            isRegisterSagaVisible: (action as unknown as IsRegisterSagaVisibleAction).payload.isRegisterSagaVisible
+        })
+    },
+    defaultAppState
+);

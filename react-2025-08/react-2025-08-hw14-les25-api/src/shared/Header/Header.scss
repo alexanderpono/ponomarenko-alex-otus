@@ -1,0 +1,58 @@
+.Header {
+    position: fixed;
+    top: 0;
+    left: 0px;
+    right: 0px;
+    z-index: 1000;
+    color: white;
+    display: grid;
+    grid-template-columns: 120px auto auto auto;
+    grid-template-rows: 70px auto;
+    grid-template-areas: "logo color language profile" "logo menu menu login";
+
+    .logo {
+        grid-area: logo;
+    }
+
+    .color {
+        grid-area: color;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .language {
+        grid-area: language;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .profile {
+        grid-area: profile;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .menu {
+        grid-area: menu;
+    }
+
+    .login {
+        grid-area: login;
+        text-align: right;
+    }
+}
+
+.grey {
+    background-color: grey;
+    border-bottom: 1px solid black;
+}
+
+.blue {
+    background-color: #5660f0;
+    border-bottom: 1px solid blue;
+}
