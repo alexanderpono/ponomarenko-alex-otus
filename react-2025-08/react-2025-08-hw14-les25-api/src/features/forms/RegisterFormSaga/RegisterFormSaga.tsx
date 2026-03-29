@@ -7,9 +7,6 @@ import { appSelector } from 'src/store/selectors';
 import { i18n } from 'src/constants/i18n';
 import { IAppController } from 'src/app/AppController.types';
 import { LoginFormValues } from 'src/features/forms/LoginForm/LoginForm.types';
-import { AuthResult } from 'src/features/services/AuthAPI/AuthAPI.types';
-import { COMMAND_ID, getApiUrl } from 'src/constants/config';
-import { CONTENT_JSON, HTTP_OK } from 'src/constants/API';
 import { app } from 'src/store/appReducer';
 
 interface RegisterFormSagaProps {

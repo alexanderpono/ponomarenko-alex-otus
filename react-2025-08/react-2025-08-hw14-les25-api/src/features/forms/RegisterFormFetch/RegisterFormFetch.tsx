@@ -11,13 +11,13 @@ import { AuthResult } from 'src/features/services/AuthAPI/AuthAPI.types';
 import { COMMAND_ID, getApiUrl } from 'src/constants/config';
 import { CONTENT_JSON, HTTP_OK } from 'src/constants/API';
 
-interface LoginFormProps {
+interface RegisterFormProps {
     initialValues: LoginFormValues;
     ctrl: IAppController;
     initialErrors: ErrorFields<LoginFormValues>;
     isRegistering: boolean;
 }
-export const LoginFormFetch: React.FC<LoginFormProps> = ({ initialValues, initialErrors, ctrl }) => {
+export const RegisterFormFetch: React.FC<RegisterFormProps> = ({ initialValues, initialErrors, ctrl }) => {
     const language = useSelector(appSelector.language);
     const apiErrorMessage = useSelector(appSelector.apiErrorMessage);
 

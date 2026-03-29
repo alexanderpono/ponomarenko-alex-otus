@@ -12,7 +12,7 @@ import ProductsPage from 'src/pages/ProductsPage/ProductsPage';
 import CartPage from 'src/pages/CartPage/CartPage';
 import ProfilePage from 'src/pages/ProfilePage/ProfilePage';
 import LogoutPage from 'src/pages/LogoutPage/LogoutPage';
-import { LoginFormFetch } from 'src/features/forms/LoginFormFetch/LoginFormFetch';
+import { RegisterFormFetch } from 'src/features/forms/RegisterFormFetch/RegisterFormFetch';
 import { RegisterFormSaga } from 'src/features/forms/RegisterFormSaga/RegisterFormSaga';
 
 interface AppProps {
@@ -52,7 +52,7 @@ export const App: React.FC<AppProps> = ({ ctrl }) => {
                     handleBtCloseClick={ctrl.onLoginCloseClick}
                     title={'Register using fetch API'}
                 >
-                    <LoginFormFetch
+                    <RegisterFormFetch
                         initialValues={{ login: '', password: '', repeatPassword: '' }}
                         initialErrors={{
                             login: '',
