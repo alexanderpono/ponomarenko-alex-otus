@@ -11,6 +11,7 @@ export interface IAppController {
     onThemeChange: (evt: React.ChangeEvent<HTMLSelectElement>) => void;
     onLanguageChange: (evt: React.ChangeEvent<HTMLSelectElement>) => void;
     onLoginClick: () => void;
+    onRegisterUsingSagaClick: () => void;
     onLogoutClick: () => void;
     onLoginSubmit: (values: LoginFormValues) => void;
     onSelectLogin: () => void;

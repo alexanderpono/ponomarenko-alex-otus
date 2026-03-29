@@ -2,7 +2,7 @@ import React from 'react';
 import styles from 'src/features/forms/LoginForm/LoginForm.scss';
 import { useFormik } from 'formik';
 import { ErrorFields } from 'src/features/forms/forms.types';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { appSelector } from 'src/store/selectors';
 import { i18n } from 'src/constants/i18n';
 import { IAppController } from 'src/app/AppController.types';
@@ -10,41 +10,24 @@ import { LoginFormValues } from 'src/features/forms/LoginForm/LoginForm.types';
 import { AuthResult } from 'src/features/services/AuthAPI/AuthAPI.types';
 import { COMMAND_ID, getApiUrl } from 'src/constants/config';
 import { CONTENT_JSON, HTTP_OK } from 'src/constants/API';
+import { app } from 'src/store/appReducer';
 
-interface LoginFormProps {
+interface RegisterFormSagaProps {
     initialValues: LoginFormValues;
     ctrl: IAppController;
     initialErrors: ErrorFields<LoginFormValues>;
     isRegistering: boolean;
 }
-export const LoginFormFetch: React.FC<LoginFormProps> = ({ initialValues, initialErrors, ctrl }) => {
+export const RegisterFormSaga: React.FC<RegisterFormSagaProps> = ({ initialValues, initialErrors, ctrl }) => {
     const language = useSelector(appSelector.language);
     const apiErrorMessage = useSelector(appSelector.apiErrorMessage);
+    const dispatch = useDispatch();
 
     const isRegistering = true;
     const formik = useFormik({
         initialValues,
         onSubmit: (values) => {
-            fetch(getApiUrl() + '/signup', {
-                method: 'POST',
-                headers: {
-                    'Content-type': CONTENT_JSON
-                },
-                body: JSON.stringify({ email: values.login, password: values.password, commandId: COMMAND_ID })
-            })
-                .then((response: Response) => {
-                    return response.json().then((result) => {
-                        if (response.status !== HTTP_OK) {
-                            return Promise.reject(result);
-                        } else {
-                            return result;
-                        }
-                    });
-                })
-                .then((result: AuthResult) => {
-                    ctrl.getAppStateManager().apiErrorMessage('Успешная регистрация ' + result?.profile?.email);
-                })
-                .catch(ctrl.onLoginSubmitCatch);
+            dispatch(app.register({ login: values.login, password: values.password }));
         },
         initialErrors,
         validateOnChange: false,

@@ -6,10 +6,10 @@ import { IAppController } from 'src/app/AppController.types';
 import { i18n } from 'src/constants/i18n';
 import { useNavigate } from 'react-router-dom';
 
-export interface ProfileButtonProps {
+export interface RegisterUsingSagaButtonProps {
     ctrl: IAppController;
 }
-export const ProfileButton: React.FC<ProfileButtonProps> = ({ ctrl }) => {
+export const RegisterUsingSagaButton: React.FC<RegisterUsingSagaButtonProps> = ({ ctrl }) => {
     const isUserAuthorized = useSelector(appSelector.isUserAuthorized);
     const language = useSelector(appSelector.language);
     const translations = i18n[language].profile;
@@ -19,16 +19,16 @@ export const ProfileButton: React.FC<ProfileButtonProps> = ({ ctrl }) => {
         if (isUserAuthorized) {
             navigate('/logout');
         } else {
-            ctrl.onLoginClick();
+            ctrl.onRegisterUsingSagaClick();
         }
     };
 
     return (
         <div className={styles.ProfileButton}>
             <p className={styles.button} onClick={handleClick}>
-                {isUserAuthorized ? translations.logout : translations.login + ' fetch API'}
+                {isUserAuthorized ? translations.logout : translations.login + ' saga API'}
             </p>
         </div>
     );
 };
-export default ProfileButton;
+export default RegisterUsingSagaButton;

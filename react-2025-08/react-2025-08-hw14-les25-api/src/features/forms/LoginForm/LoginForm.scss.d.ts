@@ -4,6 +4,7 @@ interface CssExports {
   'LoginForm': string;
   'error': string;
   'loginRegister': string;
+  'top20': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

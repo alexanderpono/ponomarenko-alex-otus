@@ -9,6 +9,9 @@
 
     label {
         margin-bottom: 20px;
+        &.top20 {
+            margin-top: 20px;
+        }
     }
     input[type="text"], input[type="password"], button {
         margin-left: 20px;

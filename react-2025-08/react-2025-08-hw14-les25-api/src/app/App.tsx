@@ -7,13 +7,13 @@ import { IAppController } from './AppController.types';
 import { useSelector } from 'react-redux';
 import { appSelector } from 'src/store/selectors';
 import { i18n } from 'src/constants/i18n';
-import { LoginForm } from 'src/features/forms/LoginForm/LoginForm';
 import CategoriesPage from 'src/pages/CategoriesPage/CategoriesPage';
 import ProductsPage from 'src/pages/ProductsPage/ProductsPage';
 import CartPage from 'src/pages/CartPage/CartPage';
 import ProfilePage from 'src/pages/ProfilePage/ProfilePage';
 import LogoutPage from 'src/pages/LogoutPage/LogoutPage';
 import { LoginFormFetch } from 'src/features/forms/LoginFormFetch/LoginFormFetch';
+import { RegisterFormSaga } from 'src/features/forms/RegisterFormSaga/RegisterFormSaga';
 
 interface AppProps {
     ctrl: IAppController;
@@ -24,6 +24,7 @@ export const App: React.FC<AppProps> = ({ ctrl }) => {
     const translations = i18n[language].app;
     const isLoginFormVisible = useSelector(appSelector.isLoginFormVisible);
     const isRegistering = useSelector(appSelector.isRegistering);
+    const isRegisterSagaVisible = useSelector(appSelector.isRegisterSagaVisible);
 
     React.useEffect(() => {
         ctrl.onAppMount();
@@ -46,8 +47,29 @@ export const App: React.FC<AppProps> = ({ ctrl }) => {
                     <Route path="*" element={<Navigate to="/products" />} />
                 </Routes>
 
-                <Modal visible={isLoginFormVisible} handleBtCloseClick={ctrl.onLoginCloseClick} title={'Register'}>
+                <Modal
+                    visible={isLoginFormVisible}
+                    handleBtCloseClick={ctrl.onLoginCloseClick}
+                    title={'Register using fetch API'}
+                >
                     <LoginFormFetch
+                        initialValues={{ login: '', password: '', repeatPassword: '' }}
+                        initialErrors={{
+                            login: '',
+                            password: '',
+                            repeatPassword: ''
+                        }}
+                        ctrl={ctrl}
+                        isRegistering={isRegistering}
+                    />
+                </Modal>
+
+                <Modal
+                    visible={isRegisterSagaVisible}
+                    handleBtCloseClick={ctrl.onLoginCloseClick}
+                    title={'Register using Saga'}
+                >
+                    <RegisterFormSaga
                         initialValues={{ login: '', password: '', repeatPassword: '' }}
                         initialErrors={{
                             login: '',

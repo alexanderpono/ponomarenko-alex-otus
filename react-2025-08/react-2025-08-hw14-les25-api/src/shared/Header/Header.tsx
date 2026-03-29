@@ -10,6 +10,7 @@ import { appSelector } from 'src/store/selectors';
 import { IAppController } from 'src/app/AppController.types';
 import ProfileButton from 'src/shared/ProfileButton/ProfileButton';
 import Menu from 'src/shared/Menu/Menu';
+import RegisterUsingSagaButton from 'src/shared/ProfileButton/RegisterUsingSagaButton';
 
 interface HeaderProps {
     ctrl: IAppController;
@@ -29,6 +30,7 @@ export const Header: React.FC<HeaderProps> = ({ ctrl }) => {
                 <Logo />
             </div>
             <div className={styles.profile}>
+                <RegisterUsingSagaButton ctrl={ctrl} />
                 <ProfileButton ctrl={ctrl} />
             </div>
             <div className={styles.color}>

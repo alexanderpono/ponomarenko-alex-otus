@@ -75,8 +75,6 @@ export class AppController implements IAppController {
         this.reloadProducts();
         const storedCart: Cart = this.storage.getCart();
         this.appSTM.cart(storedCart);
-
-        this.onLoginClick();
     };
 
     reloadCategories = () => {
@@ -103,6 +101,12 @@ export class AppController implements IAppController {
 
     onLoginClick = () => {
         this.appSTM.isLoginFormVisible(true);
+        this.appSTM.isRegistering(false);
+        this.appSTM.apiErrorMessage('');
+    };
+
+    onRegisterUsingSagaClick = () => {
+        this.appSTM.isRegisterSagaVisible(true);
         this.appSTM.isRegistering(false);
         this.appSTM.apiErrorMessage('');
     };
@@ -164,6 +168,7 @@ export class AppController implements IAppController {
 
     onLoginCloseClick = () => {
         this.appSTM.isLoginFormVisible(false);
+        this.appSTM.isRegisterSagaVisible(false);
     };
 
     onProductEditClick = (evt: React.MouseEvent<HTMLDivElement>) => {

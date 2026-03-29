@@ -21,7 +21,9 @@ export enum AppEvent {
     CART = 'APP/CART',
     API_ERROR_MESSAGE = 'APP/API_ERROR_MESSAGE',
     LOGIN = 'APP/LOGIN',
-    IS_UPDATE_PASSWORD_VISIBLE = 'APP/IS_UPDATE_PASSWORD_VISIBLE'
+    IS_UPDATE_PASSWORD_VISIBLE = 'APP/IS_UPDATE_PASSWORD_VISIBLE',
+    IS_REGISTER_USING_SAGA_VISIBLE = 'APP/IS_REGISTER_USING_SAGA_VISIBLE',
+    REGISTER = 'APP/REGISTER'
 }
 
 export interface AppState {
@@ -41,6 +43,7 @@ export interface AppState {
     apiErrorMessage: string;
     login: string;
     isUpdatePasswordVisible: boolean;
+    isRegisterSagaVisible: boolean;
 }
 
 export const defaultAppState: AppState = {
@@ -59,7 +62,8 @@ export const defaultAppState: AppState = {
     cart: { ...defaultCart },
     apiErrorMessage: '',
     login: '',
-    isUpdatePasswordVisible: false
+    isUpdatePasswordVisible: false,
+    isRegisterSagaVisible: false
 };
 
 export interface ProductsAction {
@@ -167,6 +171,25 @@ export interface IsUpdatePasswordVisibleAction {
     };
 }
 
+export interface IsRegisterSagaVisibleAction {
+    type: AppEvent.IS_REGISTER_USING_SAGA_VISIBLE;
+    payload: {
+        isRegisterSagaVisible: boolean;
+    };
+}
+
+interface RegisterParams {
+    login: string;
+    password: string;
+}
+
+export interface RegisterAction {
+    type: AppEvent.REGISTER;
+    payload: {
+        registerParams: RegisterParams;
+    };
+}
+
 export type AppAction =
     | ProductsAction
     | LanguageAction
@@ -182,7 +205,9 @@ export type AppAction =
     | CartAction
     | ApiErrorMessageAction
     | LoginAction
-    | IsUpdatePasswordVisibleAction;
+    | IsUpdatePasswordVisibleAction
+    | IsRegisterSagaVisibleAction
+    | RegisterAction;
 
 export const app = {
     products: (products: Product[]): ProductsAction => ({
@@ -244,6 +269,14 @@ export const app = {
     isUpdatePasswordVisible: (isUpdatePasswordVisible: boolean): IsUpdatePasswordVisibleAction => ({
         type: AppEvent.IS_UPDATE_PASSWORD_VISIBLE,
         payload: { isUpdatePasswordVisible }
+    }),
+    isRegisterSagaVisible: (isRegisterSagaVisible: boolean): IsRegisterSagaVisibleAction => ({
+        type: AppEvent.IS_REGISTER_USING_SAGA_VISIBLE,
+        payload: { isRegisterSagaVisible }
+    }),
+    register: (registerParams: RegisterParams): RegisterAction => ({
+        type: AppEvent.REGISTER,
+        payload: { registerParams }
     })
 };
 
@@ -324,6 +357,11 @@ export const appReducer = handleActions(
             event: AppEvent.IS_UPDATE_PASSWORD_VISIBLE,
             isUpdatePasswordVisible: (action as unknown as IsUpdatePasswordVisibleAction).payload
                 .isUpdatePasswordVisible
+        }),
+        [AppEvent.IS_REGISTER_USING_SAGA_VISIBLE]: (state: AppState, action) => ({
+            ...state,
+            event: AppEvent.IS_REGISTER_USING_SAGA_VISIBLE,
+            isRegisterSagaVisible: (action as unknown as IsRegisterSagaVisibleAction).payload.isRegisterSagaVisible
         })
     },
     defaultAppState

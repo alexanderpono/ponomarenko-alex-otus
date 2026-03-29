@@ -26,6 +26,8 @@ export class AppStateManager {
     login = (login: string) => dispatch(app.login(login));
     isUpdatePasswordVisible = (isUpdatePasswordVisible: boolean) =>
         dispatch(app.isUpdatePasswordVisible(isUpdatePasswordVisible));
+    isRegisterSagaVisible = (isRegisterSagaVisible: boolean) =>
+        dispatch(app.isRegisterSagaVisible(isRegisterSagaVisible));
 
     static create(): AppStateManager {
         return new AppStateManager();

@@ -44,6 +44,7 @@ describe('AppStateManager', () => {
             ${'apiErrorMessage'}         | ${rndStr}        | ${null} | ${app.apiErrorMessage(rndStr)}
             ${'login'}                   | ${rndStr}        | ${null} | ${app.login(rndStr)}
             ${'isUpdatePasswordVisible'} | ${rndBool}       | ${null} | ${app.isUpdatePasswordVisible(rndBool)}
+            ${'isRegisterSagaVisible'}   | ${rndBool}       | ${null} | ${app.isRegisterSagaVisible(rndBool)}
         `('$method() calls store.dispatch', ({ method, param1, param2, expected }) => {
             const dispatchMock = jest.fn();
             jest.spyOn(store, 'getStore').mockReturnValue(
