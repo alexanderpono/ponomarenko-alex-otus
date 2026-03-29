@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1774797320823" clover="3.2.0">
-  <project timestamp="1774797320823" name="All files">
+<coverage generated="1774799128341" clover="3.2.0">
+  <project timestamp="1774799128341" name="All files">
     <metrics statements="790" coveredstatements="100" conditionals="278" coveredconditionals="7" methods="275" coveredmethods="63" elements="1343" coveredelements="170" complexity="0" loc="790" ncloc="790" packages="41" files="57" classes="57"/>
     <package name="app">
       <metrics statements="235" coveredstatements="0" conditionals="57" coveredconditionals="0" methods="61" coveredmethods="0"/>
@@ -342,9 +342,9 @@
         <line num="46" count="0" type="stmt"/>
       </file>
     </package>
-    <package name="features.forms.LoginFormFetch">
+    <package name="features.forms.RegisterFormFetch">
       <metrics statements="13" coveredstatements="0" conditionals="10" coveredconditionals="0" methods="5" coveredmethods="0"/>
-      <file name="LoginFormFetch.tsx" path="/home/runner/work/ponomarenko-alex-otus/ponomarenko-alex-otus/react-2025-08/react-2025-08-hw14-les25-api/src/features/forms/LoginFormFetch/LoginFormFetch.tsx">
+      <file name="RegisterFormFetch.tsx" path="/home/runner/work/ponomarenko-alex-otus/ponomarenko-alex-otus/react-2025-08/react-2025-08-hw14-les25-api/src/features/forms/RegisterFormFetch/RegisterFormFetch.tsx">
         <metrics statements="13" coveredstatements="0" conditionals="10" coveredconditionals="0" methods="5" coveredmethods="0"/>
         <line num="20" count="0" type="stmt"/>
         <line num="21" count="0" type="stmt"/>
@@ -365,15 +365,15 @@
       <metrics statements="9" coveredstatements="0" conditionals="8" coveredconditionals="0" methods="2" coveredmethods="0"/>
       <file name="RegisterFormSaga.tsx" path="/home/runner/work/ponomarenko-alex-otus/ponomarenko-alex-otus/react-2025-08/react-2025-08-hw14-les25-api/src/features/forms/RegisterFormSaga/RegisterFormSaga.tsx">
         <metrics statements="9" coveredstatements="0" conditionals="8" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
         <line num="21" count="0" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
         <line num="23" count="0" type="stmt"/>
         <line num="24" count="0" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
         <line num="27" count="0" type="stmt"/>
-        <line num="30" count="0" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
-        <line num="38" count="0" type="stmt"/>
+        <line num="34" count="0" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
       </file>
     </package>
     <package name="features.forms.UpdatePasswordForm">
@@ -1060,13 +1060,13 @@
         <line num="19" count="1" type="stmt"/>
         <line num="21" count="18" type="stmt"/>
         <line num="24" count="3" type="stmt"/>
-        <line num="25" count="34" type="stmt"/>
+        <line num="25" count="35" type="stmt"/>
         <line num="26" count="3" type="stmt"/>
         <line num="27" count="3" type="stmt"/>
         <line num="28" count="4" type="stmt"/>
         <line num="30" count="4" type="stmt"/>
         <line num="31" count="4" type="stmt"/>
-        <line num="32" count="22" type="stmt"/>
+        <line num="32" count="23" type="stmt"/>
         <line num="34" count="4" type="stmt"/>
       </file>
     </package>
