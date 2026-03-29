@@ -42,3 +42,31 @@
 
 
 ## Решение
+Созданы компоненты для регистрации нового пользователя:
+
+1. RegisterFormFetch ("Register using fetch API")  
+   Ссылка: https://github.com/alexanderpono/ponomarenko-alex-otus/blob/react-2025-08-hw14-les27-api/react-2025-08/react-2025-08-hw14-les25-api/src/features/forms/RegisterFormFetch/RegisterFormFetch.tsx
+
+2. RegisterFormSaga ("Register using Saga")  
+   Ссылка: https://github.com/alexanderpono/ponomarenko-alex-otus/blob/react-2025-08-hw14-les27-api/react-2025-08/react-2025-08-hw14-les25-api/src/features/forms/RegisterFormSaga/RegisterFormSaga.tsx
+
+**Описание компонентов:**
+
+- **RegisterFormFetch** — отправляет запрос на регистрацию из функционального компонента с использованием Fetch API.
+- **RegisterFormSaga** — делегирует обработку запроса на регистрацию через Redux-Saga (сага `registerSaga` в файле `sagas.ts`):  
+  https://github.com/alexanderpono/ponomarenko-alex-otus/blob/react-2025-08-hw14-les27-api/react-2025-08/react-2025-08-hw14-les25-api/src/store/sagas.ts
+
+**Как проверить работу окон регистрации:**
+
+Нужно перейти на сайт приложения по ссылке:  
+https://alexanderpono.github.io/ponomarenko-alex-otus/react-2025-08/react-2025-08-hw14-les27-api/app/#/products
+
+В правом верхнем углу интерфейса отображаются две кнопки:
+- «Войти fetch API» — открывает форму регистрации **RegisterFormFetch**.
+- «Войти saga API» — открывает форму регистрации **RegisterFormSaga**.
+
+Оба компонента обрабатывают ошибки, возвращаемые API регистрации. Сообщение об ошибке извлекается из ответа сервера и отображается в модальном окне.
+
+При успешной регистрации пользователь видит соответствующее уведомление в модальном окне.
+
+Чтобы закрыть окно регистрации, нужно нажать на кнопку с крестиком в правом верхнем углу модального окна.
