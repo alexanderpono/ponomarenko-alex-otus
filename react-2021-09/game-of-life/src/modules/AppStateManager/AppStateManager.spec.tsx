@@ -6,13 +6,14 @@ import { str } from '@src/testFramework/lib/reducer';
 import {
     LARGE_SIZE_CAPTION,
     MIDDLE_SIZE_CAPTION,
+    Mode,
     Size,
     sizeToWH,
     SMALL_SIZE_CAPTION,
 } from '@src/consts';
 import { StorageService } from '@src/StorageService';
 import { Store } from 'redux';
-import { AppState, defaultAppState } from '@src/store/ducks/game';
+import { AppState, defaultAppState, replaceState } from '@src/store/ducks/game';
 import { createMockStore } from '@src/testFramework/lib/store';
 
 describe('AppStateManager', () => {
@@ -44,6 +45,8 @@ describe('AppStateManager', () => {
         storage = storageMock as StorageService;
 
         store = createMockStore();
+
+        jest.useFakeTimers();
     });
 
     const getCellIsAlive = (cell: Element) => {
@@ -255,7 +258,50 @@ describe('AppStateManager', () => {
         expect(screen.queryByRole('grid')).not.toBeInTheDocument();
     });
 
+    it('sets game.state.mode=Mode.PLAY after click at PLAY button', () => {
+        render(<AppStateManager storage={storage} store={store} />);
+
+        const input = screen.getByLabelText('Enter your name:');
+        userEvent.click(input);
+        userEvent.type(input, str());
+        userEvent.click(screen.getByText('Start'));
+
+        userEvent.click(screen.getByText('play'));
+        expect(store.getState().game.mode).toBe(Mode.PLAY);
+    });
+
+    it('sets game.state.mode=Mode.PAUSE after click at PAUSE button', () => {
+        render(<AppStateManager storage={storage} store={store} />);
+
+        const input = screen.getByLabelText('Enter your name:');
+        userEvent.click(input);
+        userEvent.type(input, str());
+        userEvent.click(screen.getByText('Start'));
+
+        userEvent.click(screen.getByText('play'));
+        userEvent.click(screen.getByText('pause'));
+        expect(store.getState().game.mode).toBe(Mode.PAUSE);
+    });
+
+    it('calls setTimeout() after click at PLAY button', () => {
+        jest.spyOn(global, 'setTimeout');
+        render(<AppStateManager storage={storage} store={store} />);
+
+        store.dispatch(replaceState(store.getState().game));
+        const input = screen.getByLabelText('Enter your name:');
+        userEvent.click(input);
+        userEvent.type(input, str());
+        userEvent.click(screen.getByText('Start'));
+
+        userEvent.click(screen.getByText('play'));
+
+        store.dispatch(replaceState(store.getState().game));
+        jest.runOnlyPendingTimers();
+        expect(setTimeout).toHaveBeenCalled();
+    });
+
     afterEach(() => {
+        jest.useRealTimers();
         jest.restoreAllMocks();
         cleanup();
     });

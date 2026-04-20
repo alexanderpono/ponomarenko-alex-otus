@@ -8,8 +8,9 @@ import { Button } from '@components/Button';
 export interface AuthorizedHeadProps {
     userName: string;
     onLogout: () => void;
+    counter: number;
 }
-export const AuthorizedHead: React.FC<AuthorizedHeadProps> = ({ userName, onLogout }) => {
+export const AuthorizedHead: React.FC<AuthorizedHeadProps> = ({ userName, onLogout, counter }) => {
     return (
         <TableBg>
             <TopControls>
@@ -21,6 +22,10 @@ export const AuthorizedHead: React.FC<AuthorizedHeadProps> = ({ userName, onLogo
                             <Button onClick={onLogout}>Logout</Button>
                         </LoggedInUser>
                     </article>
+                    <CounterArticle>
+                        <p>Generation:</p>
+                        <Counter>{counter}</Counter>
+                    </CounterArticle>
                 </TopBox>
             </TopControls>
         </TableBg>
@@ -29,6 +34,7 @@ export const AuthorizedHead: React.FC<AuthorizedHeadProps> = ({ userName, onLogo
 
 const TopBox = styled.section`
     display: inline-block;
+    position: relative;
     width: 400px;
     ${frameCSS}
 `;
@@ -47,4 +53,18 @@ const LoggedInUser = styled.div`
 const Label = styled.label`
     color: ${CAPTION_COLOR};
     font-size: 14px;
+`;
+
+const CounterArticle = styled.article`
+    color: ${CAPTION_COLOR};
+    font-size: 14px;
+    position: absolute;
+    left: 10px;
+    top: calc(50% - 17px);
+    height: 40px;
+`;
+
+const Counter = styled.p`
+    color: ${CAPTION_COLOR};
+    margin-top: 11px;
 `;

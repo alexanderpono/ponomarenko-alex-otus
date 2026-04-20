@@ -10,5 +10,11 @@ export default {
 };
 
 export const Static = () => {
-    return <AuthorizedHead userName="user123" onLogout={action('onLogout')} />;
+    return (
+        <AuthorizedHead
+            userName="user123"
+            onLogout={action('onLogout')}
+            counter={number('counter', 100)}
+        />
+    );
 };

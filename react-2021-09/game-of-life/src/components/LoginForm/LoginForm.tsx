@@ -8,12 +8,20 @@ interface LoginFormProps {
     onChangeName: (name: string) => void;
 }
 export const LoginForm: React.FC<LoginFormProps> = ({ onChangeName }) => {
+    const [val, setVal] = React.useState('');
+    const [disabled, setDisabled] = React.useState(false);
     const onSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        const form = e.target as HTMLFormElement;
-        const value = (form.elements.namedItem('name') as HTMLInputElement)?.value;
-        onChangeName(value);
+        onChangeName(val.trim());
     };
+
+    const myOnChange = (evt: { target: { value: React.SetStateAction<string> } }) => {
+        setVal(evt.target.value);
+    };
+
+    React.useEffect(() => {
+        setDisabled(val.trim() === '');
+    });
 
     return (
         <TableBg>
@@ -23,8 +31,17 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onChangeName }) => {
                     <article>
                         <Form onSubmit={onSubmit}>
                             <Label htmlFor="name">Enter your name: </Label>
-                            <Input id="name" name="name" required role="textbox" />
-                            <Button type="submit">Start</Button>
+                            <Input
+                                id="name"
+                                name="name"
+                                required
+                                role="textbox"
+                                value={val}
+                                onChange={myOnChange}
+                            />
+                            <Button type="submit" disabled={disabled}>
+                                Start
+                            </Button>
                         </Form>
                     </article>
                 </TopBox>

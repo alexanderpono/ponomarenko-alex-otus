@@ -11,12 +11,5 @@ export default {
 };
 
 export const Static = () => {
-    return (
-        <DefineSpeed
-            slow={action('slow')}
-            medium={action('medium')}
-            fast={action('fast')}
-            speed={Speed.SLOW}
-        />
-    );
+    return <DefineSpeed setSpeed={action('setSpeed')} speed={Speed.SLOW} />;
 };

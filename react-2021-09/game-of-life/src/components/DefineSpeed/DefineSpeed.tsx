@@ -3,12 +3,13 @@ import { Button } from '@components/Button';
 import { Speed } from '@src/consts';
 
 interface Props {
-    slow: () => void;
-    medium: () => void;
-    fast: () => void;
     speed: Speed;
+    setSpeed: (speed: Speed) => void;
 }
-export const DefineSpeed: React.FC<Props> = ({ slow, medium, fast, speed }) => {
+export const DefineSpeed: React.FC<Props> = ({ speed, setSpeed }) => {
+    const slow = () => setSpeed(Speed.SLOW);
+    const medium = () => setSpeed(Speed.MEDIUM);
+    const fast = () => setSpeed(Speed.FAST);
     return (
         <>
             <Button id="btSlow" onClick={slow} active={speed === Speed.SLOW}>

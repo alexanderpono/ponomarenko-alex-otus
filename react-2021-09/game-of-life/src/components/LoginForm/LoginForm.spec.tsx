@@ -26,4 +26,15 @@ describe('LoginForm', () => {
         userEvent.click(screen.getByText('Start'));
         expect(mockCallBack).toHaveBeenCalledWith(rndName);
     });
+
+    it('dos not call props.onName() callback when submit is clicked and name consists of spaces', () => {
+        const mockCallBack = jest.fn();
+        const rndName = str();
+        render(<LoginForm onChangeName={mockCallBack} />);
+        const input = screen.getByLabelText('Enter your name:');
+        userEvent.click(input);
+        userEvent.type(input, '   ');
+        userEvent.click(screen.getByText('Start'));
+        expect(mockCallBack).not.toHaveBeenCalled();
+    });
 });

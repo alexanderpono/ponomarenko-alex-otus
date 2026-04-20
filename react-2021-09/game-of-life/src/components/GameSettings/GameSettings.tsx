@@ -12,17 +12,18 @@ import { useAppState } from '@src/store/hooks';
 export interface GameSettingsProps {
     fill: (percent: FillPercent) => void;
     setSize: (size: Size) => void;
+    setMode: (mode: Mode) => void;
+    setSpeed: (speed: Speed) => void;
 }
 export const GameSettings: React.FC<GameSettingsProps> = ({ ...func }) => {
-    const { size, fillPercent } = useAppState();
-    const dummy = () => {};
+    const { size, fillPercent, mode, speed } = useAppState();
     return (
         <TableBg>
             <BottomControls>
                 <BottomBox>
                     <Caption>Mode:</Caption>
                     <Buttons>
-                        <DefineMode play={dummy} pause={dummy} mode={Mode.PLAY} />
+                        <DefineMode setMode={func.setMode} mode={mode} />
                     </Buttons>
                     <Caption>Field size:</Caption>
                     <Buttons>
@@ -34,7 +35,7 @@ export const GameSettings: React.FC<GameSettingsProps> = ({ ...func }) => {
                     </Buttons>
                     <Caption>Game speed:</Caption>
                     <Buttons>
-                        <DefineSpeed slow={dummy} medium={dummy} fast={dummy} speed={Speed.SLOW} />
+                        <DefineSpeed setSpeed={func.setSpeed} speed={speed} />
                     </Buttons>
                 </BottomBox>
             </BottomControls>
